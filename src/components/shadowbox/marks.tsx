@@ -29,6 +29,16 @@ export function Devices({ devices }: { devices: Device[] }) {
   );
 }
 
+/** A ribbon with its devices, drawn at any width. Devices scale with the ribbon. */
+export function RibbonArt({ award, className }: { award: Award; className?: string }) {
+  return (
+    <span className={[award.framed ? "ribbon framed" : "ribbon", className].filter(Boolean).join(" ")}>
+      <img src={publicUrl(award.ribbon)} alt="" />
+      <Devices devices={award.devices} />
+    </span>
+  );
+}
+
 export function RibbonButton({
   award,
   onOpen,
