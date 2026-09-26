@@ -1,0 +1,129 @@
+[
+  {
+    "id": "beretta-m9",
+    "group": "weapons",
+    "order": 1,
+    "name": "Beretta M9 pistol",
+    "cutout": true,
+    "note": "9 mm semi-automatic pistol built on the Beretta 92 design. The standard U.S. military sidearm of its era.",
+    "image": "/equipment/beretta-m9.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:M9_Pistol_(7414627354).jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/d/db/M9_Pistol_%287414627354%29.jpg",
+      "creator": "PEO Soldier (U.S. Army), via the U.S. Air Force Flickr stream",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "m16a1",
+    "group": "weapons",
+    "order": 2,
+    "name": "M16A1 rifle",
+    "cutout": true,
+    "note": "5.56 mm rifle of the A1 pattern: triangular handguard, simple A1 rear sight and a forward assist.",
+    "image": "/equipment/m16a1-rifle.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:M16A1_Rifle_250703-M-BD822-1014.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/4/4f/M16A1_Rifle_250703-M-BD822-1014.jpg",
+      "creator": "Sgt. James Stanfield, U.S. Marine Corps (National Museum of the Marine Corps collection)",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "m4-carbine",
+    "group": "weapons",
+    "order": 3,
+    "name": "M4 carbine",
+    "caption": "Shown with the rail adapter system handguard",
+    "cutout": true,
+    "note": "5.56 mm carbine: a shorter, lighter member of the M16 family with a collapsible stock.",
+    "image": "/equipment/m4-carbine.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:PEO_M4_Carbine_RAS.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/0/08/PEO_M4_Carbine_RAS.jpg",
+      "creator": "PEO Soldier (U.S. Army)",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "hmmwv-up-armored",
+    "group": "vehicles",
+    "order": 4,
+    "name": "Up-armored HMMWV with turtleback",
+    "caption": "M1114 shown, with the armored gunner’s turret",
+    "cutout": true,
+    "note": "Up-armored Humvee with armored doors and glass, and an armored gunner’s turret on the roof, the “turtleback”.",
+    "image": "/equipment/hmmwv-up-armored.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Marine_vehicles_roll_out_for_Marine_Week_Cleveland_120611-M-QZ986-385.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Marine_vehicles_roll_out_for_Marine_Week_Cleveland_120611-M-QZ986-385.jpg",
+      "creator": "Sgt. Shannon Yount, U.S. Marine Corps",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "jerrv",
+    "group": "vehicles",
+    "order": 5,
+    "name": "JERRV",
+    "caption": "Cougar H shown",
+    "cutout": true,
+    "note": "Joint EOD Rapid Response Vehicle: the Cougar-based mine-resistant, ambush-protected (MRAP) truck used by explosive ordnance disposal teams.",
+    "image": "/equipment/jerrv-cougar.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S.Marine_Cougar_H_EOD.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/e/ed/U.S.Marine_Cougar_H_EOD.jpg",
+      "creator": "Lance Cpl. Charles Howard, U.S. Marine Corps",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "cucv",
+    "group": "vehicles",
+    "order": 6,
+    "name": "CUCV",
+    "caption": "CUCV pickup shown",
+    "cutout": true,
+    "note": "Commercial Utility Cargo Vehicle: militarized Chevrolet diesel trucks (M1008 pickup, M1009 Blazer and variants) used as light utility vehicles.",
+    "image": "/equipment/cucv-pickup.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:DF-ST-84-09181.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/4/4b/DF-ST-84-09181.jpg",
+      "creator": "TSgt. Rob Marshall, U.S. Air Force",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "zodiac",
+    "group": "vehicles",
+    "order": 7,
+    "name": "Zodiac",
+    "caption": "Combat rubber raiding craft (F470)",
+    "cutout": false,
+    "note": "Combat rubber raiding craft, the Zodiac F470 inflatable boat. Run with an outboard motor or paddled.",
+    "image": "/equipment/zodiac-f470-crrc.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Combat_rubber_raiding_craft_(4417326236).jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/3/34/Combat_rubber_raiding_craft_%284417326236%29.jpg",
+      "creator": "U.S. Marine Corps (31st Marine Expeditionary Unit), via the U.S. Marine Corps Flickr stream",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "frank-cable",
+    "group": "ships",
+    "order": 8,
+    "name": "Emory S. Land-class (AS-39) submarine tender",
+    "caption": "USS Frank Cable (AS-40)",
+    "cutout": false,
+    "note": "Submarine tender of the Emory S. Land class, built to repair and resupply submarines alongside. Pictured is USS Frank Cable (AS-40), the ship in this class he served aboard.",
+    "image": "/equipment/uss-frank-cable-as-40.webp",
+    "unitId": "frank-cable",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS_Frank_Cable_(AS-40)_departs_Pearl_Harbor,_Hawaii_(USA),_on_25_April_2005_(050425-N-8937A-018).jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/2/22/USS_Frank_Cable_%28AS-40%29_departs_Pearl_Harbor%2C_Hawaii_%28USA%29%2C_on_25_April_2005_%28050425-N-8937A-018%29.jpg",
+      "creator": "Photographer's Mate 3rd Class Ian W. Anderson, U.S. Navy",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  }
+]
