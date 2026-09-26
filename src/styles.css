@@ -44,9 +44,10 @@ a { color: var(--color-navy); }
 
 .archive { max-width: 72rem; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
 
-.mast { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: end; justify-content: space-between; margin-bottom: 1.25rem; }
+/* Header: the brand is centred, with the nav chips centred on the row underneath. */
+.mast { display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; margin-bottom: 1.25rem; }
 .kicker { margin: 0 0 0.25rem; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brass); }
-.mast-brand { display: flex; align-items: center; gap: 0.9rem; }
+.mast-brand { display: flex; align-items: center; justify-content: center; gap: 0.9rem; text-align: left; }
 .mast-icon { width: 3.5rem; height: 3.5rem; flex: none; display: block; }
 .wordmark { margin: 0; font-size: clamp(2rem, 5vw, 3rem); line-height: 1; letter-spacing: 0.18em; }
 .mast-tagline { margin: 0.35rem 0 0; color: var(--color-quiet); font-style: italic; font-size: 1.02rem; }
@@ -55,7 +56,7 @@ a { color: var(--color-navy); }
   .wordmark { letter-spacing: 0.12em; }
   .mast-tagline { font-size: 0.95rem; }
 }
-.mast-nav { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.mast-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; }
 .nav-btn, .row-btn, .patch, .mark, .uniform-card, .stop-list button, .related button, .place-list button, .icon-btn {
   font: inherit;
   color: inherit;
@@ -75,10 +76,11 @@ a { color: var(--color-navy); }
     linear-gradient(180deg, rgba(255,255,255,0.04), transparent 30%),
     var(--color-felt);
   color: var(--color-ivory);
-  border: 10px solid #8d7040;
+  /* Wood frame, 18px (about 1.8x the old 10px), with the thin light bevel 4px inside the wood. */
+  border: 18px solid #8d7040;
   outline: 1px solid #e8d7a8;
-  outline-offset: -14px;
-  padding: 1.25rem 1rem 1.5rem;
+  outline-offset: -22px;
+  padding: 1.5rem 1.1rem 1.75rem;
   box-shadow: 0 18px 40px rgba(20, 18, 12, 0.25);
 }
 .nameplate { display: grid; grid-template-columns: 9.5rem 1fr; gap: 1rem; align-items: center; }
@@ -111,11 +113,12 @@ a { color: var(--color-navy); }
 .worn img { display: block; height: auto; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
 .worn-pin img { width: calc(var(--in) * 2.75); }
 .worn-badge img { width: auto; height: calc(var(--in) * 2); }
-/* CPO rating badge: the chevrons are 3 1/4 in wide and span 84% of the art, so the art is 3.88 in wide. Service stripes: the art is drawn at true size (10 3/8 x 3 1/8 in, five 7 in stripes).
+/* CPO rating badge (vector): the chevrons are 3 1/4 in wide and span 84% of the art, so the art is 3.88 in wide.
+   Service stripes: five 7 x 3/8 in stripes worn at 45 deg; the rotated art is drawn at true size, 9.546 x 5.127 in.
    Both shrink only when the screen is narrower than their true size. */
 .worn-rating img { width: calc(var(--in) * 3.88); max-width: 100%; }
 .worn-stripes { max-width: 100%; }
-.worn-stripes img { width: calc(var(--in) * 10.375); max-width: 100%; }
+.worn-stripes img { width: calc(var(--in) * 9.546); max-width: 100%; }
 .worn:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 3px; }
 /* Navy racks are worn with no spacing: ribbons touch edge to edge and rows touch top to bottom; the short top row is centred. */
 .rack { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 0; }
@@ -134,8 +137,17 @@ a { color: var(--color-navy); }
 .ribbon { container-type: inline-size; }
 /* A ribbon is 1 3/8 x 3/8 in, so the art keeps an 11:3 aspect and fills the button width. */
 .ribbon > img { width: 100%; height: auto; aspect-ratio: 11 / 3; object-fit: fill; display: block; }
-/* JMUA: one gold frame, drawn around the unframed ribbon art so the ribbon keeps its proportions. */
-.ribbon.framed > img { box-sizing: border-box; border: 2px solid #d4a62a; outline: 1px solid #8a6a1c; outline-offset: -1px; }
+/* JMUA: the Navy-style gold retaining frame, a 1/32 in rim (100cqw / 44) around the full-size ribbon, as in the
+   printable case item. It sits outside the ribbon and laps its neighbours in the rack, so the framed ribbon is raised. */
+.ribbon.framed { z-index: 1; overflow: visible; }
+.ribbon.framed > img {
+  --rim: max(2px, calc(100cqw / 44));
+  box-shadow:
+    0 0 0 1px #f6dd84,
+    0 0 0 calc(var(--rim) * 0.6) #d9ac33,
+    0 0 0 var(--rim) #a57c1c,
+    0 0 0 calc(var(--rim) + 1px) #5c430c;
+}
 /* Devices are sized against the ribbon width (100cqw = 1 3/8 in).
    Stars come in two sizes only: bronze and silver 3/16 in, gold at the full ribbon height (tip-circle diameter).
    The star SVGs are cropped to that circle, so width = star size. Stars sit 1/32 in apart,
@@ -152,10 +164,12 @@ a { color: var(--color-navy); }
 .devices:has(> img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold) { gap: 0; }
 .devices:has(> img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold) > img.glyph-star.metal-gold { margin-inline: calc(var(--star) * -0.072); }
 /* E and oak leaf art is drawn at 800 ppi against a 1100 px (1 3/8 in) ribbon, with 16 px of padding for the
-   drop shadow, so a size in art pixels is that fraction of the ribbon width. E = 1/4 in tall (200 px, canvas 232);
-   oak leaf cluster = 13/32 in long, tilted about 25 degrees as worn (canvas 332 x 226). The padding is taken back
-   with negative margins so the 1/32 in gap is measured between devices. */
+   drop shadow, so a size in art pixels is that fraction of the ribbon width. Two different E devices:
+   Expert E (marksmanship) = 1/4 in tall slab serif (200 px, canvas 232); Battle E (Navy E Ribbon) = 3/16 in tall
+   block letter (150 px, canvas 182). Oak leaf cluster = 13/32 in long, tilted about 25 degrees as worn (canvas 332 x 226).
+   The padding is taken back with negative margins so the 1/32 in gap is measured between devices. */
 .devices img.glyph-letter { height: calc(100cqw * 232 / 1100); width: auto; max-width: none; margin-inline: calc(100cqw * -16 / 1100); filter: none; }
+.devices img.glyph-letter.glyph-e-battle { height: calc(100cqw * 182 / 1100); }
 .devices img.glyph-oak { width: calc(100cqw * 332 / 1100); height: auto; max-width: none; margin-inline: calc(100cqw * -16 / 1100); filter: none; }
 .metal-gold { color: #d4a62a; }
 .metal-bronze { color: #a0703a; }
