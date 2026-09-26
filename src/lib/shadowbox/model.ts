@@ -14,6 +14,13 @@ import milestonesJson from "@/data/milestones.json";
 import creditsJson from "@/data/credits.json";
 import profileJson from "@/data/profile.json";
 
+/** Public files are served from the site root in dev, and from /shadowbox/ on GitHub Pages. */
+export function publicUrl(path: string): string {
+  if (!path || /^(https?:|data:)/.test(path)) return path;
+  const base = import.meta.env.BASE_URL || "/";
+  return `${base}${path.replace(/^\//, "")}`;
+}
+
 export type Kind =
   | "award"
   | "unit"

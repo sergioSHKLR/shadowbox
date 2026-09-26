@@ -18,6 +18,7 @@ import {
   uniforms,
   units,
   warfare,
+  publicUrl,
   type Kind,
   type Selection,
 } from "@/lib/shadowbox/model";
@@ -88,7 +89,7 @@ function Case({ rows, onOpen }: { rows: ReturnType<typeof ribbonRows>; onOpen: (
       <section className="case" aria-label="Shadowbox">
         <div className="case-frame">
           <div className="nameplate">
-            <img className="portrait" src={profile.portrait} alt="Sergio Schickler in Navy dress blues, ribbons on the chest and a warfare pin above them." />
+            <img className="portrait" src={publicUrl(profile.portrait)} alt="Sergio Schickler in Navy dress blues, ribbons on the chest and a warfare pin above them." />
             <div>
               <p className="kicker">Electronics Technician Chief</p>
               <h2>Sergio Schickler</h2>
