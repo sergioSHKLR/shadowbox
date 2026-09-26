@@ -14,7 +14,7 @@ No Social Security number, date of birth, DoD identification number, or home add
 
 ## Published site
 
-Pushes to `main` build a static copy and publish it with GitHub Pages at [sergioshkler.github.io/shadowbox](https://sergioshkler.github.io/shadowbox/).
+Pushes to `main` publish the built site from the repository root. GitHub Pages is set to deploy that branch. The address is [sergioshklr.github.io/shadowbox](https://sergioshklr.github.io/shadowbox/).
 
 ## Edit the record
 
