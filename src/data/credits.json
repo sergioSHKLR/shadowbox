@@ -191,7 +191,7 @@
   {
     "id": "portrait",
     "title": "Dress blue photograph",
-    "file": "/photos/dress-blues-c.jpg",
+    "file": "/photos/dress-blues-d.jpg",
     "sourceUrl": null,
     "creator": "Photograph supplied for this shadowbox",
     "license": "The veteran's own photograph. Not for reuse outside this record.",
@@ -326,65 +326,65 @@
   {
     "id": "crest-tortuga",
     "title": "USS Tortuga (LSD-46) ship crest",
-    "file": "/crests/tortuga.webp",
+    "file": "/crests/tortuga-flat.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS_Tortuga_LSD-46_Crest.png",
-    "creator": "United States Navy",
+    "creator": "Drawn for this archive, after United States Navy",
     "license": "Public domain. United States Navy insignia, a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
-    "notes": "Resized to about 400 px for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/e/ee/USS_Tortuga_LSD-46_Crest.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original . Not hotlinked."
+    "notes": "Flat vector redraw made for this archive (flat fills, uniform outline), exported as PNG, resized to about 400 px and saved as WebP. Not hotlinked. Drawn after the original: https://commons.wikimedia.org/wiki/File:USS_Tortuga_LSD-46_Crest.png."
   },
   {
     "id": "crest-ntc-great-lakes",
     "title": "Naval Station Great Lakes seal (shown for Naval Training Center Great Lakes)",
-    "file": "/crests/ntc-great-lakes.webp",
+    "file": "/crests/ntc-great-lakes-flat.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Seal_of_NAVSTA_Great_Lakes.svg",
-    "creator": "United States Department of the Navy",
+    "creator": "Drawn for this archive, after United States Department of the Navy",
     "license": "Public domain. United States Navy insignia, a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
-    "notes": "Resized to about 400 px for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/f/fa/Seal_of_NAVSTA_Great_Lakes.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original . Not hotlinked."
+    "notes": "Flat vector redraw made for this archive (flat fills, uniform outline), exported as PNG, resized to about 400 px and saved as WebP. Not hotlinked. Drawn after the original: https://commons.wikimedia.org/wiki/File:Seal_of_NAVSTA_Great_Lakes.svg."
   },
   {
     "id": "crest-52nd-ordnance",
     "title": "52nd Ordnance Group (EOD) shoulder sleeve insignia",
-    "file": "/crests/52nd-ordnance.webp",
+    "file": "/crests/52nd-ordnance-flat.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:52nd_EOD_Group_SSI.svg",
-    "creator": "Fred the Oyster (vector drawing), after the U.S. Army insignia",
+    "creator": "Drawn for this archive, after Fred the Oyster (vector drawing), after the U.S. Army insignia",
     "license": "Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA 3.0), https://creativecommons.org/licenses/by-sa/3.0/ . The underlying insignia is a U.S. Army design; use of military insignia is restricted by law.",
-    "notes": "Resized to about 400 px for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/2/22/52nd_EOD_Group_SSI.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original . Not hotlinked."
+    "notes": "Flat vector redraw made for this archive (flat fills, uniform outline), exported as PNG, resized to about 400 px and saved as WebP. Not hotlinked. Drawn after the original: https://commons.wikimedia.org/wiki/File:52nd_EOD_Group_SSI.svg."
   },
   {
     "id": "crest-16th-engineer",
     "title": "16th Engineer Brigade shoulder sleeve insignia",
-    "file": "/crests/16th-engineer.webp",
+    "file": "/crests/16th-engineer-flat.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:16th_Engineer_Brigade_SSI.svg",
-    "creator": "Fvasconcellos (vector drawing), after the U.S. Army Institute of Heraldry design",
+    "creator": "Drawn for this archive, after Fvasconcellos (vector drawing), after the U.S. Army Institute of Heraldry design",
     "license": "Public domain. United States Army heraldic insignia (U.S. Army Institute of Heraldry design), a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
-    "notes": "Resized to about 400 px for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/9/94/16th_Engineer_Brigade_SSI.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original . Not hotlinked."
+    "notes": "Flat vector redraw made for this archive (flat fills, uniform outline), exported as PNG, resized to about 400 px and saved as WebP. Not hotlinked. Drawn after the original: https://commons.wikimedia.org/wiki/File:16th_Engineer_Brigade_SSI.svg."
   },
   {
     "id": "crest-3rd-sfg",
-    "title": "3rd Special Forces Group (Airborne): Special Forces shoulder sleeve insignia with the 3rd Group beret flash",
-    "file": "/crests/3rd-sfg.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:United_States_Army_Special_Forces_SSI_(1958-2015).png",
-    "creator": "United States Army",
-    "license": "Public domain. United States Army heraldic insignia (U.S. Army Institute of Heraldry design), a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
-    "notes": "The two insignia were placed side by side and resized to about 400 px for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/5/58/United_States_Army_Special_Forces_SSI_%281958-2015%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original and https://upload.wikimedia.org/wikipedia/commons/d/d5/3sfg.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original (beret flash, https://commons.wikimedia.org/wiki/File:3sfg.svg) . Not hotlinked."
+    "title": "3rd Special Forces Group (Airborne): beret flash with the distinctive unit insignia",
+    "file": "/crests/3rd-sfg-flash-dui.webp",
+    "sourceUrl": null,
+    "creator": "Reference supplied by the veteran (after the U.S. Army Institute of Heraldry designs)",
+    "license": "United States Army heraldic insignia (U.S. Army Institute of Heraldry design), public domain as a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "The veteran's own reference image, trimmed, resized to about 400 px, saved as WebP."
   },
   {
     "id": "crest-75th-ranger",
     "title": "75th Ranger Regiment shoulder sleeve insignia (scroll)",
-    "file": "/crests/75th-ranger.webp",
+    "file": "/crests/75th-ranger-flat.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:75th_Ranger_Regiment_SSI_(1984-2015).svg",
-    "creator": "United States Army",
+    "creator": "Drawn for this archive, after United States Army",
     "license": "Public domain. United States Army heraldic insignia (U.S. Army Institute of Heraldry design), a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
-    "notes": "Resized to about 400 px for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/c/c0/75th_Ranger_Regiment_SSI_%281984-2015%29.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original . Not hotlinked."
+    "notes": "Flat vector redraw made for this archive (flat fills, uniform outline), exported as PNG, resized to about 400 px and saved as WebP. Not hotlinked. Drawn after the original: https://commons.wikimedia.org/wiki/File:75th_Ranger_Regiment_SSI_(1984-2015).svg."
   },
   {
     "id": "crest-11th-ada",
     "title": "11th Air Defense Artillery Brigade shoulder sleeve insignia",
-    "file": "/crests/11th-ada.webp",
+    "file": "/crests/11th-ada-flat.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:11ADABdeSSI.svg",
-    "creator": "United States Army",
+    "creator": "Drawn for this archive, after United States Army",
     "license": "Public domain. United States Army heraldic insignia (U.S. Army Institute of Heraldry design), a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
-    "notes": "Supplied for this shadowbox (Wikimedia Commons, public domain); resized to about 400 px, saved as WebP. Original file: supplied image of https://commons.wikimedia.org/wiki/File:11ADABdeSSI.svg . Not hotlinked."
+    "notes": "Flat vector redraw made for this archive (flat fills, uniform outline), exported as PNG, resized to about 400 px and saved as WebP. Not hotlinked. Drawn after the original: https://commons.wikimedia.org/wiki/File:11ADABdeSSI.svg."
   },
   {
     "id": "coin-tf-cram-3-3ada",
@@ -394,5 +394,59 @@
     "creator": "Photograph supplied for this shadowbox",
     "license": "The veteran's own item and photograph. Not for reuse outside this record.",
     "notes": "Coin cut out from its grey background onto transparency, resized to about 500 px, saved as WebP."
+  },
+  {
+    "id": "crest-3-3ada",
+    "title": "3rd Air Defense Artillery Regiment distinctive unit insignia (TF C-RAM, 3-3 ADA)",
+    "file": "/crests/3-3ada-dui-flat.webp",
+    "sourceUrl": null,
+    "creator": "Drawn for this archive, after the U.S. Army Institute of Heraldry design",
+    "license": "Public domain. United States Army heraldic insignia (U.S. Army Institute of Heraldry design), a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Flat vector redraw made for this archive (flat fills, uniform outline), exported as PNG, resized to about 400 px and saved as WebP. Not hotlinked."
+  },
+  {
+    "id": "crest-rtc-great-lakes",
+    "title": "Recruit Training Command Great Lakes seal",
+    "file": "/crests/rtc-great-lakes.webp",
+    "sourceUrl": null,
+    "creator": "Reference supplied by the veteran (United States Navy seal)",
+    "license": "Public domain. United States Navy insignia, a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "The veteran's own reference image, trimmed and saved as WebP."
+  },
+  {
+    "id": "crest-jcse",
+    "title": "Joint Communications Support Element insignia",
+    "file": "/crests/jcse-flat.webp",
+    "sourceUrl": null,
+    "creator": "Drawn for this archive, after the unit insignia",
+    "license": "United States military unit insignia (a work of the U.S. federal government). Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Flat vector redraw made for this archive (flat fills, uniform outline), exported as PNG, resized to about 400 px and saved as WebP. Not hotlinked."
+  },
+  {
+    "id": "crest-cjsotf",
+    "title": "Combined Joint Special Operations Task Force-Afghanistan insignia",
+    "file": "/crests/cjsotf-flat.webp",
+    "sourceUrl": null,
+    "creator": "Drawn for this archive, after the unit insignia",
+    "license": "United States military unit insignia (a work of the U.S. federal government). Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Flat vector redraw made for this archive (flat fills, uniform outline), exported as PNG, resized to about 400 px and saved as WebP. Not hotlinked."
+  },
+  {
+    "id": "crest-troy",
+    "title": "Counter-IED Task Force Troy insignia",
+    "file": "/crests/troy-flat.webp",
+    "sourceUrl": null,
+    "creator": "Drawn for this archive, after the unit insignia",
+    "license": "United States military unit insignia (a work of the U.S. federal government). Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Flat vector redraw made for this archive (flat fills, uniform outline), exported as PNG, resized to about 400 px and saved as WebP. Not hotlinked."
+  },
+  {
+    "id": "crest-navhosp",
+    "title": "Naval Hospital Jacksonville insignia",
+    "file": "/crests/navhosp-flat.webp",
+    "sourceUrl": null,
+    "creator": "Drawn for this archive, after the unit insignia",
+    "license": "United States military unit insignia (a work of the U.S. federal government). Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Flat vector redraw made for this archive (flat fills, uniform outline), exported as PNG, resized to about 400 px and saved as WebP. Not hotlinked."
   }
 ]
