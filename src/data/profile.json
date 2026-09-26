@@ -22,9 +22,18 @@
   "separatedAt": "Personnel Support Detachment, Naval Air Station Jacksonville, Florida",
   "serviceStripes": 5,
   "serviceStripeColor": "gold",
+  "ratingMark": "ET",
+  "rackColumns": 3,
   "warfareIds": [
     "esws",
     "exw"
+  ],
+  "caseMarks": [
+    { "kind": "insignia", "id": "collar" },
+    { "kind": "warfare", "id": "esws" },
+    { "kind": "warfare", "id": "exw" },
+    { "kind": "insignia", "id": "rating-badge" },
+    { "kind": "insignia", "id": "stripes" }
   ],
   "portrait": "/photos/dress-blues.jpg"
 }

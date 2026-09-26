@@ -6,7 +6,9 @@ Dates are `YYYY`, `YYYY-MM`, or `YYYY-MM-DD`. A missing end date means the item 
 
 | File | What it is |
 | --- | --- |
-| `profile.json` | Name, rate, dates of service, sea and foreign service, stripe count, portrait path |
+| `profile.json` | Who this case is. Name, rate, dates, stripes, portrait, and `caseMarks` (which pins sit on the cloth) |
+| `case.json` | The sentences on the case: how to read the rack, timeline, map, sources. Change these for another branch |
+| `branches.json` | Short name for a branch code (`USN`, `USA`, `JOINT`, `navy`, `army`, `joint`, `foreign`) |
 | `awards.json` | One ribbon type: precedence, image, count, devices, explanation, criteria |
 | `award-instances.json` | Each time an award was given. `year` may be null when the form lists the award and the worksheet does not date it |
 | `units.json` | Commands, with NEC, dates, and a `placeId` |
@@ -21,6 +23,8 @@ Dates are `YYYY`, `YYYY-MM`, or `YYYY-MM-DD`. A missing end date means the item 
 | `reflections.json` | `{ id, kind, subjectId, text }`. Empty array until notes are added |
 | `credits.json` | Ribbon files, licenses, and the portrait note |
 
-`kind` on photos and reflections is one of: `award`, `unit`, `operation`, `school`, `nec`, `uniform`, `warfare`, `place`, `insignia`, `milestone`.
+A second sailor is a new set of these files, not a change to the layout. Another branch needs a line in `branches.json`, a rack width in `profile.json` (`rackColumns`), and its own sentences in `case.json`. Drawings exist for a chief’s anchor, a chief rating badge, service stripes, ESWS, and EXW. Any other pin shows its abbreviation until a drawing is added.
+
+`kind` on photos and reflections is one of: `award`, `unit`, `operation`, `school`, `nec`, `uniform`, `warfare`, `place`, `insignia`, `milestone`. An optional `open` string on an award, unit, school, or operation is a blank the case should still admit.
 
 Devices on an award are `{ kind: "star" | "oak" | "letter", metal, count, letter? }`.

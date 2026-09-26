@@ -57,7 +57,8 @@
     "length": "2 weeks",
     "placeId": null,
     "placeConfidence": "unknown",
-    "explanation": "Recorded as FLLDP, 2 weeks, December 2001. The full course name is not expanded in the record, so it is not guessed here."
+    "explanation": "Recorded as FLLDP, 2 weeks, December 2001. The full course name is not expanded in the record, so it is not guessed here.",
+    "open": "FLLDP is not expanded."
   },
   {
     "id": "comsec-school",

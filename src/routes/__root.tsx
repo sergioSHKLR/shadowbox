@@ -2,14 +2,15 @@ import { Outlet, createRootRoute, HeadContent, Scripts, Link } from "@tanstack/r
 import { AppErrorComponent } from "@/lib/error-component";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
+import { profile } from "@/lib/shadowbox/model";
 
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ETC Sergio Schickler — Navy shadowbox" },
-      { name: "description", content: "A reading copy of Chief Electronics Technician Sergio Schickler’s Navy career, 1997 to 2018." },
+      { title: `${profile.rate} ${profile.name} — ${profile.branchName} shadowbox` },
+      { name: "description", content: `A reading copy of ${profile.rank} ${profile.name}’s ${profile.branchName} career, ${profile.serviceStart.slice(0, 4)} to ${profile.serviceEnd.slice(0, 4)}.` },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
