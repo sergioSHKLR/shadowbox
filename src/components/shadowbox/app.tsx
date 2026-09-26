@@ -75,7 +75,6 @@ export function ShadowboxApp() {
       <footer className="colophon">
         <p>
           A private reading copy of one career. No Social Security number, date of birth, or home address is stored here.
-          Discharge papers are not in this project. Add them only after those fields are covered.
         </p>
       </footer>
       <DetailPanel selection={selection} onSelect={setSelection} onClose={() => setSelection(null)} />
@@ -312,7 +311,7 @@ function Sources() {
   return (
     <main className="sheet">
       <h2>Where the pictures and the facts come from</h2>
-      <p>Facts are taken from the discharge form’s award, school, specialty, and service blocks, and from the shadowbox worksheet for years, units, and campaign phases. Identification blocks on that form are not copied. {photos.length === 1 ? "One photograph is in the case." : null}</p>
+      <p>Years, units, and campaign phases come from the shadowbox worksheet. Award counts, schools, and specialties come from the service record. {photos.length === 1 ? "One photograph is in the case." : null}</p>
       <ul className="credits">
         {credits.map((credit) => (
           <li key={credit.id}>

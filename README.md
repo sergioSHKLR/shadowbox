@@ -6,7 +6,7 @@ Open the case, then a ribbon, a patch, a uniform, or a pin. Each one explains wh
 
 ## What is not here
 
-No Social Security number, date of birth, DoD identification number, or home address. The discharge form itself is not stored. If a scan is added later, those fields have to be covered first.
+No Social Security number, date of birth, DoD identification number, or home address.
 
 ## Run
 

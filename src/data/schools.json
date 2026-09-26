@@ -7,7 +7,7 @@
     "length": "10 weeks",
     "placeId": "great-lakes",
     "placeConfidence": "recorded",
-    "explanation": "Boot camp at Great Lakes. The discharge form lists 10 weeks, September 1997."
+    "explanation": "Boot camp at Great Lakes. Ten weeks, September 1997."
   },
   {
     "id": "core",
@@ -17,7 +17,7 @@
     "length": "19 weeks",
     "placeId": "great-lakes",
     "placeConfidence": "inferred",
-    "explanation": "The introductory electronics course sailors took before rating school. The discharge form lists 19 weeks, June 1998. Placed at Great Lakes because that is where this course was taught. Confirm the schoolhouse."
+    "explanation": "The introductory electronics course sailors took before rating school. Nineteen weeks, June 1998. Placed at Great Lakes because that is where this course was taught. Confirm the schoolhouse."
   },
   {
     "id": "eta",
@@ -27,7 +27,7 @@
     "length": "13 weeks",
     "placeId": "great-lakes",
     "placeConfidence": "inferred",
-    "explanation": "The school that trains a new Electronics Technician. The discharge form lists 13 weeks, October 1998. Placed at Great Lakes as the school of that era. Confirm the schoolhouse."
+    "explanation": "The school that trains a new Electronics Technician. Thirteen weeks, October 1998. Placed at Great Lakes as the school of that era. Confirm the schoolhouse."
   },
   {
     "id": "gpete",
@@ -37,7 +37,7 @@
     "length": "15 weeks",
     "placeId": null,
     "placeConfidence": "unknown",
-    "explanation": "How to repair and calibrate the general-purpose test equipment the Navy uses to keep other gear accurate. The discharge form lists 15 weeks, April 1999. The schoolhouse is not named."
+    "explanation": "How to repair and calibrate the general-purpose test equipment the Navy uses to keep other gear accurate. Fifteen weeks, April 1999. The schoolhouse is not named."
   },
   {
     "id": "fcam",
@@ -47,7 +47,7 @@
     "length": "3 weeks",
     "placeId": null,
     "placeConfidence": "unknown",
-    "explanation": "Maintenance of a field calibration lab. The discharge form lists it as calibration tech maintenance, 3 weeks, May 1999. The schoolhouse is not named."
+    "explanation": "Maintenance of a field calibration lab. Recorded as calibration tech maintenance, 3 weeks, May 1999. The schoolhouse is not named."
   },
   {
     "id": "flldp",
@@ -57,7 +57,7 @@
     "length": "2 weeks",
     "placeId": null,
     "placeConfidence": "unknown",
-    "explanation": "The discharge form lists FLLDP, 2 weeks, December 2001. The full course name is not expanded in the record, so it is not guessed here."
+    "explanation": "Recorded as FLLDP, 2 weeks, December 2001. The full course name is not expanded in the record, so it is not guessed here."
   },
   {
     "id": "comsec-school",
@@ -67,6 +67,6 @@
     "length": null,
     "placeId": null,
     "placeConfidence": "unknown",
-    "explanation": "School for maintaining communications-security equipment. The discharge form lists COMSEC maintenance activity, April 2004. That lines up with NEC 1460."
+    "explanation": "School for maintaining communications-security equipment. Recorded as COMSEC maintenance activity, April 2004. That lines up with NEC 1460."
   }
 ]
