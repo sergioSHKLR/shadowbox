@@ -145,7 +145,6 @@ export type Uniform = {
   name: string;
   branch: string;
   context: string;
-  dateLabel: string;
   note: string;
   image: string;
 };
