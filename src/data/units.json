@@ -10,7 +10,7 @@
     "end": "1997-11",
     "precision": "month",
     "placeId": "great-lakes",
-    "explanation": "Enlisted boot camp for the Navy, at Naval Station Great Lakes, Illinois. The discharge form records recruit training as 10 weeks in September 1997.",
+    "explanation": "Enlisted boot camp for the Navy, at Naval Station Great Lakes, Illinois. Recruit training was 10 weeks in September 1997.",
     "civilian": "This is where a new sailor learns to live in the Navy before going on to a technical school."
   },
   {
@@ -150,7 +150,7 @@
     "end": "2018",
     "precision": "year",
     "placeId": "nh-jax",
-    "explanation": "The Navy hospital at Jacksonville, Florida, and the last active-duty command. The discharge form names Naval Hospital Jacksonville as the last duty assignment, and separation processing at the personnel support detachment on Naval Air Station Jacksonville.",
+    "explanation": "The Navy hospital at Jacksonville, Florida, and the last active-duty command. Last duty assignment was Naval Hospital Jacksonville, with separation processing at the personnel support detachment on Naval Air Station Jacksonville.",
     "civilian": "A hospital, not a ship. An electronics technician there maintains medical and other electronic equipment. The day-to-day job is not further described."
   }
 ]

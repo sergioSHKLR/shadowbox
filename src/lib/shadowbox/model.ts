@@ -528,7 +528,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       criteria: nec.criteria,
       facts: [
         { label: "Time in the NEC", value: nec.years ?? "Not stated as a duration" },
-        { label: "In these notes", value: nec.role === "favorite" ? "Called the favorite" : nec.role === "primary" ? "Called the primary" : nec.role === "listed-first" ? "Listed first on the discharge form" : "Held" },
+        { label: "In these notes", value: nec.role === "favorite" ? "Called the favorite" : nec.role === "primary" ? "Called the primary" : nec.role === "listed-first" ? "Listed first" : "Held" },
       ],
       placeIds: holders.map((unit) => unit.placeId).filter((id): id is string => Boolean(id)),
       related: holders.map((unit) => rel("unit", unit.id, unit.abbreviation)),
