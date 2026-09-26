@@ -254,18 +254,18 @@
     }
   },
   {
-    "id": "cougar-mrap",
+    "id": "jerrv-6x6",
     "group": "vehicles",
     "order": 20,
-    "name": "Cougar MRAP (4x4)",
-    "caption": "Force Protection Cougar H, desert tan",
+    "name": "JERRV (Cougar 6x6)",
+    "caption": "Joint EOD Rapid Response Vehicle, desert tan",
     "cutout": false,
-    "note": "Mine Resistant Ambush Protected (MRAP) truck built by Force Protection Inc. Its V-shaped hull deflects blast away from the crew compartment. The 4x4 Cougar H was fielded to U.S. forces in Iraq and Afghanistan from 2007. Card photo: a Marine EOD Cougar H.",
-    "image": "/equipment/cougar-h-mrap.webp",
+    "note": "Joint EOD Rapid Response Vehicle (JERRV): the 6x6 Force Protection Cougar built as a mine-protected truck for explosive ordnance disposal teams, with a V-shaped hull that deflects blast away from the crew. The Navy's caption for this photo calls them “Cougar type JERRVs … employed by Coalition forces for escort and logistics missions, and to protect personnel from Improvised Explosive Devices.” Card photo: JERRVs of NMCB-7 in Iraq, 2008, with mine rollers.",
+    "image": "/equipment/jerrv-cougar-6x6.webp",
     "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S.Marine_Cougar_H_EOD.jpg",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/e/ed/U.S.Marine_Cougar_H_EOD.jpg",
-      "creator": "Lance Cpl. Charles Howard, U.S. Marine Corps (2007)",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cougar_type_JERRVs_in_Iraq.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Cougar_type_JERRVs_in_Iraq.jpg",
+      "creator": "Michael B. Lavender, U.S. Navy (2008)",
       "license": "Public domain (U.S. federal government work)"
     }
   },
@@ -542,17 +542,17 @@
     }
   },
   {
-    "id": "ky-100",
+    "id": "ky-99a",
     "group": "comms",
     "order": 13,
-    "name": "KY-100",
-    "caption": "Secure voice equipment (model to confirm)",
+    "name": "KY-99A",
+    "caption": "Secure voice equipment (KY-99 shown)",
     "cutout": false,
-    "note": "KY-100: a narrowband and wideband voice and data encryptor used with tactical radios, in service from the 1990s. The model he used is to be confirmed (KY-100 or KY-99A). Card photo: National Cryptologic Museum.",
-    "image": "/equipment/ky-100.webp",
+    "note": "KY-99A: a green, ruggedized narrowband and wideband voice and data encryptor used with tactical radios, with audio, fill/data and radio ports on the front. It belongs to the same family as the KY-100. Card photo: the earlier KY-99 at the National Cryptologic Museum.",
+    "image": "/equipment/ky-99.webp",
     "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KY-100_Secure_Voice_Equipment,_1990s_onward_-_National_Cryptologic_Museum_-_DSC08020.JPG",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/6/6c/KY-100_Secure_Voice_Equipment%2C_1990s_onward_-_National_Cryptologic_Museum_-_DSC08020.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KY-99_Secure_Voice_Equipment,_1990s_onward_-_National_Cryptologic_Museum_-_DSC08021.JPG",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/c/c8/KY-99_Secure_Voice_Equipment%2C_1990s_onward_-_National_Cryptologic_Museum_-_DSC08021.JPG",
       "creator": "Daderot, National Cryptologic Museum exhibit",
       "license": "CC0 (public domain dedication)"
     }
@@ -602,6 +602,54 @@
       "sourceUrl": "https://www.dvidshub.net/image/1020017/talisman-saber-13-shows-flexibility-versatility-jecc-capabilities",
       "file": "https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/1309/1020017/2000w_q95.jpg",
       "creator": "Joint Enabling Capabilities Command (2013)",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "an-prc-150",
+    "group": "comms",
+    "order": 17,
+    "name": "AN/PRC-150",
+    "caption": "Harris HF manpack radio",
+    "cutout": true,
+    "note": "Harris AN/PRC-150(C) Falcon II: a high-frequency (HF) manpack radio for long-range voice and data beyond line of sight, with embedded encryption. Used by U.S. forces in the 2000s; one of the two rack radios in his comms setup, with the PRC-117F.",
+    "image": "/equipment/an-prc-150.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:AN_PRC-150_radio_set.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/a/a5/AN_PRC-150_radio_set.jpg",
+      "creator": "U.S. Marine Corps",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "iotv-ucp",
+    "group": "armor",
+    "order": 2,
+    "name": "Interceptor / IOTV, ACU (UCP)",
+    "caption": "IOTV in UCP shown, with deltoid protectors",
+    "cutout": true,
+    "note": "The Army's Interceptor Body Armor family in the Universal Camouflage Pattern (UCP) worn with the ACU. The Improved Outer Tactical Vest (IOTV), fielded from 2007, replaced the Interceptor Outer Tactical Vest. It carries front, back and side ballistic plates over soft armor. He wore this with the ACU on the C-RAM individual augmentee (IA) deployment. Card photo: an Army IOTV in UCP, 2008.",
+    "image": "/equipment/iotv-ucp.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Specialist_Kachinski%27s_IOTV_vest_in_UCP_camo.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Specialist_Kachinski%27s_IOTV_vest_in_UCP_camo.jpg",
+      "creator": "U.S. Army (2008)",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "plate-carrier-multicam",
+    "group": "armor",
+    "order": 3,
+    "name": "Plate carrier, MultiCam",
+    "caption": "Soldier Plate Carrier System (SPCS) shown",
+    "cutout": true,
+    "note": "A lighter plate carrier in MultiCam, worn in Afghanistan. It holds front and back ballistic plates with less soft armor coverage than the IOTV. The Army fielded the Soldier Plate Carrier System (SPCS) to units in Afghanistan from 2010. Card photo: a PEO Soldier SPCS in MultiCam, 2008 (his carrier's exact model is not recorded).",
+    "image": "/equipment/plate-carrier-multicam.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Soldier_Plate_Carrier_System_(SPCS).jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Soldier_Plate_Carrier_System_%28SPCS%29.jpg",
+      "creator": "PEO Soldier (U.S. Army), 2008",
       "license": "Public domain (U.S. federal government work)"
     }
   }

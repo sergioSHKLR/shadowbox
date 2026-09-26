@@ -259,7 +259,7 @@
     "start": "2010",
     "end": "2011",
     "precision": "year",
-    "placeId": "afghanistan",
+    "placeId": null,
     "explanation": "A joint special-operations headquarters in Afghanistan during Operation Enduring Freedom. The shadowbox lists it under the JCSE years, 2010–2011. The role in the record is communications, not service as a special operator.",
     "civilian": "The headquarters he supported. Being the communicator for that headquarters is not the same job as the operators it commanded.",
     "image": "/crests/cjsotf.webp"

@@ -63,15 +63,6 @@
     "note": "Public location of MacDill, where Joint Communications Support Element is based."
   },
   {
-    "id": "afghanistan",
-    "name": "Afghanistan — bases not entered",
-    "locality": "Afghanistan",
-    "lat": 33.939,
-    "lng": 67.71,
-    "accuracy": "placeholder",
-    "note": "PLACEHOLDER. Center of Afghanistan only. Not a specific base. Replace the coordinates."
-  },
-  {
     "id": "fob-sykes",
     "type": "base",
     "name": "FOB Sykes",

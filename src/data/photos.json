@@ -6,5 +6,13 @@
     "caption": "ETC Sergio Schickler, Service Dress Blue",
     "kind": "uniform",
     "subjectId": "cpo-sdb"
+  },
+  {
+    "id": "recruit-portrait-1997",
+    "src": "/photos/recruit-1997.webp",
+    "alt": "Recruit Sergio Schickler in dress blue jumper and white hat, flags behind, 1997",
+    "caption": "Recruit portrait, RTC Great Lakes, 1997",
+    "kind": "unit",
+    "subjectId": "rtc"
   }
 ]
