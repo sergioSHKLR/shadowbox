@@ -10,7 +10,7 @@ const DEVICE_ART: Record<string, string> = {
   "letter-silver-expert": "/devices/e-expert-silver.svg",
 };
 
-/** The JMUA gold frame with its laurel band (the same art as the printable case item). It surrounds the full-size ribbon. */
+/** The JMUA gold frame with its laurel band (the same art as the printable case item). It is drawn inside the ribbon's footprint. */
 const JMUA_FRAME = "/devices/jmua-frame.svg";
 
 /** Devices are drawn from the case-item art in public/devices. */
@@ -38,8 +38,8 @@ export function RibbonArt({ award, className }: { award: Award; className?: stri
   return (
     <span className={[award.framed ? "ribbon framed" : "ribbon", className].filter(Boolean).join(" ")}>
       <img src={publicUrl(award.ribbon)} alt="" />
-      <Devices devices={award.devices} />
       {award.framed ? <img className="ribbon-frame" src={publicUrl(JMUA_FRAME)} alt="" /> : null}
+      <Devices devices={award.devices} />
     </span>
   );
 }
@@ -55,8 +55,8 @@ export function RibbonButton({
   return (
     <button type="button" className={award.framed ? "ribbon framed" : "ribbon"} onClick={onOpen} aria-label={label}>
       <img src={publicUrl(award.ribbon)} alt="" />
-      <Devices devices={award.devices} />
       {award.framed ? <img className="ribbon-frame" src={publicUrl(JMUA_FRAME)} alt="" /> : null}
+      <Devices devices={award.devices} />
     </button>
   );
 }
