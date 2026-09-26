@@ -9,8 +9,8 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: `${profile.rate} ${profile.name} — ${profile.branchName} shadowbox` },
-      { name: "description", content: `A reading copy of ${profile.rank} ${profile.name}’s ${profile.branchName} career, ${profile.serviceStart.slice(0, 4)} to ${profile.serviceEnd.slice(0, 4)}.` },
+      { title: profile.pageTitle },
+      { name: "description", content: profile.description },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
