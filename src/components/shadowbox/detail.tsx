@@ -82,6 +82,21 @@ export function DetailPanel({
                     ))}
                   </dl>
                 ) : null}
+                {subject.usedHere?.length ? (
+                  <section className="used-here">
+                    <h3>Used here</h3>
+                    <ul>
+                      {subject.usedHere.map((item) => (
+                        <li key={item.kind + item.id}>
+                          <button type="button" onClick={() => onSelect({ kind: item.kind, id: item.id })} aria-label={`${item.name}. Open.`}>
+                            <img src={publicUrl(item.image)} alt="" loading="lazy" />
+                            <span>{item.name}</span>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ) : null}
                 {subject.instances ? (
                   <section>
                     <h3>Each award</h3>
