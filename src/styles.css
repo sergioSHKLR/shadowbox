@@ -111,24 +111,34 @@ a { color: var(--color-navy); }
 .pin-img { width: 5.4rem; height: 3.2rem; object-fit: contain; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
 /* The case is laid out at true relative size: --in is one inch on the rack (a ribbon is 1 3/8 in wide).
    Pins and the JCSE badge are sized in the same inches, with the standard 1/4 in gaps. */
-.case-display { --in: 4.07rem; display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; column-gap: calc(var(--in) * 1.1); row-gap: calc(var(--in) / 2); margin: 1.1rem 0 1rem; }
-/* Chest: warfare pin, rack, second pin and JCSE badge, like the left breast of a dress blue coat. */
-.case-chest { display: flex; flex-direction: column; align-items: center; gap: calc(var(--in) / 4); }
-/* Sleeve, to the viewer's right: rating badge at the upper arm, service stripes at the lower sleeve. */
-.case-sleeve { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: calc(var(--in) * 0.9); max-width: 100%; }
+.case-display { --in: 3.35rem; display: flex; justify-content: center; margin: 1.1rem 0 1.75rem; }
+/* A single centred column at every width (the sleeve column is gone), laid out for a 375 px phone first. */
+.case-column { display: flex; flex-direction: column; align-items: center; gap: calc(var(--in) / 3); max-width: 100%; }
 .worn { background: transparent; border: 0; padding: 0; cursor: pointer; display: block; line-height: 0; }
-.worn img { display: block; height: auto; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
+.worn img { display: block; height: auto; max-width: 100%; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
 .worn-pin img { width: calc(var(--in) * 2.75); }
 .worn-badge img { width: auto; height: calc(var(--in) * 2); }
-/* CPO rating badge (vector): the chevrons are 3 1/4 in wide and span 84% of the art, so the art is 3.88 in wide.
-   Service stripes: five 7 x 3/8 in stripes, 1/4 in apart, rising at 33 deg on a black backing with vertical ends, as on
-   his sleeve; the art is drawn at true size, 6.211 x 7.986 in.
-   Both shrink only when the screen is narrower than their true size. */
-.worn-rating img { width: calc(var(--in) * 3.88); max-width: 100%; }
-.worn-stripes { max-width: 100%; }
-.worn-stripes img { width: calc(var(--in) * 6.211); max-width: 100%; }
-.case-photo { margin-top: calc(var(--in) / 3); padding: 5px; background: #111; border: 1px solid #c9a55a; box-shadow: 0 2px 6px rgba(0,0,0,0.6); cursor: pointer; line-height: 0; }
-.case-photo img { display: block; width: calc(var(--in) * 2.6); height: auto; border: 1px solid #c9a55a; }
+/* ET specialty mark alone (vector, oxidized silver like the pins). */
+.worn-et img { width: calc(var(--in) * 1.5); }
+/* Chief's fouled anchor with USN, as on the combination cap. */
+.worn-anchor img { width: auto; height: calc(var(--in) * 1.9); }
+.case-portrait { margin: 0; display: flex; flex-direction: column; align-items: center; gap: calc(var(--in) / 6); }
+.case-portrait:first-child { margin-bottom: calc(var(--in) / 6); }
+.case-portrait:last-child { margin-top: calc(var(--in) / 6); }
+.case-photo { padding: 5px; background: #111; border: 1px solid #c9a55a; box-shadow: 0 2px 6px rgba(0,0,0,0.6); cursor: pointer; line-height: 0; }
+.case-photo img { display: block; width: calc(var(--in) * 3); max-width: 100%; height: auto; border: 1px solid #c9a55a; }
+/* Small engraved brass plate under each portrait. */
+.plaque {
+  display: flex; flex-direction: column; align-items: center; gap: 0.05rem;
+  padding: 0.3rem 0.85rem 0.32rem;
+  background: linear-gradient(180deg, #ecd48e 0%, #c9a24a 45%, #b08a36 55%, #dcbc6a 100%);
+  border: 1px solid #7a5d22; border-radius: 2px;
+  box-shadow: inset 0 1px 0 rgba(255, 246, 214, 0.7), inset 0 -1px 0 rgba(90, 64, 18, 0.5), 0 2px 4px rgba(0, 0, 0, 0.65);
+  color: #3b2a0c; text-shadow: 0 1px 0 rgba(255, 240, 200, 0.55);
+  font-family: var(--font-card); font-weight: 600; font-size: 0.72rem; line-height: 1.25; letter-spacing: 0.06em; text-align: center;
+  max-width: 100%;
+}
+.plaque span:first-child { text-transform: uppercase; }
 .case-photo:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 3px; }
 .worn:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 3px; }
 /* Navy racks are worn with no spacing: ribbons touch edge to edge and rows touch top to bottom; the short top row is centred. */
@@ -210,7 +220,8 @@ a { color: var(--color-navy); }
   .ledger, .split { grid-template-columns: 1fr 1fr; }
   .nameplate { grid-template-columns: 11rem 1fr; }
   .portrait { width: 11rem; }
-  .case-display { --in: 5.24rem; }
+  .case-display { --in: 4.07rem; }
+  .plaque { font-size: 0.82rem; }
 }
 .plain { margin: 0; padding-left: 1.1rem; }
 .plain li { margin: 0.25rem 0; }

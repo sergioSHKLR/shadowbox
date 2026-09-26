@@ -123,14 +123,30 @@ function Case({
   onOpen: (k: Kind, id: string) => void;
 }) {
   const marks = caseMarks();
-  // Two parts, like a dress blue coat: the chest (ESWS, rack, EXW, JCSE badge, recruit photo) and, to the
-  // viewer's right, the left sleeve (rating badge at the upper arm, service stripes at the lower sleeve).
-  const badge = marks.find((mark) => mark.id === "rating-badge");
-  const esws = marks.find((mark) => mark.id === "esws");
-  const exw = marks.find((mark) => mark.id === "exw");
-  const jcse = marks.find((mark) => mark.id === "jcse-device");
-  const stripes = marks.find((mark) => mark.id === "stripes");
+  // One centred column at every width, read top to bottom: recruit portrait and plaque, the ET rating mark,
+  // ESWS, the rack, EXW, the JCSE badge, the chief's anchor, then the chief portrait and plaque.
+  const mark = (id: string) => marks.find((entry) => entry.id === id);
+  const etMark = mark("et-rating-mark");
+  const esws = mark("esws");
+  const exw = mark("exw");
+  const jcse = mark("jcse-device");
+  const anchor = mark("collar");
   const recruit = photos.find((photo) => photo.id === "recruit-portrait-1997");
+  const chief = photos.find((photo) => photo.id === "chief-portrait-2018");
+  const plaques = profile.casePlaques;
+  const portraitWithPlaque = (photo: (typeof photos)[number] | undefined, lines: string[]) =>
+    photo ? (
+      <figure className="case-portrait">
+        <button type="button" className="case-photo" onClick={() => onOpen("photo", photo.id)} aria-label={`${photo.caption}. Open the photograph.`}>
+          <img src={publicUrl(photo.src)} alt={photo.alt} loading="lazy" />
+        </button>
+        <figcaption className="plaque">
+          {lines.map((line) => (
+            <span key={line}>{line}</span>
+          ))}
+        </figcaption>
+      </figure>
+    ) : null;
   const renderMark = (mark: (typeof marks)[number], worn?: string) => (
     <button
       key={`${mark.kind}-${mark.id}`}
@@ -144,7 +160,7 @@ function Case({
       ) : (
         <>
           <CareerGlyph image={mark.image} glyph={mark.glyph} />
-          <span className={mark.image ? undefined : "mark-word"}>{mark.id === "stripes" ? `${profile.serviceStripes} stripes` : mark.short}</span>
+          <span className={mark.image ? undefined : "mark-word"}>{mark.short}</span>
         </>
       )}
     </button>
@@ -169,7 +185,9 @@ function Case({
             </div>
           </div>
           <div className="case-display">
-            <div className="case-chest">
+            <div className="case-column">
+              {portraitWithPlaque(recruit, plaques.recruit)}
+              {etMark ? renderMark(etMark, "worn worn-et") : null}
               {esws ? renderMark(esws, "worn worn-pin") : null}
               <div className="rack" aria-label="Ribbon rack, highest award at the top left">
                 {rows.map((row) => (
@@ -182,18 +200,9 @@ function Case({
               </div>
               {exw ? renderMark(exw, "worn worn-pin") : null}
               {jcse ? renderMark(jcse, "worn worn-badge") : null}
-              {recruit ? (
-                <button type="button" className="case-photo" onClick={() => onOpen("photo", recruit.id)} aria-label={`${recruit.caption}. Open the photograph.`}>
-                  <img src={publicUrl(recruit.src)} alt={recruit.alt} loading="lazy" />
-                </button>
-              ) : null}
+              {anchor ? renderMark(anchor, "worn worn-anchor") : null}
+              {portraitWithPlaque(chief, plaques.chief)}
             </div>
-            {badge || stripes ? (
-              <div className="case-sleeve" aria-label="Left sleeve: rating badge and service stripes">
-                {badge ? renderMark(badge, "worn worn-rating") : null}
-                {stripes ? renderMark(stripes, "worn worn-stripes") : null}
-              </div>
-            ) : null}
           </div>
           <ul className="patch-row">
             {units.map((unit) => (
