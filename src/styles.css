@@ -248,6 +248,17 @@ a { color: var(--color-navy); }
 .icon-btn { min-width: 44px; min-height: 44px; border: 1px solid var(--color-line); background: white; display: grid; place-items: center; }
 .icon-btn svg { width: 1.1rem; height: 1.1rem; }
 .detail-body section { margin-top: 1.1rem; }
+/* The graphic that was clicked, large, at the top of every panel that has one. */
+.detail-hero { margin: 0.9rem 0 0.2rem; display: flex; justify-content: center; align-items: center; background: #fff; border: 1px solid var(--color-ivory-dim); padding: 1rem; }
+.detail-hero img { display: block; max-width: 100%; object-fit: contain; }
+.hero-tall img { height: min(26rem, 55vh); width: auto; }
+.hero-square img { width: min(15rem, 70%); height: auto; }
+.hero-wide img { width: min(22rem, 90%); height: auto; }
+.hero-photo { padding: 0; background: #000; }
+.hero-photo img { width: 100%; max-height: 60vh; }
+.hero-ribbon { background: var(--color-felt); padding: 1.6rem 1rem; }
+.detail-hero .ribbon.ribbon-hero { width: min(22rem, 90%); height: auto; min-height: 0; border: 0; background: transparent; }
+.portrait-btn { padding: 0; border: 0; background: none; cursor: zoom-in; display: block; }
 .lede { font-size: 1.12rem; }
 .facts { display: grid; gap: 0.6rem; margin: 0.8rem 0 0; }
 .facts div { display: grid; gap: 0.1rem; }

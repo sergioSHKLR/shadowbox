@@ -33,7 +33,8 @@ export type Kind =
   | "warfare"
   | "place"
   | "insignia"
-  | "milestone";
+  | "milestone"
+  | "photo";
 
 export type Device = {
   kind: "oak" | "star" | "letter";
@@ -444,7 +445,13 @@ export type SubjectView = {
   instances?: { title: string; detail: string }[];
   placeIds: string[];
   related: { kind: Kind; id: string; label: string }[];
+  /** The graphic that was clicked, shown large at the top of the panel. */
+  hero?: Hero;
 };
+
+export type Hero =
+  | { type: "ribbon"; award: Award }
+  | { type: "image"; src: string; alt: string; shape: "tall" | "square" | "wide" | "photo" };
 
 function rel(kind: Kind, id: string, label: string) {
   return { kind, id, label };
@@ -490,6 +497,23 @@ export function openRecord(): string[] {
 }
 
 export function toSubject(sel: Selection): SubjectView | null {
+  if (sel.kind === "photo") {
+    const photo = byId(photos, sel.id);
+    if (!photo) return null;
+    const subject = linkLabel({ kind: photo.kind, id: photo.subjectId });
+    return {
+      kind: "photo",
+      id: photo.id,
+      kicker: "Photograph",
+      title: photo.caption,
+      explanation: photo.alt,
+      facts: [],
+      placeIds: [],
+      related: subject ? [rel(photo.kind, photo.subjectId, subject)] : [],
+      hero: { type: "image", src: photo.src, alt: photo.alt, shape: "photo" },
+    };
+  }
+
   if (sel.kind === "award") {
     const award = awardById(sel.id);
     if (!award) return null;
@@ -530,6 +554,7 @@ export function toSubject(sel: Selection): SubjectView | null {
         .map((item) => (item.kind === "operation" ? byId(operations, item.id)?.placeId : unitById(item.id)?.placeId))
         .filter((id): id is string => Boolean(id)),
       related: [...related.values()],
+      hero: { type: "ribbon", award },
     };
   }
 
@@ -556,6 +581,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       ],
       placeIds: unit.placeId ? [unit.placeId] : [],
       related,
+      hero: unit.image ? { type: "image", src: unit.image, alt: `Crest, ${unit.name}`, shape: "square" } : undefined,
     };
   }
 
@@ -635,6 +661,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       ],
       placeIds: [],
       related: [],
+      hero: { type: "image", src: uniform.image, alt: uniform.name, shape: "tall" },
     };
   }
 
@@ -651,6 +678,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       facts: [{ label: "Pin", value: pin.abbreviation }],
       placeIds: pin.placeIds ?? [],
       related: resolveLinks(pin.related),
+      hero: pin.image ? { type: "image", src: pin.image, alt: `${pin.name} pin`, shape: "wide" } : undefined,
     };
   }
 
@@ -667,6 +695,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       facts: item.id === "stripes" ? [{ label: "On this case", value: `${profile.serviceStripes} ${profile.serviceStripeColor} stripes` }] : [],
       placeIds: [],
       related: resolveLinks(item.related),
+      hero: item.image ? { type: "image", src: item.image, alt: item.name, shape: item.id === "stripes" ? "wide" : item.id === "rating-badge" ? "tall" : "square" } : undefined,
     };
   }
 
