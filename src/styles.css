@@ -13,6 +13,8 @@
   --color-brass: #b8923a;
   --color-brass-bright: #e4c77a;
   --color-felt: #0c0c0d;
+  --card-radius: 4px;
+  --crest-shadow: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.22));
   --color-line: rgba(184, 146, 58, 0.45);
   --color-quiet: #6d6458;
 }
@@ -195,11 +197,12 @@ a { color: var(--color-navy); }
 .rack-note { max-width: 40rem; margin: 0 auto 1rem; text-align: center; color: #d9d0c2; font-size: 0.95rem; }
 .patch-row { list-style: none; display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 0; margin: 0; justify-content: center; }
 .patch {
-  width: 6.4rem;
+  width: calc(6.4rem + 2px);
   min-height: 5.4rem;
   background: #f4efe4;
   color: var(--color-navy);
-  border: 0;
+  border: 1px solid rgba(184, 146, 58, 0.35);
+  border-radius: var(--card-radius);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -209,10 +212,11 @@ a { color: var(--color-navy); }
 }
 .patch-mark { font-family: var(--font-card); font-weight: 600; font-size: 0.95rem; line-height: 1.1; text-align: center; }
 .designator { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass); border: 1px solid currentColor; border-radius: 2px; padding: 0.05rem 0.3rem; line-height: 1.3; white-space: nowrap; }
-.patch-crest { width: 4.4rem; height: 4.4rem; object-fit: contain; }
+/* Every crest sits in the same square box, centred, on a transparent background, with one shared soft shadow. */
+.patch-crest { width: 4.7rem; height: 4.7rem; padding: 0.15rem; box-sizing: border-box; object-fit: contain; object-position: center; filter: var(--crest-shadow); }
 .patch.has-crest .patch-mark { font-size: 0.8rem; }
 .patch span:last-child { font-family: var(--font-sans); }
-.patch-row:has(.has-crest) .patch { min-height: 7.6rem; }
+.patch-row:has(.has-crest) .patch { min-height: 7.9rem; }
 .patch span:last-child { font-size: 0.75rem; color: var(--color-quiet); }
 
 .ledger, .split { display: grid; gap: 1.5rem; margin-top: 1.75rem; }
@@ -265,7 +269,9 @@ a { color: var(--color-navy); }
   width: 100%;
   min-height: 44px;
   background: white;
-  border: 1px solid var(--color-ivory-dim);
+  border: 1px solid rgba(184, 146, 58, 0.35);
+  border-radius: var(--card-radius);
+  overflow: hidden;
   padding: 0.6rem 0.5rem 0.8rem;
   display: flex;
   flex-direction: column;
@@ -277,9 +283,12 @@ a { color: var(--color-navy); }
 .uniform-group h3 { margin: 0 0 0.2rem; }
 .uniform-photo { width: 100%; height: 16rem; object-fit: contain; object-position: center bottom; background: #fff; }
 .equipment-grid { grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); }
-.equipment-photo { width: 100%; aspect-ratio: 3 / 2; height: auto; object-fit: contain; background: #fff; }
+.equipment-photo { width: 100%; aspect-ratio: 3 / 2; height: auto; object-fit: contain; background: #fff; border-radius: 2px; }
 .equipment-photo.is-photo { object-fit: cover; }
-.equipment-card span { font-size: 0.85rem; color: var(--color-quiet); }
+.equipment-card span { font-family: var(--font-sans); font-size: 0.8rem; line-height: 1.3; color: var(--color-quiet); }
+/* One title style for unit, uniform and gear cards: Source Serif 4 semibold; captions and dates stay in the sans. */
+.uniform-card strong { font-family: var(--font-card); font-weight: 600; font-size: 0.95rem; line-height: 1.2; color: var(--color-navy); }
+.uniform-card:hover, .uniform-card:focus-visible, .patch:hover, .patch:focus-visible { border-color: var(--color-brass); }
 .map-frame { position: relative; z-index: 0; isolation: isolate; height: 24rem; width: 100%; background: var(--color-ivory-dim); border: 1px solid var(--color-line); }
 .map-frame.tall { height: min(40rem, 70vh); }
 .map-dot { display: block; width: 14px; height: 14px; border-radius: 50%; background: var(--color-brass); border: 2px solid var(--color-navy); }
@@ -334,7 +343,7 @@ a { color: var(--color-navy); }
 .detail-hero img { display: block; max-width: 100%; object-fit: contain; }
 .detail-hero .ribbon > img { object-fit: fill; }
 .hero-tall img { height: min(26rem, 55vh); width: auto; }
-.hero-square img { width: min(15rem, 70%); height: auto; }
+.hero-square img { width: min(15rem, 70%); height: auto; filter: var(--crest-shadow); }
 .hero-wide img { width: min(22rem, 90%); height: auto; }
 .hero-landscape img { width: min(34rem, 100%); height: auto; }
 .hero-extra { flex-direction: column; gap: 0.6rem; }

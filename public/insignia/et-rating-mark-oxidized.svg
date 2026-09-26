@@ -1,15 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1.5in" height="1.25in" viewBox="0 0 120 100"><title>Electronics Technician rating mark (oxidized silver, vector)</title>
-<defs>
-<linearGradient id="ox" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e4e6e8"/><stop offset="0.35" stop-color="#a9adb1"/><stop offset="0.6" stop-color="#7c8085"/><stop offset="0.8" stop-color="#b9bcc0"/><stop offset="1" stop-color="#6a6e73"/></linearGradient>
-<radialGradient id="nuc" cx="0.38" cy="0.35" r="0.7"><stop offset="0" stop-color="#f0f1f2"/><stop offset="0.55" stop-color="#9da1a6"/><stop offset="1" stop-color="#4f5358"/></radialGradient>
-</defs>
+<!-- Flat silver with dark outlines, to match the silver warfare pins of the chest stack. -->
 <g transform="translate(60 50) scale(1.12)">
 <g fill="none" stroke-linecap="round">
-<g stroke="#26282b" stroke-width="10"><ellipse rx="46" ry="15" transform="rotate(-12)"/><ellipse rx="42" ry="14" transform="rotate(62)"/></g>
-<g stroke="url(#ox)" stroke-width="6.5"><ellipse rx="46" ry="15" transform="rotate(-12)"/><ellipse rx="42" ry="14" transform="rotate(62)"/></g>
-<g stroke="#f4f5f6" stroke-width="1.2" opacity="0.55"><ellipse rx="47.6" ry="16.4" transform="rotate(-12)"/><ellipse rx="43.6" ry="15.4" transform="rotate(62)"/></g>
+<g stroke="#141414" stroke-width="10"><ellipse rx="46" ry="15" transform="rotate(-12)"/><ellipse rx="42" ry="14" transform="rotate(62)"/></g>
+<g stroke="#c4c4c4" stroke-width="6.2"><ellipse rx="46" ry="15" transform="rotate(-12)"/><ellipse rx="42" ry="14" transform="rotate(62)"/></g>
+<g stroke="#8e8e8e" stroke-width="1.3"><ellipse rx="44.6" ry="13.7" transform="rotate(-12)"/><ellipse rx="40.6" ry="12.7" transform="rotate(62)"/></g>
+<g stroke="#ececec" stroke-width="1.1"><ellipse rx="47.4" ry="16.3" transform="rotate(-12)"/><ellipse rx="43.4" ry="15.3" transform="rotate(62)"/></g>
 </g>
-<circle r="11" fill="#26282b"/><circle r="9" fill="url(#nuc)"/>
-<polygon points="4,-30 -9,-2 1,-2 -6,28 11,-6 1,-6 10,-30" fill="url(#ox)" stroke="#26282b" stroke-width="2.6" stroke-linejoin="round"/>
-<polyline points="4,-30 -9,-2 1,-2" fill="none" stroke="#f4f5f6" stroke-width="0.9" opacity="0.7"/>
+<circle r="11" fill="#141414"/><circle r="8.6" fill="#c4c4c4"/><circle r="8.6" fill="none" stroke="#ececec" stroke-width="1.1" stroke-dasharray="14 40" transform="rotate(200)"/>
+<polygon points="4,-30 -9,-2 1,-2 -6,28 11,-6 1,-6 10,-30" fill="#bdbdbd" stroke="#141414" stroke-width="2.6" stroke-linejoin="round"/>
+<polyline points="4,-30 -9,-2 1,-2" fill="none" stroke="#ececec" stroke-width="1"/>
+<polyline points="11,-6 -6,28" fill="none" stroke="#8e8e8e" stroke-width="1"/>
 </g></svg>
