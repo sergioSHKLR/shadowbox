@@ -15,6 +15,7 @@ import creditsJson from "@/data/credits.json";
 import profileJson from "@/data/profile.json";
 import branchesJson from "@/data/branches.json";
 import caseJson from "@/data/case.json";
+import equipmentJson from "@/data/equipment.json";
 
 /** Public files are served from the site root in dev, and from /shadowbox/ on GitHub Pages. */
 export function publicUrl(path: string): string {
@@ -34,7 +35,8 @@ export type Kind =
   | "place"
   | "insignia"
   | "milestone"
-  | "photo";
+  | "photo"
+  | "equipment";
 
 export type Device = {
   kind: "oak" | "star" | "letter";
@@ -148,6 +150,28 @@ export type Uniform = {
   image: string;
 };
 
+export type EquipmentGroup = "weapons" | "vehicles" | "ships";
+
+export const EQUIPMENT_GROUPS: { id: EquipmentGroup; label: string }[] = [
+  { id: "weapons", label: "Weapons" },
+  { id: "vehicles", label: "Vehicles" },
+  { id: "ships", label: "Ships" },
+];
+
+export type Equipment = {
+  id: string;
+  group: EquipmentGroup;
+  order: number;
+  name: string;
+  caption?: string;
+  note: string;
+  image: string;
+  /** true when the subject is cut out onto white; false for a photo crop */
+  cutout: boolean;
+  unitId?: string;
+  credit: { sourceUrl: string; file: string; creator: string; license: string };
+};
+
 export type Place = {
   id: string;
   name: string;
@@ -237,6 +261,7 @@ export const warfare = warfareJson as Warfare[];
 export const insignia = insigniaJson as Insignia[];
 export const milestones = milestonesJson as Milestone[];
 export const credits = creditsJson as Credit[];
+export const equipment = equipmentJson as Equipment[];
 export const branches = branchesJson as Record<string, string>;
 export const caseCopy = caseJson;
 
@@ -451,7 +476,7 @@ export type SubjectView = {
 
 export type Hero =
   | { type: "ribbon"; award: Award }
-  | { type: "image"; src: string; alt: string; shape: "tall" | "square" | "wide" | "photo" };
+  | { type: "image"; src: string; alt: string; shape: "tall" | "square" | "wide" | "photo" | "landscape" };
 
 function rel(kind: Kind, id: string, label: string) {
   return { kind, id, label };
@@ -661,6 +686,27 @@ export function toSubject(sel: Selection): SubjectView | null {
       placeIds: [],
       related: [],
       hero: { type: "image", src: uniform.image, alt: uniform.name, shape: "tall" },
+    };
+  }
+
+  if (sel.kind === "equipment") {
+    const item = byId(equipment, sel.id);
+    if (!item) return null;
+    const group = EQUIPMENT_GROUPS.find((entry) => entry.id === item.group);
+    const unit = item.unitId ? unitById(item.unitId) : undefined;
+    return {
+      kind: "equipment",
+      id: item.id,
+      kicker: group?.label ?? "Equipment",
+      title: item.name,
+      explanation: item.note,
+      facts: [
+        ...(item.caption ? [{ label: "Shown", value: item.caption }] : []),
+        { label: "Photo", value: `${item.credit.creator}. ${item.credit.license}.` },
+      ],
+      placeIds: unit?.placeId ? [unit.placeId] : [],
+      related: unit ? [rel("unit", unit.id, unit.name)] : [],
+      hero: { type: "image", src: item.image, alt: item.caption ? `${item.name}: ${item.caption}` : item.name, shape: item.cutout ? "landscape" : "photo" },
     };
   }
 

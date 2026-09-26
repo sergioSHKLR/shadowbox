@@ -216,6 +216,10 @@ a { color: var(--color-navy); }
 .uniform-group { margin-top: 1.4rem; }
 .uniform-group h3 { margin: 0 0 0.2rem; }
 .uniform-photo { width: 100%; height: 16rem; object-fit: contain; object-position: center bottom; background: #fff; }
+.equipment-grid { grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); }
+.equipment-photo { width: 100%; aspect-ratio: 3 / 2; height: auto; object-fit: contain; background: #fff; }
+.equipment-photo.is-photo { object-fit: cover; }
+.equipment-card span { font-size: 0.85rem; color: var(--color-quiet); }
 .map-frame { height: 24rem; width: 100%; background: var(--color-ivory-dim); border: 1px solid var(--color-line); }
 .map-dot { display: block; width: 14px; height: 14px; border-radius: 50%; background: var(--color-brass); border: 2px solid var(--color-navy); }
 .map-dot.placeholder { border-radius: 2px; background: transparent; }
@@ -261,6 +265,7 @@ a { color: var(--color-navy); }
 .hero-tall img { height: min(26rem, 55vh); width: auto; }
 .hero-square img { width: min(15rem, 70%); height: auto; }
 .hero-wide img { width: min(22rem, 90%); height: auto; }
+.hero-landscape img { width: min(34rem, 100%); height: auto; }
 .hero-photo { padding: 0; background: #000; }
 .hero-photo img { width: 100%; max-height: 60vh; }
 .hero-ribbon { background: var(--color-felt); padding: 1.6rem 1rem; }

@@ -22,6 +22,8 @@ import {
   warfare,
   publicUrl,
   UNIFORM_GROUPS,
+  EQUIPMENT_GROUPS,
+  equipment,
   type Kind,
   type Selection,
 } from "@/lib/shadowbox/model";
@@ -29,12 +31,13 @@ import { CareerGlyph, RibbonButton } from "@/components/shadowbox/marks";
 import { DetailPanel } from "@/components/shadowbox/detail";
 import { MapView } from "@/components/shadowbox/map-view";
 
-type View = "case" | "timeline" | "uniforms" | "map" | "sources";
+type View = "case" | "timeline" | "uniforms" | "equipment" | "map" | "sources";
 
 const NAV: { id: View; label: string }[] = [
   { id: "case", label: "Case" },
   { id: "timeline", label: "Timeline" },
   { id: "uniforms", label: "Uniforms" },
+  { id: "equipment", label: "Weapons, Vehicles & Ships" },
   { id: "map", label: "Map" },
   { id: "sources", label: "Sources" },
 ];
@@ -80,6 +83,7 @@ export function ShadowboxApp() {
       {view === "case" ? <Case rows={rows} blanks={blanks} portraitAlt={portrait?.alt ?? profile.name} portraitId={portrait?.id} onOpen={open} /> : null}
       {view === "timeline" ? <Timeline bars={bars} onOpen={open} /> : null}
       {view === "uniforms" ? <Uniforms onOpen={open} /> : null}
+      {view === "equipment" ? <EquipmentView onOpen={open} /> : null}
       {view === "map" ? <Stations stops={stops} onOpen={open} /> : null}
       {view === "sources" ? <Sources /> : null}
 
@@ -320,6 +324,35 @@ function Uniforms({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
                   <button type="button" className="uniform-card" onClick={() => onOpen("uniform", uniform.id)}>
                     <img className="uniform-photo" src={publicUrl(uniform.image)} alt="" loading="lazy" />
                     <strong>{uniform.name}</strong>
+                  </button>
+                </li>
+              ))}
+            </ol>
+          </section>
+        );
+      })}
+    </main>
+  );
+}
+
+function EquipmentView({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
+  return (
+    <main className="sheet">
+      <h2>Weapons, Vehicles &amp; Ships</h2>
+      <p>{caseCopy.equipmentLead}</p>
+      {EQUIPMENT_GROUPS.map((group) => {
+        const list = equipment.filter((item) => item.group === group.id).sort((a, b) => a.order - b.order);
+        if (!list.length) return null;
+        return (
+          <section key={group.id} className="uniform-group" aria-label={group.label}>
+            <h3>{group.label}</h3>
+            <ol className="uniform-grid equipment-grid">
+              {list.map((item) => (
+                <li key={item.id}>
+                  <button type="button" className="uniform-card equipment-card" onClick={() => onOpen("equipment", item.id)}>
+                    <img className={item.cutout ? "equipment-photo" : "equipment-photo is-photo"} src={publicUrl(item.image)} alt="" loading="lazy" />
+                    <strong>{item.name}</strong>
+                    {item.caption ? <span>{item.caption}</span> : null}
                   </button>
                 </li>
               ))}
