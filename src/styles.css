@@ -110,13 +110,26 @@ a { color: var(--color-navy); }
   display: grid;
   place-items: center;
 }
-.ribbon > img { width: 5.6rem; height: 1.55rem; object-fit: fill; display: block; }
+.ribbon { container-type: inline-size; }
+/* A ribbon is 1 3/8 x 3/8 in, so the art keeps an 11:3 aspect and fills the button width. */
+.ribbon > img { width: 100%; height: auto; aspect-ratio: 11 / 3; object-fit: fill; display: block; }
 /* JMUA: one gold frame, drawn around the unframed ribbon art so the ribbon keeps its proportions. */
 .ribbon.framed > img { box-sizing: border-box; border: 2px solid #d4a62a; outline: 1px solid #8a6a1c; outline-offset: -1px; }
-.devices { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 0.1rem; pointer-events: none; }
-.devices.dense { gap: 0; }
+/* Devices are sized against the ribbon width (100cqw = 1 3/8 in).
+   Stars come in two sizes only: bronze and silver 3/16 in, gold at the full ribbon height (tip-circle diameter).
+   The star SVGs are cropped to that circle, so width = star size. Stars sit 1/32 in apart,
+   measured between the visible points (a star is 0.951 of its tip circle wide). */
+.devices { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: calc(100cqw / 44); pointer-events: none; }
 .devices img.glyph { width: auto; height: 1rem; max-width: 1.1rem; object-fit: contain; filter: drop-shadow(0 0 1px rgba(0,0,0,0.6)); }
-.devices.dense img.glyph { height: 0.8rem; }
+.devices img.glyph-star { --star: calc(100cqw * 3 / 22); width: var(--star); height: var(--star); max-width: none; margin-inline: calc(var(--star) * -0.0245); filter: drop-shadow(0.4px 0.6px 0.6px rgba(0,0,0,0.55)); }
+/* Gold stars: Sergio's display choice, not regulation. Doubling the 5/16 in star (5/8 in) would be taller than the
+   3/8 in ribbon, so gold is capped at the ribbon height (6/22 of the width), centred. */
+.devices img.glyph-star.metal-gold { --star: calc(100cqw * 6 / 22); }
+/* Four gold stars at ribbon height are wider than the ribbon, so they overlap slightly: no gap and 0.072-star
+   negative margins spread the visible stars over 96% of the ribbon; neighbouring points overlap by about a tenth
+   of a star (the same layout as the printable case items). */
+.devices:has(> img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold) { gap: 0; }
+.devices:has(> img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold) > img.glyph-star.metal-gold { margin-inline: calc(var(--star) * -0.072); }
 .devices img.glyph-oak { height: 1.2rem; max-width: 1.3rem; }
 .devices img.glyph-letter { height: 0.95rem; }
 .metal-gold { color: #d4a62a; }
@@ -148,7 +161,7 @@ a { color: var(--color-navy); }
   .ledger, .split { grid-template-columns: 1fr 1fr; }
   .nameplate { grid-template-columns: 11rem 1fr; }
   .portrait { width: 11rem; height: 13rem; }
-  .ribbon, .ribbon > img { width: 7.2rem; }
+  .ribbon { width: 7.2rem; }
 }
 .plain { margin: 0; padding-left: 1.1rem; }
 .plain li { margin: 0.25rem 0; }
@@ -242,6 +255,17 @@ a { color: var(--color-navy); }
 .icon-btn { min-width: 44px; min-height: 44px; border: 1px solid var(--color-line); background: white; display: grid; place-items: center; }
 .icon-btn svg { width: 1.1rem; height: 1.1rem; }
 .detail-body section { margin-top: 1.1rem; }
+/* The graphic that was clicked, large, at the top of every panel that has one. */
+.detail-hero { margin: 0.9rem 0 0.2rem; display: flex; justify-content: center; align-items: center; background: #fff; border: 1px solid var(--color-ivory-dim); padding: 1rem; }
+.detail-hero img { display: block; max-width: 100%; object-fit: contain; }
+.hero-tall img { height: min(26rem, 55vh); width: auto; }
+.hero-square img { width: min(15rem, 70%); height: auto; }
+.hero-wide img { width: min(22rem, 90%); height: auto; }
+.hero-photo { padding: 0; background: #000; }
+.hero-photo img { width: 100%; max-height: 60vh; }
+.hero-ribbon { background: var(--color-felt); padding: 1.6rem 1rem; }
+.detail-hero .ribbon.ribbon-hero { width: min(22rem, 90%); height: auto; min-height: 0; border: 0; background: transparent; }
+.portrait-btn { padding: 0; border: 0; background: none; cursor: zoom-in; display: block; }
 .lede { font-size: 1.12rem; }
 .facts { display: grid; gap: 0.6rem; margin: 0.8rem 0 0; }
 .facts div { display: grid; gap: 0.1rem; }
@@ -252,7 +276,7 @@ a { color: var(--color-navy); }
   .nameplate { grid-template-columns: 7rem 1fr; }
   .portrait { width: 7rem; height: 8.4rem; }
   .row-btn { grid-template-columns: 1fr; }
-  .ribbon, .ribbon > img { width: 4.6rem; }
+  .ribbon { width: 4.6rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

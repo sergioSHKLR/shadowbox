@@ -11,6 +11,7 @@ import {
   type Stop,
 } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
+import { RibbonArt } from "@/components/shadowbox/marks";
 
 export function DetailPanel({
   selection,
@@ -48,6 +49,15 @@ export function DetailPanel({
                   <X />
                 </Dialog.Close>
               </div>
+              {subject.hero ? (
+                <figure className={`detail-hero hero-${subject.hero.type === "ribbon" ? "ribbon" : subject.hero.shape}`}>
+                  {subject.hero.type === "ribbon" ? (
+                    <RibbonArt award={subject.hero.award} className="ribbon-hero" />
+                  ) : (
+                    <img src={publicUrl(subject.hero.src)} alt={subject.hero.alt} />
+                  )}
+                </figure>
+              ) : null}
               <div className="detail-body">
                 <p className="lede">{subject.explanation}</p>
                 {subject.criteria ? (
