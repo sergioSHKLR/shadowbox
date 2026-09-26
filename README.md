@@ -10,7 +10,11 @@ No Social Security number, date of birth, DoD identification number, or home add
 
 ## Run
 
-`startup.sh` installs dependencies if needed and starts the dev server on port 3000.
+`startup.sh` starts the dev server on port 8080.
+
+## Published site
+
+Pushes to `main` build a static copy and publish it with GitHub Pages at [sergioshkler.github.io/shadowbox](https://sergioshkler.github.io/shadowbox/).
 
 ## Edit the record
 
