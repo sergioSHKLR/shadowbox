@@ -1,7 +1,7 @@
 import { cpSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 
 const from = "dist/pages";
-for (const name of ["assets", "photos", "ribbons", "uniforms", "crests", "insignia", "devices"]) {
+for (const name of ["assets", "photos", "ribbons", "uniforms", "crests", "insignia", "devices", "equipment"]) {
   rmSync(name, { recursive: true, force: true });
   cpSync(`${from}/${name}`, name, { recursive: true });
 }

@@ -203,7 +203,79 @@
     "file": null,
     "sourceUrl": "https://www.openstreetmap.org/copyright",
     "creator": "OpenStreetMap contributors",
-    "license": "Open Database License (tiles \u00a9 OpenStreetMap contributors).",
+    "license": "Open Database License (tiles © OpenStreetMap contributors).",
     "notes": "Tiles are requested when a map is opened. They are not packaged in the project."
+  },
+  {
+    "id": "equipment-beretta-m9",
+    "title": "Beretta M9 pistol",
+    "file": "/equipment/beretta-m9.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:M9_Pistol_(7414627354).jpg",
+    "creator": "PEO Soldier (U.S. Army), via the U.S. Air Force Flickr stream",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cut out onto a white background and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/d/db/M9_Pistol_%287414627354%29.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-m16a1",
+    "title": "M16A1 rifle",
+    "file": "/equipment/m16a1-rifle.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:M16A1_Rifle_250703-M-BD822-1014.jpg",
+    "creator": "Sgt. James Stanfield, U.S. Marine Corps (National Museum of the Marine Corps collection)",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cut out onto a white background and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/4/4f/M16A1_Rifle_250703-M-BD822-1014.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-m4-carbine",
+    "title": "M4 carbine (Shown with the rail adapter system handguard)",
+    "file": "/equipment/m4-carbine.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:PEO_M4_Carbine_RAS.jpg",
+    "creator": "PEO Soldier (U.S. Army)",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cut out onto a white background and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/0/08/PEO_M4_Carbine_RAS.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-hmmwv-up-armored",
+    "title": "Up-armored HMMWV with turtleback (M1114 shown, with the armored gunner’s turret)",
+    "file": "/equipment/hmmwv-up-armored.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Marine_vehicles_roll_out_for_Marine_Week_Cleveland_120611-M-QZ986-385.jpg",
+    "creator": "Sgt. Shannon Yount, U.S. Marine Corps",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cut out onto a white background and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/a/a7/Marine_vehicles_roll_out_for_Marine_Week_Cleveland_120611-M-QZ986-385.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-jerrv",
+    "title": "JERRV (Cougar H shown)",
+    "file": "/equipment/jerrv-cougar.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S.Marine_Cougar_H_EOD.jpg",
+    "creator": "Lance Cpl. Charles Howard, U.S. Marine Corps",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cut out onto a white background and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/e/ed/U.S.Marine_Cougar_H_EOD.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-cucv",
+    "title": "CUCV (CUCV pickup shown)",
+    "file": "/equipment/cucv-pickup.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:DF-ST-84-09181.jpg",
+    "creator": "TSgt. Rob Marshall, U.S. Air Force",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cut out onto a white background and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/4/4b/DF-ST-84-09181.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-zodiac",
+    "title": "Zodiac (Combat rubber raiding craft (F470))",
+    "file": "/equipment/zodiac-f470-crrc.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Combat_rubber_raiding_craft_(4417326236).jpg",
+    "creator": "U.S. Marine Corps (31st Marine Expeditionary Unit), via the U.S. Marine Corps Flickr stream",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/3/34/Combat_rubber_raiding_craft_%284417326236%29.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-frank-cable",
+    "title": "Emory S. Land-class (AS-39) submarine tender (USS Frank Cable (AS-40))",
+    "file": "/equipment/uss-frank-cable-as-40.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS_Frank_Cable_(AS-40)_departs_Pearl_Harbor,_Hawaii_(USA),_on_25_April_2005_(050425-N-8937A-018).jpg",
+    "creator": "Photographer's Mate 3rd Class Ian W. Anderson, U.S. Navy",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/2/22/USS_Frank_Cable_%28AS-40%29_departs_Pearl_Harbor%2C_Hawaii_%28USA%29%2C_on_25_April_2005_%28050425-N-8937A-018%29.jpg . Not hotlinked."
   }
 ]
