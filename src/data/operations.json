@@ -9,6 +9,7 @@
     "theater": "Iraq",
     "unitId": "troy",
     "placeId": "iraq",
+    "baseIds": [],
     "explanation": "The 2006 Iraq deployment, with Combined Joint Task Force Troy. The campaign phase recorded on the shadowbox is National Resolution. One of the two bronze stars on the Iraq Campaign Medal belongs to this phase."
   },
   {
@@ -21,6 +22,7 @@
     "theater": "Iraq",
     "unitId": "ia-army",
     "placeId": "iraq",
+    "baseIds": [],
     "explanation": "The 2009 Iraq deployment, as an individual augmentee to the Army. The campaign phase recorded on the shadowbox is Iraq Sovereignty. This is the other bronze star on the Iraq Campaign Medal."
   },
   {
@@ -33,6 +35,7 @@
     "theater": "Afghanistan",
     "unitId": "cjsotf",
     "placeId": "afghanistan",
+    "baseIds": [],
     "explanation": "Afghanistan deployment with Combined Joint Special Operations Task Force \u2014 Afghanistan, while assigned to Joint Communications Support Element. One of the two bronze stars on the Afghanistan Campaign Medal."
   },
   {
@@ -45,6 +48,7 @@
     "theater": "Afghanistan",
     "unitId": "jcse",
     "placeId": "afghanistan",
+    "baseIds": [],
     "explanation": "A second Afghanistan deployment under Operation Enduring Freedom, 2012\u20132013, from Joint Communications Support Element. The NATO Medal for ISAF is dated 2013 on the worksheet. This is the other Afghanistan campaign star."
   }
 ]

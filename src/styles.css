@@ -263,6 +263,8 @@ a { color: var(--color-navy); }
 .map-dot { display: block; width: 14px; height: 14px; border-radius: 50%; background: var(--color-brass); border: 2px solid var(--color-navy); }
 .map-dot.placeholder { border-radius: 2px; background: transparent; }
 .map-dot.approximate { background: transparent; }
+.map-dot.base { width: 12px; height: 12px; border-radius: 2px; transform: rotate(45deg); background: var(--color-navy); border-color: var(--color-brass); }
+.map-dot.base.approximate { background: var(--color-ivory); }
 .used-here ul { list-style: none; margin: 0.8rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(4.75rem, 1fr)); gap: 0.5rem; }
 .used-here button { width: 100%; min-height: 44px; display: flex; flex-direction: column; align-items: center; gap: 0.3rem; padding: 0.35rem; background: white; border: 1px solid var(--color-ivory-dim); cursor: pointer; font: inherit; color: var(--color-ink); }
 .used-here button:hover, .used-here button:focus-visible { border-color: var(--color-brass); }
@@ -284,6 +286,8 @@ a { color: var(--color-navy); }
 .pip { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--color-brass); border: 2px solid var(--color-navy); display: inline-block; }
 .pip.placeholder { border-radius: 2px; background: transparent; }
 .pip.approximate { background: transparent; }
+.pip.base { border-radius: 1px; transform: rotate(45deg); background: var(--color-navy); border-color: var(--color-brass); }
+.pip.base.approximate { background: var(--color-ivory); }
 .credits li, .instance-list li, .gallery li { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.7rem 0; border-bottom: 1px solid var(--color-ivory-dim); }
 .gallery img { max-width: 16rem; }
 .detail-overlay { position: fixed; inset: 0; background: rgba(12, 16, 24, 0.45); }
