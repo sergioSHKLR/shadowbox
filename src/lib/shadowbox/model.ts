@@ -662,10 +662,12 @@ export function toSubject(sel: Selection): SubjectView | null {
     if (!unit) return null;
     const nec = necById(unit.necId);
     const ops = operations.filter((op) => op.unitId === unit.id);
+    // The unit's own pin plus every base its deployments used (e.g. CJTF Troy: FOB Sykes and FOB Tal Afar).
+    const unitPlaceIds = [...new Set([unit.placeId, ...ops.flatMap((op) => op.baseIds ?? [])].filter((id): id is string => Boolean(id && placeById(id))))];
     const related = [
       ...(nec ? [rel("nec", nec.id, `${nec.code} ${nec.name}`)] : []),
       ...ops.map((op) => rel("operation", op.id, op.phase)),
-      ...(unit.placeId && placeById(unit.placeId) ? [rel("place", unit.placeId, placeById(unit.placeId)!.name)] : []),
+      ...unitPlaceIds.map((id) => rel("place", id, placeById(id)!.name)),
     ];
     return {
       kind: "unit",
@@ -679,7 +681,7 @@ export function toSubject(sel: Selection): SubjectView | null {
         ...(unit.start ? [{ label: "Precision", value: unit.precision === "year" ? "Years only — months were not recorded" : "Month recorded" }] : []),
         ...(nec ? [{ label: "NEC on this tour", value: `${nec.code} · ${nec.name}` }] : []),
       ],
-      placeIds: unit.placeId ? [unit.placeId] : [],
+      placeIds: unitPlaceIds,
       related,
       hero: unit.image ? { type: "image", src: unit.image, alt: `Crest, ${unit.name}`, shape: "square" } : undefined,
       extraImages: unit.extraImages,
@@ -848,7 +850,7 @@ export function toSubject(sel: Selection): SubjectView | null {
     if (!place) return null;
     const here = [
       ...units.filter((unit) => unit.placeId === place.id).map((unit) => rel("unit", unit.id, unit.name)),
-      ...operations.filter((op) => op.placeId === place.id).map((op) => rel("operation", op.id, op.phase)),
+      ...operations.filter((op) => op.placeId === place.id && !op.baseIds?.includes(place.id)).map((op) => rel("operation", op.id, op.phase)),
       ...schools.filter((school) => school.placeId === place.id).map((school) => rel("school", school.id, school.name)),
       ...operations.filter((op) => op.baseIds?.includes(place.id)).map((op) => rel("operation", op.id, `${op.name} — ${op.phase}`)),
     ];
