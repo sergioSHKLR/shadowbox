@@ -132,6 +132,7 @@ export type Uniform = {
   context: string;
   dateLabel: string;
   note: string;
+  image?: string;
 };
 
 export type Place = {
