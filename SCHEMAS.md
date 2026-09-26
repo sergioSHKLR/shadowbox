@@ -15,7 +15,7 @@ Dates are `YYYY`, `YYYY-MM`, or `YYYY-MM-DD`. A missing end date means the item 
 | `operations.json` | Deployments and the campaign phase name |
 | `schools.json` | Courses. `placeConfidence` is `recorded`, `inferred`, or `unknown` |
 | `necs.json` | Navy Enlisted Classifications and time in each |
-| `uniforms.json` | The fourteen uniforms, in wear order |
+| `uniforms.json` | The fourteen uniforms, in wear order. An optional `image` is a figure on the shared mannequin |
 | `places.json` | Map points. `accuracy` is `public-site`, `approximate`, or `placeholder` |
 | `warfare.json` / `insignia.json` | Pins and chief insignia |
 | `milestones.json` | Enlistment, chief, Fleet Reserve |

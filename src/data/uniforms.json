@@ -17,7 +17,8 @@
     "branch": "USN",
     "context": "Working uniform after boot camp",
     "dateLabel": "Dates not entered",
-    "note": "Blue denim trousers and a chambray shirt, the ordinary working uniform before the blue digital camouflage. Shown second because that is the order given. The years are not entered."
+    "note": "Blue denim trousers and a chambray shirt, the ordinary working uniform before the blue digital camouflage. Shown second because that is the order given. The years are not entered.",
+    "image": "/uniforms/dungarees.jpg"
   },
   {
     "id": "johnny",
@@ -27,7 +28,8 @@
     "branch": "USN",
     "context": "Black working uniform",
     "dateLabel": "Dates not entered",
-    "note": "The black winter working uniform, nicknamed for the singer because it was black shirt and black trousers. Worn in the order given. The years are not entered."
+    "note": "The black winter working uniform, nicknamed for the singer because it was black shirt and black trousers. Worn in the order given. The years are not entered.",
+    "image": "/uniforms/johnny.jpg"
   },
   {
     "id": "dress-blues",
@@ -37,7 +39,8 @@
     "branch": "USN",
     "context": "Dress uniform",
     "dateLabel": "Worn when required",
-    "note": "The Navy dress blue jumper, with the broad collar and white piping, for sailors below chief. After 2014 the chief's dress blue is a coat, not this jumper. The photograph in this case is this uniform."
+    "note": "The Navy dress blue jumper, with the broad collar and white piping, for sailors below chief. After 2014 the chief's dress blue is a coat, not this jumper. The photograph in this case is this uniform.",
+    "image": "/uniforms/dress-blues.jpg"
   },
   {
     "id": "dress-whites",
@@ -47,7 +50,8 @@
     "branch": "USN",
     "context": "Dress uniform",
     "dateLabel": "Worn when required",
-    "note": "The white jumper, worn for inspections and ceremonies in summer whites season. The chief's version, after 2014, is a different coat."
+    "note": "The white jumper, worn for inspections and ceremonies in summer whites season. The chief's version, after 2014, is a different coat.",
+    "image": "/uniforms/dress-whites.jpg"
   },
   {
     "id": "working-whites",
@@ -57,7 +61,8 @@
     "branch": "USN",
     "context": "Warm-weather working uniform",
     "dateLabel": "Dates not entered",
-    "note": "A white working uniform for hot climates, simpler than dress whites. The years are not entered."
+    "note": "A white working uniform for hot climates, simpler than dress whites. The years are not entered.",
+    "image": "/uniforms/working-whites.jpg"
   },
   {
     "id": "utilities",

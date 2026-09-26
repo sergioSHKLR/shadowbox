@@ -302,7 +302,11 @@ function Uniforms({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
         {uniforms.map((uniform) => (
           <li key={uniform.id}>
             <button type="button" className="uniform-card" onClick={() => onOpen("uniform", uniform.id)}>
-              <UniformPlate variant={uniform.variant} />
+              {uniform.image ? (
+                <img className="uniform-photo" src={publicUrl(uniform.image)} alt="" />
+              ) : (
+                <UniformPlate variant={uniform.variant} />
+              )}
               <span className="ord">{uniform.order}</span>
               <strong>{uniform.name}</strong>
               <span>{uniform.dateLabel}</span>
