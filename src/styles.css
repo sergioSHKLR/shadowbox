@@ -137,16 +137,20 @@ a { color: var(--color-navy); }
 .ribbon { container-type: inline-size; }
 /* A ribbon is 1 3/8 x 3/8 in, so the art keeps an 11:3 aspect and fills the button width. */
 .ribbon > img { width: 100%; height: auto; aspect-ratio: 11 / 3; object-fit: fill; display: block; }
-/* JMUA: the Navy-style gold retaining frame, a 1/32 in rim (100cqw / 44) around the full-size ribbon, as in the
-   printable case item. It sits outside the ribbon and laps its neighbours in the rack, so the framed ribbon is raised. */
+/* JMUA: gold frame with a laurel band, drawn after Sergio's reference and measured against the ribbon width:
+   sides 57/1100 of the ribbon width, top and bottom 42/300 of its height (frame art 1214 x 384 around 1100 x 300).
+   The ribbon keeps its true size; the frame sits outside it, over the neighbouring ribbons, so rows still touch. */
 .ribbon.framed { z-index: 1; overflow: visible; }
-.ribbon.framed > img {
-  --rim: max(2px, calc(100cqw / 44));
-  box-shadow:
-    0 0 0 1px #f6dd84,
-    0 0 0 calc(var(--rim) * 0.6) #d9ac33,
-    0 0 0 var(--rim) #a57c1c,
-    0 0 0 calc(var(--rim) + 1px) #5c430c;
+.ribbon > img.ribbon-frame {
+  position: absolute;
+  left: calc(-100% * 57 / 1100);
+  top: calc(-100% * 42 / 300);
+  width: calc(100% * 1214 / 1100);
+  height: calc(100% * 384 / 300);
+  aspect-ratio: auto;
+  max-width: none;
+  pointer-events: none;
+  filter: drop-shadow(0.4px 0.8px 0.8px rgba(0, 0, 0, 0.55));
 }
 /* Devices are sized against the ribbon width (100cqw = 1 3/8 in).
    Stars come in two sizes only: bronze and silver 3/16 in, gold at the full ribbon height (tip-circle diameter).
