@@ -27,14 +27,14 @@
         "id": "cpo"
       }
     ],
-    "image": "/insignia/cpo-anchor.webp"
+    "image": "/insignia/cpo-anchor-antiqued.webp"
   },
   {
     "id": "jcse-device",
     "name": "Joint Communications Support Element device",
     "short": "JCSE",
     "glyph": "jcse",
-    "image": "/insignia/jcse-device.webp",
+    "image": "/insignia/jcse-device-stack.webp",
     "explanation": "The badge of the Joint Communications Support Element, the joint communications unit of the 2009–2015 tour.",
     "criteria": "Assignment to the Joint Communications Support Element.",
     "related": [
