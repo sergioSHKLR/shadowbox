@@ -191,7 +191,7 @@
   {
     "id": "portrait",
     "title": "Dress blue photograph",
-    "file": "/photos/dress-blues.jpg",
+    "file": "/photos/dress-blues-b.jpg",
     "sourceUrl": null,
     "creator": "Photograph supplied for this shadowbox",
     "license": "The veteran's own photograph. Not for reuse outside this record.",
@@ -232,6 +232,15 @@
     "creator": "PEO Soldier (U.S. Army)",
     "license": "Public domain. Photograph by a member of the U.S. armed forces in the course of official duties, a work of the U.S. federal government.",
     "notes": "Cut out onto a white background and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/0/08/PEO_M4_Carbine_RAS.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-centurion-c-ram",
+    "title": "Centurion C-RAM (Trailer-mounted, with its generator (Iraq))",
+    "file": "/equipment/centurion-c-ram.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_Battery_Phalanx_in_Iraq.jpg",
+    "creator": "Alpha Battery, 1st Battalion, 194th Field Artillery (U.S. Army National Guard)",
+    "license": "Public domain, as marked on Wikimedia Commons (photograph by a U.S. Army unit, a work of the U.S. federal government).",
+    "notes": "Cropped and resized for this project, saved as WebP. The unit's guidon at the right was cropped out. Original file: https://upload.wikimedia.org/wikipedia/commons/f/f1/A_Battery_Phalanx_in_Iraq.jpg . Not hotlinked."
   },
   {
     "id": "equipment-hmmwv-up-armored",
@@ -376,5 +385,14 @@
     "creator": "United States Army",
     "license": "Public domain. United States Army heraldic insignia (U.S. Army Institute of Heraldry design), a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
     "notes": "Supplied for this shadowbox (Wikimedia Commons, public domain); resized to about 400 px, saved as WebP. Original file: supplied image of https://commons.wikimedia.org/wiki/File:11ADABdeSSI.svg . Not hotlinked."
+  },
+  {
+    "id": "coin-tf-cram-3-3ada",
+    "title": "Task Force C-RAM, 3rd Battalion, 3rd Air Defense Artillery challenge coin",
+    "file": "/crests/tf-cram-3-3ada-coin.webp",
+    "sourceUrl": null,
+    "creator": "Photograph supplied for this shadowbox",
+    "license": "The veteran's own item and photograph. Not for reuse outside this record.",
+    "notes": "Coin cut out from its grey background onto transparency, resized to about 500 px, saved as WebP."
   }
 ]

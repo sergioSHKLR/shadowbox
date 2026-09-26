@@ -59,11 +59,12 @@ export function ShadowboxApp() {
   return (
     <div className="archive">
       <header className="mast">
-        <div className="mast-copy">
-          <h1>{profile.headerLines[0]}</h1>
-          {profile.headerLines.slice(1).map((line) => (
-            <p key={line} className="mast-sub">{line}</p>
-          ))}
+        <div className="mast-brand">
+          <img className="mast-icon" src={publicUrl("/favicon.svg")} alt="" width="56" height="56" />
+          <div>
+            <h1 className="wordmark">SHADOWBOX</h1>
+            <p className="mast-tagline">Not for gawking but for learning!</p>
+          </div>
         </div>
         <nav className="mast-nav" aria-label="Shadowbox sections">
           {NAV.map((item) => (
@@ -125,6 +126,29 @@ function Case({
   onOpen: (k: Kind, id: string) => void;
 }) {
   const marks = caseMarks();
+  // Worn positions: ESWS centred above the rack, EXW centred below it, the JCSE badge below the EXW.
+  const esws = marks.find((mark) => mark.id === "esws");
+  const exw = marks.find((mark) => mark.id === "exw");
+  const jcse = marks.find((mark) => mark.id === "jcse-device");
+  const sideMarks = marks.filter((mark) => mark !== esws && mark !== exw && mark !== jcse);
+  const renderMark = (mark: (typeof marks)[number], worn?: string) => (
+    <button
+      key={`${mark.kind}-${mark.id}`}
+      type="button"
+      className={worn ?? "mark"}
+      onClick={() => onOpen(mark.kind, mark.id)}
+      aria-label={`${mark.name}. Open the explanation.`}
+    >
+      {worn && mark.image ? (
+        <img src={publicUrl(mark.image)} alt="" />
+      ) : (
+        <>
+          <CareerGlyph image={mark.image} glyph={mark.glyph} />
+          <span className={mark.image ? undefined : "mark-word"}>{mark.id === "stripes" ? `${profile.serviceStripes} stripes` : mark.short}</span>
+        </>
+      )}
+    </button>
+  );
   return (
     <main>
       <section className="case" aria-label="Shadowbox">
@@ -144,36 +168,36 @@ function Case({
               <p className="quiet">{profile.serviceLength} active. Sea service {profile.seaService}. Foreign service {profile.foreignService}.</p>
             </div>
           </div>
-          <div className="insignia-row">
-            {marks.map((mark) => (
-              <button
-                key={`${mark.kind}-${mark.id}`}
-                type="button"
-                className="mark"
-                onClick={() => onOpen(mark.kind, mark.id)}
-                aria-label={`${mark.name}. Open the explanation.`}
-              >
-                <CareerGlyph image={mark.image} glyph={mark.glyph} />
-                <span className={mark.image ? undefined : "mark-word"}>{mark.id === "stripes" ? `${profile.serviceStripes} stripes` : mark.short}</span>
-              </button>
-            ))}
-          </div>
-          <div className="rack" aria-label="Ribbon rack, highest award at the top left">
-            {rows.map((row) => (
-              <div key={row.map((a) => a.id).join("-")} className="rack-row">
-                {row.map((award) => (
-                  <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />
+          <div className="case-display">
+            <div className="case-side">
+              {sideMarks.slice(0, Math.ceil(sideMarks.length / 2)).map((mark) => renderMark(mark))}
+            </div>
+            <div className="case-center">
+              {esws ? renderMark(esws, "worn worn-pin") : null}
+              <div className="rack" aria-label="Ribbon rack, highest award at the top left">
+                {rows.map((row) => (
+                  <div key={row.map((a) => a.id).join("-")} className="rack-row">
+                    {row.map((award) => (
+                      <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />
+                    ))}
+                  </div>
                 ))}
               </div>
-            ))}
+              {exw ? renderMark(exw, "worn worn-pin") : null}
+              {jcse ? renderMark(jcse, "worn worn-badge") : null}
+            </div>
+            <div className="case-side">
+              {sideMarks.slice(Math.ceil(sideMarks.length / 2)).map((mark) => renderMark(mark))}
+            </div>
           </div>
           <p className="rack-note">{caseCopy.rackNote}</p>
           <ul className="patch-row">
             {units.map((unit) => (
               <li key={unit.id}>
-                <button type="button" className={unit.image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name}, ${formatSpan(unit.start, unit.end)}. Open the explanation.`}>
+                <button type="button" className={unit.image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name}${unit.designator ? `, ${unit.designator}` : ""}, ${formatSpan(unit.start, unit.end)}. Open the explanation.`}>
                   {unit.image ? <img className="patch-crest" src={publicUrl(unit.image)} alt="" /> : null}
                   <span className="patch-mark">{unit.patch}</span>
+                  {unit.designator ? <span className="designator">{unit.designator}</span> : null}
                   <span>{formatSpan(unit.start, unit.end)}</span>
                 </button>
               </li>
