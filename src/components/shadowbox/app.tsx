@@ -21,10 +21,11 @@ import {
   units,
   warfare,
   publicUrl,
+  UNIFORM_GROUPS,
   type Kind,
   type Selection,
 } from "@/lib/shadowbox/model";
-import { CareerGlyph, RibbonButton, UniformPlate } from "@/components/shadowbox/marks";
+import { CareerGlyph, RibbonButton } from "@/components/shadowbox/marks";
 import { DetailPanel } from "@/components/shadowbox/detail";
 import { MapView } from "@/components/shadowbox/map-view";
 
@@ -46,20 +47,20 @@ export function ShadowboxApp() {
   const bars = useMemo(() => timeline(), []);
   const stops = useMemo(() => careerStops(), []);
   const blanks = useMemo(() => openRecord(), []);
-  const span = `${profile.serviceStart.slice(0, 4)}–${profile.serviceEnd.slice(0, 4)}`;
   const portrait = photos.find((photo) => photo.src === profile.portrait);
 
   useEffect(() => {
-    document.title = `${profile.rate} ${profile.name} — ${profile.branchName} shadowbox`;
+    document.title = profile.pageTitle;
   }, []);
 
   return (
     <div className="archive">
       <header className="mast">
         <div className="mast-copy">
-          <p className="kicker">{profile.branchName} · {span}</p>
-          <h1>{profile.rate} {profile.name}</h1>
-          <p className="mast-sub">{profile.rating} {profile.rank} · {profile.characterOfService}</p>
+          <h1>{profile.headerLines[0]}</h1>
+          {profile.headerLines.slice(1).map((line) => (
+            <p key={line} className="mast-sub">{line}</p>
+          ))}
         </div>
         <nav className="mast-nav" aria-label="Shadowbox sections">
           {NAV.map((item) => (
@@ -93,14 +94,14 @@ export function ShadowboxApp() {
 }
 
 function caseMarks() {
-  const marks: { kind: Kind; id: string; short: string; glyph?: string; name: string }[] = [];
+  const marks: { kind: Kind; id: string; short: string; glyph?: string; image?: string; name: string }[] = [];
   for (const mark of profile.caseMarks) {
     if (mark.kind === "insignia") {
       const item = insignia.find((entry) => entry.id === mark.id);
-      if (item) marks.push({ kind: "insignia", id: item.id, short: item.short, glyph: item.glyph, name: item.name });
+      if (item) marks.push({ kind: "insignia", id: item.id, short: item.short, glyph: item.glyph, image: item.image, name: item.name });
     } else if (mark.kind === "warfare") {
       const pin = warfare.find((entry) => entry.id === mark.id);
-      if (pin) marks.push({ kind: "warfare", id: pin.id, short: pin.abbreviation, glyph: pin.glyph, name: pin.name });
+      if (pin) marks.push({ kind: "warfare", id: pin.id, short: pin.abbreviation, glyph: pin.glyph, image: pin.image, name: pin.name });
     }
   }
   return marks;
@@ -127,7 +128,7 @@ function Case({
             <div>
               <p className="kicker">{profile.rating} {profile.rank}</p>
               <h2>{profile.name}</h2>
-              <p>{profile.paygrade} · {formatWhen(profile.serviceStart)} – {formatWhen(profile.serviceEnd)}</p>
+              <p>{profile.paygrade} · {profile.branchName}, {profile.status} · {formatWhen(profile.serviceStart)} – {formatWhen(profile.serviceEnd)}</p>
               <p className="quiet">{profile.serviceLength} active. Sea service {profile.seaService}. Foreign service {profile.foreignService}.</p>
             </div>
           </div>
@@ -140,8 +141,8 @@ function Case({
                 onClick={() => onOpen(mark.kind, mark.id)}
                 aria-label={`${mark.name}. Open the explanation.`}
               >
-                <CareerGlyph glyph={mark.glyph} stripes={profile.serviceStripes} />
-                <span className={mark.glyph ? undefined : "mark-word"}>{mark.id === "stripes" ? `${profile.serviceStripes} stripes` : mark.short}</span>
+                <CareerGlyph image={mark.image} glyph={mark.glyph} />
+                <span className={mark.image ? undefined : "mark-word"}>{mark.id === "stripes" ? `${profile.serviceStripes} stripes` : mark.short}</span>
               </button>
             ))}
           </div>
@@ -158,7 +159,8 @@ function Case({
           <ul className="patch-row">
             {units.map((unit) => (
               <li key={unit.id}>
-                <button type="button" className="patch" onClick={() => onOpen("unit", unit.id)}>
+                <button type="button" className={unit.image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name}, ${formatSpan(unit.start, unit.end)}. Open the explanation.`}>
+                  {unit.image ? <img className="patch-crest" src={publicUrl(unit.image)} alt="" /> : null}
                   <span className="patch-mark">{unit.patch}</span>
                   <span>{formatSpan(unit.start, unit.end)}</span>
                 </button>
@@ -296,24 +298,28 @@ function Track({
 function Uniforms({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
   return (
     <main className="sheet">
-      <h2>Uniforms, in the order they were worn</h2>
+      <h2>Uniforms</h2>
       <p>{uniforms.length} uniforms. {caseCopy.uniformsLead}</p>
-      <ol className="uniform-grid">
-        {uniforms.map((uniform) => (
-          <li key={uniform.id}>
-            <button type="button" className="uniform-card" onClick={() => onOpen("uniform", uniform.id)}>
-              {uniform.image ? (
-                <img className="uniform-photo" src={publicUrl(uniform.image)} alt="" />
-              ) : (
-                <UniformPlate variant={uniform.variant} />
-              )}
-              <span className="ord">{uniform.order}</span>
-              <strong>{uniform.name}</strong>
-              <span>{uniform.dateLabel}</span>
-            </button>
-          </li>
-        ))}
-      </ol>
+      {UNIFORM_GROUPS.map((group) => {
+        const list = uniforms.filter((uniform) => uniform.group === group.id).sort((a, b) => a.order - b.order);
+        if (!list.length) return null;
+        return (
+          <section key={group.id} className="uniform-group" aria-label={group.label}>
+            <h3>{group.label}</h3>
+            <ol className="uniform-grid">
+              {list.map((uniform) => (
+                <li key={uniform.id}>
+                  <button type="button" className="uniform-card" onClick={() => onOpen("uniform", uniform.id)}>
+                    <img className="uniform-photo" src={publicUrl(uniform.image)} alt="" loading="lazy" />
+                    <strong>{uniform.name}</strong>
+                    <span>{uniform.dateLabel}</span>
+                  </button>
+                </li>
+              ))}
+            </ol>
+          </section>
+        );
+      })}
     </main>
   );
 }
@@ -355,13 +361,13 @@ function Sources() {
           </li>
         ))}
       </ul>
-      <h3>Insignia drawn here</h3>
+      <h3>Insignia in the case</h3>
       <ul className="stack">
         {insignia.map((item) => (
-          <li key={item.id}><span className="row-btn static"><strong>{item.name}</strong><span>Diagram, not a copied seal</span></span></li>
+          <li key={item.id}><span className="row-btn static"><strong>{item.name}</strong><span>Image of the insignia</span></span></li>
         ))}
         {warfare.map((pin) => (
-          <li key={pin.id}><span className="row-btn static"><strong>{pin.abbreviation}</strong><span>Diagram of the warfare pin</span></span></li>
+          <li key={pin.id}><span className="row-btn static"><strong>{pin.abbreviation}</strong><span>Image of the warfare pin</span></span></li>
         ))}
       </ul>
     </main>
