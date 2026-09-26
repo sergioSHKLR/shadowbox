@@ -1,5 +1,6 @@
 {
   "name": "app-builder-workspace",
+  "homepage": "https://mil.shklr.org",
   "private": true,
   "sideEffects": false,
   "type": "module",

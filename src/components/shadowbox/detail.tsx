@@ -58,6 +58,12 @@ export function DetailPanel({
                   )}
                 </figure>
               ) : null}
+              {subject.extraImages?.map((extra) => (
+                <figure key={extra.src} className="detail-hero hero-extra">
+                  <img src={publicUrl(extra.src)} alt={extra.alt} />
+                  <figcaption>{extra.caption}</figcaption>
+                </figure>
+              ))}
               <div className="detail-body">
                 <p className="lede">{subject.explanation}</p>
                 {subject.criteria ? (

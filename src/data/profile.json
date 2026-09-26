@@ -32,10 +32,6 @@
   ],
   "caseMarks": [
     {
-      "kind": "insignia",
-      "id": "collar"
-    },
-    {
       "kind": "warfare",
       "id": "esws"
     },
@@ -56,12 +52,12 @@
       "id": "jcse-device"
     }
   ],
-  "portrait": "/photos/dress-blues.jpg",
+  "portrait": "/photos/dress-blues-b.jpg",
   "headerLines": [
     "ETC (SW/EXW) Sergio Schickler",
     "United States Navy, Retired",
     "30 June 1997 - 28 Feb 2018"
   ],
-  "pageTitle": "ETC (SW/EXW) Sergio Schickler — United States Navy, Retired",
-  "description": "A reading copy of the Navy career of ETC (SW/EXW) Sergio Schickler, United States Navy, Retired, 1997 to 2018."
+  "pageTitle": "SHADOWBOX",
+  "description": "SHADOWBOX: a Navy career, ribbon by ribbon. Not for gawking but for learning!"
 }
