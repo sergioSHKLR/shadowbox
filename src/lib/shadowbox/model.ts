@@ -473,7 +473,7 @@ export type Stop = { place: Place; labels: string[]; when: string };
 export function careerStops(): Stop[] {
   const events = [
     ...unitSortKeys().filter(({ unit: u }) => u.placeId).map(({ unit: u, sort }) => ({ sort, placeId: u.placeId as string, label: `${formatSpan(u.start, u.end)} · ${u.abbreviation}` })),
-    ...operations.filter((o) => o.placeId).map((o) => ({ sort: o.start, placeId: o.placeId as string, label: `${formatSpan(o.start, o.end)} · ${o.phase}` })),
+    ...operations.filter((o) => o.baseIds?.length || o.placeId).map((o) => ({ sort: o.start, placeId: (o.baseIds?.[0] ?? o.placeId) as string, label: `${formatSpan(o.start, o.end)} · ${o.phase}` })),
   ].sort((a, b) => a.sort.localeCompare(b.sort) || a.label.localeCompare(b.label));
 
   const stops: Stop[] = [];

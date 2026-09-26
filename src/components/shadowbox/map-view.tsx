@@ -5,11 +5,14 @@ import "leaflet/dist/leaflet.css";
 export function MapView({
   stops,
   extra = [],
+  tall = false,
   onSelect,
 }: {
   stops: Stop[];
   /** Extra pins (deployment bases) drawn without joining the career line. */
   extra?: Place[];
+  /** The Map tab's main map: taller, and one zoom step closer than the fit. */
+  tall?: boolean;
   onSelect: (placeId: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -34,7 +37,7 @@ export function MapView({
       const markers = stops.map((stop) => {
         const icon = L.divIcon({
           className: "map-pin",
-          html: `<span class="map-dot ${stop.place.accuracy}"></span>`,
+          html: `<span class="map-dot ${stop.place.type === "base" ? "base " : ""}${stop.place.accuracy}"></span>`,
           iconSize: [16, 16],
           iconAnchor: [8, 8],
         });
@@ -61,7 +64,10 @@ export function MapView({
         L.polyline(line, { color: "#c4a35a", weight: 2, opacity: 0.9 }).addTo(map);
       }
       const bounds = group.getBounds();
-      if (bounds.isValid()) map.fitBounds(bounds.pad(0.35));
+      if (bounds.isValid()) {
+        map.fitBounds(bounds.pad(tall ? 0.08 : 0.35));
+        if (tall) map.setZoom(map.getZoom() + 1);
+      }
       window.setTimeout(() => map?.invalidateSize(), 180);
     });
 
@@ -77,5 +83,5 @@ export function MapView({
     return <p className="quiet">No map location has been entered for this yet.</p>;
   }
 
-  return <div ref={ref} className="map-frame" role="application" aria-label="Map of duty stations" />;
+  return <div ref={ref} className={tall ? "map-frame tall" : "map-frame"} role="application" aria-label="Map of duty stations" />;
 }
