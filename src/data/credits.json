@@ -412,5 +412,32 @@
     "creator": "Reference supplied by the veteran (United States Navy seal)",
     "license": "Public domain. United States Navy insignia, a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
     "notes": "The veteran's own reference image, trimmed and saved as WebP."
+  },
+  {
+    "id": "equipment-pasgt-helmet-desert",
+    "title": "PASGT helmet, desert cover (3-color desert (DCU) cover)",
+    "file": "/equipment/pasgt-helmet-desert-cover.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:DCU-cover-for-PASGT-vest,_July-1,_1991.jpg",
+    "creator": "U.S. Army Natick Research, Development and Engineering Center, 1991",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces or a Department of Defense employee in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cropped to the helmet and resized for this project, saved as WebP. The model is wearing the PASGT vest and helmet with desert covers (Natick photo, 1991). Original file: https://upload.wikimedia.org/wikipedia/commons/4/4a/DCU-cover-for-PASGT-vest%2C_July-1%2C_1991.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-ach-tan",
+    "title": "ACH / MICH, bare tan (Tan shell, no cover)",
+    "file": "/equipment/ach-helmet-tan.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_100421-N-4965F-366_Master-at-Arms_3rd_Class_Jason_Henry,_assigned_to_Maritime_Expeditionary_Security_Squadron_(MSRON)_3,_takes_cover_behind_a_riot_shield.jpg",
+    "creator": "MC1 James E. Foehl, U.S. Navy",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces or a Department of Defense employee in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cropped to the helmet and resized for this project, saved as WebP. The photo shows a bare tan helmet of the ACH/MICH family on a Navy expeditionary security sailor in 2010. It is a representative example, not the exact helmet. Original file: https://upload.wikimedia.org/wikipedia/commons/8/82/US_Navy_100421-N-4965F-366_Master-at-Arms_3rd_Class_Jason_Henry%2C_assigned_to_Maritime_Expeditionary_Security_Squadron_%28MSRON%29_3%2C_takes_cover_behind_a_riot_shield.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-ach-acu-cover",
+    "title": "ACH / MICH, ACU cover (UCP cover and night-vision mount)",
+    "file": "/equipment/ach-helmet-acu-cover.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:ACH_005.jpg",
+    "creator": "PEO Soldier (U.S. Army), 2005",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces or a Department of Defense employee in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cropped to the helmet and resized for this project, saved as WebP. PEO Soldier product photo, archived from peosoldier.army.mil. Original file: https://upload.wikimedia.org/wikipedia/commons/0/0e/ACH_005.jpg . Not hotlinked."
   }
 ]
