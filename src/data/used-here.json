@@ -10,7 +10,9 @@
     "iotv-ucp"
   ],
   "eodmu5": [
-    "rhib-eodmu5"
+    "rhib-eodmu5",
+    "an-prc-150",
+    "an-prc-117f"
   ],
   "jcse": [
     "jblox",

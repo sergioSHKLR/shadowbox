@@ -8,9 +8,10 @@
     "precision": "year",
     "theater": "Iraq",
     "unitId": "troy",
-    "placeId": "iraq",
+    "placeId": null,
     "baseIds": [
-      "fob-sykes"
+      "fob-sykes",
+      "fob-tal-afar"
     ],
     "explanation": "The 2006 Iraq deployment, with Combined Joint Task Force Troy. The campaign phase recorded on the shadowbox is National Resolution. One of the two bronze stars on the Iraq Campaign Medal belongs to this phase."
   },
@@ -23,7 +24,7 @@
     "precision": "year",
     "theater": "Iraq",
     "unitId": "ia-army",
-    "placeId": "iraq",
+    "placeId": null,
     "baseIds": [
       "jb-balad"
     ],

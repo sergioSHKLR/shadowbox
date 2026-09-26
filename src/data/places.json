@@ -27,15 +27,6 @@
     "note": "Public location of the home port used by USS Frank Cable and by EOD Mobile Unit Five in these years."
   },
   {
-    "id": "iraq",
-    "name": "Iraq — bases not entered",
-    "locality": "Iraq",
-    "lat": 33.223,
-    "lng": 43.679,
-    "accuracy": "placeholder",
-    "note": "PLACEHOLDER. This pin is only a center point for Iraq so the map is not empty. It is not a claim about a specific base. Replace the coordinates."
-  },
-  {
     "id": "nas-jax",
     "name": "Naval Air Station Jacksonville",
     "locality": "Jacksonville, Florida",
