@@ -123,12 +123,14 @@ function Case({
   onOpen: (k: Kind, id: string) => void;
 }) {
   const marks = caseMarks();
-  // One centred column, top to bottom: rating badge, ESWS, ribbon rack, EXW, JCSE badge, service stripes.
+  // Two parts, like a dress blue coat: the chest (ESWS, rack, EXW, JCSE badge, recruit photo) and, to the
+  // viewer's right, the left sleeve (rating badge at the upper arm, service stripes at the lower sleeve).
   const badge = marks.find((mark) => mark.id === "rating-badge");
   const esws = marks.find((mark) => mark.id === "esws");
   const exw = marks.find((mark) => mark.id === "exw");
   const jcse = marks.find((mark) => mark.id === "jcse-device");
   const stripes = marks.find((mark) => mark.id === "stripes");
+  const recruit = photos.find((photo) => photo.id === "recruit-portrait-1997");
   const renderMark = (mark: (typeof marks)[number], worn?: string) => (
     <button
       key={`${mark.kind}-${mark.id}`}
@@ -167,22 +169,32 @@ function Case({
             </div>
           </div>
           <div className="case-display">
-            {badge ? renderMark(badge, "worn worn-rating") : null}
-            {esws ? renderMark(esws, "worn worn-pin") : null}
-            <div className="rack" aria-label="Ribbon rack, highest award at the top left">
-              {rows.map((row) => (
-                <div key={row.map((a) => a.id).join("-")} className="rack-row">
-                  {row.map((award) => (
-                    <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />
-                  ))}
-                </div>
-              ))}
+            <div className="case-chest">
+              {esws ? renderMark(esws, "worn worn-pin") : null}
+              <div className="rack" aria-label="Ribbon rack, highest award at the top left">
+                {rows.map((row) => (
+                  <div key={row.map((a) => a.id).join("-")} className="rack-row">
+                    {row.map((award) => (
+                      <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />
+                    ))}
+                  </div>
+                ))}
+              </div>
+              {exw ? renderMark(exw, "worn worn-pin") : null}
+              {jcse ? renderMark(jcse, "worn worn-badge") : null}
+              {recruit ? (
+                <button type="button" className="case-photo" onClick={() => onOpen("photo", recruit.id)} aria-label={`${recruit.caption}. Open the photograph.`}>
+                  <img src={publicUrl(recruit.src)} alt={recruit.alt} loading="lazy" />
+                </button>
+              ) : null}
             </div>
-            {exw ? renderMark(exw, "worn worn-pin") : null}
-            {jcse ? renderMark(jcse, "worn worn-badge") : null}
-            {stripes ? renderMark(stripes, "worn worn-stripes") : null}
+            {badge || stripes ? (
+              <div className="case-sleeve" aria-label="Left sleeve: rating badge and service stripes">
+                {badge ? renderMark(badge, "worn worn-rating") : null}
+                {stripes ? renderMark(stripes, "worn worn-stripes") : null}
+              </div>
+            ) : null}
           </div>
-          <p className="rack-note">{caseCopy.rackNote}</p>
           <ul className="patch-row">
             {units.map((unit) => (
               <li key={unit.id}>
@@ -385,7 +397,7 @@ function Stations({ stops, onOpen }: { stops: ReturnType<typeof careerStops>; on
     <main className="sheet">
       <h2>Where the career went</h2>
       <p>{caseCopy.mapLead}</p>
-      <MapView stops={stops} extra={bases} onSelect={(id) => onOpen("place", id)} />
+      <MapView stops={stops} extra={bases.filter((place) => !stops.some((stop) => stop.place.id === place.id))} tall onSelect={(id) => onOpen("place", id)} />
       <ol className="stop-list">
         {stops.map((stop, index) => (
           <li key={`${stop.place.id}-${index}`}>

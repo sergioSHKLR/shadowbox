@@ -1,12 +1,11 @@
 {
-  "rackNote": "Highest award is the top left. Devices sit on the ribbon: gold stars for Navy personal awards, bronze stars for unit and sea ribbons, oak leaves for joint and Army awards.",
   "howToRead": [
     "Navy racks run in rows of three, from the wearer’s right, which is the left side of this case. The top row is short when the number of ribbons is not divisible by three.",
     "A star or an oak leaf is not extra decoration. It counts awards. A silver star on the Good Conduct Medal replaces five gold stars. Two bronze stars on a campaign medal are campaign phases, not two more medals. The Navy E uses a letter instead of a star."
   ],
   "timelineLead": "Assignments sit on the first track, including the tours that overlap a longer command. Deployments are the second track. Schools and the dated career events are marks, not bars, because only a start month or a single day was recorded.",
   "uniformsLead": "Grouped by type, in the order worn within each group.",
-  "mapLead": "The line is the order of the record, not a claim about the route flown. Gold is a known public site. A hollow pin is approximate. A square is a placeholder for a country, not a base. Navy diamonds are deployment bases (a light diamond means the location is approximate); they are not part of the line.",
+  "mapLead": "The line is the order of the record, not a claim about the route flown. Gold is a known public site. A hollow pin is approximate. A square is a placeholder for a country, not a base. Navy diamonds are deployment bases, joined to the line in the order of the deployments (a light diamond means the location is approximate).",
   "sourcesLead": "Years, units, and campaign phases come from the shadowbox worksheet. Award counts, schools, and specialties come from the service record.",
   "equipmentLead": "Body armor, helmets, weapons, comms and crypto gear, vehicles, and ships and boats, grouped by type. Most photographs are public-domain U.S. military or National Cryptologic Museum images of the same kind of item, not his own; the Hilux and Land Cruiser photos are Creative Commons. Credits are on the Sources page."
 }
