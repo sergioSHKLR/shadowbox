@@ -1,10 +1,25 @@
 [
   {
+    "id": "et-rating-mark",
+    "name": "Electronics Technician rating mark",
+    "short": "ET",
+    "glyph": "rating",
+    "explanation": "The specialty mark of the Electronics Technician rating: a helium atom — a nucleus with two electron orbits — with a lightning bolt, the symbol at the center of the ET rating badge. It is shown here on its own, in oxidized silver to match the pins.",
+    "criteria": "The rating is Electronics Technician.",
+    "related": [
+      {
+        "kind": "milestone",
+        "id": "cpo"
+      }
+    ],
+    "image": "/insignia/et-rating-mark-oxidized.svg"
+  },
+  {
     "id": "collar",
-    "name": "Chief petty officer collar device",
+    "name": "Chief petty officer anchor",
     "short": "Chief",
     "glyph": "anchor",
-    "explanation": "The fouled anchor — an anchor with line wrapped around the stock — is how a chief petty officer is recognized on khaki and on some other uniforms. It is the rank mark of an E-7.",
+    "explanation": "The fouled anchor — an anchor with line wrapped around the stock, with the letters USN — is how a chief petty officer is recognized: in gold on the combination cap and, smaller, on the collar of khakis. It is the rank mark of an E-7.",
     "criteria": "Worn after promotion to chief petty officer. Date of rank here is 16 September 2014.",
     "related": [
       {
@@ -13,30 +28,6 @@
       }
     ],
     "image": "/insignia/cpo-anchor.webp"
-  },
-  {
-    "id": "rating-badge",
-    "name": "Electronics Technician chief rating badge",
-    "short": "ET",
-    "glyph": "rating",
-    "explanation": "The sleeve or chest badge of a chief who is an Electronics Technician: an eagle, a helium-atom specialty mark (the ET symbol), three chevrons, and one rocker. Gold, rather than red, is worn by a chief with qualifying good conduct. Six Good Conduct Medals are in this record.",
-    "criteria": "The rating is Electronics Technician. The rocker is added at chief petty officer.",
-    "related": [
-      {
-        "kind": "milestone",
-        "id": "cpo"
-      }
-    ],
-    "image": "/insignia/cpo-et-rating-badge-vector.svg"
-  },
-  {
-    "id": "stripes",
-    "name": "Service stripes",
-    "short": "stripes",
-    "glyph": "stripes",
-    "explanation": "One stripe for each four years of active service. Twenty years and eight months rates five stripes. They are gold because a chief petty officer with good conduct wears gold instead of red. An older shadowbox graphic of this career shows four stripes; five is what the final service length rates. The number can be changed in the profile data.",
-    "criteria": "Each stripe is four full years. The fifth is earned at twenty years.",
-    "image": "/insignia/service-stripes-gold-5-sleeve.svg"
   },
   {
     "id": "jcse-device",

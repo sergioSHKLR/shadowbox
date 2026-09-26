@@ -181,7 +181,7 @@
   },
   {
     "id": "insignia-diagrams",
-    "title": "Collar device, rating badge, service stripes, warfare pins, and uniform plates",
+    "title": "Collar device, ET rating mark, warfare pins, and uniform plates",
     "file": null,
     "sourceUrl": null,
     "creator": "Drawn for this archive",
@@ -682,5 +682,14 @@
     "creator": "The veteran's own photograph (restored copy)",
     "license": "The veteran's own photograph, published with his approval. Not for reuse outside this record.",
     "notes": "Restored copy of his 1997 boot camp portrait, resized and saved as WebP."
+  },
+  {
+    "id": "photo-chief-2018",
+    "title": "Chief portrait, Service Dress Blue",
+    "file": "/photos/chief-2018.webp",
+    "sourceUrl": null,
+    "creator": "The veteran's own photograph (restored copy)",
+    "license": "The veteran's own photograph, published with his approval. Not for reuse outside this record.",
+    "notes": "Restored copy of his chief petty officer portrait, resized and saved as WebP."
   }
 ]
