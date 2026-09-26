@@ -239,7 +239,14 @@
     "placeId": "macdill",
     "explanation": "A joint unit, based at MacDill Air Force Base in Florida, that sends small communications teams out quickly for special operations and other joint commanders. The shadowbox dates the tour 2009–2015 and lists NEC 9613. It included the two Afghanistan deployments.",
     "civilian": "A communications unit made of every branch, not a Navy ship.",
-    "image": "/crests/jcse.webp"
+    "image": "/crests/jcse-ssi-airborne.webp",
+    "extraImages": [
+      {
+        "src": "/crests/jcse.webp",
+        "alt": "Seal of the Joint Communications Support Element (Airborne)",
+        "caption": "Joint Communications Support Element (Airborne): the unit seal"
+      }
+    ]
   },
   {
     "id": "cjsotf",

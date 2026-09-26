@@ -164,14 +164,15 @@ export type Uniform = {
   image: string;
 };
 
-export type EquipmentGroup = "armor" | "helmets" | "weapons" | "vehicles" | "ships";
+export type EquipmentGroup = "armor" | "helmets" | "weapons" | "comms" | "vehicles" | "ships";
 
 export const EQUIPMENT_GROUPS: { id: EquipmentGroup; label: string }[] = [
   { id: "armor", label: "Body Armor" },
   { id: "helmets", label: "Helmets" },
   { id: "weapons", label: "Weapons" },
+  { id: "comms", label: "Comms & Crypto" },
   { id: "vehicles", label: "Vehicles" },
-  { id: "ships", label: "Ships" },
+  { id: "ships", label: "Ships & Boats" },
 ];
 
 export type Equipment = {
@@ -516,7 +517,7 @@ export type UsedItem = { kind: "uniform" | "equipment"; id: string; name: string
  */
 export const usedHere = usedHereJson as Record<string, string[]>;
 
-const USED_ORDER = ["uniform", "armor", "helmets", "weapons", "vehicles", "ships"];
+const USED_ORDER = ["uniform", "armor", "helmets", "weapons", "comms", "vehicles", "ships"];
 
 export function usedHereFor(subjectId: string): UsedItem[] {
   const items: UsedItem[] = [];
