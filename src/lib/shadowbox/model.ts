@@ -17,7 +17,7 @@ import branchesJson from "@/data/branches.json";
 import caseJson from "@/data/case.json";
 import equipmentJson from "@/data/equipment.json";
 
-/** Public files are served from the site root in dev, and from /shadowbox/ on GitHub Pages. */
+/** Public files are served from the base URL: the site root in dev and on https://mil.shklr.org. */
 export function publicUrl(path: string): string {
   if (!path || /^(https?:|data:)/.test(path)) return path;
   const base = import.meta.env.BASE_URL || "/";

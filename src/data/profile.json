@@ -32,10 +32,6 @@
   ],
   "caseMarks": [
     {
-      "kind": "insignia",
-      "id": "collar"
-    },
-    {
       "kind": "warfare",
       "id": "esws"
     },
