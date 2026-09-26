@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="8.24 14.28 250 250">
+<defs>
+<linearGradient id="lg1" gradientUnits="userSpaceOnUse" x1="133.24" y1="139.27" x2="148.82" y2="56.19"><stop offset="0.000" stop-color="#e8c547"/><stop offset="1.000" stop-color="#c59822"/></linearGradient>
+<linearGradient id="lg2" gradientUnits="userSpaceOnUse" x1="133.24" y1="139.27" x2="207.44" y2="98.79"><stop offset="0.000" stop-color="#fffbe0"/><stop offset="1.000" stop-color="#fced9d"/></linearGradient>
+<linearGradient id="lg3" gradientUnits="userSpaceOnUse" x1="133.24" y1="139.27" x2="217.07" y2="128.42"><stop offset="0.000" stop-color="#916b14"/><stop offset="1.000" stop-color="#523a07"/></linearGradient>
+<linearGradient id="lg4" gradientUnits="userSpaceOnUse" x1="133.24" y1="139.27" x2="194.68" y2="197.33"><stop offset="0.000" stop-color="#e0ba3e"/><stop offset="1.000" stop-color="#b68c1e"/></linearGradient>
+<linearGradient id="lg5" gradientUnits="userSpaceOnUse" x1="133.24" y1="139.27" x2="169.47" y2="215.64"><stop offset="0.000" stop-color="#d3aa30"/><stop offset="1.000" stop-color="#a07818"/></linearGradient>
+<linearGradient id="lg6" gradientUnits="userSpaceOnUse" x1="133.24" y1="139.27" x2="97.01" y2="215.64"><stop offset="0.000" stop-color="#906a14"/><stop offset="1.000" stop-color="#503906"/></linearGradient>
+<linearGradient id="lg7" gradientUnits="userSpaceOnUse" x1="133.24" y1="139.27" x2="71.80" y2="197.33"><stop offset="0.000" stop-color="#fffadd"/><stop offset="1.000" stop-color="#fae888"/></linearGradient>
+<linearGradient id="lg8" gradientUnits="userSpaceOnUse" x1="133.24" y1="139.27" x2="49.41" y2="128.42"><stop offset="0.000" stop-color="#dbb438"/><stop offset="1.000" stop-color="#ae841b"/></linearGradient>
+<linearGradient id="lg9" gradientUnits="userSpaceOnUse" x1="133.24" y1="139.27" x2="59.04" y2="98.79"><stop offset="0.000" stop-color="#fffbe0"/><stop offset="1.000" stop-color="#fcefa8"/></linearGradient>
+<linearGradient id="lg10" gradientUnits="userSpaceOnUse" x1="133.24" y1="139.27" x2="117.66" y2="56.19"><stop offset="0.000" stop-color="#fffbe0"/><stop offset="1.000" stop-color="#fceb96"/></linearGradient>
+</defs>
+<polygon points="133.24,16.00 164.40,96.39 250.48,101.18 183.65,155.65 205.70,239.01 133.24,192.28 60.78,239.01 82.83,155.65 16.00,101.18 102.08,96.39" fill="#d0a52c"/>
+<polygon points="133.24,139.27 133.24,16.00 164.40,96.39" fill="url(#lg1)" stroke="#d4aa30" stroke-width="0.3" stroke-linejoin="round"/>
+<polygon points="133.24,139.27 164.40,96.39 250.48,101.18" fill="url(#lg2)" stroke="#fdf4bf" stroke-width="0.3" stroke-linejoin="round"/>
+<polygon points="133.24,139.27 250.48,101.18 183.65,155.65" fill="url(#lg3)" stroke="#6b4e0c" stroke-width="0.3" stroke-linejoin="round"/>
+<polygon points="133.24,139.27 183.65,155.65 205.70,239.01" fill="url(#lg4)" stroke="#cba027" stroke-width="0.3" stroke-linejoin="round"/>
+<polygon points="133.24,139.27 205.70,239.01 133.24,192.28" fill="url(#lg5)" stroke="#b88d1e" stroke-width="0.3" stroke-linejoin="round"/>
+<polygon points="133.24,139.27 133.24,192.28 60.78,239.01" fill="url(#lg6)" stroke="#6a4c0c" stroke-width="0.3" stroke-linejoin="round"/>
+<polygon points="133.24,139.27 60.78,239.01 82.83,155.65" fill="url(#lg7)" stroke="#fcf0aa" stroke-width="0.3" stroke-linejoin="round"/>
+<polygon points="133.24,139.27 82.83,155.65 16.00,101.18" fill="url(#lg8)" stroke="#c69922" stroke-width="0.3" stroke-linejoin="round"/>
+<polygon points="133.24,139.27 16.00,101.18 102.08,96.39" fill="url(#lg9)" stroke="#fef6ca" stroke-width="0.3" stroke-linejoin="round"/>
+<polygon points="133.24,139.27 102.08,96.39 133.24,16.00" fill="url(#lg10)" stroke="#fdf3b8" stroke-width="0.3" stroke-linejoin="round"/>
+<line x1="133.24" y1="139.27" x2="133.24" y2="16.00" stroke="#fffbe0" stroke-width="2.22" stroke-opacity="0.55" stroke-linecap="round"/>
+<line x1="133.24" y1="139.27" x2="250.48" y2="101.18" stroke="#fffbe0" stroke-width="2.22" stroke-opacity="0.55" stroke-linecap="round"/>
+<line x1="133.24" y1="139.27" x2="205.70" y2="239.01" stroke="#fffbe0" stroke-width="2.22" stroke-opacity="0.55" stroke-linecap="round"/>
+<line x1="133.24" y1="139.27" x2="60.78" y2="239.01" stroke="#fffbe0" stroke-width="2.22" stroke-opacity="0.55" stroke-linecap="round"/>
+<line x1="133.24" y1="139.27" x2="16.00" y2="101.18" stroke="#fffbe0" stroke-width="2.22" stroke-opacity="0.55" stroke-linecap="round"/>
+<polygon points="133.24,16.00 164.40,96.39 250.48,101.18 183.65,155.65 205.70,239.01 133.24,192.28 60.78,239.01 82.83,155.65 16.00,101.18 102.08,96.39" fill="none" stroke="#a07a1c" stroke-width="3.45" stroke-linejoin="round" stroke-opacity="0.9"/>
+</svg>
