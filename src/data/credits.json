@@ -191,7 +191,7 @@
   {
     "id": "portrait",
     "title": "Dress blue photograph",
-    "file": "/photos/dress-blues-b.jpg",
+    "file": "/photos/dress-blues-d.jpg",
     "sourceUrl": null,
     "creator": "Photograph supplied for this shadowbox",
     "license": "The veteran's own photograph. Not for reuse outside this record.",
@@ -361,12 +361,12 @@
   },
   {
     "id": "crest-3rd-sfg",
-    "title": "3rd Special Forces Group (Airborne): Special Forces shoulder sleeve insignia with the 3rd Group beret flash",
-    "file": "/crests/3rd-sfg.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:United_States_Army_Special_Forces_SSI_(1958-2015).png",
-    "creator": "United States Army",
-    "license": "Public domain. United States Army heraldic insignia (U.S. Army Institute of Heraldry design), a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
-    "notes": "The two insignia were placed side by side and resized to about 400 px for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/5/58/United_States_Army_Special_Forces_SSI_%281958-2015%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original and https://upload.wikimedia.org/wikipedia/commons/d/d5/3sfg.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original (beret flash, https://commons.wikimedia.org/wiki/File:3sfg.svg) . Not hotlinked."
+    "title": "3rd Special Forces Group (Airborne): beret flash with the distinctive unit insignia",
+    "file": "/crests/3rd-sfg-flash-dui.webp",
+    "sourceUrl": null,
+    "creator": "Reference supplied by the veteran (after the U.S. Army Institute of Heraldry designs)",
+    "license": "United States Army heraldic insignia (U.S. Army Institute of Heraldry design), public domain as a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "The veteran's own reference image, trimmed, resized to about 400 px, saved as WebP."
   },
   {
     "id": "crest-75th-ranger",
@@ -394,5 +394,257 @@
     "creator": "Photograph supplied for this shadowbox",
     "license": "The veteran's own item and photograph. Not for reuse outside this record.",
     "notes": "Coin cut out from its grey background onto transparency, resized to about 500 px, saved as WebP."
+  },
+  {
+    "id": "crest-3-3ada",
+    "title": "3rd Air Defense Artillery Regiment distinctive unit insignia (TF C-RAM, 3-3 ADA)",
+    "file": "/crests/3-3ada-dui.webp",
+    "sourceUrl": null,
+    "creator": "Photograph supplied by the veteran (his reference)",
+    "license": "The veteran's own photograph of a U.S. Army insignia (U.S. Army Institute of Heraldry design). Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Cut out onto transparency by the veteran, trimmed, resized to about 400 px, saved as WebP."
+  },
+  {
+    "id": "crest-rtc-great-lakes",
+    "title": "Recruit Training Command Great Lakes seal",
+    "file": "/crests/rtc-great-lakes.webp",
+    "sourceUrl": null,
+    "creator": "Reference supplied by the veteran (United States Navy seal)",
+    "license": "Public domain. United States Navy insignia, a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "The veteran's own reference image, trimmed and saved as WebP."
+  },
+  {
+    "id": "equipment-pasgt-helmet-desert",
+    "title": "PASGT helmet, desert cover (3-color desert (DCU) cover)",
+    "file": "/equipment/pasgt-helmet-desert-cover-b.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:DCU-cover-for-PASGT-vest,_July-1,_1991.jpg",
+    "creator": "U.S. Army Natick Research, Development and Engineering Center, 1991",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces or a Department of Defense employee in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cropped tightly to the helmet (no face) and resized for this project, saved as WebP. The model is wearing the PASGT vest and helmet with desert covers (Natick photo, 1991). Original file: https://upload.wikimedia.org/wikipedia/commons/4/4a/DCU-cover-for-PASGT-vest%2C_July-1%2C_1991.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-ach-tan",
+    "title": "ACH / MICH, bare tan (Tan shell, no cover)",
+    "file": "/equipment/ach-helmet-tan-b.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_100421-N-4965F-366_Master-at-Arms_3rd_Class_Jason_Henry,_assigned_to_Maritime_Expeditionary_Security_Squadron_(MSRON)_3,_takes_cover_behind_a_riot_shield.jpg",
+    "creator": "MC1 James E. Foehl, U.S. Navy",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces or a Department of Defense employee in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cropped tightly to the helmet (no face) and resized for this project, saved as WebP. The photo shows a bare tan helmet of the ACH/MICH family on a Navy expeditionary security sailor in 2010. It is a representative example, not the exact helmet. Original file: https://upload.wikimedia.org/wikipedia/commons/8/82/US_Navy_100421-N-4965F-366_Master-at-Arms_3rd_Class_Jason_Henry%2C_assigned_to_Maritime_Expeditionary_Security_Squadron_%28MSRON%29_3%2C_takes_cover_behind_a_riot_shield.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-ach-acu-cover",
+    "title": "ACH / MICH, ACU cover (UCP cover and night-vision mount)",
+    "file": "/equipment/ach-helmet-acu-cover-b.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:ACH_005.jpg",
+    "creator": "PEO Soldier (U.S. Army), 2005",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces or a Department of Defense employee in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cropped tightly to the helmet (no face) and resized for this project, saved as WebP. PEO Soldier product photo, archived from peosoldier.army.mil. Original file: https://upload.wikimedia.org/wikipedia/commons/0/0e/ACH_005.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-cougar-mrap",
+    "title": "Cougar MRAP (4x4) (Force Protection Cougar H, desert tan)",
+    "file": "/equipment/cougar-h-mrap.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S.Marine_Cougar_H_EOD.jpg",
+    "creator": "Lance Cpl. Charles Howard, U.S. Marine Corps (2007)",
+    "license": "Public domain. Work of the U.S. federal government (DoD photo).",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/e/ed/U.S.Marine_Cougar_H_EOD.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-m-gator",
+    "title": "John Deere M-Gator (6x4 military utility vehicle)",
+    "file": "/equipment/m-gator.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:1-2_Motor_Transport_140709-M-SG166-006.jpg",
+    "creator": "Cpl. John Martinez, U.S. Marine Corps (2014)",
+    "license": "Public domain. Work of the U.S. federal government (DoD photo).",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/5/55/1-2_Motor_Transport_140709-M-SG166-006.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-polaris-sportsman",
+    "title": "Polaris Sportsman ATV (Military all-terrain vehicle)",
+    "file": "/equipment/polaris-sportsman-atv.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:110104-A-7213S-082_(5327373051).jpg",
+    "creator": "U.S. Department of Defense (2010)",
+    "license": "Public domain. Work of the U.S. federal government (DoD photo).",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/d/d0/110104-A-7213S-082_%285327373051%29.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-polaris-ranger",
+    "title": "Polaris Ranger UTV (Side-by-side utility vehicle)",
+    "file": "/equipment/polaris-ranger-utv.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Polaris_Ranger_XP_1000_-_Mihail_Kogalniceanu_Air_Base.jpg",
+    "creator": "Pfc. Jeremy Hill, U.S. Army (2023)",
+    "license": "Public domain. Work of the U.S. federal government (DoD photo).",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/2/28/Polaris_Ranger_XP_1000_-_Mihail_Kogalniceanu_Air_Base.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-bobcat",
+    "title": "Bobcat skid-steer loader (Compact loader (bucket or forks))",
+    "file": "/equipment/bobcat-skid-steer.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_080714-N-9689V-006_Sapper_Jamie_Livingston,_assigned_to_the_Australian_Army_3rd_Combat_Engineer_Regiment,_operates_a_Bobcat_at_a_Pacific_Partnership_engineering_civic_action_program.jpg",
+    "creator": "U.S. Navy (2008)",
+    "license": "Public domain. Work of the U.S. federal government (DoD photo).",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/2/28/US_Navy_080714-N-9689V-006_Sapper_Jamie_Livingston%2C_assigned_to_the_Australian_Army_3rd_Combat_Engineer_Regiment%2C_operates_a_Bobcat_at_a_Pacific_Partnership_engineering_civic_action_program.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-rhib-eodmu5",
+    "title": "RHIB (rigid-hull inflatable boat) (EODMU-5 dive RHIB, about this size)",
+    "file": "/equipment/rhib-eodmu5.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_051119-N-9851B-013_Members_of_Explosive_Ordnance_Disposal_Mobile_Unit_Five_(EODMU-5),_Detachment_Japan,_tend_to_divers_from_their_position_on_a_Rigid_Hull_Inflatable_Boat_(RHIB).jpg",
+    "creator": "Photographer's Mate 2nd Class John L. Beeman, U.S. Navy (2005)",
+    "license": "Public domain. Work of the U.S. federal government (DoD photo).",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/f/fe/US_Navy_051119-N-9851B-013_Members_of_Explosive_Ordnance_Disposal_Mobile_Unit_Five_%28EODMU-5%29%2C_Detachment_Japan%2C_tend_to_divers_from_their_position_on_a_Rigid_Hull_Inflatable_Boat_%28RHIB%29.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-an-prc-117f",
+    "title": "AN/PRC-117F (Harris multiband manpack radio)",
+    "file": "/equipment/an-prc-117f.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:AN_PRC-117F.jpg",
+    "creator": "U.S. Marine Corps",
+    "license": "Public domain. Work of the U.S. federal government (DoD photo).",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/5/55/AN_PRC-117F.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-an-psc-5",
+    "title": "AN/PSC-5 (Spitfire) (UHF tactical satellite radio; he used the -5D)",
+    "file": "/equipment/an-psc-5.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Setting_up_communications_Royal_Air_Force_Fairford_USAF_040401-F-5098W-001.jpg",
+    "creator": "Senior Airman Stacia M. Willis, U.S. Air Force (2004)",
+    "license": "Public domain. Work of the U.S. federal government (DoD photo).",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/1/1c/Setting_up_communications_Royal_Air_Force_Fairford_USAF_040401-F-5098W-001.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-an-prc-148",
+    "title": "AN/PRC-148 MBITR (Thales handheld radio)",
+    "file": "/equipment/an-prc-148-mbitr.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:AN_PRC-148_(cropped).jpg",
+    "creator": "U.S. Marine Corps",
+    "license": "Public domain. Work of the U.S. federal government (DoD photo).",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/b/b7/AN_PRC-148_%28cropped%29.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-iridium-9505",
+    "title": "Iridium 9505 satellite phone (Handheld satellite phone)",
+    "file": "/equipment/iridium-9505.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Motorola-Iridium-9505.jpg",
+    "creator": "Romeo (Wikimedia Commons user), released into the public domain",
+    "license": "Public domain (released by the author)",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/9/9e/Motorola-Iridium-9505.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-ste",
+    "title": "STE secure telephone (Secure Terminal Equipment)",
+    "file": "/equipment/ste-secure-telephone.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:STE_secure_telephone_-_National_Cryptologic_Museum_-_DSC07960.JPG",
+    "creator": "Daderot, National Cryptologic Museum exhibit",
+    "license": "CC0 (public domain dedication)",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/1/1d/STE_secure_telephone_-_National_Cryptologic_Museum_-_DSC07960.JPG . Not hotlinked."
+  },
+  {
+    "id": "equipment-swe-dish",
+    "title": "SWE-DISH flyaway terminal (Portable satellite terminal)",
+    "file": "/equipment/swe-dish-flyaway.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:SWE-DISH_Satellite_Systems_AB_-_FA150T_Mil_Fly-Away_systems_2.png",
+    "creator": "Fabien Tremoulinas",
+    "license": "CC0 (public domain dedication)",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/7/70/SWE-DISH_Satellite_Systems_AB_-_FA150T_Mil_Fly-Away_systems_2.png . Not hotlinked."
+  },
+  {
+    "id": "equipment-koi-18",
+    "title": "KOI-18 (General purpose tape reader (fill device))",
+    "file": "/equipment/koi-18.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:KOI-18_General_Purpose_Tape_Reader_-_National_Cryptologic_Museum_-_DSC07990.JPG",
+    "creator": "Daderot, National Cryptologic Museum exhibit",
+    "license": "CC0 (public domain dedication)",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/b/b0/KOI-18_General_Purpose_Tape_Reader_-_National_Cryptologic_Museum_-_DSC07990.JPG . Not hotlinked."
+  },
+  {
+    "id": "equipment-kyk-13",
+    "title": "KYK-13 (Electronic transfer device (fill device))",
+    "file": "/equipment/kyk-13.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:KYK-13_Electronic_Transfer_Device,_holds_six_cryptographic_keys_-_National_Cryptologic_Museum_-_DSC07989.JPG",
+    "creator": "Daderot, National Cryptologic Museum exhibit",
+    "license": "CC0 (public domain dedication)",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/6/65/KYK-13_Electronic_Transfer_Device%2C_holds_six_cryptographic_keys_-_National_Cryptologic_Museum_-_DSC07989.JPG . Not hotlinked."
+  },
+  {
+    "id": "equipment-an-cyz-10",
+    "title": "AN/CYZ-10 DTD (Data transfer device (fill device))",
+    "file": "/equipment/an-cyz-10.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:AN-CYZ-10_Data_Transfer_Device_-_National_Cryptologic_Museum_-_DSC07945.JPG",
+    "creator": "Daderot, National Cryptologic Museum exhibit",
+    "license": "CC0 (public domain dedication)",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/b/bb/AN-CYZ-10_Data_Transfer_Device_-_National_Cryptologic_Museum_-_DSC07945.JPG . Not hotlinked."
+  },
+  {
+    "id": "equipment-kl-43",
+    "title": "KL-43 (TRW keyboard crypto terminal; he used the KL-43C)",
+    "file": "/equipment/kl-43.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:KL-43_Off-line_and_On-line_Digital_Encryption_(Adaptation_of_language_translator_technology),_late_70s-80s_-_National_Cryptologic_Museum_-_DSC07943.JPG",
+    "creator": "Daderot, National Cryptologic Museum exhibit",
+    "license": "CC0 (public domain dedication)",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/6/61/KL-43_Off-line_and_On-line_Digital_Encryption_%28Adaptation_of_language_translator_technology%29%2C_late_70s-80s_-_National_Cryptologic_Museum_-_DSC07943.JPG . Not hotlinked."
+  },
+  {
+    "id": "equipment-taclane",
+    "title": "TACLANE KG-175 / KG-175A (General Dynamics in-line network encryptor)",
+    "file": "/equipment/taclane-kg-175.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:KG-175A_%26_KG-175_TACLANE_In-Line_Network_Encryptors_-_National_Cryptologic_Museum_-_DSC07957.JPG",
+    "creator": "Daderot, National Cryptologic Museum exhibit",
+    "license": "CC0 (public domain dedication)",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/a/a2/KG-175A_%26_KG-175_TACLANE_In-Line_Network_Encryptors_-_National_Cryptologic_Museum_-_DSC07957.JPG . Not hotlinked."
+  },
+  {
+    "id": "equipment-kg-84",
+    "title": "KG-84 / KG-84A (Dedicated loop encryption device)",
+    "file": "/equipment/kg-84.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:KG-84_Dedicated_Loop_Encryption_Device_-_National_Cryptologic_Museum_-_DSC08015.JPG",
+    "creator": "Daderot, National Cryptologic Museum exhibit",
+    "license": "CC0 (public domain dedication)",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/c/c6/KG-84_Dedicated_Loop_Encryption_Device_-_National_Cryptologic_Museum_-_DSC08015.JPG . Not hotlinked."
+  },
+  {
+    "id": "equipment-ky-100",
+    "title": "KY-100 (Secure voice equipment (model to confirm))",
+    "file": "/equipment/ky-100.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:KY-100_Secure_Voice_Equipment,_1990s_onward_-_National_Cryptologic_Museum_-_DSC08020.JPG",
+    "creator": "Daderot, National Cryptologic Museum exhibit",
+    "license": "CC0 (public domain dedication)",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/6/6c/KY-100_Secure_Voice_Equipment%2C_1990s_onward_-_National_Cryptologic_Museum_-_DSC08020.JPG . Not hotlinked."
+  },
+  {
+    "id": "equipment-an-pyq-10",
+    "title": "AN/PYQ-10 SKL (Simple Key Loader)",
+    "file": "/equipment/an-pyq-10-skl.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S._Marine_Corps_Lance_Cpl._Katrina_L._Bunn,_avionics_technician,_Marine_Medium_Tiltrotor_Squadron_162,_utilizes_a_simple_key_loader_(SKL)_on_an_MV-22_Osprey%27s_avionics_bay,_Camp_Bastion,_Helmand_Province_111009-M-CL319-036.jpg",
+    "creator": "Lance Cpl. Robert R. Carrasco, U.S. Marine Corps (2011)",
+    "license": "Public domain. Work of the U.S. federal government (DoD photo).",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/c/cb/U.S._Marine_Corps_Lance_Cpl._Katrina_L._Bunn%2C_avionics_technician%2C_Marine_Medium_Tiltrotor_Squadron_162%2C_utilizes_a_simple_key_loader_%28SKL%29_on_an_MV-22_Osprey%27s_avionics_bay%2C_Camp_Bastion%2C_Helmand_Province_111009-M-CL319-036.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-jblox",
+    "title": "JBLOX (JCSE transit-case comms kit)",
+    "file": "/equipment/jblox.webp",
+    "sourceUrl": "https://www.dvidshub.net/image/1407702/jcse-embarks-usns-spearhead-mission-supporting-ussouthcom-area-operations",
+    "creator": "Richard Maupin, Joint Enabling Capabilities Command (2013)",
+    "license": "Public domain. Work of the U.S. federal government (DoD photo).",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/1406/1407702/2000w_q95.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-jcse-iep",
+    "title": "JCSE IEP kit (Initial Entry Package) (Small deployable comms package)",
+    "file": "/equipment/jcse-iep.webp",
+    "sourceUrl": "https://www.dvidshub.net/image/1020017/talisman-saber-13-shows-flexibility-versatility-jecc-capabilities",
+    "creator": "Joint Enabling Capabilities Command (2013)",
+    "license": "Public domain. Work of the U.S. federal government (DoD photo).",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/1309/1020017/2000w_q95.jpg . Not hotlinked."
+  },
+  {
+    "id": "crest-jcse-ssi",
+    "title": "Joint Communications Support Element shoulder sleeve insignia with AIRBORNE tab",
+    "file": "/crests/jcse-ssi-airborne.webp",
+    "sourceUrl": null,
+    "creator": "Image supplied by the veteran (his reference)",
+    "license": "Reference image supplied by the veteran of a U.S. military insignia. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "White background removed to transparency, resized, saved as WebP. The JCSE seal is shown in the popup."
   }
 ]

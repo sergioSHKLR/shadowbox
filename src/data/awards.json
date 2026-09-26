@@ -180,10 +180,11 @@
         "kind": "letter",
         "metal": "silver",
         "letter": "E",
-        "count": 3
+        "count": 3,
+        "style": "battle"
       }
     ],
-    "deviceExplanation": "Three awards. Each of the first three is a silver letter E. A fourth award would replace the three letters with one wreathed E. That is not the case here.",
+    "deviceExplanation": "Three awards, each a 3/16 in silver Battle E: a plain block letter, smaller than the marksmanship E. A fourth award would replace the three letters with one wreathed E. That is not the case here.",
     "explanation": "The Battle Effectiveness ribbon. A ship or unit wins it by placing at the top of its group in an annual competition of readiness and skill. The people assigned there when it is won may wear the ribbon.",
     "criteria": "Permanent duty in a unit that won the battle-efficiency competition.",
     "sourceNote": "Navy E Ribbon (3). Worksheet years: 2001, 2002, and 2003, the Frank Cable years.",
@@ -395,10 +396,11 @@
         "kind": "letter",
         "metal": "silver",
         "letter": "E",
-        "count": 1
+        "count": 1,
+        "style": "expert"
       }
     ],
-    "deviceExplanation": "Expert is the top of three levels: Marksman, Sharpshooter, Expert. Shown with a silver E. A sharpshooter ribbon would carry a bronze S instead.",
+    "deviceExplanation": "Expert is the top of three levels: Marksman, Sharpshooter, Expert. Shown with the 1/4 in silver Expert E, a heavy slab-serif letter that differs from the Battle E. A sharpshooter ribbon would carry a bronze S instead.",
     "explanation": "Shows the score fired with the service rifle on the Navy qualification course. It is a skill badge in ribbon form, worn at the very end of the rack, after every decoration and every foreign award.",
     "criteria": "Expert qualification on the rifle course. Worksheet year: 2001.",
     "sourceNote": "Navy Rifle Expert Medal.",
@@ -419,10 +421,11 @@
         "kind": "letter",
         "metal": "silver",
         "letter": "E",
-        "count": 1
+        "count": 1,
+        "style": "expert"
       }
     ],
-    "deviceExplanation": "Expert with the service pistol, shown with a silver E.",
+    "deviceExplanation": "Expert with the service pistol, shown with the 1/4 in silver Expert E (slab-serif, larger than the Battle E).",
     "explanation": "The pistol version of the marksmanship ribbon. Same three levels. Expert is the highest. It is worn after the rifle ribbon.",
     "criteria": "Expert qualification on the pistol course. Worksheet year: 2000.",
     "sourceNote": "Navy Pistol Expert Medal.",
