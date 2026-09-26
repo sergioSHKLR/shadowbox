@@ -77,7 +77,7 @@ export function ShadowboxApp() {
         </nav>
       </header>
 
-      {view === "case" ? <Case rows={rows} blanks={blanks} portraitAlt={portrait?.alt ?? profile.name} onOpen={open} /> : null}
+      {view === "case" ? <Case rows={rows} blanks={blanks} portraitAlt={portrait?.alt ?? profile.name} portraitId={portrait?.id} onOpen={open} /> : null}
       {view === "timeline" ? <Timeline bars={bars} onOpen={open} /> : null}
       {view === "uniforms" ? <Uniforms onOpen={open} /> : null}
       {view === "map" ? <Stations stops={stops} onOpen={open} /> : null}
@@ -111,11 +111,13 @@ function Case({
   rows,
   blanks,
   portraitAlt,
+  portraitId,
   onOpen,
 }: {
   rows: ReturnType<typeof ribbonRows>;
   blanks: string[];
   portraitAlt: string;
+  portraitId?: string;
   onOpen: (k: Kind, id: string) => void;
 }) {
   const marks = caseMarks();
@@ -124,7 +126,13 @@ function Case({
       <section className="case" aria-label="Shadowbox">
         <div className="case-frame">
           <div className="nameplate">
-            <img className="portrait" src={publicUrl(profile.portrait)} alt={portraitAlt} />
+            {portraitId ? (
+              <button type="button" className="portrait-btn" onClick={() => onOpen("photo", portraitId)} aria-label={`${portraitAlt}. Open the photograph.`}>
+                <img className="portrait" src={publicUrl(profile.portrait)} alt={portraitAlt} />
+              </button>
+            ) : (
+              <img className="portrait" src={publicUrl(profile.portrait)} alt={portraitAlt} />
+            )}
             <div>
               <p className="kicker">{profile.rating} {profile.rank}</p>
               <h2>{profile.name}</h2>
@@ -312,7 +320,6 @@ function Uniforms({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
                   <button type="button" className="uniform-card" onClick={() => onOpen("uniform", uniform.id)}>
                     <img className="uniform-photo" src={publicUrl(uniform.image)} alt="" loading="lazy" />
                     <strong>{uniform.name}</strong>
-                    <span>{uniform.dateLabel}</span>
                   </button>
                 </li>
               ))}
