@@ -1,0 +1,16 @@
+[
+  {
+    "id": "esws",
+    "name": "Enlisted Surface Warfare Specialist",
+    "abbreviation": "ESWS",
+    "explanation": "A qualification pin for sailors on surface ships. Earning it means learning the ship's main systems and missions and passing a board of people who already hold the pin. The device shows a ship, waves, and a cutlass.",
+    "criteria": "Study, a personal qualification book, and an oral board while assigned to a surface ship. USS Frank Cable is the ship in this record."
+  },
+  {
+    "id": "exw",
+    "name": "Enlisted Expeditionary Warfare Specialist",
+    "abbreviation": "EXW",
+    "explanation": "The expeditionary version of a warfare pin, for sailors in units that deploy ashore or from the sea rather than as a ship's company. The device carries the word expeditionary. EOD Mobile Unit Five and the later joint communications tours are the expeditionary part of this career.",
+    "criteria": "A qualification book and a board, in an expeditionary command."
+  }
+]

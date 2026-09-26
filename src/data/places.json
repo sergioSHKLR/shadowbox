@@ -1,0 +1,83 @@
+[
+  {
+    "id": "great-lakes",
+    "name": "Recruit Training Command, Great Lakes",
+    "locality": "Great Lakes, Illinois",
+    "lat": 42.3068,
+    "lng": -87.8468,
+    "accuracy": "public-site",
+    "note": "Public location of the Navy's recruit training command. Not a home address."
+  },
+  {
+    "id": "san-diego",
+    "name": "Naval Base San Diego",
+    "locality": "San Diego, California",
+    "lat": 32.684,
+    "lng": -117.129,
+    "accuracy": "approximate",
+    "note": "Approximate public location of the naval base where NCTS San Diego operated. Replace with the building you want shown."
+  },
+  {
+    "id": "guam",
+    "name": "Naval Base Guam",
+    "locality": "Apra Harbor, Guam",
+    "lat": 13.444,
+    "lng": 144.654,
+    "accuracy": "public-site",
+    "note": "Public location of the home port used by USS Frank Cable and by EOD Mobile Unit Five in these years."
+  },
+  {
+    "id": "iraq",
+    "name": "Iraq \u2014 bases not entered",
+    "locality": "Iraq",
+    "lat": 33.223,
+    "lng": 43.679,
+    "accuracy": "placeholder",
+    "note": "PLACEHOLDER. This pin is only a center point for Iraq so the map is not empty. It is not a claim about a specific base. Replace the coordinates."
+  },
+  {
+    "id": "nas-jax",
+    "name": "Naval Air Station Jacksonville",
+    "locality": "Jacksonville, Florida",
+    "lat": 30.235,
+    "lng": -81.681,
+    "accuracy": "public-site",
+    "note": "Public location of the air station. SERCC was on this base."
+  },
+  {
+    "id": "nh-jax",
+    "name": "Naval Hospital Jacksonville",
+    "locality": "Jacksonville, Florida",
+    "lat": 30.229,
+    "lng": -81.655,
+    "accuracy": "approximate",
+    "note": "Approximate public location of the hospital on the Jacksonville naval complex. Adjust the pin if you want a specific gate or building."
+  },
+  {
+    "id": "macdill",
+    "name": "MacDill Air Force Base",
+    "locality": "Tampa, Florida",
+    "lat": 27.85,
+    "lng": -82.521,
+    "accuracy": "public-site",
+    "note": "Public location of MacDill, where Joint Communications Support Element is based."
+  },
+  {
+    "id": "afghanistan",
+    "name": "Afghanistan \u2014 bases not entered",
+    "locality": "Afghanistan",
+    "lat": 33.939,
+    "lng": 67.71,
+    "accuracy": "placeholder",
+    "note": "PLACEHOLDER. Center of Afghanistan only. Not a specific base. Replace the coordinates."
+  },
+  {
+    "id": "pentagon",
+    "name": "The Pentagon",
+    "locality": "Arlington, Virginia",
+    "lat": 38.871,
+    "lng": -77.056,
+    "accuracy": "approximate",
+    "note": "OPNAV, the Chief of Naval Operations staff, is headquartered at the Pentagon. Confirm this was the desk you actually worked."
+  }
+]
