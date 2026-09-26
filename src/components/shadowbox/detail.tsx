@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import {
   photosFor,
   placeById,
+  publicUrl,
   reflectionFor,
   toSubject,
   type Selection,
@@ -104,7 +105,7 @@ export function DetailPanel({
                     <ul className="gallery">
                       {photos.map((photo) => (
                         <li key={photo.id}>
-                          <img src={photo.src} alt={photo.alt} />
+                          <img src={publicUrl(photo.src)} alt={photo.alt} />
                           <p>{photo.caption}</p>
                         </li>
                       ))}

@@ -1,5 +1,6 @@
 import { useId } from "react";
 import type { Award, Device } from "@/lib/shadowbox/model";
+import { publicUrl } from "@/lib/shadowbox/model";
 import { countPhrase, deviceSummary } from "@/lib/shadowbox/model";
 
 function Star() {
@@ -54,7 +55,7 @@ export function RibbonButton({
   const label = `${award.name}. ${countPhrase(award)}. ${deviceSummary(award)}. Open the explanation.`;
   return (
     <button type="button" className={award.framed ? "ribbon framed" : "ribbon"} onClick={onOpen} aria-label={label}>
-      <img src={award.ribbon} alt="" />
+      <img src={publicUrl(award.ribbon)} alt="" />
       <Devices devices={award.devices} />
     </button>
   );
