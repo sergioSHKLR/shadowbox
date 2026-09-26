@@ -25,6 +25,7 @@ import {
   UNIFORM_GROUPS,
   EQUIPMENT_GROUPS,
   equipment,
+  bases,
   type Kind,
   type Selection,
 } from "@/lib/shadowbox/model";
@@ -38,7 +39,7 @@ const NAV: { id: View; label: string }[] = [
   { id: "case", label: "Case" },
   { id: "timeline", label: "Timeline" },
   { id: "uniforms", label: "Uniforms" },
-  { id: "equipment", label: "Weapons, Vehicles & Ships" },
+  { id: "equipment", label: "Gear & Vehicles" },
   { id: "map", label: "Map" },
   { id: "sources", label: "Sources" },
 ];
@@ -89,11 +90,6 @@ export function ShadowboxApp() {
       {view === "map" ? <Stations stops={stops} onOpen={open} /> : null}
       {view === "sources" ? <Sources /> : null}
 
-      <footer className="colophon">
-        <p>
-          A private reading copy of one career. No Social Security number, date of birth, or home address is stored here.
-        </p>
-      </footer>
       <DetailPanel selection={selection} onSelect={setSelection} onClose={() => setSelection(null)} />
     </div>
   );
@@ -358,7 +354,7 @@ function Uniforms({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
 function EquipmentView({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
   return (
     <main className="sheet">
-      <h2>Weapons, Vehicles &amp; Ships</h2>
+      <h2>Gear, Weapons, Comms, Vehicles &amp; Boats</h2>
       <p>{caseCopy.equipmentLead}</p>
       {EQUIPMENT_GROUPS.map((group) => {
         const list = equipment.filter((item) => item.group === group.id).sort((a, b) => a.order - b.order);
@@ -389,7 +385,7 @@ function Stations({ stops, onOpen }: { stops: ReturnType<typeof careerStops>; on
     <main className="sheet">
       <h2>Where the career went</h2>
       <p>{caseCopy.mapLead}</p>
-      <MapView stops={stops} onSelect={(id) => onOpen("place", id)} />
+      <MapView stops={stops} extra={bases} onSelect={(id) => onOpen("place", id)} />
       <ol className="stop-list">
         {stops.map((stop, index) => (
           <li key={`${stop.place.id}-${index}`}>
@@ -401,6 +397,22 @@ function Stations({ stops, onOpen }: { stops: ReturnType<typeof careerStops>; on
           </li>
         ))}
       </ol>
+      {bases.length ? (
+        <>
+          <h3>Deployment bases</h3>
+          <ol className="stop-list">
+            {bases.map((place) => (
+              <li key={place.id}>
+                <button type="button" onClick={() => onOpen("place", place.id)}>
+                  <span className={`pip base ${place.accuracy}`} />
+                  <strong>{place.name}</strong>
+                  <span>{place.locality}{place.accuracy === "approximate" ? " · approximate" : ""}</span>
+                </button>
+              </li>
+            ))}
+          </ol>
+        </>
+      ) : null}
     </main>
   );
 }

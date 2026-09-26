@@ -36,7 +36,7 @@
     "name": "M4 carbine",
     "caption": "Shown with the rail adapter system handguard",
     "cutout": true,
-    "note": "5.56 mm carbine: a shorter, lighter member of the M16 family with a collapsible stock.",
+    "note": "5.56 mm carbine: a shorter, lighter member of the M16 family with a collapsible stock. His own M4 in Iraq (March 2006) carried a Knight's RIS quad rail, an EOTech holographic weapon sight (likely a 552), a forward rail grip area, a tan single-point sling and field-applied desert spray paint. The card photo is a PEO Soldier M4 with the rail system, not his rifle.",
     "image": "/equipment/m4-carbine.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:PEO_M4_Carbine_RAS.jpg",
@@ -202,6 +202,406 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_091117-N-6720T-185_The_amphibious_assault_ship_USS_Essex_(LHD_2)_is_underway_in_the_Pacific_Ocean.jpg",
       "file": "https://upload.wikimedia.org/wikipedia/commons/e/e1/US_Navy_091117-N-6720T-185_The_amphibious_assault_ship_USS_Essex_%28LHD_2%29_is_underway_in_the_Pacific_Ocean.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
       "creator": "Mass Communication Specialist Seaman Adam K. Thomas, U.S. Navy",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "pasgt-helmet-desert",
+    "group": "helmets",
+    "order": 1,
+    "name": "PASGT helmet, desert cover",
+    "caption": "3-color desert (DCU) cover",
+    "cutout": false,
+    "note": "Personnel Armor System for Ground Troops (PASGT) helmet, the Kevlar “K-pot” the U.S. Army and Marine Corps fielded in the early 1980s. It protects the head, temples, ears and neck against fragments. Shown in the 3-color desert (DCU) cover worn with desert uniforms. During the 2000s the Army replaced it with the Advanced Combat Helmet.",
+    "image": "/equipment/pasgt-helmet-desert-cover-b.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:DCU-cover-for-PASGT-vest,_July-1,_1991.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/4/4a/DCU-cover-for-PASGT-vest%2C_July-1%2C_1991.jpg",
+      "creator": "U.S. Army Natick Research, Development and Engineering Center, 1991",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "ach-tan",
+    "group": "helmets",
+    "order": 2,
+    "name": "ACH / MICH, bare tan",
+    "caption": "Tan shell, no cover",
+    "cutout": false,
+    "note": "Advanced Combat Helmet (ACH), developed from the Special Operations MICH. PEO Soldier says it has been in use since 2002 and replaced the PASGT. It is lighter than the PASGT and gives better fragment, ballistic and impact protection. It has pad suspension and a pre-drilled hole for a night-vision mount. Shells were painted in several colors, including tan, and were often worn without a cover.",
+    "image": "/equipment/ach-helmet-tan-b.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_100421-N-4965F-366_Master-at-Arms_3rd_Class_Jason_Henry,_assigned_to_Maritime_Expeditionary_Security_Squadron_(MSRON)_3,_takes_cover_behind_a_riot_shield.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/8/82/US_Navy_100421-N-4965F-366_Master-at-Arms_3rd_Class_Jason_Henry%2C_assigned_to_Maritime_Expeditionary_Security_Squadron_%28MSRON%29_3%2C_takes_cover_behind_a_riot_shield.jpg",
+      "creator": "MC1 James E. Foehl, U.S. Navy",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "ach-acu-cover",
+    "group": "helmets",
+    "order": 3,
+    "name": "ACH / MICH, ACU cover",
+    "caption": "UCP cover and night-vision mount",
+    "cutout": false,
+    "note": "The Advanced Combat Helmet in the Universal Camouflage Pattern (UCP) cover of the Army Combat Uniform, with a night-vision mount bracket on the front. This was the standard Army helmet look of the ACU years, from the mid-2000s.",
+    "image": "/equipment/ach-helmet-acu-cover-b.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:ACH_005.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/0/0e/ACH_005.jpg",
+      "creator": "PEO Soldier (U.S. Army), 2005",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "cougar-mrap",
+    "group": "vehicles",
+    "order": 20,
+    "name": "Cougar MRAP (4x4)",
+    "caption": "Force Protection Cougar H, desert tan",
+    "cutout": false,
+    "note": "Mine Resistant Ambush Protected (MRAP) truck built by Force Protection Inc. Its V-shaped hull deflects blast away from the crew compartment. The 4x4 Cougar H was fielded to U.S. forces in Iraq and Afghanistan from 2007. Card photo: a Marine EOD Cougar H.",
+    "image": "/equipment/cougar-h-mrap.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S.Marine_Cougar_H_EOD.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/e/ed/U.S.Marine_Cougar_H_EOD.jpg",
+      "creator": "Lance Cpl. Charles Howard, U.S. Marine Corps (2007)",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "m-gator",
+    "group": "vehicles",
+    "order": 21,
+    "name": "John Deere M-Gator",
+    "caption": "6x4 military utility vehicle",
+    "cutout": false,
+    "note": "John Deere M-Gator: a small 6x4 utility vehicle that carries two people and cargo, small enough to fly inside transport aircraft and helicopters. Card photo: Marines test-drive an M-Gator at Camp Leatherneck, Afghanistan, 2014.",
+    "image": "/equipment/m-gator.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:1-2_Motor_Transport_140709-M-SG166-006.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/5/55/1-2_Motor_Transport_140709-M-SG166-006.jpg",
+      "creator": "Cpl. John Martinez, U.S. Marine Corps (2014)",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "polaris-sportsman",
+    "group": "vehicles",
+    "order": 22,
+    "name": "Polaris Sportsman ATV",
+    "caption": "Military all-terrain vehicle",
+    "cutout": false,
+    "note": "Polaris Sportsman military all-terrain vehicle, a four-wheel quad used for light transport around bases and on patrol in Afghanistan. Card photo: a Polaris ATV at FOB Walton, Afghanistan, 2010.",
+    "image": "/equipment/polaris-sportsman-atv.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:110104-A-7213S-082_(5327373051).jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/d/d0/110104-A-7213S-082_%285327373051%29.jpg",
+      "creator": "U.S. Department of Defense (2010)",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "polaris-ranger",
+    "group": "vehicles",
+    "order": 23,
+    "name": "Polaris Ranger UTV",
+    "caption": "Side-by-side utility vehicle",
+    "cutout": false,
+    "note": "Polaris Ranger: a side-by-side utility task vehicle (UTV) with a cargo bed, used for moving people and gear around bases. Card photo: a Ranger XP 1000 at Mihail Kogalniceanu Air Base, 2023 (a newer model than the one he used).",
+    "image": "/equipment/polaris-ranger-utv.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Polaris_Ranger_XP_1000_-_Mihail_Kogalniceanu_Air_Base.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/2/28/Polaris_Ranger_XP_1000_-_Mihail_Kogalniceanu_Air_Base.jpg",
+      "creator": "Pfc. Jeremy Hill, U.S. Army (2023)",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "bobcat",
+    "group": "vehicles",
+    "order": 24,
+    "name": "Bobcat skid-steer loader",
+    "caption": "Compact loader (bucket or forks)",
+    "cutout": false,
+    "note": "Bobcat skid-steer loader: a compact loader that steers by turning its wheels at different speeds and takes a bucket, forks or other attachments. Card photo: a Bobcat on a Pacific Partnership engineering project, East Timor, 2008.",
+    "image": "/equipment/bobcat-skid-steer.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_080714-N-9689V-006_Sapper_Jamie_Livingston,_assigned_to_the_Australian_Army_3rd_Combat_Engineer_Regiment,_operates_a_Bobcat_at_a_Pacific_Partnership_engineering_civic_action_program.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/2/28/US_Navy_080714-N-9689V-006_Sapper_Jamie_Livingston%2C_assigned_to_the_Australian_Army_3rd_Combat_Engineer_Regiment%2C_operates_a_Bobcat_at_a_Pacific_Partnership_engineering_civic_action_program.jpg",
+      "creator": "U.S. Navy (2008)",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "rhib-eodmu5",
+    "group": "ships",
+    "order": 30,
+    "name": "RHIB (rigid-hull inflatable boat)",
+    "caption": "EODMU-5 dive RHIB, about this size",
+    "cutout": false,
+    "note": "Rigid-hull inflatable boat: a solid hull with inflatable tubes around it, used by Navy EOD mobile units as a dive and work boat. Sergio used an EODMU-5 center-console dive RHIB of about this size; the exact length and maker are not confirmed. Card photo: EODMU-5 Detachment Japan tending divers from a RHIB, 2005.",
+    "image": "/equipment/rhib-eodmu5.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_051119-N-9851B-013_Members_of_Explosive_Ordnance_Disposal_Mobile_Unit_Five_(EODMU-5),_Detachment_Japan,_tend_to_divers_from_their_position_on_a_Rigid_Hull_Inflatable_Boat_(RHIB).jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/f/fe/US_Navy_051119-N-9851B-013_Members_of_Explosive_Ordnance_Disposal_Mobile_Unit_Five_%28EODMU-5%29%2C_Detachment_Japan%2C_tend_to_divers_from_their_position_on_a_Rigid_Hull_Inflatable_Boat_%28RHIB%29.jpg",
+      "creator": "Photographer's Mate 2nd Class John L. Beeman, U.S. Navy (2005)",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "an-prc-117f",
+    "group": "comms",
+    "order": 1,
+    "name": "AN/PRC-117F",
+    "caption": "Harris multiband manpack radio",
+    "cutout": true,
+    "note": "Harris AN/PRC-117F: a multiband manpack radio covering VHF and UHF, including UHF tactical satellite (TACSAT), with built-in COMSEC. Widely used by U.S. forces in the 2000s.",
+    "image": "/equipment/an-prc-117f.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:AN_PRC-117F.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/5/55/AN_PRC-117F.jpg",
+      "creator": "U.S. Marine Corps",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "an-psc-5",
+    "group": "comms",
+    "order": 2,
+    "name": "AN/PSC-5 (Spitfire)",
+    "caption": "UHF tactical satellite radio; he used the -5D",
+    "cutout": false,
+    "note": "AN/PSC-5 “Spitfire”: a lightweight UHF tactical satellite (TACSAT) and line-of-sight manpack radio. He used the AN/PSC-5D version; the card photo shows an airman assembling a PSC-5 at RAF Fairford, 2004.",
+    "image": "/equipment/an-psc-5.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Setting_up_communications_Royal_Air_Force_Fairford_USAF_040401-F-5098W-001.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Setting_up_communications_Royal_Air_Force_Fairford_USAF_040401-F-5098W-001.jpg",
+      "creator": "Senior Airman Stacia M. Willis, U.S. Air Force (2004)",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "an-prc-148",
+    "group": "comms",
+    "order": 3,
+    "name": "AN/PRC-148 MBITR",
+    "caption": "Thales handheld radio",
+    "cutout": true,
+    "note": "Thales AN/PRC-148 Multiband Inter/Intra Team Radio (MBITR): a handheld radio covering 30–512 MHz with embedded encryption, widely used by U.S. special operations forces.",
+    "image": "/equipment/an-prc-148-mbitr.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:AN_PRC-148_(cropped).jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/b/b7/AN_PRC-148_%28cropped%29.jpg",
+      "creator": "U.S. Marine Corps",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "iridium-9505",
+    "group": "comms",
+    "order": 4,
+    "name": "Iridium 9505 satellite phone",
+    "caption": "Handheld satellite phone",
+    "cutout": false,
+    "note": "Motorola 9505 handset for the Iridium satellite network, which reaches almost anywhere on Earth through a constellation of low-orbit satellites.",
+    "image": "/equipment/iridium-9505.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Motorola-Iridium-9505.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Motorola-Iridium-9505.jpg",
+      "creator": "Romeo (Wikimedia Commons user), released into the public domain",
+      "license": "Public domain (released by the author)"
+    }
+  },
+  {
+    "id": "ste",
+    "group": "comms",
+    "order": 5,
+    "name": "STE secure telephone",
+    "caption": "Secure Terminal Equipment",
+    "cutout": false,
+    "note": "Secure Terminal Equipment (STE): the U.S. government secure desk telephone that replaced the STU-III, encrypting calls with a Fortezza crypto card. Card photo: National Cryptologic Museum.",
+    "image": "/equipment/ste-secure-telephone.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:STE_secure_telephone_-_National_Cryptologic_Museum_-_DSC07960.JPG",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/1/1d/STE_secure_telephone_-_National_Cryptologic_Museum_-_DSC07960.JPG",
+      "creator": "Daderot, National Cryptologic Museum exhibit",
+      "license": "CC0 (public domain dedication)"
+    }
+  },
+  {
+    "id": "swe-dish",
+    "group": "comms",
+    "order": 6,
+    "name": "SWE-DISH flyaway terminal",
+    "caption": "Portable satellite terminal",
+    "cutout": false,
+    "note": "SWE-DISH flyaway satellite terminal: a small satellite dish that packs into transit cases and sets up in the field to give a team a satellite data link. Card photo: SWE-DISH FA150T military flyaway systems.",
+    "image": "/equipment/swe-dish-flyaway.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:SWE-DISH_Satellite_Systems_AB_-_FA150T_Mil_Fly-Away_systems_2.png",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/7/70/SWE-DISH_Satellite_Systems_AB_-_FA150T_Mil_Fly-Away_systems_2.png",
+      "creator": "Fabien Tremoulinas",
+      "license": "CC0 (public domain dedication)"
+    }
+  },
+  {
+    "id": "koi-18",
+    "group": "comms",
+    "order": 7,
+    "name": "KOI-18",
+    "caption": "General purpose tape reader (fill device)",
+    "cutout": false,
+    "note": "KOI-18: a hand-held reader that pulls punched paper key tape through by hand and loads the key into crypto equipment. Card photo: National Cryptologic Museum.",
+    "image": "/equipment/koi-18.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KOI-18_General_Purpose_Tape_Reader_-_National_Cryptologic_Museum_-_DSC07990.JPG",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/b/b0/KOI-18_General_Purpose_Tape_Reader_-_National_Cryptologic_Museum_-_DSC07990.JPG",
+      "creator": "Daderot, National Cryptologic Museum exhibit",
+      "license": "CC0 (public domain dedication)"
+    }
+  },
+  {
+    "id": "kyk-13",
+    "group": "comms",
+    "order": 8,
+    "name": "KYK-13",
+    "caption": "Electronic transfer device (fill device)",
+    "cutout": false,
+    "note": "KYK-13: an electronic transfer device that holds up to six cryptographic keys and loads them into crypto equipment. Card photo: National Cryptologic Museum.",
+    "image": "/equipment/kyk-13.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KYK-13_Electronic_Transfer_Device,_holds_six_cryptographic_keys_-_National_Cryptologic_Museum_-_DSC07989.JPG",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/6/65/KYK-13_Electronic_Transfer_Device%2C_holds_six_cryptographic_keys_-_National_Cryptologic_Museum_-_DSC07989.JPG",
+      "creator": "Daderot, National Cryptologic Museum exhibit",
+      "license": "CC0 (public domain dedication)"
+    }
+  },
+  {
+    "id": "an-cyz-10",
+    "group": "comms",
+    "order": 9,
+    "name": "AN/CYZ-10 DTD",
+    "caption": "Data transfer device (fill device)",
+    "cutout": false,
+    "note": "AN/CYZ-10 Data Transfer Device, the “crazy 10”: a hand-held key-management device that stores and loads electronic keys, replacing the KYK-13 and KOI-18. Card photo: National Cryptologic Museum.",
+    "image": "/equipment/an-cyz-10.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:AN-CYZ-10_Data_Transfer_Device_-_National_Cryptologic_Museum_-_DSC07945.JPG",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/b/bb/AN-CYZ-10_Data_Transfer_Device_-_National_Cryptologic_Museum_-_DSC07945.JPG",
+      "creator": "Daderot, National Cryptologic Museum exhibit",
+      "license": "CC0 (public domain dedication)"
+    }
+  },
+  {
+    "id": "kl-43",
+    "group": "comms",
+    "order": 10,
+    "name": "KL-43",
+    "caption": "TRW keyboard crypto terminal; he used the KL-43C",
+    "cutout": false,
+    "note": "KL-43: a small TRW battery-powered keyboard terminal that encrypts text messages off-line and sends them over a phone line or radio. He used the KL-43C version; the card photo shows a KL-43 at the National Cryptologic Museum.",
+    "image": "/equipment/kl-43.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KL-43_Off-line_and_On-line_Digital_Encryption_(Adaptation_of_language_translator_technology),_late_70s-80s_-_National_Cryptologic_Museum_-_DSC07943.JPG",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/6/61/KL-43_Off-line_and_On-line_Digital_Encryption_%28Adaptation_of_language_translator_technology%29%2C_late_70s-80s_-_National_Cryptologic_Museum_-_DSC07943.JPG",
+      "creator": "Daderot, National Cryptologic Museum exhibit",
+      "license": "CC0 (public domain dedication)"
+    }
+  },
+  {
+    "id": "taclane",
+    "group": "comms",
+    "order": 11,
+    "name": "TACLANE KG-175 / KG-175A",
+    "caption": "General Dynamics in-line network encryptor",
+    "cutout": false,
+    "note": "TACLANE (KG-175): the General Dynamics in-line network encryptor (INE) that secures IP traffic across untrusted networks. Card photo: a KG-175A and KG-175 at the National Cryptologic Museum.",
+    "image": "/equipment/taclane-kg-175.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KG-175A_%26_KG-175_TACLANE_In-Line_Network_Encryptors_-_National_Cryptologic_Museum_-_DSC07957.JPG",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/a/a2/KG-175A_%26_KG-175_TACLANE_In-Line_Network_Encryptors_-_National_Cryptologic_Museum_-_DSC07957.JPG",
+      "creator": "Daderot, National Cryptologic Museum exhibit",
+      "license": "CC0 (public domain dedication)"
+    }
+  },
+  {
+    "id": "kg-84",
+    "group": "comms",
+    "order": 12,
+    "name": "KG-84 / KG-84A",
+    "caption": "Dedicated loop encryption device",
+    "cutout": false,
+    "note": "KG-84: a general-purpose encryption device for data links and dedicated loops. He used the KG-84A; the card photo shows a KG-84 at the National Cryptologic Museum.",
+    "image": "/equipment/kg-84.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KG-84_Dedicated_Loop_Encryption_Device_-_National_Cryptologic_Museum_-_DSC08015.JPG",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/c/c6/KG-84_Dedicated_Loop_Encryption_Device_-_National_Cryptologic_Museum_-_DSC08015.JPG",
+      "creator": "Daderot, National Cryptologic Museum exhibit",
+      "license": "CC0 (public domain dedication)"
+    }
+  },
+  {
+    "id": "ky-100",
+    "group": "comms",
+    "order": 13,
+    "name": "KY-100",
+    "caption": "Secure voice equipment (model to confirm)",
+    "cutout": false,
+    "note": "KY-100: a narrowband and wideband voice and data encryptor used with tactical radios, in service from the 1990s. The model he used is to be confirmed (KY-100 or KY-99A). Card photo: National Cryptologic Museum.",
+    "image": "/equipment/ky-100.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KY-100_Secure_Voice_Equipment,_1990s_onward_-_National_Cryptologic_Museum_-_DSC08020.JPG",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/6/6c/KY-100_Secure_Voice_Equipment%2C_1990s_onward_-_National_Cryptologic_Museum_-_DSC08020.JPG",
+      "creator": "Daderot, National Cryptologic Museum exhibit",
+      "license": "CC0 (public domain dedication)"
+    }
+  },
+  {
+    "id": "an-pyq-10",
+    "group": "comms",
+    "order": 14,
+    "name": "AN/PYQ-10 SKL",
+    "caption": "Simple Key Loader",
+    "cutout": false,
+    "note": "AN/PYQ-10 Simple Key Loader (SKL): a hand-held key loader that replaced the AN/CYZ-10 and stores, manages and loads electronic keys. Card photo: an SKL connected to an MV-22 avionics bay, Camp Bastion, 2011 (cropped).",
+    "image": "/equipment/an-pyq-10-skl.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S._Marine_Corps_Lance_Cpl._Katrina_L._Bunn,_avionics_technician,_Marine_Medium_Tiltrotor_Squadron_162,_utilizes_a_simple_key_loader_(SKL)_on_an_MV-22_Osprey%27s_avionics_bay,_Camp_Bastion,_Helmand_Province_111009-M-CL319-036.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/c/cb/U.S._Marine_Corps_Lance_Cpl._Katrina_L._Bunn%2C_avionics_technician%2C_Marine_Medium_Tiltrotor_Squadron_162%2C_utilizes_a_simple_key_loader_%28SKL%29_on_an_MV-22_Osprey%27s_avionics_bay%2C_Camp_Bastion%2C_Helmand_Province_111009-M-CL319-036.jpg",
+      "creator": "Lance Cpl. Robert R. Carrasco, U.S. Marine Corps (2011)",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "jblox",
+    "group": "comms",
+    "order": 15,
+    "name": "JBLOX",
+    "caption": "JCSE transit-case comms kit",
+    "cutout": false,
+    "note": "JBLOX: a JCSE transit-case communications kit that, per the Joint Enabling Capabilities Command, “utilizes the latest virtual technology to provide communications capabilities ranging from early entry to the establishment of a joint task force.” Card photo: a JBLOX ashore during a USSOUTHCOM mission, 2013.",
+    "image": "/equipment/jblox.webp",
+    "credit": {
+      "sourceUrl": "https://www.dvidshub.net/image/1407702/jcse-embarks-usns-spearhead-mission-supporting-ussouthcom-area-operations",
+      "file": "https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/1406/1407702/2000w_q95.jpg",
+      "creator": "Richard Maupin, Joint Enabling Capabilities Command (2013)",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "jcse-iep",
+    "group": "comms",
+    "order": 16,
+    "name": "JCSE IEP kit (Initial Entry Package)",
+    "caption": "Small deployable comms package",
+    "cutout": false,
+    "note": "JCSE's Initial Entry Package is, in DoD's words, “a small, joint communications package designed to provide secure and unsecured network access, voice and video capabilities.” Sergio recalls his tent kit (radio, IP phone, Toughbook and a PacStar-style case) as likely part of an IEP. Card photo: a JCSE IEP set up for paratroopers during Talisman Saber 13, Australia, 2013.",
+    "image": "/equipment/jcse-iep.webp",
+    "credit": {
+      "sourceUrl": "https://www.dvidshub.net/image/1020017/talisman-saber-13-shows-flexibility-versatility-jecc-capabilities",
+      "file": "https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/1309/1020017/2000w_q95.jpg",
+      "creator": "Joint Enabling Capabilities Command (2013)",
       "license": "Public domain (U.S. federal government work)"
     }
   }

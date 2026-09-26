@@ -16,6 +16,7 @@ import profileJson from "@/data/profile.json";
 import branchesJson from "@/data/branches.json";
 import caseJson from "@/data/case.json";
 import equipmentJson from "@/data/equipment.json";
+import usedHereJson from "@/data/used-here.json";
 
 /** Public files are served from the base URL: the site root in dev and on https://mil.shklr.org. */
 export function publicUrl(path: string): string {
@@ -43,6 +44,8 @@ export type Device = {
   metal: "bronze" | "gold" | "silver";
   count: number;
   letter?: string;
+  /** Letter devices only: the Battle E (3/16 in block letter) and the marksmanship Expert E (1/4 in slab serif) are different devices. */
+  style?: "battle" | "expert";
 };
 
 export type Award = {
@@ -97,7 +100,7 @@ export type Unit = {
   extraImages?: ExtraImage[];
 };
 
-export const DESIGNATORS = ["Under Instruction", "Assigned", "Deployed", "Assisting", "Parent", "TAD"] as const;
+export const DESIGNATORS = ["Instruction", "Assigned", "Deployed", "Assisting", "Parent", "TAD"] as const;
 export type Designator = (typeof DESIGNATORS)[number];
 
 export type ExtraImage = { src: string; alt: string; caption: string };
@@ -112,6 +115,8 @@ export type Operation = {
   theater: string;
   unitId: string | null;
   placeId: string | null;
+  /** Bases (place ids with type "base") this deployment used. One-line edit per deployment. */
+  baseIds?: string[];
   explanation: string;
   open?: string;
 };
@@ -159,12 +164,15 @@ export type Uniform = {
   image: string;
 };
 
-export type EquipmentGroup = "weapons" | "vehicles" | "ships";
+export type EquipmentGroup = "armor" | "helmets" | "weapons" | "comms" | "vehicles" | "ships";
 
 export const EQUIPMENT_GROUPS: { id: EquipmentGroup; label: string }[] = [
+  { id: "armor", label: "Body Armor" },
+  { id: "helmets", label: "Helmets" },
   { id: "weapons", label: "Weapons" },
+  { id: "comms", label: "Comms & Crypto" },
   { id: "vehicles", label: "Vehicles" },
-  { id: "ships", label: "Ships" },
+  { id: "ships", label: "Ships & Boats" },
 ];
 
 export type Equipment = {
@@ -189,6 +197,8 @@ export type Place = {
   lng: number | null;
   accuracy: "public-site" | "approximate" | "placeholder";
   note: string;
+  /** "base" marks a deployment base (FOB, air base), shown as its own pin on the map. */
+  type?: "base";
 };
 
 export type Photo = {
@@ -264,6 +274,7 @@ export const schools = schoolsJson as School[];
 export const necs = necsJson as Nec[];
 export const uniforms = uniformsJson as Uniform[];
 export const places = placesJson as Place[];
+export const bases = places.filter((place) => place.type === "base");
 export const photos = photosJson as Photo[];
 export const reflections = reflectionsJson as Reflection[];
 export const warfare = warfareJson as Warfare[];
@@ -494,7 +505,48 @@ export type SubjectView = {
   hero?: Hero;
   /** Further captioned images shown under the hero. */
   extraImages?: ExtraImage[];
+  /** Uniforms, weapons, vehicles and ships used at this unit, school or deployment. */
+  usedHere?: UsedItem[];
 };
+
+export type UsedItem = { kind: "uniform" | "equipment"; id: string; name: string; image: string; group: string };
+
+/**
+ * What was used where. One line per unit, school or deployment id, listing
+ * uniform and equipment ids (see the cheat sheet codes). Edit src/data/used-here.json.
+ */
+export const usedHere = usedHereJson as Record<string, string[]>;
+
+const USED_ORDER = ["uniform", "armor", "helmets", "weapons", "comms", "vehicles", "ships"];
+
+export function usedHereFor(subjectId: string): UsedItem[] {
+  const items: UsedItem[] = [];
+  for (const id of usedHere[subjectId] ?? []) {
+    const uniform = uniforms.find((entry) => entry.id === id);
+    if (uniform) {
+      items.push({ kind: "uniform", id, name: uniform.name, image: uniform.image, group: "uniform" });
+      continue;
+    }
+    const item = equipment.find((entry) => entry.id === id);
+    if (item) items.push({ kind: "equipment", id, name: item.name, image: item.image, group: item.group });
+  }
+  return items.sort((a, b) => USED_ORDER.indexOf(a.group) - USED_ORDER.indexOf(b.group));
+}
+
+/** Units, schools and deployments whose "Used here" list includes this item. */
+function usedAt(itemId: string) {
+  return Object.entries(usedHere)
+    .filter(([, ids]) => ids.includes(itemId))
+    .map(([subjectId]) => {
+      const unit = unitById(subjectId);
+      if (unit) return rel("unit", unit.id, unit.name);
+      const op = operations.find((entry) => entry.id === subjectId);
+      if (op) return rel("operation", op.id, `${op.name} — ${op.phase}`);
+      const school = schools.find((entry) => entry.id === subjectId);
+      return school ? rel("school", school.id, school.name) : null;
+    })
+    .filter((link): link is ReturnType<typeof rel> => Boolean(link));
+}
 
 export type Hero =
   | { type: "ribbon"; award: Award }
@@ -610,11 +662,9 @@ export function toSubject(sel: Selection): SubjectView | null {
     if (!unit) return null;
     const nec = necById(unit.necId);
     const ops = operations.filter((op) => op.unitId === unit.id);
-    const gear = equipment.filter((item) => item.unitId === unit.id);
     const related = [
       ...(nec ? [rel("nec", nec.id, `${nec.code} ${nec.name}`)] : []),
       ...ops.map((op) => rel("operation", op.id, op.phase)),
-      ...gear.map((item) => rel("equipment", item.id, item.name)),
       ...(unit.placeId && placeById(unit.placeId) ? [rel("place", unit.placeId, placeById(unit.placeId)!.name)] : []),
     ];
     return {
@@ -633,6 +683,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       related,
       hero: unit.image ? { type: "image", src: unit.image, alt: `Crest, ${unit.name}`, shape: "square" } : undefined,
       extraImages: unit.extraImages,
+      usedHere: usedHereFor(unit.id),
     };
   }
 
@@ -640,6 +691,7 @@ export function toSubject(sel: Selection): SubjectView | null {
     const op = byId(operations, sel.id);
     if (!op) return null;
     const unit = unitById(op.unitId);
+    const opBases = (op.baseIds ?? []).map((id) => placeById(id)).filter((place): place is Place => Boolean(place));
     return {
       kind: "operation",
       id: op.id,
@@ -650,11 +702,13 @@ export function toSubject(sel: Selection): SubjectView | null {
         { label: "Phase", value: op.phase },
         { label: "When", value: formatSpan(op.start, op.end) },
       ],
-      placeIds: op.placeId ? [op.placeId] : [],
+      placeIds: opBases.length ? opBases.map((place) => place.id) : op.placeId ? [op.placeId] : [],
       related: [
         ...(unit ? [rel("unit", unit.id, unit.name)] : []),
         ...(op.placeId ? [rel("place", op.placeId, placeById(op.placeId)?.name ?? "Place")] : []),
+        ...opBases.map((place) => rel("place", place.id, place.name)),
       ],
+      usedHere: usedHereFor(op.id),
     };
   }
 
@@ -674,6 +728,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       ],
       placeIds: school.placeId ? [school.placeId] : [],
       related: school.placeId ? [rel("place", school.placeId, placeById(school.placeId)?.name ?? "Place")] : [],
+      usedHere: usedHereFor(school.id),
     };
   }
 
@@ -710,7 +765,7 @@ export function toSubject(sel: Selection): SubjectView | null {
         { label: "Context", value: uniform.context },
       ],
       placeIds: [],
-      related: [],
+      related: usedAt(uniform.id),
       hero: { type: "image", src: uniform.image, alt: uniform.name, shape: "tall" },
     };
   }
@@ -731,7 +786,10 @@ export function toSubject(sel: Selection): SubjectView | null {
         { label: "Photo", value: `${item.credit.creator}. ${item.credit.license}.` },
       ],
       placeIds: unit?.placeId ? [unit.placeId] : [],
-      related: unit ? [rel("unit", unit.id, unit.name)] : [],
+      related: [
+        ...(unit ? [rel("unit", unit.id, unit.name)] : []),
+        ...usedAt(item.id).filter((link) => link.id !== unit?.id),
+      ],
       hero: { type: "image", src: item.image, alt: item.caption ? `${item.name}: ${item.caption}` : item.name, shape: item.cutout ? "landscape" : "photo" },
     };
   }
@@ -766,7 +824,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       facts: item.id === "stripes" ? [{ label: "On this case", value: `${profile.serviceStripes} ${profile.serviceStripeColor} stripes` }] : [],
       placeIds: [],
       related: resolveLinks(item.related),
-      hero: item.image ? { type: "image", src: item.image, alt: item.name, shape: item.id === "stripes" ? "wide" : item.id === "rating-badge" ? "tall" : "square" } : undefined,
+      hero: item.image ? { type: "image", src: item.image, alt: item.name, shape: item.id === "rating-badge" ? "tall" : "square" } : undefined,
     };
   }
 
@@ -792,11 +850,14 @@ export function toSubject(sel: Selection): SubjectView | null {
       ...units.filter((unit) => unit.placeId === place.id).map((unit) => rel("unit", unit.id, unit.name)),
       ...operations.filter((op) => op.placeId === place.id).map((op) => rel("operation", op.id, op.phase)),
       ...schools.filter((school) => school.placeId === place.id).map((school) => rel("school", school.id, school.name)),
+      ...operations.filter((op) => op.baseIds?.includes(place.id)).map((op) => rel("operation", op.id, `${op.name} — ${op.phase}`)),
     ];
     return {
       kind: "place",
       id: place.id,
-      kicker: place.accuracy === "placeholder" ? "Placeholder location" : place.accuracy === "approximate" ? "Approximate location" : "Duty station",
+      kicker: place.type === "base"
+        ? place.accuracy === "approximate" ? "Deployment base · approximate location" : "Deployment base"
+        : place.accuracy === "placeholder" ? "Placeholder location" : place.accuracy === "approximate" ? "Approximate location" : "Duty station",
       title: place.name,
       explanation: place.note,
       facts: [

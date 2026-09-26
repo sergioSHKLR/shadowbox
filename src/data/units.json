@@ -5,14 +5,15 @@
     "abbreviation": "RTC",
     "patch": "RTC",
     "branch": "USN",
-    "designator": "Under Instruction",
+    "designator": "Instruction",
     "necId": null,
     "start": "1997-09",
     "end": "1997-11",
     "precision": "month",
     "placeId": "great-lakes",
     "explanation": "Enlisted boot camp for the Navy, at Naval Station Great Lakes, Illinois. Recruit training was 10 weeks in September 1997.",
-    "civilian": "This is where a new sailor learns to live in the Navy before going on to a technical school."
+    "civilian": "This is where a new sailor learns to live in the Navy before going on to a technical school.",
+    "image": "/crests/rtc-great-lakes.webp"
   },
   {
     "id": "tortuga",
@@ -37,7 +38,7 @@
     "abbreviation": "NTC Great Lakes",
     "patch": "NTC",
     "branch": "USN",
-    "designator": "Under Instruction",
+    "designator": "Instruction",
     "necId": null,
     "start": null,
     "end": null,
@@ -161,7 +162,7 @@
     "explanation": "A U.S. Army Special Forces group. Joint/attached service; the role and dates have not been entered. Shown with the Special Forces shoulder sleeve insignia and the 3rd Group beret flash.",
     "open": "3rd Special Forces Group: role and dates not entered.",
     "civilian": "An Army Special Forces unit.",
-    "image": "/crests/3rd-sfg.webp"
+    "image": "/crests/3rd-sfg-flash-dui.webp"
   },
   {
     "id": "75th-ranger",
@@ -213,6 +214,11 @@
     "image": "/crests/11th-ada.webp",
     "extraImages": [
       {
+        "src": "/crests/3-3ada-dui.webp",
+        "alt": "3rd Air Defense Artillery Regiment distinctive unit insignia (photograph), motto NON CEDO FERIO",
+        "caption": "Task Force C-RAM — 3rd Battalion, 3rd Air Defense Artillery: the 3rd ADA Regiment crest"
+      },
+      {
         "src": "/crests/tf-cram-3-3ada-coin.webp",
         "alt": "Challenge coin: Task Force C-RAM, 3rd Battalion, 3rd Air Defense Artillery, Army and Navy",
         "caption": "Task Force C-RAM — 3rd Battalion, 3rd Air Defense Artillery (challenge coin)"
@@ -233,7 +239,14 @@
     "placeId": "macdill",
     "explanation": "A joint unit, based at MacDill Air Force Base in Florida, that sends small communications teams out quickly for special operations and other joint commanders. The shadowbox dates the tour 2009–2015 and lists NEC 9613. It included the two Afghanistan deployments.",
     "civilian": "A communications unit made of every branch, not a Navy ship.",
-    "image": "/crests/jcse.webp"
+    "image": "/crests/jcse-ssi-airborne.webp",
+    "extraImages": [
+      {
+        "src": "/crests/jcse.webp",
+        "alt": "Seal of the Joint Communications Support Element (Airborne)",
+        "caption": "Joint Communications Support Element (Airborne): the unit seal"
+      }
+    ]
   },
   {
     "id": "cjsotf",

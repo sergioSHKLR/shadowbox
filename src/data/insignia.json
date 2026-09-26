@@ -27,7 +27,7 @@
         "id": "cpo"
       }
     ],
-    "image": "/insignia/cpo-et-rating-badge.webp"
+    "image": "/insignia/cpo-et-rating-badge-vector.svg"
   },
   {
     "id": "stripes",
@@ -36,7 +36,7 @@
     "glyph": "stripes",
     "explanation": "One stripe for each four years of active service. Twenty years and eight months rates five stripes. They are gold because a chief petty officer with good conduct wears gold instead of red. An older shadowbox graphic of this career shows four stripes; five is what the final service length rates. The number can be changed in the profile data.",
     "criteria": "Each stripe is four full years. The fifth is earned at twenty years.",
-    "image": "/insignia/service-stripes-gold-5.svg"
+    "image": "/insignia/service-stripes-gold-5-sleeve.svg"
   },
   {
     "id": "jcse-device",

@@ -2,49 +2,55 @@
   {
     "id": "oif-2006",
     "name": "Operation Iraqi Freedom",
-    "phase": "National Resolution (2005\u201307)",
+    "phase": "National Resolution (2005–07)",
     "start": "2006",
     "end": "2006",
     "precision": "year",
     "theater": "Iraq",
     "unitId": "troy",
     "placeId": "iraq",
+    "baseIds": [
+      "fob-sykes"
+    ],
     "explanation": "The 2006 Iraq deployment, with Combined Joint Task Force Troy. The campaign phase recorded on the shadowbox is National Resolution. One of the two bronze stars on the Iraq Campaign Medal belongs to this phase."
   },
   {
     "id": "oif-2009",
     "name": "Operation Iraqi Freedom",
-    "phase": "Iraq Sovereignty (2009\u201310)",
+    "phase": "Iraq Sovereignty (2009–10)",
     "start": "2009",
     "end": "2009",
     "precision": "year",
     "theater": "Iraq",
     "unitId": "ia-army",
     "placeId": "iraq",
+    "baseIds": [],
     "explanation": "The 2009 Iraq deployment, as an individual augmentee to the Army. The campaign phase recorded on the shadowbox is Iraq Sovereignty. This is the other bronze star on the Iraq Campaign Medal."
   },
   {
     "id": "oef-2010",
     "name": "Operation Enduring Freedom",
-    "phase": "Afghanistan, 2010\u20132011",
+    "phase": "Afghanistan, 2010–2011",
     "start": "2010",
     "end": "2011",
     "precision": "year",
     "theater": "Afghanistan",
     "unitId": "cjsotf",
     "placeId": "afghanistan",
-    "explanation": "Afghanistan deployment with Combined Joint Special Operations Task Force \u2014 Afghanistan, while assigned to Joint Communications Support Element. One of the two bronze stars on the Afghanistan Campaign Medal."
+    "baseIds": [],
+    "explanation": "Afghanistan deployment with Combined Joint Special Operations Task Force — Afghanistan, while assigned to Joint Communications Support Element. One of the two bronze stars on the Afghanistan Campaign Medal."
   },
   {
     "id": "oef-2012",
     "name": "Operation Enduring Freedom",
-    "phase": "Afghanistan, 2012\u20132013",
+    "phase": "Afghanistan, 2012–2013",
     "start": "2012",
     "end": "2013",
     "precision": "year",
     "theater": "Afghanistan",
     "unitId": "jcse",
     "placeId": "afghanistan",
-    "explanation": "A second Afghanistan deployment under Operation Enduring Freedom, 2012\u20132013, from Joint Communications Support Element. The NATO Medal for ISAF is dated 2013 on the worksheet. This is the other Afghanistan campaign star."
+    "baseIds": [],
+    "explanation": "A second Afghanistan deployment under Operation Enduring Freedom, 2012–2013, from Joint Communications Support Element. The NATO Medal for ISAF is dated 2013 on the worksheet. This is the other Afghanistan campaign star."
   }
 ]
