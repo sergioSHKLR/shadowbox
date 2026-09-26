@@ -6,9 +6,21 @@
     "tortuga"
   ],
   "ia-army": [
-    "centurion-c-ram"
+    "centurion-c-ram",
+    "iotv-ucp"
   ],
   "eodmu5": [
     "rhib-eodmu5"
+  ],
+  "jcse": [
+    "jblox",
+    "taclane",
+    "jcse-iep"
+  ],
+  "oef-2010": [
+    "plate-carrier-multicam"
+  ],
+  "oef-2012": [
+    "plate-carrier-multicam"
   ]
 }

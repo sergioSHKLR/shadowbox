@@ -3,6 +3,8 @@
 @theme {
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Source Sans 3", "Segoe UI", sans-serif;
+  /* Crest cards: a low-contrast serif with a larger x-height and short ascenders. */
+  --font-card: "Source Serif 4", Georgia, serif;
   --color-ink: #1c1915;
   --color-ivory: #f6f1e7;
   --color-ivory-dim: #e7e0d2;
@@ -109,7 +111,11 @@ a { color: var(--color-navy); }
 .pin-img { width: 5.4rem; height: 3.2rem; object-fit: contain; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
 /* The case is laid out at true relative size: --in is one inch on the rack (a ribbon is 1 3/8 in wide).
    Pins and the JCSE badge are sized in the same inches, with the standard 1/4 in gaps. */
-.case-display { --in: 4.07rem; display: flex; flex-direction: column; align-items: center; gap: calc(var(--in) / 4); margin: 1.1rem 0 1rem; }
+.case-display { --in: 4.07rem; display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; column-gap: calc(var(--in) * 1.1); row-gap: calc(var(--in) / 2); margin: 1.1rem 0 1rem; }
+/* Chest: warfare pin, rack, second pin and JCSE badge, like the left breast of a dress blue coat. */
+.case-chest { display: flex; flex-direction: column; align-items: center; gap: calc(var(--in) / 4); }
+/* Sleeve, to the viewer's right: rating badge at the upper arm, service stripes at the lower sleeve. */
+.case-sleeve { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: calc(var(--in) * 0.9); max-width: 100%; }
 .worn { background: transparent; border: 0; padding: 0; cursor: pointer; display: block; line-height: 0; }
 .worn img { display: block; height: auto; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
 .worn-pin img { width: calc(var(--in) * 2.75); }
@@ -121,6 +127,9 @@ a { color: var(--color-navy); }
 .worn-rating img { width: calc(var(--in) * 3.88); max-width: 100%; }
 .worn-stripes { max-width: 100%; }
 .worn-stripes img { width: calc(var(--in) * 6.211); max-width: 100%; }
+.case-photo { margin-top: calc(var(--in) / 3); padding: 5px; background: #111; border: 1px solid #c9a55a; box-shadow: 0 2px 6px rgba(0,0,0,0.6); cursor: pointer; line-height: 0; }
+.case-photo img { display: block; width: calc(var(--in) * 2.6); height: auto; border: 1px solid #c9a55a; }
+.case-photo:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 3px; }
 .worn:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 3px; }
 /* Navy racks are worn with no spacing: ribbons touch edge to edge and rows touch top to bottom; the short top row is centred. */
 .rack { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 0; }
@@ -188,10 +197,11 @@ a { color: var(--color-navy); }
   gap: 0.2rem;
   padding: 0.4rem;
 }
-.patch-mark { font-family: var(--font-display); font-size: 1.05rem; line-height: 1.1; text-align: center; }
+.patch-mark { font-family: var(--font-card); font-weight: 600; font-size: 0.95rem; line-height: 1.1; text-align: center; }
 .designator { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass); border: 1px solid currentColor; border-radius: 2px; padding: 0.05rem 0.3rem; line-height: 1.3; white-space: nowrap; }
 .patch-crest { width: 4.4rem; height: 4.4rem; object-fit: contain; }
-.patch.has-crest .patch-mark { font-size: 0.85rem; }
+.patch.has-crest .patch-mark { font-size: 0.8rem; }
+.patch span:last-child { font-family: var(--font-sans); }
 .patch-row:has(.has-crest) .patch { min-height: 7.6rem; }
 .patch span:last-child { font-size: 0.75rem; color: var(--color-quiet); }
 
@@ -259,7 +269,8 @@ a { color: var(--color-navy); }
 .equipment-photo { width: 100%; aspect-ratio: 3 / 2; height: auto; object-fit: contain; background: #fff; }
 .equipment-photo.is-photo { object-fit: cover; }
 .equipment-card span { font-size: 0.85rem; color: var(--color-quiet); }
-.map-frame { height: 24rem; width: 100%; background: var(--color-ivory-dim); border: 1px solid var(--color-line); }
+.map-frame { position: relative; z-index: 0; isolation: isolate; height: 24rem; width: 100%; background: var(--color-ivory-dim); border: 1px solid var(--color-line); }
+.map-frame.tall { height: min(40rem, 70vh); }
 .map-dot { display: block; width: 14px; height: 14px; border-radius: 50%; background: var(--color-brass); border: 2px solid var(--color-navy); }
 .map-dot.placeholder { border-radius: 2px; background: transparent; }
 .map-dot.approximate { background: transparent; }
@@ -290,7 +301,7 @@ a { color: var(--color-navy); }
 .pip.base.approximate { background: var(--color-ivory); }
 .credits li, .instance-list li, .gallery li { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.7rem 0; border-bottom: 1px solid var(--color-ivory-dim); }
 .gallery img { max-width: 16rem; }
-.detail-overlay { position: fixed; inset: 0; background: rgba(12, 16, 24, 0.45); }
+.detail-overlay { position: fixed; inset: 0; z-index: 1100; background: rgba(12, 16, 24, 0.45); }
 .detail-panel {
   position: fixed;
   top: 0; right: 0; bottom: 0;
@@ -298,6 +309,7 @@ a { color: var(--color-navy); }
   background: var(--color-ivory);
   color: var(--color-ink);
   overflow: auto;
+  z-index: 1101;
   padding: 1rem 1rem 2rem;
   box-shadow: -12px 0 40px rgba(0,0,0,0.2);
 }
