@@ -1,0 +1,65 @@
+[
+  {
+    "id": "nec-1460",
+    "code": "1460",
+    "name": "COMSEC Maintenance Technician",
+    "years": "11 years, 7 months",
+    "role": "listed-first",
+    "explanation": "COMSEC is communications security: the equipment that encrypts military messages. A maintenance technician keeps that equipment working. On the discharge form this NEC is listed first, with 11 years and 7 months.",
+    "criteria": "Awarded after COMSEC maintenance school and work in the specialty."
+  },
+  {
+    "id": "nec-9613",
+    "code": "9613",
+    "name": "NSW Communications Technician",
+    "years": "7 years, 11 months",
+    "role": "favorite",
+    "explanation": "NSW means Naval Special Warfare. This NEC is a communications technician who supports those units. It is not the same thing as being a SEAL. The shadowbox lists 9613 as the last NEC, and the notes on this career call it the favorite. The discharge form gives 7 years and 11 months.",
+    "criteria": "Awarded for communications work in support of Naval Special Warfare."
+  },
+  {
+    "id": "nec-1589",
+    "code": "1589",
+    "name": "FECL Calibration Technician",
+    "years": "7 years, 6 months",
+    "role": "primary",
+    "explanation": "FECL is a field calibration lab. The job is to test and adjust the Navy's electronic measuring gear so other repairs can be trusted. The notes on this career call 1589 the primary NEC. The discharge form gives 7 years and 6 months.",
+    "criteria": "Awarded after calibration school and work in a field calibration activity."
+  },
+  {
+    "id": "nec-9527",
+    "code": "9527",
+    "name": "Miniature Electronic Repair Technician",
+    "years": "2 years",
+    "role": "held",
+    "explanation": "Component-level repair of small electronic assemblies: finding the failed part on a circuit card and replacing it, rather than swapping the whole box.",
+    "criteria": "Awarded after miniature-repair training and work in that shop."
+  },
+  {
+    "id": "nec-9qpb",
+    "code": "9QPB",
+    "name": "Portuguese-Brazilian language",
+    "years": "3 years, 11 months",
+    "role": "held",
+    "explanation": "A Navy language qualification for Portuguese as spoken in Brazil. The discharge form records 3 years and 11 months.",
+    "criteria": "Awarded after the Navy recognizes the language skill."
+  },
+  {
+    "id": "nec-90bc",
+    "code": "90BC",
+    "name": "GWOT Support Assignment \u2014 base combat unit member",
+    "years": "1 year",
+    "role": "held",
+    "explanation": "A code used to record a Global War on Terrorism support assignment as a member of a base combat unit. The discharge form records one year.",
+    "criteria": "Entered for that assignment. It is an administrative NEC, not a technical school."
+  },
+  {
+    "id": "nec-0000",
+    "code": "ET-0000",
+    "name": "Electronics Technician, no specific NEC",
+    "years": null,
+    "role": "held",
+    "explanation": "ET-0000 means the Electronics Technician rating with no additional NEC in effect. The shadowbox shows it on the 2008\u20132009 individual augmentee tour with the Army.",
+    "criteria": "Used when no specialty code applies to the assignment."
+  }
+]

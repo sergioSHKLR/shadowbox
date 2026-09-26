@@ -1,0 +1,72 @@
+[
+  {
+    "id": "rtc-school",
+    "name": "Recruit training",
+    "abbreviation": "RTC",
+    "start": "1997-09",
+    "length": "10 weeks",
+    "placeId": "great-lakes",
+    "placeConfidence": "recorded",
+    "explanation": "Boot camp at Great Lakes. The discharge form lists 10 weeks, September 1997."
+  },
+  {
+    "id": "core",
+    "name": "Advanced Electronics Technical Core",
+    "abbreviation": "AETC",
+    "start": "1998-06",
+    "length": "19 weeks",
+    "placeId": "great-lakes",
+    "placeConfidence": "inferred",
+    "explanation": "The introductory electronics course sailors took before rating school. The discharge form lists 19 weeks, June 1998. Placed at Great Lakes because that is where this course was taught. Confirm the schoolhouse."
+  },
+  {
+    "id": "eta",
+    "name": "Electronics Technician Class A School",
+    "abbreviation": "ET A",
+    "start": "1998-10",
+    "length": "13 weeks",
+    "placeId": "great-lakes",
+    "placeConfidence": "inferred",
+    "explanation": "The school that trains a new Electronics Technician. The discharge form lists 13 weeks, October 1998. Placed at Great Lakes as the school of that era. Confirm the schoolhouse."
+  },
+  {
+    "id": "gpete",
+    "name": "General Purpose Electronic Test Equipment Repair and Calibration",
+    "abbreviation": "GPETE",
+    "start": "1999-04",
+    "length": "15 weeks",
+    "placeId": null,
+    "placeConfidence": "unknown",
+    "explanation": "How to repair and calibrate the general-purpose test equipment the Navy uses to keep other gear accurate. The discharge form lists 15 weeks, April 1999. The schoolhouse is not named."
+  },
+  {
+    "id": "fcam",
+    "name": "Field Calibration Activity Maintenance",
+    "abbreviation": "FCAM",
+    "start": "1999-05",
+    "length": "3 weeks",
+    "placeId": null,
+    "placeConfidence": "unknown",
+    "explanation": "Maintenance of a field calibration lab. The discharge form lists it as calibration tech maintenance, 3 weeks, May 1999. The schoolhouse is not named."
+  },
+  {
+    "id": "flldp",
+    "name": "FLLDP",
+    "abbreviation": "FLLDP",
+    "start": "2001-12",
+    "length": "2 weeks",
+    "placeId": null,
+    "placeConfidence": "unknown",
+    "explanation": "The discharge form lists FLLDP, 2 weeks, December 2001. The full course name is not expanded in the record, so it is not guessed here."
+  },
+  {
+    "id": "comsec-school",
+    "name": "COMSEC Maintenance",
+    "abbreviation": "COMSEC",
+    "start": "2004-04",
+    "length": null,
+    "placeId": null,
+    "placeConfidence": "unknown",
+    "explanation": "School for maintaining communications-security equipment. The discharge form lists COMSEC maintenance activity, April 2004. That lines up with NEC 1460."
+  }
+]

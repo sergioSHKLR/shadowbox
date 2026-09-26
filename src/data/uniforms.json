@@ -1,0 +1,142 @@
+[
+  {
+    "id": "smurfs",
+    "order": 1,
+    "variant": "smurf",
+    "name": "Recruit utilities (\u201csmurfs\u201d)",
+    "branch": "USN",
+    "context": "Boot camp, Great Lakes",
+    "dateLabel": "September 1997",
+    "note": "The blue work uniform issued at recruit training. Sailors called it the smurfs. This is the first uniform in the record."
+  },
+  {
+    "id": "dungarees",
+    "order": 2,
+    "variant": "dungaree",
+    "name": "Dungarees",
+    "branch": "USN",
+    "context": "Working uniform after boot camp",
+    "dateLabel": "Dates not entered",
+    "note": "Blue denim trousers and a chambray shirt, the ordinary working uniform before the blue digital camouflage. Shown second because that is the order given. The years are not entered."
+  },
+  {
+    "id": "johnny",
+    "order": 3,
+    "variant": "johnny",
+    "name": "Johnny Cash",
+    "branch": "USN",
+    "context": "Black working uniform",
+    "dateLabel": "Dates not entered",
+    "note": "The black winter working uniform, nicknamed for the singer because it was black shirt and black trousers. Worn in the order given. The years are not entered."
+  },
+  {
+    "id": "dress-blues",
+    "order": 4,
+    "variant": "crackerjack-blue",
+    "name": "Dress blues",
+    "branch": "USN",
+    "context": "Dress uniform",
+    "dateLabel": "Worn when required",
+    "note": "The Navy dress blue jumper, with the broad collar and white piping, for sailors below chief. After 2014 the chief's dress blue is a coat, not this jumper. The photograph in this case is this uniform."
+  },
+  {
+    "id": "dress-whites",
+    "order": 5,
+    "variant": "crackerjack-white",
+    "name": "Dress whites",
+    "branch": "USN",
+    "context": "Dress uniform",
+    "dateLabel": "Worn when required",
+    "note": "The white jumper, worn for inspections and ceremonies in summer whites season. The chief's version, after 2014, is a different coat."
+  },
+  {
+    "id": "working-whites",
+    "order": 6,
+    "variant": "working-white",
+    "name": "Working whites",
+    "branch": "USN",
+    "context": "Warm-weather working uniform",
+    "dateLabel": "Dates not entered",
+    "note": "A white working uniform for hot climates, simpler than dress whites. The years are not entered."
+  },
+  {
+    "id": "utilities",
+    "order": 7,
+    "variant": "utility",
+    "name": "Utilities",
+    "branch": "USN",
+    "context": "Working uniform",
+    "dateLabel": "Dates not entered",
+    "note": "Listed in the record as its own uniform, separate from dungarees and from the later camouflage. Which utility pattern is not further described."
+  },
+  {
+    "id": "coveralls",
+    "order": 8,
+    "variant": "coverall",
+    "name": "Coveralls",
+    "branch": "USN",
+    "context": "Shipboard work",
+    "dateLabel": "Dates not entered",
+    "note": "One-piece shipboard coveralls, the practical uniform for work in a machinery space or on deck. Associated with sea duty. The years are not entered."
+  },
+  {
+    "id": "nwu",
+    "order": 9,
+    "variant": "nwu",
+    "name": "Blue camouflage",
+    "branch": "USN",
+    "context": "Navy Working Uniform Type I",
+    "dateLabel": "Dates not entered",
+    "note": "The Navy's blue digital working uniform, the Type I, often called blueberries. Shown here because the record says blue camouflage. Confirm that this is the pattern, and add the years."
+  },
+  {
+    "id": "green-camo",
+    "order": 10,
+    "variant": "woodland",
+    "name": "Green camouflage",
+    "branch": "USN",
+    "context": "Pattern not confirmed",
+    "dateLabel": "Dates not entered",
+    "note": "Listed after the blue camouflage and before the desert pattern. Which green pattern \u2014 woodland, a digital green, or something else \u2014 is not confirmed, so it is not named as a specific uniform."
+  },
+  {
+    "id": "desert",
+    "order": 11,
+    "variant": "desert",
+    "name": "Desert camouflage",
+    "branch": "USN",
+    "context": "Iraq deployments",
+    "dateLabel": "Dates not entered",
+    "note": "Desert camouflage worn with the Iraq tours. The 2006 and 2009 deployments are the likely years. The exact pattern, often the three-color desert uniform in that era, is not confirmed."
+  },
+  {
+    "id": "awu",
+    "order": 12,
+    "variant": "acu",
+    "name": "Army uniform (recorded as AWU)",
+    "branch": "USA",
+    "context": "Individual augmentee, 2008\u20132009",
+    "dateLabel": "2008\u20132009",
+    "note": "The record says Army AWUs for the individual-augmentee tour. The Army uniform of 2008\u20132009 was the Army Combat Uniform in the gray-green digital pattern. AWU is kept as the name in the record so it can be corrected."
+  },
+  {
+    "id": "multicam",
+    "order": 13,
+    "variant": "multicam",
+    "name": "Multicam",
+    "branch": "JOINT",
+    "context": "Afghanistan deployments",
+    "dateLabel": "About 2010\u20132013",
+    "note": "The camouflage worn with the joint communications deployments to Afghanistan. The record places it after the Army uniform and before the chief's uniforms."
+  },
+  {
+    "id": "cpo-set",
+    "order": 14,
+    "variant": "khaki",
+    "name": "Chief petty officer uniforms",
+    "branch": "USN",
+    "context": "After promotion, except dinner dress",
+    "dateLabel": "From 16 September 2014",
+    "note": "Making chief replaces the jumper uniforms with chief's uniforms: service khaki, dress blue, and dress white among them. The record says nearly all of them were worn, and dinner dress was not."
+  }
+]

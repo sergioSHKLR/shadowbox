@@ -1,0 +1,402 @@
+[
+  {
+    "id": "jscm-2013",
+    "awardId": "jscm",
+    "year": 2013,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "jscm-2015",
+    "awardId": "jscm",
+    "year": 2015,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "ncm-2018",
+    "awardId": "ncm",
+    "year": 2018,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "arcom-2009",
+    "awardId": "arcom",
+    "year": 2009,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "arcom-2011",
+    "awardId": "arcom",
+    "year": 2011,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "jsam-2013",
+    "awardId": "jsam",
+    "year": 2013,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "nam-2001",
+    "awardId": "nam",
+    "year": 2001,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "nam-2004",
+    "awardId": "nam",
+    "year": 2004,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "nam-2005",
+    "awardId": "nam",
+    "year": 2005,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "nam-2006",
+    "awardId": "nam",
+    "year": 2006,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "nam-2009",
+    "awardId": "nam",
+    "year": 2009,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "aam-2006",
+    "awardId": "aam",
+    "year": 2006,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "jmua-2006",
+    "awardId": "jmua",
+    "year": 2006,
+    "unitId": null,
+    "operationId": null,
+    "note": "One of three awards. The other two years are not on the worksheet."
+  },
+  {
+    "id": "jmua-u2",
+    "awardId": "jmua",
+    "year": null,
+    "unitId": null,
+    "operationId": null,
+    "note": "Listed on the discharge form. Year not on the worksheet."
+  },
+  {
+    "id": "jmua-u3",
+    "awardId": "jmua",
+    "year": null,
+    "unitId": null,
+    "operationId": null,
+    "note": "Listed on the discharge form. Year not on the worksheet."
+  },
+  {
+    "id": "nmuc-2000",
+    "awardId": "nmuc",
+    "year": 2000,
+    "unitId": null,
+    "operationId": null,
+    "note": "One of five awards. The other four years are not on the worksheet."
+  },
+  {
+    "id": "nmuc-u2",
+    "awardId": "nmuc",
+    "year": null,
+    "unitId": null,
+    "operationId": null,
+    "note": "Listed on the discharge form. Year not on the worksheet."
+  },
+  {
+    "id": "nmuc-u3",
+    "awardId": "nmuc",
+    "year": null,
+    "unitId": null,
+    "operationId": null,
+    "note": "Listed on the discharge form. Year not on the worksheet."
+  },
+  {
+    "id": "nmuc-u4",
+    "awardId": "nmuc",
+    "year": null,
+    "unitId": null,
+    "operationId": null,
+    "note": "Listed on the discharge form. Year not on the worksheet."
+  },
+  {
+    "id": "nmuc-u5",
+    "awardId": "nmuc",
+    "year": null,
+    "unitId": null,
+    "operationId": null,
+    "note": "Listed on the discharge form. Year not on the worksheet."
+  },
+  {
+    "id": "navy-e-2001",
+    "awardId": "navy-e",
+    "year": 2001,
+    "unitId": "frank-cable",
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "navy-e-2002",
+    "awardId": "navy-e",
+    "year": 2002,
+    "unitId": "frank-cable",
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "navy-e-2003",
+    "awardId": "navy-e",
+    "year": 2003,
+    "unitId": "frank-cable",
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "ngcm-2000",
+    "awardId": "ngcm",
+    "year": 2000,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "ngcm-2003",
+    "awardId": "ngcm",
+    "year": 2003,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "ngcm-2006",
+    "awardId": "ngcm",
+    "year": 2006,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "ngcm-2009",
+    "awardId": "ngcm",
+    "year": 2009,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "ngcm-2012",
+    "awardId": "ngcm",
+    "year": 2012,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "ngcm-2015",
+    "awardId": "ngcm",
+    "year": 2015,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "ndsm-2001",
+    "awardId": "ndsm",
+    "year": 2001,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "acm-2011",
+    "awardId": "acm",
+    "year": 2011,
+    "unitId": null,
+    "operationId": null,
+    "note": "Medal recorded in 2011. Two bronze campaign stars for the 2010\u20132011 and 2012\u20132013 Afghanistan tours."
+  },
+  {
+    "id": "icm-2006",
+    "awardId": "icm",
+    "year": 2006,
+    "unitId": null,
+    "operationId": null,
+    "note": "Two bronze campaign stars: National Resolution with the 2006 tour, and Iraq Sovereignty with the 2009 tour."
+  },
+  {
+    "id": "gwotsm-2005",
+    "awardId": "gwotsm",
+    "year": 2005,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "hsm-2003",
+    "awardId": "hsm",
+    "year": 2003,
+    "unitId": null,
+    "operationId": null,
+    "note": "The humanitarian operation has not been named yet."
+  },
+  {
+    "id": "ssdr-2001",
+    "awardId": "ssdr",
+    "year": 2001,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "ssdr-2002",
+    "awardId": "ssdr",
+    "year": 2002,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "ssdr-2003",
+    "awardId": "ssdr",
+    "year": 2003,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "ssdr-u4",
+    "awardId": "ssdr",
+    "year": null,
+    "unitId": null,
+    "operationId": null,
+    "note": "Listed on the discharge form. Year not on the worksheet."
+  },
+  {
+    "id": "ssdr-u5",
+    "awardId": "ssdr",
+    "year": null,
+    "unitId": null,
+    "operationId": null,
+    "note": "Listed on the discharge form. Year not on the worksheet."
+  },
+  {
+    "id": "ssdr-u6",
+    "awardId": "ssdr",
+    "year": null,
+    "unitId": null,
+    "operationId": null,
+    "note": "Listed on the discharge form. Year not on the worksheet."
+  },
+  {
+    "id": "ssdr-u7",
+    "awardId": "ssdr",
+    "year": null,
+    "unitId": null,
+    "operationId": null,
+    "note": "Listed on the discharge form. Year not on the worksheet."
+  },
+  {
+    "id": "osr-2001",
+    "awardId": "osr",
+    "year": 2001,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "osr-2002",
+    "awardId": "osr",
+    "year": 2002,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "osr-2003",
+    "awardId": "osr",
+    "year": 2003,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "osr-u4",
+    "awardId": "osr",
+    "year": null,
+    "unitId": null,
+    "operationId": null,
+    "note": "Listed on the discharge form. Year not on the worksheet."
+  },
+  {
+    "id": "osr-u5",
+    "awardId": "osr",
+    "year": null,
+    "unitId": null,
+    "operationId": null,
+    "note": "Listed on the discharge form. Year not on the worksheet."
+  },
+  {
+    "id": "osr-u6",
+    "awardId": "osr",
+    "year": null,
+    "unitId": null,
+    "operationId": null,
+    "note": "Listed on the discharge form. Year not on the worksheet."
+  },
+  {
+    "id": "nato-2013",
+    "awardId": "nato",
+    "year": 2013,
+    "unitId": null,
+    "operationId": "oef-2012",
+    "note": null
+  },
+  {
+    "id": "rifle-2001",
+    "awardId": "rifle",
+    "year": 2001,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  },
+  {
+    "id": "pistol-2000",
+    "awardId": "pistol",
+    "year": 2000,
+    "unitId": null,
+    "operationId": null,
+    "note": null
+  }
+]

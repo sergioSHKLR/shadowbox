@@ -1,0 +1,30 @@
+{
+  "id": "schickler",
+  "name": "Sergio Schickler",
+  "rate": "ETC",
+  "rating": "Electronics Technician",
+  "rank": "Chief Petty Officer",
+  "paygrade": "E-7",
+  "branch": "USN",
+  "branchName": "United States Navy",
+  "serviceStart": "1997-06-30",
+  "serviceEnd": "2018-02-28",
+  "fleetReserveEffective": "2018-03-01",
+  "serviceLength": "20 years, 8 months, 1 day",
+  "seaService": "6 years, 4 months, 24 days",
+  "foreignService": "3 years, 1 month, 13 days",
+  "initialEntryTraining": "7 months, 7 days",
+  "placeOfEntry": "Miami, Florida",
+  "transfer": "Transferred to the Fleet Reserve",
+  "characterOfService": "Honorable",
+  "dateOfRank": "2014-09-16",
+  "lastDuty": "Naval Hospital Jacksonville, Florida",
+  "separatedAt": "Personnel Support Detachment, Naval Air Station Jacksonville, Florida",
+  "serviceStripes": 5,
+  "serviceStripeColor": "gold",
+  "warfareIds": [
+    "esws",
+    "exw"
+  ],
+  "portrait": "/photos/dress-blues.jpg"
+}

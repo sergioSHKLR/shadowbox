@@ -1,0 +1,428 @@
+[
+  {
+    "id": "jscm",
+    "name": "Joint Service Commendation Medal",
+    "abbreviation": "JSCM",
+    "branch": "joint",
+    "precedence": 150,
+    "ribbon": "/ribbons/jscm.png",
+    "framed": false,
+    "count": 2,
+    "countStatus": "confirmed",
+    "devices": [
+      {
+        "kind": "oak",
+        "metal": "bronze",
+        "count": 1
+      }
+    ],
+    "deviceExplanation": "Two awards. Joint medals use an oak-leaf cluster, not a star. One bronze oak leaf means the second award.",
+    "explanation": "A mid-level decoration from a joint command, one that includes more than one branch of the military. It sits above the service achievement medals and beside the Navy Commendation Medal.",
+    "criteria": "Meritorious achievement or service while assigned to a joint activity. It is not a valor award unless a V device is authorized. There is no V on this ribbon.",
+    "sourceNote": "Discharge form: Joint Service Commendation Medal (2). Worksheet years: 2013 and 2015.",
+    "commonsFile": "Joint_Service_Commendation_Medal_ribbon.svg"
+  },
+  {
+    "id": "ncm",
+    "name": "Navy and Marine Corps Commendation Medal",
+    "abbreviation": "NC",
+    "branch": "navy",
+    "precedence": 160,
+    "ribbon": "/ribbons/ncm.png",
+    "framed": false,
+    "count": 1,
+    "countStatus": "confirmed",
+    "devices": [],
+    "deviceExplanation": "One award, so the ribbon is worn with no star.",
+    "explanation": "The Navy and Marine Corps version of a commendation medal. It recognizes meritorious service or a specific achievement. On a rack it is worn just after the Joint Service Commendation Medal. Army commendations of the same level come after it.",
+    "criteria": "Meritorious service or achievement. A V device would mean valor in combat. This one has no V.",
+    "sourceNote": "Discharge form lists one Navy and Marine Corps Commendation Medal, with no number after the name. Worksheet year: 2018.",
+    "commonsFile": "Navy_and_Marine_Corps_Commendation_Medal_ribbon.svg"
+  },
+  {
+    "id": "arcom",
+    "name": "Army Commendation Medal",
+    "abbreviation": "ARCOM",
+    "branch": "army",
+    "precedence": 170,
+    "ribbon": "/ribbons/arcom.png",
+    "framed": false,
+    "count": 2,
+    "countStatus": "confirmed",
+    "devices": [
+      {
+        "kind": "oak",
+        "metal": "bronze",
+        "count": 1
+      }
+    ],
+    "deviceExplanation": "Two awards. The Army uses a bronze oak-leaf cluster for the second award, not a gold star.",
+    "explanation": "The Army's commendation medal. Sailors receive it when they are serving with the Army, which happened on the individual-augmentee tour and in joint commands. Navy rules place an Army award of this level immediately after the Navy commendation medal.",
+    "criteria": "Meritorious service or achievement recognized by the Army.",
+    "sourceNote": "Continuation of the discharge form: Army Commendation Medal (2). Worksheet years: 2009 and 2011.",
+    "commonsFile": "Army_Commendation_Medal_ribbon.svg"
+  },
+  {
+    "id": "jsam",
+    "name": "Joint Service Achievement Medal",
+    "abbreviation": "JSAM",
+    "branch": "joint",
+    "precedence": 180,
+    "ribbon": "/ribbons/jsam.png",
+    "framed": false,
+    "count": 1,
+    "countStatus": "confirmed",
+    "devices": [],
+    "deviceExplanation": "One award. No device.",
+    "explanation": "A joint-service decoration below the commendation medals. It recognizes meritorious achievement or service of a lesser scope than a commendation medal, still in a multi-service command.",
+    "criteria": "Meritorious achievement or service in a joint assignment.",
+    "sourceNote": "Discharge form lists one Joint Service Achievement Medal. Worksheet year: 2013.",
+    "commonsFile": "Joint_Service_Achievement_Medal_ribbon.svg"
+  },
+  {
+    "id": "nam",
+    "name": "Navy and Marine Corps Achievement Medal",
+    "abbreviation": "NAM",
+    "branch": "navy",
+    "precedence": 190,
+    "ribbon": "/ribbons/nam.png",
+    "framed": false,
+    "count": 5,
+    "countStatus": "confirmed",
+    "devices": [
+      {
+        "kind": "star",
+        "metal": "gold",
+        "count": 4
+      }
+    ],
+    "deviceExplanation": "Five awards. The ribbon itself is the first. Each award after that is a gold star, so four gold stars means five awards. A fifth gold star would have been replaced by one silver star.",
+    "explanation": "The Navy and Marine Corps achievement medal. For a sailor, this is the common personal decoration for a strong tour or a particular piece of work. Five of them is a long record of that kind of recognition.",
+    "criteria": "Meritorious service or achievement of a degree below a commendation medal.",
+    "sourceNote": "Discharge form: (5). Worksheet years: 2001, 2004, 2005, 2006, and 2009.",
+    "commonsFile": "Navy_and_Marine_Corps_Achievement_Medal_ribbon.svg"
+  },
+  {
+    "id": "aam",
+    "name": "Army Achievement Medal",
+    "abbreviation": "AAM",
+    "branch": "army",
+    "precedence": 200,
+    "ribbon": "/ribbons/aam.png",
+    "framed": false,
+    "count": 1,
+    "countStatus": "confirmed",
+    "devices": [],
+    "deviceExplanation": "One award. No oak leaf.",
+    "explanation": "The Army's achievement medal, junior to the Army Commendation Medal. It is worn after the Navy achievement medal because Navy rules put the other service's equivalent just behind the Navy award.",
+    "criteria": "Meritorious service or achievement recognized by the Army.",
+    "sourceNote": "Continuation of the discharge form: Army Achievement Medal, one award. Worksheet year: 2006.",
+    "commonsFile": "Army_Achievement_Medal_ribbon.svg"
+  },
+  {
+    "id": "jmua",
+    "name": "Joint Meritorious Unit Award",
+    "abbreviation": "JMUA",
+    "branch": "joint",
+    "precedence": 300,
+    "ribbon": "/ribbons/jmua.png",
+    "framed": true,
+    "count": 3,
+    "countStatus": "confirmed",
+    "devices": [
+      {
+        "kind": "oak",
+        "metal": "bronze",
+        "count": 2
+      }
+    ],
+    "deviceExplanation": "Three awards. The gold frame is part of the award. Two bronze oak-leaf clusters mark the second and third awards.",
+    "explanation": "A unit award, not a personal medal. Everyone assigned to the cited joint unit for the right dates may wear it. The ribbon is worn inside a gold frame. It comes before Navy unit awards on a Navy rack.",
+    "criteria": "The unit, not the individual, is cited for exceptionally meritorious achievement. You wear it if you were assigned there during the cited period.",
+    "sourceNote": "Discharge form: Joint Meritorious Unit Award (3). The worksheet names only 2006. The other two years are not entered.",
+    "commonsFile": "Joint_Meritorious_Unit_Award_ribbon.svg"
+  },
+  {
+    "id": "nmuc",
+    "name": "Navy Meritorious Unit Commendation",
+    "abbreviation": "MUC",
+    "branch": "navy",
+    "precedence": 320,
+    "ribbon": "/ribbons/nmuc.png",
+    "framed": false,
+    "count": 5,
+    "countStatus": "confirmed",
+    "devices": [
+      {
+        "kind": "star",
+        "metal": "bronze",
+        "count": 4
+      }
+    ],
+    "deviceExplanation": "Five awards. Navy unit awards use bronze stars, not oak leaves. Four bronze stars mean five awards. A silver star would appear only on a sixth award.",
+    "explanation": "A Navy unit award for meritorious service by a ship or command. It is junior to the Navy Unit Commendation, which is not in this record, and senior to the Navy E ribbon.",
+    "criteria": "Worn by members of a cited Navy unit for the period of the citation.",
+    "sourceNote": "Discharge form: Navy Meritorious Unit Commendation (5). The worksheet names only 2000. The other four years are not entered.",
+    "commonsFile": "Navy_Meritorious_Unit_Commendation_ribbon.svg"
+  },
+  {
+    "id": "navy-e",
+    "name": "Navy E Ribbon",
+    "abbreviation": "E",
+    "branch": "navy",
+    "precedence": 340,
+    "ribbon": "/ribbons/navy-e.png",
+    "framed": false,
+    "count": 3,
+    "countStatus": "confirmed",
+    "devices": [
+      {
+        "kind": "letter",
+        "metal": "silver",
+        "letter": "E",
+        "count": 3
+      }
+    ],
+    "deviceExplanation": "Three awards. Each of the first three is a silver letter E. A fourth award would replace the three letters with one wreathed E. That is not the case here.",
+    "explanation": "The Battle Effectiveness ribbon. A ship or unit wins it by placing at the top of its group in an annual competition of readiness and skill. The people assigned there when it is won may wear the ribbon.",
+    "criteria": "Permanent duty in a unit that won the battle-efficiency competition.",
+    "sourceNote": "Discharge form: Navy E Ribbon (3). Worksheet years: 2001, 2002, and 2003, the Frank Cable years.",
+    "commonsFile": "Battle_Effectiveness_Award_ribbon.svg"
+  },
+  {
+    "id": "ngcm",
+    "name": "Navy Good Conduct Medal",
+    "abbreviation": "GCM",
+    "branch": "navy",
+    "precedence": 400,
+    "ribbon": "/ribbons/ngcm.png",
+    "framed": false,
+    "count": 6,
+    "countStatus": "confirmed",
+    "devices": [
+      {
+        "kind": "star",
+        "metal": "silver",
+        "count": 1
+      }
+    ],
+    "deviceExplanation": "Six awards. In Navy rules a silver star replaces five gold stars. The ribbon is the first award and the silver star stands for the next five, which is six altogether.",
+    "explanation": "Given for a period of honorable active service with good performance marks and no serious disciplinary action. For most of this career each medal covered three years. Six medals line up with a twenty-year career.",
+    "criteria": "A qualifying period of good conduct. The worksheet lists 2000, 2003, 2006, 2009, 2012, and 2015.",
+    "sourceNote": "Discharge form: Navy Good Conduct Medal (6).",
+    "commonsFile": "U.S._Navy_Good_Conduct_Medal_ribbon.svg"
+  },
+  {
+    "id": "ndsm",
+    "name": "National Defense Service Medal",
+    "abbreviation": "NDSM",
+    "branch": "joint",
+    "precedence": 500,
+    "ribbon": "/ribbons/ndsm.png",
+    "framed": false,
+    "count": 1,
+    "countStatus": "confirmed",
+    "devices": [],
+    "deviceExplanation": "One award. No star. A second award, for an earlier war period, would be a bronze star. Service here falls in the period that began in 2001.",
+    "explanation": "Given to people serving on active duty during a designated time of war or national emergency. It does not by itself mean the person deployed. For this career it marks service after the 11 September 2001 attacks.",
+    "criteria": "Active duty during a qualifying period. The worksheet dates it 2001 and labels it Global War on Terror.",
+    "sourceNote": "Discharge form: National Defense Service Medal, one award.",
+    "commonsFile": "National_Defense_Service_Medal_ribbon.svg"
+  },
+  {
+    "id": "acm",
+    "name": "Afghanistan Campaign Medal",
+    "abbreviation": "ACM",
+    "branch": "joint",
+    "precedence": 510,
+    "ribbon": "/ribbons/acm.png",
+    "framed": false,
+    "count": 1,
+    "countStatus": "confirmed",
+    "devices": [
+      {
+        "kind": "star",
+        "metal": "bronze",
+        "count": 2
+      }
+    ],
+    "deviceExplanation": "Read as one medal with two bronze campaign stars. Those stars mark two campaign phases. They are not two extra medals, and they are not the gold stars used on a Navy achievement medal.",
+    "explanation": "For service in Afghanistan during named operations, here Operation Enduring Freedom. The two stars line up with the two Afghanistan tours in this record, 2010\u20132011 and 2012\u20132013.",
+    "criteria": "Service in the theater during a qualifying campaign phase. The discharge form writes the medal as (2).",
+    "sourceNote": "If the (2) was meant as two separate medals rather than two stars, the device should be changed. The worksheet lists the medal once, in 2011, and lists two OEF tours.",
+    "commonsFile": "Afghanistan_Campaign_Medal_ribbon.svg"
+  },
+  {
+    "id": "icm",
+    "name": "Iraq Campaign Medal",
+    "abbreviation": "ICM",
+    "branch": "joint",
+    "precedence": 520,
+    "ribbon": "/ribbons/icm.png",
+    "framed": false,
+    "count": 1,
+    "countStatus": "confirmed",
+    "devices": [
+      {
+        "kind": "star",
+        "metal": "bronze",
+        "count": 2
+      }
+    ],
+    "deviceExplanation": "One medal with two bronze campaign stars. The phases named in the record are National Resolution (the 2006 tour) and Iraq Sovereignty (the 2009 tour).",
+    "explanation": "For service in Iraq during Operation Iraqi Freedom. The two stars match the two Iraq deployments: Combined Joint Task Force Troy in 2006, and the individual augmentee tour in 2009.",
+    "criteria": "Service in Iraq during a qualifying campaign phase.",
+    "sourceNote": "Discharge form: Iraq Campaign Medal (2), read here as two campaign stars. The worksheet lists the medal in 2006 and names both phases under operations.",
+    "commonsFile": "Iraq_Campaign_Medal_ribbon.svg"
+  },
+  {
+    "id": "gwotsm",
+    "name": "Global War on Terrorism Service Medal",
+    "abbreviation": "GWOTSM",
+    "branch": "joint",
+    "precedence": 540,
+    "ribbon": "/ribbons/gwotsm.png",
+    "framed": false,
+    "count": 1,
+    "countStatus": "confirmed",
+    "devices": [],
+    "deviceExplanation": "One award.",
+    "explanation": "For support of operations against terrorism on or after 11 September 2001, including duty that was not inside Iraq or Afghanistan. It is different from the campaign medals, which require service in those countries, and from the expeditionary medal, which is not in this record.",
+    "criteria": "Qualifying support service. The worksheet dates it 2005.",
+    "sourceNote": "Discharge form: GWOT Service Medal, one award.",
+    "commonsFile": "Global_War_on_Terrorism_Service_Medal_ribbon.svg"
+  },
+  {
+    "id": "hsm",
+    "name": "Humanitarian Service Medal",
+    "abbreviation": "HSM",
+    "branch": "joint",
+    "precedence": 560,
+    "ribbon": "/ribbons/hsm.png",
+    "framed": false,
+    "count": 1,
+    "countStatus": "confirmed",
+    "devices": [],
+    "deviceExplanation": "One award. No star.",
+    "explanation": "For taking part in a military operation whose purpose was humanitarian: disaster relief, rescue, or a similar effort that the service has designated. The specific operation is not named in the record yet.",
+    "criteria": "Direct participation in a designated humanitarian operation. Worksheet year: 2003.",
+    "sourceNote": "Discharge form: Humanitarian Service Medal, one award. The operation name is still blank.",
+    "commonsFile": "Humanitarian_Service_Medal_ribbon.svg"
+  },
+  {
+    "id": "ssdr",
+    "name": "Sea Service Deployment Ribbon",
+    "abbreviation": "SSDR",
+    "branch": "navy",
+    "precedence": 580,
+    "ribbon": "/ribbons/ssdr.png",
+    "framed": false,
+    "count": 7,
+    "countStatus": "confirmed",
+    "devices": [
+      {
+        "kind": "star",
+        "metal": "silver",
+        "count": 1
+      },
+      {
+        "kind": "star",
+        "metal": "bronze",
+        "count": 1
+      }
+    ],
+    "deviceExplanation": "Seven awards. These ribbons use bronze stars, and a silver star replaces five bronze stars. Seven awards show as one silver star and one bronze star.",
+    "explanation": "For deployed sea duty. In general it marks accumulated time deployed away from home port, often counted in months at sea or forward. Seven awards is a great deal of deployed time. The discharge form also records 6 years, 4 months, and 24 days of sea service, which is the total, not the ribbon count.",
+    "criteria": "Qualifying deployed sea service for each award.",
+    "sourceNote": "Discharge form: Sea Service Deployment Ribbon (7). The worksheet names only 2001, 2002, and 2003. Four years are not entered.",
+    "commonsFile": "Sea_Service_Deployment_Ribbon.svg"
+  },
+  {
+    "id": "osr",
+    "name": "Navy and Marine Corps Overseas Service Ribbon",
+    "abbreviation": "OSR",
+    "branch": "navy",
+    "precedence": 590,
+    "ribbon": "/ribbons/osr.png",
+    "framed": false,
+    "count": 6,
+    "countStatus": "confirmed",
+    "devices": [
+      {
+        "kind": "star",
+        "metal": "silver",
+        "count": 1
+      }
+    ],
+    "deviceExplanation": "Six awards. One silver star stands in for five bronze stars, so the ribbon plus the silver star is six awards.",
+    "explanation": "For a completed tour at an overseas shore station, generally twelve months. It is not the same as the sea-service ribbon, which is for deployments. Guam is the overseas shore duty in this record; the form does not say which tours made up all six awards.",
+    "criteria": "A qualifying overseas shore tour for each award.",
+    "sourceNote": "Discharge form: Navy and Marine Corps Overseas Ribbon (6). The worksheet names only 2001, 2002, and 2003. Three years are not entered.",
+    "commonsFile": "Navy_and_Marine_Corps_Overseas_Service_Ribbon.svg"
+  },
+  {
+    "id": "nato",
+    "name": "NATO Medal (ISAF)",
+    "abbreviation": "NATO",
+    "branch": "foreign",
+    "precedence": 700,
+    "ribbon": "/ribbons/nato.png",
+    "framed": false,
+    "count": 1,
+    "countStatus": "confirmed",
+    "devices": [],
+    "deviceExplanation": "One NATO medal. The ribbon shown is the Non-Article 5 ribbon used for ISAF. The ISAF clasp is noted in the record; it is not drawn as a separate device here.",
+    "explanation": "A foreign award, from NATO rather than the United States, for service with the International Security Assistance Force in Afghanistan. Foreign awards are worn after U.S. service ribbons and before marksmanship ribbons.",
+    "criteria": "Service with ISAF under the rules NATO set for the medal. Worksheet: 2013, Non-Article 5, Afghanistan.",
+    "sourceNote": "Discharge form: NATO Medal, one award.",
+    "commonsFile": "NATO_Medal_ribbon_(Non-Article_5).svg"
+  },
+  {
+    "id": "rifle",
+    "name": "Navy Rifle Marksmanship Ribbon",
+    "abbreviation": "Rifle",
+    "branch": "navy",
+    "precedence": 800,
+    "ribbon": "/ribbons/rifle.png",
+    "framed": false,
+    "count": 1,
+    "countStatus": "confirmed",
+    "devices": [
+      {
+        "kind": "letter",
+        "metal": "silver",
+        "letter": "E",
+        "count": 1
+      }
+    ],
+    "deviceExplanation": "Expert is the top of three levels: Marksman, Sharpshooter, Expert. Shown with a silver E. A sharpshooter ribbon would carry a bronze S instead.",
+    "explanation": "Shows the score fired with the service rifle on the Navy qualification course. It is a skill badge in ribbon form, worn at the very end of the rack, after every decoration and every foreign award.",
+    "criteria": "Expert qualification on the rifle course. Worksheet year: 2001.",
+    "sourceNote": "Discharge form: Navy Rifle Expert Medal.",
+    "commonsFile": "U.S._Navy_Rifle_Marksmanship_Ribbon.svg"
+  },
+  {
+    "id": "pistol",
+    "name": "Navy Pistol Marksmanship Ribbon",
+    "abbreviation": "Pistol",
+    "branch": "navy",
+    "precedence": 810,
+    "ribbon": "/ribbons/pistol.png",
+    "framed": false,
+    "count": 1,
+    "countStatus": "confirmed",
+    "devices": [
+      {
+        "kind": "letter",
+        "metal": "silver",
+        "letter": "E",
+        "count": 1
+      }
+    ],
+    "deviceExplanation": "Expert with the service pistol, shown with a silver E.",
+    "explanation": "The pistol version of the marksmanship ribbon. Same three levels. Expert is the highest. It is worn after the rifle ribbon.",
+    "criteria": "Expert qualification on the pistol course. Worksheet year: 2000.",
+    "sourceNote": "Discharge form: Navy Pistol Expert Medal.",
+    "commonsFile": "U.S._Navy_Pistol_Marksmanship_Ribbon.svg"
+  }
+]
