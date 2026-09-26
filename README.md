@@ -17,7 +17,7 @@ No Social Security number, date of birth, DoD identification number, or home add
 
 ## Published site
 
-Pushes to `main` publish the built site from the repository root. GitHub Pages is set to deploy that branch. The address is [sergioshklr.github.io/shadowbox](https://sergioshklr.github.io/shadowbox/).
+Pushes to `main` publish the built site from the repository root. GitHub Pages is set to deploy that branch. The address is [mil.shklr.org](https://mil.shklr.org/) (custom domain; `public/CNAME` keeps it set on every publish).
 
 ## Edit the record
 
