@@ -115,11 +115,12 @@ a { color: var(--color-navy); }
 .worn-pin img { width: calc(var(--in) * 2.75); }
 .worn-badge img { width: auto; height: calc(var(--in) * 2); }
 /* CPO rating badge (vector): the chevrons are 3 1/4 in wide and span 84% of the art, so the art is 3.88 in wide.
-   Service stripes: five 7 x 3/8 in stripes worn at 45 deg; the rotated art is drawn at true size, 9.546 x 5.127 in.
+   Service stripes: five 7 x 3/8 in stripes, 1/4 in apart, rising at 33 deg on a black backing with vertical ends, as on
+   his sleeve; the art is drawn at true size, 6.211 x 7.986 in.
    Both shrink only when the screen is narrower than their true size. */
 .worn-rating img { width: calc(var(--in) * 3.88); max-width: 100%; }
 .worn-stripes { max-width: 100%; }
-.worn-stripes img { width: calc(var(--in) * 9.546); max-width: 100%; }
+.worn-stripes img { width: calc(var(--in) * 6.211); max-width: 100%; }
 .worn:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 3px; }
 /* Navy racks are worn with no spacing: ribbons touch edge to edge and rows touch top to bottom; the short top row is centred. */
 .rack { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 0; }
