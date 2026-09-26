@@ -6,8 +6,16 @@
     "glyph": "esws",
     "explanation": "A qualification pin for sailors on surface ships. Earning it means learning the ship's main systems and missions and passing a board of people who already hold the pin. The device shows a ship, waves, and a cutlass.",
     "criteria": "Study, a personal qualification book, and an oral board while assigned to a surface ship. USS Frank Cable is the ship in this record.",
-    "placeIds": ["guam"],
-    "related": [{ "kind": "unit", "id": "frank-cable" }]
+    "placeIds": [
+      "guam"
+    ],
+    "related": [
+      {
+        "kind": "unit",
+        "id": "frank-cable"
+      }
+    ],
+    "image": "/insignia/pin-esws.webp"
   },
   {
     "id": "exw",
@@ -16,10 +24,20 @@
     "glyph": "exw",
     "explanation": "The expeditionary version of a warfare pin, for sailors in units that deploy ashore or from the sea rather than as a ship's company. The device carries the word expeditionary. EOD Mobile Unit Five and the later joint communications tours are the expeditionary part of this career.",
     "criteria": "A qualification book and a board, in an expeditionary command.",
-    "placeIds": ["guam", "macdill"],
+    "placeIds": [
+      "guam",
+      "macdill"
+    ],
     "related": [
-      { "kind": "unit", "id": "eodmu5" },
-      { "kind": "unit", "id": "jcse" }
-    ]
+      {
+        "kind": "unit",
+        "id": "eodmu5"
+      },
+      {
+        "kind": "unit",
+        "id": "jcse"
+      }
+    ],
+    "image": "/insignia/pin-exw.webp"
   }
 ]
