@@ -354,7 +354,7 @@ function Uniforms({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
 function EquipmentView({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
   return (
     <main className="sheet">
-      <h2>Gear, Weapons, Vehicles &amp; Ships</h2>
+      <h2>Gear, Weapons, Comms, Vehicles &amp; Boats</h2>
       <p>{caseCopy.equipmentLead}</p>
       {EQUIPMENT_GROUPS.map((group) => {
         const list = equipment.filter((item) => item.group === group.id).sort((a, b) => a.order - b.order);
