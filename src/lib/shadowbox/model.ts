@@ -768,7 +768,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       facts: item.id === "stripes" ? [{ label: "On this case", value: `${profile.serviceStripes} ${profile.serviceStripeColor} stripes` }] : [],
       placeIds: [],
       related: resolveLinks(item.related),
-      hero: item.image ? { type: "image", src: item.image, alt: item.name, shape: item.id === "stripes" ? "wide" : item.id === "rating-badge" ? "tall" : "square" } : undefined,
+      hero: item.image ? { type: "image", src: item.image, alt: item.name, shape: item.id === "rating-badge" ? "tall" : "square" } : undefined,
     };
   }
 
