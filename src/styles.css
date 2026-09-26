@@ -10,7 +10,7 @@
   --color-navy-deep: #0c1726;
   --color-brass: #b8923a;
   --color-brass-bright: #e4c77a;
-  --color-felt: #1a2740;
+  --color-felt: #0c0c0d;
   --color-line: rgba(184, 146, 58, 0.45);
   --color-quiet: #6d6458;
 }
@@ -46,8 +46,15 @@ a { color: var(--color-navy); }
 
 .mast { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: end; justify-content: space-between; margin-bottom: 1.25rem; }
 .kicker { margin: 0 0 0.25rem; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brass); }
-.mast-sub { margin: 0.35rem 0 0; color: var(--color-quiet); }
-.mast-sub + .mast-sub { margin-top: 0.1rem; }
+.mast-brand { display: flex; align-items: center; gap: 0.9rem; }
+.mast-icon { width: 3.5rem; height: 3.5rem; flex: none; display: block; }
+.wordmark { margin: 0; font-size: clamp(2rem, 5vw, 3rem); line-height: 1; letter-spacing: 0.18em; }
+.mast-tagline { margin: 0.35rem 0 0; color: var(--color-quiet); font-style: italic; font-size: 1.02rem; }
+@media (max-width: 640px) {
+  .mast-icon { width: 2.75rem; height: 2.75rem; }
+  .wordmark { letter-spacing: 0.12em; }
+  .mast-tagline { font-size: 0.95rem; }
+}
 .mast-nav { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .nav-btn, .row-btn, .patch, .mark, .uniform-card, .stop-list button, .related button, .place-list button, .icon-btn {
   font: inherit;
@@ -84,7 +91,7 @@ a { color: var(--color-navy); }
 .mark {
   min-width: 5.5rem;
   min-height: 44px;
-  background: #10192b;
+  background: #161616;
   border: 1px solid var(--color-line);
   color: var(--color-brass-bright);
   padding: 0.45rem 0.4rem 0.35rem;
@@ -97,19 +104,33 @@ a { color: var(--color-navy); }
 .mark-word { font-size: 1rem; padding: 0.7rem 0.2rem; }
 .insignia-img { height: 3.2rem; width: auto; max-width: 5.5rem; object-fit: contain; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
 .pin-img { width: 5.4rem; height: 3.2rem; object-fit: contain; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
-.rack { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; margin: 0.4rem 0 0.8rem; }
-.rack-row { display: flex; gap: 0.35rem; }
+/* The case is laid out at true relative size: --in is one inch on the rack (a ribbon is 1 3/8 in wide).
+   Pins and the JCSE badge are sized in the same inches, with the standard 1/4 in gaps. */
+.case-display { --in: 4.07rem; display: flex; flex-direction: column; align-items: center; gap: calc(var(--in) / 4); margin: 1.1rem 0 1rem; }
+.worn { background: transparent; border: 0; padding: 0; cursor: pointer; display: block; line-height: 0; }
+.worn img { display: block; height: auto; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
+.worn-pin img { width: calc(var(--in) * 2.75); }
+.worn-badge img { width: auto; height: calc(var(--in) * 2); }
+/* CPO rating badge: the chevrons are 3 1/4 in wide and span 84% of the art, so the art is 3.88 in wide. Service stripes: the art is drawn at true size (10 3/8 x 3 1/8 in, five 7 in stripes).
+   Both shrink only when the screen is narrower than their true size. */
+.worn-rating img { width: calc(var(--in) * 3.88); max-width: 100%; }
+.worn-stripes { max-width: 100%; }
+.worn-stripes img { width: calc(var(--in) * 10.375); max-width: 100%; }
+.worn:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 3px; }
+/* Navy racks are worn with no spacing: ribbons touch edge to edge and rows touch top to bottom; the short top row is centred. */
+.rack { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 0; }
+.rack-row { display: flex; gap: 0; }
 .ribbon {
   position: relative;
-  width: 5.6rem;
-  height: 1.7rem;
+  width: calc(var(--in, 4.07rem) * 1.375);
+  aspect-ratio: 11 / 3;
   padding: 0;
-  border: 1px solid rgba(255,255,255,0.25);
+  border: 0;
   background: #000;
-  min-height: 44px;
   display: grid;
   place-items: center;
 }
+.rack .ribbon:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: -2px; z-index: 1; }
 .ribbon { container-type: inline-size; }
 /* A ribbon is 1 3/8 x 3/8 in, so the art keeps an 11:3 aspect and fills the button width. */
 .ribbon > img { width: 100%; height: auto; aspect-ratio: 11 / 3; object-fit: fill; display: block; }
@@ -130,8 +151,12 @@ a { color: var(--color-navy); }
    of a star (the same layout as the printable case items). */
 .devices:has(> img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold) { gap: 0; }
 .devices:has(> img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold) > img.glyph-star.metal-gold { margin-inline: calc(var(--star) * -0.072); }
-.devices img.glyph-oak { height: 1.2rem; max-width: 1.3rem; }
-.devices img.glyph-letter { height: 0.95rem; }
+/* E and oak leaf art is drawn at 800 ppi against a 1100 px (1 3/8 in) ribbon, with 16 px of padding for the
+   drop shadow, so a size in art pixels is that fraction of the ribbon width. E = 1/4 in tall (200 px, canvas 232);
+   oak leaf cluster = 13/32 in long, tilted about 25 degrees as worn (canvas 332 x 226). The padding is taken back
+   with negative margins so the 1/32 in gap is measured between devices. */
+.devices img.glyph-letter { height: calc(100cqw * 232 / 1100); width: auto; max-width: none; margin-inline: calc(100cqw * -16 / 1100); filter: none; }
+.devices img.glyph-oak { width: calc(100cqw * 332 / 1100); height: auto; max-width: none; margin-inline: calc(100cqw * -16 / 1100); filter: none; }
 .metal-gold { color: #d4a62a; }
 .metal-bronze { color: #a0703a; }
 .metal-silver { color: #c9c9c9; }
@@ -151,6 +176,7 @@ a { color: var(--color-navy); }
   padding: 0.4rem;
 }
 .patch-mark { font-family: var(--font-display); font-size: 1.05rem; line-height: 1.1; text-align: center; }
+.designator { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass); border: 1px solid currentColor; border-radius: 2px; padding: 0.05rem 0.3rem; line-height: 1.3; white-space: nowrap; }
 .patch-crest { width: 4.4rem; height: 4.4rem; object-fit: contain; }
 .patch.has-crest .patch-mark { font-size: 0.85rem; }
 .patch-row:has(.has-crest) .patch { min-height: 7.6rem; }
@@ -161,7 +187,7 @@ a { color: var(--color-navy); }
   .ledger, .split { grid-template-columns: 1fr 1fr; }
   .nameplate { grid-template-columns: 11rem 1fr; }
   .portrait { width: 11rem; height: 13rem; }
-  .ribbon { width: 7.2rem; }
+  .case-display { --in: 5.24rem; }
 }
 .plain { margin: 0; padding-left: 1.1rem; }
 .plain li { margin: 0.25rem 0; }
@@ -262,10 +288,14 @@ a { color: var(--color-navy); }
 /* The graphic that was clicked, large, at the top of every panel that has one. */
 .detail-hero { margin: 0.9rem 0 0.2rem; display: flex; justify-content: center; align-items: center; background: #fff; border: 1px solid var(--color-ivory-dim); padding: 1rem; }
 .detail-hero img { display: block; max-width: 100%; object-fit: contain; }
+.detail-hero .ribbon > img { object-fit: fill; }
 .hero-tall img { height: min(26rem, 55vh); width: auto; }
 .hero-square img { width: min(15rem, 70%); height: auto; }
 .hero-wide img { width: min(22rem, 90%); height: auto; }
 .hero-landscape img { width: min(34rem, 100%); height: auto; }
+.hero-extra { flex-direction: column; gap: 0.6rem; }
+.hero-extra img { width: min(15rem, 70%); height: auto; }
+.hero-extra figcaption { font-size: 0.9rem; text-align: center; color: #333; }
 .hero-photo { padding: 0; background: #000; }
 .hero-photo img { width: 100%; max-height: 60vh; }
 .hero-ribbon { background: var(--color-felt); padding: 1.6rem 1rem; }
@@ -281,7 +311,7 @@ a { color: var(--color-navy); }
   .nameplate { grid-template-columns: 7rem 1fr; }
   .portrait { width: 7rem; height: 8.4rem; }
   .row-btn { grid-template-columns: 1fr; }
-  .ribbon { width: 4.6rem; }
+  .case-display { --in: 3.35rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

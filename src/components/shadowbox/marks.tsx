@@ -2,11 +2,11 @@ import type { Award, Device } from "@/lib/shadowbox/model";
 import { countPhrase, deviceSummary, publicUrl } from "@/lib/shadowbox/model";
 
 const DEVICE_ART: Record<string, string> = {
-  "star-gold": "/devices/star-gold.svg",
+  "star-gold": "/devices/star-gold-b.svg",
   "star-silver": "/devices/star-silver.svg",
   "star-bronze": "/devices/star-bronze.svg",
-  "oak-bronze": "/devices/oak-bronze.png",
-  "letter-silver": "/devices/e-silver.svg",
+  "oak-bronze": "/devices/oak-bronze-b.svg",
+  "letter-silver": "/devices/e-silver-b.svg",
 };
 
 /** Devices are drawn from the case-item art in public/devices. */
