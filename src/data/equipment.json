@@ -204,5 +204,53 @@
       "creator": "Mass Communication Specialist Seaman Adam K. Thomas, U.S. Navy",
       "license": "Public domain (U.S. federal government work)"
     }
+  },
+  {
+    "id": "pasgt-helmet-desert",
+    "group": "helmets",
+    "order": 1,
+    "name": "PASGT helmet, desert cover",
+    "caption": "3-color desert (DCU) cover",
+    "cutout": false,
+    "note": "Personnel Armor System for Ground Troops (PASGT) helmet, the Kevlar “K-pot” the U.S. Army and Marine Corps fielded in the early 1980s. It protects the head, temples, ears and neck against fragments. Shown in the 3-color desert (DCU) cover worn with desert uniforms. During the 2000s the Army replaced it with the Advanced Combat Helmet.",
+    "image": "/equipment/pasgt-helmet-desert-cover.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:DCU-cover-for-PASGT-vest,_July-1,_1991.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/4/4a/DCU-cover-for-PASGT-vest%2C_July-1%2C_1991.jpg",
+      "creator": "U.S. Army Natick Research, Development and Engineering Center, 1991",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "ach-tan",
+    "group": "helmets",
+    "order": 2,
+    "name": "ACH / MICH, bare tan",
+    "caption": "Tan shell, no cover",
+    "cutout": false,
+    "note": "Advanced Combat Helmet (ACH), developed from the Special Operations MICH. PEO Soldier says it has been in use since 2002 and replaced the PASGT. It is lighter than the PASGT and gives better fragment, ballistic and impact protection. It has pad suspension and a pre-drilled hole for a night-vision mount. Shells were painted in several colors, including tan, and were often worn without a cover.",
+    "image": "/equipment/ach-helmet-tan.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_100421-N-4965F-366_Master-at-Arms_3rd_Class_Jason_Henry,_assigned_to_Maritime_Expeditionary_Security_Squadron_(MSRON)_3,_takes_cover_behind_a_riot_shield.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/8/82/US_Navy_100421-N-4965F-366_Master-at-Arms_3rd_Class_Jason_Henry%2C_assigned_to_Maritime_Expeditionary_Security_Squadron_%28MSRON%29_3%2C_takes_cover_behind_a_riot_shield.jpg",
+      "creator": "MC1 James E. Foehl, U.S. Navy",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "ach-acu-cover",
+    "group": "helmets",
+    "order": 3,
+    "name": "ACH / MICH, ACU cover",
+    "caption": "UCP cover and night-vision mount",
+    "cutout": false,
+    "note": "The Advanced Combat Helmet in the Universal Camouflage Pattern (UCP) cover of the Army Combat Uniform, with a night-vision mount bracket on the front. This was the standard Army helmet look of the ACU years, from the mid-2000s.",
+    "image": "/equipment/ach-helmet-acu-cover.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:ACH_005.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/0/0e/ACH_005.jpg",
+      "creator": "PEO Soldier (U.S. Army), 2005",
+      "license": "Public domain (U.S. federal government work)"
+    }
   }
 ]

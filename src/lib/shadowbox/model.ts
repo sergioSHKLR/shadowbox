@@ -115,6 +115,8 @@ export type Operation = {
   theater: string;
   unitId: string | null;
   placeId: string | null;
+  /** Bases (place ids with type "base") this deployment used. One-line edit per deployment. */
+  baseIds?: string[];
   explanation: string;
   open?: string;
 };
@@ -162,9 +164,11 @@ export type Uniform = {
   image: string;
 };
 
-export type EquipmentGroup = "weapons" | "vehicles" | "ships";
+export type EquipmentGroup = "armor" | "helmets" | "weapons" | "vehicles" | "ships";
 
 export const EQUIPMENT_GROUPS: { id: EquipmentGroup; label: string }[] = [
+  { id: "armor", label: "Body Armor" },
+  { id: "helmets", label: "Helmets" },
   { id: "weapons", label: "Weapons" },
   { id: "vehicles", label: "Vehicles" },
   { id: "ships", label: "Ships" },
@@ -192,6 +196,8 @@ export type Place = {
   lng: number | null;
   accuracy: "public-site" | "approximate" | "placeholder";
   note: string;
+  /** "base" marks a deployment base (FOB, air base), shown as its own pin on the map. */
+  type?: "base";
 };
 
 export type Photo = {
@@ -267,6 +273,7 @@ export const schools = schoolsJson as School[];
 export const necs = necsJson as Nec[];
 export const uniforms = uniformsJson as Uniform[];
 export const places = placesJson as Place[];
+export const bases = places.filter((place) => place.type === "base");
 export const photos = photosJson as Photo[];
 export const reflections = reflectionsJson as Reflection[];
 export const warfare = warfareJson as Warfare[];
@@ -509,7 +516,7 @@ export type UsedItem = { kind: "uniform" | "equipment"; id: string; name: string
  */
 export const usedHere = usedHereJson as Record<string, string[]>;
 
-const USED_ORDER = ["uniform", "weapons", "vehicles", "ships"];
+const USED_ORDER = ["uniform", "armor", "helmets", "weapons", "vehicles", "ships"];
 
 export function usedHereFor(subjectId: string): UsedItem[] {
   const items: UsedItem[] = [];
@@ -683,6 +690,7 @@ export function toSubject(sel: Selection): SubjectView | null {
     const op = byId(operations, sel.id);
     if (!op) return null;
     const unit = unitById(op.unitId);
+    const opBases = (op.baseIds ?? []).map((id) => placeById(id)).filter((place): place is Place => Boolean(place));
     return {
       kind: "operation",
       id: op.id,
@@ -693,10 +701,11 @@ export function toSubject(sel: Selection): SubjectView | null {
         { label: "Phase", value: op.phase },
         { label: "When", value: formatSpan(op.start, op.end) },
       ],
-      placeIds: op.placeId ? [op.placeId] : [],
+      placeIds: opBases.length ? opBases.map((place) => place.id) : op.placeId ? [op.placeId] : [],
       related: [
         ...(unit ? [rel("unit", unit.id, unit.name)] : []),
         ...(op.placeId ? [rel("place", op.placeId, placeById(op.placeId)?.name ?? "Place")] : []),
+        ...opBases.map((place) => rel("place", place.id, place.name)),
       ],
       usedHere: usedHereFor(op.id),
     };
@@ -840,11 +849,14 @@ export function toSubject(sel: Selection): SubjectView | null {
       ...units.filter((unit) => unit.placeId === place.id).map((unit) => rel("unit", unit.id, unit.name)),
       ...operations.filter((op) => op.placeId === place.id).map((op) => rel("operation", op.id, op.phase)),
       ...schools.filter((school) => school.placeId === place.id).map((school) => rel("school", school.id, school.name)),
+      ...operations.filter((op) => op.baseIds?.includes(place.id)).map((op) => rel("operation", op.id, `${op.name} — ${op.phase}`)),
     ];
     return {
       kind: "place",
       id: place.id,
-      kicker: place.accuracy === "placeholder" ? "Placeholder location" : place.accuracy === "approximate" ? "Approximate location" : "Duty station",
+      kicker: place.type === "base"
+        ? place.accuracy === "approximate" ? "Deployment base · approximate location" : "Deployment base"
+        : place.accuracy === "placeholder" ? "Placeholder location" : place.accuracy === "approximate" ? "Approximate location" : "Duty station",
       title: place.name,
       explanation: place.note,
       facts: [
