@@ -91,7 +91,16 @@ export type Unit = {
   open?: string;
   /** Optional crest or patch image, shown on the unit tile. */
   image?: string;
+  /** How he was attached to the command. */
+  designator?: Designator;
+  /** Further images shown under the crest in the unit popup (e.g. a coin). */
+  extraImages?: ExtraImage[];
 };
+
+export const DESIGNATORS = ["Under Instruction", "Assigned", "Deployed", "Assisting", "Parent", "TAD"] as const;
+export type Designator = (typeof DESIGNATORS)[number];
+
+export type ExtraImage = { src: string; alt: string; caption: string };
 
 export type Operation = {
   id: string;
@@ -483,6 +492,8 @@ export type SubjectView = {
   related: { kind: Kind; id: string; label: string }[];
   /** The graphic that was clicked, shown large at the top of the panel. */
   hero?: Hero;
+  /** Further captioned images shown under the hero. */
+  extraImages?: ExtraImage[];
 };
 
 export type Hero =
@@ -599,9 +610,11 @@ export function toSubject(sel: Selection): SubjectView | null {
     if (!unit) return null;
     const nec = necById(unit.necId);
     const ops = operations.filter((op) => op.unitId === unit.id);
+    const gear = equipment.filter((item) => item.unitId === unit.id);
     const related = [
       ...(nec ? [rel("nec", nec.id, `${nec.code} ${nec.name}`)] : []),
       ...ops.map((op) => rel("operation", op.id, op.phase)),
+      ...gear.map((item) => rel("equipment", item.id, item.name)),
       ...(unit.placeId && placeById(unit.placeId) ? [rel("place", unit.placeId, placeById(unit.placeId)!.name)] : []),
     ];
     return {
@@ -611,6 +624,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       title: unit.name,
       explanation: `${unit.explanation} ${unit.civilian}`,
       facts: [
+        ...(unit.designator ? [{ label: "Designator", value: unit.designator }] : []),
         { label: "When", value: formatSpan(unit.start, unit.end) },
         ...(unit.start ? [{ label: "Precision", value: unit.precision === "year" ? "Years only — months were not recorded" : "Month recorded" }] : []),
         ...(nec ? [{ label: "NEC on this tour", value: `${nec.code} · ${nec.name}` }] : []),
@@ -618,6 +632,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       placeIds: unit.placeId ? [unit.placeId] : [],
       related,
       hero: unit.image ? { type: "image", src: unit.image, alt: `Crest, ${unit.name}`, shape: "square" } : undefined,
+      extraImages: unit.extraImages,
     };
   }
 

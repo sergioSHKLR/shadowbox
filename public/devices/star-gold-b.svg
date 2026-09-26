@@ -27,5 +27,5 @@
 <line x1="133.24" y1="139.27" x2="205.70" y2="239.01" stroke="#fffbe0" stroke-width="2.22" stroke-opacity="0.55" stroke-linecap="round"/>
 <line x1="133.24" y1="139.27" x2="60.78" y2="239.01" stroke="#fffbe0" stroke-width="2.22" stroke-opacity="0.55" stroke-linecap="round"/>
 <line x1="133.24" y1="139.27" x2="16.00" y2="101.18" stroke="#fffbe0" stroke-width="2.22" stroke-opacity="0.55" stroke-linecap="round"/>
-<polygon points="133.24,16.00 164.40,96.39 250.48,101.18 183.65,155.65 205.70,239.01 133.24,192.28 60.78,239.01 82.83,155.65 16.00,101.18 102.08,96.39" fill="none" stroke="#3a2804" stroke-width="3.45" stroke-linejoin="round" stroke-opacity="0.9"/>
+<polygon points="133.24,16.00 164.40,96.39 250.48,101.18 183.65,155.65 205.70,239.01 133.24,192.28 60.78,239.01 82.83,155.65 16.00,101.18 102.08,96.39" fill="none" stroke="#a07a1c" stroke-width="3.45" stroke-linejoin="round" stroke-opacity="0.9"/>
 </svg>

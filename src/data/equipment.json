@@ -46,9 +46,26 @@
     }
   },
   {
+    "id": "centurion-c-ram",
+    "group": "weapons",
+    "order": 4,
+    "name": "Centurion C-RAM",
+    "caption": "Trailer-mounted, with its generator (Iraq)",
+    "cutout": false,
+    "note": "Counter-Rocket, Artillery, Mortar (C-RAM) weapon: the Navy's Phalanx close-in weapon system, a radar-guided 20 mm Gatling gun, mounted on a trailer for use ashore. It is built to shoot down incoming rockets, artillery and mortar rounds over a base.",
+    "image": "/equipment/centurion-c-ram.webp",
+    "unitId": "ia-army",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_Battery_Phalanx_in_Iraq.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/f/f1/A_Battery_Phalanx_in_Iraq.jpg",
+      "creator": "Alpha Battery, 1st Battalion, 194th Field Artillery (U.S. Army National Guard)",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
     "id": "hmmwv-up-armored",
     "group": "vehicles",
-    "order": 4,
+    "order": 5,
     "name": "Up-armored HMMWV with turtleback",
     "caption": "M1114 shown, with the armored gunner’s turret",
     "cutout": true,
@@ -64,7 +81,7 @@
   {
     "id": "jerrv",
     "group": "vehicles",
-    "order": 5,
+    "order": 6,
     "name": "JERRV",
     "caption": "Cougar H shown",
     "cutout": true,
@@ -80,7 +97,7 @@
   {
     "id": "cucv",
     "group": "vehicles",
-    "order": 6,
+    "order": 7,
     "name": "CUCV",
     "caption": "CUCV pickup shown",
     "cutout": true,
@@ -96,7 +113,7 @@
   {
     "id": "hilux",
     "group": "vehicles",
-    "order": 7,
+    "order": 8,
     "name": "Toyota Hilux pickup",
     "caption": "White, unarmored (double cab shown)",
     "cutout": true,
@@ -112,7 +129,7 @@
   {
     "id": "land-cruiser",
     "group": "vehicles",
-    "order": 8,
+    "order": 9,
     "name": "Toyota Land Cruiser, up-armored",
     "caption": "Dark blue Land Cruiser 200 shown (armoring is not visible from outside)",
     "cutout": true,
@@ -128,7 +145,7 @@
   {
     "id": "zodiac",
     "group": "vehicles",
-    "order": 9,
+    "order": 10,
     "name": "Zodiac",
     "caption": "Combat rubber raiding craft (F470), ashore",
     "cutout": true,
@@ -144,7 +161,7 @@
   {
     "id": "frank-cable",
     "group": "ships",
-    "order": 10,
+    "order": 11,
     "name": "USS Frank Cable (AS-40)",
     "cutout": false,
     "note": "Emory S. Land-class submarine tender, built to repair and resupply submarines alongside.",
@@ -160,7 +177,7 @@
   {
     "id": "tortuga",
     "group": "ships",
-    "order": 11,
+    "order": 12,
     "name": "USS Tortuga (LSD-46)",
     "cutout": false,
     "note": "Whidbey Island-class dock landing ship: carries Marines, their vehicles and landing craft, and launches the craft from a floodable well deck.",
@@ -176,7 +193,7 @@
   {
     "id": "essex",
     "group": "ships",
-    "order": 12,
+    "order": 13,
     "name": "USS Essex (LHD-2)",
     "cutout": false,
     "note": "Wasp-class amphibious assault ship: a flight deck for helicopters and Harrier or F-35B jets, and a well deck for landing craft.",
