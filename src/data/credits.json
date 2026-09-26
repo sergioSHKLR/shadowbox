@@ -262,20 +262,119 @@
   },
   {
     "id": "equipment-zodiac",
-    "title": "Zodiac (Combat rubber raiding craft (F470))",
-    "file": "/equipment/zodiac-f470-crrc.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Combat_rubber_raiding_craft_(4417326236).jpg",
-    "creator": "U.S. Marine Corps (31st Marine Expeditionary Unit), via the U.S. Marine Corps Flickr stream",
+    "title": "Zodiac (combat rubber raiding craft, F470)",
+    "file": "/equipment/zodiac-f470-crrc-b.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:12th_LLB_and_LERT_CRRC_Sustainment_Training_(9231843).jpg",
+    "creator": "Cpl. Jonathan Rodriguez Pastrana, U.S. Marine Corps",
     "license": "Public domain. Photograph by a member of the U.S. armed forces in the course of official duties, a work of the U.S. federal government.",
-    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/3/34/Combat_rubber_raiding_craft_%284417326236%29.jpg . Not hotlinked."
+    "notes": "Cut out onto white and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/0/0a/12th_LLB_and_LERT_CRRC_Sustainment_Training_%289231843%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original . Not hotlinked."
   },
   {
     "id": "equipment-frank-cable",
-    "title": "Emory S. Land-class (AS-39) submarine tender (USS Frank Cable (AS-40))",
+    "title": "USS Frank Cable (AS-40)",
     "file": "/equipment/uss-frank-cable-as-40.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS_Frank_Cable_(AS-40)_departs_Pearl_Harbor,_Hawaii_(USA),_on_25_April_2005_(050425-N-8937A-018).jpg",
     "creator": "Photographer's Mate 3rd Class Ian W. Anderson, U.S. Navy",
     "license": "Public domain. Photograph by a member of the U.S. armed forces in the course of official duties, a work of the U.S. federal government.",
     "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/2/22/USS_Frank_Cable_%28AS-40%29_departs_Pearl_Harbor%2C_Hawaii_%28USA%29%2C_on_25_April_2005_%28050425-N-8937A-018%29.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-tortuga",
+    "title": "USS Tortuga (LSD-46)",
+    "file": "/equipment/uss-tortuga-lsd-46.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS_Tortuga_(LSD-46).jpg",
+    "creator": "Photographer's Mate 1st Class Martin Maddock, U.S. Navy",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/5/50/USS_Tortuga_%28LSD-46%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original . Not hotlinked."
+  },
+  {
+    "id": "equipment-essex",
+    "title": "USS Essex (LHD-2)",
+    "file": "/equipment/uss-essex-lhd-2.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_091117-N-6720T-185_The_amphibious_assault_ship_USS_Essex_(LHD_2)_is_underway_in_the_Pacific_Ocean.jpg",
+    "creator": "Mass Communication Specialist Seaman Adam K. Thomas, U.S. Navy",
+    "license": "Public domain. Photograph by a member of the U.S. armed forces in the course of official duties, a work of the U.S. federal government.",
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/e/e1/US_Navy_091117-N-6720T-185_The_amphibious_assault_ship_USS_Essex_%28LHD_2%29_is_underway_in_the_Pacific_Ocean.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original . Not hotlinked."
+  },
+  {
+    "id": "equipment-hilux",
+    "title": "Toyota Hilux pickup (white)",
+    "file": "/equipment/toyota-hilux-white.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toyota_Hilux_in_Germany.jpg",
+    "creator": "Rutger van der Maar (Flickr), via Wikimedia Commons",
+    "license": "Creative Commons Attribution 2.0 (CC BY 2.0), https://creativecommons.org/licenses/by/2.0/ . Photograph by Rutger van der Maar.",
+    "notes": "Cut out onto white, license plate blurred, resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/2/24/Toyota_Hilux_in_Germany.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original . Not hotlinked."
+  },
+  {
+    "id": "equipment-land-cruiser",
+    "title": "Toyota Land Cruiser (dark blue)",
+    "file": "/equipment/toyota-land-cruiser-blue.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toyota_Land_Cruiser_200_4.5_VX_V8_Pacific_Blue_Metallic_with_2nd_facelift_front.jpg",
+    "creator": "Ethan Llamas, via Wikimedia Commons",
+    "license": "Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0), https://creativecommons.org/licenses/by-sa/4.0/ . Photograph by Ethan Llamas. The cut-out image is shared under the same license.",
+    "notes": "Cut out onto white, license plate blurred, resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/d/d6/Toyota_Land_Cruiser_200_4.5_VX_V8_Pacific_Blue_Metallic_with_2nd_facelift_front.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original . Not hotlinked."
+  },
+  {
+    "id": "crest-tortuga",
+    "title": "USS Tortuga (LSD-46) ship crest",
+    "file": "/crests/tortuga.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS_Tortuga_LSD-46_Crest.png",
+    "creator": "United States Navy",
+    "license": "Public domain. United States Navy insignia, a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Resized to about 400 px for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/e/ee/USS_Tortuga_LSD-46_Crest.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original . Not hotlinked."
+  },
+  {
+    "id": "crest-ntc-great-lakes",
+    "title": "Naval Station Great Lakes seal (shown for Naval Training Center Great Lakes)",
+    "file": "/crests/ntc-great-lakes.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Seal_of_NAVSTA_Great_Lakes.svg",
+    "creator": "United States Department of the Navy",
+    "license": "Public domain. United States Navy insignia, a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Resized to about 400 px for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/f/fa/Seal_of_NAVSTA_Great_Lakes.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original . Not hotlinked."
+  },
+  {
+    "id": "crest-52nd-ordnance",
+    "title": "52nd Ordnance Group (EOD) shoulder sleeve insignia",
+    "file": "/crests/52nd-ordnance.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:52nd_EOD_Group_SSI.svg",
+    "creator": "Fred the Oyster (vector drawing), after the U.S. Army insignia",
+    "license": "Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA 3.0), https://creativecommons.org/licenses/by-sa/3.0/ . The underlying insignia is a U.S. Army design; use of military insignia is restricted by law.",
+    "notes": "Resized to about 400 px for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/2/22/52nd_EOD_Group_SSI.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original . Not hotlinked."
+  },
+  {
+    "id": "crest-16th-engineer",
+    "title": "16th Engineer Brigade shoulder sleeve insignia",
+    "file": "/crests/16th-engineer.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:16th_Engineer_Brigade_SSI.svg",
+    "creator": "Fvasconcellos (vector drawing), after the U.S. Army Institute of Heraldry design",
+    "license": "Public domain. United States Army heraldic insignia (U.S. Army Institute of Heraldry design), a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Resized to about 400 px for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/9/94/16th_Engineer_Brigade_SSI.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original . Not hotlinked."
+  },
+  {
+    "id": "crest-3rd-sfg",
+    "title": "3rd Special Forces Group (Airborne): Special Forces shoulder sleeve insignia with the 3rd Group beret flash",
+    "file": "/crests/3rd-sfg.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:United_States_Army_Special_Forces_SSI_(1958-2015).png",
+    "creator": "United States Army",
+    "license": "Public domain. United States Army heraldic insignia (U.S. Army Institute of Heraldry design), a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "The two insignia were placed side by side and resized to about 400 px for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/5/58/United_States_Army_Special_Forces_SSI_%281958-2015%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original and https://upload.wikimedia.org/wikipedia/commons/d/d5/3sfg.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original (beret flash, https://commons.wikimedia.org/wiki/File:3sfg.svg) . Not hotlinked."
+  },
+  {
+    "id": "crest-75th-ranger",
+    "title": "75th Ranger Regiment shoulder sleeve insignia (scroll)",
+    "file": "/crests/75th-ranger.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:75th_Ranger_Regiment_SSI_(1984-2015).svg",
+    "creator": "United States Army",
+    "license": "Public domain. United States Army heraldic insignia (U.S. Army Institute of Heraldry design), a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Resized to about 400 px for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/c/c0/75th_Ranger_Regiment_SSI_%281984-2015%29.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original . Not hotlinked."
+  },
+  {
+    "id": "crest-11th-ada",
+    "title": "11th Air Defense Artillery Brigade shoulder sleeve insignia",
+    "file": "/crests/11th-ada.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:11ADABdeSSI.svg",
+    "creator": "United States Army",
+    "license": "Public domain. United States Army heraldic insignia (U.S. Army Institute of Heraldry design), a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Supplied for this shadowbox (Wikimedia Commons, public domain); resized to about 400 px, saved as WebP. Original file: supplied image of https://commons.wikimedia.org/wiki/File:11ADABdeSSI.svg . Not hotlinked."
   }
 ]

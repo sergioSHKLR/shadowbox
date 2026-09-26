@@ -94,35 +94,97 @@
     }
   },
   {
-    "id": "zodiac",
+    "id": "hilux",
     "group": "vehicles",
     "order": 7,
-    "name": "Zodiac",
-    "caption": "Combat rubber raiding craft (F470)",
-    "cutout": false,
-    "note": "Combat rubber raiding craft, the Zodiac F470 inflatable boat. Run with an outboard motor or paddled.",
-    "image": "/equipment/zodiac-f470-crrc.webp",
+    "name": "Toyota Hilux pickup",
+    "caption": "White, unarmored (double cab shown)",
+    "cutout": true,
+    "note": "Unarmored white Toyota Hilux pickup, the civilian truck widely used in Iraq and Afghanistan.",
+    "image": "/equipment/toyota-hilux-white.webp",
     "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Combat_rubber_raiding_craft_(4417326236).jpg",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/3/34/Combat_rubber_raiding_craft_%284417326236%29.jpg",
-      "creator": "U.S. Marine Corps (31st Marine Expeditionary Unit), via the U.S. Marine Corps Flickr stream",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toyota_Hilux_in_Germany.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/2/24/Toyota_Hilux_in_Germany.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "creator": "Rutger van der Maar (Flickr), via Wikimedia Commons",
+      "license": "CC BY 2.0"
+    }
+  },
+  {
+    "id": "land-cruiser",
+    "group": "vehicles",
+    "order": 8,
+    "name": "Toyota Land Cruiser, up-armored",
+    "caption": "Dark blue Land Cruiser 200 shown (armoring is not visible from outside)",
+    "cutout": true,
+    "note": "Armored Toyota Land Cruiser SUV: a civilian-looking vehicle fitted with armor and bullet-resistant glass.",
+    "image": "/equipment/toyota-land-cruiser-blue.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toyota_Land_Cruiser_200_4.5_VX_V8_Pacific_Blue_Metallic_with_2nd_facelift_front.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Toyota_Land_Cruiser_200_4.5_VX_V8_Pacific_Blue_Metallic_with_2nd_facelift_front.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "creator": "Ethan Llamas, via Wikimedia Commons",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "zodiac",
+    "group": "vehicles",
+    "order": 9,
+    "name": "Zodiac",
+    "caption": "Combat rubber raiding craft (F470), ashore",
+    "cutout": true,
+    "note": "Combat rubber raiding craft, the Zodiac F470 inflatable boat. Run with an outboard motor or paddled.",
+    "image": "/equipment/zodiac-f470-crrc-b.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:12th_LLB_and_LERT_CRRC_Sustainment_Training_(9231843).jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/0/0a/12th_LLB_and_LERT_CRRC_Sustainment_Training_%289231843%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "creator": "Cpl. Jonathan Rodriguez Pastrana, U.S. Marine Corps",
       "license": "Public domain (U.S. federal government work)"
     }
   },
   {
     "id": "frank-cable",
     "group": "ships",
-    "order": 8,
-    "name": "Emory S. Land-class (AS-39) submarine tender",
-    "caption": "USS Frank Cable (AS-40)",
+    "order": 10,
+    "name": "USS Frank Cable (AS-40)",
     "cutout": false,
-    "note": "Submarine tender of the Emory S. Land class, built to repair and resupply submarines alongside. Pictured is USS Frank Cable (AS-40), the ship in this class he served aboard.",
+    "note": "Emory S. Land-class submarine tender, built to repair and resupply submarines alongside.",
     "image": "/equipment/uss-frank-cable-as-40.webp",
     "unitId": "frank-cable",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS_Frank_Cable_(AS-40)_departs_Pearl_Harbor,_Hawaii_(USA),_on_25_April_2005_(050425-N-8937A-018).jpg",
       "file": "https://upload.wikimedia.org/wikipedia/commons/2/22/USS_Frank_Cable_%28AS-40%29_departs_Pearl_Harbor%2C_Hawaii_%28USA%29%2C_on_25_April_2005_%28050425-N-8937A-018%29.jpg",
       "creator": "Photographer's Mate 3rd Class Ian W. Anderson, U.S. Navy",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "tortuga",
+    "group": "ships",
+    "order": 11,
+    "name": "USS Tortuga (LSD-46)",
+    "cutout": false,
+    "note": "Whidbey Island-class dock landing ship: carries Marines, their vehicles and landing craft, and launches the craft from a floodable well deck.",
+    "image": "/equipment/uss-tortuga-lsd-46.webp",
+    "unitId": "tortuga",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS_Tortuga_(LSD-46).jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/5/50/USS_Tortuga_%28LSD-46%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "creator": "Photographer's Mate 1st Class Martin Maddock, U.S. Navy",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "essex",
+    "group": "ships",
+    "order": 12,
+    "name": "USS Essex (LHD-2)",
+    "cutout": false,
+    "note": "Wasp-class amphibious assault ship: a flight deck for helicopters and Harrier or F-35B jets, and a well deck for landing craft.",
+    "image": "/equipment/uss-essex-lhd-2.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_091117-N-6720T-185_The_amphibious_assault_ship_USS_Essex_(LHD_2)_is_underway_in_the_Pacific_Ocean.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/e/e1/US_Navy_091117-N-6720T-185_The_amphibious_assault_ship_USS_Essex_%28LHD_2%29_is_underway_in_the_Pacific_Ocean.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "creator": "Mass Communication Specialist Seaman Adam K. Thomas, U.S. Navy",
       "license": "Public domain (U.S. federal government work)"
     }
   }
