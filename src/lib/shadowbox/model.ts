@@ -85,6 +85,8 @@ export type Unit = {
   explanation: string;
   civilian: string;
   open?: string;
+  /** Optional crest or patch image, shown on the unit tile. */
+  image?: string;
 };
 
 export type Operation = {
@@ -123,16 +125,26 @@ export type Nec = {
   criteria: string;
 };
 
+export type UniformGroup = "pt" | "organizational" | "work" | "dress" | "battle";
+
+export const UNIFORM_GROUPS: { id: UniformGroup; label: string }[] = [
+  { id: "pt", label: "PT" },
+  { id: "organizational", label: "Organizational" },
+  { id: "work", label: "Work" },
+  { id: "dress", label: "Dress" },
+  { id: "battle", label: "Battle" },
+];
+
 export type Uniform = {
   id: string;
   order: number;
-  variant: string;
+  group: UniformGroup;
   name: string;
   branch: string;
   context: string;
   dateLabel: string;
   note: string;
-  image?: string;
+  image: string;
 };
 
 export type Place = {
@@ -168,6 +180,7 @@ export type Warfare = {
   name: string;
   abbreviation: string;
   glyph?: string;
+  image?: string;
   explanation: string;
   criteria: string;
   placeIds?: string[];
@@ -179,6 +192,7 @@ export type Insignia = {
   name: string;
   short: string;
   glyph?: string;
+  image?: string;
   explanation: string;
   criteria: string;
   related?: LinkRef[];

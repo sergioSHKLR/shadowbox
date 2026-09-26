@@ -1,6 +1,9 @@
-# Shadowbox
+# ETC (SW/EXW) Sergio Schickler
 
-A reading copy of Chief Electronics Technician Sergio Schickler’s Navy career, 30 June 1997 to 28 February 2018.
+United States Navy, Retired  
+30 June 1997 - 28 Feb 2018
+
+A reading copy of the Navy career of ETC (SW/EXW) Sergio Schickler, United States Navy, Retired.
 
 Open the case, then a ribbon, a patch, a uniform, or a pin. Each one explains what it is, what the devices mean, and which years are still blank. The timeline and the map use the same record.
 
@@ -18,4 +21,4 @@ Pushes to `main` publish the built site from the repository root. GitHub Pages i
 
 ## Edit the record
 
-Facts live in `src/data`. Shapes are in `SCHEMAS.md`. Ribbon images are in `public/ribbons`. The portrait is `public/photos/dress-blues.jpg`.
+Facts live in `src/data`. Shapes are in `SCHEMAS.md`. Ribbon images are in `public/ribbons`, ribbon devices in `public/devices`, case insignia in `public/insignia`, unit crests in `public/crests`, and uniform figures in `public/uniforms`. The portrait is `public/photos/dress-blues.jpg`.
