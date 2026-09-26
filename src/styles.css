@@ -44,9 +44,10 @@ a { color: var(--color-navy); }
 
 .archive { max-width: 72rem; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
 
-.mast { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: end; justify-content: space-between; margin-bottom: 1.25rem; }
+/* Header: the brand is centred, with the nav chips centred on the row underneath. */
+.mast { display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; margin-bottom: 1.25rem; }
 .kicker { margin: 0 0 0.25rem; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brass); }
-.mast-brand { display: flex; align-items: center; gap: 0.9rem; }
+.mast-brand { display: flex; align-items: center; justify-content: center; gap: 0.9rem; text-align: left; }
 .mast-icon { width: 3.5rem; height: 3.5rem; flex: none; display: block; }
 .wordmark { margin: 0; font-size: clamp(2rem, 5vw, 3rem); line-height: 1; letter-spacing: 0.18em; }
 .mast-tagline { margin: 0.35rem 0 0; color: var(--color-quiet); font-style: italic; font-size: 1.02rem; }
@@ -55,7 +56,7 @@ a { color: var(--color-navy); }
   .wordmark { letter-spacing: 0.12em; }
   .mast-tagline { font-size: 0.95rem; }
 }
-.mast-nav { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.mast-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; }
 .nav-btn, .row-btn, .patch, .mark, .uniform-card, .stop-list button, .related button, .place-list button, .icon-btn {
   font: inherit;
   color: inherit;
@@ -75,14 +76,16 @@ a { color: var(--color-navy); }
     linear-gradient(180deg, rgba(255,255,255,0.04), transparent 30%),
     var(--color-felt);
   color: var(--color-ivory);
-  border: 10px solid #8d7040;
+  /* Wood frame, 18px (about 1.8x the old 10px), with the thin light bevel 4px inside the wood. */
+  border: 18px solid #8d7040;
   outline: 1px solid #e8d7a8;
-  outline-offset: -14px;
-  padding: 1.25rem 1rem 1.5rem;
+  outline-offset: -22px;
+  padding: 1.5rem 1.1rem 1.75rem;
   box-shadow: 0 18px 40px rgba(20, 18, 12, 0.25);
 }
 .nameplate { display: grid; grid-template-columns: 9.5rem 1fr; gap: 1rem; align-items: center; }
-.portrait { width: 9.5rem; height: 11rem; object-fit: cover; object-position: center 18%; border: 1px solid var(--color-brass-bright); }
+/* The portrait is square (cap through the clasped hands), so the thumbnail is square too and nothing is cropped. */
+.portrait { width: 9.5rem; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; border: 1px solid var(--color-brass-bright); }
 .nameplate h2 { color: var(--color-ivory); font-size: clamp(2rem, 4vw, 3rem); }
 .nameplate p { margin: 0.15rem 0; }
 .quiet { color: var(--color-quiet); }
@@ -111,11 +114,13 @@ a { color: var(--color-navy); }
 .worn img { display: block; height: auto; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
 .worn-pin img { width: calc(var(--in) * 2.75); }
 .worn-badge img { width: auto; height: calc(var(--in) * 2); }
-/* CPO rating badge: the chevrons are 3 1/4 in wide and span 84% of the art, so the art is 3.88 in wide. Service stripes: the art is drawn at true size (10 3/8 x 3 1/8 in, five 7 in stripes).
+/* CPO rating badge (vector): the chevrons are 3 1/4 in wide and span 84% of the art, so the art is 3.88 in wide.
+   Service stripes: five 7 x 3/8 in stripes, 1/4 in apart, rising at 33 deg on a black backing with vertical ends, as on
+   his sleeve; the art is drawn at true size, 6.211 x 7.986 in.
    Both shrink only when the screen is narrower than their true size. */
 .worn-rating img { width: calc(var(--in) * 3.88); max-width: 100%; }
 .worn-stripes { max-width: 100%; }
-.worn-stripes img { width: calc(var(--in) * 10.375); max-width: 100%; }
+.worn-stripes img { width: calc(var(--in) * 6.211); max-width: 100%; }
 .worn:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 3px; }
 /* Navy racks are worn with no spacing: ribbons touch edge to edge and rows touch top to bottom; the short top row is centred. */
 .rack { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 0; }
@@ -134,8 +139,14 @@ a { color: var(--color-navy); }
 .ribbon { container-type: inline-size; }
 /* A ribbon is 1 3/8 x 3/8 in, so the art keeps an 11:3 aspect and fills the button width. */
 .ribbon > img { width: 100%; height: auto; aspect-ratio: 11 / 3; object-fit: fill; display: block; }
-/* JMUA: one gold frame, drawn around the unframed ribbon art so the ribbon keeps its proportions. */
-.ribbon.framed > img { box-sizing: border-box; border: 2px solid #d4a62a; outline: 1px solid #8a6a1c; outline-offset: -1px; }
+/* JMUA: gold frame with a laurel band, drawn after Sergio's reference. The framed ribbon has the same
+   1 3/8 x 3/8 in footprint as every other ribbon: the frame is drawn INSIDE it (sides 57/1100 of the width, top and
+   bottom 42/300 of the height, i.e. 42/1100 of the width) and the stripes are scaled into the 986 x 216 opening.
+   Nothing reaches the neighbouring ribbons. */
+/* The stripes run 2/1100 under the frame on every side so no dark seam shows at the opening edge. */
+.ribbon.framed { background: #ce9c29; }
+.ribbon.framed > img:first-child { width: calc(100% * 990 / 1100); height: calc(100% * 220 / 300); aspect-ratio: auto; }
+.ribbon > img.ribbon-frame { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; max-width: none; pointer-events: none; }
 /* Devices are sized against the ribbon width (100cqw = 1 3/8 in).
    Stars come in two sizes only: bronze and silver 3/16 in, gold at the full ribbon height (tip-circle diameter).
    The star SVGs are cropped to that circle, so width = star size. Stars sit 1/32 in apart,
@@ -152,10 +163,12 @@ a { color: var(--color-navy); }
 .devices:has(> img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold) { gap: 0; }
 .devices:has(> img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold) > img.glyph-star.metal-gold { margin-inline: calc(var(--star) * -0.072); }
 /* E and oak leaf art is drawn at 800 ppi against a 1100 px (1 3/8 in) ribbon, with 16 px of padding for the
-   drop shadow, so a size in art pixels is that fraction of the ribbon width. E = 1/4 in tall (200 px, canvas 232);
-   oak leaf cluster = 13/32 in long, tilted about 25 degrees as worn (canvas 332 x 226). The padding is taken back
-   with negative margins so the 1/32 in gap is measured between devices. */
+   drop shadow, so a size in art pixels is that fraction of the ribbon width. Two different E devices:
+   Expert E (marksmanship) = 1/4 in tall slab serif (200 px, canvas 232); Battle E (Navy E Ribbon) = 3/16 in tall
+   block letter (150 px, canvas 182). Oak leaf cluster = 13/32 in long, tilted about 25 degrees as worn (canvas 332 x 226).
+   The padding is taken back with negative margins so the 1/32 in gap is measured between devices. */
 .devices img.glyph-letter { height: calc(100cqw * 232 / 1100); width: auto; max-width: none; margin-inline: calc(100cqw * -16 / 1100); filter: none; }
+.devices img.glyph-letter.glyph-e-battle { height: calc(100cqw * 182 / 1100); }
 .devices img.glyph-oak { width: calc(100cqw * 332 / 1100); height: auto; max-width: none; margin-inline: calc(100cqw * -16 / 1100); filter: none; }
 .metal-gold { color: #d4a62a; }
 .metal-bronze { color: #a0703a; }
@@ -186,7 +199,7 @@ a { color: var(--color-navy); }
 @media (min-width: 800px) {
   .ledger, .split { grid-template-columns: 1fr 1fr; }
   .nameplate { grid-template-columns: 11rem 1fr; }
-  .portrait { width: 11rem; height: 13rem; }
+  .portrait { width: 11rem; }
   .case-display { --in: 5.24rem; }
 }
 .plain { margin: 0; padding-left: 1.1rem; }
@@ -250,6 +263,13 @@ a { color: var(--color-navy); }
 .map-dot { display: block; width: 14px; height: 14px; border-radius: 50%; background: var(--color-brass); border: 2px solid var(--color-navy); }
 .map-dot.placeholder { border-radius: 2px; background: transparent; }
 .map-dot.approximate { background: transparent; }
+.map-dot.base { width: 12px; height: 12px; border-radius: 2px; transform: rotate(45deg); background: var(--color-navy); border-color: var(--color-brass); }
+.map-dot.base.approximate { background: var(--color-ivory); }
+.used-here ul { list-style: none; margin: 0.8rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(4.75rem, 1fr)); gap: 0.5rem; }
+.used-here button { width: 100%; min-height: 44px; display: flex; flex-direction: column; align-items: center; gap: 0.3rem; padding: 0.35rem; background: white; border: 1px solid var(--color-ivory-dim); cursor: pointer; font: inherit; color: var(--color-ink); }
+.used-here button:hover, .used-here button:focus-visible { border-color: var(--color-brass); }
+.used-here img { width: 100%; height: 4.25rem; object-fit: contain; }
+.used-here span { font-size: 0.72rem; line-height: 1.15; text-align: center; }
 .stop-list, .place-list, .related, .credits, .instance-list, .gallery { list-style: none; margin: 0.8rem 0 0; padding: 0; }
 .stop-list button, .place-list button, .related button {
   width: 100%;
@@ -266,9 +286,10 @@ a { color: var(--color-navy); }
 .pip { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--color-brass); border: 2px solid var(--color-navy); display: inline-block; }
 .pip.placeholder { border-radius: 2px; background: transparent; }
 .pip.approximate { background: transparent; }
+.pip.base { border-radius: 1px; transform: rotate(45deg); background: var(--color-navy); border-color: var(--color-brass); }
+.pip.base.approximate { background: var(--color-ivory); }
 .credits li, .instance-list li, .gallery li { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.7rem 0; border-bottom: 1px solid var(--color-ivory-dim); }
 .gallery img { max-width: 16rem; }
-.colophon { margin-top: 2.5rem; font-size: 0.9rem; color: var(--color-quiet); }
 .detail-overlay { position: fixed; inset: 0; background: rgba(12, 16, 24, 0.45); }
 .detail-panel {
   position: fixed;
@@ -308,8 +329,8 @@ a { color: var(--color-navy); }
 .facts dd { margin: 0; }
 .words { font-family: var(--font-display); font-size: 1.35rem; }
 @media (max-width: 640px) {
-  .nameplate { grid-template-columns: 7rem 1fr; }
-  .portrait { width: 7rem; height: 8.4rem; }
+  .nameplate { grid-template-columns: 7rem 1fr; align-items: start; }
+  .portrait { width: 7rem; }
   .row-btn { grid-template-columns: 1fr; }
   .case-display { --in: 3.35rem; }
 }
