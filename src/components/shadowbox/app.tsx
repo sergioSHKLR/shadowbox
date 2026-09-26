@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { ShieldUser } from "lucide-react";
 import {
   awards,
   careerStops,
@@ -60,7 +61,7 @@ export function ShadowboxApp() {
     <div className="archive">
       <header className="mast">
         <div className="mast-brand">
-          <img className="mast-icon" src={publicUrl("/favicon.svg")} alt="" width="56" height="56" />
+          <ShieldUser className="mast-icon" color="#DAA520" strokeWidth={1.75} aria-hidden="true" />
           <div>
             <h1 className="wordmark">SHADOWBOX</h1>
             <p className="mast-tagline">Not for gawking but for learning!</p>
@@ -126,11 +127,12 @@ function Case({
   onOpen: (k: Kind, id: string) => void;
 }) {
   const marks = caseMarks();
-  // Worn positions: ESWS centred above the rack, EXW centred below it, the JCSE badge below the EXW.
+  // One centred column, top to bottom: rating badge, ESWS, ribbon rack, EXW, JCSE badge, service stripes.
+  const badge = marks.find((mark) => mark.id === "rating-badge");
   const esws = marks.find((mark) => mark.id === "esws");
   const exw = marks.find((mark) => mark.id === "exw");
   const jcse = marks.find((mark) => mark.id === "jcse-device");
-  const sideMarks = marks.filter((mark) => mark !== esws && mark !== exw && mark !== jcse);
+  const stripes = marks.find((mark) => mark.id === "stripes");
   const renderMark = (mark: (typeof marks)[number], worn?: string) => (
     <button
       key={`${mark.kind}-${mark.id}`}
@@ -169,26 +171,20 @@ function Case({
             </div>
           </div>
           <div className="case-display">
-            <div className="case-side">
-              {sideMarks.slice(0, Math.ceil(sideMarks.length / 2)).map((mark) => renderMark(mark))}
+            {badge ? renderMark(badge, "worn worn-rating") : null}
+            {esws ? renderMark(esws, "worn worn-pin") : null}
+            <div className="rack" aria-label="Ribbon rack, highest award at the top left">
+              {rows.map((row) => (
+                <div key={row.map((a) => a.id).join("-")} className="rack-row">
+                  {row.map((award) => (
+                    <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />
+                  ))}
+                </div>
+              ))}
             </div>
-            <div className="case-center">
-              {esws ? renderMark(esws, "worn worn-pin") : null}
-              <div className="rack" aria-label="Ribbon rack, highest award at the top left">
-                {rows.map((row) => (
-                  <div key={row.map((a) => a.id).join("-")} className="rack-row">
-                    {row.map((award) => (
-                      <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />
-                    ))}
-                  </div>
-                ))}
-              </div>
-              {exw ? renderMark(exw, "worn worn-pin") : null}
-              {jcse ? renderMark(jcse, "worn worn-badge") : null}
-            </div>
-            <div className="case-side">
-              {sideMarks.slice(Math.ceil(sideMarks.length / 2)).map((mark) => renderMark(mark))}
-            </div>
+            {exw ? renderMark(exw, "worn worn-pin") : null}
+            {jcse ? renderMark(jcse, "worn worn-badge") : null}
+            {stripes ? renderMark(stripes, "worn worn-stripes") : null}
           </div>
           <p className="rack-note">{caseCopy.rackNote}</p>
           <ul className="patch-row">

@@ -252,20 +252,6 @@
     "image": "/crests/cjsotf.webp"
   },
   {
-    "id": "opnav",
-    "name": "Office of the Chief of Naval Operations",
-    "abbreviation": "OPNAV",
-    "patch": "OPNAV",
-    "branch": "USN",
-    "necId": null,
-    "start": "2012",
-    "end": "2012",
-    "precision": "year",
-    "placeId": "pentagon",
-    "explanation": "The staff of the Chief of Naval Operations, the Navy's senior admiral. The shadowbox lists a 2012 assignment. It overlaps the JCSE years. The record does not say whether this was a permanent move or temporary duty.",
-    "civilian": "A year on the Navy's headquarters staff in Washington."
-  },
-  {
     "id": "navhosp",
     "name": "Naval Hospital Jacksonville",
     "abbreviation": "NAVHOSP",

@@ -106,13 +106,16 @@ a { color: var(--color-navy); }
 .pin-img { width: 5.4rem; height: 3.2rem; object-fit: contain; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
 /* The case is laid out at true relative size: --in is one inch on the rack (a ribbon is 1 3/8 in wide).
    Pins and the JCSE badge are sized in the same inches, with the standard 1/4 in gaps. */
-.case-display { --in: 4.07rem; display: flex; justify-content: center; align-items: flex-start; gap: 1.2rem; margin: 1.1rem 0 1rem; }
-.case-side { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; padding-top: calc(var(--in) * 0.8); }
-.case-center { display: flex; flex-direction: column; align-items: center; gap: calc(var(--in) / 4); }
+.case-display { --in: 4.07rem; display: flex; flex-direction: column; align-items: center; gap: calc(var(--in) / 4); margin: 1.1rem 0 1rem; }
 .worn { background: transparent; border: 0; padding: 0; cursor: pointer; display: block; line-height: 0; }
 .worn img { display: block; height: auto; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
 .worn-pin img { width: calc(var(--in) * 2.75); }
 .worn-badge img { width: auto; height: calc(var(--in) * 2); }
+/* CPO rating badge: the chevrons are 3 1/4 in wide and span 84% of the art, so the art is 3.88 in wide. Service stripes: the art is drawn at true size (10 3/8 x 3 1/8 in, five 7 in stripes).
+   Both shrink only when the screen is narrower than their true size. */
+.worn-rating img { width: calc(var(--in) * 3.88); max-width: 100%; }
+.worn-stripes { max-width: 100%; }
+.worn-stripes img { width: calc(var(--in) * 10.375); max-width: 100%; }
 .worn:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 3px; }
 /* Navy racks are worn with no spacing: ribbons touch edge to edge and rows touch top to bottom; the short top row is centred. */
 .rack { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 0; }
@@ -308,9 +311,7 @@ a { color: var(--color-navy); }
   .nameplate { grid-template-columns: 7rem 1fr; }
   .portrait { width: 7rem; height: 8.4rem; }
   .row-btn { grid-template-columns: 1fr; }
-  .case-display { --in: 3.35rem; flex-wrap: wrap; }
-  .case-center { order: -1; flex-basis: 100%; }
-  .case-side { flex-direction: row; padding-top: 0; }
+  .case-display { --in: 3.35rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
