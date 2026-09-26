@@ -11,11 +11,11 @@ Dates are `YYYY`, `YYYY-MM`, or `YYYY-MM-DD`. A missing end date means the item 
 | `branches.json` | Short name for a branch code (`USN`, `USA`, `JOINT`, `navy`, `army`, `joint`, `foreign`) |
 | `awards.json` | One ribbon type: precedence, image, count, devices, explanation, criteria |
 | `award-instances.json` | Each time an award was given. `year` may be null when the form lists the award and the worksheet does not date it |
-| `units.json` | Commands, with NEC, dates, and a `placeId` |
+| `units.json` | Commands, with NEC, dates, a `placeId`, and an optional crest `image` in `public/crests` |
 | `operations.json` | Deployments and the campaign phase name |
 | `schools.json` | Courses. `placeConfidence` is `recorded`, `inferred`, or `unknown` |
 | `necs.json` | Navy Enlisted Classifications and time in each |
-| `uniforms.json` | The fourteen uniforms, in wear order. An optional `image` is a figure on the shared mannequin |
+| `uniforms.json` | The uniforms. `group` is one of `pt`, `organizational`, `work`, `dress`, `battle`; `order` is wear order within the page. `image` is the figure in `public/uniforms` |
 | `places.json` | Map points. `accuracy` is `public-site`, `approximate`, or `placeholder` |
 | `warfare.json` / `insignia.json` | Pins and chief insignia |
 | `milestones.json` | Enlistment, chief, Fleet Reserve |

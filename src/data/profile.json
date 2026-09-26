@@ -2,11 +2,13 @@
   "id": "schickler",
   "name": "Sergio Schickler",
   "rate": "ETC",
+  "warfareDesignators": "SW/EXW",
   "rating": "Electronics Technician",
   "rank": "Chief Petty Officer",
   "paygrade": "E-7",
   "branch": "USN",
   "branchName": "United States Navy",
+  "status": "Retired",
   "serviceStart": "1997-06-30",
   "serviceEnd": "2018-02-28",
   "fleetReserveEffective": "2018-03-01",
@@ -29,11 +31,37 @@
     "exw"
   ],
   "caseMarks": [
-    { "kind": "insignia", "id": "collar" },
-    { "kind": "warfare", "id": "esws" },
-    { "kind": "warfare", "id": "exw" },
-    { "kind": "insignia", "id": "rating-badge" },
-    { "kind": "insignia", "id": "stripes" }
+    {
+      "kind": "insignia",
+      "id": "collar"
+    },
+    {
+      "kind": "warfare",
+      "id": "esws"
+    },
+    {
+      "kind": "warfare",
+      "id": "exw"
+    },
+    {
+      "kind": "insignia",
+      "id": "rating-badge"
+    },
+    {
+      "kind": "insignia",
+      "id": "stripes"
+    },
+    {
+      "kind": "insignia",
+      "id": "jcse-device"
+    }
   ],
-  "portrait": "/photos/dress-blues.jpg"
+  "portrait": "/photos/dress-blues.jpg",
+  "headerLines": [
+    "ETC (SW/EXW) Sergio Schickler",
+    "United States Navy, Retired",
+    "30 June 1997 - 28 Feb 2018"
+  ],
+  "pageTitle": "ETC (SW/EXW) Sergio Schickler — United States Navy, Retired",
+  "description": "A reading copy of the Navy career of ETC (SW/EXW) Sergio Schickler, United States Navy, Retired, 1997 to 2018."
 }

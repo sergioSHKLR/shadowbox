@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
-/** Static build published at https://sergioshkler.github.io/shadowbox/ */
+/** Static build published at https://sergioshklr.github.io/shadowbox/ */
 export default defineConfig({
   base: "/shadowbox/",
   publicDir: "public",
