@@ -656,7 +656,6 @@ export function toSubject(sel: Selection): SubjectView | null {
       title: uniform.name,
       explanation: uniform.note,
       facts: [
-        { label: "When", value: uniform.dateLabel },
         { label: "Context", value: uniform.context },
       ],
       placeIds: [],
