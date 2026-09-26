@@ -135,8 +135,19 @@
     "note": "The camouflage worn with the joint communications deployments to Afghanistan. The record places it after the Army uniform and before the chief's uniforms."
   },
   {
-    "id": "cpo-set",
+    "id": "peanut-butters",
     "order": 14,
+    "variant": "nsu",
+    "name": "Peanut butters",
+    "branch": "USN",
+    "context": "Navy Service Uniform, E-6 and below",
+    "dateLabel": "Late 2010 – September 2014",
+    "note": "The Navy Service Uniform that replaced the Johnny Cash and the summer whites at the end of 2010. Sailors called it peanut butters for the khaki shirt. Black trousers and a black garrison cap went with it. Worn until the chief's uniforms on 16 September 2014. A chief's khaki has khaki trousers, not these black ones.",
+    "image": "/uniforms/peanut-butters.jpg"
+  },
+  {
+    "id": "cpo-set",
+    "order": 15,
     "variant": "khaki",
     "name": "Chief petty officer uniforms",
     "branch": "USN",
