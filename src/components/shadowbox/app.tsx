@@ -320,7 +320,6 @@ function Uniforms({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
                   <button type="button" className="uniform-card" onClick={() => onOpen("uniform", uniform.id)}>
                     <img className="uniform-photo" src={publicUrl(uniform.image)} alt="" loading="lazy" />
                     <strong>{uniform.name}</strong>
-                    <span>{uniform.dateLabel}</span>
                   </button>
                 </li>
               ))}
