@@ -6,13 +6,14 @@ const DEVICE_ART: Record<string, string> = {
   "star-silver": "/devices/star-silver.svg",
   "star-bronze": "/devices/star-bronze.svg",
   "oak-bronze": "/devices/oak-bronze-b.svg",
-  "letter-silver": "/devices/e-silver-b.svg",
+  "letter-silver-battle": "/devices/e-battle-silver.svg",
+  "letter-silver-expert": "/devices/e-expert-silver.svg",
 };
 
 /** Devices are drawn from the case-item art in public/devices. */
 function deviceArt(device: Device): string {
-  const key = `${device.kind}-${device.metal}`;
-  return DEVICE_ART[key] ?? DEVICE_ART[device.kind === "oak" ? "oak-bronze" : device.kind === "letter" ? "letter-silver" : "star-bronze"];
+  const key = device.kind === "letter" ? `letter-silver-${device.style ?? "expert"}` : `${device.kind}-${device.metal}`;
+  return DEVICE_ART[key] ?? DEVICE_ART[device.kind === "oak" ? "oak-bronze" : device.kind === "letter" ? "letter-silver-expert" : "star-bronze"];
 }
 
 export function Devices({ devices }: { devices: Device[] }) {
@@ -23,7 +24,7 @@ export function Devices({ devices }: { devices: Device[] }) {
   return (
     <span className={glyphs.length >= 4 ? "devices dense" : "devices"}>
       {glyphs.map(({ device, key }) => (
-        <img key={key} className={`glyph glyph-${device.kind} metal-${device.metal}`} src={publicUrl(deviceArt(device))} alt="" />
+        <img key={key} className={`glyph glyph-${device.kind}${device.style ? ` glyph-e-${device.style}` : ""} metal-${device.metal}`} src={publicUrl(deviceArt(device))} alt="" />
       ))}
     </span>
   );

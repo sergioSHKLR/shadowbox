@@ -43,6 +43,8 @@ export type Device = {
   metal: "bronze" | "gold" | "silver";
   count: number;
   letter?: string;
+  /** Letter devices only: the Battle E (3/16 in block letter) and the marksmanship Expert E (1/4 in slab serif) are different devices. */
+  style?: "battle" | "expert";
 };
 
 export type Award = {
@@ -97,7 +99,7 @@ export type Unit = {
   extraImages?: ExtraImage[];
 };
 
-export const DESIGNATORS = ["Under Instruction", "Assigned", "Deployed", "Assisting", "Parent", "TAD"] as const;
+export const DESIGNATORS = ["Instruction", "Assigned", "Deployed", "Assisting", "Parent", "TAD"] as const;
 export type Designator = (typeof DESIGNATORS)[number];
 
 export type ExtraImage = { src: string; alt: string; caption: string };

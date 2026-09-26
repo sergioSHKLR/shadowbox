@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="137" height="182" viewBox="0 0 137 182">
+<defs>
+<linearGradient id="lg1" gradientUnits="userSpaceOnUse" x1="16.00" y1="16.00" x2="121.00" y2="166.00"><stop offset="0.000" stop-color="#f6f8fa"/><stop offset="0.450" stop-color="#dee2e6"/><stop offset="0.550" stop-color="#e8ebef"/><stop offset="1.000" stop-color="#bdc3c9"/></linearGradient>
+<filter id="ds" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="2.5" dy="3.5" stdDeviation="2.0" flood-color="#000" flood-opacity="0.55"/></filter>
+</defs>
+<g filter="url(#ds)">
+<polygon points="16.00,16.00 121.00,16.00 121.00,47.50 53.50,47.50 53.50,76.75 109.00,76.75 109.00,105.25 53.50,105.25 53.50,134.50 121.00,134.50 121.00,166.00 16.00,166.00" fill="#a3a9b0"/>
+<polygon points="16.00,16.00 121.00,16.00 118.60,18.40 18.40,18.40" fill="#f1f4f6" stroke="#f1f4f6" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="121.00,16.00 121.00,47.50 118.60,45.10 118.60,18.40" fill="#737980" stroke="#737980" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="121.00,47.50 53.50,47.50 51.10,45.10 118.60,45.10" fill="#4c5057" stroke="#4c5057" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="53.50,47.50 53.50,76.75 51.10,79.15 51.10,45.10" fill="#737980" stroke="#737980" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="53.50,76.75 109.00,76.75 106.60,79.15 51.10,79.15" fill="#f1f4f6" stroke="#f1f4f6" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="109.00,76.75 109.00,105.25 106.60,102.85 106.60,79.15" fill="#737980" stroke="#737980" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="109.00,105.25 53.50,105.25 51.10,102.85 106.60,102.85" fill="#4c5057" stroke="#4c5057" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="53.50,105.25 53.50,134.50 51.10,136.90 51.10,102.85" fill="#737980" stroke="#737980" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="53.50,134.50 121.00,134.50 118.60,136.90 51.10,136.90" fill="#f1f4f6" stroke="#f1f4f6" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="121.00,134.50 121.00,166.00 118.60,163.60 118.60,136.90" fill="#737980" stroke="#737980" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="121.00,166.00 16.00,166.00 18.40,163.60 118.60,163.60" fill="#4c5057" stroke="#4c5057" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="16.00,166.00 16.00,16.00 18.40,18.40 18.40,163.60" fill="#dce0e4" stroke="#dce0e4" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="18.40,18.40 118.60,18.40 115.60,21.40 21.40,21.40" fill="#f4f6f8" stroke="#f4f6f8" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="118.60,18.40 118.60,45.10 115.60,42.10 115.60,21.40" fill="#c6cbd1" stroke="#c6cbd1" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="118.60,45.10 51.10,45.10 48.10,42.10 115.60,42.10" fill="#b5bac0" stroke="#b5bac0" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="51.10,45.10 51.10,79.15 48.10,82.15 48.10,42.10" fill="#c6cbd1" stroke="#c6cbd1" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="51.10,79.15 106.60,79.15 103.60,82.15 48.10,82.15" fill="#f4f6f8" stroke="#f4f6f8" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="106.60,79.15 106.60,102.85 103.60,99.85 103.60,82.15" fill="#c6cbd1" stroke="#c6cbd1" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="106.60,102.85 51.10,102.85 48.10,99.85 103.60,99.85" fill="#b5bac0" stroke="#b5bac0" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="51.10,102.85 51.10,136.90 48.10,139.90 48.10,99.85" fill="#c6cbd1" stroke="#c6cbd1" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="51.10,136.90 118.60,136.90 115.60,139.90 48.10,139.90" fill="#f4f6f8" stroke="#f4f6f8" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="118.60,136.90 118.60,163.60 115.60,160.60 115.60,139.90" fill="#c6cbd1" stroke="#c6cbd1" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="118.60,163.60 18.40,163.60 21.40,160.60 115.60,160.60" fill="#b5bac0" stroke="#b5bac0" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="18.40,163.60 18.40,18.40 21.40,21.40 21.40,160.60" fill="#edf0f3" stroke="#edf0f3" stroke-width="0.4" stroke-linejoin="round"/>
+<polygon points="21.40,21.40 115.60,21.40 115.60,42.10 48.10,42.10 48.10,82.15 103.60,82.15 103.60,99.85 48.10,99.85 48.10,139.90 115.60,139.90 115.60,160.60 21.40,160.60" fill="url(#lg1)"/>
+<polygon points="16.00,16.00 121.00,16.00 121.00,47.50 53.50,47.50 53.50,76.75 109.00,76.75 109.00,105.25 53.50,105.25 53.50,134.50 121.00,134.50 121.00,166.00 16.00,166.00" fill="none" stroke="#2b2e33" stroke-width="1.65" stroke-linejoin="round" stroke-opacity="0.85"/>
+</g>
+</svg>
