@@ -81,7 +81,8 @@ export type Unit = {
   patch: string;
   branch: string;
   necId: string | null;
-  start: string;
+  /** Null when no dates have been entered for this command. */
+  start: string | null;
   end: string | null;
   precision: string;
   placeId: string | null;
@@ -281,7 +282,8 @@ export function formatWhen(value: string): string {
   return `${Number(d)} ${month} ${y}`;
 }
 
-export function formatSpan(start: string, end: string | null): string {
+export function formatSpan(start: string | null, end: string | null): string {
+  if (!start) return "Dates not entered";
   const a = formatWhen(start);
   if (!end || end === start) return a;
   const b = formatWhen(end);
@@ -381,7 +383,8 @@ function pack(items: Omit<Bar, "lane" | "left" | "width">[]): Bar[] {
 
 export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; years: number[] } {
   const duty = pack(
-    units.map((unit) => ({
+    // Commands without dates cannot be placed on the time scale.
+    units.flatMap((unit) => (unit.start ? [{ ...unit, start: unit.start }] : [])).map((unit) => ({
       key: unit.id,
       kind: "unit" as const,
       id: unit.id,
@@ -436,11 +439,20 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; years: numb
   return { duty, ops, study, years };
 }
 
+/** Undated commands keep their place in the list by borrowing the sort key of the dated command before them. */
+function unitSortKeys(): { unit: Unit; sort: string }[] {
+  let last = "";
+  return units.map((unit) => {
+    if (unit.start) last = unit.start;
+    return { unit, sort: unit.start ?? last };
+  });
+}
+
 export type Stop = { place: Place; labels: string[]; when: string };
 
 export function careerStops(): Stop[] {
   const events = [
-    ...units.filter((u) => u.placeId).map((u) => ({ sort: u.start, placeId: u.placeId as string, label: `${formatSpan(u.start, u.end)} · ${u.abbreviation}` })),
+    ...unitSortKeys().filter(({ unit: u }) => u.placeId).map(({ unit: u, sort }) => ({ sort, placeId: u.placeId as string, label: `${formatSpan(u.start, u.end)} · ${u.abbreviation}` })),
     ...operations.filter((o) => o.placeId).map((o) => ({ sort: o.start, placeId: o.placeId as string, label: `${formatSpan(o.start, o.end)} · ${o.phase}` })),
   ].sort((a, b) => a.sort.localeCompare(b.sort) || a.label.localeCompare(b.label));
 
@@ -600,7 +612,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       explanation: `${unit.explanation} ${unit.civilian}`,
       facts: [
         { label: "When", value: formatSpan(unit.start, unit.end) },
-        { label: "Precision", value: unit.precision === "year" ? "Years only — months were not recorded" : "Month recorded" },
+        ...(unit.start ? [{ label: "Precision", value: unit.precision === "year" ? "Years only — months were not recorded" : "Month recorded" }] : []),
         ...(nec ? [{ label: "NEC on this tour", value: `${nec.code} · ${nec.name}` }] : []),
       ],
       placeIds: unit.placeId ? [unit.placeId] : [],
