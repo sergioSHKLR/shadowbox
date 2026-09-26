@@ -13,6 +13,8 @@ import insigniaJson from "@/data/insignia.json";
 import milestonesJson from "@/data/milestones.json";
 import creditsJson from "@/data/credits.json";
 import profileJson from "@/data/profile.json";
+import branchesJson from "@/data/branches.json";
+import caseJson from "@/data/case.json";
 
 /** Public files are served from the site root in dev, and from /shadowbox/ on GitHub Pages. */
 export function publicUrl(path: string): string {
@@ -56,6 +58,8 @@ export type Award = {
   criteria: string;
   sourceNote: string;
   commonsFile: string;
+  operationIds?: string[];
+  open?: string;
 };
 
 export type Instance = {
@@ -80,6 +84,7 @@ export type Unit = {
   placeId: string | null;
   explanation: string;
   civilian: string;
+  open?: string;
 };
 
 export type Operation = {
@@ -93,6 +98,7 @@ export type Operation = {
   unitId: string | null;
   placeId: string | null;
   explanation: string;
+  open?: string;
 };
 
 export type School = {
@@ -104,6 +110,7 @@ export type School = {
   placeId: string | null;
   placeConfidence: string;
   explanation: string;
+  open?: string;
 };
 
 export type Nec = {
@@ -153,19 +160,27 @@ export type Reflection = {
   text: string;
 };
 
+export type LinkRef = { kind: Kind; id: string };
+
 export type Warfare = {
   id: string;
   name: string;
   abbreviation: string;
+  glyph?: string;
   explanation: string;
   criteria: string;
+  placeIds?: string[];
+  related?: LinkRef[];
 };
 
 export type Insignia = {
   id: string;
   name: string;
+  short: string;
+  glyph?: string;
   explanation: string;
   criteria: string;
+  related?: LinkRef[];
 };
 
 export type Milestone = {
@@ -173,7 +188,10 @@ export type Milestone = {
   date: string;
   precision: string;
   title: string;
+  short: string;
   explanation: string;
+  placeIds?: string[];
+  related?: LinkRef[];
 };
 
 export type Credit = {
@@ -203,6 +221,12 @@ export const warfare = warfareJson as Warfare[];
 export const insignia = insigniaJson as Insignia[];
 export const milestones = milestonesJson as Milestone[];
 export const credits = creditsJson as Credit[];
+export const branches = branchesJson as Record<string, string>;
+export const caseCopy = caseJson;
+
+export function branchName(code: string): string {
+  return branches[code] ?? code;
+}
 
 const MONTHS = [
   "January", "February", "March", "April", "May", "June",
@@ -226,16 +250,16 @@ export function formatSpan(start: string, end: string | null): string {
   return `${a} – ${b}`;
 }
 
-export function ribbonRows(list: Award[]): Award[][] {
+export function ribbonRows(list: Award[], columns = profile.rackColumns || 3): Award[][] {
   const sorted = [...list].sort((a, b) => a.precedence - b.precedence);
-  const rem = sorted.length % 3;
+  const rem = sorted.length % columns;
   const rows: Award[][] = [];
   let i = 0;
   if (rem) {
     rows.push(sorted.slice(0, rem));
     i = rem;
   }
-  for (; i < sorted.length; i += 3) rows.push(sorted.slice(i, i + 3));
+  for (; i < sorted.length; i += columns) rows.push(sorted.slice(i, i + columns));
   return rows;
 }
 
@@ -265,8 +289,9 @@ export const placeById = (id: string | null) => byId(places, id);
 export const necById = (id: string | null) => byId(necs, id);
 export const awardById = (id: string) => byId(awards, id);
 
-const SCALE_START = Date.UTC(1997, 0, 1);
-const SCALE_END = Date.UTC(2018, 11, 31);
+const serviceYear = (value: string) => Number(value.slice(0, 4));
+const SCALE_START = Date.UTC(serviceYear(profile.serviceStart), 0, 1);
+const SCALE_END = Date.UTC(serviceYear(profile.serviceEnd), 11, 31);
 
 export function pct(ms: number): number {
   return ((ms - SCALE_START) / (SCALE_END - SCALE_START)) * 100;
@@ -333,7 +358,7 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; years: numb
       key: op.id,
       kind: "operation" as const,
       id: op.id,
-      title: op.id.startsWith("oif") ? "Iraq" : "Afghanistan",
+      title: op.theater,
       detail: op.phase,
       start: bound(op.start, "start"),
       end: bound(op.end ?? op.start, "end"),
@@ -357,7 +382,7 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; years: numb
       key: mark.id,
       kind: "milestone" as const,
       id: mark.id,
-      title: mark.id === "cpo" ? "Chief" : mark.id === "enlist" ? "Enlisted" : "Fleet Reserve",
+      title: mark.short || mark.title,
       detail: mark.title,
       start: bound(mark.date, "start"),
       end: bound(mark.date, "start"),
@@ -365,7 +390,9 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; years: numb
       point: true,
     })),
   ]);
-  const years = Array.from({ length: 2018 - 1997 + 1 }, (_, i) => 1997 + i);
+  const first = serviceYear(profile.serviceStart);
+  const last = serviceYear(profile.serviceEnd);
+  const years = Array.from({ length: last - first + 1 }, (_, i) => first + i);
   return { duty, ops, study, years };
 }
 
@@ -408,6 +435,45 @@ function rel(kind: Kind, id: string, label: string) {
   return { kind, id, label };
 }
 
+function linkLabel(link: LinkRef): string | null {
+  if (link.kind === "unit") return unitById(link.id)?.name ?? null;
+  if (link.kind === "operation") {
+    const op = byId(operations, link.id);
+    return op ? op.phase : null;
+  }
+  if (link.kind === "insignia") return byId(insignia, link.id)?.name ?? null;
+  if (link.kind === "uniform") return byId(uniforms, link.id)?.name ?? null;
+  if (link.kind === "milestone") return byId(milestones, link.id)?.title ?? null;
+  if (link.kind === "warfare") return byId(warfare, link.id)?.name ?? null;
+  if (link.kind === "place") return placeById(link.id)?.name ?? null;
+  if (link.kind === "school") return byId(schools, link.id)?.name ?? null;
+  if (link.kind === "nec") return necById(link.id)?.name ?? null;
+  if (link.kind === "award") return awardById(link.id)?.name ?? null;
+  return null;
+}
+
+function resolveLinks(links: LinkRef[] | undefined) {
+  return (links ?? []).flatMap((link) => {
+    const label = linkLabel(link);
+    return label ? [rel(link.kind, link.id, label)] : [];
+  });
+}
+
+export function openRecord(): string[] {
+  const lines: string[] = [];
+  for (const award of awards) {
+    const missing = instances.filter((item) => item.awardId === award.id && item.year == null).length;
+    if (missing) lines.push(`${missing} of ${award.count} ${award.abbreviation} have no year.`);
+  }
+  for (const item of [...awards, ...units, ...schools, ...operations]) {
+    if ("open" in item && item.open) lines.push(item.open);
+  }
+  if (!reflections.length) lines.push("No personal note has been written yet.");
+  if (!photos.length) lines.push("No photograph is in the case.");
+  else if (photos.length === 1) lines.push("One photograph is in the case.");
+  return lines;
+}
+
 export function toSubject(sel: Selection): SubjectView | null {
   if (sel.kind === "award") {
     const award = awardById(sel.id);
@@ -420,12 +486,9 @@ export function toSubject(sel: Selection): SubjectView | null {
       if (unit) related.set(unit.id, rel("unit", unit.id, unit.name));
       if (op) related.set(op.id, rel("operation", op.id, `${op.name} — ${op.phase}`));
     }
-    if (award.id === "icm" || award.id === "acm") {
-      const ids = award.id === "icm" ? ["oif-2006", "oif-2009"] : ["oef-2010", "oef-2012"];
-      for (const id of ids) {
-        const op = byId(operations, id);
-        if (op) related.set(op.id, rel("operation", op.id, op.phase));
-      }
+    for (const id of award.operationIds ?? []) {
+      const op = byId(operations, id);
+      if (op) related.set(op.id, rel("operation", op.id, op.phase));
     }
     return {
       kind: "award",
@@ -468,7 +531,7 @@ export function toSubject(sel: Selection): SubjectView | null {
     return {
       kind: "unit",
       id: unit.id,
-      kicker: unit.branch === "USA" ? "U.S. Army" : unit.branch === "JOINT" ? "Joint command" : "U.S. Navy",
+      kicker: branchName(unit.branch),
       title: unit.name,
       explanation: `${unit.explanation} ${unit.civilian}`,
       facts: [
@@ -548,7 +611,7 @@ export function toSubject(sel: Selection): SubjectView | null {
     return {
       kind: "uniform",
       id: uniform.id,
-      kicker: uniform.branch === "USA" ? "U.S. Army" : uniform.branch === "JOINT" ? "Joint" : "U.S. Navy",
+      kicker: branchName(uniform.branch),
       title: uniform.name,
       explanation: uniform.note,
       facts: [
@@ -556,14 +619,13 @@ export function toSubject(sel: Selection): SubjectView | null {
         { label: "Context", value: uniform.context },
       ],
       placeIds: [],
-      related: uniform.id === "dress-blues" ? [] : [],
+      related: [],
     };
   }
 
   if (sel.kind === "warfare") {
     const pin = byId(warfare, sel.id);
     if (!pin) return null;
-    const related = pin.id === "esws" ? [rel("unit", "frank-cable", "USS Frank Cable")] : [rel("unit", "eodmu5", "EOD Mobile Unit Five"), rel("unit", "jcse", "JCSE")];
     return {
       kind: "warfare",
       id: pin.id,
@@ -572,8 +634,8 @@ export function toSubject(sel: Selection): SubjectView | null {
       explanation: pin.explanation,
       criteria: pin.criteria,
       facts: [{ label: "Pin", value: pin.abbreviation }],
-      placeIds: pin.id === "esws" ? ["guam"] : ["guam", "macdill"],
-      related,
+      placeIds: pin.placeIds ?? [],
+      related: resolveLinks(pin.related),
     };
   }
 
@@ -587,9 +649,9 @@ export function toSubject(sel: Selection): SubjectView | null {
       title: item.name,
       explanation: item.explanation,
       criteria: item.criteria,
-      facts: item.id === "stripes" ? [{ label: "On this case", value: `${profile.serviceStripes} gold stripes` }] : [],
+      facts: item.id === "stripes" ? [{ label: "On this case", value: `${profile.serviceStripes} ${profile.serviceStripeColor} stripes` }] : [],
       placeIds: [],
-      related: item.id === "collar" || item.id === "rating-badge" ? [rel("milestone", "cpo", "Promoted to chief")] : [],
+      related: resolveLinks(item.related),
     };
   }
 
@@ -603,8 +665,8 @@ export function toSubject(sel: Selection): SubjectView | null {
       title: mark.title,
       explanation: mark.explanation,
       facts: [{ label: "Date", value: formatWhen(mark.date) }],
-      placeIds: mark.id === "enlist" ? ["great-lakes"] : mark.id === "fltres" ? ["nh-jax"] : [],
-      related: mark.id === "cpo" ? [rel("insignia", "collar", "Chief collar device"), rel("uniform", "cpo-set", "Chief uniforms")] : [],
+      placeIds: mark.placeIds ?? [],
+      related: resolveLinks(mark.related),
     };
   }
 

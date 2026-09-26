@@ -61,6 +61,15 @@ export function RibbonButton({
   );
 }
 
+export function CareerGlyph({ glyph, stripes }: { glyph?: string; stripes: number }) {
+  if (glyph === "anchor") return <Anchor />;
+  if (glyph === "rating") return <RatingBadge />;
+  if (glyph === "stripes") return <ServiceStripes count={stripes} />;
+  if (glyph === "esws") return <EswsPin />;
+  if (glyph === "exw") return <ExwPin />;
+  return null;
+}
+
 export function Anchor() {
   return (
     <svg viewBox="0 0 64 80" className="insignia-svg" aria-hidden="true">

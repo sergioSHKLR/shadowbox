@@ -250,6 +250,7 @@
     "explanation": "For service in Afghanistan during named operations, here Operation Enduring Freedom. The two stars line up with the two Afghanistan tours in this record, 2010\u20132011 and 2012\u20132013.",
     "criteria": "Service in the theater during a qualifying campaign phase. Recorded as (2).",
     "sourceNote": "If the (2) was meant as two separate medals rather than two stars, the device should be changed. The worksheet lists the medal once, in 2011, and lists two OEF tours.",
+    "operationIds": ["oef-2010", "oef-2012"],
     "commonsFile": "Afghanistan_Campaign_Medal_ribbon.svg"
   },
   {
@@ -273,6 +274,7 @@
     "explanation": "For service in Iraq during Operation Iraqi Freedom. The two stars match the two Iraq deployments: Combined Joint Task Force Troy in 2006, and the individual augmentee tour in 2009.",
     "criteria": "Service in Iraq during a qualifying campaign phase.",
     "sourceNote": "Iraq Campaign Medal (2), read here as two campaign stars. The worksheet lists the medal in 2006 and names both phases under operations.",
+    "operationIds": ["oif-2006", "oif-2009"],
     "commonsFile": "Iraq_Campaign_Medal_ribbon.svg"
   },
   {
@@ -307,6 +309,7 @@
     "explanation": "For taking part in a military operation whose purpose was humanitarian: disaster relief, rescue, or a similar effort that the service has designated. The specific operation is not named in the record yet.",
     "criteria": "Direct participation in a designated humanitarian operation. Worksheet year: 2003.",
     "sourceNote": "Humanitarian Service Medal, one award. The operation name is still blank.",
+    "open": "The humanitarian operation is unnamed.",
     "commonsFile": "Humanitarian_Service_Medal_ribbon.svg"
   },
   {

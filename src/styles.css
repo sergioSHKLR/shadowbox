@@ -93,6 +93,7 @@ a { color: var(--color-navy); }
   gap: 0.15rem;
 }
 .mark span { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.mark-word { font-size: 1rem; padding: 0.7rem 0.2rem; }
 .insignia-svg { width: 2.6rem; height: 2.6rem; }
 .pin-svg { width: 4.4rem; height: 1.7rem; }
 .rack { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; margin: 0.4rem 0 0.8rem; }

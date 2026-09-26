@@ -1,13 +1,15 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   awards,
   careerStops,
+  caseCopy,
   credits,
   formatSpan,
   formatWhen,
   insignia,
   milestones,
   necs,
+  openRecord,
   operations,
   pct,
   photos,
@@ -22,7 +24,7 @@ import {
   type Kind,
   type Selection,
 } from "@/lib/shadowbox/model";
-import { Anchor, EswsPin, ExwPin, RatingBadge, RibbonButton, ServiceStripes, UniformPlate } from "@/components/shadowbox/marks";
+import { CareerGlyph, RibbonButton, UniformPlate } from "@/components/shadowbox/marks";
 import { DetailPanel } from "@/components/shadowbox/detail";
 import { MapView } from "@/components/shadowbox/map-view";
 
@@ -43,14 +45,21 @@ export function ShadowboxApp() {
   const rows = useMemo(() => ribbonRows(awards), []);
   const bars = useMemo(() => timeline(), []);
   const stops = useMemo(() => careerStops(), []);
+  const blanks = useMemo(() => openRecord(), []);
+  const span = `${profile.serviceStart.slice(0, 4)}–${profile.serviceEnd.slice(0, 4)}`;
+  const portrait = photos.find((photo) => photo.src === profile.portrait);
+
+  useEffect(() => {
+    document.title = `${profile.rate} ${profile.name} — ${profile.branchName} shadowbox`;
+  }, []);
 
   return (
     <div className="archive">
       <header className="mast">
         <div className="mast-copy">
-          <p className="kicker">United States Navy · 1997–2018</p>
-          <h1>ETC Sergio Schickler</h1>
-          <p className="mast-sub">Chief Electronics Technician · Fleet Reserve · Honorable</p>
+          <p className="kicker">{profile.branchName} · {span}</p>
+          <h1>{profile.rate} {profile.name}</h1>
+          <p className="mast-sub">{profile.rating} {profile.rank} · {profile.characterOfService}</p>
         </div>
         <nav className="mast-nav" aria-label="Shadowbox sections">
           {NAV.map((item) => (
@@ -67,7 +76,7 @@ export function ShadowboxApp() {
         </nav>
       </header>
 
-      {view === "case" ? <Case rows={rows} onOpen={open} /> : null}
+      {view === "case" ? <Case rows={rows} blanks={blanks} portraitAlt={portrait?.alt ?? profile.name} onOpen={open} /> : null}
       {view === "timeline" ? <Timeline bars={bars} onOpen={open} /> : null}
       {view === "uniforms" ? <Uniforms onOpen={open} /> : null}
       {view === "map" ? <Stations stops={stops} onOpen={open} /> : null}
@@ -83,41 +92,58 @@ export function ShadowboxApp() {
   );
 }
 
-function Case({ rows, onOpen }: { rows: ReturnType<typeof ribbonRows>; onOpen: (k: Kind, id: string) => void }) {
+function caseMarks() {
+  const marks: { kind: Kind; id: string; short: string; glyph?: string; name: string }[] = [];
+  for (const mark of profile.caseMarks) {
+    if (mark.kind === "insignia") {
+      const item = insignia.find((entry) => entry.id === mark.id);
+      if (item) marks.push({ kind: "insignia", id: item.id, short: item.short, glyph: item.glyph, name: item.name });
+    } else if (mark.kind === "warfare") {
+      const pin = warfare.find((entry) => entry.id === mark.id);
+      if (pin) marks.push({ kind: "warfare", id: pin.id, short: pin.abbreviation, glyph: pin.glyph, name: pin.name });
+    }
+  }
+  return marks;
+}
+
+function Case({
+  rows,
+  blanks,
+  portraitAlt,
+  onOpen,
+}: {
+  rows: ReturnType<typeof ribbonRows>;
+  blanks: string[];
+  portraitAlt: string;
+  onOpen: (k: Kind, id: string) => void;
+}) {
+  const marks = caseMarks();
   return (
     <main>
       <section className="case" aria-label="Shadowbox">
         <div className="case-frame">
           <div className="nameplate">
-            <img className="portrait" src={publicUrl(profile.portrait)} alt="Sergio Schickler in Navy dress blues, ribbons on the chest and a warfare pin above them." />
+            <img className="portrait" src={publicUrl(profile.portrait)} alt={portraitAlt} />
             <div>
-              <p className="kicker">Electronics Technician Chief</p>
-              <h2>Sergio Schickler</h2>
-              <p>E-7 · {formatWhen(profile.serviceStart)} – {formatWhen(profile.serviceEnd)}</p>
+              <p className="kicker">{profile.rating} {profile.rank}</p>
+              <h2>{profile.name}</h2>
+              <p>{profile.paygrade} · {formatWhen(profile.serviceStart)} – {formatWhen(profile.serviceEnd)}</p>
               <p className="quiet">{profile.serviceLength} active. Sea service {profile.seaService}. Foreign service {profile.foreignService}.</p>
             </div>
           </div>
           <div className="insignia-row">
-            <button type="button" className="mark" onClick={() => onOpen("insignia", "collar")} aria-label="Chief petty officer collar device. Open the explanation.">
-              <Anchor />
-              <span>Chief</span>
-            </button>
-            <button type="button" className="mark" onClick={() => onOpen("warfare", "esws")} aria-label="Enlisted Surface Warfare Specialist pin. Open the explanation.">
-              <EswsPin />
-              <span>ESWS</span>
-            </button>
-            <button type="button" className="mark" onClick={() => onOpen("warfare", "exw")} aria-label="Enlisted Expeditionary Warfare Specialist pin. Open the explanation.">
-              <ExwPin />
-              <span>EXW</span>
-            </button>
-            <button type="button" className="mark" onClick={() => onOpen("insignia", "rating-badge")} aria-label="Electronics Technician chief rating badge. Open the explanation.">
-              <RatingBadge />
-              <span>ET</span>
-            </button>
-            <button type="button" className="mark" onClick={() => onOpen("insignia", "stripes")} aria-label={`${profile.serviceStripes} gold service stripes. Open the explanation.`}>
-              <ServiceStripes count={profile.serviceStripes} />
-              <span>{profile.serviceStripes} stripes</span>
-            </button>
+            {marks.map((mark) => (
+              <button
+                key={`${mark.kind}-${mark.id}`}
+                type="button"
+                className="mark"
+                onClick={() => onOpen(mark.kind, mark.id)}
+                aria-label={`${mark.name}. Open the explanation.`}
+              >
+                <CareerGlyph glyph={mark.glyph} stripes={profile.serviceStripes} />
+                <span className={mark.glyph ? undefined : "mark-word"}>{mark.id === "stripes" ? `${profile.serviceStripes} stripes` : mark.short}</span>
+              </button>
+            ))}
           </div>
           <div className="rack" aria-label="Ribbon rack, highest award at the top left">
             {rows.map((row) => (
@@ -128,7 +154,7 @@ function Case({ rows, onOpen }: { rows: ReturnType<typeof ribbonRows>; onOpen: (
               </div>
             ))}
           </div>
-          <p className="rack-note">Highest award is the top left. Devices sit on the ribbon: gold stars for Navy personal awards, bronze stars for unit and sea ribbons, oak leaves for joint and Army awards.</p>
+          <p className="rack-note">{caseCopy.rackNote}</p>
           <ul className="patch-row">
             {units.map((unit) => (
               <li key={unit.id}>
@@ -145,16 +171,17 @@ function Case({ rows, onOpen }: { rows: ReturnType<typeof ribbonRows>; onOpen: (
       <section className="ledger">
         <div>
           <h2>How to read the rack</h2>
-          <p>Navy racks run in rows of three, from the wearer’s right, which is the left side of this case. The top row is short when the number of ribbons is not divisible by three. Twenty ribbons means the top row holds two.</p>
-          <p>A star or an oak leaf is not extra decoration. It counts awards. A silver star on the Good Conduct Medal replaces five gold stars. Two bronze stars on a campaign medal are campaign phases, not two more medals. The Navy E uses a letter instead of a star.</p>
+          {caseCopy.howToRead.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+          <p>{awards.length} ribbons. The top row holds {rows[0]?.length ?? 0}.</p>
         </div>
         <div>
           <h2>What is still blank</h2>
           <ul className="plain">
-            <li>Four of the seven sea-service ribbons, and three of the six overseas ribbons, have no year.</li>
-            <li>Four of the five Meritorious Unit Commendations, and two of the three Joint Meritorious Unit Awards, have no year.</li>
-            <li>The humanitarian operation is unnamed. FLLDP is not expanded. The 2009 Army unit is unnamed.</li>
-            <li>No personal note has been written yet. The portrait is the only photograph.</li>
+            {blanks.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
           </ul>
         </div>
       </section>
@@ -205,10 +232,10 @@ function Case({ rows, onOpen }: { rows: ReturnType<typeof ribbonRows>; onOpen: (
 function Timeline({ bars, onOpen }: { bars: ReturnType<typeof timeline>; onOpen: (k: Kind, id: string) => void }) {
   return (
     <main className="sheet">
-      <h2>Twenty-one years, one line</h2>
-      <p>Assignments sit on the first track, including the tours that overlap a longer command. Deployments are the second track. Schools and the three dated career events are marks, not bars, because only a start month or a single day was recorded.</p>
+      <h2>{profile.serviceLength}, one line</h2>
+      <p>{caseCopy.timelineLead}</p>
       <div className="ruler" aria-hidden="true">
-        {bars.years.filter((y) => y % 2 === 1 || y === 1997 || y === 2018).map((year) => (
+        {bars.years.filter((y, index) => y % 2 === 1 || index === 0 || index === bars.years.length - 1).map((year) => (
           <span key={year} style={{ left: `${pct(Date.UTC(year, 0, 1))}%` }}>{year}</span>
         ))}
       </div>
@@ -270,7 +297,7 @@ function Uniforms({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
   return (
     <main className="sheet">
       <h2>Uniforms, in the order they were worn</h2>
-      <p>Fourteen uniforms. The photograph is the dress blues. Patterns that are not confirmed are drawn as a generic plate and said so in the note. Dinner dress was not worn.</p>
+      <p>{uniforms.length} uniforms. {caseCopy.uniformsLead}</p>
       <ol className="uniform-grid">
         {uniforms.map((uniform) => (
           <li key={uniform.id}>
@@ -291,7 +318,7 @@ function Stations({ stops, onOpen }: { stops: ReturnType<typeof careerStops>; on
   return (
     <main className="sheet">
       <h2>Where the career went</h2>
-      <p>The line is the order of the record, not a claim about the route flown. Gold is a known public site. A hollow pin is approximate. A square is a placeholder for a country, not a base.</p>
+      <p>{caseCopy.mapLead}</p>
       <MapView stops={stops} onSelect={(id) => onOpen("place", id)} />
       <ol className="stop-list">
         {stops.map((stop, index) => (
@@ -312,7 +339,7 @@ function Sources() {
   return (
     <main className="sheet">
       <h2>Where the pictures and the facts come from</h2>
-      <p>Years, units, and campaign phases come from the shadowbox worksheet. Award counts, schools, and specialties come from the service record. {photos.length === 1 ? "One photograph is in the case." : null}</p>
+      <p>{caseCopy.sourcesLead}</p>
       <ul className="credits">
         {credits.map((credit) => (
           <li key={credit.id}>
