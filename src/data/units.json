@@ -79,7 +79,7 @@
     "placeId": "guam",
     "explanation": "A submarine tender: a ship that repairs, supplies, and houses the crews of submarines. In these years her home port was Guam. The NEC on the shadowbox for this tour is 1589. The three Navy E awards dated 2001, 2002, and 2003 fall in this tour.",
     "civilian": "A repair ship for submarines, not a submarine itself.",
-    "image": "/crests/frank-cable.webp"
+    "image": "/crests/frank-cable-clean.webp"
   },
   {
     "id": "eodmu5",
@@ -95,7 +95,7 @@
     "placeId": "guam",
     "explanation": "Explosive Ordnance Disposal Mobile Unit Five, a Navy bomb-disposal unit then based in Guam. Assignment to the unit is not the same as being a bomb-disposal technician. The shadowbox lists the NEC as 9613, a communications specialty.",
     "civilian": "The command's job was disposing of explosives. His recorded specialty there was communications.",
-    "image": "/crests/eodmu5.webp"
+    "image": "/crests/eodmu5-clean.webp"
   },
   {
     "id": "troy",
@@ -239,7 +239,7 @@
     "placeId": "macdill",
     "explanation": "A joint unit, based at MacDill Air Force Base in Florida, that sends small communications teams out quickly for special operations and other joint commanders. The shadowbox dates the tour 2009–2015 and lists NEC 9613. It included the two Afghanistan deployments.",
     "civilian": "A communications unit made of every branch, not a Navy ship.",
-    "image": "/crests/jcse-ssi-airborne.webp",
+    "image": "/crests/jcse-ssi-airborne.svg",
     "extraImages": [
       {
         "src": "/crests/jcse.webp",

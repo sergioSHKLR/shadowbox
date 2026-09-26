@@ -181,7 +181,7 @@
   },
   {
     "id": "insignia-diagrams",
-    "title": "Collar device, ET rating mark, warfare pins, and uniform plates",
+    "title": "ET rating mark and uniform plates",
     "file": null,
     "sourceUrl": null,
     "creator": "Drawn for this archive",
@@ -641,11 +641,11 @@
   {
     "id": "crest-jcse-ssi",
     "title": "Joint Communications Support Element shoulder sleeve insignia with AIRBORNE tab",
-    "file": "/crests/jcse-ssi-airborne.webp",
+    "file": "/crests/jcse-ssi-airborne.svg",
     "sourceUrl": null,
-    "creator": "Image supplied by the veteran (his reference)",
-    "license": "Reference image supplied by the veteran of a U.S. military insignia. Use of military insignia is restricted by law independently of copyright.",
-    "notes": "White background removed to transparency, resized, saved as WebP. The JCSE seal is shown in the popup."
+    "creator": "Vector supplied by the veteran",
+    "license": "Vector drawing supplied by the veteran of a U.S. military insignia. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Cropped to the patch and optimized with SVGO. The JCSE seal is shown in the popup."
   },
   {
     "id": "equipment-an-prc-150",
@@ -691,5 +691,41 @@
     "creator": "The veteran's own photograph (restored copy)",
     "license": "The veteran's own photograph, published with his approval. Not for reuse outside this record.",
     "notes": "Restored copy of his chief petty officer portrait, resized and saved as WebP."
+  },
+  {
+    "id": "crest-frank-cable",
+    "title": "USS Frank Cable (AS-40) crest",
+    "file": "/crests/frank-cable-clean.webp",
+    "sourceUrl": null,
+    "creator": "Clean crest file supplied by the veteran",
+    "license": "Supplied by the veteran. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Transparent seal, saved as WebP at its native ~590 px."
+  },
+  {
+    "id": "crest-eodmu5",
+    "title": "EOD Mobile Unit Five crest",
+    "file": "/crests/eodmu5-clean.webp",
+    "sourceUrl": null,
+    "creator": "Clean vector crest supplied by the veteran",
+    "license": "Supplied by the veteran. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Rendered from his vector file to a 600 px transparent WebP (the vector embeds bitmaps)."
+  },
+  {
+    "id": "chest-stack",
+    "title": "Surface and expeditionary warfare pins and JCSE badge (chest stack)",
+    "file": "/insignia/pin-esws-stack.webp",
+    "sourceUrl": null,
+    "creator": "Chest-stack artwork supplied by the veteran",
+    "license": "Supplied by the veteran. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "The SW pin, EXW pin and JCSE badge were extracted from his chest-stack file at native resolution and saved as WebP. The rack on the site is still drawn from the award data; it matches the ribbons and devices of his file."
+  },
+  {
+    "id": "cpo-anchor-antiqued",
+    "title": "Chief petty officer anchor (antiqued)",
+    "file": "/insignia/cpo-anchor-antiqued.webp",
+    "sourceUrl": null,
+    "creator": "Drawn for this archive",
+    "license": "Diagram of public-domain United States Navy insignia.",
+    "notes": "Tone-adjusted (highlights compressed, slightly desaturated, thin dark edge) to a matte, antiqued finish that matches the pins."
   }
 ]
