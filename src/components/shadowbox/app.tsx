@@ -89,11 +89,6 @@ export function ShadowboxApp() {
       {view === "map" ? <Stations stops={stops} onOpen={open} /> : null}
       {view === "sources" ? <Sources /> : null}
 
-      <footer className="colophon">
-        <p>
-          A private reading copy of one career. No Social Security number, date of birth, or home address is stored here.
-        </p>
-      </footer>
       <DetailPanel selection={selection} onSelect={setSelection} onClose={() => setSelection(null)} />
     </div>
   );

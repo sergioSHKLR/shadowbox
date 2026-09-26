@@ -263,6 +263,11 @@ a { color: var(--color-navy); }
 .map-dot { display: block; width: 14px; height: 14px; border-radius: 50%; background: var(--color-brass); border: 2px solid var(--color-navy); }
 .map-dot.placeholder { border-radius: 2px; background: transparent; }
 .map-dot.approximate { background: transparent; }
+.used-here ul { list-style: none; margin: 0.8rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(4.75rem, 1fr)); gap: 0.5rem; }
+.used-here button { width: 100%; min-height: 44px; display: flex; flex-direction: column; align-items: center; gap: 0.3rem; padding: 0.35rem; background: white; border: 1px solid var(--color-ivory-dim); cursor: pointer; font: inherit; color: var(--color-ink); }
+.used-here button:hover, .used-here button:focus-visible { border-color: var(--color-brass); }
+.used-here img { width: 100%; height: 4.25rem; object-fit: contain; }
+.used-here span { font-size: 0.72rem; line-height: 1.15; text-align: center; }
 .stop-list, .place-list, .related, .credits, .instance-list, .gallery { list-style: none; margin: 0.8rem 0 0; padding: 0; }
 .stop-list button, .place-list button, .related button {
   width: 100%;
@@ -281,7 +286,6 @@ a { color: var(--color-navy); }
 .pip.approximate { background: transparent; }
 .credits li, .instance-list li, .gallery li { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.7rem 0; border-bottom: 1px solid var(--color-ivory-dim); }
 .gallery img { max-width: 16rem; }
-.colophon { margin-top: 2.5rem; font-size: 0.9rem; color: var(--color-quiet); }
 .detail-overlay { position: fixed; inset: 0; background: rgba(12, 16, 24, 0.45); }
 .detail-panel {
   position: fixed;

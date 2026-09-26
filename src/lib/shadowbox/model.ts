@@ -16,6 +16,7 @@ import profileJson from "@/data/profile.json";
 import branchesJson from "@/data/branches.json";
 import caseJson from "@/data/case.json";
 import equipmentJson from "@/data/equipment.json";
+import usedHereJson from "@/data/used-here.json";
 
 /** Public files are served from the base URL: the site root in dev and on https://mil.shklr.org. */
 export function publicUrl(path: string): string {
@@ -496,7 +497,48 @@ export type SubjectView = {
   hero?: Hero;
   /** Further captioned images shown under the hero. */
   extraImages?: ExtraImage[];
+  /** Uniforms, weapons, vehicles and ships used at this unit, school or deployment. */
+  usedHere?: UsedItem[];
 };
+
+export type UsedItem = { kind: "uniform" | "equipment"; id: string; name: string; image: string; group: string };
+
+/**
+ * What was used where. One line per unit, school or deployment id, listing
+ * uniform and equipment ids (see the cheat sheet codes). Edit src/data/used-here.json.
+ */
+export const usedHere = usedHereJson as Record<string, string[]>;
+
+const USED_ORDER = ["uniform", "weapons", "vehicles", "ships"];
+
+export function usedHereFor(subjectId: string): UsedItem[] {
+  const items: UsedItem[] = [];
+  for (const id of usedHere[subjectId] ?? []) {
+    const uniform = uniforms.find((entry) => entry.id === id);
+    if (uniform) {
+      items.push({ kind: "uniform", id, name: uniform.name, image: uniform.image, group: "uniform" });
+      continue;
+    }
+    const item = equipment.find((entry) => entry.id === id);
+    if (item) items.push({ kind: "equipment", id, name: item.name, image: item.image, group: item.group });
+  }
+  return items.sort((a, b) => USED_ORDER.indexOf(a.group) - USED_ORDER.indexOf(b.group));
+}
+
+/** Units, schools and deployments whose "Used here" list includes this item. */
+function usedAt(itemId: string) {
+  return Object.entries(usedHere)
+    .filter(([, ids]) => ids.includes(itemId))
+    .map(([subjectId]) => {
+      const unit = unitById(subjectId);
+      if (unit) return rel("unit", unit.id, unit.name);
+      const op = operations.find((entry) => entry.id === subjectId);
+      if (op) return rel("operation", op.id, `${op.name} — ${op.phase}`);
+      const school = schools.find((entry) => entry.id === subjectId);
+      return school ? rel("school", school.id, school.name) : null;
+    })
+    .filter((link): link is ReturnType<typeof rel> => Boolean(link));
+}
 
 export type Hero =
   | { type: "ribbon"; award: Award }
@@ -612,11 +654,9 @@ export function toSubject(sel: Selection): SubjectView | null {
     if (!unit) return null;
     const nec = necById(unit.necId);
     const ops = operations.filter((op) => op.unitId === unit.id);
-    const gear = equipment.filter((item) => item.unitId === unit.id);
     const related = [
       ...(nec ? [rel("nec", nec.id, `${nec.code} ${nec.name}`)] : []),
       ...ops.map((op) => rel("operation", op.id, op.phase)),
-      ...gear.map((item) => rel("equipment", item.id, item.name)),
       ...(unit.placeId && placeById(unit.placeId) ? [rel("place", unit.placeId, placeById(unit.placeId)!.name)] : []),
     ];
     return {
@@ -635,6 +675,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       related,
       hero: unit.image ? { type: "image", src: unit.image, alt: `Crest, ${unit.name}`, shape: "square" } : undefined,
       extraImages: unit.extraImages,
+      usedHere: usedHereFor(unit.id),
     };
   }
 
@@ -657,6 +698,7 @@ export function toSubject(sel: Selection): SubjectView | null {
         ...(unit ? [rel("unit", unit.id, unit.name)] : []),
         ...(op.placeId ? [rel("place", op.placeId, placeById(op.placeId)?.name ?? "Place")] : []),
       ],
+      usedHere: usedHereFor(op.id),
     };
   }
 
@@ -676,6 +718,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       ],
       placeIds: school.placeId ? [school.placeId] : [],
       related: school.placeId ? [rel("place", school.placeId, placeById(school.placeId)?.name ?? "Place")] : [],
+      usedHere: usedHereFor(school.id),
     };
   }
 
@@ -712,7 +755,7 @@ export function toSubject(sel: Selection): SubjectView | null {
         { label: "Context", value: uniform.context },
       ],
       placeIds: [],
-      related: [],
+      related: usedAt(uniform.id),
       hero: { type: "image", src: uniform.image, alt: uniform.name, shape: "tall" },
     };
   }
@@ -733,7 +776,10 @@ export function toSubject(sel: Selection): SubjectView | null {
         { label: "Photo", value: `${item.credit.creator}. ${item.credit.license}.` },
       ],
       placeIds: unit?.placeId ? [unit.placeId] : [],
-      related: unit ? [rel("unit", unit.id, unit.name)] : [],
+      related: [
+        ...(unit ? [rel("unit", unit.id, unit.name)] : []),
+        ...usedAt(item.id).filter((link) => link.id !== unit?.id),
+      ],
       hero: { type: "image", src: item.image, alt: item.caption ? `${item.name}: ${item.caption}` : item.name, shape: item.cutout ? "landscape" : "photo" },
     };
   }
