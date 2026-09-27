@@ -47,15 +47,20 @@ export function RibbonArt({ award, className }: { award: Award; className?: stri
 export function RibbonButton({
   award,
   onOpen,
+  wiki = false,
 }: {
   award: Award;
   onOpen: () => void;
+  /** Use the Wikimedia Commons ribbon art (its JMUA file already carries the gold frame). */
+  wiki?: boolean;
 }) {
   const label = `${award.name}. ${countPhrase(award)}. ${deviceSummary(award)}. Open the explanation.`;
+  const useWiki = wiki && Boolean(award.ribbonWiki);
+  const framed = award.framed && !useWiki;
   return (
-    <button type="button" className={award.framed ? "ribbon framed" : "ribbon"} onClick={onOpen} aria-label={label}>
-      <img src={publicUrl(award.ribbon)} alt="" />
-      {award.framed ? <img className="ribbon-frame" src={publicUrl(JMUA_FRAME)} alt="" /> : null}
+    <button type="button" className={framed ? "ribbon framed" : useWiki ? "ribbon wiki" : "ribbon"} onClick={onOpen} aria-label={label}>
+      <img src={publicUrl(useWiki ? award.ribbonWiki! : award.ribbon)} alt="" />
+      {framed ? <img className="ribbon-frame" src={publicUrl(JMUA_FRAME)} alt="" /> : null}
       <Devices devices={award.devices} />
     </button>
   );

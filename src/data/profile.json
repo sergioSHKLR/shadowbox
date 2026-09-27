@@ -26,6 +26,7 @@
   "serviceStripeColor": "gold",
   "ratingMark": "ET",
   "rackColumns": 3,
+  "rackStyle": "site",
   "warfareIds": [
     "esws",
     "exw"

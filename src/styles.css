@@ -151,6 +151,10 @@ a { color: var(--color-navy); }
 /* Navy racks are worn with no spacing: ribbons touch edge to edge and rows touch top to bottom; the short top row is centred. */
 .rack { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 0; }
 .rack-row { display: flex; gap: 0; }
+/* Preview variant (profile.rackStyle = "wiki-rows"): one band per rack row, alternating light and dark. */
+.rack-rows { align-items: stretch; border: 1px solid #a2a9b1; }
+.rack-rows .rack-row { justify-content: center; padding: calc(var(--in) * 0.07) calc(var(--in) * 0.14); background: #f8f9fa; }
+.rack-rows .rack-row:nth-child(even) { background: #3a3f46; }
 .ribbon {
   position: relative;
   width: calc(var(--in, 4.07rem) * 1.375);
