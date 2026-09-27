@@ -79,22 +79,6 @@
     }
   },
   {
-    "id": "jerrv",
-    "group": "vehicles",
-    "order": 6,
-    "name": "JERRV",
-    "caption": "Cougar H shown",
-    "cutout": true,
-    "note": "Joint EOD Rapid Response Vehicle: the Cougar-based mine-resistant, ambush-protected (MRAP) truck used by explosive ordnance disposal teams.",
-    "image": "/equipment/jerrv-cougar.webp",
-    "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S.Marine_Cougar_H_EOD.jpg",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/e/ed/U.S.Marine_Cougar_H_EOD.jpg",
-      "creator": "Lance Cpl. Charles Howard, U.S. Marine Corps",
-      "license": "Public domain (U.S. federal government work)"
-    }
-  },
-  {
     "id": "cucv",
     "group": "vehicles",
     "order": 7,
