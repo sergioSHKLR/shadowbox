@@ -269,7 +269,7 @@
     "lat": 28.9336,
     "lng": 48.0947,
     "accuracy": "public-site",
-    "note": "The Navy's Warrior Transition Program (NAVCENT Forward), where returning individual augmentees turned in gear, cleaned weapons and went through reintegration workshops before flying home. The program moved to Camp Arifjan in 2009.",
+    "note": "The Navy's Warrior Transition Program (NAVCENT Forward) at Camp Arifjan, where returning individual augmentees turned in gear, cleaned weapons and went through reintegration workshops before flying home. Out-processing here in 2009 at the end of the IA C-RAM deployment.",
     "type": "visit"
   },
   {
@@ -279,7 +279,7 @@
     "lat": 25.1173,
     "lng": 51.315,
     "accuracy": "public-site",
-    "note": "Al Udeid Air Base, Qatar. A transit stop on the way to or from Afghanistan.",
+    "note": "Al Udeid Air Base, Qatar. The transit hub in and out of both Afghanistan deployments: Qatar then Bagram going in, the reverse coming out.",
     "type": "visit"
   },
   {
@@ -289,7 +289,7 @@
     "lat": 34.9461,
     "lng": 69.265,
     "accuracy": "public-site",
-    "note": "Bagram Airfield, Afghanistan. A transit stop in theater.",
+    "note": "Bagram Airfield, Afghanistan. The in-theater transit stop on both Afghanistan deployments, after Qatar going in and before it coming out.",
     "type": "visit"
   },
   {
@@ -299,7 +299,7 @@
     "lat": 51.4239,
     "lng": 12.2364,
     "accuracy": "public-site",
-    "note": "Leipzig/Halle Airport, Germany. A transit stopover for troop flights.",
+    "note": "Leipzig/Halle Airport, Germany. A stopover on the 2009 Iraq trip and on both Afghanistan deployments.",
     "type": "visit"
   },
   {
@@ -309,7 +309,7 @@
     "lat": 49.958,
     "lng": 6.547,
     "accuracy": "approximate",
-    "note": "Bitburg, Germany, near Spangdahlem Air Base. A stopover; the exact site in Bitburg is not recorded, so the pin is approximate.",
+    "note": "Bitburg, Germany, near Spangdahlem Air Base. A stopover on the way home from the 2006 EOD deployment. The exact site in Bitburg is not recorded, so the pin is approximate.",
     "type": "visit"
   }
 ]
