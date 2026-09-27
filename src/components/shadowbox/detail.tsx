@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import {
   photosFor,
   placeById,
+  pinNumbersFor,
   publicUrl,
   reflectionFor,
   toSubject,
@@ -30,7 +31,7 @@ export function DetailPanel({
     return subject.placeIds
       .map((id) => placeById(id))
       .filter((place): place is NonNullable<typeof place> => Boolean(place && place.lat != null))
-      .map((place) => ({ place, labels: [place.locality], when: "" }));
+      .map((place) => ({ place, labels: [place.locality], when: "", n: pinNumbersFor(place.id)[0] }));
   }, [subject]);
 
   return (
