@@ -35,8 +35,8 @@
     "abbreviation": "GPETE",
     "start": "1999-04",
     "length": "15 weeks",
-    "placeId": null,
-    "placeConfidence": "unknown",
+    "placeId": "keesler",
+    "placeConfidence": "inferred",
     "explanation": "How to repair and calibrate the general-purpose test equipment the Navy uses to keep other gear accurate. Fifteen weeks, April 1999. The schoolhouse is not named."
   },
   {
@@ -45,8 +45,8 @@
     "abbreviation": "FCAM",
     "start": "1999-05",
     "length": "3 weeks",
-    "placeId": null,
-    "placeConfidence": "unknown",
+    "placeId": "keesler",
+    "placeConfidence": "inferred",
     "explanation": "Maintenance of a field calibration lab. Recorded as calibration tech maintenance, 3 weeks, May 1999. The schoolhouse is not named."
   },
   {
@@ -66,8 +66,8 @@
     "abbreviation": "COMSEC",
     "start": "2004-04",
     "length": null,
-    "placeId": null,
-    "placeConfidence": "unknown",
+    "placeId": "san-diego",
+    "placeConfidence": "inferred",
     "explanation": "School for maintaining communications-security equipment. Recorded as COMSEC maintenance activity, April 2004. That lines up with NEC 1460."
   }
 ]
