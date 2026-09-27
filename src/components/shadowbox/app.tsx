@@ -129,6 +129,9 @@ function Case({
   const recruit = photos.find((photo) => photo.id === "recruit-portrait-1997");
   const chief = photos.find((photo) => photo.id === "chief-portrait-2018");
   const plaques = profile.casePlaques;
+  // Rack art: "site" (drawn for this archive), "wiki-felt" (Wikimedia Commons ribbons on the felt) or
+  // "wiki-rows" (Commons ribbons, one band per rack row, bands alternating light and dark like a Wikipedia awards table).
+  const rackStyle = (profile as { rackStyle?: string }).rackStyle ?? "site";
   const portraitWithPlaque = (photo: (typeof photos)[number] | undefined, lines: string[]) =>
     photo ? (
       <figure className="case-portrait">
@@ -172,11 +175,11 @@ function Case({
               {portraitWithPlaque(recruit, plaques.recruit)}
               {etMark ? renderMark(etMark, "worn worn-et") : null}
               {esws ? renderMark(esws, "worn worn-pin") : null}
-              <div className="rack" aria-label="Ribbon rack, highest award at the top left">
+              <div className={rackStyle === "wiki-rows" ? "rack rack-rows" : "rack"} aria-label="Ribbon rack, highest award at the top left">
                 {rows.map((row) => (
                   <div key={row.map((a) => a.id).join("-")} className="rack-row">
                     {row.map((award) => (
-                      <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />
+                      <RibbonButton key={award.id} award={award} wiki={rackStyle !== "site"} onOpen={() => onOpen("award", award.id)} />
                     ))}
                   </div>
                 ))}

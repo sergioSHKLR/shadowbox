@@ -49,6 +49,8 @@ export type Device = {
 };
 
 export type Award = {
+  /** Wikimedia Commons version of the ribbon art, used when profile.rackStyle is "wiki-felt" or "wiki-rows". */
+  ribbonWiki?: string;
   id: string;
   name: string;
   abbreviation: string;

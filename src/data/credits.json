@@ -736,5 +736,185 @@
     "creator": "The veteran's own photograph of his patch",
     "license": "The veteran's own photograph, published with his approval. The patch design parodies MAD Magazine's Spy vs. Spy; not for reuse outside this record.",
     "notes": "The patch was cut out of his photo (hand and wood masked, embroidered edge kept, transparent background). Not redrawn."
+  },
+  {
+    "id": "wiki-jscm",
+    "title": "Joint Service Commendation Medal ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/jscm.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Joint_Service_Commendation_Medal_ribbon.svg",
+    "creator": "Ipankonin (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:Joint_Service_Commendation_Medal_ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-ncm",
+    "title": "Navy and Marine Corps Commendation Medal ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/ncm.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Navy_and_Marine_Corps_Commendation_Medal_ribbon.svg",
+    "creator": "U.S. Navy (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:Navy_and_Marine_Corps_Commendation_Medal_ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-arcom",
+    "title": "Army Commendation Medal ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/arcom.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Army_Commendation_Medal_ribbon.svg",
+    "creator": "US Army (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:Army_Commendation_Medal_ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-jsam",
+    "title": "Joint Service Achievement Medal ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/jsam.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Joint_Service_Achievement_Medal_ribbon.svg",
+    "creator": "Ipankonin (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:Joint_Service_Achievement_Medal_ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-nam",
+    "title": "Navy and Marine Corps Achievement Medal ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/nam.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Navy_and_Marine_Corps_Achievement_Medal_ribbon.svg",
+    "creator": "Ipankonin (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:Navy_and_Marine_Corps_Achievement_Medal_ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-aam",
+    "title": "Army Achievement Medal ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/aam.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Army_Achievement_Medal_ribbon.svg",
+    "creator": "Ipankonin (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:Army_Achievement_Medal_ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-jmua",
+    "title": "Joint Meritorious Unit Award ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/jmua.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Joint_Meritorious_Unit_Award_ribbon.svg",
+    "creator": "Ipankonin (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:Joint_Meritorious_Unit_Award_ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-nmuc",
+    "title": "Navy Meritorious Unit Commendation ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/nmuc.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Navy_Meritorious_Unit_Commendation_ribbon.svg",
+    "creator": "Ipankonin (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:Navy_Meritorious_Unit_Commendation_ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-navy-e",
+    "title": "Navy E Ribbon ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/navy-e.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Battle_Effectiveness_Award_ribbon.svg",
+    "creator": "U.S. Navy (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:Battle_Effectiveness_Award_ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-ngcm",
+    "title": "Navy Good Conduct Medal ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/ngcm.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S._Navy_Good_Conduct_Medal_ribbon.svg",
+    "creator": "U.S. Navy (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:U.S._Navy_Good_Conduct_Medal_ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-ndsm",
+    "title": "National Defense Service Medal ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/ndsm.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:National_Defense_Service_Medal_ribbon.svg",
+    "creator": "Defense Logistics Agency (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:National_Defense_Service_Medal_ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-acm",
+    "title": "Afghanistan Campaign Medal ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/acm.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Afghanistan_Campaign_Medal_ribbon.svg",
+    "creator": "Ipankonin (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:Afghanistan_Campaign_Medal_ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-icm",
+    "title": "Iraq Campaign Medal ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/icm.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Iraq_Campaign_Medal_ribbon.svg",
+    "creator": "Defense Logistics Agency (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:Iraq_Campaign_Medal_ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-gwotsm",
+    "title": "Global War on Terrorism Service Medal ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/gwotsm.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Global_War_on_Terrorism_Service_Medal_ribbon.svg",
+    "creator": "Ipankonin (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:Global_War_on_Terrorism_Service_Medal_ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-hsm",
+    "title": "Humanitarian Service Medal ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/hsm.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Humanitarian_Service_Medal_ribbon.svg",
+    "creator": "Ipankonin (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:Humanitarian_Service_Medal_ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-ssdr",
+    "title": "Sea Service Deployment Ribbon ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/ssdr.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Navy_and_Marine_Corps_Sea_Service_Deployment_Ribbon.svg",
+    "creator": "Ipankonin (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:Sea_Service_Deployment_Ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-osr",
+    "title": "Navy and Marine Corps Overseas Service Ribbon ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/osr.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Navy_and_Marine_Corps_Overseas_Service_Ribbon.svg",
+    "creator": "Ipankonin (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:Navy_and_Marine_Corps_Overseas_Service_Ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-nato",
+    "title": "NATO Medal (ISAF) ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/nato.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:NATO_Medal_ribbon_(Non-Article_5).svg",
+    "creator": "NATO and the U.S. Defense Logistics Agency (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:NATO_Medal_ribbon_(Non-Article_5).svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-rifle",
+    "title": "Navy Rifle Marksmanship Ribbon ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/rifle.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S._Navy_Rifle_Marksmanship_Ribbon.svg",
+    "creator": "U.S. Navy (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:U.S._Navy_Rifle_Marksmanship_Ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
+  },
+  {
+    "id": "wiki-pistol",
+    "title": "Navy Pistol Marksmanship Ribbon ribbon (Wikimedia Commons version)",
+    "file": "/ribbons-wiki/pistol.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S._Navy_Pistol_Marksmanship_Ribbon.svg",
+    "creator": "Ipankonin (Wikimedia Commons)",
+    "license": "Public domain (as marked on Commons). A representation of a United States military award.",
+    "notes": "Commons File:U.S._Navy_Pistol_Marksmanship_Ribbon.svg, rendered to PNG at 1100 x 300 for the alternate rack preview. Devices are this site's own overlays. Not hotlinked."
   }
 ]

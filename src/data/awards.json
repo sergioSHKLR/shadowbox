@@ -20,7 +20,8 @@
     "explanation": "A mid-level decoration from a joint command, one that includes more than one branch of the military. It sits above the service achievement medals and beside the Navy Commendation Medal.",
     "criteria": "Meritorious achievement or service while assigned to a joint activity. It is not a valor award unless a V device is authorized. There is no V on this ribbon.",
     "sourceNote": "Joint Service Commendation Medal (2). Worksheet years: 2013 and 2015.",
-    "commonsFile": "Joint_Service_Commendation_Medal_ribbon.svg"
+    "commonsFile": "Joint_Service_Commendation_Medal_ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/jscm.png"
   },
   {
     "id": "ncm",
@@ -37,7 +38,8 @@
     "explanation": "The Navy and Marine Corps version of a commendation medal. It recognizes meritorious service or a specific achievement. On a rack it is worn just after the Joint Service Commendation Medal. Army commendations of the same level come after it.",
     "criteria": "Meritorious service or achievement. A V device would mean valor in combat. This one has no V.",
     "sourceNote": "One Navy and Marine Corps Commendation Medal, with no number after the name. Worksheet year: 2018.",
-    "commonsFile": "Navy_and_Marine_Corps_Commendation_Medal_ribbon.svg"
+    "commonsFile": "Navy_and_Marine_Corps_Commendation_Medal_ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/ncm.png"
   },
   {
     "id": "arcom",
@@ -60,7 +62,8 @@
     "explanation": "The Army's commendation medal. Sailors receive it when they are serving with the Army, which happened on the individual-augmentee tour and in joint commands. Navy rules place an Army award of this level immediately after the Navy commendation medal.",
     "criteria": "Meritorious service or achievement recognized by the Army.",
     "sourceNote": "Army Commendation Medal (2). Worksheet years: 2009 and 2011.",
-    "commonsFile": "Army_Commendation_Medal_ribbon.svg"
+    "commonsFile": "Army_Commendation_Medal_ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/arcom.png"
   },
   {
     "id": "jsam",
@@ -77,7 +80,8 @@
     "explanation": "A joint-service decoration below the commendation medals. It recognizes meritorious achievement or service of a lesser scope than a commendation medal, still in a multi-service command.",
     "criteria": "Meritorious achievement or service in a joint assignment.",
     "sourceNote": "One Joint Service Achievement Medal. Worksheet year: 2013.",
-    "commonsFile": "Joint_Service_Achievement_Medal_ribbon.svg"
+    "commonsFile": "Joint_Service_Achievement_Medal_ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/jsam.png"
   },
   {
     "id": "nam",
@@ -100,7 +104,8 @@
     "explanation": "The Navy and Marine Corps achievement medal. For a sailor, this is the common personal decoration for a strong tour or a particular piece of work. Five of them is a long record of that kind of recognition.",
     "criteria": "Meritorious service or achievement of a degree below a commendation medal.",
     "sourceNote": "(5). Worksheet years: 2001, 2004, 2005, 2006, and 2009.",
-    "commonsFile": "Navy_and_Marine_Corps_Achievement_Medal_ribbon.svg"
+    "commonsFile": "Navy_and_Marine_Corps_Achievement_Medal_ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/nam.png"
   },
   {
     "id": "aam",
@@ -117,7 +122,8 @@
     "explanation": "The Army's achievement medal, junior to the Army Commendation Medal. It is worn after the Navy achievement medal because Navy rules put the other service's equivalent just behind the Navy award.",
     "criteria": "Meritorious service or achievement recognized by the Army.",
     "sourceNote": "Army Achievement Medal, one award. Worksheet year: 2006.",
-    "commonsFile": "Army_Achievement_Medal_ribbon.svg"
+    "commonsFile": "Army_Achievement_Medal_ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/aam.png"
   },
   {
     "id": "jmua",
@@ -140,7 +146,8 @@
     "explanation": "A unit award, not a personal medal. Everyone assigned to the cited joint unit for the right dates may wear it. The ribbon is worn inside a gold frame. It comes before Navy unit awards on a Navy rack.",
     "criteria": "The unit, not the individual, is cited for exceptionally meritorious achievement. You wear it if you were assigned there during the cited period.",
     "sourceNote": "Joint Meritorious Unit Award (3). The worksheet names only 2006. The other two years are not entered.",
-    "commonsFile": "Joint_Meritorious_Unit_Award_ribbon.svg"
+    "commonsFile": "Joint_Meritorious_Unit_Award_ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/jmua.png"
   },
   {
     "id": "nmuc",
@@ -163,7 +170,8 @@
     "explanation": "A Navy unit award for meritorious service by a ship or command. It is junior to the Navy Unit Commendation, which is not in this record, and senior to the Navy E ribbon.",
     "criteria": "Worn by members of a cited Navy unit for the period of the citation.",
     "sourceNote": "Navy Meritorious Unit Commendation (5). The worksheet names only 2000. The other four years are not entered.",
-    "commonsFile": "Navy_Meritorious_Unit_Commendation_ribbon.svg"
+    "commonsFile": "Navy_Meritorious_Unit_Commendation_ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/nmuc.png"
   },
   {
     "id": "navy-e",
@@ -188,7 +196,8 @@
     "explanation": "The Battle Effectiveness ribbon. A ship or unit wins it by placing at the top of its group in an annual competition of readiness and skill. The people assigned there when it is won may wear the ribbon.",
     "criteria": "Permanent duty in a unit that won the battle-efficiency competition.",
     "sourceNote": "Navy E Ribbon (3). Worksheet years: 2001, 2002, and 2003, the Frank Cable years.",
-    "commonsFile": "Battle_Effectiveness_Award_ribbon.svg"
+    "commonsFile": "Battle_Effectiveness_Award_ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/navy-e.png"
   },
   {
     "id": "ngcm",
@@ -211,7 +220,8 @@
     "explanation": "Given for a period of honorable active service with good performance marks and no serious disciplinary action. For most of this career each medal covered three years. Six medals line up with a twenty-year career.",
     "criteria": "A qualifying period of good conduct. The worksheet lists 2000, 2003, 2006, 2009, 2012, and 2015.",
     "sourceNote": "Navy Good Conduct Medal (6).",
-    "commonsFile": "U.S._Navy_Good_Conduct_Medal_ribbon.svg"
+    "commonsFile": "U.S._Navy_Good_Conduct_Medal_ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/ngcm.png"
   },
   {
     "id": "ndsm",
@@ -228,7 +238,8 @@
     "explanation": "Given to people serving on active duty during a designated time of war or national emergency. It does not by itself mean the person deployed. For this career it marks service after the 11 September 2001 attacks.",
     "criteria": "Active duty during a qualifying period. The worksheet dates it 2001 and labels it Global War on Terror.",
     "sourceNote": "National Defense Service Medal, one award.",
-    "commonsFile": "National_Defense_Service_Medal_ribbon.svg"
+    "commonsFile": "National_Defense_Service_Medal_ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/ndsm.png"
   },
   {
     "id": "acm",
@@ -248,11 +259,15 @@
       }
     ],
     "deviceExplanation": "Read as one medal with two bronze campaign stars. Those stars mark two campaign phases. They are not two extra medals, and they are not the gold stars used on a Navy achievement medal.",
-    "explanation": "For service in Afghanistan during named operations, here Operation Enduring Freedom. The two stars line up with the two Afghanistan tours in this record, 2010\u20132011 and 2012\u20132013.",
+    "explanation": "For service in Afghanistan during named operations, here Operation Enduring Freedom. The two stars line up with the two Afghanistan tours in this record, 2010–2011 and 2012–2013.",
     "criteria": "Service in the theater during a qualifying campaign phase. Recorded as (2).",
     "sourceNote": "If the (2) was meant as two separate medals rather than two stars, the device should be changed. The worksheet lists the medal once, in 2011, and lists two OEF tours.",
-    "operationIds": ["oef-2010", "oef-2012"],
-    "commonsFile": "Afghanistan_Campaign_Medal_ribbon.svg"
+    "operationIds": [
+      "oef-2010",
+      "oef-2012"
+    ],
+    "commonsFile": "Afghanistan_Campaign_Medal_ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/acm.png"
   },
   {
     "id": "icm",
@@ -275,8 +290,12 @@
     "explanation": "For service in Iraq during Operation Iraqi Freedom. The two stars match the two Iraq deployments: Combined Joint Task Force Troy in 2006, and the individual augmentee tour in 2009.",
     "criteria": "Service in Iraq during a qualifying campaign phase.",
     "sourceNote": "Iraq Campaign Medal (2), read here as two campaign stars. The worksheet lists the medal in 2006 and names both phases under operations.",
-    "operationIds": ["oif-2006", "oif-2009"],
-    "commonsFile": "Iraq_Campaign_Medal_ribbon.svg"
+    "operationIds": [
+      "oif-2006",
+      "oif-2009"
+    ],
+    "commonsFile": "Iraq_Campaign_Medal_ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/icm.png"
   },
   {
     "id": "gwotsm",
@@ -293,7 +312,8 @@
     "explanation": "For support of operations against terrorism on or after 11 September 2001, including duty that was not inside Iraq or Afghanistan. It is different from the campaign medals, which require service in those countries, and from the expeditionary medal, which is not in this record.",
     "criteria": "Qualifying support service. The worksheet dates it 2005.",
     "sourceNote": "GWOT Service Medal, one award.",
-    "commonsFile": "Global_War_on_Terrorism_Service_Medal_ribbon.svg"
+    "commonsFile": "Global_War_on_Terrorism_Service_Medal_ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/gwotsm.png"
   },
   {
     "id": "hsm",
@@ -311,7 +331,8 @@
     "criteria": "Direct participation in a designated humanitarian operation. Worksheet year: 2003.",
     "sourceNote": "Humanitarian Service Medal, one award. The operation name is still blank.",
     "open": "The humanitarian operation is unnamed.",
-    "commonsFile": "Humanitarian_Service_Medal_ribbon.svg"
+    "commonsFile": "Humanitarian_Service_Medal_ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/hsm.png"
   },
   {
     "id": "ssdr",
@@ -339,7 +360,8 @@
     "explanation": "For deployed sea duty. In general it marks accumulated time deployed away from home port, often counted in months at sea or forward. Seven awards is a great deal of deployed time. Sea service of 6 years, 4 months, and 24 days is the total time, not the ribbon count.",
     "criteria": "Qualifying deployed sea service for each award.",
     "sourceNote": "Sea Service Deployment Ribbon (7). The worksheet names only 2001, 2002, and 2003. Four years are not entered.",
-    "commonsFile": "Sea_Service_Deployment_Ribbon.svg"
+    "commonsFile": "Sea_Service_Deployment_Ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/ssdr.png"
   },
   {
     "id": "osr",
@@ -362,7 +384,8 @@
     "explanation": "For a completed tour at an overseas shore station, generally twelve months. It is not the same as the sea-service ribbon, which is for deployments. Guam is the overseas shore duty in this record; the form does not say which tours made up all six awards.",
     "criteria": "A qualifying overseas shore tour for each award.",
     "sourceNote": "Navy and Marine Corps Overseas Ribbon (6). The worksheet names only 2001, 2002, and 2003. Three years are not entered.",
-    "commonsFile": "Navy_and_Marine_Corps_Overseas_Service_Ribbon.svg"
+    "commonsFile": "Navy_and_Marine_Corps_Overseas_Service_Ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/osr.png"
   },
   {
     "id": "nato",
@@ -379,7 +402,8 @@
     "explanation": "A foreign award, from NATO rather than the United States, for service with the International Security Assistance Force in Afghanistan. Foreign awards are worn after U.S. service ribbons and before marksmanship ribbons.",
     "criteria": "Service with ISAF under the rules NATO set for the medal. Worksheet: 2013, Non-Article 5, Afghanistan.",
     "sourceNote": "NATO Medal, one award.",
-    "commonsFile": "NATO_Medal_ribbon_(Non-Article_5).svg"
+    "commonsFile": "NATO_Medal_ribbon_(Non-Article_5).svg",
+    "ribbonWiki": "/ribbons-wiki/nato.png"
   },
   {
     "id": "rifle",
@@ -404,7 +428,8 @@
     "explanation": "Shows the score fired with the service rifle on the Navy qualification course. It is a skill badge in ribbon form, worn at the very end of the rack, after every decoration and every foreign award.",
     "criteria": "Expert qualification on the rifle course. Worksheet year: 2001.",
     "sourceNote": "Navy Rifle Expert Medal.",
-    "commonsFile": "U.S._Navy_Rifle_Marksmanship_Ribbon.svg"
+    "commonsFile": "U.S._Navy_Rifle_Marksmanship_Ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/rifle.png"
   },
   {
     "id": "pistol",
@@ -429,6 +454,7 @@
     "explanation": "The pistol version of the marksmanship ribbon. Same three levels. Expert is the highest. It is worn after the rifle ribbon.",
     "criteria": "Expert qualification on the pistol course. Worksheet year: 2000.",
     "sourceNote": "Navy Pistol Expert Medal.",
-    "commonsFile": "U.S._Navy_Pistol_Marksmanship_Ribbon.svg"
+    "commonsFile": "U.S._Navy_Pistol_Marksmanship_Ribbon.svg",
+    "ribbonWiki": "/ribbons-wiki/pistol.png"
   }
 ]
