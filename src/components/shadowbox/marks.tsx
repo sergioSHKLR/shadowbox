@@ -2,7 +2,7 @@ import type { Award, Device } from "@/lib/shadowbox/model";
 import { countPhrase, deviceSummary, publicUrl } from "@/lib/shadowbox/model";
 
 const DEVICE_ART: Record<string, string> = {
-  "star-gold": "/devices/star-gold-b.svg",
+  "star-gold": "/devices/star-gold-vivid.svg", // the PR #2 (e30018b) star: dark #3a2804 outline, the most vivid look
   "star-silver": "/devices/star-silver.svg",
   "star-bronze": "/devices/star-bronze.svg",
   "oak-bronze": "/devices/oak-bronze-b.svg",
