@@ -17,6 +17,10 @@ import {
   photos,
   profile,
   ribbonRows,
+  medalFor,
+  medalRows,
+  ranks,
+  caseRanks,
   schools,
   timeline,
   uniforms,
@@ -30,7 +34,7 @@ import {
   type Kind,
   type Selection,
 } from "@/lib/shadowbox/model";
-import { CareerGlyph, RibbonButton } from "@/components/shadowbox/marks";
+import { CareerGlyph, MedalBlock, RibbonButton } from "@/components/shadowbox/marks";
 import { DetailPanel } from "@/components/shadowbox/detail";
 import { MapView } from "@/components/shadowbox/map-view";
 
@@ -83,7 +87,7 @@ export function ShadowboxApp() {
         </nav>
       </header>
 
-      {view === "case" ? <Case rows={rows} onOpen={open} /> : null}
+      {view === "case" ? <Case rows={rows} onOpen={open} onOpenMedal={(id) => setSelection({ kind: "award", id, medal: true })} /> : null}
       {view === "timeline" ? <Timeline bars={bars} rows={rows} blanks={blanks} onOpen={open} /> : null}
       {view === "uniforms" ? <Uniforms onOpen={open} /> : null}
       {view === "equipment" ? <EquipmentView onOpen={open} /> : null}
@@ -112,11 +116,23 @@ function caseMarks() {
 function Case({
   rows,
   onOpen,
+  onOpenMedal,
 }: {
   rows: ReturnType<typeof ribbonRows>;
   onOpen: (k: Kind, id: string) => void;
+  onOpenMedal: (id: string) => void;
 }) {
   const marks = caseMarks();
+  // Ribbons (the default, the rack as it has always been) or the full-dress view: large medals on the left breast and
+  // the ribbon-only awards on the right breast.
+  const [rackView, setRackView] = useState<"ribbons" | "medals">("ribbons");
+  const withMedal = awards.filter((award) => medalFor(award.id));
+  const ribbonOnly = awards.filter((award) => !medalFor(award.id));
+  // NAVPERS 15665J art. 5313.1: ribbons without a large medal are centred on the right breast, rows of three with the
+  // lesser row on top (art. 5312.1), in precedence "top down and inboard to outboard". Inboard on the right breast is
+  // toward the wearer's left, which is the viewer's right, so each row reads senior-first from the right.
+  const rightRows = ribbonRows(ribbonOnly).map((row) => [...row].reverse());
+  const medalBlockRows = medalRows(withMedal);
   // One centred column at every width, read top to bottom: recruit portrait and plaque, the ET rating mark,
   // ESWS, the rack, EXW, the JCSE badge, the chief's anchor, then the chief portrait and plaque.
   const mark = (id: string) => marks.find((entry) => entry.id === id);
@@ -171,17 +187,49 @@ function Case({
               {portraitWithPlaque(recruit, plaques.recruit)}
               {etMark ? renderMark(etMark, "worn worn-et") : null}
               {esws ? renderMark(esws, "worn worn-pin") : null}
-              <div className="rack" aria-label="Ribbon rack, highest award at the top left">
-                {rows.map((row) => (
-                  <div key={row.map((a) => a.id).join("-")} className="rack-row">
-                    {row.map((award) => (
-                      <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />
-                    ))}
-                  </div>
-                ))}
+              <div className="rack-toggle" role="group" aria-label="Show the ribbons or the full-size medals">
+                <button type="button" className={rackView === "ribbons" ? "nav-btn on" : "nav-btn"} aria-pressed={rackView === "ribbons"} onClick={() => setRackView("ribbons")}>Ribbons</button>
+                <button type="button" className={rackView === "medals" ? "nav-btn on" : "nav-btn"} aria-pressed={rackView === "medals"} onClick={() => setRackView("medals")}>Medals</button>
               </div>
+              {rackView === "ribbons" ? (
+                <div className="rack" aria-label="Ribbon rack, highest award at the top left">
+                  {rows.map((row) => (
+                    <div key={row.map((a) => a.id).join("-")} className="rack-row">
+                      {row.map((award) => (
+                        <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="full-dress" aria-label="Full dress: large medals and the ribbons that have no medal">
+                  <figure className="dress-group dress-medals">
+                    <figcaption>Left breast: large medals ({withMedal.length})</figcaption>
+                    <MedalBlock rows={medalBlockRows} onOpen={(award) => onOpenMedal(award.id)} />
+                  </figure>
+                  <figure className="dress-group dress-ribbons">
+                    <figcaption>Right breast: ribbons without a medal ({ribbonOnly.length})</figcaption>
+                    <div className="rack ribbon-only" aria-label="Ribbon-only awards, senior at the top and inboard (the viewer's right)">
+                      {rightRows.map((row) => (
+                        <div key={row.map((a) => a.id).join("-")} className="rack-row">
+                          {row.map((award) => (
+                            <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  </figure>
+                </div>
+              )}
               {exw ? renderMark(exw, "worn worn-pin") : null}
               {jcse ? renderMark(jcse, "worn worn-badge") : null}
+              <div className="grade-row" role="group" aria-label="Enlisted pay grades before chief: E-3 to E-6">
+                {caseRanks.map((rank) => (
+                  <button key={rank.id} type="button" className={`worn worn-grade worn-grade--${rank.id}`} onClick={() => onOpen("rank", rank.id)} aria-label={`${rank.name} (${rank.abbreviation}, ${rank.grade})${rank.date ? `, ${formatWhen(rank.date)}` : ""}`} title={`${rank.abbreviation} · ${rank.grade}`}>
+                    <img src={publicUrl(rank.image)} alt="" />
+                  </button>
+                ))}
+              </div>
               {anchor ? renderMark(anchor, "worn worn-anchor") : null}
               {portraitWithPlaque(chief, plaques.chief)}
               <dl className="service-totals" aria-label="Service totals">
@@ -244,10 +292,31 @@ function Timeline({
             <span key={year} style={{ left: `${pct(Date.UTC(year, 0, 1))}%` }}>{year}</span>
           ))}
         </div>
+        <Track label="Rank" items={bars.rank} onOpen={onOpen} />
         <Track label="Assignments" items={bars.duty} onOpen={onOpen} />
         <Track label="Deployments" items={bars.ops} onOpen={onOpen} />
         <Track label="Schools and career dates" items={bars.study} onOpen={onOpen} />
       </div>
+      <h3>Rank progression</h3>
+      <ol className="rank-steps">
+        {ranks.map((rank) => (
+          <li key={rank.id}>
+            <button type="button" className="rank-step" onClick={() => onOpen("rank", rank.id)}>
+              <img src={publicUrl(rank.image)} alt="" loading="lazy" />
+              <strong>{rank.date ? formatWhen(rank.date) : "Date needed"}</strong>
+              <span>{rank.abbreviation} · {rank.grade}</span>
+              <em>{rank.name}</em>
+            </button>
+          </li>
+        ))}
+        <li>
+          <div className="rank-step rank-step--end">
+            <strong>{formatWhen(profile.serviceEnd)}</strong>
+            <span>Retired</span>
+            <em>as a Chief Electronics Technician</em>
+          </div>
+        </li>
+      </ol>
       <h3>Operations, named as the record names them</h3>
       <ul className="stack">
         {operations.map((op) => (
@@ -330,7 +399,7 @@ function Track({
           <button
             key={item.key}
             type="button"
-            className={item.point ? "bar point" : "bar"}
+            className={`${item.point ? "bar point" : "bar"} bar--${item.group}`}
             style={{
               left: `${item.left}%`,
               width: `${item.width}%`,
@@ -404,18 +473,48 @@ function EquipmentView({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
   );
 }
 
-function Stations({ stops, onOpen }: { stops: ReturnType<typeof careerStops>; onOpen: (k: Kind, id: string) => void }) {
+type PinGroup = "duty" | "base" | "visit";
+const PIN_GROUPS: { id: PinGroup; label: string; legend: string }[] = [
+  { id: "duty", label: "Commands", legend: "Commands and assignments" },
+  { id: "base", label: "Deployments", legend: "Deployment bases" },
+  { id: "visit", label: "Visits", legend: "Visits, exercises, schools & transit" },
+];
+const pinGroupOf = (place: { type?: string | null }): PinGroup => (place.type === "base" ? "base" : place.type === "visit" ? "visit" : "duty");
+
+function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof careerStops>; onOpen: (k: Kind, id: string) => void }) {
+  // Filter chips: All, or any mix of the three pin groups. Pin numbers stay the same when filtered.
+  const [shown, setShown] = useState<PinGroup[] | null>(null);
+  const isOn = (g: PinGroup) => !shown || shown.includes(g);
+  const toggle = (g: PinGroup) =>
+    setShown((cur) => {
+      if (!cur) return [g];
+      const next = cur.includes(g) ? cur.filter((x) => x !== g) : [...cur, g];
+      return next.length === 0 || next.length === PIN_GROUPS.length ? null : next;
+    });
+  const stops = allStops.filter((stop) => isOn(pinGroupOf(stop.place)));
+  const extraBases = isOn("base") ? bases.filter((place) => !allStops.some((stop) => stop.place.id === place.id)) : [];
   return (
     <main className="sheet">
       <h2>Where the career went</h2>
       <p>{caseCopy.mapLead}</p>
+      <div className="map-filter" role="group" aria-label="Show pins">
+        <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>All</button>
+        {PIN_GROUPS.map((g) => (
+          <button key={g.id} type="button" className={`nav-btn${shown?.includes(g.id) ? " on" : ""}`} aria-pressed={!!shown?.includes(g.id)} onClick={() => toggle(g.id)}>
+            <span className={`pin-num ${g.id === "duty" ? "" : g.id}`} aria-hidden="true" />
+            {g.label}
+          </button>
+        ))}
+      </div>
       <ul className="map-legend" aria-label="Pin colours">
-        <li><span className="pin-num">1</span> Duty stations</li>
-        <li><span className="pin-num base">1</span> Deployment bases</li>
-        <li><span className="pin-num visit">1</span> Visits, exercises, schools &amp; transit</li>
-        <li><span className="pin-num approximate">1</span> Approximate location</li>
+        {PIN_GROUPS.map((g) => (
+          <li key={g.id}><span className={`pin-num ${g.id === "duty" ? "" : g.id}`}>1</span> {g.legend}</li>
+        ))}
+        <li><span className="pin-num approximate">1</span> Approximate location (dashed ring)</li>
       </ul>
-      <MapView stops={stops} extra={bases.filter((place) => !stops.some((stop) => stop.place.id === place.id))} tall onSelect={(id) => onOpen("place", id)} />
+      {stops.length || extraBases.length ? (
+        <MapView stops={stops} extra={extraBases} tall onSelect={(id) => onOpen("place", id)} />
+      ) : null}
       <ol className="stop-list">
         {stops.map((stop, index) => (
           <li key={`${stop.place.id}-${index}`}>
@@ -427,7 +526,7 @@ function Stations({ stops, onOpen }: { stops: ReturnType<typeof careerStops>; on
           </li>
         ))}
       </ol>
-      {bases.length ? (
+      {bases.length && isOn("base") ? (
         <>
           <h3>Deployment bases</h3>
           <ol className="stop-list">
@@ -456,6 +555,12 @@ function Sources() {
     <main className="sheet">
       <h2>Where the pictures and the facts come from</h2>
       <p>{caseCopy.sourcesLead}</p>
+      <p className="cheat-sheet-link">
+        <a className="nav-btn" href={publicUrl("/shadowbox-cheat-sheet.pdf")} download="shadowbox-cheat-sheet.pdf" type="application/pdf">
+          Download the cheat sheet (PDF, 5 pages)
+        </a>
+        <span className="quiet"> The printable code list for what was used where: uniforms, weapons, vehicles, ships, armor, helmets, comms, bases and NECs.</span>
+      </p>
       <ul className="credits">
         {credits.map((credit) => (
           <li key={credit.id}>
