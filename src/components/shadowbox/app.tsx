@@ -197,8 +197,19 @@ function Case({
               </dl>
             </div>
           </div>
-                  {/* The case tab is the case alone, like a shadowbox on a wall: the command crests, rack notes, specialties
-                      and schools that used to sit under it now live on the Timeline tab. */}
+          {/* Command crests sit under the case display again (as before PR #23); rack notes, specialties and schools stay on Timeline. */}
+          <ul className="patch-row" aria-label="Commands, in order">
+            {units.map((unit) => (
+              <li key={unit.id}>
+                <button type="button" className={unit.image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name}${unit.designator ? `, ${unit.designator}` : ""}, ${formatSpan(unit.start, unit.end)}. Open the explanation.`}>
+                  {unit.image ? <img className="patch-crest" src={publicUrl(unit.image)} alt="" /> : null}
+                  <span className="patch-mark">{unit.patch}</span>
+                  {unit.designator ? <span className="designator">{unit.designator}</span> : null}
+                  <span>{formatSpan(unit.start, unit.end)}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -237,21 +248,6 @@ function Timeline({
         <Track label="Deployments" items={bars.ops} onOpen={onOpen} />
         <Track label="Schools and career dates" items={bars.study} onOpen={onOpen} />
       </div>
-      <section className="timeline-commands" aria-label="Commands">
-        <h3>Commands, in order</h3>
-        <ul className="patch-row">
-          {units.map((unit) => (
-            <li key={unit.id}>
-              <button type="button" className={unit.image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name}${unit.designator ? `, ${unit.designator}` : ""}, ${formatSpan(unit.start, unit.end)}. Open the explanation.`}>
-                {unit.image ? <img className="patch-crest" src={publicUrl(unit.image)} alt="" /> : null}
-                <span className="patch-mark">{unit.patch}</span>
-                {unit.designator ? <span className="designator">{unit.designator}</span> : null}
-                <span>{formatSpan(unit.start, unit.end)}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </section>
       <h3>Operations, named as the record names them</h3>
       <ul className="stack">
         {operations.map((op) => (
