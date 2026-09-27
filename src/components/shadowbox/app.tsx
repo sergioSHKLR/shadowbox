@@ -83,8 +83,8 @@ export function ShadowboxApp() {
         </nav>
       </header>
 
-      {view === "case" ? <Case rows={rows} blanks={blanks} onOpen={open} /> : null}
-      {view === "timeline" ? <Timeline bars={bars} onOpen={open} /> : null}
+      {view === "case" ? <Case rows={rows} onOpen={open} /> : null}
+      {view === "timeline" ? <Timeline bars={bars} rows={rows} blanks={blanks} onOpen={open} /> : null}
       {view === "uniforms" ? <Uniforms onOpen={open} /> : null}
       {view === "equipment" ? <EquipmentView onOpen={open} /> : null}
       {view === "map" ? <Stations stops={stops} onOpen={open} /> : null}
@@ -111,11 +111,9 @@ function caseMarks() {
 
 function Case({
   rows,
-  blanks,
   onOpen,
 }: {
   rows: ReturnType<typeof ribbonRows>;
-  blanks: string[];
   onOpen: (k: Kind, id: string) => void;
 }) {
   const marks = caseMarks();
@@ -199,83 +197,31 @@ function Case({
               </dl>
             </div>
           </div>
-          <ul className="patch-row">
-            {units.map((unit) => (
-              <li key={unit.id}>
-                <button type="button" className={unit.image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name}${unit.designator ? `, ${unit.designator}` : ""}, ${formatSpan(unit.start, unit.end)}. Open the explanation.`}>
-                  {unit.image ? <img className="patch-crest" src={publicUrl(unit.image)} alt="" /> : null}
-                  <span className="patch-mark">{unit.patch}</span>
-                  {unit.designator ? <span className="designator">{unit.designator}</span> : null}
-                  <span>{formatSpan(unit.start, unit.end)}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
+                  {/* The case tab is the case alone, like a shadowbox on a wall: the command crests, rack notes, specialties
+                      and schools that used to sit under it now live on the Timeline tab. */}
         </div>
       </section>
 
-      <section className="ledger">
-        <div>
-          <h2>How to read the rack</h2>
-          {caseCopy.howToRead.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-          <p>{awards.length} ribbons. The top row holds {rows[0]?.length ?? 0}.</p>
-        </div>
-        <div>
-          <h2>What is still blank</h2>
-          <ul className="plain">
-            {blanks.map((line) => (
-              <li key={line}>{line}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="split">
-        <div>
-          <h2>Specialties</h2>
-          <ul className="stack">
-            {necs.map((nec) => (
-              <li key={nec.id}>
-                <button type="button" className="row-btn" onClick={() => onOpen("nec", nec.id)}>
-                  <strong>{nec.code}</strong>
-                  <span>{nec.name}</span>
-                  <em>{nec.years ?? "tour code"}</em>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h2>Schools and dates that matter</h2>
-          <ul className="stack">
-            {schools.map((school) => (
-              <li key={school.id}>
-                <button type="button" className="row-btn" onClick={() => onOpen("school", school.id)}>
-                  <strong>{formatWhen(school.start)}</strong>
-                  <span>{school.name}</span>
-                  <em>{school.length ?? "length not entered"}</em>
-                </button>
-              </li>
-            ))}
-            {milestones.map((mark) => (
-              <li key={mark.id}>
-                <button type="button" className="row-btn" onClick={() => onOpen("milestone", mark.id)}>
-                  <strong>{formatWhen(mark.date)}</strong>
-                  <span>{mark.title}</span>
-                  <em>Career</em>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
     </main>
   );
 }
 
-function Timeline({ bars, onOpen }: { bars: ReturnType<typeof timeline>; onOpen: (k: Kind, id: string) => void }) {
+function Timeline({
+  bars,
+  rows,
+  blanks,
+  onOpen,
+}: {
+  bars: ReturnType<typeof timeline>;
+  rows: ReturnType<typeof ribbonRows>;
+  blanks: string[];
+  onOpen: (k: Kind, id: string) => void;
+}) {
+  // Schools and the dated career events in one list, oldest first (they used to be two runs under the case).
+  const dated = [
+    ...schools.map((school) => ({ key: `school-${school.id}`, when: school.start ?? "", kind: "school" as Kind, id: school.id, title: school.name, note: school.length ?? "length not entered" })),
+    ...milestones.map((mark) => ({ key: `milestone-${mark.id}`, when: mark.date ?? "", kind: "milestone" as Kind, id: mark.id, title: mark.title, note: "Career" })),
+  ].sort((a, b) => (a.when || "9999").localeCompare(b.when || "9999"));
   return (
     <main className="sheet">
       <h2>{profile.serviceLength}, one line</h2>
@@ -291,6 +237,21 @@ function Timeline({ bars, onOpen }: { bars: ReturnType<typeof timeline>; onOpen:
         <Track label="Deployments" items={bars.ops} onOpen={onOpen} />
         <Track label="Schools and career dates" items={bars.study} onOpen={onOpen} />
       </div>
+      <section className="timeline-commands" aria-label="Commands">
+        <h3>Commands, in order</h3>
+        <ul className="patch-row">
+          {units.map((unit) => (
+            <li key={unit.id}>
+              <button type="button" className={unit.image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name}${unit.designator ? `, ${unit.designator}` : ""}, ${formatSpan(unit.start, unit.end)}. Open the explanation.`}>
+                {unit.image ? <img className="patch-crest" src={publicUrl(unit.image)} alt="" /> : null}
+                <span className="patch-mark">{unit.patch}</span>
+                {unit.designator ? <span className="designator">{unit.designator}</span> : null}
+                <span>{formatSpan(unit.start, unit.end)}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </section>
       <h3>Operations, named as the record names them</h3>
       <ul className="stack">
         {operations.map((op) => (
@@ -303,6 +264,54 @@ function Timeline({ bars, onOpen }: { bars: ReturnType<typeof timeline>; onOpen:
           </li>
         ))}
       </ul>
+      <section className="split">
+        <div>
+          <h3>Schools and dates that matter</h3>
+          <ul className="stack">
+            {dated.map((item) => (
+              <li key={item.key}>
+                <button type="button" className="row-btn" onClick={() => onOpen(item.kind, item.id)}>
+                  <strong>{formatWhen(item.when)}</strong>
+                  <span>{item.title}</span>
+                  <em>{item.note}</em>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>Specialties</h3>
+          <ul className="stack">
+            {necs.map((nec) => (
+              <li key={nec.id}>
+                <button type="button" className="row-btn" onClick={() => onOpen("nec", nec.id)}>
+                  <strong>{nec.code}</strong>
+                  <span>{nec.name}</span>
+                  <em>{nec.years ?? "tour code"}</em>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="ledger">
+        <div>
+          <h3>How to read the rack</h3>
+          {caseCopy.howToRead.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+          <p>{awards.length} ribbons. The top row holds {rows[0]?.length ?? 0}.</p>
+        </div>
+        <div>
+          <h3>What is still blank</h3>
+          <ul className="plain">
+            {blanks.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </main>
   );
 }
