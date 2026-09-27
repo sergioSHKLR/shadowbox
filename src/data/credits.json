@@ -252,15 +252,6 @@
     "notes": "Cut out onto a white background and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/a/a7/Marine_vehicles_roll_out_for_Marine_Week_Cleveland_120611-M-QZ986-385.jpg . Not hotlinked."
   },
   {
-    "id": "equipment-jerrv",
-    "title": "JERRV (Cougar H shown)",
-    "file": "/equipment/jerrv-cougar.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S.Marine_Cougar_H_EOD.jpg",
-    "creator": "Lance Cpl. Charles Howard, U.S. Marine Corps",
-    "license": "Public domain. Photograph by a member of the U.S. armed forces in the course of official duties, a work of the U.S. federal government.",
-    "notes": "Cut out onto a white background and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/e/ed/U.S.Marine_Cougar_H_EOD.jpg . Not hotlinked."
-  },
-  {
     "id": "equipment-cucv",
     "title": "CUCV (CUCV pickup shown)",
     "file": "/equipment/cucv-pickup.webp",
@@ -720,13 +711,13 @@
     "notes": "The SW pin, EXW pin and JCSE badge were extracted from his chest-stack file at native resolution and saved as WebP. The rack on the site is still drawn from the award data; it matches the ribbons and devices of his file."
   },
   {
-    "id": "cpo-anchor-antiqued",
-    "title": "Chief petty officer anchor (antiqued)",
-    "file": "/insignia/cpo-anchor-antiqued.webp",
+    "id": "cpo-anchor-cap",
+    "title": "Chief petty officer cap device",
+    "file": "/insignia/cpo-anchor-cap.webp",
     "sourceUrl": null,
-    "creator": "Drawn for this archive",
-    "license": "Diagram of public-domain United States Navy insignia.",
-    "notes": "Tone-adjusted (highlights compressed, slightly desaturated, thin dark edge) to a matte, antiqued finish that matches the pins."
+    "creator": "Clean cap-device image supplied by the veteran",
+    "license": "Supplied by the veteran. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Flag stripe cropped off, background made transparent, gold muted slightly and the USN toned down for a matte finish matching the pins; enlarged 2x and saved as WebP."
   },
   {
     "id": "et-rating-mark",
@@ -736,5 +727,14 @@
     "creator": "Linework from the ETC rating badge vector supplied by the veteran",
     "license": "Supplied by the veteran. Use of military insignia is restricted by law independently of copyright.",
     "notes": "Only the atom symbol was extracted, keeping its paths; recoloured flat silver with a dark edge to match the pins, and optimized with SVGO."
+  },
+  {
+    "id": "crest-troy",
+    "title": "Task Force Troy 'COUNTER IED' patch",
+    "file": "/crests/tf-troy-patch.webp",
+    "sourceUrl": null,
+    "creator": "The veteran's own photograph of his patch",
+    "license": "The veteran's own photograph, published with his approval. The patch design parodies MAD Magazine's Spy vs. Spy; not for reuse outside this record.",
+    "notes": "The patch was cut out of his photo (hand and wood masked, embroidered edge kept, transparent background). Not redrawn."
   }
 ]
