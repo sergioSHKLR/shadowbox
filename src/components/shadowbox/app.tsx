@@ -37,6 +37,7 @@ import {
 import { CareerGlyph, MedalBlock, RibbonButton } from "@/components/shadowbox/marks";
 import { DetailPanel } from "@/components/shadowbox/detail";
 import { MapView } from "@/components/shadowbox/map-view";
+import { UniformProgression } from "@/components/shadowbox/uniform-progression";
 
 type View = "case" | "timeline" | "uniforms" | "equipment" | "map" | "sources";
 
@@ -317,6 +318,7 @@ function Timeline({
           </div>
         </li>
       </ol>
+      <UniformProgression onOpen={onOpen} />
       <h3>Operations, named as the record names them</h3>
       <ul className="stack">
         {operations.map((op) => (
