@@ -206,7 +206,7 @@ export type Place = {
 export type Visit = {
   id: string;
   placeId: string;
-  kind: "port-visit" | "exercise" | "school" | "tad" | "visit" | "duty-location";
+  kind: "port-visit" | "exercise" | "school" | "tad" | "visit" | "duty-location" | "transit";
   title: string;
   /** Display date; approximate periods say so in words. */
   when: string;
@@ -493,10 +493,12 @@ export type Stop = { place: Place; labels: string[]; when: string; n?: number };
 export function careerStops(): Stop[] {
   const events = [
     ...unitSortKeys().filter(({ unit: u }) => u.placeId).map(({ unit: u, sort }) => ({ sort, prio: 0, tie: "", placeId: u.placeId as string, label: `${formatSpan(u.start, u.end)} · ${u.abbreviation}` })),
+    // An operation that belongs to a tour begun in an earlier year sorts just ahead of a unit starting in its year
+    // (Iraq Sovereignty, 2009, closes the 2008 IA tour before JCSE starts in 2009).
     // Every base a deployment used gets its own numbered stop (CJTF Troy: FOB Sykes, then FOB Tal Afar).
     ...operations
       .filter((o) => o.baseIds?.length || o.placeId)
-      .flatMap((o) => (o.baseIds?.length ? o.baseIds : [o.placeId as string]).map((placeId) => ({ sort: o.start, prio: 0, tie: "", placeId, label: `${formatSpan(o.start, o.end)} · ${o.phase}` }))),
+      .flatMap((o) => (o.baseIds?.length ? o.baseIds : [o.placeId as string]).map((placeId) => ({ sort: o.start, prio: unitById(o.unitId ?? "")?.start?.slice(0, 4) === o.start.slice(0, 4) ? 0 : -0.5, tie: "", placeId, label: `${formatSpan(o.start, o.end)} · ${o.phase}` }))),
     // Port visits, exercises, schools and other stops, in the order given in visits.json within the same year and prio.
     ...visits.map((visit, index) => ({ sort: visit.sort, prio: visit.prio, tie: String(index).padStart(3, "0"), placeId: visit.placeId, label: `${visit.when} · ${visit.title}` })),
   ].sort((a, b) => a.sort.localeCompare(b.sort) || a.prio - b.prio || a.tie.localeCompare(b.tie) || a.label.localeCompare(b.label));
@@ -894,7 +896,8 @@ export function toSubject(sel: Selection): SubjectView | null {
       kind: "place",
       id: place.id,
       kicker: (pinNumbersFor(place.id).length ? `Map pin ${pinNumbersFor(place.id).join(", ")} · ` : "") + (place.type === "visit"
-        ? place.accuracy === "approximate" ? "Visit, exercise or school · approximate location" : "Visit, exercise or school"
+        ? (visits.some((visit) => visit.placeId === place.id) && visits.filter((visit) => visit.placeId === place.id).every((visit) => visit.kind === "transit") ? "Transit / stopover" : "Visit, exercise or school") +
+          (place.accuracy === "approximate" ? " · approximate location" : "")
         : place.type === "base"
         ? place.accuracy === "approximate" ? "Deployment base · approximate location" : "Deployment base"
         : place.accuracy === "placeholder" ? "Placeholder location" : place.accuracy === "approximate" ? "Approximate location" : "Duty station"),
