@@ -23,7 +23,7 @@ export function MapView({
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || stops.length === 0) return;
+    if (!el || stops.length + extra.length === 0) return;
     let map: import("leaflet").Map | undefined;
     let cancelled = false;
 
@@ -143,7 +143,7 @@ export function MapView({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signature]);
 
-  if (!stops.length) {
+  if (!stops.length && !extra.length) {
     return <p className="quiet">No map location has been entered for this yet.</p>;
   }
 

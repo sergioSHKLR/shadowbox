@@ -26,7 +26,10 @@
   --color-quiet: #6d6458;
 }
 
-html { color-scheme: light; }
+/* One designed look in every browser: light form controls and canvas (color-scheme), no automatic dark mode
+   ("only"), and no colour overriding by Firefox's "Override colours" / high-contrast forced-colours mode, which otherwise
+   strips the page's backgrounds and repaints it in the system (often dark) theme. */
+html { color-scheme: light; color-scheme: only light; forced-color-adjust: none; background: var(--color-ivory); }
 
 body {
   margin: 0;
@@ -341,8 +344,10 @@ a { color: var(--color-navy); }
   font-family: var(--font-sans); font-weight: 700; font-size: 11px; line-height: 1; font-variant-numeric: tabular-nums;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
 }
-.map-num.base, .pin-num.base { background: var(--color-navy); color: #f1dc9c; border-color: var(--color-brass); }
-.map-num.visit, .pin-num.visit { background: #2e7d6f; color: #f4efe4; border-color: var(--color-navy); }
+/* Primary colours by group: commands red, deployments blue, visits/exercises/schools/transit yellow with a dark gold ring. */
+.map-num, .pin-num { background: #c8102e; color: #ffffff; border-color: #5c0714; }
+.map-num.base, .pin-num.base { background: #1646b8; color: #ffffff; border-color: #0a1f55; }
+.map-num.visit, .pin-num.visit { background: #ffd21a; color: #1a1400; border-color: #8a6400; }
 .map-num.approximate, .pin-num.approximate { border-style: dashed; }
 .map-legend { list-style: none; display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; margin: 0 0 0.7rem; padding: 0; font-size: 0.85rem; color: var(--color-quiet); }
 .map-legend li { display: inline-flex; align-items: center; gap: 0.4rem; }
@@ -350,10 +355,10 @@ a { color: var(--color-navy); }
 .map-num { transition: transform 0.15s ease; }
 .map-num.sm { min-width: 18px; height: 18px; border-radius: 9px; padding: 0 2px; font-size: 10px; border-width: 1.5px; }
 .pin-num { flex: none; align-self: center; }
-.map-dot { display: block; width: 14px; height: 14px; border-radius: 50%; background: var(--color-brass); border: 2px solid var(--color-navy); }
+.map-dot { display: block; width: 14px; height: 14px; border-radius: 50%; background: #c8102e; border: 2px solid #5c0714; }
 .map-dot.placeholder { border-radius: 2px; background: transparent; }
 .map-dot.approximate { background: transparent; }
-.map-dot.base { width: 12px; height: 12px; border-radius: 2px; transform: rotate(45deg); background: var(--color-navy); border-color: var(--color-brass); }
+.map-dot.base { width: 12px; height: 12px; border-radius: 2px; transform: rotate(45deg); background: #1646b8; border-color: #0a1f55; }
 .map-dot.base.approximate { background: var(--color-ivory); }
 .used-here ul { list-style: none; margin: 0.8rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(4.75rem, 1fr)); gap: 0.5rem; }
 .used-here button { width: 100%; min-height: 44px; display: flex; flex-direction: column; align-items: center; gap: 0.3rem; padding: 0.35rem; background: white; border: 1px solid var(--color-ivory-dim); cursor: pointer; font: inherit; color: var(--color-ink); }
@@ -376,7 +381,7 @@ a { color: var(--color-navy); }
 .pip { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--color-brass); border: 2px solid var(--color-navy); display: inline-block; }
 .pip.placeholder { border-radius: 2px; background: transparent; }
 .pip.approximate { background: transparent; }
-.pip.base { border-radius: 1px; transform: rotate(45deg); background: var(--color-navy); border-color: var(--color-brass); }
+.pip.base { border-radius: 1px; transform: rotate(45deg); background: #1646b8; border-color: #0a1f55; }
 .pip.base.approximate { background: var(--color-ivory); }
 /* Long source URLs and notes wrap inside the column instead of widening the page. */
 .credits li, .instance-list li, .gallery li { min-width: 0; overflow-wrap: anywhere; }
@@ -430,3 +435,76 @@ a { color: var(--color-navy); }
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
 }
+
+/* ---------- Ribbons / Medals toggle and the full-dress view ---------- */
+.rack-toggle { display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; }
+.full-dress { --mi: var(--in); display: flex; flex-direction: column; align-items: center; gap: calc(var(--in) * 0.35); max-width: 100%; }
+.dress-group { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+.dress-group figcaption { color: #c9c0b0; font-size: 0.85rem; letter-spacing: 0.04em; text-align: center; line-height: 1.3; min-height: 1.3em; }
+/* Worn view on wide screens: the right breast is on the viewer's left. The ribbon-only group is centred at the height of
+   the holding bar of the lowest row of medals (art. 5313.1): its bottom sits level with that bar. */
+@media (min-width: 960px) {
+  .full-dress { flex-direction: row-reverse; align-items: flex-start; justify-content: center; gap: calc(var(--in) * 0.6); }
+  .dress-ribbons .ribbon-only { margin-top: calc(var(--mi) * (3.2 - 1.125)); }
+}
+.medal-block { position: relative; max-width: none; }
+.medal { position: absolute; width: calc(var(--mi) * 1.375); height: calc(var(--mi) * 3.25); padding: 0; margin: 0; border: 0; background: none; cursor: pointer; }
+.medal:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 2px; z-index: 100 !important; }
+.medal-art { display: flex; flex-direction: column; align-items: center; width: 100%; height: 100%; justify-content: flex-end; }
+.medal-drape { position: relative; display: block; width: calc(var(--mi) * 1.375); flex: none; container-type: inline-size; box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+.medal-drape > img { display: block; width: 100%; height: 100%; object-fit: fill; }
+/* A V-cut suspension ribbon for the medals whose ribbon is folded to a point at the ring. */
+.medal-drape.drape-v { clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--mi) * 0.42), 50% 100%, 0 calc(100% - var(--mi) * 0.42)); box-shadow: none; }
+/* Matte grosgrain: a darker top where the ribbon folds over the bar, and soft fold shading, no sheen. */
+.medal-shade { position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(0,0,0,0.35) 0, rgba(0,0,0,0.12) 6%, rgba(0,0,0,0) 14%),
+    linear-gradient(90deg, rgba(0,0,0,0.18), rgba(255,255,255,0.04) 30%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.14)),
+    repeating-linear-gradient(180deg, rgba(0,0,0,0.05) 0 1px, transparent 1px 3px); }
+.medal-devices { position: absolute; top: 18%; height: 58%; }
+.medal-devices .devices { gap: calc(var(--mi) / 32) !important; align-items: flex-start; padding-top: calc(var(--mi) * 0.12); }
+.medal-devices.vertical .devices { flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 0; }
+.medal-devices .devices img.glyph-star { --star: calc(var(--mi) * 3 / 16); margin: 0 !important; }
+.medal-devices .devices img.glyph-star.metal-gold { --star: calc(var(--mi) * 5 / 16); }
+.medal-devices .devices img.glyph-oak { width: calc(var(--mi) * 0.58); margin-inline: calc(var(--mi) * -0.03); }
+/* A bronze bar clasp (the ISAF clasp on the NATO Medal), worn below the other attachments (art. 5318.1). */
+.medal-clasp { position: absolute; left: 6%; right: 6%; bottom: 22%; height: calc(var(--mi) * 0.19); display: grid; place-items: center;
+  background: linear-gradient(180deg, #8c6a3a, #6b4f2a 55%, #52391c); border: 1px solid #3b2912; border-radius: 1px;
+  color: #d9c08a; font-family: var(--font-card); font-weight: 700; font-size: calc(var(--mi) * 0.12); letter-spacing: 0.12em; line-height: 1;
+  box-shadow: inset 0 1px 0 rgba(255,230,180,0.25), 0 1px 1px rgba(0,0,0,0.5); }
+/* Oxidized, not polished (art. 5314.4 forbids highly polished medals; Sergio prefers the matte look). */
+.medal-pendant { display: block; height: auto; max-width: none; margin-top: calc(var(--mi) * -0.06); position: relative;
+  filter: saturate(0.82) contrast(0.94) brightness(0.95) sepia(0.12) drop-shadow(0 1px 1.5px rgba(0,0,0,0.6)); }
+/* Medal popup: front (the medal as worn, with its attachments) or back (the published reverse image). */
+.medal-hero { color: var(--color-ivory); --mi: min(6.5rem, 26vw); display: flex; flex-direction: column; align-items: center; gap: 0.6rem; padding: 0.8rem 0.5rem 1rem; background: #111; }
+.medal-hero .medal-art { width: calc(var(--mi) * 1.375); height: calc(var(--mi) * 3.25); }
+.medal-hero .medal-back { display: block; height: auto; max-width: 90%; filter: saturate(0.82) contrast(0.94) brightness(0.95) sepia(0.12); }
+.medal-hero .back-stage { height: calc(var(--mi) * 3.25); display: flex; align-items: center; justify-content: center; }
+.medal-hero .face-note { color: #c9c0b0; font-size: 0.85rem; margin: 0; }
+.medal-hero .nav-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* Rank track and rank progression (dates: src/data/ranks.json). */
+.bar.bar--rank { background: #7d1c20; color: #fff; border-right: 2px solid var(--color-ivory); }
+.rank-steps { list-style: none; margin: 0.4rem 0 1.4rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 0.6rem; }
+.rank-step { display: grid; justify-items: center; gap: 0.15rem; width: 100%; min-height: 44px; padding: 0.6rem 0.4rem; border: 1px solid var(--color-line); background: #fff; color: var(--color-ink); text-align: center; font: inherit; cursor: pointer; }
+.rank-step img { height: 5.2rem; width: auto; max-width: 100%; object-fit: contain; margin-bottom: 0.3rem; }
+.rank-step strong { font-size: 0.95rem; }
+.rank-step span { font-weight: 600; }
+.rank-step em { font-size: 0.8rem; color: #5b5345; }
+.rank-step--end { cursor: default; background: transparent; border-style: dashed; align-content: center; height: 100%; }
+button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(--color-brass); }
+
+/* Pay grades worn before chief (E-3 group rate mark, then ET3/ET2/ET1 rating badges), rating badges on one scale (100 SVG units = 0.24 in) so the row fits the 4-1/8 in column. */
+.grade-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: calc(var(--in) * 0.12); max-width: 100%; }
+.worn-grade img { width: auto; max-width: none; }
+.worn-grade--sn img { height: calc(var(--in) * 0.9); }
+.worn-grade--et3 img { height: calc(var(--in) * 1.46); }
+.worn-grade--et2 img { height: calc(var(--in) * 1.63); }
+.worn-grade--et1 img { height: calc(var(--in) * 1.8); }
+
+/* Map filter chips: All plus one per pin group; wrap on phones. */
+.map-filter { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 0.6rem; }
+.map-filter .nav-btn { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 44px; padding: 0.25rem 0.75rem; font-size: 0.9rem; }
+@media (max-width: 420px) { .map-filter { gap: 0.3rem; } .map-filter .nav-btn { padding: 0.2rem 0.55rem; font-size: 0.82rem; gap: 0.3rem; } }
+.map-filter .pin-num { min-width: 12px; width: 12px; height: 12px; padding: 0; border-width: 1.5px; box-shadow: none; }
+.cheat-sheet-link { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.8rem; }
+.cheat-sheet-link .nav-btn { display: inline-flex; align-items: center; text-decoration: none; }

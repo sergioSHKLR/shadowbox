@@ -1,8 +1,10 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   photosFor,
+  awards,
+  medalFor,
   placeById,
   pinNumbersFor,
   publicUrl,
@@ -12,7 +14,7 @@ import {
   type Stop,
 } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
-import { RibbonArt } from "@/components/shadowbox/marks";
+import { MedalArt, RibbonArt } from "@/components/shadowbox/marks";
 
 export function DetailPanel({
   selection,
@@ -50,7 +52,9 @@ export function DetailPanel({
                   <X />
                 </Dialog.Close>
               </div>
-              {subject.hero ? (
+              {selection?.medal && selection.kind === "award" && medalFor(selection.id) ? (
+                <MedalHero key={selection.id} awardId={selection.id} />
+              ) : subject.hero ? (
                 <figure className={`detail-hero hero-${subject.hero.type === "ribbon" ? "ribbon" : subject.hero.shape}`}>
                   {subject.hero.type === "ribbon" ? (
                     <RibbonArt award={subject.hero.award} className="ribbon-hero" />
@@ -170,5 +174,31 @@ export function DetailPanel({
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
+  );
+}
+
+/** The full-size medal in the popup, with a Front/Back toggle. The back is the published public-domain reverse image;
+ *  when there is none the Back chip is disabled (a reverse is never drawn or made up). */
+function MedalHero({ awardId }: { awardId: string }) {
+  const [face, setFace] = useState<"front" | "back">("front");
+  const award = awards.find((entry) => entry.id === awardId);
+  const medal = medalFor(awardId);
+  if (!award || !medal) return null;
+  const showBack = face === "back" && medal.back;
+  return (
+    <figure className="detail-hero medal-hero">
+      <div className="rack-toggle" role="group" aria-label="Medal side">
+        <button type="button" className={face === "front" ? "nav-btn on" : "nav-btn"} aria-pressed={face === "front"} onClick={() => setFace("front")}>Front</button>
+        <button type="button" className={showBack ? "nav-btn on" : "nav-btn"} aria-pressed={Boolean(showBack)} disabled={!medal.back} onClick={() => setFace("back")}>Back</button>
+      </div>
+      {showBack ? (
+        <div className="back-stage">
+          <img className="medal-back" src={publicUrl(medal.back!)} alt={`${award.name}, reverse`} style={{ width: `calc(var(--mi) * ${medal.w})` }} />
+        </div>
+      ) : (
+        <MedalArt award={award} medal={medal} />
+      )}
+      {!medal.back ? <figcaption className="face-note">Reverse image not available</figcaption> : null}
+    </figure>
   );
 }

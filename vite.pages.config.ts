@@ -42,7 +42,9 @@ export default defineConfig({
       workbox: {
         // App shell: the HTML, the JS/CSS bundles, the icons, and every image on the Case page (ribbons, devices, pins, photos, crests),
         // so the case works offline from the first visit. Uniform and gear photos are cached as they are viewed.
-        globPatterns: ["pages/index.html", "assets/**/*.{js,css}", "favicon.svg", "icons/apple-touch-icon.png", "{ribbons,devices,insignia,photos,crests}/**/*.{png,svg,webp,jpg}"],
+        globPatterns: ["pages/index.html", "assets/**/*.{js,css}", "favicon.svg", "icons/apple-touch-icon.png", "{ribbons,devices,insignia,photos,crests,medals}/**/*.{png,svg,webp,jpg}", "shadowbox-cheat-sheet.pdf"],
+        // The cheat sheet PDF (about 1.7 MB) is precached so it downloads offline too.
+        maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         globIgnores: ["__grok/**", "404.html"],
         // The HTML is built at pages/index.html and moved to the root by build:pages.
         modifyURLPrefix: { "pages/": "" },
