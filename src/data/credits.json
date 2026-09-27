@@ -745,5 +745,230 @@
     "creator": "Lucide contributors (lucide.dev)",
     "license": "ISC License. Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2022 as part of Feather (MIT). All other copyright (c) for Lucide are held by Lucide Contributors 2022.",
     "notes": "The official shield-user path data from the lucide-react package, drawn in goldenrod (#DAA520). Used for the browser tab icon, the header mark and the installed-app icons (on solid black)."
+  },
+  {
+    "id": "medal-jscm-front",
+    "title": "Joint Service Commendation Medal, obverse (front)",
+    "file": "/medals/jscm-front.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Joint_Service_Commendation_Medal.jpg",
+    "creator": "United States Department of Defense",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Medallion cut from the public-domain image (background removed, ribbon cropped off); the suspension ribbon and its devices are drawn in code from the site ribbon art. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-jscm-back",
+    "title": "Joint Service Commendation Medal, reverse (back)",
+    "file": "/medals/jscm-back.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Joint_Service_Commendation_Medal_Reverse.jpg",
+    "creator": "U.S. Army Institute of Heraldry",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Reverse shown as published (background removed), not redrawn. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-ncm-front",
+    "title": "Navy and Marine Corps Commendation Medal, obverse (front)",
+    "file": "/medals/ncm-front.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Navy_and_Marine_Corps_Commendation_Medal.jpg",
+    "creator": "U.S. Army Institute of Heraldry",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Medallion cut from the public-domain image (background removed, ribbon cropped off); the suspension ribbon and its devices are drawn in code from the site ribbon art. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-ncm-back",
+    "title": "Navy and Marine Corps Commendation Medal, reverse (back)",
+    "file": "/medals/ncm-back.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Navy_Commendation_Medal_Reverse.jpg",
+    "creator": "U.S. Army Institute of Heraldry",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Reverse shown as published (background removed), not redrawn. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-arcom-front",
+    "title": "Army Commendation Medal, obverse (front)",
+    "file": "/medals/arcom-front.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:ArmyCommMed.png",
+    "creator": "File uploader on Wikimedia Commons (U.S. government source)",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Medallion cut from the public-domain image (background removed, ribbon cropped off); the suspension ribbon and its devices are drawn in code from the site ribbon art. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-arcom-back",
+    "title": "Army Commendation Medal, reverse (back)",
+    "file": "/medals/arcom-back.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Army_Commendation_Medal_Reverse.jpg",
+    "creator": "U.S. Army Institute of Heraldry",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Reverse shown as published (background removed), not redrawn. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-jsam-front",
+    "title": "Joint Service Achievement Medal, obverse (front)",
+    "file": "/medals/jsam-front.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:JSAM.gif",
+    "creator": "File uploader on Wikimedia Commons (U.S. government source)",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Medallion cut from the public-domain image (background removed, ribbon cropped off); the suspension ribbon and its devices are drawn in code from the site ribbon art. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-jsam-back",
+    "title": "Joint Service Achievement Medal, reverse (back)",
+    "file": "/medals/jsam-back.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Joint_Service_Achievement_Medal_Reverse.jpg",
+    "creator": "U.S. Army Institute of Heraldry",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Reverse shown as published (background removed), not redrawn. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-nam-front",
+    "title": "Navy and Marine Corps Achievement Medal, obverse (front)",
+    "file": "/medals/nam-front.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Navy_and_Marine_Corps_Achievement_Medal.svg",
+    "creator": "U.S. Navy",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Medallion cut from the public-domain image (background removed, ribbon cropped off); the suspension ribbon and its devices are drawn in code from the site ribbon art. Tones mapped from the pale grey vector drawing to bronze. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-nam-back",
+    "title": "Navy and Marine Corps Achievement Medal, reverse (back)",
+    "file": "/medals/nam-back.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Navy_Achievement_Medal_Reverse.jpg",
+    "creator": "U.S. Army Institute of Heraldry",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Reverse shown as published (background removed), not redrawn. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-aam-front",
+    "title": "Army Achievement Medal, obverse (front)",
+    "file": "/medals/aam-front.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:ArmyAchiveMed.png",
+    "creator": "File uploader on Wikimedia Commons (U.S. government source)",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Medallion cut from the public-domain image (background removed, ribbon cropped off); the suspension ribbon and its devices are drawn in code from the site ribbon art. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-aam-back",
+    "title": "Army Achievement Medal, reverse (back)",
+    "file": "/medals/aam-back.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Army_Achievement_Medal_Reverse.jpg",
+    "creator": "U.S. Army Institute of Heraldry",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Reverse shown as published (background removed), not redrawn. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-ngcm-front",
+    "title": "Navy Good Conduct Medal, obverse (front)",
+    "file": "/medals/ngcm-front.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Navy_Good_Conduct_Medal_Obverse.jpg",
+    "creator": "U.S. Army Institute of Heraldry",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Medallion cut from the public-domain image (background removed, ribbon cropped off); the suspension ribbon and its devices are drawn in code from the site ribbon art. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-ngcm-back",
+    "title": "Navy Good Conduct Medal, reverse (back)",
+    "file": "/medals/ngcm-back.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Navy_Good_Conduct_Medal_Reverse.jpg",
+    "creator": "U.S. Army Institute of Heraldry",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Reverse shown as published (background removed), not redrawn. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-ndsm-front",
+    "title": "National Defense Service Medal, obverse (front)",
+    "file": "/medals/ndsm-front.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:National_Defense_Service_Medal.png",
+    "creator": "U.S. Department of Defense (medal design); file uploader on Wikimedia Commons",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Medallion cut from the public-domain image (background removed, ribbon cropped off); the suspension ribbon and its devices are drawn in code from the site ribbon art. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-ndsm-back",
+    "title": "National Defense Service Medal, reverse (back)",
+    "file": "/medals/ndsm-back.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:National_Defense_Service_Medal_Reverse.jpg",
+    "creator": "U.S. Army Institute of Heraldry",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Reverse shown as published (background removed), not redrawn. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-acm-front",
+    "title": "Afghanistan Campaign Medal, obverse (front)",
+    "file": "/medals/acm-front.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Afghanistan_Campaign_Medal.png",
+    "creator": "Defense Logistics Agency",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Medallion cut from the public-domain image (background removed, ribbon cropped off); the suspension ribbon and its devices are drawn in code from the site ribbon art. Obverse and reverse come from the same two-sided image. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-acm-back",
+    "title": "Afghanistan Campaign Medal, reverse (back)",
+    "file": "/medals/acm-back.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Afghanistan_Campaign_Medal.png",
+    "creator": "Defense Logistics Agency",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Reverse shown as published (background removed), not redrawn. Obverse and reverse come from the same two-sided image. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-icm-front",
+    "title": "Iraq Campaign Medal, obverse (front)",
+    "file": "/medals/icm-front.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Iraq_Campaign_Medal.png",
+    "creator": "U.S. Army Institute of Heraldry",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Medallion cut from the public-domain image (background removed, ribbon cropped off); the suspension ribbon and its devices are drawn in code from the site ribbon art. Obverse and reverse come from the same two-sided image. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-icm-back",
+    "title": "Iraq Campaign Medal, reverse (back)",
+    "file": "/medals/icm-back.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Iraq_Campaign_Medal.png",
+    "creator": "U.S. Army Institute of Heraldry",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Reverse shown as published (background removed), not redrawn. Obverse and reverse come from the same two-sided image. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-gwotsm-front",
+    "title": "Global War on Terrorism Service Medal, obverse (front)",
+    "file": "/medals/gwotsm-front.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Global_War_on_Terrorism_Service_Medal_(Obverse).jpg",
+    "creator": "Naval History and Heritage Command",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Medallion cut from the public-domain image (background removed, ribbon cropped off); the suspension ribbon and its devices are drawn in code from the site ribbon art. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-gwotsm-back",
+    "title": "Global War on Terrorism Service Medal, reverse (back)",
+    "file": "/medals/gwotsm-back.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Global_War_on_Terrorism_Service_Medal.png",
+    "creator": "U.S. Army Institute of Heraldry",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Reverse shown as published (background removed), not redrawn. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-hsm-front",
+    "title": "Humanitarian Service Medal, obverse (front)",
+    "file": "/medals/hsm-front.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Humanitarian_Service_Medal,_Metal_1.jpg",
+    "creator": "U.S. military (file uploader on Wikimedia Commons)",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Medallion cut from the public-domain image (background removed, ribbon cropped off); the suspension ribbon and its devices are drawn in code from the site ribbon art. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-hsm-back",
+    "title": "Humanitarian Service Medal, reverse (back)",
+    "file": "/medals/hsm-back.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Humanitarian_Service_Medal_of_the_United_States_military.jpg",
+    "creator": "File uploader on Wikimedia Commons (U.S. government source)",
+    "license": "Public domain (work of the U.S. federal government). Commons tag: Public domain.",
+    "notes": "Reverse shown as published (background removed), not redrawn. Converted to WebP. Not hotlinked."
+  },
+  {
+    "id": "medal-nato-front",
+    "title": "NATO Medal (ISAF), obverse (front)",
+    "file": "/medals/nato-front.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:NATO-International_Security_Assistance_Force_(ISAF)_medals_are_arranged_during_a_presentation_ceremony_in_Kabul,_Afghanistan,_Oct._20,_2013_131117-A-UO630-001.jpg",
+    "creator": "SSG Richard Andrade, U.S. Army",
+    "license": "Public domain: U.S. Army photo (DoD), a work of the U.S. federal government. Commons tag: Public domain.",
+    "notes": "Medallion cut from the public-domain image (background removed, ribbon cropped off); the suspension ribbon and its devices are drawn in code from the site ribbon art. Cut as a circle from a presentation-ceremony photo of ISAF medals (Kabul, 20 Oct 2013); the ISAF clasp is drawn in code. Converted to WebP. Not hotlinked."
   }
 ]

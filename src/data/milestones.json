@@ -15,9 +15,10 @@
     "precision": "day",
     "title": "Promoted to Chief Petty Officer",
     "short": "Chief",
-    "explanation": "Date of rank as a chief petty officer, E-7, Electronics Technician. Other promotion dates are not in the record. Making chief changes the uniform: khakis, a fouled-anchor collar device, and a rating badge with a rocker.",
+    "explanation": "Date of rank as a chief petty officer, E-7, Electronics Technician. Earlier promotions (ET3, ET2, ET1) are in the rank progression on the Timeline. Making chief changes the uniform: khakis, a fouled-anchor collar device, and a rating badge with a rocker.",
     "placeIds": [],
     "related": [
+      { "kind": "rank", "id": "etc" },
       { "kind": "insignia", "id": "collar" },
       { "kind": "uniform", "id": "cpo-set" }
     ]
