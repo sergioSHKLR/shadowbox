@@ -113,7 +113,7 @@ a { color: var(--color-navy); }
 .pin-img { width: 5.4rem; height: 3.2rem; object-fit: contain; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
 /* The case is laid out at true relative size: --in is one inch on the rack (a ribbon is 1 3/8 in wide).
    Pins and the JCSE badge are sized in the same inches, with the standard 1/4 in gaps. */
-.case-display { --in: 3.35rem; display: flex; justify-content: center; margin: 1.1rem 0 1.75rem; }
+.case-display { --in: 3.35rem; display: flex; justify-content: center; margin: 0.4rem 0 1.75rem; }
 /* A single centred column at every width (the sleeve column is gone), laid out for a 375 px phone first. */
 .case-column { display: flex; flex-direction: column; align-items: center; gap: calc(var(--in) / 3); max-width: 100%; }
 .worn { background: transparent; border: 0; padding: 0; cursor: pointer; display: block; line-height: 0; }
@@ -195,9 +195,14 @@ a { color: var(--color-navy); }
 .metal-bronze { color: #a0703a; }
 .metal-silver { color: #c9c9c9; }
 .rack-note { max-width: 40rem; margin: 0 auto 1rem; text-align: center; color: #d9d0c2; font-size: 0.95rem; }
-.patch-row { list-style: none; display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 0; margin: 0; justify-content: center; }
+/* Command crests in a grid of equal cards: 4 across on desktop (16 cards = 4 even rows), 2 across on tablets and phones. */
+.patch-row { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 9.5rem)); gap: 0.6rem; padding: 0; margin: 0; justify-content: center; }
+.patch-row li { display: flex; }
+/* Crests line up across a row: content starts at the top of every card. */
+.patch-row .patch { justify-content: flex-start; }
+@media (min-width: 800px) { .patch-row { grid-template-columns: repeat(4, minmax(0, 9.5rem)); } }
 .patch {
-  width: calc(6.4rem + 2px);
+  width: 100%;
   min-height: 5.4rem;
   background: #f4efe4;
   color: var(--color-navy);
