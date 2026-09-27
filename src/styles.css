@@ -508,3 +508,36 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .map-filter .pin-num { min-width: 12px; width: 12px; height: 12px; padding: 0; border-width: 1.5px; box-shadow: none; }
 .cheat-sheet-link { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.8rem; }
 .cheat-sheet-link .nav-btn { display: inline-flex; align-items: center; text-decoration: none; }
+
+/* Uniform progression (Timeline). Scene in inches: 12.5 x 17 in; --in = one inch on screen. Data: src/data/uniform-progression.json. */
+.uprog { margin: 1.2rem 0 1.6rem; }
+.uprog-controls { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0.6rem 0; }
+.uprog-play { min-width: 5.2rem; justify-content: center; }
+.uprog-slider { flex: 1 1 10rem; min-width: 0; display: flex; }
+.uprog-slider input { width: 100%; min-height: 44px; accent-color: #8a6a1c; }
+.uprog-date { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 4.8rem; text-align: right; }
+.uprog-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+@media (min-width: 960px) { .uprog-layout { grid-template-columns: minmax(0, 34rem) minmax(0, 1fr); align-items: start; } }
+.uprog-main { min-width: 0; }
+.uprog-stage { container-type: inline-size; width: 100%; max-width: 34rem; margin: 0 auto; }
+.uprog-scene { --in: calc(100cqw / 12.5); position: relative; width: 100%; aspect-ratio: 1250 / 1700; overflow: hidden; background: #e9e4d8; border: 1px solid var(--color-line); }
+.uprog-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.uprog-scene > img, .uprog-rack, .uprog-note { position: absolute; }
+.uprog-scene > img { height: auto; max-width: none; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35)) saturate(0.92); }
+.uprog-collar { width: auto !important; }
+.uprog-rack { display: flex; flex-direction: column; align-items: center; }
+.uprog-note { font-size: max(0.62rem, calc(var(--in) * 0.28)); line-height: 1.3; color: #3c362c; font-style: italic; }
+.look-blue .uprog-note { color: #c9c3b4; }
+.uprog-fade { animation: uprog-in 0.45s ease both; }
+@keyframes uprog-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .uprog-fade { animation: none; } }
+.uprog-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; margin: 0.6rem 0 0.3rem; }
+.uprog-chips .nav-btn { min-height: 44px; padding: 0.25rem 0.75rem; font-size: 0.88rem; }
+.uprog-caption { text-align: center; font-size: 0.88rem; margin: 0.2rem 0 0; }
+.uprog-events { display: block; color: #7a5a14; font-weight: 600; }
+.uprog-side h4 { margin: 0 0 0.3rem; font-size: 1rem; }
+.uprog-side ul { list-style: none; margin: 0.5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 0.4rem; }
+.uprog-side button { width: 100%; min-height: 44px; display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 0.5rem; align-items: center; padding: 0.35rem 0.45rem; background: #fff; border: 1px solid var(--color-line); cursor: pointer; font: inherit; color: var(--color-ink); text-align: left; }
+.uprog-side button .ribbon { --in: 2.2rem; grid-row: span 2; }
+.uprog-side button span:not(.ribbon) { font-weight: 600; font-size: 0.85rem; }
+.uprog-side button em { font-size: 0.72rem; color: #5b5345; }
