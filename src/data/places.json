@@ -10,12 +10,13 @@
   },
   {
     "id": "san-diego",
-    "name": "Naval Base San Diego",
+    "name": "Naval Station San Diego (32nd Street)",
     "locality": "San Diego, California",
     "lat": 32.684,
     "lng": -117.129,
-    "accuracy": "approximate",
-    "note": "Approximate public location of the naval base where NCTS San Diego operated. Replace with the building you want shown."
+    "accuracy": "public-site",
+    "note": "Naval Base San Diego on 32nd Street, where the NEC 1460 (COMSEC maintenance) school was taken. Until this update the NCTS tour was pinned here; NCTS itself was at FISC San Diego downtown and later at NAS North Island.",
+    "type": "visit"
   },
   {
     "id": "guam",
@@ -102,5 +103,163 @@
     "lng": 69.1567,
     "accuracy": "approximate",
     "note": "Forward Operating Base Orgun-E, later Camp Harriman, near Orgun in Paktika Province. APPROXIMATE: crowd-sourced map coordinates."
+  },
+  {
+    "id": "fisc-san-diego",
+    "name": "FISC San Diego (downtown)",
+    "locality": "San Diego, California",
+    "lat": 32.7157,
+    "lng": -117.1726,
+    "accuracy": "public-site",
+    "note": "Fleet and Industrial Supply Center San Diego on the downtown waterfront (Broadway Complex). NCTS San Diego was here before it moved to NAS North Island."
+  },
+  {
+    "id": "nas-north-island",
+    "name": "NAS North Island",
+    "locality": "Coronado, California",
+    "lat": 32.6992,
+    "lng": -117.2153,
+    "accuracy": "public-site",
+    "note": "Naval Air Station North Island, Coronado. NCTS San Diego's later location."
+  },
+  {
+    "id": "imperial-beach",
+    "name": "Imperial Beach annex",
+    "locality": "Imperial Beach, San Diego, California",
+    "lat": 32.5667,
+    "lng": -117.1158,
+    "accuracy": "approximate",
+    "note": "The Navy annex at Imperial Beach where the NEC 9613 (NSW Communications Technician) school was taken. The exact building is not recorded, so the pin is approximate.",
+    "type": "visit"
+  },
+  {
+    "id": "keesler",
+    "name": "Keesler Air Force Base",
+    "locality": "Biloxi, Mississippi",
+    "lat": 30.4103,
+    "lng": -88.9245,
+    "accuracy": "public-site",
+    "note": "Keesler AFB, Biloxi. Where the FECL calibration school (NEC 1589) was taken.",
+    "type": "visit"
+  },
+  {
+    "id": "little-creek",
+    "name": "Naval Amphibious Base Little Creek",
+    "locality": "Virginia Beach, Virginia",
+    "lat": 36.9163,
+    "lng": -76.1745,
+    "accuracy": "public-site",
+    "note": "NAB Little Creek (now Joint Expeditionary Base Little Creek–Fort Story), homeport of USS Tortuga (LSD-46). TAD to the ship.",
+    "type": "visit"
+  },
+  {
+    "id": "saipan",
+    "name": "Saipan",
+    "locality": "Saipan, Northern Mariana Islands",
+    "lat": 15.228,
+    "lng": 145.7196,
+    "accuracy": "public-site",
+    "note": "Port visit to Saipan (Commonwealth of the Northern Mariana Islands) with USS Frank Cable.",
+    "type": "visit"
+  },
+  {
+    "id": "yokosuka",
+    "name": "Yokosuka Naval Base",
+    "locality": "Yokosuka, Japan",
+    "lat": 35.2923,
+    "lng": 139.662,
+    "accuracy": "public-site",
+    "note": "Port visit to Commander Fleet Activities Yokosuka with USS Frank Cable.",
+    "type": "visit"
+  },
+  {
+    "id": "sasebo",
+    "name": "Sasebo Naval Base",
+    "locality": "Sasebo, Japan",
+    "lat": 33.16,
+    "lng": 129.723,
+    "accuracy": "public-site",
+    "note": "Port visit to Commander Fleet Activities Sasebo with USS Frank Cable.",
+    "type": "visit"
+  },
+  {
+    "id": "hong-kong",
+    "name": "Hong Kong",
+    "locality": "Hong Kong",
+    "lat": 22.286,
+    "lng": 114.158,
+    "accuracy": "public-site",
+    "note": "Port visit to Hong Kong with USS Frank Cable.",
+    "type": "visit"
+  },
+  {
+    "id": "u-tapao",
+    "name": "U-Tapao Air Base",
+    "locality": "Rayong, Thailand",
+    "lat": 12.6799,
+    "lng": 101.005,
+    "accuracy": "public-site",
+    "note": "Exercise Cobra Gold at U-Tapao, Thailand, with EODMU 5.",
+    "type": "visit"
+  },
+  {
+    "id": "shoalwater-bay",
+    "name": "Shoalwater Bay Training Area",
+    "locality": "near Rockhampton, Queensland, Australia",
+    "lat": -22.55,
+    "lng": 150.45,
+    "accuracy": "approximate",
+    "note": "Exercise Talisman Saber, twice, in the Shoalwater Bay Training Area north of Rockhampton, with EODMU 5. The training area is large, so the pin is approximate.",
+    "type": "visit"
+  },
+  {
+    "id": "whidbey",
+    "name": "NAS Whidbey Island",
+    "locality": "Oak Harbor, Washington",
+    "lat": 48.3515,
+    "lng": -122.6556,
+    "accuracy": "public-site",
+    "note": "Naval Air Station Whidbey Island, Oak Harbor. A stop with EODMU 5.",
+    "type": "visit"
+  },
+  {
+    "id": "duhok-dam",
+    "name": "Duhok Dam, Kurdistan",
+    "locality": "Duhok, Kurdistan Region, Iraq",
+    "lat": 36.8758,
+    "lng": 43.004,
+    "accuracy": "public-site",
+    "note": "The Duhok Dam just north of Duhok, with the giant Kurdistan flag on the hillside above the reservoir. A visit with CJTF Troy in 2006.",
+    "type": "visit"
+  },
+  {
+    "id": "fort-bragg",
+    "name": "Fort Bragg",
+    "locality": "Fayetteville, North Carolina",
+    "lat": 35.139,
+    "lng": -79.006,
+    "accuracy": "public-site",
+    "note": "Fort Bragg, North Carolina. Training with JCSE.",
+    "type": "visit"
+  },
+  {
+    "id": "camp-blanding",
+    "name": "Camp Blanding",
+    "locality": "Starke, Florida",
+    "lat": 29.953,
+    "lng": -81.979,
+    "accuracy": "public-site",
+    "note": "Camp Blanding Joint Training Center, Florida. Training with JCSE.",
+    "type": "visit"
+  },
+  {
+    "id": "fob-patriot",
+    "name": "FOB Patriot",
+    "locality": "Fort Bragg / Camp Mackall training area, North Carolina",
+    "lat": 35.035,
+    "lng": -79.496,
+    "accuracy": "approximate",
+    "note": "A training FOB on the Fort Bragg / Camp Mackall training area. The exact site is not recorded, so the pin is approximate. Training with JCSE.",
+    "type": "visit"
   }
 ]

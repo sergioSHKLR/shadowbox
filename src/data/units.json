@@ -60,7 +60,7 @@
     "start": "1999",
     "end": "2001",
     "precision": "year",
-    "placeId": "san-diego",
+    "placeId": "fisc-san-diego",
     "explanation": "A shore command that ran Navy computer and telecommunications services in San Diego. The shadowbox lists the NEC for this tour as 1589, calibration.",
     "civilian": "A land-based communications station, not a ship.",
     "image": "/crests/ncts.webp"

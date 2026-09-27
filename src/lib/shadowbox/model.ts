@@ -17,6 +17,7 @@ import branchesJson from "@/data/branches.json";
 import caseJson from "@/data/case.json";
 import equipmentJson from "@/data/equipment.json";
 import usedHereJson from "@/data/used-here.json";
+import visitsJson from "@/data/visits.json";
 
 /** Public files are served from the base URL: the site root in dev and on https://mil.shklr.org. */
 export function publicUrl(path: string): string {
@@ -197,9 +198,27 @@ export type Place = {
   lng: number | null;
   accuracy: "public-site" | "approximate" | "placeholder";
   note: string;
-  /** "base" marks a deployment base (FOB, air base), shown as its own pin on the map. */
-  type?: "base";
+  /** "base" marks a deployment base (FOB, air base); "visit" a port visit, exercise, school or other stop. Both get their own pin colour. */
+  type?: "base" | "visit";
 };
+
+/** A port visit, exercise, school, TAD or secondary duty location, pinned on the map in chronological order. */
+export type Visit = {
+  id: string;
+  placeId: string;
+  kind: "port-visit" | "exercise" | "school" | "tad" | "visit" | "duty-location";
+  title: string;
+  /** Display date; approximate periods say so in words. */
+  when: string;
+  /** Ordering year, and prio within it: below 0 comes before a command that starts that year, above 0 during it. */
+  sort: string;
+  prio: number;
+  approximate: boolean;
+  unitId?: string;
+  schoolIds?: string[];
+  note?: string;
+};
+export const visits = visitsJson as Visit[];
 
 export type Photo = {
   id: string;
@@ -473,12 +492,14 @@ export type Stop = { place: Place; labels: string[]; when: string; n?: number };
 
 export function careerStops(): Stop[] {
   const events = [
-    ...unitSortKeys().filter(({ unit: u }) => u.placeId).map(({ unit: u, sort }) => ({ sort, placeId: u.placeId as string, label: `${formatSpan(u.start, u.end)} · ${u.abbreviation}` })),
+    ...unitSortKeys().filter(({ unit: u }) => u.placeId).map(({ unit: u, sort }) => ({ sort, prio: 0, tie: "", placeId: u.placeId as string, label: `${formatSpan(u.start, u.end)} · ${u.abbreviation}` })),
     // Every base a deployment used gets its own numbered stop (CJTF Troy: FOB Sykes, then FOB Tal Afar).
     ...operations
       .filter((o) => o.baseIds?.length || o.placeId)
-      .flatMap((o) => (o.baseIds?.length ? o.baseIds : [o.placeId as string]).map((placeId) => ({ sort: o.start, placeId, label: `${formatSpan(o.start, o.end)} · ${o.phase}` }))),
-  ].sort((a, b) => a.sort.localeCompare(b.sort) || a.label.localeCompare(b.label));
+      .flatMap((o) => (o.baseIds?.length ? o.baseIds : [o.placeId as string]).map((placeId) => ({ sort: o.start, prio: 0, tie: "", placeId, label: `${formatSpan(o.start, o.end)} · ${o.phase}` }))),
+    // Port visits, exercises, schools and other stops, in the order given in visits.json within the same year and prio.
+    ...visits.map((visit, index) => ({ sort: visit.sort, prio: visit.prio, tie: String(index).padStart(3, "0"), placeId: visit.placeId, label: `${visit.when} · ${visit.title}` })),
+  ].sort((a, b) => a.sort.localeCompare(b.sort) || a.prio - b.prio || a.tie.localeCompare(b.tie) || a.label.localeCompare(b.label));
 
   const stops: Stop[] = [];
   for (const event of events) {
@@ -677,7 +698,7 @@ export function toSubject(sel: Selection): SubjectView | null {
     const nec = necById(unit.necId);
     const ops = operations.filter((op) => op.unitId === unit.id);
     // The unit's own pin plus every base its deployments used (e.g. CJTF Troy: FOB Sykes and FOB Tal Afar).
-    const unitPlaceIds = [...new Set([unit.placeId, ...ops.flatMap((op) => op.baseIds ?? [])].filter((id): id is string => Boolean(id && placeById(id))))];
+    const unitPlaceIds = [...new Set([unit.placeId, ...ops.flatMap((op) => op.baseIds ?? []), ...visits.filter((visit) => visit.unitId === unit.id).map((visit) => visit.placeId)].filter((id): id is string => Boolean(id && placeById(id))))];
     const related = [
       ...(nec ? [rel("nec", nec.id, `${nec.code} ${nec.name}`)] : []),
       ...ops.map((op) => rel("operation", op.id, op.phase)),
@@ -866,12 +887,15 @@ export function toSubject(sel: Selection): SubjectView | null {
       ...units.filter((unit) => unit.placeId === place.id).map((unit) => rel("unit", unit.id, unit.name)),
       ...operations.filter((op) => op.placeId === place.id && !op.baseIds?.includes(place.id)).map((op) => rel("operation", op.id, op.phase)),
       ...schools.filter((school) => school.placeId === place.id).map((school) => rel("school", school.id, school.name)),
+      ...visits.filter((visit) => visit.placeId === place.id && visit.unitId && !units.some((unit) => unit.id === visit.unitId && unit.placeId === place.id)).map((visit) => rel("unit", visit.unitId!, unitById(visit.unitId!)?.name ?? visit.unitId!)),
       ...operations.filter((op) => op.baseIds?.includes(place.id)).map((op) => rel("operation", op.id, `${op.name} — ${op.phase}`)),
     ];
     return {
       kind: "place",
       id: place.id,
-      kicker: (pinNumbersFor(place.id).length ? `Map pin ${pinNumbersFor(place.id).join(", ")} · ` : "") + (place.type === "base"
+      kicker: (pinNumbersFor(place.id).length ? `Map pin ${pinNumbersFor(place.id).join(", ")} · ` : "") + (place.type === "visit"
+        ? place.accuracy === "approximate" ? "Visit, exercise or school · approximate location" : "Visit, exercise or school"
+        : place.type === "base"
         ? place.accuracy === "approximate" ? "Deployment base · approximate location" : "Deployment base"
         : place.accuracy === "placeholder" ? "Placeholder location" : place.accuracy === "approximate" ? "Approximate location" : "Duty station"),
       title: place.name,
@@ -879,6 +903,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       facts: [
         { label: "Shown as", value: place.locality },
         { label: "Coordinates", value: place.lat != null ? `${place.lat.toFixed(3)}, ${place.lng?.toFixed(3)}` : "Not entered" },
+        ...visits.filter((visit) => visit.placeId === place.id).map((visit) => ({ label: visit.title, value: visit.when })),
       ],
       placeIds: [place.id],
       related: here,
