@@ -261,5 +261,55 @@
     "accuracy": "approximate",
     "note": "A training FOB on the Fort Bragg / Camp Mackall training area. The exact site is not recorded, so the pin is approximate. Training with JCSE.",
     "type": "visit"
+  },
+  {
+    "id": "camp-arifjan",
+    "name": "Camp Arifjan (Warrior Transition Program)",
+    "locality": "Camp Arifjan, Kuwait",
+    "lat": 28.9336,
+    "lng": 48.0947,
+    "accuracy": "public-site",
+    "note": "The Navy's Warrior Transition Program (NAVCENT Forward), where returning individual augmentees turned in gear, cleaned weapons and went through reintegration workshops before flying home. The program moved to Camp Arifjan in 2009.",
+    "type": "visit"
+  },
+  {
+    "id": "al-udeid",
+    "name": "Al Udeid Air Base",
+    "locality": "Al Udeid, Qatar",
+    "lat": 25.1173,
+    "lng": 51.315,
+    "accuracy": "public-site",
+    "note": "Al Udeid Air Base, Qatar. A transit stop on the way to or from Afghanistan.",
+    "type": "visit"
+  },
+  {
+    "id": "bagram",
+    "name": "Bagram Airfield",
+    "locality": "Bagram, Parwan, Afghanistan",
+    "lat": 34.9461,
+    "lng": 69.265,
+    "accuracy": "public-site",
+    "note": "Bagram Airfield, Afghanistan. A transit stop in theater.",
+    "type": "visit"
+  },
+  {
+    "id": "leipzig",
+    "name": "Leipzig/Halle Airport",
+    "locality": "Schkeuditz, Saxony, Germany",
+    "lat": 51.4239,
+    "lng": 12.2364,
+    "accuracy": "public-site",
+    "note": "Leipzig/Halle Airport, Germany. A transit stopover for troop flights.",
+    "type": "visit"
+  },
+  {
+    "id": "bitburg",
+    "name": "Bitburg",
+    "locality": "Bitburg, Rhineland-Palatinate, Germany",
+    "lat": 49.958,
+    "lng": 6.547,
+    "accuracy": "approximate",
+    "note": "Bitburg, Germany, near Spangdahlem Air Base. A stopover; the exact site in Bitburg is not recorded, so the pin is approximate.",
+    "type": "visit"
   }
 ]
