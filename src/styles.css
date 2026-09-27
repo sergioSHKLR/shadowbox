@@ -267,7 +267,9 @@ a { color: var(--color-navy); }
 .sheet { margin-top: 0.5rem; }
 .ruler { position: relative; height: 1.4rem; margin: 1rem 0 0.2rem; border-bottom: 1px solid var(--color-line); min-width: 52rem; }
 .ruler span { position: absolute; transform: translateX(-50%); font-size: 0.75rem; color: var(--color-quiet); }
-.track { margin: 0.8rem 0 1.2rem; overflow-x: auto; }
+.chart-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+.track { margin: 0.8rem 0 1.2rem; }
+.chart-scroll .track h3 { position: sticky; left: 0; width: max-content; }
 .track-lanes { position: relative; min-width: 52rem; }
 .bar {
   position: absolute;
@@ -357,6 +359,8 @@ a { color: var(--color-navy); }
 .pip.approximate { background: transparent; }
 .pip.base { border-radius: 1px; transform: rotate(45deg); background: var(--color-navy); border-color: var(--color-brass); }
 .pip.base.approximate { background: var(--color-ivory); }
+/* Long source URLs and notes wrap inside the column instead of widening the page. */
+.credits li, .instance-list li, .gallery li { min-width: 0; overflow-wrap: anywhere; }
 .credits li, .instance-list li, .gallery li { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.7rem 0; border-bottom: 1px solid var(--color-ivory-dim); }
 .gallery img { max-width: 16rem; }
 .detail-overlay { position: fixed; inset: 0; z-index: 1100; background: rgba(12, 16, 24, 0.45); }

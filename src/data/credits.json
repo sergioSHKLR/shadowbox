@@ -736,5 +736,14 @@
     "creator": "The veteran's own photograph of his patch",
     "license": "The veteran's own photograph, published with his approval. The patch design parodies MAD Magazine's Spy vs. Spy; not for reuse outside this record.",
     "notes": "The patch was cut out of his photo (hand and wood masked, embroidered edge kept, transparent background). Not redrawn."
+  },
+  {
+    "id": "lucide-shield-user",
+    "title": "Site and app icon: Lucide \"shield-user\"",
+    "file": "/favicon.svg",
+    "sourceUrl": "https://lucide.dev/icons/shield-user",
+    "creator": "Lucide contributors (lucide.dev)",
+    "license": "ISC License. Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2022 as part of Feather (MIT). All other copyright (c) for Lucide are held by Lucide Contributors 2022.",
+    "notes": "The official shield-user path data from the lucide-react package, drawn in goldenrod (#DAA520). Used for the browser tab icon, the header mark and the installed-app icons (on solid black)."
   }
 ]

@@ -280,14 +280,17 @@ function Timeline({ bars, onOpen }: { bars: ReturnType<typeof timeline>; onOpen:
     <main className="sheet">
       <h2>{profile.serviceLength}, one line</h2>
       <p>{caseCopy.timelineLead}</p>
-      <div className="ruler" aria-hidden="true">
-        {bars.years.filter((y, index) => y % 2 === 1 || index === 0 || index === bars.years.length - 1).map((year) => (
-          <span key={year} style={{ left: `${pct(Date.UTC(year, 0, 1))}%` }}>{year}</span>
-        ))}
+      {/* The ruler and the tracks share one horizontal scroller, so the chart scrolls inside itself (together) and never widens the page. */}
+      <div className="chart-scroll">
+        <div className="ruler" aria-hidden="true">
+          {bars.years.filter((y, index) => y % 2 === 1 || index === 0 || index === bars.years.length - 1).map((year) => (
+            <span key={year} style={{ left: `${pct(Date.UTC(year, 0, 1))}%` }}>{year}</span>
+          ))}
+        </div>
+        <Track label="Assignments" items={bars.duty} onOpen={onOpen} />
+        <Track label="Deployments" items={bars.ops} onOpen={onOpen} />
+        <Track label="Schools and career dates" items={bars.study} onOpen={onOpen} />
       </div>
-      <Track label="Assignments" items={bars.duty} onOpen={onOpen} />
-      <Track label="Deployments" items={bars.ops} onOpen={onOpen} />
-      <Track label="Schools and career dates" items={bars.study} onOpen={onOpen} />
       <h3>Operations, named as the record names them</h3>
       <ul className="stack">
         {operations.map((op) => (
