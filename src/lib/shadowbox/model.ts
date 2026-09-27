@@ -217,6 +217,8 @@ export type Visit = {
   unitId?: string;
   schoolIds?: string[];
   note?: string;
+  /** A stop used on several trips keeps one pin; its popup lists every trip. */
+  trips?: string[];
 };
 export const visits = visitsJson as Visit[];
 
@@ -906,7 +908,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       facts: [
         { label: "Shown as", value: place.locality },
         { label: "Coordinates", value: place.lat != null ? `${place.lat.toFixed(3)}, ${place.lng?.toFixed(3)}` : "Not entered" },
-        ...visits.filter((visit) => visit.placeId === place.id).map((visit) => ({ label: visit.title, value: visit.when })),
+        ...visits.filter((visit) => visit.placeId === place.id).flatMap((visit) => visit.trips?.length ? visit.trips.map((trip, i) => ({ label: i === 0 ? visit.title : "Also", value: trip })) : [{ label: visit.title, value: visit.when }]),
       ],
       placeIds: [place.id],
       related: here,
