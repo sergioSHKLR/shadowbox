@@ -3,6 +3,7 @@ import { ShieldUser } from "lucide-react";
 import {
   awards,
   careerStops,
+  pinNumbersFor,
   caseCopy,
   credits,
   formatSpan,
@@ -405,7 +406,7 @@ function Stations({ stops, onOpen }: { stops: ReturnType<typeof careerStops>; on
         {stops.map((stop, index) => (
           <li key={`${stop.place.id}-${index}`}>
             <button type="button" onClick={() => onOpen("place", stop.place.id)}>
-              <span className={`pip ${stop.place.accuracy}`} />
+              <span className={`pin-num ${stop.place.type === "base" ? "base " : ""}${stop.place.accuracy}`} aria-label={`Pin ${stop.n}`}>{stop.n}</span>
               <strong>{stop.place.name}</strong>
               <span>{stop.labels.join(" · ")}</span>
             </button>
@@ -419,7 +420,11 @@ function Stations({ stops, onOpen }: { stops: ReturnType<typeof careerStops>; on
             {bases.map((place) => (
               <li key={place.id}>
                 <button type="button" onClick={() => onOpen("place", place.id)}>
-                  <span className={`pip base ${place.accuracy}`} />
+                  {pinNumbersFor(place.id).length ? (
+                    <span className={`pin-num base ${place.accuracy}`} aria-label={`Pin ${pinNumbersFor(place.id).join(", ")}`}>{pinNumbersFor(place.id).join(",")}</span>
+                  ) : (
+                    <span className={`pip base ${place.accuracy}`} />
+                  )}
                   <strong>{place.name}</strong>
                   <span>{place.locality}{place.accuracy === "approximate" ? " · approximate" : ""}</span>
                 </button>
