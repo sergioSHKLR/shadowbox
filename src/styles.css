@@ -301,7 +301,20 @@ a { color: var(--color-navy); }
 .uniform-card strong { font-family: var(--font-card); font-weight: 600; font-size: 0.95rem; line-height: 1.2; color: var(--color-navy); }
 .uniform-card:hover, .uniform-card:focus-visible, .patch:hover, .patch:focus-visible { border-color: var(--color-brass); }
 .map-frame { position: relative; z-index: 0; isolation: isolate; height: 24rem; width: 100%; background: var(--color-ivory-dim); border: 1px solid var(--color-line); }
-.map-frame.tall { height: min(40rem, 70vh); }
+/* About 60% of the old min(40rem, 70vh): the fit is width-limited (the stops span US, Guam, Iraq, Afghanistan). */
+.map-frame.tall { height: min(24rem, 42vh, 78vw); min-height: 13rem; }
+/* Numbered stop pins: brass disc for duty stations, navy for deployment bases; hollow ring when the spot is approximate. */
+.map-num, .pin-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 22px; height: 22px; padding: 0 3px; box-sizing: border-box; border-radius: 11px;
+  background: var(--color-brass); color: var(--color-navy); border: 2px solid var(--color-navy);
+  font-family: var(--font-sans); font-weight: 700; font-size: 11px; line-height: 1; font-variant-numeric: tabular-nums;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+.map-num.base, .pin-num.base { background: var(--color-navy); color: #f1dc9c; border-color: var(--color-brass); }
+.map-num.approximate, .pin-num.approximate { border-style: dashed; }
+.map-num { transition: transform 0.15s ease; }
+.pin-num { flex: none; align-self: center; }
 .map-dot { display: block; width: 14px; height: 14px; border-radius: 50%; background: var(--color-brass); border: 2px solid var(--color-navy); }
 .map-dot.placeholder { border-radius: 2px; background: transparent; }
 .map-dot.approximate { background: transparent; }

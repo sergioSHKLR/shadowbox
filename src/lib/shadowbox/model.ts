@@ -468,12 +468,16 @@ function unitSortKeys(): { unit: Unit; sort: string }[] {
   });
 }
 
-export type Stop = { place: Place; labels: string[]; when: string };
+/** n: the stop's number on the map pins and in the lists (chronological, 1-based). */
+export type Stop = { place: Place; labels: string[]; when: string; n?: number };
 
 export function careerStops(): Stop[] {
   const events = [
     ...unitSortKeys().filter(({ unit: u }) => u.placeId).map(({ unit: u, sort }) => ({ sort, placeId: u.placeId as string, label: `${formatSpan(u.start, u.end)} · ${u.abbreviation}` })),
-    ...operations.filter((o) => o.baseIds?.length || o.placeId).map((o) => ({ sort: o.start, placeId: (o.baseIds?.[0] ?? o.placeId) as string, label: `${formatSpan(o.start, o.end)} · ${o.phase}` })),
+    // Every base a deployment used gets its own numbered stop (CJTF Troy: FOB Sykes, then FOB Tal Afar).
+    ...operations
+      .filter((o) => o.baseIds?.length || o.placeId)
+      .flatMap((o) => (o.baseIds?.length ? o.baseIds : [o.placeId as string]).map((placeId) => ({ sort: o.start, placeId, label: `${formatSpan(o.start, o.end)} · ${o.phase}` }))),
   ].sort((a, b) => a.sort.localeCompare(b.sort) || a.label.localeCompare(b.label));
 
   const stops: Stop[] = [];
@@ -485,9 +489,19 @@ export function careerStops(): Stop[] {
       last.labels.push(event.label);
       continue;
     }
-    stops.push({ place, labels: [event.label], when: event.sort });
+    stops.push({ place, labels: [event.label], when: event.sort, n: stops.length + 1 });
   }
   return stops;
+}
+
+let pinNumbers: Map<string, number[]> | undefined;
+/** The map-pin number(s) of a place, matching the Map tab's pins and list. Empty if the place is not a stop. */
+export function pinNumbersFor(placeId: string): number[] {
+  if (!pinNumbers) {
+    pinNumbers = new Map();
+    for (const stop of careerStops()) pinNumbers.set(stop.place.id, [...(pinNumbers.get(stop.place.id) ?? []), stop.n!]);
+  }
+  return pinNumbers.get(placeId) ?? [];
 }
 
 export type SubjectView = {
@@ -857,9 +871,9 @@ export function toSubject(sel: Selection): SubjectView | null {
     return {
       kind: "place",
       id: place.id,
-      kicker: place.type === "base"
+      kicker: (pinNumbersFor(place.id).length ? `Map pin ${pinNumbersFor(place.id).join(", ")} · ` : "") + (place.type === "base"
         ? place.accuracy === "approximate" ? "Deployment base · approximate location" : "Deployment base"
-        : place.accuracy === "placeholder" ? "Placeholder location" : place.accuracy === "approximate" ? "Approximate location" : "Duty station",
+        : place.accuracy === "placeholder" ? "Placeholder location" : place.accuracy === "approximate" ? "Approximate location" : "Duty station"),
       title: place.name,
       explanation: place.note,
       facts: [
