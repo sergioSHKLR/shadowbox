@@ -127,7 +127,7 @@ a { color: var(--color-navy); }
 .case-portrait { margin: 0; display: flex; flex-direction: column; align-items: center; gap: calc(var(--in) / 6); }
 .case-portrait:first-child { margin-bottom: calc(var(--in) / 6); }
 .case-portrait:last-child { margin-top: calc(var(--in) / 6); }
-.case-photo { padding: 5px; background: #111; border: 1px solid #c9a55a; box-shadow: 0 2px 6px rgba(0,0,0,0.6); cursor: pointer; line-height: 0; }
+.case-photo { padding: 5px; background: #ffffff; /* white band between the two gold lines */ border: 1px solid #c9a55a; box-shadow: 0 2px 6px rgba(0,0,0,0.6); cursor: pointer; line-height: 0; }
 .case-photo img { display: block; width: calc(var(--in) * 3); max-width: 100%; height: auto; border: 1px solid #c9a55a; }
 /* Service totals: a quiet centred caption under the chief's plaque, muted gold on the felt (not a second plaque). */
 .service-totals { margin: calc(var(--in) / -8) 0 0; font-family: var(--font-sans); font-size: 0.78rem; line-height: 1.45; letter-spacing: 0.02em; color: #cdb98a; text-align: center; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6); }
@@ -212,7 +212,7 @@ a { color: var(--color-navy); }
   background: #f4efe4;
   color: var(--color-navy);
   border: 1px solid rgba(184, 146, 58, 0.35);
-  border-radius: var(--card-radius);
+  border-radius: 0; /* Crest cards have sharp corners (Sergio). */
   display: flex;
   flex-direction: column;
   align-items: center;
