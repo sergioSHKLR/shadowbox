@@ -18,6 +18,8 @@ import caseJson from "@/data/case.json";
 import equipmentJson from "@/data/equipment.json";
 import usedHereJson from "@/data/used-here.json";
 import visitsJson from "@/data/visits.json";
+import medalsJson from "@/data/medals.json";
+import ranksJson from "@/data/ranks.json";
 
 /** Public files are served from the base URL: the site root in dev and on https://mil.shklr.org. */
 export function publicUrl(path: string): string {
@@ -38,7 +40,8 @@ export type Kind =
   | "insignia"
   | "milestone"
   | "photo"
-  | "equipment";
+  | "equipment"
+  | "rank";
 
 export type Device = {
   kind: "oak" | "star" | "letter";
@@ -284,7 +287,20 @@ export type Credit = {
   notes: string;
 };
 
-export type Selection = { kind: Kind; id: string };
+/** Opened from the full-size medals view: the award popup shows the medal (with a Front/Back toggle) instead of the ribbon. */
+export type Selection = { kind: Kind; id: string; medal?: boolean };
+
+/** A full-size medal. Sizes are in inches (medallion only); the suspension ribbon is always 1 3/8 in wide and each row is
+ *  3 1/4 in from the top of the ribbon to the bottom of the medal (NAVPERS 15665J art. 5314.1). */
+export type Medal = {
+  id: string;
+  front: string;
+  back: string | null;
+  w: number;
+  h: number;
+  drape: "flat" | "v";
+  clasp?: string;
+};
 
 export const profile = profileJson;
 export const awards = awardsJson as Award[];
@@ -305,6 +321,24 @@ export const credits = creditsJson as Credit[];
 export const equipment = equipmentJson as Equipment[];
 export const branches = branchesJson as Record<string, string>;
 export const caseCopy = caseJson;
+export const medals = medalsJson as Medal[];
+export const medalFor = (awardId: string) => medals.find((medal) => medal.id === awardId);
+
+/** Rows of large medals per NAVPERS 15665J Table 5-3-1 (1-5 one row; 6 = 3+3 ... 13 = 3+5+5; top row first). */
+const MEDAL_ROWS: Record<number, number[]> = {
+  1: [1], 2: [2], 3: [3], 4: [4], 5: [5], 6: [3, 3], 7: [3, 4], 8: [4, 4], 9: [4, 5], 10: [5, 5],
+  11: [3, 4, 4], 12: [4, 4, 4], 13: [3, 5, 5], 14: [4, 5, 5], 15: [5, 5, 5], 16: [4, 4, 4, 4], 17: [3, 4, 5, 5],
+  18: [3, 5, 5, 5], 19: [4, 5, 5, 5], 20: [5, 5, 5, 5],
+};
+export function medalRows(list: Award[]): Award[][] {
+  const sorted = [...list].sort((a, b) => a.precedence - b.precedence);
+  const nRows = Math.ceil(sorted.length / 5);
+  const plan = MEDAL_ROWS[sorted.length] ?? Array.from({ length: nRows }, (_, i) => (i === 0 ? sorted.length - 5 * (nRows - 1) : 5));
+  const rows: Award[][] = [];
+  let i = 0;
+  for (const n of plan) { rows.push(sorted.slice(i, i + n)); i += n; }
+  return rows;
+}
 
 export function branchName(code: string): string {
   return branches[code] ?? code;
@@ -388,6 +422,22 @@ function bound(value: string, edge: "start" | "end"): number {
   return Date.UTC(y, m - 1, day);
 }
 
+/** Pay grades and promotion dates. The one place to edit them: src/data/ranks.json. */
+export type Rank = {
+  id: string;
+  grade: string;
+  abbreviation: string;
+  name: string;
+  /** YYYY, YYYY-MM or YYYY-MM-DD; null shows "date needed". */
+  date: string | null;
+  image: string;
+  explanation: string;
+  note?: string;
+};
+export const ranks = ranksJson as Rank[];
+/** Grades shown as worn badges in the case (the chief is shown by the anchor and rating badge already there). */
+export const caseRanks = ranks.filter((r) => r.id !== "etc");
+
 export type Bar = {
   key: string;
   kind: Kind;
@@ -396,7 +446,7 @@ export type Bar = {
   detail: string;
   start: number;
   end: number;
-  group: "duty" | "ops" | "study";
+  group: "duty" | "ops" | "study" | "rank";
   lane: number;
   point: boolean;
   left: number;
@@ -422,7 +472,7 @@ function pack(items: Omit<Bar, "lane" | "left" | "width">[]): Bar[] {
   });
 }
 
-export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; years: number[] } {
+export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]; years: number[] } {
   const duty = pack(
     // Commands without dates cannot be placed on the time scale.
     units.flatMap((unit) => (unit.start ? [{ ...unit, start: unit.start }] : [])).map((unit) => ({
@@ -474,10 +524,24 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; years: numb
       point: true,
     })),
   ]);
+  const dated = ranks.filter((r): r is Rank & { date: string } => !!r.date);
+  const rank = pack(
+    dated.map((r, i) => ({
+      key: `rank-${r.id}`,
+      kind: "rank" as const,
+      id: r.id,
+      title: r.abbreviation,
+      detail: `${r.name} (${r.grade})`,
+      start: bound(r.date, "start"),
+      end: dated[i + 1] ? bound(dated[i + 1].date, "start") : bound(profile.serviceEnd, "end"),
+      group: "rank" as const,
+      point: false,
+    })),
+  );
   const first = serviceYear(profile.serviceStart);
   const last = serviceYear(profile.serviceEnd);
   const years = Array.from({ length: last - first + 1 }, (_, i) => first + i);
-  return { duty, ops, study, years };
+  return { duty, ops, study, rank, years };
 }
 
 /** Undated commands keep their place in the list by borrowing the sort key of the dated command before them. */
@@ -602,6 +666,7 @@ function linkLabel(link: LinkRef): string | null {
     return op ? op.phase : null;
   }
   if (link.kind === "insignia") return byId(insignia, link.id)?.name ?? null;
+  if (link.kind === "rank") return byId(ranks, link.id)?.name ?? null;
   if (link.kind === "uniform") return byId(uniforms, link.id)?.name ?? null;
   if (link.kind === "milestone") return byId(milestones, link.id)?.title ?? null;
   if (link.kind === "warfare") return byId(warfare, link.id)?.name ?? null;
@@ -866,6 +931,33 @@ export function toSubject(sel: Selection): SubjectView | null {
       placeIds: [],
       related: resolveLinks(item.related),
       hero: item.image ? { type: "image", src: item.image, alt: item.name, shape: item.id === "rating-badge" ? "tall" : "square" } : undefined,
+    };
+  }
+
+  if (sel.kind === "rank") {
+    const item = byId(ranks, sel.id);
+    if (!item) return null;
+    const i = ranks.indexOf(item);
+    const next = ranks[i + 1];
+    const facts = [
+      { label: "Pay grade", value: `${item.grade} · ${item.abbreviation}` },
+      { label: item.id === "sn" ? "Date" : "Promoted", value: item.date ? formatWhen(item.date) : "Date needed" },
+      { label: "Held until", value: next?.date ? `${formatWhen(next.date)} (${next.abbreviation})` : `${formatWhen(profile.serviceEnd)} (retired)` },
+    ];
+    if (item.note) facts.push({ label: "Note", value: item.note });
+    const petty = ["E-4", "E-5", "E-6"].includes(item.grade);
+    return {
+      kind: "rank",
+      id: item.id,
+      kicker: `Pay grade ${item.grade}`,
+      title: `${item.name} (${item.abbreviation})`,
+      explanation: petty
+        ? `${item.explanation} On dress blues, petty officers E-4 to E-6 with under 12 years of service wear red chevrons with a white eagle and specialty mark; gold chevrons come with 12 years of continuous good conduct.`
+        : item.explanation,
+      facts,
+      placeIds: [],
+      related: [...(item.id === "etc" ? [rel("milestone", "cpo", "Promoted to Chief Petty Officer")] : [])],
+      hero: { type: "image", src: item.image, alt: `${item.name} (${item.abbreviation}) insignia`, shape: item.id === "sn" ? "square" : "tall" },
     };
   }
 
