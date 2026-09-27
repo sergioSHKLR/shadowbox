@@ -407,7 +407,7 @@ function Stations({ stops, onOpen }: { stops: ReturnType<typeof careerStops>; on
       <ul className="map-legend" aria-label="Pin colours">
         <li><span className="pin-num">1</span> Duty stations</li>
         <li><span className="pin-num base">1</span> Deployment bases</li>
-        <li><span className="pin-num visit">1</span> Visits, exercises &amp; schools</li>
+        <li><span className="pin-num visit">1</span> Visits, exercises, schools &amp; transit</li>
         <li><span className="pin-num approximate">1</span> Approximate location</li>
       </ul>
       <MapView stops={stops} extra={bases.filter((place) => !stops.some((stop) => stop.place.id === place.id))} tall onSelect={(id) => onOpen("place", id)} />
