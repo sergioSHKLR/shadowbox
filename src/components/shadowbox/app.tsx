@@ -365,7 +365,7 @@ function Uniforms({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
             <ol className="uniform-grid">
               {list.map((uniform) => (
                 <li key={uniform.id}>
-                  <button type="button" className="uniform-card" onClick={() => onOpen("uniform", uniform.id)}>
+                  <button type="button" className="uniform-card uniform-card--white" onClick={() => onOpen("uniform", uniform.id)}>
                     <img className="uniform-photo" src={publicUrl(uniform.image)} alt="" loading="lazy" />
                     <strong>{uniform.name}</strong>
                   </button>
