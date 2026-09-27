@@ -185,6 +185,17 @@ function Case({
               {jcse ? renderMark(jcse, "worn worn-badge") : null}
               {anchor ? renderMark(anchor, "worn worn-anchor") : null}
               {portraitWithPlaque(chief, plaques.chief)}
+              <dl className="service-totals" aria-label="Service totals">
+                {[
+                  ["Active Duty", profile.serviceLength],
+                  ["Sea Service", profile.seaService],
+                  ["Overseas Sea Service", profile.foreignService],
+                ].map(([label, value]) => (
+                  <div key={label}>
+                    <dt>{label}:</dt> <dd>{value}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
           </div>
           <ul className="patch-row">
