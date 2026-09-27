@@ -317,6 +317,10 @@ a { color: var(--color-navy); }
 .equipment-card span { font-family: var(--font-sans); font-size: 0.8rem; line-height: 1.3; color: var(--color-quiet); }
 /* One title style for unit, uniform and gear cards: Source Serif 4 semibold; captions and dates stay in the sans. */
 .uniform-card strong { font-family: var(--font-card); font-weight: 600; font-size: 0.95rem; line-height: 1.2; color: var(--color-navy); }
+/* Uniforms tab only (gear cards share .uniform-card): black text on a pure white card so the white-studio mannequin shots blend in. */
+.uniform-card--white { background: #ffffff; color: #000; }
+.uniform-card--white .uniform-photo { background: #ffffff; }
+.uniform-card--white strong { color: #000; }
 .uniform-card:hover, .uniform-card:focus-visible, .patch:hover, .patch:focus-visible { border-color: var(--color-brass); }
 .map-frame { position: relative; z-index: 0; isolation: isolate; height: 24rem; width: 100%; background: var(--color-ivory-dim); border: 1px solid var(--color-line); }
 /* About 60% of the old min(40rem, 70vh): the fit is width-limited (the stops span US, Guam, Iraq, Afghanistan). */
