@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import type { Place, Stop } from "@/lib/shadowbox/model";
 import "leaflet/dist/leaflet.css";
 
-const PIN_PX = 22;
 
 export function MapView({
   stops,
@@ -30,6 +29,8 @@ export function MapView({
 
     void import("leaflet").then((L) => {
       if (cancelled || !ref.current) return;
+      // Phones get slightly smaller badges so crowded pins need less nudging away from their real spots.
+      const PIN_PX = ref.current.clientWidth < 520 ? 18 : 22;
       map = L.map(ref.current, { scrollWheelZoom: false, zoomControl: true, zoomSnap: 0.25, zoomDelta: 0.5 });
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -53,7 +54,7 @@ export function MapView({
 
       // No route line: each stop is its own numbered pin (chronological), matching the numbers in the list below the map.
       const pinHtml = (stop: Stop, dx = 0, dy = 0) => {
-        const cls = `map-num ${stop.place.type === "base" ? "base " : ""}${stop.place.accuracy}`;
+        const cls = `map-num ${PIN_PX < 22 ? "sm " : ""}${stop.place.type ? `${stop.place.type} ` : ""}${stop.place.accuracy}`;
         return `<span class="${cls}" style="transform:translate(${dx}px,${dy}px)">${stop.n ?? ""}</span>`;
       };
       const iconFor = (stop: Stop, dx = 0, dy = 0) =>
