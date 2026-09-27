@@ -1,0 +1,183 @@
+[
+  {
+    "id": "tortuga-tad",
+    "placeId": "little-creek",
+    "kind": "tad",
+    "title": "TAD to USS Tortuga (LSD-46)",
+    "when": "Dates not entered (placed after Great Lakes)",
+    "sort": "1998",
+    "prio": 1,
+    "approximate": true,
+    "unitId": "tortuga"
+  },
+  {
+    "id": "fecl-school",
+    "placeId": "keesler",
+    "kind": "school",
+    "title": "FECL calibration school (NEC 1589)",
+    "when": "April–May 1999 (GPETE, FCAM)",
+    "sort": "1999",
+    "prio": -1,
+    "approximate": false,
+    "schoolIds": [
+      "gpete",
+      "fcam"
+    ],
+    "note": "Placed before NCTS, the first 1589 tour. Linked to the recorded GPETE and FCAM courses."
+  },
+  {
+    "id": "ncts-north-island",
+    "placeId": "nas-north-island",
+    "kind": "duty-location",
+    "title": "NCTS (later location)",
+    "when": "1999–2001 (move year not recorded)",
+    "sort": "1999",
+    "prio": 1,
+    "approximate": true,
+    "unitId": "ncts"
+  },
+  {
+    "id": "saipan-visit",
+    "placeId": "saipan",
+    "kind": "port-visit",
+    "title": "Port visit with AS-40",
+    "when": "2001–2004 (year not recorded)",
+    "sort": "2001",
+    "prio": 1,
+    "approximate": true,
+    "unitId": "frank-cable"
+  },
+  {
+    "id": "yokosuka-visit",
+    "placeId": "yokosuka",
+    "kind": "port-visit",
+    "title": "Port visit with AS-40",
+    "when": "2001–2004 (year not recorded)",
+    "sort": "2001",
+    "prio": 1,
+    "approximate": true,
+    "unitId": "frank-cable"
+  },
+  {
+    "id": "sasebo-visit",
+    "placeId": "sasebo",
+    "kind": "port-visit",
+    "title": "Port visit with AS-40",
+    "when": "2001–2004 (year not recorded)",
+    "sort": "2001",
+    "prio": 1,
+    "approximate": true,
+    "unitId": "frank-cable"
+  },
+  {
+    "id": "hong-kong-visit",
+    "placeId": "hong-kong",
+    "kind": "port-visit",
+    "title": "Port visit with AS-40",
+    "when": "2001–2004 (year not recorded)",
+    "sort": "2001",
+    "prio": 1,
+    "approximate": true,
+    "unitId": "frank-cable"
+  },
+  {
+    "id": "comsec-1460-school",
+    "placeId": "san-diego",
+    "kind": "school",
+    "title": "COMSEC maintenance school (NEC 1460)",
+    "when": "April 2004",
+    "sort": "2004",
+    "prio": -2,
+    "approximate": false,
+    "schoolIds": [
+      "comsec-school"
+    ]
+  },
+  {
+    "id": "nsw-9613-school",
+    "placeId": "imperial-beach",
+    "kind": "school",
+    "title": "NSW Communications Technician school (NEC 9613)",
+    "when": "c. 2004 (year not recorded; before EODMU 5)",
+    "sort": "2004",
+    "prio": -1,
+    "approximate": true
+  },
+  {
+    "id": "cobra-gold",
+    "placeId": "u-tapao",
+    "kind": "exercise",
+    "title": "Exercise Cobra Gold with EODMU 5",
+    "when": "2004–2007 (year not recorded)",
+    "sort": "2004",
+    "prio": 1,
+    "approximate": true,
+    "unitId": "eodmu5"
+  },
+  {
+    "id": "talisman-saber",
+    "placeId": "shoalwater-bay",
+    "kind": "exercise",
+    "title": "Exercise Talisman Saber (twice) with EODMU 5",
+    "when": "2005 and 2007 (inferred: Talisman Saber runs in odd years)",
+    "sort": "2004",
+    "prio": 1,
+    "approximate": true,
+    "unitId": "eodmu5"
+  },
+  {
+    "id": "whidbey-visit",
+    "placeId": "whidbey",
+    "kind": "visit",
+    "title": "Stop with EODMU 5",
+    "when": "2004–2007 (year not recorded)",
+    "sort": "2004",
+    "prio": 1,
+    "approximate": true,
+    "unitId": "eodmu5"
+  },
+  {
+    "id": "duhok-dam-visit",
+    "placeId": "duhok-dam",
+    "kind": "visit",
+    "title": "Visit with CJTF Troy",
+    "when": "2006",
+    "sort": "2006",
+    "prio": 1,
+    "approximate": false,
+    "unitId": "troy"
+  },
+  {
+    "id": "fort-bragg-training",
+    "placeId": "fort-bragg",
+    "kind": "exercise",
+    "title": "Training with JCSE",
+    "when": "2009–2015 (year not recorded)",
+    "sort": "2009",
+    "prio": 1,
+    "approximate": true,
+    "unitId": "jcse"
+  },
+  {
+    "id": "camp-blanding-training",
+    "placeId": "camp-blanding",
+    "kind": "exercise",
+    "title": "Training with JCSE",
+    "when": "2009–2015 (year not recorded)",
+    "sort": "2009",
+    "prio": 1,
+    "approximate": true,
+    "unitId": "jcse"
+  },
+  {
+    "id": "fob-patriot-training",
+    "placeId": "fob-patriot",
+    "kind": "exercise",
+    "title": "Training with JCSE",
+    "when": "2009–2015 (year not recorded)",
+    "sort": "2009",
+    "prio": 1,
+    "approximate": true,
+    "unitId": "jcse"
+  }
+]

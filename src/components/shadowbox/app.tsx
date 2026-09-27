@@ -401,12 +401,18 @@ function Stations({ stops, onOpen }: { stops: ReturnType<typeof careerStops>; on
     <main className="sheet">
       <h2>Where the career went</h2>
       <p>{caseCopy.mapLead}</p>
+      <ul className="map-legend" aria-label="Pin colours">
+        <li><span className="pin-num">1</span> Duty stations</li>
+        <li><span className="pin-num base">1</span> Deployment bases</li>
+        <li><span className="pin-num visit">1</span> Visits, exercises &amp; schools</li>
+        <li><span className="pin-num approximate">1</span> Approximate location</li>
+      </ul>
       <MapView stops={stops} extra={bases.filter((place) => !stops.some((stop) => stop.place.id === place.id))} tall onSelect={(id) => onOpen("place", id)} />
       <ol className="stop-list">
         {stops.map((stop, index) => (
           <li key={`${stop.place.id}-${index}`}>
             <button type="button" onClick={() => onOpen("place", stop.place.id)}>
-              <span className={`pin-num ${stop.place.type === "base" ? "base " : ""}${stop.place.accuracy}`} aria-label={`Pin ${stop.n}`}>{stop.n}</span>
+              <span className={`pin-num ${stop.place.type ? `${stop.place.type} ` : ""}${stop.place.accuracy}`} aria-label={`Pin ${stop.n}`}>{stop.n}</span>
               <strong>{stop.place.name}</strong>
               <span>{stop.labels.join(" · ")}</span>
             </button>
