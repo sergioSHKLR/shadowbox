@@ -179,5 +179,56 @@
     "prio": 1,
     "approximate": true,
     "unitId": "jcse"
+  },
+  {
+    "id": "kuwait-wtp",
+    "placeId": "camp-arifjan",
+    "kind": "transit",
+    "title": "Warrior Transition Program (IA out-processing)",
+    "when": "2009, end of the IA tour (inferred — confirm)",
+    "sort": "2009",
+    "prio": -0.25,
+    "approximate": true,
+    "unitId": "ia-army"
+  },
+  {
+    "id": "al-udeid-transit",
+    "placeId": "al-udeid",
+    "kind": "transit",
+    "title": "Transit stop",
+    "when": "2010–2013, Afghanistan deployments (inferred — confirm)",
+    "sort": "2013",
+    "prio": 1,
+    "approximate": true
+  },
+  {
+    "id": "bagram-transit",
+    "placeId": "bagram",
+    "kind": "transit",
+    "title": "Transit stop",
+    "when": "2010–2013, Afghanistan deployments (inferred — confirm)",
+    "sort": "2013",
+    "prio": 1,
+    "approximate": true
+  },
+  {
+    "id": "leipzig-transit",
+    "placeId": "leipzig",
+    "kind": "transit",
+    "title": "Transit stopover",
+    "when": "2010–2013, Afghanistan deployments (inferred — confirm)",
+    "sort": "2013",
+    "prio": 1,
+    "approximate": true
+  },
+  {
+    "id": "bitburg-transit",
+    "placeId": "bitburg",
+    "kind": "transit",
+    "title": "Stopover near Spangdahlem AB",
+    "when": "2010–2013, Afghanistan deployments (inferred — confirm)",
+    "sort": "2013",
+    "prio": 1,
+    "approximate": true
   }
 ]
