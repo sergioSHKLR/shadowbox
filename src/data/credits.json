@@ -181,7 +181,7 @@
   },
   {
     "id": "insignia-diagrams",
-    "title": "ET rating mark and uniform plates",
+    "title": "Uniform plates",
     "file": null,
     "sourceUrl": null,
     "creator": "Drawn for this archive",
@@ -727,5 +727,14 @@
     "creator": "Drawn for this archive",
     "license": "Diagram of public-domain United States Navy insignia.",
     "notes": "Tone-adjusted (highlights compressed, slightly desaturated, thin dark edge) to a matte, antiqued finish that matches the pins."
+  },
+  {
+    "id": "et-rating-mark",
+    "title": "Electronics Technician rating mark",
+    "file": "/insignia/et-rating-mark-oxidized.svg",
+    "sourceUrl": null,
+    "creator": "Linework from the ETC rating badge vector supplied by the veteran",
+    "license": "Supplied by the veteran. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "Only the atom symbol was extracted, keeping its paths; recoloured flat silver with a dark edge to match the pins, and optimized with SVGO."
   }
 ]
