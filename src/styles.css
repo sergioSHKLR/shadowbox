@@ -127,8 +127,17 @@ a { color: var(--color-navy); }
 .case-portrait { margin: 0; display: flex; flex-direction: column; align-items: center; gap: calc(var(--in) / 6); }
 .case-portrait:first-child { margin-bottom: calc(var(--in) / 6); }
 .case-portrait:last-child { margin-top: calc(var(--in) / 6); }
-.case-photo { padding: 5px; background: #ffffff; /* white band between the two gold lines */ border: 1px solid #c9a55a; box-shadow: 0 2px 6px rgba(0,0,0,0.6); cursor: pointer; line-height: 0; }
-.case-photo img { display: block; width: calc(var(--in) * 3); max-width: 100%; height: auto; border: 1px solid #c9a55a; }
+/* Portrait frame, outside in: gold line, the white core of a 45-degree mat bevel, gold line, photo. */
+.case-photo { padding: 0; background: #111; border: 1px solid #c9a55a; box-shadow: 0 2px 6px rgba(0,0,0,0.6); cursor: pointer; line-height: 0; }
+/* The bevel is the image's 5px border: CSS borders meet in mitred 45-degree joints, so each corner shows a fine diagonal seam.
+   The light falls from the top left, so the top and left faces (tilted away from it) are a touch greyer than the bottom and
+   right. The 1px padding over a gold background is the inner gold line. The photo keeps its old size (width + 10px). */
+.case-photo img {
+  display: block; box-sizing: border-box; width: calc(var(--in) * 3 + 10px); max-width: 100%; height: auto;
+  padding: 1px; background: #c9a55a;
+  border-style: solid; border-width: 5px;
+  border-color: #e4e2dc #f7f6f2 #ffffff #eceae5;
+}
 /* Service totals: a quiet centred caption under the chief's plaque, muted gold on the felt (not a second plaque). */
 .service-totals { margin: calc(var(--in) / -8) 0 0; font-family: var(--font-sans); font-size: 0.78rem; line-height: 1.45; letter-spacing: 0.02em; color: #cdb98a; text-align: center; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6); }
 .service-totals div { margin: 0; }
