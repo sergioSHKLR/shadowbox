@@ -148,6 +148,20 @@
     "unitId": "troy"
   },
   {
+    "id": "bitburg-stopover",
+    "placeId": "bitburg",
+    "kind": "transit",
+    "title": "Stopover on the way home from the EOD deployment",
+    "when": "2006",
+    "sort": "2006",
+    "prio": 1,
+    "approximate": false,
+    "trips": [
+      "2006: on the way home from the EOD deployment (EODMU 5 / CJTF Troy)"
+    ],
+    "unitId": "troy"
+  },
+  {
     "id": "fort-bragg-training",
     "placeId": "fort-bragg",
     "kind": "exercise",
@@ -185,50 +199,56 @@
     "placeId": "camp-arifjan",
     "kind": "transit",
     "title": "Warrior Transition Program (IA out-processing)",
-    "when": "2009, end of the IA tour (inferred — confirm)",
+    "when": "2009, end of the IA C-RAM deployment",
     "sort": "2009",
     "prio": -0.25,
-    "approximate": true,
+    "approximate": false,
+    "trips": [
+      "2009: out-processing at the end of the IA C-RAM deployment (Iraq)"
+    ],
     "unitId": "ia-army"
+  },
+  {
+    "id": "leipzig-stopover",
+    "placeId": "leipzig",
+    "kind": "transit",
+    "title": "Stopover on the Iraq and Afghanistan trips",
+    "when": "2009 and 2010–2013",
+    "sort": "2009",
+    "prio": -0.2,
+    "approximate": false,
+    "trips": [
+      "2009: the Iraq trip (IA C-RAM deployment)",
+      "2010–2011: the Afghanistan deployment",
+      "2012–2013: the Afghanistan deployment"
+    ]
   },
   {
     "id": "al-udeid-transit",
     "placeId": "al-udeid",
     "kind": "transit",
-    "title": "Transit stop",
-    "when": "2010–2013, Afghanistan deployments (inferred — confirm)",
-    "sort": "2013",
-    "prio": 1,
-    "approximate": true
+    "title": "Transit in and out of each Afghanistan deployment",
+    "when": "2010–2011 and 2012–2013",
+    "sort": "2010",
+    "prio": -1,
+    "approximate": false,
+    "trips": [
+      "2010–2011: in (Qatar, then Bagram) and out (Bagram, then Qatar)",
+      "2012–2013: in (Qatar, then Bagram) and out (Bagram, then Qatar)"
+    ]
   },
   {
     "id": "bagram-transit",
     "placeId": "bagram",
     "kind": "transit",
-    "title": "Transit stop",
-    "when": "2010–2013, Afghanistan deployments (inferred — confirm)",
-    "sort": "2013",
-    "prio": 1,
-    "approximate": true
-  },
-  {
-    "id": "leipzig-transit",
-    "placeId": "leipzig",
-    "kind": "transit",
-    "title": "Transit stopover",
-    "when": "2010–2013, Afghanistan deployments (inferred — confirm)",
-    "sort": "2013",
-    "prio": 1,
-    "approximate": true
-  },
-  {
-    "id": "bitburg-transit",
-    "placeId": "bitburg",
-    "kind": "transit",
-    "title": "Stopover near Spangdahlem AB",
-    "when": "2010–2013, Afghanistan deployments (inferred — confirm)",
-    "sort": "2013",
-    "prio": 1,
-    "approximate": true
+    "title": "Transit in and out of each Afghanistan deployment",
+    "when": "2010–2011 and 2012–2013",
+    "sort": "2010",
+    "prio": -1,
+    "approximate": false,
+    "trips": [
+      "2010–2011: in (after Qatar) and out (before Qatar)",
+      "2012–2013: in (after Qatar) and out (before Qatar)"
+    ]
   }
 ]
