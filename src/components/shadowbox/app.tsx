@@ -52,7 +52,6 @@ export function ShadowboxApp() {
   const bars = useMemo(() => timeline(), []);
   const stops = useMemo(() => careerStops(), []);
   const blanks = useMemo(() => openRecord(), []);
-  const portrait = photos.find((photo) => photo.src === profile.portrait);
 
   useEffect(() => {
     document.title = profile.pageTitle;
@@ -83,7 +82,7 @@ export function ShadowboxApp() {
         </nav>
       </header>
 
-      {view === "case" ? <Case rows={rows} blanks={blanks} portraitAlt={portrait?.alt ?? profile.name} portraitId={portrait?.id} onOpen={open} /> : null}
+      {view === "case" ? <Case rows={rows} blanks={blanks} onOpen={open} /> : null}
       {view === "timeline" ? <Timeline bars={bars} onOpen={open} /> : null}
       {view === "uniforms" ? <Uniforms onOpen={open} /> : null}
       {view === "equipment" ? <EquipmentView onOpen={open} /> : null}
@@ -112,14 +111,10 @@ function caseMarks() {
 function Case({
   rows,
   blanks,
-  portraitAlt,
-  portraitId,
   onOpen,
 }: {
   rows: ReturnType<typeof ribbonRows>;
   blanks: string[];
-  portraitAlt: string;
-  portraitId?: string;
   onOpen: (k: Kind, id: string) => void;
 }) {
   const marks = caseMarks();
@@ -169,21 +164,9 @@ function Case({
     <main>
       <section className="case" aria-label="Shadowbox">
         <div className="case-frame">
-          <div className="nameplate">
-            {portraitId ? (
-              <button type="button" className="portrait-btn" onClick={() => onOpen("photo", portraitId)} aria-label={`${portraitAlt}. Open the photograph.`}>
-                <img className="portrait" src={publicUrl(profile.portrait)} alt={portraitAlt} />
-              </button>
-            ) : (
-              <img className="portrait" src={publicUrl(profile.portrait)} alt={portraitAlt} />
-            )}
-            <div>
-              <p className="kicker">{profile.rating} {profile.rank}</p>
-              <h2>{profile.name}</h2>
-              <p>{profile.paygrade} · {profile.branchName}, {profile.status} · {formatWhen(profile.serviceStart)} – {formatWhen(profile.serviceEnd)}</p>
-              <p className="quiet">{profile.serviceLength} active. Sea service {profile.seaService}. Foreign service {profile.foreignService}.</p>
-            </div>
-          </div>
+          {/* The identity and service-totals nameplate (and its duplicate chief portrait) is no longer rendered; the data
+              stays in profile.json (rating, rank, name, paygrade, service dates and totals, portrait) so it can come back. */}
+          <h2 className="sr-only">{profile.name}, {profile.rating} {profile.rank}</h2>
           <div className="case-display">
             <div className="case-column">
               {portraitWithPlaque(recruit, plaques.recruit)}
