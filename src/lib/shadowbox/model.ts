@@ -449,6 +449,8 @@ export type Bar = {
   group: "duty" | "ops" | "study" | "rank";
   lane: number;
   point: boolean;
+  /** Length of this bar. Null when the record has no duration. */
+  days: number | null;
   left: number;
   width: number;
 };
@@ -469,7 +471,21 @@ function meet<T extends { start: number; end: number }>(items: T[]): T[] {
   return sorted;
 }
 
-/** Two rows. Each next bar takes the other row, and a bar stops at the next bar so the rows never cover the same months. */
+function courseDays(length: string | null): number | null {
+  if (!length) return null;
+  const weeks = /^(\d+)\s+weeks?$/i.exec(length);
+  if (weeks) return Number(weeks[1]) * 7;
+  const days = /^(\d+)\s+days?$/i.exec(length);
+  if (days) return Number(days[1]);
+  return null;
+}
+
+function finish(bars: Bar[]): Bar[] {
+  return bars.map((bar) => {
+    if (bar.days != null || bar.point) return bar;
+    return { ...bar, days: Math.max(0, Math.round((bar.end - bar.start) / 86_400_000)) };
+  });
+}
 function pack(items: Omit<Bar, "lane" | "left" | "width">[]): Bar[] {
   const sorted = meet(items);
   const placed = sorted.map((item, index) => {
@@ -517,6 +533,7 @@ function assignmentBars(): Omit<Bar, "lane" | "left" | "width">[] {
       ...spanOf(unit),
       group: "duty" as const,
       point: false,
+      days: null,
     }))
     .sort((a, b) => a.start - b.start || a.end - b.end);
   for (let i = 0; i < bars.length - 1; i++) {
@@ -533,8 +550,8 @@ function assignmentBars(): Omit<Bar, "lane" | "left" | "width">[] {
 }
 
 export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]; years: number[] } {
-  const duty = pack(assignmentBars());
-  const ops = pack(
+  const duty = finish(pack(assignmentBars()));
+  const ops = finish(pack(
     operations.map((op) => ({
       key: op.id,
       kind: "operation" as const,
@@ -545,10 +562,11 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]
       end: bound(op.end ?? op.start, "end"),
       group: "ops" as const,
       point: false,
+      days: null,
     })),
-  );
-  const study = pack([
-    ...schools.map((school) => ({
+  ));
+  const study = finish(pack(
+    schools.map((school) => ({
       key: school.id,
       kind: "school" as const,
       id: school.id,
@@ -558,21 +576,11 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]
       end: bound(school.start, "start"),
       group: "study" as const,
       point: true,
+      days: courseDays(school.length),
     })),
-    ...milestones.map((mark) => ({
-      key: mark.id,
-      kind: "milestone" as const,
-      id: mark.id,
-      title: mark.short || mark.title,
-      detail: mark.title,
-      start: bound(mark.date, "start"),
-      end: bound(mark.date, "start"),
-      group: "study" as const,
-      point: true,
-    })),
-  ]);
+  ));
   const dated = ranks.filter((r): r is Rank & { date: string } => !!r.date);
-  const rank = pack(
+  const rank = finish(pack(
     dated.map((r, i) => ({
       key: `rank-${r.id}`,
       kind: "rank" as const,
@@ -583,8 +591,9 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]
       end: dated[i + 1] ? bound(dated[i + 1].date, "start") : bound(profile.serviceEnd, "end"),
       group: "rank" as const,
       point: false,
+      days: null,
     })),
-  );
+  ));
   const first = serviceYear(profile.serviceStart);
   const last = serviceYear(profile.serviceEnd);
   const years = Array.from({ length: last - first + 1 }, (_, i) => first + i);
