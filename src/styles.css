@@ -288,21 +288,26 @@ a { color: var(--color-navy); }
 .chart-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
 .track { margin: 0.8rem 0 1.2rem; }
 .chart-scroll .track h3 { position: sticky; left: 0; width: max-content; }
-.track-lanes { position: relative; min-width: 52rem; }
+.track-lanes { display: flex; align-items: stretch; gap: 0; min-width: 100%; }
 .bar {
-  position: absolute;
+  position: relative;
+  flex: 1 0 auto;
+  min-width: max-content;
   min-height: 44px;
   height: 2.2rem;
   border: 0;
+  border-right: 2px solid var(--color-ivory);
   background: var(--color-navy);
   color: var(--color-ivory);
-  padding: 0 0.4rem;
+  padding: 0 0.55rem;
   text-align: left;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.bar.point { border-radius: 999px; background: var(--color-brass); color: var(--color-ink); text-align: center; padding: 0 0.2rem; }
+.bar:last-child { border-right: 0; }
+.bar.point { border-radius: 0; background: var(--color-brass); color: var(--color-ink); text-align: center; padding: 0 0.55rem; }
+.bar.bar--ops { background: #1e6b3c; color: #fff; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
 .uniform-grid { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 0.7rem; }
 .uniform-card {

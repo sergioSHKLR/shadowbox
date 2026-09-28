@@ -13,7 +13,6 @@ import {
   necs,
   openRecord,
   operations,
-  pct,
   photos,
   profile,
   ribbonRows,
@@ -286,13 +285,7 @@ function Timeline({
     <main className="sheet">
       <h2>{profile.serviceLength}, one line</h2>
       <p>{caseCopy.timelineLead}</p>
-      {/* The ruler and the tracks share one horizontal scroller, so the chart scrolls inside itself (together) and never widens the page. */}
       <div className="chart-scroll">
-        <div className="ruler" aria-hidden="true">
-          {bars.years.filter((y, index) => y % 2 === 1 || index === 0 || index === bars.years.length - 1).map((year) => (
-            <span key={year} style={{ left: `${pct(Date.UTC(year, 0, 1))}%` }}>{year}</span>
-          ))}
-        </div>
         <Track label="Rank" items={bars.rank} onOpen={onOpen} />
         <Track label="Assignments" items={bars.duty} onOpen={onOpen} />
         <Track label="Deployments" items={bars.ops} onOpen={onOpen} />
@@ -392,28 +385,26 @@ function Track({
   items: ReturnType<typeof timeline>["duty"];
   onOpen: (k: Kind, id: string) => void;
 }) {
-  const lanes = 2;
   return (
     <section className="track" aria-label={label}>
       <h3>{label}</h3>
-      <div className="track-lanes" style={{ height: `${lanes * 2.6}rem` }}>
-        {items.map((item) => (
-          <button
-            key={item.key}
-            type="button"
-            className={`${item.point ? "bar point" : "bar"} bar--${item.group}`}
-            style={{
-              left: `${item.left}%`,
-              width: `${item.width}%`,
-              top: `${item.lane * 2.6}rem`,
-            }}
-            title={item.detail}
-            onClick={() => onOpen(item.kind, item.id)}
-          >
-            <span>{item.title}</span>
-            <span className="sr-only">{item.detail}</span>
-          </button>
-        ))}
+      <div className="track-lanes">
+        {items.map((item) => {
+          const months = Math.max(1, Math.round((item.end - item.start) / 2_592_000_000));
+          return (
+            <button
+              key={item.key}
+              type="button"
+              className={`${item.point ? "bar point" : "bar"} bar--${item.group}`}
+              style={{ flexGrow: item.point ? 1 : months }}
+              title={item.detail}
+              onClick={() => onOpen(item.kind, item.id)}
+            >
+              <span>{item.title}</span>
+              <span className="sr-only">{item.detail}</span>
+            </button>
+          );
+        })}
       </div>
     </section>
   );
