@@ -293,8 +293,13 @@ a { color: var(--color-navy); }
   position: relative;
   flex: 1 0 auto;
   min-width: max-content;
-  min-height: 44px;
-  height: 2.2rem;
+  min-height: 3.4rem;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.05rem;
+  line-height: 1.15;
   border: 0;
   border-right: 2px solid var(--color-ivory);
   border-radius: 0;
@@ -308,8 +313,9 @@ a { color: var(--color-navy); }
 }
 .bar:last-child { border-right: 0; }
 .bar.point { border-radius: 0; background: var(--color-brass); color: var(--color-ink); text-align: center; padding: 0 0.55rem; }
-.bar.bar--school { border-radius: 0; background: #ffe14a; color: #14233a; text-align: center; }
+.bar.bar--school { border-radius: 0; background: #ffe14a; color: #14233a; text-align: center; align-items: center; }
 .bar.bar--ops { background: #1e6b3c; color: #fff; }
+.bar-days { font-size: 0.72rem; font-weight: 500; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
 .uniform-grid { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 0.7rem; }
 .uniform-card {

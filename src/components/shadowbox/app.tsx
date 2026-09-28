@@ -289,7 +289,7 @@ function Timeline({
         <Track label="Rank" items={bars.rank} onOpen={onOpen} />
         <Track label="Assignments" items={bars.duty} onOpen={onOpen} />
         <Track label="Deployments" items={bars.ops} onOpen={onOpen} />
-        <Track label="Schools and career dates" items={bars.study} onOpen={onOpen} />
+        <Track label="Schools" items={bars.study} onOpen={onOpen} />
       </div>
       <h3>Rank progression</h3>
       <ol className="rank-steps">
@@ -389,22 +389,20 @@ function Track({
     <section className="track" aria-label={label}>
       <h3>{label}</h3>
       <div className="track-lanes">
-        {items.map((item) => {
-          const months = Math.max(1, Math.round((item.end - item.start) / 2_592_000_000));
-          return (
+        {items.map((item) => (
             <button
               key={item.key}
               type="button"
-              className={`bar bar--${item.group}${item.kind === "school" ? " bar--school" : ""}${item.point && item.kind !== "school" ? " point" : ""}`}
-              style={{ flexGrow: item.point ? 1 : months }}
+              className={`bar bar--${item.group}${item.kind === "school" ? " bar--school" : ""}`}
+              style={{ flexGrow: item.days && item.days > 0 ? item.days : 1 }}
               title={item.detail}
               onClick={() => onOpen(item.kind, item.id)}
             >
-              <span>{item.title}</span>
+              <span className="bar-title">{item.title}</span>
+              <span className="bar-days">{item.days == null ? "not entered" : `${item.days.toLocaleString("en-US")} days`}</span>
               <span className="sr-only">{item.detail}</span>
             </button>
-          );
-        })}
+          ))}
       </div>
     </section>
   );
