@@ -542,6 +542,13 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .uprog-scene > img, .uprog-rack, .uprog-note { position: absolute; }
 .uprog-scene > img { height: auto; max-width: none; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35)) saturate(0.92); }
 .uprog-scene > img.uprog-plate { inset: 0; width: 100%; height: 100%; object-fit: fill; filter: none; }
+.uprog-scene > img.uprog-piece { filter: none; height: auto; }
+.uprog-badge-piece { left: 61.5%; top: 19%; width: 20%; }
+.uprog-hashes { position: absolute; left: 63%; top: 54%; width: 18%; display: flex; flex-direction: column; gap: 0.15rem; }
+.uprog-hashes img { position: static; width: 100%; height: auto; filter: none; max-width: none; }
+.uprog-pin-top { left: 20%; top: 22.5%; width: 22%; }
+.uprog-pin-bot { left: 18.5%; top: 36%; width: 25%; }
+.uprog-jcse { left: 26.5%; top: 43%; width: 16%; }
 .uprog-collar { width: auto !important; }
 .uprog-rack { display: flex; flex-direction: column; align-items: center; }
 .uprog-note { font-size: max(0.62rem, calc(var(--in) * 0.28)); line-height: 1.3; color: #3c362c; font-style: italic; }
