@@ -453,10 +453,10 @@ export type Bar = {
   width: number;
 };
 
-function pack(items: Omit<Bar, "lane" | "left" | "width">[]): Bar[] {
+function pack(items: Omit<Bar, "lane" | "left" | "width">[], abut = false): Bar[] {
   const sorted = [...items].sort((a, b) => a.start - b.start || a.end - b.end);
   const laneRight: number[] = [];
-  return sorted.map((item) => {
+  const placed = sorted.map((item) => {
     const left = pct(item.start);
     const span = pct(item.end) - left;
     const width = item.point ? 7.2 : Math.max(span, 6.4);
@@ -470,23 +470,62 @@ function pack(items: Omit<Bar, "lane" | "left" | "width">[]): Bar[] {
     }
     return { ...item, lane, left: Math.min(left, 92), width };
   });
+  if (!abut) return placed;
+  const byLeft = [...placed].sort((a, b) => a.left - b.left);
+  for (let i = 0; i < byLeft.length - 1; i++) {
+    const gap = byLeft[i + 1].left - byLeft[i].left;
+    if (byLeft[i].width > gap) byLeft[i].width = Math.max(gap - 0.15, 0.4);
+  }
+  return placed;
 }
 
-export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]; years: number[] } {
-  const duty = pack(
-    // Commands without dates cannot be placed on the time scale.
-    units.flatMap((unit) => (unit.start ? [{ ...unit, start: unit.start }] : [])).map((unit) => ({
+/** One assignment at a time. A tour that sits wholly inside a longer command (Troy inside EODMU 5, CJSOTF-A inside JCSE) stays on the Deployments track. Year-only dates include the shared transfer year on both bars; that overlap is split in half so the bars meet. */
+function assignmentBars(): Omit<Bar, "lane" | "left" | "width">[] {
+  const dated = units.filter((unit): unit is Unit & { start: string } => Boolean(unit.start));
+  const spanOf = (unit: Unit & { start: string }) => ({
+    start: bound(unit.start, "start"),
+    end: bound(unit.end ?? unit.start, "end"),
+  });
+  const nested = new Set(
+    dated
+      .filter((unit) => {
+        const span = spanOf(unit);
+        return dated.some((other) => {
+          if (other.id === unit.id) return false;
+          const parent = spanOf(other);
+          return span.start >= parent.start && span.end <= parent.end && parent.end - parent.start > span.end - span.start;
+        });
+      })
+      .map((unit) => unit.id),
+  );
+  const bars = dated
+    .filter((unit) => !nested.has(unit.id))
+    .map((unit) => ({
       key: unit.id,
       kind: "unit" as const,
       id: unit.id,
       title: unit.abbreviation,
       detail: unit.name,
-      start: bound(unit.start, "start"),
-      end: bound(unit.end ?? unit.start, "end"),
+      ...spanOf(unit),
       group: "duty" as const,
       point: false,
-    })),
-  );
+    }))
+    .sort((a, b) => a.start - b.start || a.end - b.end);
+  for (let i = 0; i < bars.length - 1; i++) {
+    const left = bars[i];
+    const right = bars[i + 1];
+    if (left.end <= right.start) continue;
+    const overlapStart = Math.max(left.start, right.start);
+    const overlapEnd = Math.min(left.end, right.end);
+    const mid = overlapStart + Math.floor((overlapEnd - overlapStart) / 2);
+    left.end = mid;
+    right.start = mid;
+  }
+  return bars;
+}
+
+export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]; years: number[] } {
+  const duty = pack(assignmentBars(), true);
   const ops = pack(
     operations.map((op) => ({
       key: op.id,
