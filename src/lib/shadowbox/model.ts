@@ -453,28 +453,36 @@ export type Bar = {
   width: number;
 };
 
-function pack(items: Omit<Bar, "lane" | "left" | "width">[], abut = false): Bar[] {
+/** Shared transfer time is split so two bars never cover the same stretch. */
+function meet<T extends { start: number; end: number }>(items: T[]): T[] {
   const sorted = [...items].sort((a, b) => a.start - b.start || a.end - b.end);
-  const laneRight: number[] = [];
-  const placed = sorted.map((item) => {
+  for (let i = 0; i < sorted.length - 1; i++) {
+    const left = sorted[i];
+    const right = sorted[i + 1];
+    if (left.end <= right.start) continue;
+    const overlapStart = Math.max(left.start, right.start);
+    const overlapEnd = Math.min(left.end, right.end);
+    const mid = overlapStart + Math.floor((overlapEnd - overlapStart) / 2);
+    left.end = mid;
+    right.start = mid;
+  }
+  return sorted;
+}
+
+/** Two rows. Each next bar takes the other row, and a bar stops at the next bar so the rows never cover the same months. */
+function pack(items: Omit<Bar, "lane" | "left" | "width">[]): Bar[] {
+  const sorted = meet(items);
+  const placed = sorted.map((item, index) => {
     const left = pct(item.start);
-    const span = pct(item.end) - left;
-    const width = item.point ? 7.2 : Math.max(span, 6.4);
-    const right = left + width;
-    let lane = laneRight.findIndex((end) => end <= left + 0.15);
-    if (lane < 0) {
-      lane = laneRight.length;
-      laneRight.push(right);
-    } else {
-      laneRight[lane] = right;
-    }
-    return { ...item, lane, left: Math.min(left, 92), width };
+    const span = Math.max(pct(item.end) - left, 0);
+    const width = item.point ? 7.2 : span;
+    return { ...item, lane: index % 2, left: Math.min(left, 98), width };
   });
-  if (!abut) return placed;
-  const byLeft = [...placed].sort((a, b) => a.left - b.left);
-  for (let i = 0; i < byLeft.length - 1; i++) {
-    const gap = byLeft[i + 1].left - byLeft[i].left;
-    if (byLeft[i].width > gap) byLeft[i].width = Math.max(gap - 0.15, 0.4);
+  for (let i = 0; i < placed.length; i++) {
+    const next = placed[i + 1];
+    if (!next) continue;
+    const room = next.left - placed[i].left - 0.2;
+    if (placed[i].width > room) placed[i].width = Math.max(room, 0.35);
   }
   return placed;
 }
@@ -525,7 +533,7 @@ function assignmentBars(): Omit<Bar, "lane" | "left" | "width">[] {
 }
 
 export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]; years: number[] } {
-  const duty = pack(assignmentBars(), true);
+  const duty = pack(assignmentBars());
   const ops = pack(
     operations.map((op) => ({
       key: op.id,
