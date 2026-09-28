@@ -2,182 +2,182 @@
   {
     "id": "jscm",
     "title": "Joint Service Commendation Medal ribbon",
-    "file": "/ribbons/jscm.png",
+    "file": "/ribbons/jscm.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Joint_Service_Commendation_Medal_ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "ncm",
     "title": "Navy and Marine Corps Commendation Medal ribbon",
-    "file": "/ribbons/ncm.png",
+    "file": "/ribbons/ncm.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Navy_and_Marine_Corps_Commendation_Medal_ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "arcom",
     "title": "Army Commendation Medal ribbon",
-    "file": "/ribbons/arcom.png",
+    "file": "/ribbons/arcom.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Army_Commendation_Medal_ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "jsam",
     "title": "Joint Service Achievement Medal ribbon",
-    "file": "/ribbons/jsam.png",
+    "file": "/ribbons/jsam.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Joint_Service_Achievement_Medal_ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "nam",
     "title": "Navy and Marine Corps Achievement Medal ribbon",
-    "file": "/ribbons/nam.png",
+    "file": "/ribbons/nam.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Navy_and_Marine_Corps_Achievement_Medal_ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "aam",
     "title": "Army Achievement Medal ribbon",
-    "file": "/ribbons/aam.png",
+    "file": "/ribbons/aam.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Army_Achievement_Medal_ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "jmua",
     "title": "Joint Meritorious Unit Award ribbon",
-    "file": "/ribbons/jmua.png",
+    "file": "/ribbons/jmua.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Joint_Meritorious_Unit_Award_ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "nmuc",
     "title": "Navy Meritorious Unit Commendation ribbon",
-    "file": "/ribbons/nmuc.png",
+    "file": "/ribbons/nmuc.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Navy_Meritorious_Unit_Commendation_ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "navy-e",
     "title": "Navy E Ribbon",
-    "file": "/ribbons/navy-e.png",
+    "file": "/ribbons/navy-e.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Battle_Effectiveness_Award_ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "ngcm",
     "title": "Navy Good Conduct Medal ribbon",
-    "file": "/ribbons/ngcm.png",
+    "file": "/ribbons/ngcm.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S._Navy_Good_Conduct_Medal_ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "ndsm",
     "title": "National Defense Service Medal ribbon",
-    "file": "/ribbons/ndsm.png",
+    "file": "/ribbons/ndsm.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:National_Defense_Service_Medal_ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "acm",
     "title": "Afghanistan Campaign Medal ribbon",
-    "file": "/ribbons/acm.png",
+    "file": "/ribbons/acm.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Afghanistan_Campaign_Medal_ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "icm",
     "title": "Iraq Campaign Medal ribbon",
-    "file": "/ribbons/icm.png",
+    "file": "/ribbons/icm.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Iraq_Campaign_Medal_ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "gwotsm",
     "title": "Global War on Terrorism Service Medal ribbon",
-    "file": "/ribbons/gwotsm.png",
+    "file": "/ribbons/gwotsm.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Global_War_on_Terrorism_Service_Medal_ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "hsm",
     "title": "Humanitarian Service Medal ribbon",
-    "file": "/ribbons/hsm.png",
+    "file": "/ribbons/hsm.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Humanitarian_Service_Medal_ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "ssdr",
     "title": "Sea Service Deployment Ribbon",
-    "file": "/ribbons/ssdr.png",
+    "file": "/ribbons/ssdr.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sea_Service_Deployment_Ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "osr",
     "title": "Navy and Marine Corps Overseas Service Ribbon",
-    "file": "/ribbons/osr.png",
+    "file": "/ribbons/osr.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Navy_and_Marine_Corps_Overseas_Service_Ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "nato",
     "title": "NATO Non-Article 5 Medal ribbon",
-    "file": "/ribbons/nato.png",
+    "file": "/ribbons/nato.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:NATO_Medal_ribbon_(Non-Article_5).svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "rifle",
     "title": "Navy Rifle Marksmanship Ribbon",
-    "file": "/ribbons/rifle.png",
+    "file": "/ribbons/rifle.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S._Navy_Rifle_Marksmanship_Ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "pistol",
     "title": "Navy Pistol Marksmanship Ribbon",
-    "file": "/ribbons/pistol.png",
+    "file": "/ribbons/pistol.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S._Navy_Pistol_Marksmanship_Ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
     "license": "Public domain. A representation of a United States military award. As a work of the U.S. federal government it is in the public domain in the United States.",
-    "notes": "Redrawn for this project to the ribbon specification, checked against the public-domain file. Saved as a PNG. Not hotlinked."
+    "notes": "Vector ribbon from the supplied sheet, one bar per award. Devices are still drawn on top. Not hotlinked."
   },
   {
     "id": "insignia-diagrams",
@@ -203,7 +203,7 @@
     "file": null,
     "sourceUrl": "https://www.openstreetmap.org/copyright",
     "creator": "OpenStreetMap contributors",
-    "license": "Open Database License (tiles © OpenStreetMap contributors).",
+    "license": "Open Database License (tiles \u00a9 OpenStreetMap contributors).",
     "notes": "Tiles are requested when a map is opened. They are not packaged in the project."
   },
   {
@@ -244,7 +244,7 @@
   },
   {
     "id": "equipment-hmmwv-up-armored",
-    "title": "Up-armored HMMWV with turtleback (M1114 shown, with the armored gunner’s turret)",
+    "title": "Up-armored HMMWV with turtleback (M1114 shown, with the armored gunner\u2019s turret)",
     "file": "/equipment/hmmwv-up-armored.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Marine_vehicles_roll_out_for_Marine_Week_Cleveland_120611-M-QZ986-385.jpg",
     "creator": "Sgt. Shannon Yount, U.S. Marine Corps",
