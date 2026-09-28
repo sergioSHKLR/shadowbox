@@ -110,6 +110,19 @@ function badgeFor(s: State, u: UniformDef): { src: string; w: number; alt: strin
   return { src, w: 325, alt: `${s.rank.name} rating badge, ${white ? "blue on white" : gold ? "gold chevrons" : "red chevrons"}` };
 }
 
+/** Sleeve art cut from the sheet Sergio sent. Khaki wears no sleeve badge and no hash marks. */
+function sleeveArt(s: State, u: UniformDef): { badge: string | null; hash: string | null } {
+  if (u.kind === "khaki") return { badge: null, hash: null };
+  const white = u.look === "white";
+  const gold = s.gold && !white;
+  const hash = white ? "/uniforms/pieces/hash-blue.png" : gold ? "/uniforms/pieces/hash-gold.png" : "/uniforms/pieces/hash-red.png";
+  if (s.chief) return { badge: white ? "/uniforms/pieces/badge-cpo-on-white.png" : "/uniforms/pieces/badge-cpo.png", hash };
+  if (s.rank.id === "et1") return { badge: white ? "/uniforms/pieces/badge-et1-blue.png" : gold ? "/uniforms/pieces/badge-et1-gold.png" : "/uniforms/pieces/badge-et1-red.png", hash };
+  if (s.rank.id === "et2") return { badge: white ? "/uniforms/pieces/badge-et2-blue.png" : "/uniforms/pieces/badge-et2-red.png", hash };
+  if (s.rank.id === "et3") return { badge: white ? "/uniforms/pieces/badge-et3-blue.png" : "/uniforms/pieces/badge-et3-red.png", hash };
+  return { badge: null, hash: null };
+}
+
 const FABRIC: Record<Look, { base: string; hi: string; lo: string; line: string }> = {
   blue: { base: "#1a2031", hi: "#242c42", lo: "#10141f", line: "#0a0d15" },
   white: { base: "#efede6", hi: "#f8f7f2", lo: "#dcd9cf", line: "#c9c5b8" },
@@ -265,7 +278,11 @@ export function UniformProgression({ onOpen }: { onOpen: (k: Kind, id: string) =
   const s = useMemo(() => stateAt(day), [day]);
   const uniform = s.uniforms.find((x) => x.look === look) ?? s.uniforms.find((x) => x.look === "blue") ?? s.uniforms[0];
   const badge = badgeFor(s, uniform);
-  const top = [...s.ribbons].sort((a, b) => a.precedence - b.precedence).slice(0, 3);
+  const sleeve = sleeveArt(s, uniform);
+  const top = [...awards]
+    .filter((a) => P.awards.some((row) => row.awardId === a.id))
+    .sort((a, b) => a.precedence - b.precedence)
+    .slice(0, 3);
   const plate = PLATE[uniform.id];
   const primary = s.pins.find((p) => p.position === "primary");
   const secondary = s.pins.find((p) => p.position === "secondary");
@@ -300,12 +317,19 @@ export function UniformProgression({ onOpen }: { onOpen: (k: Kind, id: string) =
           <div className="uprog-stage">
             <div className={`uprog-scene look-${uniform.look}${plate ? " has-plate" : ""}`} role="img" aria-label={`${uniform.name}, ${label}: ${s.rank.abbreviation} (${s.rank.grade}), ${s.stripes} service stripe${s.stripes === 1 ? "" : "s"}${s.gold && uniform.look === "blue" && badge ? ", gold" : ""}${s.pins.length ? `, ${s.pins.map((p) => p.id.toUpperCase()).join(" and ")}` : ""}, top ${top.length} ribbon${top.length === 1 ? "" : "s"}`}>
               {plate ? <img className="uprog-plate" src={publicUrl(plate)} alt="" /> : <Scene s={s} u={uniform} />}
+              {plate && sleeve.badge ? <img className="uprog-piece uprog-badge-piece uprog-fade" src={publicUrl(sleeve.badge)} alt="" /> : null}
+              {plate && sleeve.hash && s.stripes > 0 ? (
+                <div className="uprog-hashes">
+                  {Array.from({ length: s.stripes }, (_, i) => <img key={i} src={publicUrl(sleeve.hash!)} alt="" />)}
+                </div>
+              ) : null}
               {!plate && badge ? (
                 <img key={badge.src} className="uprog-badge uprog-fade" src={publicUrl(badge.src)} alt="" style={{ width: u(badge.w), left: u(950 - badge.w / 2), top: u(badge.w > 300 ? 200 : 260) }} />
               ) : null}
               {!plate && (uniform.kind === "choker" || uniform.kind === "khaki") ? (
                 <img className="uprog-collar uprog-fade" src={publicUrl("/insignia/cpo-anchor-cap.webp")} alt="" style={uniform.kind === "choker" ? { height: u(90), left: u(150), top: u(52) } : { height: u(110), left: u(170), top: u(170) }} />
               ) : null}
+              {primary && pinImg(primary.id) ? <img className="uprog-piece uprog-pin-top uprog-fade" src={publicUrl(pinImg(primary.id)!)} alt="" /> : null}
               {top.length ? (
                 <div className={`uprog-rack rack${plate ? " uprog-rack--top" : ""}`} style={plate ? undefined : { left: u(390 - 206.25), top: u(562.5), width: u(412.5) }}>
                   <div className="rack-row">
@@ -313,12 +337,8 @@ export function UniformProgression({ onOpen }: { onOpen: (k: Kind, id: string) =
                   </div>
                 </div>
               ) : null}
-              {!plate && primary && pinImg(primary.id) ? (
-                <img className="uprog-pin uprog-fade" src={publicUrl(pinImg(primary.id)!)} alt="" style={{ width: u(275), left: u(390 - 137.5), bottom: `calc(100% - ${u(537.5)})` }} />
-              ) : null}
-              {!plate && secondary && pinImg(secondary.id) ? (
-                <img className="uprog-pin uprog-fade" src={publicUrl(pinImg(secondary.id)!)} alt="" style={{ width: u(275), left: u(390 - 137.5), top: u(650) }} />
-              ) : null}
+              {secondary && pinImg(secondary.id) ? <img className="uprog-piece uprog-pin-bot uprog-fade" src={publicUrl(pinImg(secondary.id)!)} alt="" /> : null}
+              {plate && s.chief ? <img className="uprog-piece uprog-jcse uprog-fade" src={publicUrl("/insignia/jcse-device-stack.webp")} alt="" /> : null}
               {!plate && s.patch ? <img className="uprog-patch uprog-fade" src={publicUrl(s.patch.image)} alt="" style={{ width: u(300), left: u(800), top: u(150) }} /> : null}
               {!plate && !badge ? <span className="uprog-note" style={{ left: u(680), top: u(uniform.kind === "khaki" ? 800 : 400), width: u(540) }}>CPOs wear collar anchors, not a sleeve badge, on this uniform.</span> : null}
             </div>
