@@ -395,7 +395,7 @@ function Track({
             <button
               key={item.key}
               type="button"
-              className={`${item.point ? "bar point" : "bar"} bar--${item.group}`}
+              className={`bar bar--${item.group}${item.kind === "school" ? " bar--school" : ""}${item.point && item.kind !== "school" ? " point" : ""}`}
               style={{ flexGrow: item.point ? 1 : months }}
               title={item.detail}
               onClick={() => onOpen(item.kind, item.id)}
