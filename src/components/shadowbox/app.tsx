@@ -392,7 +392,7 @@ function Track({
   items: ReturnType<typeof timeline>["duty"];
   onOpen: (k: Kind, id: string) => void;
 }) {
-  const lanes = Math.max(1, ...items.map((item) => item.lane)) + 1;
+  const lanes = 2;
   return (
     <section className="track" aria-label={label}>
       <h3>{label}</h3>
@@ -407,6 +407,7 @@ function Track({
               width: `${item.width}%`,
               top: `${item.lane * 2.6}rem`,
             }}
+            title={item.detail}
             onClick={() => onOpen(item.kind, item.id)}
           >
             <span>{item.title}</span>
