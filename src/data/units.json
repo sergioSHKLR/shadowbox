@@ -272,11 +272,11 @@
     "branch": "USN",
     "designator": "Assigned",
     "necId": null,
-    "start": "2015",
+    "start": "2014-12-14",
     "end": "2018",
-    "precision": "year",
+    "precision": "day",
     "placeId": "nh-jax",
-    "explanation": "The Navy hospital at Jacksonville, Florida, and the last active-duty command. Last duty assignment was Naval Hospital Jacksonville, with separation processing at the personnel support detachment on Naval Air Station Jacksonville.",
+    "explanation": "The Navy hospital at Jacksonville, Florida, and the last active-duty command. He reported the day he detached from JCSE, 14 December 2014. Last duty assignment was Naval Hospital Jacksonville, with separation processing at the personnel support detachment on Naval Air Station Jacksonville.",
     "civilian": "A hospital, not a ship. An electronics technician there maintains medical and other electronic equipment. The day-to-day job is not further described.",
     "image": "/crests/navhosp.webp"
   }
