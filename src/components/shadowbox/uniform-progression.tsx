@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import progressionJson from "@/data/uniform-progression.json";
-import { awards, formatWhen, profile, publicUrl, ranks, ribbonRows, warfare, type Award, type Device, type Kind } from "@/lib/shadowbox/model";
+import { awards, formatWhen, profile, publicUrl, ranks, warfare, type Award, type Device, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 
 /*
@@ -21,6 +21,15 @@ type Progression = {
   uniforms: UniformDef[];
 };
 const P = progressionJson as unknown as Progression;
+
+/** One drawing per uniform. Rank, stripe, and device changes that these drawings do not cover stay on the vector until a drawing exists. */
+const PLATE: Record<string, string> = {
+  "sdb-jumper": "/uniforms/timeline/dress-blue-jumper.png",
+  "sdw-jumper": "/uniforms/timeline/dress-white-jumper.png",
+  "cpo-sdb": "/uniforms/timeline/cpo-dress-blue.png",
+  "cpo-sdw": "/uniforms/timeline/cpo-dress-white.png",
+  "cpo-khaki": "/uniforms/timeline/service-khaki.png",
+};
 
 const START = profile.serviceStart; // 1997-06-30
 const END = profile.serviceEnd; // 2018-02-28
@@ -256,8 +265,8 @@ export function UniformProgression({ onOpen }: { onOpen: (k: Kind, id: string) =
   const s = useMemo(() => stateAt(day), [day]);
   const uniform = s.uniforms.find((x) => x.look === look) ?? s.uniforms.find((x) => x.look === "blue") ?? s.uniforms[0];
   const badge = badgeFor(s, uniform);
-  const rows = ribbonRows(s.ribbons);
-  const rackTop = 600 - rows.length * 37.5;
+  const top = [...s.ribbons].sort((a, b) => a.precedence - b.precedence).slice(0, 3);
+  const plate = PLATE[uniform.id];
   const primary = s.pins.find((p) => p.position === "primary");
   const secondary = s.pins.find((p) => p.position === "secondary");
   const pinImg = (id: string) => warfare.find((w) => w.id === id)?.image;
@@ -271,7 +280,7 @@ export function UniformProgression({ onOpen }: { onOpen: (k: Kind, id: string) =
       <h3>Uniform through the years</h3>
       <p className="quiet">
         Drag the slider or press play to watch the left sleeve and chest change from enlistment ({formatWhen(START)}) to retirement ({formatWhen(END)}): rate and rating badge,
-        service stripes, breast insignia and ribbons. Only dated items appear; the rest are listed as date needed.
+        service stripes, breast insignia and the top three ribbons. Only dated items appear; the rest are listed as date needed.
       </p>
       <div className="uprog-controls">
         <button type="button" className="nav-btn uprog-play" aria-pressed={playing} onClick={() => {
@@ -289,31 +298,29 @@ export function UniformProgression({ onOpen }: { onOpen: (k: Kind, id: string) =
       <div className="uprog-layout">
         <div className="uprog-main">
           <div className="uprog-stage">
-            <div className={`uprog-scene look-${uniform.look}`} role="img" aria-label={`${uniform.name}, ${label}: ${s.rank.abbreviation} (${s.rank.grade}), ${s.stripes} service stripe${s.stripes === 1 ? "" : "s"}${s.gold && uniform.look === "blue" && badge ? ", gold" : ""}${s.pins.length ? `, ${s.pins.map((p) => p.id.toUpperCase()).join(" and ")}` : ""}, ${s.ribbons.length} dated ribbons`}>
-              <Scene s={s} u={uniform} />
-              {badge ? (
+            <div className={`uprog-scene look-${uniform.look}${plate ? " has-plate" : ""}`} role="img" aria-label={`${uniform.name}, ${label}: ${s.rank.abbreviation} (${s.rank.grade}), ${s.stripes} service stripe${s.stripes === 1 ? "" : "s"}${s.gold && uniform.look === "blue" && badge ? ", gold" : ""}${s.pins.length ? `, ${s.pins.map((p) => p.id.toUpperCase()).join(" and ")}` : ""}, top ${top.length} ribbon${top.length === 1 ? "" : "s"}`}>
+              {plate ? <img className="uprog-plate" src={publicUrl(plate)} alt="" /> : <Scene s={s} u={uniform} />}
+              {!plate && badge ? (
                 <img key={badge.src} className="uprog-badge uprog-fade" src={publicUrl(badge.src)} alt="" style={{ width: u(badge.w), left: u(950 - badge.w / 2), top: u(badge.w > 300 ? 200 : 260) }} />
               ) : null}
-              {uniform.kind === "choker" || uniform.kind === "khaki" ? (
+              {!plate && (uniform.kind === "choker" || uniform.kind === "khaki") ? (
                 <img className="uprog-collar uprog-fade" src={publicUrl("/insignia/cpo-anchor-cap.webp")} alt="" style={uniform.kind === "choker" ? { height: u(90), left: u(150), top: u(52) } : { height: u(110), left: u(170), top: u(170) }} />
               ) : null}
-              {rows.length ? (
-                <div className="uprog-rack rack" style={{ left: u(390 - 206.25), top: u(rackTop), width: u(412.5) }}>
-                  {rows.map((row, i) => (
-                    <div className="rack-row" key={i}>
-                      {row.map((a) => <RibbonArt key={a.id} award={a} className="uprog-fade" />)}
-                    </div>
-                  ))}
+              {top.length ? (
+                <div className={`uprog-rack rack${plate ? " uprog-rack--top" : ""}`} style={plate ? undefined : { left: u(390 - 206.25), top: u(562.5), width: u(412.5) }}>
+                  <div className="rack-row">
+                    {top.map((a) => <RibbonArt key={a.id} award={a} className="uprog-fade" />)}
+                  </div>
                 </div>
               ) : null}
-              {primary && pinImg(primary.id) ? (
-                <img className="uprog-pin uprog-fade" src={publicUrl(pinImg(primary.id)!)} alt="" style={{ width: u(275), left: u(390 - 137.5), bottom: `calc(100% - ${u((rows.length ? rackTop : 625) - 25)})` }} />
+              {!plate && primary && pinImg(primary.id) ? (
+                <img className="uprog-pin uprog-fade" src={publicUrl(pinImg(primary.id)!)} alt="" style={{ width: u(275), left: u(390 - 137.5), bottom: `calc(100% - ${u(537.5)})` }} />
               ) : null}
-              {secondary && pinImg(secondary.id) ? (
+              {!plate && secondary && pinImg(secondary.id) ? (
                 <img className="uprog-pin uprog-fade" src={publicUrl(pinImg(secondary.id)!)} alt="" style={{ width: u(275), left: u(390 - 137.5), top: u(650) }} />
               ) : null}
-              {s.patch ? <img className="uprog-patch uprog-fade" src={publicUrl(s.patch.image)} alt="" style={{ width: u(300), left: u(800), top: u(150) }} /> : null}
-              {!badge ? <span className="uprog-note" style={{ left: u(680), top: u(uniform.kind === "khaki" ? 800 : 400), width: u(540) }}>CPOs wear collar anchors, not a sleeve badge, on this uniform.</span> : null}
+              {!plate && s.patch ? <img className="uprog-patch uprog-fade" src={publicUrl(s.patch.image)} alt="" style={{ width: u(300), left: u(800), top: u(150) }} /> : null}
+              {!plate && !badge ? <span className="uprog-note" style={{ left: u(680), top: u(uniform.kind === "khaki" ? 800 : 400), width: u(540) }}>CPOs wear collar anchors, not a sleeve badge, on this uniform.</span> : null}
             </div>
           </div>
           <div className="uprog-chips" role="group" aria-label="Uniform">
