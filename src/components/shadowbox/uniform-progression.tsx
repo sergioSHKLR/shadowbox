@@ -22,13 +22,13 @@ type Progression = {
 };
 const P = progressionJson as unknown as Progression;
 
-/** One drawing per uniform. Rank, stripe, and device changes that these drawings do not cover stay on the vector until a drawing exists. */
+/** Blank uniform drawing for each uniform. Sleeve badges and the other pieces go on top of these. */
 const PLATE: Record<string, string> = {
-  "sdb-jumper": "/uniforms/timeline/dress-blue-jumper.png",
-  "sdw-jumper": "/uniforms/timeline/dress-white-jumper.png",
-  "cpo-sdb": "/uniforms/timeline/cpo-dress-blue.png",
-  "cpo-sdw": "/uniforms/timeline/cpo-dress-white.png",
-  "cpo-khaki": "/uniforms/timeline/service-khaki.png",
+  "sdb-jumper": "/uniforms/timeline/dress-blue-jumper.svg",
+  "sdw-jumper": "/uniforms/timeline/dress-white-jumper.svg",
+  "cpo-sdb": "/uniforms/timeline/cpo-dress-blue.svg",
+  "cpo-sdw": "/uniforms/timeline/cpo-dress-white.svg",
+  "cpo-khaki": "/uniforms/timeline/service-khaki.svg",
 };
 
 const START = profile.serviceStart; // 1997-06-30
