@@ -5,7 +5,6 @@ import {
   careerStops,
   caseCopy,
   formatWhen,
-  pinNumbersFor,
   type Kind,
 } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
@@ -164,26 +163,6 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
           </li>
         ))}
       </ol>
-      {bases.length && isOn("base") && cursor == null ? (
-        <>
-          <h3>Deployment bases</h3>
-          <ol className="stop-list">
-            {bases.map((place) => (
-              <li key={place.id}>
-                <button type="button" onClick={() => onOpen("place", place.id)}>
-                  {pinNumbersFor(place.id).length ? (
-                    <span className={`pin-num base ${place.accuracy}`} aria-label={`Pin ${pinNumbersFor(place.id).join(", ")}`}>{pinNumbersFor(place.id).join(",")}</span>
-                  ) : (
-                    <span className={`pip base ${place.accuracy}`} />
-                  )}
-                  <strong>{place.name}</strong>
-                  <span>{place.locality}{place.accuracy === "approximate" ? " · approximate" : ""}</span>
-                </button>
-              </li>
-            ))}
-          </ol>
-        </>
-      ) : null}
     </main>
   );
 }
