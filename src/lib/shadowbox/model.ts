@@ -28,6 +28,13 @@ export function publicUrl(path: string): string {
   return `${base}${path.replace(/^\//, "")}`;
 }
 
+/** Pre-drawn ribbon plate: row 1 is bare, row N+1 has N devices. Caps at 7. */
+export function ribbonPlate(award: Pick<Award, "id" | "devices">): string {
+  const n = award.devices.reduce((sum, d) => sum + d.count, 0);
+  const row = Math.min(7, Math.max(1, n + 1));
+  return `/ribbons/instances/${award.id}-${row}.svg`;
+}
+
 export type Kind =
   | "award"
   | "unit"

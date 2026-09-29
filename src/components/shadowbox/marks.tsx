@@ -1,5 +1,5 @@
 import type { Award, Device, Medal } from "@/lib/shadowbox/model";
-import { countPhrase, deviceSummary, medalFor, publicUrl } from "@/lib/shadowbox/model";
+import { countPhrase, deviceSummary, medalFor, publicUrl, ribbonPlate } from "@/lib/shadowbox/model";
 
 const DEVICE_ART: Record<string, string> = {
   "star-gold": "/devices/star-gold-vivid.svg", // the PR #2 (e30018b) star: dark #3a2804 outline, the most vivid look
@@ -9,9 +9,6 @@ const DEVICE_ART: Record<string, string> = {
   "letter-silver-battle": "/devices/e-battle-silver.svg",
   "letter-silver-expert": "/devices/e-expert-silver.svg",
 };
-
-/** The JMUA gold frame with its laurel band (the same art as the printable case item). It is drawn inside the ribbon's footprint. */
-const JMUA_FRAME = "/devices/jmua-frame.svg";
 
 /** Devices are drawn from the case-item art in public/devices. */
 function deviceArt(device: Device): string {
@@ -33,13 +30,11 @@ export function Devices({ devices }: { devices: Device[] }) {
   );
 }
 
-/** A ribbon with its devices, drawn at any width. Devices scale with the ribbon. */
+/** A ribbon plate with devices already drawn. No overlay. */
 export function RibbonArt({ award, className }: { award: Award; className?: string }) {
   return (
-    <span className={[award.framed ? "ribbon framed" : "ribbon", className].filter(Boolean).join(" ")}>
-      <img src={publicUrl(award.ribbon)} alt="" />
-      {award.framed ? <img className="ribbon-frame" src={publicUrl(JMUA_FRAME)} alt="" /> : null}
-      <Devices devices={award.devices} />
+    <span className={["ribbon", className].filter(Boolean).join(" ")}>
+      <img src={publicUrl(ribbonPlate(award))} alt="" />
     </span>
   );
 }
@@ -53,10 +48,8 @@ export function RibbonButton({
 }) {
   const label = `${award.name}. ${countPhrase(award)}. ${deviceSummary(award)}. Open the explanation.`;
   return (
-    <button type="button" className={award.framed ? "ribbon framed" : "ribbon"} onClick={onOpen} aria-label={label}>
-      <img src={publicUrl(award.ribbon)} alt="" />
-      {award.framed ? <img className="ribbon-frame" src={publicUrl(JMUA_FRAME)} alt="" /> : null}
-      <Devices devices={award.devices} />
+    <button type="button" className="ribbon" onClick={onOpen} aria-label={label}>
+      <img src={publicUrl(ribbonPlate(award))} alt="" />
     </button>
   );
 }
