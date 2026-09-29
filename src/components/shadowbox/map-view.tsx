@@ -2,15 +2,9 @@ import { useEffect, useRef } from "react";
 import type { Place, Stop } from "@/lib/shadowbox/model";
 import "leaflet/dist/leaflet.css";
 
-export type BasemapId = "political" | "topo";
+export type BasemapId = "topo";
 
 const BASEMAPS: Record<BasemapId, { url: string; attribution: string; maxZoom: number }> = {
-  political: {
-    url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    maxZoom: 16,
-  },
   topo: {
     url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
     attribution: "Tiles &copy; Esri",
@@ -76,7 +70,6 @@ export function MapView({
   onSelect,
   focusId = null,
   revealedIds = null,
-  basemap = "political",
 }: {
   stops: Stop[];
   extra?: Place[];
@@ -84,7 +77,6 @@ export function MapView({
   onSelect: (placeId: string) => void;
   focusId?: string | null;
   revealedIds?: string[] | null;
-  basemap?: BasemapId;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const selectRef = useRef(onSelect);
@@ -104,7 +96,7 @@ export function MapView({
       if (cancelled || !ref.current) return;
       const PIN_PX = ref.current.clientWidth < 520 ? 18 : 22;
       map = L.map(ref.current, { scrollWheelZoom: false, zoomControl: true, zoomSnap: 0.25, zoomDelta: 0.5 });
-      const spec = BASEMAPS[basemap] ?? BASEMAPS.political;
+      const spec = BASEMAPS.topo;
       const tiles = L.tileLayer(spec.url, { attribution: spec.attribution, maxZoom: spec.maxZoom }).addTo(map);
 
       const lngs = stops.map((stop) => stop.place.lng ?? 0).sort((a, b) => a - b);
@@ -216,19 +208,6 @@ export function MapView({
   useEffect(() => {
     if (runtime.current) applyPlay(runtime.current, playRef.current);
   }, [focusId, revealedIds, stops, extra]);
-
-  useEffect(() => {
-    const handle = runtime.current;
-    if (!handle) return;
-    const spec = BASEMAPS[basemap] ?? BASEMAPS.political;
-    handle.tiles.setUrl(spec.url);
-    handle.tiles.options.attribution = spec.attribution;
-    handle.tiles.options.maxZoom = spec.maxZoom;
-    const ctrl = handle.map.attributionControl;
-    if (ctrl) {
-      ctrl.setPrefix("Leaflet");
-    }
-  }, [basemap]);
 
   if (!stops.length && !extra.length) {
     return <p className="quiet">No map location has been entered for this yet.</p>;
