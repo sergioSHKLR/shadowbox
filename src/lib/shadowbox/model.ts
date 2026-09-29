@@ -28,37 +28,9 @@ export function publicUrl(path: string): string {
   return `${base}${path.replace(/^\//, "")}`;
 }
 
-/** Rows that actually have stripe/device art on the cut sheet. Missing rows are empty SVGs. */
-const RIBBON_ART_ROWS: Record<string, number[]> = {
-  jscm: [1, 2],
-  ncm: [1],
-  arcom: [1, 2],
-  jsam: [1],
-  nam: [1, 2, 3, 4, 5],
-  aam: [1],
-  jmua: [1, 2, 3],
-  nmuc: [1, 2, 3, 4, 5],
-  "navy-e": [1, 2, 3],
-  ngcm: [1, 2, 3, 4, 5, 6],
-  ndsm: [1],
-  acm: [1, 2],
-  icm: [1, 2],
-  gwotsm: [1],
-  hsm: [1],
-  ssdr: [1, 2, 3, 4, 5, 6, 7],
-  osr: [1, 2, 3, 4, 5, 6],
-  nato: [1],
-  rifle: [1],
-  pistol: [1],
-};
-
-/** Pre-drawn ribbon plate: row 1 is bare, row N+1 has N devices. Falls back to the last drawn row. */
-export function ribbonPlate(award: Pick<Award, "id" | "devices">): string {
-  const n = award.devices.reduce((sum, d) => sum + d.count, 0);
-  const wanted = Math.min(7, Math.max(1, n + 1));
-  const rows = RIBBON_ART_ROWS[award.id] ?? [1];
-  const fit = [...rows].reverse().find((row) => row <= wanted);
-  return `/ribbons/instances/${award.id}-${fit ?? rows[0]}.svg`;
+/** Ribbon plates were removed. Re-upload to public/ribbons/instances and restore this. */
+export function ribbonPlate(_award: Pick<Award, "id" | "devices">): string {
+  return "";
 }
 
 export type Kind =
@@ -359,7 +331,7 @@ export const equipment = equipmentJson as Equipment[];
 export const branches = branchesJson as Record<string, string>;
 export const caseCopy = caseJson;
 export const medals = medalsJson as Medal[];
-export const medalFor = (awardId: string) => medals.find((medal) => medal.id === awardId);
+export const medalFor = (awardId: string) => medals.find((medal) => medal.id === awardId && medal.front);
 
 /** Rows of large medals per NAVPERS 15665J Table 5-3-1 (1-5 one row; 6 = 3+3 ... 13 = 3+5+5; top row first). */
 const MEDAL_ROWS: Record<number, number[]> = {
@@ -536,7 +508,8 @@ export type Rank = {
   name: string;
   /** YYYY, YYYY-MM or YYYY-MM-DD; null shows "date needed". */
   date: string | null;
-  image: string;
+  /** Optional rating-badge art. Absent while insignia files are off the site. */
+  image?: string;
   explanation: string;
   note?: string;
 };
@@ -1127,7 +1100,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       facts,
       placeIds: [],
       related: [...(item.id === "etc" ? [rel("milestone", "cpo", "Promoted to Chief Petty Officer")] : [])],
-      hero: { type: "image", src: item.image, alt: `${item.name} (${item.abbreviation}) insignia`, shape: item.id === "sn" ? "square" : "tall" },
+      hero: item.image ? { type: "image", src: item.image, alt: `${item.name} (${item.abbreviation}) insignia`, shape: item.id === "sn" ? "square" : "tall" } : undefined,
     };
   }
 

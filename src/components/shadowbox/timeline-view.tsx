@@ -57,7 +57,7 @@ export function Timeline({
         {ranks.map((rank) => (
           <li key={rank.id}>
             <button type="button" className="rank-step" onClick={() => pick("rank", rank.id)}>
-              <img src={publicUrl(rank.image)} alt="" loading="lazy" />
+              {rank.image ? <img src={publicUrl(rank.image)} alt="" loading="lazy" /> : <span className="mark-word">{rank.abbreviation}</span>}
               <strong>{rank.date ? formatWhen(rank.date) : "Date needed"}</strong>
               <span>{rank.abbreviation} · {rank.grade}</span>
               <em>{rank.name}</em>
