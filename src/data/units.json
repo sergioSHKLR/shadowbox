@@ -12,8 +12,7 @@
     "precision": "month",
     "placeId": "great-lakes",
     "explanation": "Enlisted boot camp for the Navy, at Naval Station Great Lakes, Illinois. Recruit training was 10 weeks in September 1997.",
-    "civilian": "This is where a new sailor learns to live in the Navy before going on to a technical school.",
-    "image": "/crests/rtc-great-lakes.webp"
+    "civilian": "This is where a new sailor learns to live in the Navy before going on to a technical school."
   },
   {
     "id": "tortuga",
@@ -29,8 +28,7 @@
     "placeId": null,
     "explanation": "A Whidbey Island-class dock landing ship. It carries Marines with their vehicles and landing craft, and launches the craft from a well deck that floods. The dates of this assignment have not been entered.",
     "open": "USS Tortuga: dates not entered.",
-    "civilian": "A ship that carries Marines and their boats and vehicles to a beach.",
-    "image": "/crests/tortuga.webp"
+    "civilian": "A ship that carries Marines and their boats and vehicles to a beach."
   },
   {
     "id": "ntc-great-lakes",
@@ -46,8 +44,7 @@
     "placeId": "great-lakes",
     "explanation": "The Navy's training center at Great Lakes, Illinois. The emblem shown is the seal of Naval Station Great Lakes, the installation's current name. The dates of this assignment have not been entered.",
     "open": "NTC Great Lakes: dates not entered.",
-    "civilian": "The Navy's big training base north of Chicago.",
-    "image": "/crests/ntc-great-lakes.webp"
+    "civilian": "The Navy's big training base north of Chicago."
   },
   {
     "id": "ncts",
@@ -62,8 +59,7 @@
     "precision": "year",
     "placeId": "fisc-san-diego",
     "explanation": "A shore command that ran Navy computer and telecommunications services in San Diego. The shadowbox lists the NEC for this tour as 1589, calibration.",
-    "civilian": "A land-based communications station, not a ship.",
-    "image": "/crests/ncts.webp"
+    "civilian": "A land-based communications station, not a ship."
   },
   {
     "id": "frank-cable",
@@ -78,8 +74,7 @@
     "precision": "year",
     "placeId": "guam",
     "explanation": "A submarine tender: a ship that repairs, supplies, and houses the crews of submarines. In these years her home port was Guam. The NEC on the shadowbox for this tour is 1589. The three Navy E awards dated 2001, 2002, and 2003 fall in this tour.",
-    "civilian": "A repair ship for submarines, not a submarine itself.",
-    "image": "/crests/frank-cable-clean.webp"
+    "civilian": "A repair ship for submarines, not a submarine itself."
   },
   {
     "id": "eodmu5",
@@ -94,8 +89,7 @@
     "precision": "year",
     "placeId": "guam",
     "explanation": "Explosive Ordnance Disposal Mobile Unit Five, a Navy bomb-disposal unit then based in Guam. Assignment to the unit is not the same as being a bomb-disposal technician. The shadowbox lists the NEC as 9613, a communications specialty.",
-    "civilian": "The command's job was disposing of explosives. His recorded specialty there was communications.",
-    "image": "/crests/eodmu5-clean.webp"
+    "civilian": "The command's job was disposing of explosives. His recorded specialty there was communications."
   },
   {
     "id": "troy",
@@ -111,7 +105,6 @@
     "placeId": "fob-sykes",
     "explanation": "A joint and coalition task force in Iraq in 2006, during Operation Iraqi Freedom, stood up against roadside bombs. The shadowbox lists it as a 2006 assignment with NEC 9613, inside the EOD Mobile Unit Five years. The Iraq campaign phase named for this tour is National Resolution.",
     "civilian": "A temporary headquarters in Iraq, drawn from more than one country and more than one branch.",
-    "image": "/crests/tf-troy-patch.webp",
     "months": 6
   },
   {
@@ -128,8 +121,7 @@
     "placeId": null,
     "explanation": "A U.S. Army explosive ordnance disposal group. Joint/attached service; the role and dates have not been entered.",
     "open": "52nd Ordnance Group (EOD): role and dates not entered.",
-    "civilian": "An Army bomb-disposal headquarters.",
-    "image": "/crests/52nd-ordnance.webp"
+    "civilian": "An Army bomb-disposal headquarters."
   },
   {
     "id": "16th-engineer",
@@ -145,8 +137,7 @@
     "placeId": null,
     "explanation": "A U.S. Army engineer brigade, recorded as 16th EN. Joint/attached service; the role and dates have not been entered.",
     "open": "16th Engineer Brigade: role and dates not entered.",
-    "civilian": "An Army engineer headquarters.",
-    "image": "/crests/16th-engineer.webp"
+    "civilian": "An Army engineer headquarters."
   },
   {
     "id": "3rd-sfg",
@@ -162,8 +153,7 @@
     "placeId": null,
     "explanation": "A U.S. Army Special Forces group. Joint/attached service; the role and dates have not been entered. Shown with the Special Forces shoulder sleeve insignia and the 3rd Group beret flash.",
     "open": "3rd Special Forces Group: role and dates not entered.",
-    "civilian": "An Army Special Forces unit.",
-    "image": "/crests/3rd-sfg-flash-dui.webp"
+    "civilian": "An Army Special Forces unit."
   },
   {
     "id": "75th-ranger",
@@ -179,8 +169,7 @@
     "placeId": null,
     "explanation": "The U.S. Army's Ranger regiment. Joint/attached service; the role and dates have not been entered.",
     "open": "75th Ranger Regiment: role and dates not entered.",
-    "civilian": "An Army Ranger unit.",
-    "image": "/crests/75th-ranger.webp"
+    "civilian": "An Army Ranger unit."
   },
   {
     "id": "sercc",
@@ -195,8 +184,7 @@
     "precision": "year",
     "placeId": "nas-jax",
     "explanation": "The Navy's Southeast Regional Calibration Center, at Naval Air Station Jacksonville. A calibration center checks the test equipment other commands use. The NEC on this tour is 1589, which matches that work.",
-    "civilian": "A laboratory that keeps measuring tools honest.",
-    "image": "/crests/sercc.webp"
+    "civilian": "A laboratory that keeps measuring tools honest."
   },
   {
     "id": "ia-army",
@@ -212,19 +200,6 @@
     "placeId": "jb-balad",
     "explanation": "An individual augmentee is a sailor loaned to another service for a deployment. This one was to the Army, in Iraq, with NEC ET-0000, meaning no extra specialty code. The campaign phase named for this tour is Iraq Sovereignty. The Army unit was the 11th Air Defense Artillery Brigade. The collection includes a challenge coin from Task Force C-RAM, 3rd Battalion, 3rd Air Defense Artillery (3-3 ADA).",
     "civilian": "He was still a sailor, working inside an Army deployment.",
-    "image": "/crests/11th-ada.webp",
-    "extraImages": [
-      {
-        "src": "/crests/3-3ada-dui.webp",
-        "alt": "3rd Air Defense Artillery Regiment distinctive unit insignia (photograph), motto NON CEDO FERIO",
-        "caption": "Task Force C-RAM \u2014 3rd Battalion, 3rd Air Defense Artillery: the 3rd ADA Regiment crest"
-      },
-      {
-        "src": "/crests/tf-cram-3-3ada-coin.webp",
-        "alt": "Challenge coin: Task Force C-RAM, 3rd Battalion, 3rd Air Defense Artillery, Army and Navy",
-        "caption": "Task Force C-RAM \u2014 3rd Battalion, 3rd Air Defense Artillery (challenge coin)"
-      }
-    ],
     "months": 7
   },
   {
@@ -240,15 +215,7 @@
     "precision": "day",
     "placeId": "macdill",
     "explanation": "A joint unit, based at MacDill Air Force Base in Florida, that sends small communications teams out quickly for special operations and other joint commanders. Reported in 2009 and detached on 14 December 2014. The NEC listed for the tour is 9613. It included the two Afghanistan deployments.",
-    "civilian": "A communications unit made of every branch, not a Navy ship.",
-    "image": "/crests/jcse-ssi-airborne.svg",
-    "extraImages": [
-      {
-        "src": "/crests/jcse.webp",
-        "alt": "Seal of the Joint Communications Support Element (Airborne)",
-        "caption": "Joint Communications Support Element (Airborne): the unit seal"
-      }
-    ]
+    "civilian": "A communications unit made of every branch, not a Navy ship."
   },
   {
     "id": "cjsotf",
@@ -264,7 +231,6 @@
     "placeId": "fob-orgun-e",
     "explanation": "A joint special-operations headquarters in Afghanistan during Operation Enduring Freedom. The shadowbox lists it under the JCSE years, 2010\u20132011. The role in the record is communications, not service as a special operator.",
     "civilian": "The headquarters he supported. Being the communicator for that headquarters is not the same job as the operators it commanded.",
-    "image": "/crests/cjsotf.webp",
     "months": 7
   },
   {
@@ -280,7 +246,6 @@
     "precision": "day",
     "placeId": "nh-jax",
     "explanation": "The Navy hospital at Jacksonville, Florida, and the last active-duty command. He reported the day he detached from JCSE, 14 December 2014. Last duty assignment was Naval Hospital Jacksonville, with separation processing at the personnel support detachment on Naval Air Station Jacksonville.",
-    "civilian": "A hospital, not a ship. An electronics technician there maintains medical and other electronic equipment. The day-to-day job is not further described.",
-    "image": "/crests/navhosp.webp"
+    "civilian": "A hospital, not a ship. An electronics technician there maintains medical and other electronic equipment. The day-to-day job is not further described."
   }
 ]

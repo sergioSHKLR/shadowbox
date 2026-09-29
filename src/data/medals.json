@@ -1,103 +1,103 @@
 [
   {
     "id": "jscm",
-    "front": "/medals/jscm-front.webp",
-    "back": "/medals/jscm-back.webp",
+    "front": "",
+    "back": null,
     "w": 1.492,
     "h": 1.738,
     "drape": "flat"
   },
   {
     "id": "ncm",
-    "front": "/medals/ncm-front.webp",
-    "back": "/medals/ncm-back.webp",
+    "front": "",
+    "back": null,
     "w": 1.322,
     "h": 1.554,
     "drape": "flat"
   },
   {
     "id": "arcom",
-    "front": "/medals/arcom-front.webp",
-    "back": "/medals/arcom-back.webp",
+    "front": "",
+    "back": null,
     "w": 1.467,
     "h": 1.793,
     "drape": "flat"
   },
   {
     "id": "jsam",
-    "front": "/medals/jsam-front.webp",
-    "back": "/medals/jsam-back.webp",
+    "front": "",
+    "back": null,
     "w": 1.334,
     "h": 1.443,
     "drape": "flat"
   },
   {
     "id": "nam",
-    "front": "/medals/nam-front.webp",
-    "back": "/medals/nam-back.webp",
+    "front": "",
+    "back": null,
     "w": 1.248,
     "h": 1.488,
     "drape": "flat"
   },
   {
     "id": "aam",
-    "front": "/medals/aam-front.webp",
-    "back": "/medals/aam-back.webp",
+    "front": "",
+    "back": null,
     "w": 1.5,
     "h": 1.74,
     "drape": "flat"
   },
   {
     "id": "ngcm",
-    "front": "/medals/ngcm-front.webp",
-    "back": "/medals/ngcm-back.webp",
+    "front": "",
+    "back": null,
     "w": 1.352,
     "h": 1.435,
     "drape": "v"
   },
   {
     "id": "ndsm",
-    "front": "/medals/ndsm-front.webp",
-    "back": "/medals/ndsm-back.webp",
+    "front": "",
+    "back": null,
     "w": 1.204,
     "h": 1.388,
     "drape": "v"
   },
   {
     "id": "acm",
-    "front": "/medals/acm-front.webp",
-    "back": "/medals/acm-back.webp",
+    "front": "",
+    "back": null,
     "w": 1.379,
     "h": 1.661,
     "drape": "v"
   },
   {
     "id": "icm",
-    "front": "/medals/icm-front.webp",
-    "back": "/medals/icm-back.webp",
+    "front": "",
+    "back": null,
     "w": 1.39,
     "h": 1.697,
     "drape": "v"
   },
   {
     "id": "gwotsm",
-    "front": "/medals/gwotsm-front.webp",
-    "back": "/medals/gwotsm-back.webp",
+    "front": "",
+    "back": null,
     "w": 1.391,
     "h": 1.396,
     "drape": "flat"
   },
   {
     "id": "hsm",
-    "front": "/medals/hsm-front.webp",
-    "back": "/medals/hsm-back.webp",
+    "front": "",
+    "back": null,
     "w": 1.227,
     "h": 1.445,
     "drape": "flat"
   },
   {
     "id": "nato",
-    "front": "/medals/nato-front.webp",
+    "front": "",
     "back": null,
     "w": 1.42,
     "h": 1.42,

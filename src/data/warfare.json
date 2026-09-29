@@ -14,8 +14,7 @@
         "kind": "unit",
         "id": "frank-cable"
       }
-    ],
-    "image": "/insignia/pin-esws-stack.webp"
+    ]
   },
   {
     "id": "exw",
@@ -37,7 +36,6 @@
         "kind": "unit",
         "id": "jcse"
       }
-    ],
-    "image": "/insignia/pin-exw-stack.webp"
+    ]
   }
 ]
