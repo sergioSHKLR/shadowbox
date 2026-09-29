@@ -98,7 +98,7 @@ export function Case({
               <div className="grade-row" role="group" aria-label="Enlisted pay grades, E-3 to E-7">
                 {caseRanks.map((rank) => (
                   <button key={rank.id} type="button" className={`worn worn-grade worn-grade--${rank.id}`} onClick={() => onOpen("rank", rank.id)} aria-label={`${rank.name} (${rank.abbreviation}, ${rank.grade})${rank.date ? `, ${formatWhen(rank.date)}` : ""}`} title={`${rank.abbreviation} · ${rank.grade}`}>
-                    <img src={publicUrl(rank.image)} alt="" />
+                    {rank.image ? <img src={publicUrl(rank.image)} alt="" /> : <span className="mark-word">{rank.abbreviation}</span>}
                   </button>
                 ))}
               </div>

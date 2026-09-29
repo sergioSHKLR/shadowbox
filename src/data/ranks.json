@@ -5,7 +5,6 @@
     "abbreviation": "SN",
     "name": "Seaman",
     "date": "1997-06-30",
-    "image": "/insignia/rate-sn-e3.svg",
     "explanation": "Enlisted directly as a Seaman, E-3, so there was no time as a Seaman Recruit (E-1) or Seaman Apprentice (E-2). The seaman group rate mark is three diagonal stripes; on dress blues they are white on navy.",
     "note": "Advanced to E-3 at enlistment."
   },
@@ -15,7 +14,6 @@
     "abbreviation": "ET3",
     "name": "Electronics Technician Third Class",
     "date": "1998-12",
-    "image": "/insignia/rating-et3.svg",
     "explanation": "First petty officer grade. The rating badge is an eagle over the Electronics Technician mark over one chevron."
   },
   {
@@ -24,7 +22,6 @@
     "abbreviation": "ET2",
     "name": "Electronics Technician Second Class",
     "date": "1999-05",
-    "image": "/insignia/rating-et2.svg",
     "explanation": "Second class petty officer. The rating badge has two chevrons under the eagle and the Electronics Technician mark."
   },
   {
@@ -33,7 +30,6 @@
     "abbreviation": "ET1",
     "name": "Electronics Technician First Class",
     "date": "2003-06",
-    "image": "/insignia/rating-et1.svg",
     "explanation": "First class petty officer. The rating badge has three chevrons under the eagle and the Electronics Technician mark."
   },
   {
@@ -42,7 +38,6 @@
     "abbreviation": "ETC",
     "name": "Chief Electronics Technician",
     "date": "2014-09-16",
-    "image": "/insignia/rating-etc.svg",
     "explanation": "Chief petty officer. The rating badge gains a rocker over three chevrons, and the uniform changes to khakis with the fouled-anchor collar device. Held until retirement."
   }
 ]

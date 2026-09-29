@@ -11,31 +11,28 @@
         "kind": "milestone",
         "id": "cpo"
       }
-    ],
-    "image": "/insignia/et-rating-mark-oxidized.svg"
+    ]
   },
   {
     "id": "collar",
     "name": "Chief petty officer anchor",
     "short": "Chief",
     "glyph": "anchor",
-    "explanation": "The fouled anchor — an anchor with line wrapped around the stock, with the letters USN — is how a chief petty officer is recognized: in gold on the combination cap and, smaller, on the collar of khakis. It is the rank mark of an E-7.",
+    "explanation": "The fouled anchor \u2014 an anchor with line wrapped around the stock, with the letters USN \u2014 is how a chief petty officer is recognized: in gold on the combination cap and, smaller, on the collar of khakis. It is the rank mark of an E-7.",
     "criteria": "Worn after promotion to chief petty officer. Date of rank here is 16 September 2014.",
     "related": [
       {
         "kind": "milestone",
         "id": "cpo"
       }
-    ],
-    "image": "/insignia/cpo-anchor-cap.webp"
+    ]
   },
   {
     "id": "jcse-device",
     "name": "Joint Communications Support Element device",
     "short": "JCSE",
     "glyph": "jcse",
-    "image": "/insignia/jcse-device-stack.webp",
-    "explanation": "The badge of the Joint Communications Support Element, the joint communications unit of the 2009–2014 tour. Detached 14 December 2014.",
+    "explanation": "The badge of the Joint Communications Support Element, the joint communications unit of the 2009\u20132014 tour. Detached 14 December 2014.",
     "criteria": "Assignment to the Joint Communications Support Element.",
     "related": [
       {

@@ -1,40 +1,18 @@
 import type { Award, Device, Medal } from "@/lib/shadowbox/model";
 import { countPhrase, deviceSummary, medalFor, publicUrl, ribbonPlate } from "@/lib/shadowbox/model";
 
-const DEVICE_ART: Record<string, string> = {
-  "star-gold": "/devices/star-gold-vivid.svg", // the PR #2 (e30018b) star: dark #3a2804 outline, the most vivid look
-  "star-silver": "/devices/star-silver.svg",
-  "star-bronze": "/devices/star-bronze.svg",
-  "oak-bronze": "/devices/oak-bronze-b.svg",
-  "letter-silver-battle": "/devices/e-battle-silver.svg",
-  "letter-silver-expert": "/devices/e-expert-silver.svg",
-};
-
-/** Devices are drawn from the case-item art in public/devices. */
-function deviceArt(device: Device): string {
-  const key = device.kind === "letter" ? `letter-silver-${device.style ?? "expert"}` : `${device.kind}-${device.metal}`;
-  return DEVICE_ART[key] ?? DEVICE_ART[device.kind === "oak" ? "oak-bronze" : device.kind === "letter" ? "letter-silver-expert" : "star-bronze"];
-}
-
 export function Devices({ devices }: { devices: Device[] }) {
-  const glyphs = devices.flatMap((device, di) =>
-    Array.from({ length: device.count }, (_, i) => ({ device, key: `${di}-${i}` })),
-  );
-  if (!glyphs.length) return null;
-  return (
-    <span className={glyphs.length >= 4 ? "devices dense" : "devices"}>
-      {glyphs.map(({ device, key }) => (
-        <img key={key} className={`glyph glyph-${device.kind}${device.style ? ` glyph-e-${device.style}` : ""} metal-${device.metal}`} src={publicUrl(deviceArt(device))} alt="" />
-      ))}
-    </span>
-  );
+  void devices;
+  return null;
 }
 
 /** A ribbon plate with devices already drawn. No overlay. */
 export function RibbonArt({ award, className }: { award: Award; className?: string }) {
+  const src = ribbonPlate(award);
+  if (!src) return <span className={["ribbon ribbon-text", className].filter(Boolean).join(" ")}>{award.abbreviation}</span>;
   return (
     <span className={["ribbon", className].filter(Boolean).join(" ")}>
-      <img src={publicUrl(ribbonPlate(award))} alt="" />
+      <img src={publicUrl(src)} alt="" />
     </span>
   );
 }
@@ -47,9 +25,10 @@ export function RibbonButton({
   onOpen: () => void;
 }) {
   const label = `${award.name}. ${countPhrase(award)}. ${deviceSummary(award)}. Open the explanation.`;
+  const src = ribbonPlate(award);
   return (
-    <button type="button" className="ribbon" onClick={onOpen} aria-label={label}>
-      <img src={publicUrl(ribbonPlate(award))} alt="" />
+    <button type="button" className="ribbon ribbon-text" onClick={onOpen} aria-label={label}>
+      {src ? <img src={publicUrl(src)} alt="" /> : award.abbreviation}
     </button>
   );
 }
@@ -84,6 +63,7 @@ export function MedalArt({
   /** Width of the suspension ribbon left uncovered by the medal inboard of it (the wearer's-left part). */
   visibleIn?: number;
 }) {
+  if (!medal.front) return null;
   const glyphs = award.devices.reduce((n, d) => n + d.count, 0);
   const rowWidth = award.devices.reduce((w, d) => w + d.count * deviceWidthIn(d), 0) + Math.max(0, glyphs - 1) / 32;
   // Art. 5316.2.e: when medals overlap, attachments move to the wearer's left, centred on the visible part of the

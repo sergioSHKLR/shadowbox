@@ -116,14 +116,8 @@ function eventsIn(month: number): string[] {
   return out;
 }
 
-function badgeFor(s: State, u: UniformDef): { src: string; w: number; alt: string } | null {
-  if (u.kind === "choker" || u.kind === "khaki") return null; // CPOs wear collar devices on these
-  if (s.chief) return { src: "/insignia/cpo-et-rating-badge-vector.svg", w: 350, alt: "Chief Electronics Technician rating badge, gold" };
-  const white = u.look === "white";
-  if (s.rank.id === "sn") return { src: white ? "/insignia/rate-sn-e3-white.svg" : "/insignia/rate-sn-e3.svg", w: 230, alt: `Seaman group rate mark, ${white ? "navy on white" : "white on navy"}` };
-  const gold = s.gold && !white && s.rank.id === "et1";
-  const src = white ? `/insignia/rating-${s.rank.id}-white.svg` : gold ? "/insignia/rating-et1-gold.svg" : `/insignia/rating-${s.rank.id}.svg`;
-  return { src, w: 325, alt: `${s.rank.name} rating badge, ${white ? "blue on white" : gold ? "gold chevrons" : "red chevrons"}` };
+function badgeFor(_s: State, _u: UniformDef): { src: string; w: number; alt: string } | null {
+  return null;
 }
 
 /** Sleeve art cut from the sheet Sergio sent. Khaki wears no sleeve badge and no hash marks. */
@@ -137,7 +131,7 @@ function sleeveArt(s: State, u: UniformDef): { badge: string | null; hash: strin
   if (s.rank.id === "et1") return { badge: white ? "/uniforms/pieces/badge-et1-blue.png" : gold ? "/uniforms/pieces/badge-et1-gold.png" : "/uniforms/pieces/badge-et1-red.png", hash };
   if (s.rank.id === "et2") return { badge: white ? "/uniforms/pieces/badge-et2-blue.png" : "/uniforms/pieces/badge-et2-red.png", hash };
   if (s.rank.id === "et3") return { badge: white ? "/uniforms/pieces/badge-et3-blue.png" : "/uniforms/pieces/badge-et3-red.png", hash };
-  if (s.rank.id === "sn") return { badge: white ? "/insignia/rate-sn-e3-white.svg" : "/insignia/rate-sn-e3.svg", hash: null };
+  if (s.rank.id === "sn") return { badge: null, hash: null };
   return { badge: null, hash: null };
 }
 
@@ -344,9 +338,6 @@ export function UniformProgression({ onOpen, tour }: { onOpen: (k: Kind, id: str
               {!plate && badge ? (
                 <img key={badge.src} className="uprog-badge uprog-fade" src={publicUrl(badge.src)} alt="" style={{ width: u(badge.w), left: u(950 - badge.w / 2), top: u(badge.w > 300 ? 200 : 260) }} />
               ) : null}
-              {!plate && (uniform.kind === "choker" || uniform.kind === "khaki") ? (
-                <img className="uprog-collar uprog-fade" src={publicUrl("/insignia/cpo-anchor-cap.webp")} alt="" style={uniform.kind === "choker" ? { height: u(90), left: u(150), top: u(52) } : { height: u(110), left: u(170), top: u(170) }} />
-              ) : null}
               {primary && pinImg(primary.id) ? <PlateLayer className="uprog-fade" src={pinImg(primary.id)!} box={LAYER[primary.id as keyof typeof LAYER] ?? LAYER.esws} /> : null}
               {top.length ? (
                 <div className={`uprog-rack rack${plate ? " uprog-rack--top" : ""}`} style={plate ? undefined : { left: u(390 - 206.25), top: u(562.5), width: u(412.5) }}>
@@ -356,7 +347,6 @@ export function UniformProgression({ onOpen, tour }: { onOpen: (k: Kind, id: str
                 </div>
               ) : null}
               {secondary && pinImg(secondary.id) ? <PlateLayer className="uprog-fade" src={pinImg(secondary.id)!} box={LAYER[secondary.id as keyof typeof LAYER] ?? LAYER.exw} /> : null}
-              {plate && s.chief ? <PlateLayer className="uprog-fade" src="/insignia/jcse-device-stack.webp" box={LAYER.jcse} /> : null}
               {!plate && s.patch ? <img className="uprog-patch uprog-fade" src={publicUrl(s.patch.image)} alt="" style={{ width: u(300), left: u(800), top: u(150) }} /> : null}
               {!plate && !badge ? <span className="uprog-note" style={{ left: u(680), top: u(uniform.kind === "khaki" ? 800 : 400), width: u(540) }}>CPOs wear collar anchors, not a sleeve badge, on this uniform.</span> : null}
             </div>
