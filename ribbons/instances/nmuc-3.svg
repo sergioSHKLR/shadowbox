@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1.37in" height="0.37in" viewBox="0 0 131.664042 35.657293" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10">
-<g transform="translate(-921.6483,-71.3146)">
-<clipPath id="c2_7"><rect x="921.6483" y="71.3146" width="131.6640" height="35.6573"/></clipPath>
-<g clip-path="url(#c2_7)">
-<path fill="#bf9000" d="m1052.4886 71.563156l6.047241 0l0 35.433067l-6.047241 0z" fill-rule="evenodd"/>
-<path fill="#000000" fill-opacity="0.0" d="m1052.492 71.5146l131.52747 0l0 35.527557l-131.52747 0z" fill-rule="evenodd"/>
-<path stroke="#000000" stroke-width="1.0" stroke-linejoin="round" stroke-linecap="butt" d="m1052.492 71.5146l131.52747 0l0 35.527557l-131.52747 0z" fill-rule="evenodd"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="921.6483 71.3146 131.6640 35.6573" width="137" height="37" preserveAspectRatio="none">
+<path fill="#38761d" d="m921.0061 71.4293l38.519714 0l0 35.55905l-38.519714 0z" fill-rule="evenodd"/>
 <path fill="#f1c232" d="m959.5258 71.4293l6.2991943 0l0 35.55905l-6.2991943 0z" fill-rule="evenodd"/>
 <path fill="#1c4587" d="m965.82556 71.49229l9.070923 0l0 35.433075l-9.070923 0z" fill-rule="evenodd"/>
 <path fill="#cc0000" d="m980.8485 71.49229l11.905518 0l0 35.433075l-11.905518 0z" fill-rule="evenodd"/>
@@ -34,5 +29,6 @@
 <path fill="#743a26" d="m995.95715 89.457l-4.0060425 1.3220291l-5.2385254 -4.4859467z" fill-rule="evenodd"/>
 <path fill="#743a26" d="m995.9513 89.47976l-2.576416 -3.4278336l2.5599365 -6.475891z" fill-rule="evenodd"/>
 <path fill="#743a26" d="m995.98883 89.45683l4.0061035 1.3220291l5.2385254 -4.4859467z" fill-rule="evenodd"/>
-</g></g>
+<path fill="#000000" fill-opacity="0.0" d="m921.0061 71.44439l131.52759 0l0 35.527557l-131.52759 0z" fill-rule="evenodd"/>
+<path stroke="#000000" stroke-width="1.0" stroke-linejoin="round" stroke-linecap="butt" d="m921.0061 71.44439l131.52759 0l0 35.527557l-131.52759 0z" fill-rule="evenodd"/>
 </svg>
