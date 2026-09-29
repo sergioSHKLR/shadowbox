@@ -2,6 +2,7 @@ import { Outlet, createRootRoute, HeadContent, Scripts, Link } from "@tanstack/r
 import { AppErrorComponent } from "@/lib/error-component";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
+import mapStageCss from "../map-stage.css?url";
 import { profile } from "@/lib/shadowbox/model";
 
 export const Route = createRootRoute({
@@ -15,6 +16,7 @@ export const Route = createRootRoute({
     links: [
       { rel: "icon", type: "image/svg+xml", href: `${import.meta.env.BASE_URL || "/"}favicon.svg` },
       { rel: "stylesheet", href: appCss },
+      { rel: "stylesheet", href: mapStageCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -32,18 +34,3 @@ export const Route = createRootRoute({
     </main>
   ),
 });
-
-function Root() {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <Outlet />
-        <PreviewHostBridge />
-        <Scripts />
-      </body>
-    </html>
-  );
-}
