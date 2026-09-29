@@ -40,7 +40,6 @@ export function Case({
   const esws = mark("esws");
   const exw = mark("exw");
   const jcse = mark("jcse-device");
-  const anchor = mark("collar");
   const recruit = photos.find((photo) => photo.id === "recruit-portrait-1997");
   const chief = photos.find((photo) => photo.id === "chief-portrait-2018");
   const plaques = profile.casePlaques;
@@ -96,14 +95,13 @@ export function Case({
               </div>
               {exw ? renderMark(exw, "worn worn-pin") : null}
               {jcse ? renderMark(jcse, "worn worn-badge") : null}
-              <div className="grade-row" role="group" aria-label="Enlisted pay grades before chief: E-3 to E-6">
+              <div className="grade-row" role="group" aria-label="Enlisted pay grades, E-3 to E-7">
                 {caseRanks.map((rank) => (
                   <button key={rank.id} type="button" className={`worn worn-grade worn-grade--${rank.id}`} onClick={() => onOpen("rank", rank.id)} aria-label={`${rank.name} (${rank.abbreviation}, ${rank.grade})${rank.date ? `, ${formatWhen(rank.date)}` : ""}`} title={`${rank.abbreviation} · ${rank.grade}`}>
                     <img src={publicUrl(rank.image)} alt="" />
                   </button>
                 ))}
               </div>
-              {anchor ? renderMark(anchor, "worn worn-anchor") : null}
               {portraitWithPlaque(chief, plaques.chief)}
               <dl className="service-totals" aria-label="Service totals">
                 {[

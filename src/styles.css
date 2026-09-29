@@ -514,6 +514,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .worn-grade--et3 img { height: calc(var(--in) * 1.46); }
 .worn-grade--et2 img { height: calc(var(--in) * 1.63); }
 .worn-grade--et1 img { height: calc(var(--in) * 1.8); }
+.worn-grade--etc img { height: calc(var(--in) * 2.05); }
 
 /* Map filter chips: All plus one per pin group; wrap on phones. */
 .map-filter { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 0.6rem; }
