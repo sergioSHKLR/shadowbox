@@ -34,3 +34,18 @@ export const Route = createRootRoute({
     </main>
   ),
 });
+
+function Root() {
+  return (
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <Outlet />
+        <PreviewHostBridge />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
