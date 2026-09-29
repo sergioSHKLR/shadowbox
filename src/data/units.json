@@ -111,7 +111,8 @@
     "placeId": "fob-sykes",
     "explanation": "A joint and coalition task force in Iraq in 2006, during Operation Iraqi Freedom, stood up against roadside bombs. The shadowbox lists it as a 2006 assignment with NEC 9613, inside the EOD Mobile Unit Five years. The Iraq campaign phase named for this tour is National Resolution.",
     "civilian": "A temporary headquarters in Iraq, drawn from more than one country and more than one branch.",
-    "image": "/crests/tf-troy-patch.webp"
+    "image": "/crests/tf-troy-patch.webp",
+    "months": 6
   },
   {
     "id": "52nd-ordnance",
@@ -216,14 +217,15 @@
       {
         "src": "/crests/3-3ada-dui.webp",
         "alt": "3rd Air Defense Artillery Regiment distinctive unit insignia (photograph), motto NON CEDO FERIO",
-        "caption": "Task Force C-RAM — 3rd Battalion, 3rd Air Defense Artillery: the 3rd ADA Regiment crest"
+        "caption": "Task Force C-RAM \u2014 3rd Battalion, 3rd Air Defense Artillery: the 3rd ADA Regiment crest"
       },
       {
         "src": "/crests/tf-cram-3-3ada-coin.webp",
         "alt": "Challenge coin: Task Force C-RAM, 3rd Battalion, 3rd Air Defense Artillery, Army and Navy",
-        "caption": "Task Force C-RAM — 3rd Battalion, 3rd Air Defense Artillery (challenge coin)"
+        "caption": "Task Force C-RAM \u2014 3rd Battalion, 3rd Air Defense Artillery (challenge coin)"
       }
-    ]
+    ],
+    "months": 7
   },
   {
     "id": "jcse",
@@ -250,7 +252,7 @@
   },
   {
     "id": "cjsotf",
-    "name": "Combined Joint Special Operations Task Force — Afghanistan",
+    "name": "Combined Joint Special Operations Task Force \u2014 Afghanistan",
     "abbreviation": "CJSOTF-A",
     "patch": "CJSOTF-A",
     "branch": "JOINT",
@@ -260,9 +262,10 @@
     "end": "2011",
     "precision": "year",
     "placeId": "fob-orgun-e",
-    "explanation": "A joint special-operations headquarters in Afghanistan during Operation Enduring Freedom. The shadowbox lists it under the JCSE years, 2010–2011. The role in the record is communications, not service as a special operator.",
+    "explanation": "A joint special-operations headquarters in Afghanistan during Operation Enduring Freedom. The shadowbox lists it under the JCSE years, 2010\u20132011. The role in the record is communications, not service as a special operator.",
     "civilian": "The headquarters he supported. Being the communicator for that headquarters is not the same job as the operators it commanded.",
-    "image": "/crests/cjsotf.webp"
+    "image": "/crests/cjsotf.webp",
+    "months": 7
   },
   {
     "id": "navhosp",
