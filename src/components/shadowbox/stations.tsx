@@ -8,7 +8,7 @@ import {
   pinNumbersFor,
   type Kind,
 } from "@/lib/shadowbox/model";
-import { MapView, type BasemapId } from "@/components/shadowbox/map-view";
+import { MapView } from "@/components/shadowbox/map-view";
 
 type PinGroup = "duty" | "base" | "visit";
 const PIN_GROUPS: { id: PinGroup; label: string; legend: string }[] = [
@@ -18,14 +18,8 @@ const PIN_GROUPS: { id: PinGroup; label: string; legend: string }[] = [
 ];
 const pinGroupOf = (place: { type?: string | null }): PinGroup => (place.type === "base" ? "base" : place.type === "visit" ? "visit" : "duty");
 
-const BASEMAP_CHIPS: { id: BasemapId; label: string }[] = [
-  { id: "political", label: "Political" },
-  { id: "topo", label: "Topo" },
-];
-
 export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof careerStops>; onOpen: (k: Kind, id: string) => void }) {
   const [shown, setShown] = useState<PinGroup[] | null>(null);
-  const [basemap, setBasemap] = useState<BasemapId>("political");
   const isOn = (g: PinGroup) => !shown || shown.includes(g);
   const toggle = (g: PinGroup) =>
     setShown((cur) => {
@@ -107,13 +101,6 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
           </button>
         ))}
       </div>
-      <div className="map-filter" role="group" aria-label="Base map">
-        {BASEMAP_CHIPS.map((g) => (
-          <button key={g.id} type="button" className={`nav-btn${basemap === g.id ? " on" : ""}`} aria-pressed={basemap === g.id} onClick={() => setBasemap(g.id)}>
-            {g.label}
-          </button>
-        ))}
-      </div>
       <div ref={stageRef} className={`map-stage${cursor != null ? " is-playing" : ""}`}>
       <div className="map-play" role="group" aria-label="Play the map in career order">
         <button type="button" className="nav-btn icon-btn" aria-label="Back" title="Back" onClick={() => step(-1)} disabled={!stops.length}>
@@ -154,7 +141,6 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
           stops={stops}
           extra={cursor == null ? extraBases : []}
           tall
-          basemap={basemap}
           focusId={here?.place.id ?? null}
           revealedIds={cursor == null ? null : stops.slice(0, cursor + 1).map((stop) => stop.place.id)}
           onSelect={(id) => onOpen("place", id)}
