@@ -30,6 +30,23 @@ const PLATE: Record<string, string> = {
   "cpo-khaki": "/uniforms/timeline/khakis.svg",
 };
 
+/** Same viewBox as the four plates. Overlay art sits in this space, then the SVG is stretched inset 0,0. */
+const PLATE_BOX = { w: 1285.0393700787401, h: 2267.716535433071 };
+/** Pocket on chokers/khakis: x 232–692, y 754–1247. Pins stack above the pocket; JCSE sits on it. */
+const LAYER = {
+  esws: { x: 352, y: 584, w: 220, h: 80 },
+  exw: { x: 352, y: 674, w: 220, h: 68 },
+  jcse: { x: 397, y: 820, w: 130, h: 146 },
+};
+
+function PlateLayer({ src, box, className }: { src: string; box: { x: number; y: number; w: number; h: number }; className?: string }) {
+  return (
+    <svg className={["uprog-piece", className].filter(Boolean).join(" ")} viewBox={`0 0 ${PLATE_BOX.w} ${PLATE_BOX.h}`} preserveAspectRatio="none" aria-hidden="true">
+      <image href={publicUrl(src)} x={box.x} y={box.y} width={box.w} height={box.h} />
+    </svg>
+  );
+}
+
 const START = profile.serviceStart; // 1997-06-30
 const END = profile.serviceEnd; // 2018-02-28
 const ym = (v: string) => {
@@ -330,7 +347,7 @@ export function UniformProgression({ onOpen, tour }: { onOpen: (k: Kind, id: str
               {!plate && (uniform.kind === "choker" || uniform.kind === "khaki") ? (
                 <img className="uprog-collar uprog-fade" src={publicUrl("/insignia/cpo-anchor-cap.webp")} alt="" style={uniform.kind === "choker" ? { height: u(90), left: u(150), top: u(52) } : { height: u(110), left: u(170), top: u(170) }} />
               ) : null}
-              {primary && pinImg(primary.id) ? <img className="uprog-piece uprog-pin-top uprog-fade" src={publicUrl(pinImg(primary.id)!)} alt="" /> : null}
+              {primary && pinImg(primary.id) ? <PlateLayer className="uprog-fade" src={pinImg(primary.id)!} box={LAYER[primary.id as keyof typeof LAYER] ?? LAYER.esws} /> : null}
               {top.length ? (
                 <div className={`uprog-rack rack${plate ? " uprog-rack--top" : ""}`} style={plate ? undefined : { left: u(390 - 206.25), top: u(562.5), width: u(412.5) }}>
                   <div className="rack-row">
@@ -338,8 +355,8 @@ export function UniformProgression({ onOpen, tour }: { onOpen: (k: Kind, id: str
                   </div>
                 </div>
               ) : null}
-              {secondary && pinImg(secondary.id) ? <img className="uprog-piece uprog-pin-bot uprog-fade" src={publicUrl(pinImg(secondary.id)!)} alt="" /> : null}
-              {plate && s.chief ? <img className="uprog-piece uprog-jcse uprog-fade" src={publicUrl("/insignia/jcse-device-stack.webp")} alt="" /> : null}
+              {secondary && pinImg(secondary.id) ? <PlateLayer className="uprog-fade" src={pinImg(secondary.id)!} box={LAYER[secondary.id as keyof typeof LAYER] ?? LAYER.exw} /> : null}
+              {plate && s.chief ? <PlateLayer className="uprog-fade" src="/insignia/jcse-device-stack.webp" box={LAYER.jcse} /> : null}
               {!plate && s.patch ? <img className="uprog-patch uprog-fade" src={publicUrl(s.patch.image)} alt="" style={{ width: u(300), left: u(800), top: u(150) }} /> : null}
               {!plate && !badge ? <span className="uprog-note" style={{ left: u(680), top: u(uniform.kind === "khaki" ? 800 : 400), width: u(540) }}>CPOs wear collar anchors, not a sleeve badge, on this uniform.</span> : null}
             </div>
