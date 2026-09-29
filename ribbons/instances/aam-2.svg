@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1.37in" height="0.37in" viewBox="0 0 131.664042 35.657293" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10">
-<g transform="translate(-658.3202,-35.6573)">
-<clipPath id="c1_5"><rect x="658.3202" y="35.6573" width="131.6640" height="35.6573"/></clipPath>
-<g clip-path="url(#c1_5)">
-<path fill="#1c4587" d="m789.3192 35.88714l18.204712 0l0 35.55906l-18.204712 0z" fill-rule="evenodd"/>
-<path fill="#f1c232" d="m789.31793 35.88714l131.52753 0l0 35.433075l-131.52753 0zm4.429138 4.4291344l0 26.574802l122.66925 0l0 -26.574802z" fill-rule="evenodd"/>
-<path stroke="#bf9000" stroke-width="1.0" stroke-linejoin="round" stroke-linecap="butt" d="m789.31793 35.88714l131.52753 0l0 35.433075l-131.52753 0zm4.429138 4.4291344l0 26.574802l122.66925 0l0 -26.574802z" fill-rule="evenodd"/>
-<path fill="#000000" fill-opacity="0.0" d="m789.31793 35.885826l131.52753 0l0 35.527557l-131.52753 0z" fill-rule="evenodd"/>
-<path stroke="#000000" stroke-width="1.0" stroke-linejoin="round" stroke-linecap="butt" d="m789.31793 35.885826l131.52753 0l0 35.527557l-131.52753 0z" fill-rule="evenodd"/>
-</g></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="658.3202 35.6573 131.6640 35.6573" width="137" height="37" preserveAspectRatio="none">
+
 </svg>
