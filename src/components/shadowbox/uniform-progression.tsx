@@ -120,18 +120,8 @@ function badgeFor(_s: State, _u: UniformDef): { src: string; w: number; alt: str
   return null;
 }
 
-/** Sleeve art cut from the sheet Sergio sent. Khaki wears no sleeve badge and no hash marks. */
-function sleeveArt(s: State, u: UniformDef): { badge: string | null; hash: string | null } {
-  // Collar uniforms: anchors are on the plate. No sleeve crow or hashes.
-  if (u.kind === "khaki" || u.kind === "choker") return { badge: null, hash: null };
-  const white = u.look === "white";
-  const gold = s.gold && !white;
-  const hash = white ? "/uniforms/pieces/hash-blue.png" : gold ? "/uniforms/pieces/hash-gold.png" : "/uniforms/pieces/hash-red.png";
-  if (s.chief) return { badge: white ? "/uniforms/pieces/badge-cpo-on-white.png" : "/uniforms/pieces/badge-cpo.png", hash };
-  if (s.rank.id === "et1") return { badge: white ? "/uniforms/pieces/badge-et1-blue.png" : gold ? "/uniforms/pieces/badge-et1-gold.png" : "/uniforms/pieces/badge-et1-red.png", hash };
-  if (s.rank.id === "et2") return { badge: white ? "/uniforms/pieces/badge-et2-blue.png" : "/uniforms/pieces/badge-et2-red.png", hash };
-  if (s.rank.id === "et3") return { badge: white ? "/uniforms/pieces/badge-et3-blue.png" : "/uniforms/pieces/badge-et3-red.png", hash };
-  if (s.rank.id === "sn") return { badge: null, hash: null };
+/** Sleeve overlay art removed with the PNG pieces. Restore when SVG badges and hashes land. */
+function sleeveArt(_s: State, _u: UniformDef): { badge: string | null; hash: string | null } {
   return { badge: null, hash: null };
 }
 
