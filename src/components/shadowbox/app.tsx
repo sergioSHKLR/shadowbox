@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ShieldUser } from "lucide-react";
 import {
   awards,
@@ -485,6 +485,62 @@ function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof career
     });
   const stops = allStops.filter((stop) => isOn(pinGroupOf(stop.place)));
   const extraBases = isOn("base") ? bases.filter((place) => !allStops.some((stop) => stop.place.id === place.id)) : [];
+
+  // Play walks the filtered list in the same order as the pins. Null through = finished 2018 map.
+  const [cursor, setCursor] = useState<number | null>(null);
+  const [playing, setPlaying] = useState(false);
+  const listRef = useRef<HTMLOListElement>(null);
+  const last = Math.max(0, stops.length - 1);
+
+  useEffect(() => {
+    setPlaying(false);
+    setCursor(null);
+  }, [shown]);
+
+  useEffect(() => {
+    if (!playing || stops.length === 0) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setPlaying(false);
+      return;
+    }
+    const id = window.setInterval(() => {
+      setCursor((cur) => {
+        const next = cur == null ? 0 : cur + 1;
+        if (next >= stops.length) {
+          setPlaying(false);
+          return last;
+        }
+        return next;
+      });
+    }, 2200);
+    return () => window.clearInterval(id);
+  }, [playing, stops.length, last]);
+
+  useEffect(() => {
+    if (cursor == null || !listRef.current) return;
+    const row = listRef.current.querySelector(`[data-stop="${cursor}"]`);
+    row?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }, [cursor]);
+
+  const startPlay = () => {
+    setCursor((cur) => (cur == null || cur >= last ? 0 : cur));
+    setPlaying(true);
+  };
+  const stopPlay = () => setPlaying(false);
+  const resetPlay = () => {
+    setPlaying(false);
+    setCursor(null);
+  };
+  const step = (delta: number) => {
+    setPlaying(false);
+    setCursor((cur) => {
+      const base = cur == null ? (delta < 0 ? last : -1) : cur;
+      return Math.max(0, Math.min(last, base + delta));
+    });
+  };
+  const here = cursor == null ? null : stops[cursor];
+  const whenLabel = here?.when ? (here.when.length === 4 ? here.when : formatWhen(here.when)) : null;
+
   return (
     <main className="sheet">
       <h2>Where the career went</h2>
@@ -498,6 +554,34 @@ function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof career
           </button>
         ))}
       </div>
+      <div className="map-play" role="group" aria-label="Play the map in career order">
+        <button type="button" className={`nav-btn${playing ? " on" : ""}`} aria-pressed={playing} onClick={() => (playing ? stopPlay() : startPlay())}>
+          {playing ? "Pause" : "Play"}
+        </button>
+        <button type="button" className="nav-btn" onClick={() => step(-1)} disabled={!stops.length}>Back</button>
+        <button type="button" className="nav-btn" onClick={() => step(1)} disabled={!stops.length}>Next</button>
+        <button type="button" className="nav-btn" onClick={resetPlay} disabled={cursor == null}>Full map</button>
+        <p className="map-play-status" aria-live="polite">
+          {here
+            ? `${here.n ?? cursor! + 1} of ${stops.length}${whenLabel ? ` · ${whenLabel}` : ""} · ${here.place.name}`
+            : `Full map · ${stops.length} stops`}
+        </p>
+        {stops.length ? (
+          <label className="map-play-scrub">
+            <span className="sr-only">Stop in order</span>
+            <input
+              type="range"
+              min={0}
+              max={last}
+              value={cursor ?? last}
+              onChange={(event) => {
+                setPlaying(false);
+                setCursor(Number(event.target.value));
+              }}
+            />
+          </label>
+        ) : null}
+      </div>
       <ul className="map-legend" aria-label="Pin colours">
         {PIN_GROUPS.map((g) => (
           <li key={g.id}><span className={`pin-num ${g.id === "duty" ? "" : g.id}`}>1</span> {g.legend}</li>
@@ -505,12 +589,19 @@ function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof career
         <li><span className="pin-num approximate">1</span> Approximate location (dashed ring)</li>
       </ul>
       {stops.length || extraBases.length ? (
-        <MapView stops={stops} extra={extraBases} tall onSelect={(id) => onOpen("place", id)} />
+        <MapView
+          stops={stops}
+          extra={cursor == null ? extraBases : []}
+          tall
+          focusId={here?.place.id ?? null}
+          revealedIds={cursor == null ? null : stops.slice(0, cursor + 1).map((stop) => stop.place.id)}
+          onSelect={(id) => onOpen("place", id)}
+        />
       ) : null}
-      <ol className="stop-list">
+      <ol className="stop-list" ref={listRef}>
         {stops.map((stop, index) => (
-          <li key={`${stop.place.id}-${index}`}>
-            <button type="button" onClick={() => onOpen("place", stop.place.id)}>
+          <li key={`${stop.place.id}-${index}`} data-stop={index} className={cursor == null ? undefined : index === cursor ? "now" : index > cursor ? "later" : "reached"}>
+            <button type="button" onClick={() => { setPlaying(false); setCursor(index); onOpen("place", stop.place.id); }}>
               <span className={`pin-num ${stop.place.type ? `${stop.place.type} ` : ""}${stop.place.accuracy}`} aria-label={`Pin ${stop.n}`}>{stop.n}</span>
               <strong>{stop.place.name}</strong>
               <span>{stop.labels.join(" · ")}</span>
@@ -518,7 +609,7 @@ function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof career
           </li>
         ))}
       </ol>
-      {bases.length && isOn("base") ? (
+      {bases.length && isOn("base") && cursor == null ? (
         <>
           <h3>Deployment bases</h3>
           <ol className="stop-list">
