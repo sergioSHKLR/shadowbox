@@ -3,38 +3,20 @@ import { ShieldUser } from "lucide-react";
 import {
   awards,
   careerStops,
-  caseCopy,
-  credits,
-  formatSpan,
-  formatWhen,
-  insignia,
-  milestones,
-  necs,
   openRecord,
-  operations,
-  photos,
   profile,
   ribbonRows,
-  medalFor,
-  medalRows,
-  ranks,
-  caseRanks,
-  schools,
   timeline,
-  uniforms,
-  units,
-  warfare,
-  publicUrl,
-  UNIFORM_GROUPS,
-  EQUIPMENT_GROUPS,
-  equipment,
   type Kind,
   type Selection,
 } from "@/lib/shadowbox/model";
-import { CareerGlyph, MedalBlock, RibbonButton } from "@/components/shadowbox/marks";
 import { DetailPanel } from "@/components/shadowbox/detail";
-import { UniformProgression } from "@/components/shadowbox/uniform-progression";
+import { Case } from "@/components/shadowbox/case-view";
+import { Timeline } from "@/components/shadowbox/timeline-view";
+import { Uniforms } from "@/components/shadowbox/uniforms-view";
+import { EquipmentView } from "@/components/shadowbox/equipment-view";
 import { Stations } from "@/components/shadowbox/stations";
+import { Sources } from "@/components/shadowbox/sources-view";
 
 type View = "case" | "timeline" | "uniforms" | "equipment" | "map" | "sources";
 
