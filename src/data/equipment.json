@@ -128,8 +128,8 @@
   },
   {
     "id": "zodiac",
-    "group": "vehicles",
-    "order": 10,
+    "group": "ships",
+    "order": 29,
     "name": "Zodiac",
     "caption": "Combat rubber raiding craft (F470), ashore",
     "cutout": true,
