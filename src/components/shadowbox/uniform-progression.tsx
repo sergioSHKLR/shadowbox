@@ -24,11 +24,10 @@ const P = progressionJson as unknown as Progression;
 
 /** Blank uniform drawing for each uniform. Sleeve badges and the other pieces go on top of these. */
 const PLATE: Record<string, string> = {
-  "sdb-jumper": "/uniforms/timeline/dress-blue-jumper.svg",
-  "sdw-jumper": "/uniforms/timeline/dress-white-jumper.svg",
-  "cpo-sdb": "/uniforms/timeline/cpo-dress-blue.svg",
-  "cpo-sdw": "/uniforms/timeline/cpo-dress-white.svg",
-  "cpo-khaki": "/uniforms/timeline/service-khaki.svg",
+  "sdb-jumper": "/uniforms/timeline/blue-jumper.svg",
+  "sdw-jumper": "/uniforms/timeline/white-jumper.svg",
+  "cpo-sdw": "/uniforms/timeline/chokers.svg",
+  "cpo-khaki": "/uniforms/timeline/khakis.svg",
 };
 
 const START = profile.serviceStart; // 1997-06-30
@@ -112,7 +111,8 @@ function badgeFor(s: State, u: UniformDef): { src: string; w: number; alt: strin
 
 /** Sleeve art cut from the sheet Sergio sent. Khaki wears no sleeve badge and no hash marks. */
 function sleeveArt(s: State, u: UniformDef): { badge: string | null; hash: string | null } {
-  if (u.kind === "khaki") return { badge: null, hash: null };
+  // Collar uniforms: anchors are on the plate. No sleeve crow or hashes.
+  if (u.kind === "khaki" || u.kind === "choker") return { badge: null, hash: null };
   const white = u.look === "white";
   const gold = s.gold && !white;
   const hash = white ? "/uniforms/pieces/hash-blue.png" : gold ? "/uniforms/pieces/hash-gold.png" : "/uniforms/pieces/hash-red.png";
