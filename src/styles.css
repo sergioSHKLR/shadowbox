@@ -573,5 +573,6 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .uprog-side ul { list-style: none; margin: 0.5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 0.4rem; }
 .uprog-side button { width: 100%; min-height: 44px; display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 0.5rem; align-items: center; padding: 0.35rem 0.45rem; background: #fff; border: 1px solid var(--color-line); cursor: pointer; font: inherit; color: var(--color-ink); text-align: left; }
 .uprog-side button .ribbon { --in: 2.2rem; grid-row: span 2; }
+.uprog-side button > img { width: 2.4rem; height: auto; grid-row: span 2; object-fit: contain; }
 .uprog-side button span:not(.ribbon) { font-weight: 600; font-size: 0.85rem; }
 .uprog-side button em { font-size: 0.72rem; color: #5b5345; }
