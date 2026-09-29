@@ -25,10 +25,10 @@
   border-color: var(--color-navy);
   box-shadow: none;
 }
-.nav-btn:hover {
-  background: #0c1726;
-  color: var(--color-ivory);
-  border-color: #0c1726;
+.nav-btn:hover:not(:disabled),
+.nav-btn.on:hover:not(:disabled) {
+  border-color: var(--color-brass-bright);
+  box-shadow: 0 0 0 2px var(--color-brass-bright);
 }
 .nav-btn.on {
   background: var(--color-brass);
@@ -36,10 +36,11 @@
   border-color: var(--color-brass);
   box-shadow: none;
 }
-.nav-btn.on:hover {
-  background: var(--color-brass-bright);
+.nav-btn.on {
+  background: var(--color-brass);
   color: var(--color-navy);
-  border-color: var(--color-brass-bright);
+  border-color: var(--color-brass);
+  box-shadow: none;
 }
 .nav-btn:disabled {
   opacity: 0.45;
