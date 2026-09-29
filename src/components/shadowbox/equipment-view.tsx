@@ -1,4 +1,5 @@
 import { useState } from "react";
+import usedHereJson from "@/data/used-here.json";
 import {
   caseCopy,
   equipment,
@@ -7,9 +8,10 @@ import {
   publicUrl,
   unitById,
   units,
-  usedHere,
   type Kind,
 } from "@/lib/shadowbox/model";
+
+const usedHere = usedHereJson as Record<string, string[]>;
 
 function ownersOf(id: string): string[] {
   const found = new Set<string>();
@@ -35,7 +37,6 @@ const COMMANDS = [...new Set(equipment.flatMap((item) => ownersOf(item.id)))]
 
 export function EquipmentView({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
   const [shown, setShown] = useState<string[] | null>(null);
-  const isOn = (id: string) => !shown || shown.includes(id);
   const toggle = (id: string) =>
     setShown((cur) => {
       if (!cur) return [id];
