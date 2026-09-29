@@ -85,8 +85,12 @@ a { color: var(--color-navy); }
 }
 /* Active chip: black text on the same oxidized brushed brass as the plaques. Inactive chips are unchanged; hover and keyboard focus stay visible on both. */
 .nav-btn.on { background: var(--brass-plate); color: #000000; border-color: #6e531c; box-shadow: inset 0 1px 0 rgba(255, 236, 180, 0.35), inset 0 -1px 0 rgba(70, 50, 14, 0.55); }
-.nav-btn:not(.on):hover { border-color: var(--color-brass); }
-.nav-btn.on:hover { background: linear-gradient(rgba(40, 28, 8, 0.07), rgba(40, 28, 8, 0.07)), var(--brass-plate); }
+/* Hover is a brass ring. Fill and type stay put so navy chips do not sink and brass chips do not muddy. */
+.nav-btn:not(.on):hover { border-color: var(--color-brass-bright); box-shadow: 0 0 0 2px var(--color-brass-bright); }
+.nav-btn.on:hover {
+  border-color: var(--color-brass-bright);
+  box-shadow: inset 0 1px 0 rgba(255, 236, 180, 0.35), inset 0 -1px 0 rgba(70, 50, 14, 0.55), 0 0 0 2px var(--color-brass-bright);
+}
 .nav-btn:focus-visible { outline: 2px solid var(--color-navy); outline-offset: 2px; }
 
 .case-frame {
