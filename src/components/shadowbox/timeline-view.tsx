@@ -45,10 +45,12 @@ export function Timeline({
       <h2>{profile.serviceLength}, one line</h2>
       <p>{caseCopy.timelineLead}</p>
       <div className="chart-scroll">
+        <div className="chart-stack">
         <Track label="Rank" items={bars.rank} onOpen={pick} />
         <Track label="Assignments" items={bars.duty} onOpen={pick} />
         <Track label="Deployments" items={bars.ops} onOpen={pick} />
         <Track label="Schools" items={bars.study} onOpen={onOpen} />
+        </div>
       </div>
       <h3>Rank progression</h3>
       <ol className="rank-steps">
