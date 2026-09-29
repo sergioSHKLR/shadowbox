@@ -311,5 +311,25 @@
     "accuracy": "approximate",
     "note": "Bitburg, Germany, near Spangdahlem Air Base. A stopover on the way home from the 2006 EOD deployment. The exact site in Bitburg is not recorded, so the pin is approximate.",
     "type": "visit"
+  },
+  {
+    "id": "norfolk",
+    "name": "Naval Station Norfolk",
+    "locality": "Norfolk, Virginia",
+    "lat": 36.946,
+    "lng": -76.327,
+    "accuracy": "public-site",
+    "note": "Public location of Naval Station Norfolk. Safety Programs Afloat and Afloat HAZMAT Coordinator were taught at the Naval Occupational Safety, Health and Environmental Training Center here. ADAMS for Supervisors was at CPPD Detachment DAPMA Norfolk.",
+    "type": "visit"
+  },
+  {
+    "id": "nab-coronado",
+    "name": "Naval Special Warfare Center, Coronado",
+    "locality": "Coronado, California",
+    "lat": 32.676,
+    "lng": -117.16,
+    "accuracy": "public-site",
+    "note": "Public location of the Naval Special Warfare Center / NAB Coronado, where the NSW Communications course (K-431-0141) was taken.",
+    "type": "visit"
   }
 ]
