@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { ShadowboxApp } from "@/components/shadowbox/app";
 import "./styles.css";
+import "./map-stage.css";
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Missing #root");
