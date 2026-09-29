@@ -203,16 +203,6 @@
       "until": "2014-09-15"
     },
     {
-      "id": "cpo-sdb",
-      "look": "blue",
-      "kind": "coat",
-      "name": "CPO Service Dress Blue",
-      "short": "CPO Dress Blues",
-      "grades": "CPO",
-      "from": "2014-09-16",
-      "until": null
-    },
-    {
       "id": "cpo-sdw",
       "look": "white",
       "kind": "choker",
