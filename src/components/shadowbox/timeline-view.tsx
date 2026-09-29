@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   awards,
   caseCopy,
@@ -12,7 +13,9 @@ import {
   ribbonRows,
   schools,
   timeline,
+  tourFocus,
   type Kind,
+  type TourFocus,
 } from "@/lib/shadowbox/model";
 import { UniformProgression } from "@/components/shadowbox/uniform-progression";
 
@@ -27,6 +30,12 @@ export function Timeline({
   blanks: string[];
   onOpen: (k: Kind, id: string) => void;
 }) {
+  const [tour, setTour] = useState<TourFocus | null>(null);
+  const pick = (kind: Kind, id: string) => {
+    const next = tourFocus(kind, id);
+    if (next) setTour(next);
+    else onOpen(kind, id);
+  };
   const dated = [
     ...schools.map((school) => ({ key: `school-${school.id}`, when: school.start ?? "", kind: "school" as Kind, id: school.id, title: school.name, note: school.length ?? "length not entered" })),
     ...milestones.map((mark) => ({ key: `milestone-${mark.id}`, when: mark.date ?? "", kind: "milestone" as Kind, id: mark.id, title: mark.title, note: "Career" })),
@@ -36,16 +45,16 @@ export function Timeline({
       <h2>{profile.serviceLength}, one line</h2>
       <p>{caseCopy.timelineLead}</p>
       <div className="chart-scroll">
-        <Track label="Rank" items={bars.rank} onOpen={onOpen} />
-        <Track label="Assignments" items={bars.duty} onOpen={onOpen} />
-        <Track label="Deployments" items={bars.ops} onOpen={onOpen} />
+        <Track label="Rank" items={bars.rank} onOpen={pick} />
+        <Track label="Assignments" items={bars.duty} onOpen={pick} />
+        <Track label="Deployments" items={bars.ops} onOpen={pick} />
         <Track label="Schools" items={bars.study} onOpen={onOpen} />
       </div>
       <h3>Rank progression</h3>
       <ol className="rank-steps">
         {ranks.map((rank) => (
           <li key={rank.id}>
-            <button type="button" className="rank-step" onClick={() => onOpen("rank", rank.id)}>
+            <button type="button" className="rank-step" onClick={() => pick("rank", rank.id)}>
               <img src={publicUrl(rank.image)} alt="" loading="lazy" />
               <strong>{rank.date ? formatWhen(rank.date) : "Date needed"}</strong>
               <span>{rank.abbreviation} · {rank.grade}</span>
@@ -61,7 +70,7 @@ export function Timeline({
           </div>
         </li>
       </ol>
-      <UniformProgression onOpen={onOpen} />
+      <UniformProgression onOpen={onOpen} tour={tour} />
       <h3>Operations, named as the record names them</h3>
       <ul className="stack">
         {operations.map((op) => (
