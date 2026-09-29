@@ -541,8 +541,8 @@ export type Rank = {
   note?: string;
 };
 export const ranks = ranksJson as Rank[];
-/** Grades shown as worn badges in the case (the chief is shown by the anchor and rating badge already there). */
-export const caseRanks = ranks.filter((r) => r.id !== "etc");
+/** Grades shown as worn badges in the case, Seaman through Chief. */
+export const caseRanks = ranks;
 
 export type Bar = {
   key: string;
