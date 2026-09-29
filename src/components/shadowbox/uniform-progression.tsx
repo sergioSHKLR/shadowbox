@@ -120,6 +120,7 @@ function sleeveArt(s: State, u: UniformDef): { badge: string | null; hash: strin
   if (s.rank.id === "et1") return { badge: white ? "/uniforms/pieces/badge-et1-blue.png" : gold ? "/uniforms/pieces/badge-et1-gold.png" : "/uniforms/pieces/badge-et1-red.png", hash };
   if (s.rank.id === "et2") return { badge: white ? "/uniforms/pieces/badge-et2-blue.png" : "/uniforms/pieces/badge-et2-red.png", hash };
   if (s.rank.id === "et3") return { badge: white ? "/uniforms/pieces/badge-et3-blue.png" : "/uniforms/pieces/badge-et3-red.png", hash };
+  if (s.rank.id === "sn") return { badge: white ? "/insignia/rate-sn-e3-white.svg" : "/insignia/rate-sn-e3.svg", hash: null };
   return { badge: null, hash: null };
 }
 
@@ -279,10 +280,7 @@ export function UniformProgression({ onOpen }: { onOpen: (k: Kind, id: string) =
   const uniform = s.uniforms.find((x) => x.look === look) ?? s.uniforms.find((x) => x.look === "blue") ?? s.uniforms[0];
   const badge = badgeFor(s, uniform);
   const sleeve = sleeveArt(s, uniform);
-  const top = [...awards]
-    .filter((a) => P.awards.some((row) => row.awardId === a.id))
-    .sort((a, b) => a.precedence - b.precedence)
-    .slice(0, 3);
+  const top = s.ribbons.slice(0, 3);
   const plate = PLATE[uniform.id];
   const primary = s.pins.find((p) => p.position === "primary");
   const secondary = s.pins.find((p) => p.position === "secondary");
@@ -367,7 +365,7 @@ export function UniformProgression({ onOpen }: { onOpen: (k: Kind, id: string) =
               return (
                 <li key={a.awardId}>
                   <button type="button" onClick={() => onOpen("award", award.id)}>
-                    <RibbonArt award={award} />
+                    <RibbonArt award={{ ...award, devices: [] }} />
                     <span>{award.abbreviation}</span>
                     <em>date needed{a.recordYears.length ? ` · record years ${a.recordYears.join(", ")}` : ""}</em>
                   </button>
