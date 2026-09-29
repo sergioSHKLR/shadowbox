@@ -3,63 +3,127 @@
     "id": "nec-1460",
     "code": "1460",
     "name": "COMSEC Maintenance Technician",
+    "awarded": "2004-05-11",
     "years": "11 years, 7 months",
     "role": "listed-first",
-    "explanation": "COMSEC is communications security: the equipment that encrypts military messages. A maintenance technician keeps that equipment working. Time in this NEC: 11 years and 7 months.",
-    "criteria": "Awarded after COMSEC maintenance school and work in the specialty."
+    "legacyOf": null,
+    "explanation": "Performs organizational-level maintenance on KY-57/58, AN/WSC-43 and KG-84A/C, including inspections, servicing, and replacing faulty assemblies. Diagnoses faults with prescribed procedures, BIT, and special or general-purpose test equipment. Time in this NEC on the shadowbox: 11 years and 7 months. JST award date 11 May 2004.",
+    "criteria": "Awarded after COMSEC maintenance school (A-160-0116) and work in the specialty."
   },
   {
     "id": "nec-9613",
     "code": "9613",
-    "name": "NSW Communications Technician",
+    "name": "Naval Special Warfare Communications Technician",
+    "awarded": "2004-11-12",
     "years": "7 years, 11 months",
     "role": "favorite",
-    "explanation": "NSW means Naval Special Warfare. This NEC is a communications technician who supports those units. It is not the same thing as being a SEAL. The shadowbox lists 9613 as the last NEC, and the notes on this career call it the favorite. Time in this NEC: 7 years and 11 months.",
-    "criteria": "Awarded for communications work in support of Naval Special Warfare."
+    "explanation": "Operate and maintain NSW ship and shore communications as fielded to Mobile Communications Teams, commissioned ships, Special Boat Units, SEAL and SDV teams, and NSW units. Includes Joint Base Station variants, SINCGARS, Havequick and LPE-capable radios, and other multi-band and HF SOF radios, plus EKMS and TACSAT procedures. This is a communications NEC in support of NSW. It is not a SEAL NEC. JST award date 12 November 2004.",
+    "criteria": "Awarded after NSW Communications school (K-431-0141) and work in that specialty."
   },
   {
     "id": "nec-1589",
     "code": "1589",
-    "name": "FECL Calibration Technician",
+    "name": "Fleet Electronics Calibration (FECL) Technician",
+    "awarded": "1999-09-29",
     "years": "7 years, 6 months",
     "role": "primary",
-    "explanation": "FECL is a field calibration lab. The job is to test and adjust the Navy's electronic measuring gear so other repairs can be trusted. The notes on this career call 1589 the primary NEC. Time in this NEC: 7 years and 6 months.",
-    "criteria": "Awarded after calibration school and work in a field calibration activity."
+    "explanation": "Performs intermediate-level maintenance, repair, calibration, and documentation of surface-ship general-purpose electronic test equipment in Fleet Electronic Calibration Laboratories and selected Field Calibration Activities. JST award date 29 September 1999.",
+    "criteria": "Awarded after GPETE/FCAM school at Keesler and work in a field calibration activity."
   },
   {
     "id": "nec-9527",
     "code": "9527",
     "name": "Miniature Electronic Repair Technician",
+    "awarded": "2008-04-05",
     "years": "2 years",
     "role": "held",
-    "explanation": "Component-level repair of small electronic assemblies: finding the failed part on a circuit card and replacing it, rather than swapping the whole box.",
+    "explanation": "Identifies, removes, and applies conformal coatings; removes and replaces discrete and multi-lead components; prepares and installs eyelets; repairs conductors and laminates; and makes related 2M repairs per NAVSEAINST 4790.17 and the 2M technical manual. JST award date 5 April 2008. Later construct is 784A.",
     "criteria": "Awarded after miniature-repair training and work in that shop."
+  },
+  {
+    "id": "nec-9571",
+    "code": "9571",
+    "name": "Safety Technician",
+    "awarded": "2003-11-08",
+    "years": null,
+    "role": "held",
+    "legacyOf": "825A",
+    "explanation": "Assists the safety officer or safety manager in running the Navy Safety and Occupational Health program, traffic safety, and recreational/off-duty safety. Identifies hazards and unsafe work practices, helps evaluate workplaces, prepares mishap reports, keeps hazard-abatement records, and conducts SOH training. Source: NAVPERS 18068F Vol II (legacy 9571; current 825A). JST award date 8 November 2003.",
+    "criteria": "May be earned after Safety Program Afloat PQS and a qualifying course such as Safety Programs Afloat (A-493-2099)."
+  },
+  {
+    "id": "nec-9502",
+    "code": "9502",
+    "name": "Instructor",
+    "awarded": "2004-01-20",
+    "years": null,
+    "role": "held",
+    "legacyOf": "805A",
+    "explanation": "Directs teaching in formal Navy training. Delivers material, administers tests, counsels students, documents performance, evaluates training, and maintains curriculum. Source: NAVPERS 18068F Vol II (legacy 9502; current 805A). JST award date 20 January 2004.",
+    "criteria": "Awarded after an approved instructor course. JST lists Instructor Training Paperbased-Mobile Team Training (A-012-1011) on 19 December 2003."
   },
   {
     "id": "nec-9qpb",
     "code": "9QPB",
     "name": "Portuguese-Brazilian language",
+    "awarded": "2012-07-13",
     "years": "3 years, 11 months",
     "role": "held",
-    "explanation": "A Navy language qualification for Portuguese as spoken in Brazil. Time in this qualification: 3 years and 11 months.",
-    "criteria": "Awarded after the Navy recognizes the language skill."
+    "explanation": "Language NEC for Portuguese as spoken in Brazil. Identifies proficiency required for billets and personnel. DLPT scores of 3 recorded 3 July 2012, 1 July 2014, and 24 August 2016. JST NEC date 13 July 2012.",
+    "criteria": "Awarded after the Navy recognizes the language skill, typically from DLPT."
   },
   {
     "id": "nec-90bc",
     "code": "90BC",
-    "name": "GWOT Support Assignment \u2014 base combat unit member",
+    "name": "GWOT Support Assignment — Basic Combat Unit Member",
+    "awarded": "2012-05-01",
     "years": "1 year",
     "role": "held",
-    "explanation": "A code used to record a Global War on Terrorism support assignment as a member of a base combat unit. Time recorded: one year.",
-    "criteria": "Entered for that assignment. It is an administrative NEC, not a technical school."
+    "legacyOf": "800G",
+    "explanation": "Completion of training and experience as a Basic Combat Unit Member. Qualified on M16 and M9, licensed on HMMWV, trained in land navigation, Ground Assault Course, entry-control point, QRF, FOB defense against a level-one threat, foreign-weapons recognition, detainee-operations standards, and Combat Lifesaver. Source: NAVPERS 18068F Vol II (legacy 90BC; current 800G). JST also lists 800G on 30 September 2017 as the later code for the same skill.",
+    "criteria": "IA/ILO tracking NEC. Formal training plus OJT; not a technical A-school."
+  },
+  {
+    "id": "nec-90cr",
+    "code": "90CR",
+    "name": "GWOT Support Assignment — Counter Rocket Artillery and Mortar (C-RAM)",
+    "awarded": "2012-08-07",
+    "years": null,
+    "role": "held",
+    "legacyOf": "803G",
+    "explanation": "Completion of training in Counter Rocket Artillery and Mortar (C-RAM), truck-mounted CIWS, full platoon. Graduates perform operation and maintenance of FAAD C4I in support of SHORAD weapons and the maneuver force. Source: NAVPERS 18068F Vol II (legacy 90CR; current 803G). JST award date 7 August 2012.",
+    "criteria": "IA tracking NEC for the C-RAM assignment. Formal training plus OJT through Fleet Forces / ECRC."
+  },
+  {
+    "id": "nec-90mn",
+    "code": "90MN",
+    "name": "Individual GWOT IA/ILO Multi-National Force",
+    "awarded": "2012-08-07",
+    "years": null,
+    "role": "held",
+    "legacyOf": "817G",
+    "explanation": "Training and experience as a member of a Multi-National Force. GWOT IA/ILO personnel on orders in support of a Multi-National Force commander. Source: NAVPERS 18068F Vol II (legacy 90MN; current 817G). JST award date 7 August 2012.",
+    "criteria": "IA tracking NEC. Combination of U.S. Army training and OJT."
+  },
+  {
+    "id": "nec-95pt",
+    "code": "95PT",
+    "name": "Command Fitness Leader",
+    "awarded": "2015-08-25",
+    "years": null,
+    "role": "held",
+    "legacyOf": "8CFL",
+    "explanation": "Conducts a safe physical readiness program afloat and ashore: command PT and fitness-enhancement programming, official PFA administration, nutrition and weight management, and PRP records (separations, medical waivers). Source: NAVPERS 18068F Vol II (legacy 95PT; current 8CFL). Course CIN S-562-0612. JST award date 25 August 2015; 8CFL also listed 30 September 2017 as the recode.",
+    "criteria": "Mandatory CFL course S-562-0612 plus OPNAVINST 6110.1 screening (non-tobacco, body-composition, Excellent PRT, CPR)."
   },
   {
     "id": "nec-0000",
     "code": "ET-0000",
     "name": "Electronics Technician, no specific NEC",
+    "awarded": null,
     "years": null,
     "role": "held",
-    "explanation": "ET-0000 means the Electronics Technician rating with no additional NEC in effect. The shadowbox shows it on the 2008\u20132009 individual augmentee tour with the Army.",
+    "explanation": "ET-0000 means the Electronics Technician rating with no additional NEC in effect. The shadowbox shows it on the 2008–2009 individual augmentee tour with the Army.",
     "criteria": "Used when no specialty code applies to the assignment."
   }
 ]
