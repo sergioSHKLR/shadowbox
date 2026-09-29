@@ -67,7 +67,7 @@ export function ShadowboxApp() {
         </nav>
       </header>
 
-      {view === "case" ? <Case rows={rows} onOpen={open} onOpenMedal={(id) => setSelection({ kind: "award", id, medal: true })} /> : null}
+      {view === "case" ? <Case rows={rows} onOpen={open} /> : null}
       {view === "timeline" ? <Timeline bars={bars} rows={rows} blanks={blanks} onOpen={open} /> : null}
       {view === "uniforms" ? <Uniforms onOpen={open} /> : null}
       {view === "equipment" ? <EquipmentView onOpen={open} /> : null}
