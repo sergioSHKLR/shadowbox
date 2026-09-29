@@ -18,17 +18,29 @@
 }
 .map-play .nav-btn.icon-btn svg { display: block; }
 
-/* Chips and transport: brand navy, not the brass plate. */
+/* Chips: idle navy, selected gold. Plaques stay brass. */
+.nav-btn {
+  background: var(--color-navy);
+  color: var(--color-ivory);
+  border-color: var(--color-navy);
+  box-shadow: none;
+}
+.nav-btn:hover {
+  background: #0c1726;
+  color: var(--color-ivory);
+  border-color: #0c1726;
+}
 .nav-btn.on {
-  background: #14233a;
-  color: #f6f1e7;
-  border-color: #14233a;
+  background: var(--color-brass);
+  color: var(--color-navy);
+  border-color: var(--color-brass);
   box-shadow: none;
 }
 .nav-btn.on:hover {
-  background: #0c1726;
-  color: #f6f1e7;
+  background: var(--color-brass-bright);
+  color: var(--color-navy);
+  border-color: var(--color-brass-bright);
 }
-.nav-btn:not(.on):hover {
-  border-color: #14233a;
+.nav-btn:disabled {
+  opacity: 0.45;
 }
