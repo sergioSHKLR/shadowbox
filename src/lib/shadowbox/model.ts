@@ -135,6 +135,8 @@ export type Unit = {
   designator?: Designator;
   /** Further images shown under the crest in the unit popup (e.g. a coin). */
   extraImages?: ExtraImage[];
+  /** Tour length in months when start/end are year-only. */
+  months?: number;
 };
 
 export const DESIGNATORS = ["Instruction", "Assigned", "Deployed", "Assisting", "Parent", "TAD"] as const;
@@ -154,6 +156,8 @@ export type Operation = {
   placeId: string | null;
   /** Bases (place ids with type "base") this deployment used. One-line edit per deployment. */
   baseIds?: string[];
+  /** Boots-on-ground length in months when start/end are year-only. */
+  months?: number;
   explanation: string;
   open?: string;
 };
@@ -635,7 +639,7 @@ function assignmentBars(): Omit<Bar, "lane" | "left" | "width">[] {
       ...spanOf(unit),
       group: "duty" as const,
       point: false,
-      days: null,
+      days: unit.months ? Math.round(unit.months * 30.44) : null,
     }))
     .sort((a, b) => a.start - b.start || a.end - b.end);
   for (let i = 0; i < bars.length - 1; i++) {
@@ -672,7 +676,7 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]
       end: bound(op.end ?? op.start, "end"),
       group: "ops" as const,
       point: false,
-      days: null,
+      days: op.months ? Math.round(op.months * 30.44) : null,
     })),
   ));
   const study = finish(pack(

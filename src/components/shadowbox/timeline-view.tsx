@@ -157,11 +157,21 @@ function Track({
               onClick={() => onOpen(item.kind, item.id)}
             >
               <span className="bar-title">{item.title}</span>
-              <span className="bar-days">{item.days == null ? "not entered" : `${item.days.toLocaleString("en-US")} days`}</span>
+              <span className="bar-days">{barLength(item.days)}</span>
               <span className="sr-only">{item.detail}</span>
             </button>
           ))}
       </div>
     </section>
   );
+}
+
+function barLength(days: number | null): string {
+  if (days == null) return "not entered";
+  const months = days / 30.44;
+  if (months >= 1 && months <= 18 && Math.abs(months - Math.round(months)) < 0.12) {
+    const n = Math.round(months);
+    return n === 1 ? "1 month" : `${n} months`;
+  }
+  return `${days.toLocaleString("en-US")} days`;
 }
