@@ -1,13 +1,31 @@
-import { caseCopy, equipment, EQUIPMENT_GROUPS, publicUrl, type Kind } from "@/lib/shadowbox/model";
+import { useState } from "react";
+import { caseCopy, equipment, EQUIPMENT_GROUPS, publicUrl, type EquipmentGroup, type Kind } from "@/lib/shadowbox/model";
 
 export function EquipmentView({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
+  const [shown, setShown] = useState<EquipmentGroup[] | null>(null);
+  const isOn = (g: EquipmentGroup) => !shown || shown.includes(g);
+  const toggle = (g: EquipmentGroup) =>
+    setShown((cur) => {
+      if (!cur) return [g];
+      const next = cur.includes(g) ? cur.filter((x) => x !== g) : [...cur, g];
+      return next.length === 0 || next.length === EQUIPMENT_GROUPS.length ? null : next;
+    });
+  const groups = EQUIPMENT_GROUPS.filter((group) => isOn(group.id) && equipment.some((item) => item.group === group.id));
+
   return (
     <main className="sheet">
-      <h2>Gear, Weapons, Comms, Vehicles &amp; Boats</h2>
+      <h2>Gear, Weapons, Comms, Vehicles & Boats</h2>
       <p>{caseCopy.equipmentLead}</p>
-      {EQUIPMENT_GROUPS.map((group) => {
+      <div className="map-filter" role="group" aria-label="Show gear">
+        <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>All</button>
+        {EQUIPMENT_GROUPS.map((g) => (
+          <button key={g.id} type="button" className={`nav-btn${shown?.includes(g.id) ? " on" : ""}`} aria-pressed={!!shown?.includes(g.id)} onClick={() => toggle(g.id)}>
+            {g.label}
+          </button>
+        ))}
+      </div>
+      {groups.map((group) => {
         const list = equipment.filter((item) => item.group === group.id).sort((a, b) => a.order - b.order);
-        if (!list.length) return null;
         return (
           <section key={group.id} className="uniform-group" aria-label={group.label}>
             <h3>{group.label}</h3>
