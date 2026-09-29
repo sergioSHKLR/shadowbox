@@ -582,6 +582,14 @@ function assignmentBars(): Omit<Bar, "lane" | "left" | "width">[] {
   return bars;
 }
 
+function opChipTitle(op: Operation): string {
+  const placeId = op.placeId || op.baseIds?.[0];
+  const place = placeId ? places.find((entry) => entry.id === placeId) : undefined;
+  if (!place) return op.theater;
+  if (place.id === "jb-balad") return "JB Balad";
+  return place.name;
+}
+
 export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]; years: number[] } {
   const duty = finish(pack(assignmentBars()));
   const ops = finish(pack(
@@ -589,7 +597,7 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]
       key: op.id,
       kind: "operation" as const,
       id: op.id,
-      title: op.theater,
+      title: opChipTitle(op),
       detail: op.phase,
       start: bound(op.start, "start"),
       end: bound(op.end ?? op.start, "end"),

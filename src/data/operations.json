@@ -8,7 +8,7 @@
     "precision": "year",
     "theater": "Iraq",
     "unitId": "troy",
-    "placeId": null,
+    "placeId": "fob-sykes",
     "baseIds": [
       "fob-sykes",
       "fob-tal-afar"
