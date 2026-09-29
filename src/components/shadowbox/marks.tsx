@@ -1,5 +1,5 @@
 import type { Award, Device, Medal } from "@/lib/shadowbox/model";
-import { countPhrase, deviceSummary, medalFor, publicUrl, ribbonPlate } from "@/lib/shadowbox/model";
+import { countPhrase, deviceSummary, medalFor, publicUrl, ribbonDevicePlate, ribbonPlate } from "@/lib/shadowbox/model";
 
 export function Devices({ devices }: { devices: Device[] }) {
   void devices;
@@ -9,10 +9,13 @@ export function Devices({ devices }: { devices: Device[] }) {
 /** A ribbon plate with devices already drawn. No overlay. */
 export function RibbonArt({ award, className }: { award: Award; className?: string }) {
   const src = ribbonPlate(award);
-  if (!src) return <span className={["ribbon ribbon-text", className].filter(Boolean).join(" ")}>{award.abbreviation}</span>;
+  const devices = ribbonDevicePlate(award);
+  const cls = ["ribbon", award.framed ? "framed" : "", className].filter(Boolean).join(" ");
+  if (!src) return <span className={[cls, "ribbon-text"].join(" ")}>{award.abbreviation}</span>;
   return (
-    <span className={["ribbon", className].filter(Boolean).join(" ")}>
+    <span className={cls}>
       <img src={publicUrl(src)} alt="" />
+      {devices ? <img className="ribbon-device" src={publicUrl(devices)} alt="" /> : null}
     </span>
   );
 }
@@ -26,9 +29,12 @@ export function RibbonButton({
 }) {
   const label = `${award.name}. ${countPhrase(award)}. ${deviceSummary(award)}. Open the explanation.`;
   const src = ribbonPlate(award);
+  const devices = ribbonDevicePlate(award);
+  const cls = ["ribbon", award.framed ? "framed" : "", src ? "" : "ribbon-text"].filter(Boolean).join(" ");
   return (
-    <button type="button" className="ribbon ribbon-text" onClick={onOpen} aria-label={label}>
+    <button type="button" className={cls} onClick={onOpen} aria-label={label}>
       {src ? <img src={publicUrl(src)} alt="" /> : award.abbreviation}
+      {src && devices ? <img className="ribbon-device" src={publicUrl(devices)} alt="" /> : null}
     </button>
   );
 }
