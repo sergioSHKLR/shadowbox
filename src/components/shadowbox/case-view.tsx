@@ -1,11 +1,7 @@
-import { useState } from "react";
 import {
-  awards,
   formatSpan,
   formatWhen,
   insignia,
-  medalFor,
-  medalRows,
   photos,
   profile,
   publicUrl,
@@ -15,7 +11,7 @@ import {
   caseRanks,
   type Kind,
 } from "@/lib/shadowbox/model";
-import { CareerGlyph, MedalBlock, RibbonButton } from "@/components/shadowbox/marks";
+import { CareerGlyph, RibbonButton } from "@/components/shadowbox/marks";
 
 function caseMarks() {
   const marks: { kind: Kind; id: string; short: string; glyph?: string; image?: string; name: string }[] = [];
@@ -34,18 +30,11 @@ function caseMarks() {
 export function Case({
   rows,
   onOpen,
-  onOpenMedal,
 }: {
   rows: ReturnType<typeof ribbonRows>;
   onOpen: (k: Kind, id: string) => void;
-  onOpenMedal: (id: string) => void;
 }) {
   const marks = caseMarks();
-  const [rackView, setRackView] = useState<"ribbons" | "medals">("ribbons");
-  const withMedal = awards.filter((award) => medalFor(award.id));
-  const ribbonOnly = awards.filter((award) => !medalFor(award.id));
-  const rightRows = ribbonRows(ribbonOnly).map((row) => [...row].reverse());
-  const medalBlockRows = medalRows(withMedal);
   const mark = (id: string) => marks.find((entry) => entry.id === id);
   const etMark = mark("et-rating-mark");
   const esws = mark("esws");
@@ -96,40 +85,15 @@ export function Case({
               {portraitWithPlaque(recruit, plaques.recruit)}
               {etMark ? renderMark(etMark, "worn worn-et") : null}
               {esws ? renderMark(esws, "worn worn-pin") : null}
-              <div className="rack-toggle" role="group" aria-label="Show the ribbons or the full-size medals">
-                <button type="button" className={rackView === "ribbons" ? "nav-btn on" : "nav-btn"} aria-pressed={rackView === "ribbons"} onClick={() => setRackView("ribbons")}>Ribbons</button>
-                <button type="button" className={rackView === "medals" ? "nav-btn on" : "nav-btn"} aria-pressed={rackView === "medals"} onClick={() => setRackView("medals")}>Medals</button>
+              <div className="rack" aria-label="Ribbon rack, highest award at the top left">
+                {rows.map((row) => (
+                  <div key={row.map((a) => a.id).join("-")} className="rack-row">
+                    {row.map((award) => (
+                      <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />
+                    ))}
+                  </div>
+                ))}
               </div>
-              {rackView === "ribbons" ? (
-                <div className="rack" aria-label="Ribbon rack, highest award at the top left">
-                  {rows.map((row) => (
-                    <div key={row.map((a) => a.id).join("-")} className="rack-row">
-                      {row.map((award) => (
-                        <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="full-dress" aria-label="Full dress: large medals and the ribbons that have no medal">
-                  <figure className="dress-group dress-medals">
-                    <figcaption>Left breast: large medals ({withMedal.length})</figcaption>
-                    <MedalBlock rows={medalBlockRows} onOpen={(award) => onOpenMedal(award.id)} />
-                  </figure>
-                  <figure className="dress-group dress-ribbons">
-                    <figcaption>Right breast: ribbons without a medal ({ribbonOnly.length})</figcaption>
-                    <div className="rack ribbon-only" aria-label="Ribbon-only awards, senior at the top and inboard (the viewer's right)">
-                      {rightRows.map((row) => (
-                        <div key={row.map((a) => a.id).join("-")} className="rack-row">
-                          {row.map((award) => (
-                            <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />
-                          ))}
-                        </div>
-                      ))}
-                    </div>
-                  </figure>
-                </div>
-              )}
               {exw ? renderMark(exw, "worn worn-pin") : null}
               {jcse ? renderMark(jcse, "worn worn-badge") : null}
               <div className="grade-row" role="group" aria-label="Enlisted pay grades before chief: E-3 to E-6">
