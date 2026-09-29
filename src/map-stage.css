@@ -9,3 +9,11 @@
   }
   .map-stage.is-playing .map-frame.tall { height: min(18rem, 38vh, 78vw); min-height: 11rem; }
 }
+.map-play .nav-btn.icon-btn {
+  min-width: 44px;
+  padding: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.map-play .nav-btn.icon-btn svg { display: block; }
