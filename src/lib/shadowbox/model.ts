@@ -28,11 +28,37 @@ export function publicUrl(path: string): string {
   return `${base}${path.replace(/^\//, "")}`;
 }
 
-/** Pre-drawn ribbon plate: row 1 is bare, row N+1 has N devices. Caps at 7. */
+/** Rows that actually have stripe/device art on the cut sheet. Missing rows are empty SVGs. */
+const RIBBON_ART_ROWS: Record<string, number[]> = {
+  jscm: [1, 2],
+  ncm: [1],
+  arcom: [1, 2],
+  jsam: [1],
+  nam: [1, 2, 3, 4, 5],
+  aam: [1],
+  jmua: [1, 2, 3],
+  nmuc: [1, 2, 3, 4, 5],
+  "navy-e": [1, 2, 3],
+  ngcm: [1, 2, 3, 4, 5, 6],
+  ndsm: [1],
+  acm: [1, 2],
+  icm: [1, 2],
+  gwotsm: [1],
+  hsm: [1],
+  ssdr: [1, 2, 3, 4, 5, 6, 7],
+  osr: [1, 2, 3, 4, 5, 6],
+  nato: [1],
+  rifle: [1],
+  pistol: [1],
+};
+
+/** Pre-drawn ribbon plate: row 1 is bare, row N+1 has N devices. Falls back to the last drawn row. */
 export function ribbonPlate(award: Pick<Award, "id" | "devices">): string {
   const n = award.devices.reduce((sum, d) => sum + d.count, 0);
-  const row = Math.min(7, Math.max(1, n + 1));
-  return `/ribbons/instances/${award.id}-${row}.svg`;
+  const wanted = Math.min(7, Math.max(1, n + 1));
+  const rows = RIBBON_ART_ROWS[award.id] ?? [1];
+  const fit = [...rows].reverse().find((row) => row <= wanted);
+  return `/ribbons/instances/${award.id}-${fit ?? rows[0]}.svg`;
 }
 
 export type Kind =
