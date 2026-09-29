@@ -285,7 +285,6 @@ export function UniformProgression({ onOpen }: { onOpen: (k: Kind, id: string) =
   const primary = s.pins.find((p) => p.position === "primary");
   const secondary = s.pins.find((p) => p.position === "secondary");
   const pinImg = (id: string) => warfare.find((w) => w.id === id)?.image;
-  const needed = P.awards.filter((a) => !a.date);
   const events = eventsIn(month);
   const label = `${MONTHS[Number(day.slice(5, 7)) - 1]} ${day.slice(0, 4)}`;
   const u = (v: number) => `calc(var(--in) * ${v / 100})`;
@@ -295,7 +294,7 @@ export function UniformProgression({ onOpen }: { onOpen: (k: Kind, id: string) =
       <h3>Uniform through the years</h3>
       <p className="quiet">
         Drag the slider or press play to watch the left sleeve and chest change from enlistment ({formatWhen(START)}) to retirement ({formatWhen(END)}): rate and rating badge,
-        service stripes, breast insignia and the top three ribbons. Only dated items appear; the rest are listed as date needed.
+        service stripes, breast insignia and ribbons that have a date.
       </p>
       <div className="uprog-controls">
         <button type="button" className="nav-btn uprog-play" aria-pressed={playing} onClick={() => {
@@ -355,24 +354,42 @@ export function UniformProgression({ onOpen }: { onOpen: (k: Kind, id: string) =
             {events.length ? <span className="uprog-events"> {events.join(" · ")}</span> : null}
           </p>
         </div>
-        <aside className="uprog-side" aria-label="Awards without a date">
-          <h4>Ribbons: date needed ({needed.length})</h4>
-          <p className="quiet">These are not animated until a date is entered in src/data/uniform-progression.json.</p>
+        <aside className="uprog-side" aria-label="On this uniform">
+          <h4>On this uniform</h4>
+          <p className="quiet">{label}</p>
           <ul>
-            {needed.map((a) => {
-              const award = awards.find((x) => x.id === a.awardId);
-              if (!award) return null;
+            <li>
+              <button type="button" onClick={() => onOpen("rank", s.rank.id)}>
+                {badge ? <img src={publicUrl(badge.src)} alt="" /> : <span className="ribbon" />}
+                <span>{s.rank.abbreviation} · {s.rank.grade}</span>
+                <em>{s.rank.name}</em>
+              </button>
+            </li>
+            {s.pins.map((pin) => {
+              const mark = warfare.find((w) => w.id === pin.id);
+              if (!mark) return null;
               return (
-                <li key={a.awardId}>
-                  <button type="button" onClick={() => onOpen("award", award.id)}>
-                    <RibbonArt award={{ ...award, devices: [] }} />
-                    <span>{award.abbreviation}</span>
-                    <em>date needed{a.recordYears.length ? ` · record years ${a.recordYears.join(", ")}` : ""}</em>
+                <li key={pin.id}>
+                  <button type="button" onClick={() => onOpen("warfare", pin.id)}>
+                    {mark.image ? <img src={publicUrl(mark.image)} alt="" /> : null}
+                    <span>{mark.abbreviation}</span>
+                    <em>{pin.approximate ? "year approximate" : mark.name}</em>
                   </button>
                 </li>
               );
             })}
+            {s.ribbons.map((award) => (
+              <li key={award.id}>
+                <button type="button" onClick={() => onOpen("award", award.id)}>
+                  <RibbonArt award={award} />
+                  <span>{award.abbreviation}</span>
+                  <em>{award.name}</em>
+                </button>
+              </li>
+            ))}
           </ul>
+          {!s.ribbons.length ? <p className="quiet">No ribbons on this date. Add months in uniform-progression.json and they will appear here and on the coat.</p> : null}
+          {s.stripes ? <p className="quiet">{s.stripes} service stripe{s.stripes === 1 ? "" : "s"}{s.gold && uniform.look === "blue" ? " · gold" : ""}.</p> : null}
         </aside>
       </div>
     </section>
