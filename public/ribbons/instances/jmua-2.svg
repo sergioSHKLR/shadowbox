@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1.37in" height="0.37in" viewBox="0 0 131.664042 35.657293" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10">
-<g transform="translate(-789.9843,-35.6573)">
-<clipPath id="c1_6"><rect x="789.9843" y="35.6573" width="131.6640" height="35.6573"/></clipPath>
-<g clip-path="url(#c1_6)">
-<path fill="#38761d" d="m921.0192 35.88632l38.519714 0l0 35.559055l-38.519714 0z" fill-rule="evenodd"/>
-<path fill="#000000" fill-opacity="0.0" d="m921.0192 35.89091l131.52753 0l0 35.52756l-131.52753 0z" fill-rule="evenodd"/>
-<path stroke="#000000" stroke-width="1.0" stroke-linejoin="round" stroke-linecap="butt" d="m921.0192 35.89091l131.52753 0l0 35.52756l-131.52753 0z" fill-rule="evenodd"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="789.9843 35.6573 131.6640 35.6573" width="137" height="37" preserveAspectRatio="none">
+<path fill="#1c4587" d="m789.3192 35.88714l18.204712 0l0 35.55906l-18.204712 0z" fill-rule="evenodd"/>
 <path fill="#f1c232" d="m807.5292 35.887623l11.905518 0l0 35.559055l-11.905518 0z" fill-rule="evenodd"/>
 <path fill="#6fa8dc" d="m819.44257 35.88714l18.204712 0l0 35.55906l-18.204712 0z" fill-rule="evenodd"/>
 <path fill="#1c4587" d="m920.8442 35.88714l-18.204773 0l0 35.55906l18.204773 0z" fill-rule="evenodd"/>
@@ -24,5 +19,6 @@
 <path fill="#000000" fill-opacity="0.0" d="m843.24146 57.537056l0.62719727 -0.11551285l0.77893066 -0.49023438l0.51916504 -0.73544693l0.2666626 -0.8149452" fill-rule="evenodd"/>
 <path fill="#81422d" d="m845.36865 52.777836l-0.12261963 0.56954575l-0.043273926 0.7283554l-0.050598145 0.6417656l0.28125 0.64904404l0.5913696 0.54080963l0.29559326 0.6057472l0.12261963 0.52643967l0.6923218 -0.20191574l0.6345215 -0.41110992l0.56970215 -0.7716522l0.15136719 -0.63448715l-0.028747559 -0.50479126l-0.24523926 -0.49023438l-0.22351074 -0.9375496l-0.23797607 -0.63449097l-0.5336914 -0.39655304l-0.612854 -0.10095978l-0.57684326 0.1513443l-0.39672852 0.31015396z" fill-rule="evenodd"/>
 <path fill="#000000" fill-opacity="0.0" d="m845.2171 54.356964l0.40386963 0.252491l0.69940186 0.17298889l0.98791504 -0.2162857l0.51916504 -0.36053848l0.28125 -0.51934814" fill-rule="evenodd"/>
-</g></g>
+<path fill="#000000" fill-opacity="0.0" d="m789.31793 35.885826l131.52753 0l0 35.527557l-131.52753 0z" fill-rule="evenodd"/>
+<path stroke="#000000" stroke-width="1.0" stroke-linejoin="round" stroke-linecap="butt" d="m789.31793 35.885826l131.52753 0l0 35.527557l-131.52753 0z" fill-rule="evenodd"/>
 </svg>

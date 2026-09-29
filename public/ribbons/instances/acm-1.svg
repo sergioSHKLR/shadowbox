@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1.37in" height="0.37in" viewBox="0 0 131.664042 35.657293" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10">
-<g transform="translate(-1448.3045,-0.0000)">
-<clipPath id="c0_11"><rect x="1448.3045" y="0.0000" width="131.6640" height="35.6573"/></clipPath>
-<g clip-path="url(#c0_11)">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="1448.3045 0.0000 131.6640 35.6573" width="137" height="37" preserveAspectRatio="none">
+<path fill="#6aa84f" d="m1447.5 0.18503937l7.6220703 0l0 35.43307l-7.6220703 0z" fill-rule="evenodd"/>
 <path fill="#ffffff" d="m1484.9939 0.18503937l56.59839 0l0 35.43307l-56.59839 0z" fill-rule="evenodd"/>
 <path fill="#cc0000" d="m1455.1322 0.18503937l17.952759 0l0 35.43307l-17.952759 0z" fill-rule="evenodd"/>
 <path fill="#1c4587" d="m1511.6785 0.18503937l2.9291992 0l0 35.43307l-2.9291992 0z" fill-rule="evenodd"/>
@@ -22,8 +20,6 @@
 <path fill="#743a26" d="m1513.3905 18.148613l-4.0061035 1.3220272l-5.2385254 -4.4859457z" fill-rule="evenodd"/>
 <path fill="#743a26" d="m1513.3846 18.17137l-2.576416 -3.4278383l2.5599365 -6.4758854z" fill-rule="evenodd"/>
 <path fill="#743a26" d="m1513.4221 18.148441l4.0061035 1.3220272l5.2385254 -4.4859457z" fill-rule="evenodd"/>
-<path fill="#990000" d="m1579.3293 0.23622048l15.590576 0l0 35.43307l-15.590576 0z" fill-rule="evenodd"/>
-<path fill="#000000" fill-opacity="0.0" d="m1579.2546 0.18618767l131.52747 0l0 35.527557l-131.52747 0z" fill-rule="evenodd"/>
-<path stroke="#000000" stroke-width="1.0" stroke-linejoin="round" stroke-linecap="butt" d="m1579.2546 0.18618767l131.52747 0l0 35.527557l-131.52747 0z" fill-rule="evenodd"/>
-</g></g>
+<path fill="#000000" fill-opacity="0.0" d="m1447.5144 0.18503937l131.52759 0l0 35.527557l-131.52759 0z" fill-rule="evenodd"/>
+<path stroke="#000000" stroke-width="1.0" stroke-linejoin="round" stroke-linecap="butt" d="m1447.5144 0.18503937l131.52759 0l0 35.527557l-131.52759 0z" fill-rule="evenodd"/>
 </svg>
