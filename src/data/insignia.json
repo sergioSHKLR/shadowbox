@@ -4,6 +4,7 @@
     "name": "Electronics Technician rating mark",
     "short": "ET",
     "glyph": "rating",
+    "image": "/insignia/et-symbol.svg",
     "explanation": "The specialty mark of the Electronics Technician rating: a helium atom, with a nucleus of four particles and two electrons (drawn as stars) on crossing orbits. It is the symbol under the eagle on the ET rating badge, shown here on its own in oxidized silver to match the pins.",
     "criteria": "The rating is Electronics Technician.",
     "related": [
@@ -18,6 +19,7 @@
     "name": "Chief petty officer anchor",
     "short": "Chief",
     "glyph": "anchor",
+    "image": "/insignia/collar-chief.svg",
     "explanation": "The fouled anchor \u2014 an anchor with line wrapped around the stock, with the letters USN \u2014 is how a chief petty officer is recognized: in gold on the combination cap and, smaller, on the collar of khakis. It is the rank mark of an E-7.",
     "criteria": "Worn after promotion to chief petty officer. Date of rank here is 16 September 2014.",
     "related": [
