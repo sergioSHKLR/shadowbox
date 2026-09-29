@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Pause, Play } from "lucide-react";
 import {
   bases,
   careerStops,
@@ -102,8 +103,15 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
       </div>
       <div ref={stageRef} className={`map-stage${cursor != null ? " is-playing" : ""}`}>
       <div className="map-play" role="group" aria-label="Play the map in career order">
-        <button type="button" className={`nav-btn${playing ? " on" : ""}`} aria-pressed={playing} onClick={() => (playing ? stopPlay() : startPlay())}>
-          {playing ? "Pause" : "Play"}
+        <button
+          type="button"
+          className={`nav-btn icon-btn${playing ? " on" : ""}`}
+          aria-pressed={playing}
+          aria-label={playing ? "Pause" : "Play"}
+          title={playing ? "Pause" : "Play"}
+          onClick={() => (playing ? stopPlay() : startPlay())}
+        >
+          {playing ? <Pause size={20} strokeWidth={2} aria-hidden="true" /> : <Play size={20} strokeWidth={2} aria-hidden="true" />}
         </button>
         <button type="button" className="nav-btn" onClick={() => step(-1)} disabled={!stops.length}>Back</button>
         <button type="button" className="nav-btn" onClick={() => step(1)} disabled={!stops.length}>Next</button>
