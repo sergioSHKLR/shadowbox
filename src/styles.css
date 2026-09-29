@@ -185,7 +185,7 @@ a { color: var(--color-navy); }
   aspect-ratio: 11 / 3;
   padding: 0;
   border: 0;
-  background: #000;
+  background: transparent;
   display: grid;
   place-items: center;
 }
