@@ -23,12 +23,7 @@ type Progression = {
 const P = progressionJson as unknown as Progression;
 
 /** Blank uniform drawing for each uniform. Sleeve badges and the other pieces go on top of these. */
-const PLATE: Record<string, string> = {
-  "sdb-jumper": "/uniforms/timeline/blue-jumper.svg",
-  "sdw-jumper": "/uniforms/timeline/white-jumper.svg",
-  "cpo-sdw": "/uniforms/timeline/chokers.svg",
-  "cpo-khaki": "/uniforms/timeline/khakis.svg",
-};
+const PLATE: Record<string, string> = {};
 
 /** Same viewBox as the four plates. Overlay art sits in this space, then the SVG is stretched inset 0,0. */
 const PLATE_BOX = { w: 1285.0393700787401, h: 2267.716535433071 };
