@@ -400,6 +400,75 @@ export function formatSpan(start: string | null, end: string | null): string {
   return `${a} – ${b}`;
 }
 
+export type TourFocus = {
+  kind: "rank" | "unit" | "operation";
+  id: string;
+  label: string;
+  start: string;
+  end: string;
+};
+
+function dayKey(value: string): string {
+  const [y, m, d] = value.split("-");
+  return `${y}-${(m ?? "01").padStart(2, "0")}-${(d ?? "01").padStart(2, "0")}`;
+}
+
+export function tourFocus(kind: Kind, id: string): TourFocus | null {
+  if (kind === "rank") {
+    const dated = ranks.filter((rank): rank is Rank & { date: string } => Boolean(rank.date));
+    const index = dated.findIndex((rank) => rank.id === id);
+    if (index < 0) return null;
+    const rank = dated[index];
+    return {
+      kind: "rank",
+      id,
+      label: `${rank.abbreviation} · ${rank.grade}`,
+      start: rank.date,
+      end: dated[index + 1]?.date ?? profile.serviceEnd,
+    };
+  }
+  if (kind === "unit") {
+    const unit = units.find((entry) => entry.id === id);
+    if (!unit?.start) return null;
+    return {
+      kind: "unit",
+      id,
+      label: unit.abbreviation,
+      start: unit.start,
+      end: unit.end ?? profile.serviceEnd,
+    };
+  }
+  if (kind === "operation") {
+    const op = operations.find((entry) => entry.id === id);
+    if (!op) return null;
+    return {
+      kind: "operation",
+      id,
+      label: opChipTitle(op),
+      start: op.start,
+      end: op.end ?? op.start,
+    };
+  }
+  return null;
+}
+
+export function tourItems(tour: TourFocus) {
+  const y0 = Number(tour.start.slice(0, 4));
+  const y1 = Number(tour.end.slice(0, 4));
+  const a = dayKey(tour.start);
+  const b = dayKey(tour.end);
+  const awardHits = instances
+    .filter((row) => row.year != null && row.year >= y0 && row.year <= y1)
+    .map((row) => {
+      const award = awards.find((entry) => entry.id === row.awardId);
+      return award ? { instance: row, award } : null;
+    })
+    .filter((row): row is { instance: Instance; award: Award } => Boolean(row));
+  const deviceHits = awards.filter((award) => award.devices.length && awardHits.some((hit) => hit.award.id === award.id));
+  const schoolHits = schools.filter((school) => school.start && dayKey(school.start) >= a && dayKey(school.start) <= b);
+  return { awardHits, deviceHits, schoolHits };
+}
+
 export function ribbonRows(list: Award[], columns = profile.rackColumns || 3): Award[][] {
   const sorted = [...list].sort((a, b) => a.precedence - b.precedence);
   const rem = sorted.length % columns;

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import progressionJson from "@/data/uniform-progression.json";
-import { awards, formatWhen, profile, publicUrl, ranks, warfare, type Award, type Device, type Kind } from "@/lib/shadowbox/model";
+import { awards, deviceSummary, formatSpan, formatWhen, profile, publicUrl, ranks, tourItems, warfare, type Award, type Device, type Kind, type TourFocus } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 
 /*
@@ -253,7 +253,7 @@ function Scene({ s, u }: { s: State; u: UniformDef }) {
   );
 }
 
-export function UniformProgression({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
+export function UniformProgression({ onOpen, tour }: { onOpen: (k: Kind, id: string) => void; tour?: TourFocus | null }) {
   const [month, setMonth] = useState(M0);
   const [look, setLook] = useState<Look>("blue");
   const [playing, setPlaying] = useState(false);
@@ -261,6 +261,10 @@ export function UniformProgression({ onOpen }: { onOpen: (k: Kind, id: string) =
   useEffect(() => {
     reduced.current = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
   }, []);
+  useEffect(() => {
+    if (!tour) return;
+    setMonth(monthFor(tour.start));
+  }, [tour?.kind, tour?.id, tour?.start]);
   useEffect(() => {
     if (!playing) return;
     // Reduced motion: whole-year steps, no fades (CSS turns transitions off).
@@ -354,42 +358,93 @@ export function UniformProgression({ onOpen }: { onOpen: (k: Kind, id: string) =
             {events.length ? <span className="uprog-events"> {events.join(" · ")}</span> : null}
           </p>
         </div>
-        <aside className="uprog-side" aria-label="On this uniform">
-          <h4>On this uniform</h4>
-          <p className="quiet">{label}</p>
-          <ul>
-            <li>
-              <button type="button" onClick={() => onOpen("rank", s.rank.id)}>
-                {badge ? <img src={publicUrl(badge.src)} alt="" /> : <span className="ribbon" />}
-                <span>{s.rank.abbreviation} · {s.rank.grade}</span>
-                <em>{s.rank.name}</em>
-              </button>
-            </li>
-            {s.pins.map((pin) => {
-              const mark = warfare.find((w) => w.id === pin.id);
-              if (!mark) return null;
-              return (
-                <li key={pin.id}>
-                  <button type="button" onClick={() => onOpen("warfare", pin.id)}>
-                    {mark.image ? <img src={publicUrl(mark.image)} alt="" /> : null}
-                    <span>{mark.abbreviation}</span>
-                    <em>{pin.approximate ? "year approximate" : mark.name}</em>
+        <aside className="uprog-side" aria-label={tour ? `During ${tour.label}` : "On this uniform"}>
+          {tour ? (
+            <>
+              <h4>{tour.label}</h4>
+              <p className="quiet">{formatSpan(tour.start, tour.end)}</p>
+              {(() => {
+                const { awardHits, deviceHits, schoolHits } = tourItems(tour);
+                return (
+                  <>
+                    {schoolHits.length ? <p className="quiet">Schools</p> : null}
+                    <ul>
+                      {schoolHits.map((school) => (
+                        <li key={school.id}>
+                          <button type="button" onClick={() => onOpen("school", school.id)}>
+                            <span>{school.abbreviation}</span>
+                            <em>{formatWhen(school.start)}{school.length ? ` · ${school.length}` : ""}</em>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                    {awardHits.length ? <p className="quiet">Awards</p> : null}
+                    <ul>
+                      {awardHits.map(({ instance, award }) => (
+                        <li key={instance.id}>
+                          <button type="button" onClick={() => onOpen("award", award.id)}>
+                            <RibbonArt award={{ ...award, devices: [] }} />
+                            <span>{award.abbreviation}</span>
+                            <em>{instance.year}{instance.note ? ` · ${instance.note}` : ""}</em>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                    {deviceHits.length ? <p className="quiet">Devices</p> : null}
+                    <ul>
+                      {deviceHits.map((award) => (
+                        <li key={`dev-${award.id}`}>
+                          <button type="button" onClick={() => onOpen("award", award.id)}>
+                            <RibbonArt award={award} />
+                            <span>{award.abbreviation}</span>
+                            <em>{deviceSummary(award)}</em>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                    {!awardHits.length && !schoolHits.length ? <p className="quiet">Nothing dated in this span yet.</p> : null}
+                  </>
+                );
+              })()}
+            </>
+          ) : (
+            <>
+              <h4>On this uniform</h4>
+              <p className="quiet">{label}</p>
+              <ul>
+                <li>
+                  <button type="button" onClick={() => onOpen("rank", s.rank.id)}>
+                    {badge ? <img src={publicUrl(badge.src)} alt="" /> : <span className="ribbon" />}
+                    <span>{s.rank.abbreviation} · {s.rank.grade}</span>
+                    <em>{s.rank.name}</em>
                   </button>
                 </li>
-              );
-            })}
-            {s.ribbons.map((award) => (
-              <li key={award.id}>
-                <button type="button" onClick={() => onOpen("award", award.id)}>
-                  <RibbonArt award={award} />
-                  <span>{award.abbreviation}</span>
-                  <em>{award.name}</em>
-                </button>
-              </li>
-            ))}
-          </ul>
-          {!s.ribbons.length ? <p className="quiet">No ribbons on this date. Add months in uniform-progression.json and they will appear here and on the coat.</p> : null}
-          {s.stripes ? <p className="quiet">{s.stripes} service stripe{s.stripes === 1 ? "" : "s"}{s.gold && uniform.look === "blue" ? " · gold" : ""}.</p> : null}
+                {s.pins.map((pin) => {
+                  const mark = warfare.find((w) => w.id === pin.id);
+                  if (!mark) return null;
+                  return (
+                    <li key={pin.id}>
+                      <button type="button" onClick={() => onOpen("warfare", pin.id)}>
+                        {mark.image ? <img src={publicUrl(mark.image)} alt="" /> : null}
+                        <span>{mark.abbreviation}</span>
+                        <em>{pin.approximate ? "year approximate" : mark.name}</em>
+                      </button>
+                    </li>
+                  );
+                })}
+                {s.ribbons.map((award) => (
+                  <li key={award.id}>
+                    <button type="button" onClick={() => onOpen("award", award.id)}>
+                      <RibbonArt award={award} />
+                      <span>{award.abbreviation}</span>
+                      <em>{award.name}</em>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              {!s.ribbons.length ? <p className="quiet">Click a rank or command to list awards, devices and schools from that tour.</p> : null}
+            </>
+          )}
         </aside>
       </div>
     </section>
