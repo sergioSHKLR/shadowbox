@@ -17,3 +17,18 @@
   justify-content: center;
 }
 .map-play .nav-btn.icon-btn svg { display: block; }
+
+/* Chips and transport: brand navy, not the brass plate. */
+.nav-btn.on {
+  background: #14233a;
+  color: #f6f1e7;
+  border-color: #14233a;
+  box-shadow: none;
+}
+.nav-btn.on:hover {
+  background: #0c1726;
+  color: #f6f1e7;
+}
+.nav-btn:not(.on):hover {
+  border-color: #14233a;
+}
