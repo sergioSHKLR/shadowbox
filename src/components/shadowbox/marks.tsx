@@ -10,7 +10,7 @@ export function Devices({ devices }: { devices: Device[] }) {
 export function RibbonArt({ award, className }: { award: Award; className?: string }) {
   const src = ribbonPlate(award);
   const devices = ribbonDevicePlate(award);
-  const cls = ["ribbon", award.framed ? "framed" : "", className].filter(Boolean).join(" ");
+  const cls = ["ribbon", className].filter(Boolean).join(" ");
   if (!src) return <span className={[cls, "ribbon-text"].join(" ")}>{award.abbreviation}</span>;
   return (
     <span className={cls}>
@@ -30,7 +30,7 @@ export function RibbonButton({
   const label = `${award.name}. ${countPhrase(award)}. ${deviceSummary(award)}. Open the explanation.`;
   const src = ribbonPlate(award);
   const devices = ribbonDevicePlate(award);
-  const cls = ["ribbon", award.framed ? "framed" : "", src ? "" : "ribbon-text"].filter(Boolean).join(" ");
+  const cls = ["ribbon", src ? "" : "ribbon-text"].filter(Boolean).join(" ");
   return (
     <button type="button" className={cls} onClick={onOpen} aria-label={label}>
       {src ? <img src={publicUrl(src)} alt="" /> : award.abbreviation}
