@@ -28,8 +28,39 @@ export function publicUrl(path: string): string {
   return `${base}${path.replace(/^\//, "")}`;
 }
 
-/** Ribbon plates were removed. Re-upload to public/ribbons/instances and restore this. */
-export function ribbonPlate(_award: Pick<Award, "id" | "devices">): string {
+/** Base ribbon art. Device sheets overlay separately when present. */
+export function ribbonPlate(award: Pick<Award, "ribbon">): string {
+  return award.ribbon || "";
+}
+
+/** Full-ribbon device sheet drawn on the same 11:3 canvas as the stripe art. */
+export function ribbonDevicePlate(award: Pick<Award, "devices">): string {
+  const devices = award.devices ?? [];
+  if (!devices.length) return "";
+  const letter = devices.find((d) => d.kind === "letter");
+  if (letter?.style === "battle") {
+    const n = Math.min(3, letter.count);
+    return n ? `/devices/battle-${n}.svg` : "";
+  }
+  const oaks = devices.filter((d) => d.kind === "oak");
+  if (oaks.length && oaks.every((d) => d.metal === "bronze")) {
+    const n = oaks.reduce((s, d) => s + d.count, 0);
+    if (n === 1 || n === 2) return `/devices/oak-${n}.svg`;
+  }
+  const stars = devices.filter((d) => d.kind === "star");
+  if (stars.length === 1) {
+    const s = stars[0];
+    if (s.metal === "gold" && s.count >= 1 && s.count <= 4) return `/devices/gold-${s.count}.svg`;
+    if (s.metal === "bronze" && s.count >= 1 && s.count <= 4) return `/devices/bronze-${s.count}.svg`;
+    if (s.metal === "silver" && s.count === 1) return `/devices/silver-1.svg`;
+  }
+  if (
+    stars.length === 2 &&
+    stars.some((d) => d.metal === "silver" && d.count === 1) &&
+    stars.some((d) => d.metal === "bronze" && d.count === 1)
+  ) {
+    return "/devices/silver-bronze.svg";
+  }
   return "";
 }
 

@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { ShieldUser } from "lucide-react";
 import {
   awards,
   careerStops,
   openRecord,
   profile,
+  publicUrl,
   ribbonRows,
   timeline,
   type Kind,
@@ -46,7 +46,7 @@ export function ShadowboxApp() {
     <div className="archive">
       <header className="mast">
         <div className="mast-brand">
-          <ShieldUser className="mast-icon" color="#DAA520" strokeWidth={1.75} aria-hidden="true" />
+          <img className="mast-icon" src={publicUrl("/favicon.svg")} alt="" />
           <div>
             <h1 className="wordmark">SHADOWBOX</h1>
             <p className="mast-tagline">Not for gawking but for learning!</p>

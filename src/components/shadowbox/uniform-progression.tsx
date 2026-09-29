@@ -111,12 +111,29 @@ function eventsIn(month: number): string[] {
   return out;
 }
 
-function badgeFor(_s: State, _u: UniformDef): { src: string; w: number; alt: string } | null {
-  return null;
+function badgeFor(s: State, u: UniformDef): { src: string; w: number; alt: string } | null {
+  if (u.kind === "khaki" || u.kind === "choker") return null;
+  const sleeve = sleeveArt(s, u);
+  if (!sleeve.badge) return null;
+  const alt = s.chief ? "Chief rating badge" : s.rank.abbreviation;
+  return { src: sleeve.badge, w: 325, alt };
 }
 
-/** Sleeve overlay art removed with the PNG pieces. Restore when SVG badges and hashes land. */
-function sleeveArt(_s: State, _u: UniformDef): { badge: string | null; hash: string | null } {
+function sleeveArt(s: State, u: UniformDef): { badge: string | null; hash: string | null } {
+  if (u.kind === "khaki" || u.kind === "choker") return { badge: null, hash: null };
+  const white = u.look === "white";
+  const gold = s.gold && !white;
+  if (s.chief) return { badge: "/uniforms/pieces/patch-e7-gold.svg", hash: null };
+  if (s.rank.id === "et1") {
+    const badge = white ? "/uniforms/pieces/patch-e6-blue.svg" : gold ? "/uniforms/pieces/patch-e6-gold.svg" : "/uniforms/pieces/patch-e6-red.svg";
+    return { badge, hash: null };
+  }
+  if (s.rank.id === "et2") {
+    return { badge: white ? "/uniforms/pieces/patch-e5-blue.svg" : "/uniforms/pieces/patch-e5-red.svg", hash: null };
+  }
+  if (s.rank.id === "et3") {
+    return { badge: white ? "/uniforms/pieces/patch-e4-blue.svg" : "/uniforms/pieces/patch-e4-red.svg", hash: null };
+  }
   return { badge: null, hash: null };
 }
 

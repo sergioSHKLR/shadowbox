@@ -193,6 +193,7 @@ a { color: var(--color-navy); }
 .ribbon { container-type: inline-size; }
 /* A ribbon is 1 3/8 x 3/8 in, so the art keeps an 11:3 aspect and fills the button width. */
 .ribbon > img { width: 100%; height: auto; aspect-ratio: 11 / 3; object-fit: fill; display: block; }
+.ribbon > img.ribbon-device { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; object-fit: fill; pointer-events: none; }
 .ribbon-text { background: var(--color-navy, #14233a); color: var(--color-ivory, #f4efe4); font: 600 0.62rem/1 ui-sans-serif, system-ui, sans-serif; letter-spacing: 0.02em; text-align: center; padding: 0.15rem 0.12rem; }
 /* JMUA: gold frame with a laurel band, drawn after Sergio's reference. The framed ribbon has the same
    1 3/8 x 3/8 in footprint as every other ribbon: the frame is drawn INSIDE it (sides 57/1100 of the width, top and
