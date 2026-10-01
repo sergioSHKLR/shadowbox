@@ -14,9 +14,6 @@ const AWARD_CODE: Record<string, string> = {
 };
 const DEVICES: Record<string, string[]> = { "frank-cable": ["esws"], jcse: ["exw", "jcse-device"] };
 const TOUR_AWARDS: Record<string, string[]> = { navhosp: ["NC"] };
-const TOUR_NOTE: Record<string, { nec?: string; workcenter?: string }> = {
-  navhosp: { nec: "95PT \u00b7 Command Fitness Leader", workcenter: "CFL Office" },
-};
 const RANK: Record<string, { start: string; end: string }> = {
   ncts: { start: "E-4", end: "E-5" }, "frank-cable": { start: "E-5", end: "E-6" },
   eodmu5: { start: "E-6", end: "E-6" }, sercc: { start: "E-6", end: "E-6" },
@@ -85,11 +82,30 @@ function AwardStrip({ items, onOpen }: { items: Award[]; onOpen: (id: string) =>
   if (!items.length) return null;
   return <ul className="story-awards">{items.map((award) => <li key={award.id}><button type="button" onClick={() => onOpen(award.id)} aria-label={`${award.name}, ${award.count}`}><img src={publicUrl(medalFor(award.id)?.front || award.ribbon)} alt="" /></button></li>)}</ul>;
 }
-function Felt({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
+function FeltBar({ title, query, onQuery, onAssigned, onSupplemental, onBack }: { title: string; query: string; onQuery: (value: string) => void; onAssigned: () => void; onSupplemental: () => void; onBack?: () => void }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="felt-bar">
+      <img src={publicUrl("/favicon.svg")} alt="" />
+      <div><strong>{title}</strong><span>U.S. Navy</span></div>
+      <input value={query} onChange={(event) => onQuery(event.target.value)} placeholder="Search" aria-label="Search the case" />
+      <button type="button" className="felt-menu" aria-label="Menu" onClick={() => setOpen((value) => !value)}>&#9776;</button>
+      {open ? (
+        <ul className="felt-menu-list">
+          <li><button type="button" onClick={() => { onAssigned(); setOpen(false); }}>Assigned</button></li>
+          <li><button type="button" onClick={() => { onSupplemental(); setOpen(false); }}>Supplemental</button></li>
+          {onBack ? <li><button type="button" onClick={() => { onBack(); setOpen(false); }}>Back</button></li> : null}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+function Felt({ query, onOpen, onBack }: { query: string; onOpen: (k: Kind, id: string) => void; onBack: (back: (() => void) | undefined) => void }) {
   const [path, setPath] = useState<Card[]>([]);
   const [moreDown, setMoreDown] = useState(false);
   const scroller = useRef<HTMLDivElement>(null);
-  const cards = path.length ? path[path.length - 1].children ?? [] : FELT;
+  const cards = (path.length ? path[path.length - 1].children ?? [] : FELT).filter((card) => card.title.toLowerCase().includes(query.toLowerCase()));
+  useEffect(() => { onBack(path.length ? () => setPath(path.slice(0, -1)) : undefined); }, [path, onBack]);
   useEffect(() => {
     const el = scroller.current;
     if (!el) return;
@@ -97,10 +113,10 @@ function Felt({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
     check();
     el.addEventListener("scroll", check);
     return () => el.removeEventListener("scroll", check);
-  }, [path]);
+  }, [path, query]);
   return (
     <div className="felt-window">
-      {path.length ? <button type="button" className="felt-left" onClick={() => setPath(path.slice(0, -1))} aria-label={`Back to ${path.length > 1 ? path[path.length - 2].title : "Supplemental"}`} /> : null}
+      {path.length ? <button type="button" className="felt-left" onClick={() => setPath(path.slice(0, -1))} aria-label="Back" /> : null}
       <div className="felt-track" style={{ transform: `translateX(-${path.length * 33.333}%)` }}>
         {[0, 1, 2].map((pane) => {
           const shown = pane === path.length;
@@ -130,6 +146,8 @@ function Felt({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
 export function Case({ rows: _rows, onOpen }: { rows: ReturnType<typeof ribbonRows>; onOpen: (k: Kind, id: string) => void }) {
   void _rows;
   const [tab, setTab] = useState<"assigned" | "supplemental">("assigned");
+  const [query, setQuery] = useState("");
+  const [back, setBack] = useState<(() => void) | undefined>();
   const [moreDown, setMoreDown] = useState(false);
   const marks = caseMarks();
   const recruit = photos.find((photo) => photo.id === "recruit-portrait-1997");
@@ -148,20 +166,18 @@ export function Case({ rows: _rows, onOpen }: { rows: ReturnType<typeof ribbonRo
       <figcaption className="plaque">{lines.map((line) => <span key={line}>{line}</span>)}</figcaption>
     </figure>
   ) : null;
+  const title = tab === "assigned" ? "Assigned" : "Supplemental";
   return (
     <main>
       <section className="case" aria-label="Shadowbox">
-        <div className="case-tabs" role="tablist" aria-label="Case pages">
-          <button type="button" role="tab" aria-selected={tab === "assigned"} className={tab === "assigned" ? "case-tab on" : "case-tab"} onClick={() => setTab("assigned")}>Assigned</button>
-          <button type="button" role="tab" aria-selected={tab === "supplemental"} className={tab === "supplemental" ? "case-tab on" : "case-tab"} onClick={() => setTab("supplemental")}>Supplemental</button>
-        </div>
         <div className="case-frame">
+          <FeltBar title={title} query={query} onQuery={setQuery} onAssigned={() => setTab("assigned")} onSupplemental={() => setTab("supplemental")} onBack={tab === "supplemental" ? back : undefined} />
           <h2 className="sr-only">{profile.name}, {profile.rating} {profile.rank}</h2>
           <div className="case-display"><div className="case-column">
             {tab === "assigned" ? (
               <>
                 {portrait(recruit, plaques.recruit)}
-                {COMMANDS.map((id) => {
+                {COMMANDS.filter((id) => (units.find((item) => item.id === id)?.name ?? "").toLowerCase().includes(query.toLowerCase())).map((id) => {
                   const unit = units.find((item) => item.id === id);
                   if (!unit) return null;
                   const codes = list(id, "Awards").length ? list(id, "Awards") : TOUR_AWARDS[id] ?? [];
@@ -171,20 +187,18 @@ export function Case({ rows: _rows, onOpen }: { rows: ReturnType<typeof ribbonRo
                   const gold = Number(unit.end) - 1997 >= 12;
                   return (
                     <article key={id} className="command-story">
-                      <button type="button" className="story-crest" onClick={() => onOpen("unit", id)} aria-label={`${unit.name}. Open the sidebar.`}>{unit.image ? <img src={publicUrl(unit.image)} alt="" /> : <span>{unit.patch}</span>}</button>
+                      <button type="button" className="story-crest" onClick={() => onOpen("unit", id)} aria-label={`${unit.name}. Open the sidebar.`}>{unit.image ? <img src={publicUrl(unit.image)} alt="" /> : null}</button>
                       <div className="story-copy">
-                        <p className="story-rank">{rank ? <span className="rank-pair"><Collar grade={rank.start} /><em>{rank.start}</em><span aria-hidden="true">to</span><Collar grade={rank.end} gold={gold} /><em>{rank.end}</em><HashMarks end={unit.end} /></span> : null}<span>{formatSpan(unit.start, unit.end)}</span></p>
-                        <AwardStrip items={earned.filter((award) => medalFor(award.id)?.front)} onOpen={(awardId) => onOpen("award", awardId)} />
-                        <AwardStrip items={earned.filter((award) => !medalFor(award.id)?.front)} onOpen={(awardId) => onOpen("award", awardId)} />
+                        <p className="story-rank">{rank ? <span className="rank-pair"><Collar grade={rank.start} /><span aria-hidden="true">to</span><Collar grade={rank.end} gold={gold} /><HashMarks end={unit.end} /></span> : null}<span>{formatSpan(unit.start, unit.end)}</span></p>
+                        <AwardStrip items={earned} onOpen={(awardId) => onOpen("award", awardId)} />
                         {devices.length ? <ul className="story-awards">{devices.map((mark) => mark ? <li key={mark.id}><button type="button" onClick={() => onOpen(mark.kind, mark.id)} aria-label={mark.name}>{mark.image ? <img src={publicUrl(mark.image)} alt="" /> : <CareerGlyph image={mark.image} glyph={mark.glyph} />}</button></li> : null)}</ul> : null}
                       </div>
                     </article>
                   );
                 })}
-                <dl className="service-totals" aria-label="Service totals">{[["Active Duty", profile.serviceLength], ["Sea Service", profile.seaService], ["Overseas Sea Service", profile.foreignService]].map(([label, value]) => <div key={label}><dt>{label}:</dt> <dd>{value}</dd></div>)}</dl>
                 {portrait(chief, plaques.chief)}
               </>
-            ) : <Felt onOpen={onOpen} />}
+            ) : <Felt query={query} onOpen={onOpen} onBack={setBack} />}
           </div></div>
           {moreDown ? <span className="page-down" aria-hidden="true" /> : null}
         </div>
