@@ -1,4 +1,6 @@
-.command-line { --crest: clamp(4.8rem, 14vw, 9rem); --mark: calc(var(--crest) * 0.75); --chevron: calc(var(--mark) * 45.766 / 584.693); --ribbon-w: calc(var(--mark) * 0.42); --ribbon-h: calc(var(--ribbon-w) * 35.528 / 131.528); display: flex; align-items: flex-start; gap: 0.55rem; width: 100%; margin: 0.55rem 0; }
+.command-line { --crest: clamp(4.8rem, 14vw, 9rem); --mark: calc(var(--crest) * 0.75); --chevron: calc(var(--mark) * 45.766 / 584.693); --ribbon-w: calc(var(--mark) * 0.42); --ribbon-h: calc(var(--ribbon-w) * 35.528 / 131.528); display: flex; align-items: flex-start; gap: 0.55rem; width: 100%; margin: 0.55rem 0; position: relative; }
+.command-line::after { content: "\203A"; position: absolute; right: -1.1rem; top: 0.15rem; color: #f6f1e7; font-size: 1.35rem; line-height: 1; }
+.story-crest::after { content: none; }
 .line-body { flex: 1; min-width: 0; }
 .line-name { margin: 0 0 0.25rem; font-size: 0.78rem; line-height: 1.3; color: #f6f1e7; }
 .line-name span { color: #c9c0b0; }
@@ -11,7 +13,7 @@
 .line-marks .device-line img { width: calc(var(--ribbon-w) * 2); height: auto; max-width: none; object-fit: contain; display: block; }
 .line-marks .story-awards button, .line-marks li { width: auto; height: auto; line-height: 0; display: flex; align-items: flex-start; }
 .story-crest { position: relative; width: var(--crest); padding: 0; border: 0; background: transparent; cursor: pointer; color: inherit; flex: none; }
-.story-crest::after, .felt-pane button::after { content: "\203A"; position: absolute; right: 0; bottom: 0; color: #e8d7a8; font-size: 1.15rem; line-height: 1; text-shadow: 0 1px 2px #000; }
+.felt-pane button::after { content: "\203A"; position: absolute; right: 0; bottom: 0; color: #f6f1e7; font-size: 1.15rem; line-height: 1; text-shadow: 0 1px 2px #000; }
 .felt-pane button { position: relative; }
 .case-wide .case-portrait:first-child .case-photo img { width: calc(var(--in) * (3 + 1.7 * (1 - var(--shrunk, 0)))); transition: width 0.08s linear; }
 .case-wide .case-portrait:last-child .case-photo img { width: calc(var(--in) * (3 + 1.7 * var(--grown, 0))); transition: width 0.08s linear; }
@@ -59,10 +61,10 @@
 .felt-pane ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: clamp(0.8rem, 2.4vw, 1.8rem); padding: 1.4rem 1rem; margin: 0; min-height: 18rem; }
 .felt-pane button { border: 0; background: transparent; color: inherit; cursor: pointer; padding: 0; }
 .felt-pane img { width: clamp(4rem, 14vw, 8rem); height: auto; }
-.felt-left, .felt-down, .page-down { position: absolute; z-index: 2; border: 0; color: #e8d7a8; background: transparent; cursor: pointer; }
+.felt-left, .felt-down, .page-down { position: absolute; z-index: 2; border: 0; color: #f6f1e7; background: transparent; cursor: pointer; }
 .felt-left { left: 0.2rem; top: 42%; width: 2rem; height: 2.4rem; }
 .felt-left::before { content: "\2190"; font-size: 1.4rem; }
-.felt-down, .page-down { left: 50%; bottom: 0.3rem; transform: translateX(-50%); width: 2rem; height: 1.4rem; pointer-events: none; }
+.felt-down, .page-down { right: 0.15rem; left: auto; bottom: 0.3rem; transform: none; width: 1.4rem; height: 1.4rem; pointer-events: none; }
 .felt-down::after, .page-down::after { content: "\2193"; font-size: 1.2rem; }
 .map-frame { background: #f6f1e7; border: 1px solid #c4a24a; }
 .map-num, .pin-num { background: #1d4e89; color: #f6f1e7; border: 2px solid #0c2340; border-style: solid; }
@@ -74,6 +76,7 @@
   .archive.case-wide { padding: 0; }
   .case-wide .case-frame { width: 100%; height: 100vh; max-height: 100vh; border-width: 10px; padding: 0 0 0.6rem; }
   .felt-surface { padding: 0.4rem 0.4rem 1rem; }
+  .command-line::after { right: -0.4rem; }
   .case-wide .site-footer { margin-inline: 0.4rem; }
   .felt-title { display: none; }
   .command-line, .story-crest { --crest: 3.1rem; }
