@@ -12,12 +12,12 @@ import {
 import { CareerGlyph, RibbonButton } from "@/components/shadowbox/marks";
 
 const COMMANDS = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"];
-const PARTNERS: { id: string; affiliation: string; patch?: string; name?: string; openId?: string }[] = [
+const PARTNERS: { id: string; affiliation: string; patch?: string; name?: string; openId?: string; image?: string }[] = [
   { id: "tortuga", affiliation: "TAD" },
-  { id: "rtn", affiliation: "Host \u00b7 Cobra Gold \u00d72", patch: "RTN", name: "Royal Thai Navy", openId: "eodmu5" },
-  { id: "auscdt", affiliation: "Host \u00b7 Talisman Saber \u00d72", patch: "AUSCDT", name: "Australian Clearance Diving Team", openId: "eodmu5" },
+  { id: "rtn", affiliation: "Host \u00b7 Cobra Gold \u00d72", patch: "RTN", name: "Royal Thai Navy", openId: "eodmu5", image: "/incoming/rtn.png" },
+  { id: "auscdt", affiliation: "Host \u00b7 Talisman Saber \u00d72", patch: "AUSCDT", name: "Australian Clearance Diving Team", openId: "eodmu5", image: "/incoming/auscdt-1.png" },
   { id: "troy", affiliation: "Deployment partner" },
-  { id: "ia-army", affiliation: "Deployment", patch: "IRON", name: "Task Force Iron Shield" },
+  { id: "ia-army", affiliation: "Deployment", patch: "IRON", name: "Task Force Iron Shield", image: "/incoming/cram.png" },
   { id: "cjsotf", affiliation: "Two deployments" },
 ];
 
@@ -96,12 +96,11 @@ export function Case({
                 {PARTNERS.map((row) => {
                   const unit = units.find((item) => item.id === row.id);
                   const label = row.name ?? unit?.name ?? row.id;
-                  const plate = row.patch ?? unit?.patch ?? label;
-                  const hasCrest = Boolean(unit?.image) && row.id !== "ia-army";
+                  const image = row.image ?? unit?.image;
                   return (
                     <li key={row.id}>
-                      <button type="button" className={hasCrest ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", row.openId ?? row.id)} aria-label={`${label}, ${row.affiliation}. Open the sidebar.`}>
-                        {hasCrest ? <img className="patch-crest" src={publicUrl(unit!.image!)} alt="" /> : <span className="word-plate">{plate}</span>}
+                      <button type="button" className={image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", row.openId ?? row.id)} aria-label={`${label}, ${row.affiliation}. Open the sidebar.`}>
+                        {image ? <img className="patch-crest" src={publicUrl(image)} alt="" /> : <span className="word-plate">{row.patch ?? unit?.patch}</span>}
                         <span className="patch-mark">{label}</span>
                         <span className="designator">{row.affiliation}</span>
                         <span>{unit ? formatSpan(unit.start, unit.end) : ""}</span>
