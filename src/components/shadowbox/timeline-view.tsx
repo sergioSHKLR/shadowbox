@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   awards,
   caseCopy,
@@ -44,7 +44,7 @@ export function Timeline({
     <main className="sheet">
       <h2>{profile.serviceLength}, one line</h2>
       <p>{caseCopy.timelineLead}</p>
-      <div className="chart-scroll">
+      <ChartScroll>
         <div className="chart-stack">
         <Track label="Rank" items={bars.rank} onOpen={pick} />
         <Track label="Assignments" items={bars.duty} onOpen={pick} />
@@ -52,7 +52,7 @@ export function Timeline({
         <Track label="Schools" items={bars.study} onOpen={onOpen} />
         <Track label="Events" items={bars.world} />
         </div>
-      </div>
+      </ChartScroll>
       <p className="quiet">Events are public history during this enlistment — presidents, attacks, and the wars. They are not part of the service record. Command popups now also list the crosswalk fields (watch, collateral, aircraft, layovers) from the supplement.</p>
       <h3>Rank progression</h3>
       <ol className="rank-steps">
@@ -135,6 +135,40 @@ export function Timeline({
         </div>
       </section>
     </main>
+  );
+}
+
+function ChartScroll({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [edge, setEdge] = useState({ left: false, right: false });
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const update = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      setEdge({
+        left: el.scrollLeft > 6,
+        right: max > 6 && el.scrollLeft < max - 6,
+      });
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(update) : null;
+    ro?.observe(el);
+    window.addEventListener("resize", update);
+    return () => {
+      el.removeEventListener("scroll", update);
+      ro?.disconnect();
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+  return (
+    <div className={`chart-scroll-wrap${edge.left ? " has-left" : ""}${edge.right ? " has-right" : ""}`}>
+      {edge.right ? <span className="chart-scroll-hint">Scroll →</span> : null}
+      <div className="chart-scroll" ref={ref}>
+        {children}
+      </div>
+    </div>
   );
 }
 
