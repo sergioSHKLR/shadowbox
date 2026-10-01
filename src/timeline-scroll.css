@@ -39,3 +39,36 @@
 .chart-scroll-wrap:not(.has-right) .chart-scroll-hint {
   display: none;
 }
+.uprog-pins {
+  position: absolute;
+  left: 19.9%;
+  top: 26.2%;
+  width: 31.5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4%;
+  z-index: 3;
+}
+.uprog-pins img {
+  width: 100%;
+  height: auto;
+  max-height: 2.2rem;
+  object-fit: contain;
+}
+.uprog-jcse {
+  position: absolute;
+  left: 52%;
+  top: 31%;
+  width: 7%;
+  z-index: 3;
+}
+.uprog-jcse img {
+  width: 100%;
+  height: auto;
+}
+.uprog-piece {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+}
