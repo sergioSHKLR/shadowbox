@@ -11,7 +11,7 @@ import {
   warfare,
   type Kind,
 } from "@/lib/shadowbox/model";
-import { CareerGlyph } from "@/components/shadowbox/marks";
+import { CareerGlyph, RibbonButton } from "@/components/shadowbox/marks";
 
 const COMMANDS = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"];
 
@@ -51,6 +51,7 @@ export function Case({
     .map((award) => ({ award, medal: medalFor(award.id) }))
     .filter((row) => row.medal?.front)
     .sort((a, b) => a.award.precedence - b.award.precedence);
+  const ribbonOnly = ribbonRows(awards.filter((award) => !medalFor(award.id)?.front));
   const portraitWithPlaque = (photo: (typeof photos)[number] | undefined, lines: string[]) =>
     photo ? (
       <figure className="case-portrait">
@@ -89,9 +90,17 @@ export function Case({
                   </li>
                 ) : null)}
               </ul>
-              {portraitWithPlaque(chief, plaques.chief)}
               {etMark ? renderMark(etMark, "worn worn-et") : null}
               {esws ? renderMark(esws, "worn worn-pin") : null}
+              <div className="rack" aria-label="Ribbons that are not medals">
+                {ribbonOnly.map((row) => (
+                  <div key={row.map((award) => award.id).join("-")} className="rack-row">
+                    {row.map((award) => (
+                      <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />
+                    ))}
+                  </div>
+                ))}
+              </div>
               <ul className="case-medals" aria-label="Medals">
                 {medals.map(({ award, medal }) => (
                   <li key={award.id}>
@@ -114,6 +123,7 @@ export function Case({
                   </div>
                 ))}
               </dl>
+              {portraitWithPlaque(chief, plaques.chief)}
             </div>
           </div>
         </div>
