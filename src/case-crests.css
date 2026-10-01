@@ -1,7 +1,11 @@
 .command-line { display: flex; align-items: center; gap: clamp(0.45rem, 1.6vw, 1rem); width: 100%; margin: 0.7rem 0; }
-.line-marks { display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem; }
-.line-marks .story-awards { display: flex; align-items: center; gap: 0.3rem; margin: 0; }
-.line-marks .rate-patch, .line-marks .hashes img, .line-marks .story-awards img { height: clamp(1.5rem, 4.2vw, 2.5rem); width: auto; }
+.line-marks { display: flex; align-items: flex-end; flex-wrap: wrap; gap: calc(var(--in) * 0.25); }
+.line-marks .story-awards { display: flex; align-items: flex-end; gap: 0; margin: 0; }
+.line-marks .rate-patch { height: clamp(1.5rem, 4.2vw, 2.5rem); width: auto; }
+.line-marks .hashes img { height: clamp(1.1rem, 3vw, 1.8rem); width: auto; }
+.line-marks .ribbon-line { width: calc(var(--in) * 1.375); height: auto; }
+.line-marks .medal-line { width: calc(var(--in) * 1.375); height: calc(var(--in) * 3.25); object-fit: contain; }
+.line-marks .device-line img { width: calc(var(--in) * 2.75); height: auto; }
 .line-marks .story-awards button { width: auto; height: auto; }
 .page-link { border: 0; background: transparent; color: #e8d7a8; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; margin-right: 0.8rem; }
 .page-link.on { text-decoration: underline; }
