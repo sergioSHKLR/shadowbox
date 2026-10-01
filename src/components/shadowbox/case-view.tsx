@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   awards, formatSpan, insignia, medalFor, photos, profile, publicUrl, ribbonRows, units, warfare,
   type Award, type Kind,
@@ -40,9 +40,7 @@ const FELT: Card[] = [
     { title: "Cobra Gold", src: "/incoming/cobra-gold.png", children: [{ title: "Royal Thai Navy", src: "/incoming/rtn.png" }] },
     { title: "Talisman Saber", src: "/incoming/talisman-saber.png", children: [{ title: "AUSCDT", src: "/incoming/auscdt-1.png" }] },
     { title: "Operation Iraqi Freedom", src: "/incoming/troy.png", open: "unit", id: "troy", children: [
-      { title: "EODMU 11", src: "/incoming/eodmu11.png" },
-      { title: "52nd EOD", src: "/incoming/52nd-eod.png" },
-      { title: "16th EN", src: "/incoming/16th-en.png" },
+      { title: "EODMU 11", src: "/incoming/eodmu11.png" }, { title: "52nd EOD", src: "/incoming/52nd-eod.png" }, { title: "16th EN", src: "/incoming/16th-en.png" },
     ]},
   ]},
   { title: "Southeast Region Correctional Command", id: "sercc", open: "unit", children: [
@@ -58,9 +56,7 @@ type Block = { kind: string | null; id: string | null; lists: Record<string, str
 const blocks = supplementJson as unknown as Block[];
 const clean = (value: string) => value.replace(/^[A-Z]+-\d+:\s*/, "");
 const list = (id: string, field: string) => blocks.find((block) => block.kind === "unit" && block.id === id)?.lists[field]?.map(clean) ?? [];
-function crest(card: Card) {
-  return card.src || units.find((unit) => unit.id === card.id)?.image;
-}
+function crest(card: Card) { return card.src || units.find((unit) => unit.id === card.id)?.image; }
 function Collar({ grade, gold }: { grade: string; gold?: boolean }) {
   const src = gold && grade === "E-6" ? PATCH["E-6-gold"] : PATCH[grade];
   return src ? <img className="rate-patch" src={publicUrl(src)} alt="" /> : null;
@@ -91,21 +87,30 @@ function AwardStrip({ items, onOpen }: { items: Award[]; onOpen: (id: string) =>
 }
 function Felt({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
   const [path, setPath] = useState<Card[]>([]);
+  const [moreDown, setMoreDown] = useState(false);
+  const scroller = useRef<HTMLDivElement>(null);
   const cards = path.length ? path[path.length - 1].children ?? [] : FELT;
   const title = path.length ? path[path.length - 1].title : "Supplemental";
+  useEffect(() => {
+    const el = scroller.current;
+    if (!el) return;
+    const check = () => setMoreDown(el.scrollHeight - el.scrollTop - el.clientHeight > 24);
+    check();
+    el.addEventListener("scroll", check);
+    return () => el.removeEventListener("scroll", check);
+  }, [path]);
   return (
     <div className="felt-window">
+      {path.length ? <button type="button" className="felt-left" onClick={() => setPath(path.slice(0, -1))} aria-label={`Back to ${path.length > 1 ? path[path.length - 2].title : "Supplemental"}`}>Back</button> : null}
       <div className="felt-track" style={{ transform: `translateX(-${path.length * 33.333}%)` }}>
         {[0, 1, 2].map((pane) => {
           const shown = pane === path.length;
-          const paneCards = pane === 0 ? FELT : pane === path.length ? cards : [];
-          const paneTitle = pane === 0 ? "Supplemental" : pane === path.length ? title : "";
+          const paneCards = shown ? cards : [];
           return (
-            <section key={pane} className="felt-pane" aria-hidden={!shown}>
-              {pane > 0 && shown ? <button type="button" className="felt-back" onClick={() => setPath(path.slice(0, -1))}>Back</button> : null}
-              <h3>{paneTitle}</h3>
+            <section key={pane} className="felt-pane" aria-hidden={!shown} ref={shown ? scroller : undefined}>
+              <h3>{shown ? title : ""}</h3>
               <ul>
-                {(shown ? paneCards : []).map((card) => {
+                {paneCards.map((card) => {
                   const image = crest(card);
                   return (
                     <li key={card.title}>
@@ -121,6 +126,7 @@ function Felt({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
           );
         })}
       </div>
+      {moreDown ? <span className="felt-down" aria-hidden="true">More</span> : null}
     </div>
   );
 }
@@ -128,10 +134,18 @@ function Felt({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
 export function Case({ rows: _rows, onOpen }: { rows: ReturnType<typeof ribbonRows>; onOpen: (k: Kind, id: string) => void }) {
   void _rows;
   const [tab, setTab] = useState<"assigned" | "supplemental">("assigned");
+  const [moreDown, setMoreDown] = useState(false);
   const marks = caseMarks();
   const recruit = photos.find((photo) => photo.id === "recruit-portrait-1997");
   const chief = photos.find((photo) => photo.id === "chief-portrait-2018");
   const plaques = profile.casePlaques;
+  useEffect(() => {
+    const check = () => setMoreDown(window.scrollY + window.innerHeight < document.documentElement.scrollHeight - 32);
+    check();
+    window.addEventListener("scroll", check);
+    window.addEventListener("resize", check);
+    return () => { window.removeEventListener("scroll", check); window.removeEventListener("resize", check); };
+  }, [tab]);
   const portrait = (photo: (typeof photos)[number] | undefined, lines: string[]) => photo ? (
     <figure className="case-portrait">
       <button type="button" className="case-photo" onClick={() => onOpen("photo", photo.id)} aria-label={`${photo.caption}. Open the photograph.`}><img src={publicUrl(photo.src)} alt={photo.alt} loading="lazy" /></button>
@@ -181,6 +195,7 @@ export function Case({ rows: _rows, onOpen }: { rows: ReturnType<typeof ribbonRo
               </>
             ) : <Felt onOpen={onOpen} />}
           </div></div>
+          {moreDown ? <span className="page-down" aria-hidden="true">More</span> : null}
         </div>
       </section>
     </main>
