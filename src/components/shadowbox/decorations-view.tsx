@@ -11,7 +11,7 @@ import {
   type Kind,
   type TourFocus,
 } from "@/lib/shadowbox/model";
-import { MedalBlock, RibbonArt } from "@/components/shadowbox/marks";
+import { RibbonArt } from "@/components/shadowbox/marks";
 import { UniformProgression } from "@/components/shadowbox/uniform-progression";
 
 const START = profile.serviceStart;
@@ -39,6 +39,11 @@ function earnedBy(day: string): Award[] {
   const y = Number(day.slice(0, 4));
   const got = new Set(instances.filter((row) => row.year != null && row.year <= y).map((row) => row.awardId));
   return awards.filter((award) => got.has(award.id));
+}
+function rowsOf(list: Award[], size: number): Award[][] {
+  const rows: Award[][] = [];
+  for (let i = 0; i < list.length; i += size) rows.push(list.slice(i, i + size));
+  return rows;
 }
 
 export function Decorations({
@@ -76,14 +81,14 @@ export function Decorations({
   const day = dayOf(month);
   const list = useMemo(() => earnedBy(day), [day]);
   const rows = useMemo(() => ribbonRows(list), [list]);
-  const medalRows = useMemo(() => ribbonRows(list.filter((award) => medalFor(award.id)?.front)), [list]);
+  const withMedal = list.filter((award) => medalFor(award.id)?.front);
   const ribbonOnly = list.filter((award) => !medalFor(award.id)?.front);
   const label = `${MONTHS[Number(day.slice(5, 7)) - 1]} ${day.slice(0, 4)}`;
 
   return (
     <main className="sheet">
       <h2>Decorations</h2>
-      <p>The rack as it stood, with no uniform under it. Ribbon bars until the toggle. Full medals use the rasters on file; a bar with no pendant yet stays a ribbon.</p>
+      <p>The rack as it stood, with no uniform under it. Ribbon bars until the toggle. The medal rasters already include the ribbon, so they hang as one piece.</p>
       <div className="uprog-controls">
         <button type="button" className="nav-btn icon-btn" aria-label="Back six months" onClick={() => { setPlaying(false); setMonth((m) => Math.max(M0, m - 6)); }}>
           <ChevronLeft size={20} strokeWidth={2} aria-hidden="true" />
@@ -105,9 +110,23 @@ export function Decorations({
       </div>
       {medals ? (
         <div className="living-medals">
-          {medalRows.length ? <MedalBlock rows={medalRows} onOpen={(award) => onOpen("award", award.id)} /> : <p className="quiet">No full-size medal art for this date yet.</p>}
+          {rowsOf(withMedal, 3).map((row) => (
+            <div key={row.map((a) => a.id).join("-")} className="medal-row">
+              {row.map((award) => {
+                const medal = medalFor(award.id);
+                if (!medal?.front) return null;
+                return (
+                  <button key={award.id} type="button" className="hanging-medal" onClick={() => onOpen("award", award.id)} aria-label={award.name}>
+                    <img src={publicUrl(medal.front)} alt="" />
+                  </button>
+                );
+              })}
+            </div>
+          ))}
+          {!withMedal.length ? <p className="quiet">No full-size medal art for this date yet.</p> : null}
           {ribbonOnly.length ? (
             <div className="living-rack">
+              <p className="quiet">No pendant yet</p>
               {ribbonRows(ribbonOnly).map((row) => (
                 <div key={row.map((a) => a.id).join("-")} className="rack-row">
                   {row.map((award) => (
@@ -141,5 +160,3 @@ export function Decorations({
     </main>
   );
 }
-
-void publicUrl;
