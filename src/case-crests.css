@@ -1,0 +1,26 @@
+/* Case crest row: six duty commands. Overrides the 4-across grid in styles.css. */
+.case-column {
+  width: 100%;
+  gap: calc(var(--in) / 4);
+}
+.patch-row {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: min(100%, 52rem);
+  justify-content: center;
+}
+.patch-row li { display: flex; }
+.patch-row .patch { justify-content: flex-start; }
+.patch-row:has(.has-crest) .patch { min-height: 6.6rem; }
+@media (min-width: 520px) {
+  .patch-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 900px) {
+  .patch-row { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .patch-row:has(.has-crest) .patch { min-height: 7.2rem; }
+}
