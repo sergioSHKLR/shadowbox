@@ -13,6 +13,7 @@ import {
   type Selection,
   type TourFocus,
 } from "@/lib/shadowbox/model";
+import { searchRecord, type Hit } from "@/lib/shadowbox/search";
 import { DetailPanel } from "@/components/shadowbox/detail";
 import { Case } from "@/components/shadowbox/case-view";
 import { Timeline } from "@/components/shadowbox/timeline-view";
@@ -68,7 +69,14 @@ export function ShadowboxApp() {
   const bars = useMemo(() => timeline(), []);
   const stops = useMemo(() => careerStops(), []);
   const blanks = useMemo(() => openRecord(), []);
+  const hits = useMemo(() => searchRecord(query), [query]);
   const pane = (id: View) => (view === id ? "view-pane" : "view-pane screen-off");
+  const take = (hit: Hit) => {
+    if ("view" in hit.open) setView(hit.open.view as View);
+    else open(hit.open.kind, hit.open.id);
+    setQuery("");
+    setMenu(false);
+  };
 
   useEffect(() => {
     document.title = profile.pageTitle;
@@ -85,13 +93,26 @@ export function ShadowboxApp() {
         <div className="felt-bar">
           <img src={publicUrl("/favicon.svg")} alt="" />
           <div><strong>SHADOWBOX</strong><span>U.S. Navy</span></div>
-          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search" aria-label="Search" />
+          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search" aria-label="Search the record" />
           <button type="button" className="felt-menu" aria-label="Menu" onClick={() => setMenu((open) => !open)}>&#9776;</button>
           {menu ? (
             <ul className="felt-menu-list">
               {NAV.map((item) => (
                 <li key={item.id}><button type="button" onClick={() => { setView(item.id); setMenu(false); }}>{item.label}</button></li>
               ))}
+            </ul>
+          ) : null}
+          {query.trim().length >= 2 ? (
+            <ul className="search-hits">
+              {hits.length ? hits.map((hit) => (
+                <li key={`${hit.kindLabel}-${hit.title}`}>
+                  <button type="button" onClick={() => take(hit)}>
+                    <small>{hit.kindLabel}</small>
+                    <strong>{hit.title}</strong>
+                    <span>{hit.snippet}</span>
+                  </button>
+                </li>
+              )) : <li className="search-empty">No match in the record.</li>}
             </ul>
           ) : null}
         </div>
