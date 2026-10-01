@@ -1,0 +1,27 @@
+@page {
+  size: letter;
+  margin: 0.7in;
+}
+.book-appendix { display: none; }
+@media print {
+  html, body { background: #fff !important; color: #1c1915; }
+  .archive { max-width: none; padding: 0; }
+  .mast-nav, .uprog-controls, .map-play, .map-filter, .detail-overlay,
+  .icon-btn, .guest-form, .site-footer button, .filmstrip { display: none !important; }
+  .view-pane { display: block !important; break-before: page; }
+  .view-pane:first-of-type { break-before: auto; }
+  .detail-panel {
+    position: static !important;
+    inset: auto !important;
+    width: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    break-before: page;
+  }
+  .book-appendix { display: block; }
+  .book-chapter { break-before: page; }
+  .book-chapter h2 { font-size: 1.4rem; }
+  .case-frame { break-inside: avoid; box-shadow: none; }
+  a { color: inherit; text-decoration: none; }
+}
