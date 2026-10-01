@@ -1,11 +1,34 @@
-import { equipment, EQUIPMENT_GROUPS, formatSpan, operations, publicUrl, visits, type Kind } from "@/lib/shadowbox/model";
+import { equipment, EQUIPMENT_GROUPS, formatSpan, operations, publicUrl, units, visits, type Kind } from "@/lib/shadowbox/model";
+
+const TASK_FORCES = [
+  { id: "troy", name: "CJTF Troy", image: "/incoming/troy.png", when: "2006" },
+  { id: "ia-army", name: "Task Force Iron Shield", image: "/incoming/cram.png", when: "2008\u20132009" },
+  { id: "cjsotf", name: "CJSOTF-A", image: "/incoming/cjsotf-a.png", when: "2010\u20132013" },
+];
+
+const EXERCISE_CRESTS: Record<string, { image: string; host: string }> = {
+  "cobra-gold": { image: "/incoming/cobra-gold.png", host: "Host \u00b7 Royal Thai Navy \u00d72" },
+  "talisman-saber": { image: "/incoming/talisman-saber.png", host: "Host \u00b7 Australian Clearance Diving Team \u00d72" },
+};
 
 export function Ops({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
   const exercises = visits.filter((visit) => visit.kind === "exercise");
   return (
     <main className="sheet">
       <h2>Ops</h2>
-      <p>Campaigns are the named deployments. Exercises are the recorded training and host-nation events. Years that were not entered stay blank.</p>
+      <p>Task forces are Troy, Iron Shield, and CJSOTF-A. Campaigns are the named deployments. Exercises are Cobra Gold, Talisman Saber, and the other recorded training. Years that were not entered stay blank.</p>
+      <h3>Task forces</h3>
+      <ol className="uniform-grid equipment-grid">
+        {TASK_FORCES.map((force) => (
+          <li key={force.id}>
+            <button type="button" className="uniform-card equipment-card" onClick={() => onOpen("unit", force.id)}>
+              <img className="equipment-photo" src={publicUrl(force.image)} alt="" />
+              <strong>{force.name}</strong>
+              <span>{force.when}</span>
+            </button>
+          </li>
+        ))}
+      </ol>
       <h3>Campaigns</h3>
       <ul className="stack">
         {operations.map((op) => (
@@ -19,17 +42,21 @@ export function Ops({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
         ))}
       </ul>
       <h3>Exercises</h3>
-      <ul className="stack">
-        {exercises.map((visit) => (
-          <li key={visit.id}>
-            <button type="button" className="row-btn" onClick={() => onOpen("place", visit.placeId)}>
-              <strong>{visit.when}</strong>
-              <span>{visit.title}</span>
-              <em>{visit.id === "cobra-gold" ? "Host \u00b7 Royal Thai Navy \u00d72" : visit.id === "talisman-saber" ? "Host \u00b7 Australian Clearance Diving Team \u00d72" : "Training"}</em>
-            </button>
-          </li>
-        ))}
-      </ul>
+      <ol className="uniform-grid equipment-grid">
+        {exercises.map((visit) => {
+          const crest = EXERCISE_CRESTS[visit.id];
+          return (
+            <li key={visit.id}>
+              <button type="button" className="uniform-card equipment-card" onClick={() => onOpen("place", visit.placeId)}>
+                {crest ? <img className="equipment-photo" src={publicUrl(crest.image)} alt="" /> : null}
+                <strong>{visit.title}</strong>
+                <span>{visit.when}</span>
+                <span>{crest?.host ?? "Training"}</span>
+              </button>
+            </li>
+          );
+        })}
+      </ol>
     </main>
   );
 }
