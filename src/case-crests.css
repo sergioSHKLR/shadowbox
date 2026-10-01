@@ -37,6 +37,9 @@
   line-height: 1.05;
 }
 .patch-row .designator { white-space: normal; text-align: center; }
+.plaque {
+  background: #c4a24a;
+}
 @media (min-width: 520px) {
   .patch-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
