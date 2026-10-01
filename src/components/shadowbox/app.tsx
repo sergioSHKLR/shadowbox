@@ -135,8 +135,8 @@ export function ShadowboxApp() {
       <div className={`${pane("memories")} no-book`}><Memories /></div>
 
         </div>
+        <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setSelection(null); setTrail([]); }} />
       </div>
-      <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setSelection(null); setTrail([]); }} />
       <section className="book-appendix" aria-label="Sidebar chapters">
         <h2>Sidebars</h2>
         {units.map((unit) => (
