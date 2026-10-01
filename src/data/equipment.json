@@ -990,13 +990,13 @@
     "order": 60,
     "name": "Yamaha XT225",
     "cutout": false,
-    "note": "MOT-01. Guam. Model card.",
-    "image": "",
+    "note": "Yamaha XT225 at right. Not his bike.",
+    "image": "/equipment/xt225.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet."
+      "sourceUrl": "https://expeditionportal.com/building-a-baby-adventure-bike/",
+      "file": "https://expeditionportal.com/building-a-baby-adventure-bike/",
+      "creator": "Expedition Portal",
+      "license": "See source page"
     }
   },
   {
@@ -1005,13 +1005,13 @@
     "order": 61,
     "name": "Buell 500",
     "cutout": false,
-    "note": "MOT-02. Orange Park. Model card.",
-    "image": "",
+    "note": "Photograph of a Buell Blast, the 500. Not his bike.",
+    "image": "/equipment/buell-500.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet."
+      "sourceUrl": "https://www.rideapart.com/news/267653/buell-blast-project-erik-buell/",
+      "file": "https://www.rideapart.com/news/267653/buell-blast-project-erik-buell/",
+      "creator": "RideApart",
+      "license": "See source page"
     }
   },
   {
@@ -1020,13 +1020,13 @@
     "order": 62,
     "name": "Sportster 1200",
     "cutout": false,
-    "note": "MOT-03. Orange Park and Tampa. Model card.",
-    "image": "",
+    "note": "Sportster 1200. Not his bike.",
+    "image": "/equipment/sportster-1200.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet."
+      "sourceUrl": "https://www.vikingbags.com/blogs/news/harleydavidson-sportster-1200-custom-detailed-specs-background-performance-and-more",
+      "file": "https://www.vikingbags.com/blogs/news/harleydavidson-sportster-1200-custom-detailed-specs-background-performance-and-more",
+      "creator": "Motorcyclecruiser, via Viking Bags",
+      "license": "See source page"
     }
   },
   {
@@ -1065,13 +1065,13 @@
     "order": 72,
     "name": "Talofofo",
     "cutout": false,
-    "note": "CIT-03. Guam.",
-    "image": "",
+    "note": "Talofofo, the church.",
+    "image": "/equipment/city-talofofo.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet."
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:NotreDameTalofofo1.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:NotreDameTalofofo1.jpg",
+      "creator": "Wikimedia Commons, CC BY 2.0",
+      "license": "See source page"
     }
   },
   {
