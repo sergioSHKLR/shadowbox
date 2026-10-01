@@ -1,14 +1,41 @@
+/* Case crest row. Commands stay six across on a wide screen. */
+.case-column { width: 100%; gap: calc(var(--in) / 4); }
+.case-label { margin: 0.35rem 0 0; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-ivory); }
+.patch-row { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem; padding: 0; margin: 0; width: 100%; max-width: min(100%, 52rem); }
+.patch-row li { display: flex; min-width: 0; }
+.patch-row .patch { justify-content: flex-start; min-width: 0; overflow: hidden; }
+.patch-row .patch-mark { color: var(--color-navy); }
+.plaque { background: #c4a24a; }
+.sidebar-map { margin: 0.6rem 0 0.2rem; }
+.thumb-row ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(4.6rem, 1fr)); gap: 0.45rem; padding: 0; margin: 0.3rem 0 0.6rem; }
+.thumb-row img { width: 100%; aspect-ratio: 1; object-fit: contain; background: #efe8da; }
+.thumb-row span { display: block; font-size: 0.68rem; line-height: 1.2; }
+.crumb { display: flex; flex-wrap: wrap; gap: 0.2rem; margin: 0.35rem 0 0; font-size: 0.75rem; }
+.crumb button { border: 0; background: transparent; color: inherit; padding: 0; text-decoration: underline; cursor: pointer; }
+.crumb button:disabled { text-decoration: none; cursor: default; font-weight: 700; }
+.command-story { display: grid; grid-template-columns: 7.5rem 1fr; gap: 0.8rem; align-items: start; width: 100%; margin: 0.8rem 0; }
+.story-crest { width: 7.5rem; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.story-crest img { width: 100%; height: auto; object-fit: contain; }
+.story-copy h3 { margin: 0.45rem 0 0.2rem; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.story-rank { margin: 0; font-weight: 700; display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; }
+.rank-pair { display: inline-flex; align-items: center; gap: 0.25rem; }
+.collar { width: 1.35rem; height: 1.8rem; }
+.award-face { position: relative; display: block; }
+.metal-devices { position: absolute; left: 0; right: 0; top: 38%; display: flex; justify-content: center; gap: 1px; pointer-events: none; }
+.metal { width: 0.42rem; height: 0.42rem; display: block; }
+.metal.star { background: currentColor; clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+.metal.gold { color: #e4c77a; }
+.metal.silver { color: #d9d9d9; }
+.metal.bronze { color: #b08a52; }
+.metal.oak { width: 0.62rem; height: 0.38rem; border-radius: 40% 60%; background: #a67c52; }
+.story-awards { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0; margin: 0; }
+.story-awards button { width: 4.2rem; padding: 0; border: 0; background: transparent; cursor: pointer; color: inherit; }
+.story-awards img { width: 100%; height: 3.4rem; object-fit: contain; }
+.story-awards span { display: block; font-size: 0.68rem; }
 .case-tabs { display: flex; gap: 0.35rem; margin: 0 0.6rem -2px; position: relative; z-index: 1; }
-.case-tab {
-  border: 1px solid #6e531c;
-  border-bottom: 0;
-  background: #8d7340;
-  color: #1a1408;
-  padding: 0.45rem 1rem 0.55rem;
-  border-radius: 6px 6px 0 0;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
+.case-tab { border: 1px solid #6e531c; border-bottom: 0; background: #8d7340; color: #1a1408; padding: 0.45rem 1rem 0.55rem; border-radius: 6px 6px 0 0; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; }
 .case-tab.on { background: #c4a24a; padding-bottom: 0.7rem; }
+@media (max-width: 640px) {
+  .command-story { grid-template-columns: 5.5rem 1fr; }
+  .story-crest { width: 5.5rem; }
+}
