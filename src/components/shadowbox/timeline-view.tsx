@@ -13,9 +13,7 @@ import {
   ribbonRows,
   schools,
   timeline,
-  tourFocus,
   type Kind,
-  type TourFocus,
 } from "@/lib/shadowbox/model";
 
 export function Timeline({
@@ -23,19 +21,12 @@ export function Timeline({
   rows,
   blanks,
   onOpen,
-  onFocus,
 }: {
   bars: ReturnType<typeof timeline>;
   rows: ReturnType<typeof ribbonRows>;
   blanks: string[];
   onOpen: (k: Kind, id: string) => void;
-  onFocus: (tour: TourFocus) => void;
 }) {
-  const pick = (kind: Kind, id: string) => {
-    const next = tourFocus(kind, id);
-    if (next) onFocus(next);
-    else onOpen(kind, id);
-  };
   const dated = [
     ...schools.map((school) => ({ key: `school-${school.id}`, when: school.start ?? "", kind: "school" as Kind, id: school.id, title: school.name, note: school.length ?? "length not entered" })),
     ...milestones.map((mark) => ({ key: `milestone-${mark.id}`, when: mark.date ?? "", kind: "milestone" as Kind, id: mark.id, title: mark.title, note: "Career" })),
@@ -46,19 +37,19 @@ export function Timeline({
       <p>{caseCopy.timelineLead}</p>
       <ChartScroll>
         <div className="chart-stack">
-        <Track label="Rank" items={bars.rank} onOpen={pick} />
-        <Track label="Assignments" items={bars.duty} onOpen={pick} />
-        <Track label="Deployments" items={bars.ops} onOpen={pick} />
+        <Track label="Rank" items={bars.rank} onOpen={onOpen} />
+        <Track label="Assignments" items={bars.duty} onOpen={onOpen} />
+        <Track label="Deployments" items={bars.ops} onOpen={onOpen} />
         <Track label="Schools" items={bars.study} onOpen={onOpen} />
         <Track label="Events" items={bars.world} />
         </div>
       </ChartScroll>
-      <p className="quiet">Events are public history during this enlistment — presidents, attacks, and the wars. They are not part of the service record. A rank, assignment, or deployment opens the uniform plate on that date.</p>
+      <p className="quiet">Events are public history during this enlistment — presidents, attacks, and the wars. They are not part of the service record. A rank, assignment, or deployment opens its sidebar and stays on this page.</p>
       <h3>Rank progression</h3>
       <ol className="rank-steps">
         {ranks.map((rank) => (
           <li key={rank.id}>
-            <button type="button" className="rank-step" onClick={() => pick("rank", rank.id)}>
+            <button type="button" className="rank-step" onClick={() => onOpen("rank", rank.id)}>
               {rank.image ? <img src={publicUrl(rank.image)} alt="" loading="lazy" /> : <span className="mark-word">{rank.abbreviation}</span>}
               <strong>{rank.date ? formatWhen(rank.date) : "Date needed"}</strong>
               <span>{rank.abbreviation} · {rank.grade}</span>
