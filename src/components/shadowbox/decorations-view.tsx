@@ -48,6 +48,14 @@ function medalRows(list: Award[]): Award[][] {
   return rows;
 }
 
+/** AS-40, SERCC, and Naval Hospital are the surface commands. JCSE is the exception. */
+function pinOrder(month: number): "surface" | "jcse" | "other" {
+  const y = Math.floor(month / 12);
+  if (y >= 2009 && y < 2014) return "jcse";
+  if ((y >= 2001 && y <= 2004) || (y >= 2007 && y <= 2008) || y >= 2014) return "surface";
+  return "other";
+}
+
 function Rack({ list, onOpen }: { list: Award[]; onOpen: (id: string) => void }) {
   return (
     <div className="living-rack" aria-label="Ribbon rack">
@@ -73,6 +81,24 @@ function Hanging({ award, onOpen }: { award: Award; onOpen: (id: string) => void
       <img src={publicUrl(medal.front)} alt="" />
       {devices ? <img className="suspension-device" src={publicUrl(devices)} alt="" /> : null}
     </button>
+  );
+}
+
+function Pins({ ids, onOpen }: { ids: string[]; onOpen: (k: Kind, id: string) => void }) {
+  if (!ids.length) return null;
+  return (
+    <div className="warfare-row">
+      {ids.map((id) => {
+        const pin = warfare.find((row) => row.id === id);
+        if (!pin) return null;
+        return (
+          <button key={pin.id} type="button" className="warfare-pin" onClick={() => onOpen("warfare", pin.id)} aria-label={pin.name}>
+            <img src={publicUrl(pin.image)} alt="" />
+            <span>{pin.abbreviation}</span>
+          </button>
+        );
+      })}
+    </div>
   );
 }
 
@@ -114,11 +140,15 @@ export function Decorations({
   const ribbonOnly = list.filter((award) => !medalFor(award.id)?.front);
   const label = `${MONTHS[Number(day.slice(5, 7)) - 1]} ${day.slice(0, 4)}`;
   const openAward = (id: string) => onOpen("award", id);
+  const order = pinOrder(month);
+  const above = order === "jcse" ? ["exw"] : ["esws"];
+  const below = order === "jcse" ? ["esws"] : order === "surface" ? ["exw"] : [];
+  if (order === "other") above.push("exw");
 
   return (
     <main className="sheet">
       <h2>Decorations</h2>
-      <p>The rack as it stood, with no uniform under it. Warfare pins sit above it. On a wide screen, ribbons stay left and medals hang right.</p>
+      <p>The rack as it stood, with no uniform under it. On a surface command the surface pin sits above the rack. At JCSE the expeditionary pin takes the top.</p>
       <div className="uprog-controls">
         <button type="button" className="nav-btn icon-btn" aria-label="Back six months" onClick={() => { setPlaying(false); setMonth((m) => Math.max(M0, m - 6)); }}>
           <ChevronLeft size={20} strokeWidth={2} aria-hidden="true" />
@@ -138,14 +168,7 @@ export function Decorations({
           {medals ? "Ribbons and medals" : "Ribbons"}
         </button>
       </div>
-      <div className="warfare-row" aria-label="Warfare devices">
-        {warfare.map((pin) => (
-          <button key={pin.id} type="button" className="warfare-pin" onClick={() => onOpen("warfare", pin.id)} aria-label={pin.name}>
-            <img src={publicUrl(pin.image)} alt="" />
-            <span>{pin.abbreviation}</span>
-          </button>
-        ))}
-      </div>
+      <Pins ids={above} onOpen={onOpen} />
       {medals ? (
         <div className="decor-split">
           <Rack list={list} onOpen={openAward} />
@@ -169,6 +192,7 @@ export function Decorations({
           {!list.length ? <p className="quiet">Nothing dated before {label}.</p> : null}
         </>
       )}
+      <Pins ids={below} onOpen={onOpen} />
       <p className="uprog-caption">{list.length} on the rack</p>
       <div className="uniform-timeline-parked" hidden>
         <UniformProgression onOpen={onOpen} tour={tour} />
