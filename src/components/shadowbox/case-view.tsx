@@ -117,7 +117,7 @@ export function Case({
             </div>
           </div>
           <ul className="patch-row" aria-label="Commands, in order">
-            {units.map((unit) => (
+            {units.filter((unit) => unit.onCase !== false).map((unit) => (
               <li key={unit.id}>
                 <button type="button" className={unit.image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name}${unit.designator ? `, ${unit.designator}` : ""}, ${formatSpan(unit.start, unit.end)}. Open the explanation.`}>
                   {unit.image ? <img className="patch-crest" src={publicUrl(unit.image)} alt="" /> : null}

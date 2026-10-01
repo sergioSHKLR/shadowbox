@@ -138,6 +138,8 @@ export type Unit = {
   image?: string;
   /** How he was attached to the command. */
   designator?: Designator;
+  /** False for a school, TAD, operation, or customer. Those stay in the record but are not case commands. */
+  onCase?: boolean;
   /** Further images shown under the crest in the unit popup (e.g. a coin). */
   extraImages?: ExtraImage[];
   /** Tour length in months when start/end are year-only. */
