@@ -14,6 +14,7 @@
 .story-crest::after, .felt-pane button::after { content: "\203A"; position: absolute; right: 0; bottom: 0; color: #e8d7a8; font-size: 1.15rem; line-height: 1; text-shadow: 0 1px 2px #000; }
 .felt-pane button { position: relative; }
 .case-wide .case-portrait:first-child .case-photo img { width: calc(var(--in) * (3 + 1.7 * (1 - var(--shrunk, 0)))); transition: width 0.08s linear; }
+.case-wide .case-portrait:last-child .case-photo img { width: calc(var(--in) * (3 + 1.7 * var(--grown, 0))); transition: width 0.08s linear; }
 .felt-mark { width: 1.75rem; height: 1.75rem; flex: none; display: block; }
 .page-link { border: 0; background: transparent; color: #e8d7a8; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; margin-right: 0.8rem; }
 .page-link.on { text-decoration: underline; }
@@ -98,5 +99,5 @@
   .felt-pane img { width: clamp(3.4rem, 28vw, 5.5rem); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .case-wide .case-portrait:first-child .case-photo img { width: calc(var(--in) * 3); transition: none; }
+  .case-wide .case-portrait:first-child .case-photo img, .case-wide .case-portrait:last-child .case-photo img { width: calc(var(--in) * 3); transition: none; }
 }
