@@ -12,7 +12,8 @@
     "precision": "month",
     "placeId": "great-lakes",
     "explanation": "Enlisted boot camp for the Navy, at Naval Station Great Lakes, Illinois. Recruit training was 10 weeks in September 1997.",
-    "civilian": "This is where a new sailor learns to live in the Navy before going on to a technical school."
+    "civilian": "This is where a new sailor learns to live in the Navy before going on to a technical school.",
+    "onCase": false
   },
   {
     "id": "tortuga",
@@ -28,7 +29,8 @@
     "placeId": null,
     "explanation": "A Whidbey Island-class dock landing ship. It carries Marines with their vehicles and landing craft, and launches the craft from a well deck that floods. The dates of this assignment have not been entered.",
     "open": "USS Tortuga: dates not entered.",
-    "civilian": "A ship that carries Marines and their boats and vehicles to a beach."
+    "civilian": "A ship that carries Marines and their boats and vehicles to a beach.",
+    "onCase": false
   },
   {
     "id": "ntc-great-lakes",
@@ -44,7 +46,8 @@
     "placeId": "great-lakes",
     "explanation": "The Navy's training center at Great Lakes, Illinois. The emblem shown is the seal of Naval Station Great Lakes, the installation's current name. The dates of this assignment have not been entered.",
     "open": "NTC Great Lakes: dates not entered.",
-    "civilian": "The Navy's big training base north of Chicago."
+    "civilian": "The Navy's big training base north of Chicago.",
+    "onCase": false
   },
   {
     "id": "ncts",
@@ -105,7 +108,8 @@
     "placeId": "fob-sykes",
     "explanation": "A joint and coalition task force in Iraq in 2006, during Operation Iraqi Freedom, stood up against roadside bombs. The shadowbox lists it as a 2006 assignment with NEC 9613, inside the EOD Mobile Unit Five years. The Iraq campaign phase named for this tour is National Resolution.",
     "civilian": "A temporary headquarters in Iraq, drawn from more than one country and more than one branch.",
-    "months": 6
+    "months": 6,
+    "onCase": false
   },
   {
     "id": "52nd-ordnance",
@@ -121,7 +125,8 @@
     "placeId": null,
     "explanation": "A U.S. Army explosive ordnance disposal group. Joint/attached service; the role and dates have not been entered.",
     "open": "52nd Ordnance Group (EOD): role and dates not entered.",
-    "civilian": "An Army bomb-disposal headquarters."
+    "civilian": "An Army bomb-disposal headquarters.",
+    "onCase": false
   },
   {
     "id": "16th-engineer",
@@ -137,7 +142,8 @@
     "placeId": null,
     "explanation": "A U.S. Army engineer brigade, recorded as 16th EN. Joint/attached service; the role and dates have not been entered.",
     "open": "16th Engineer Brigade: role and dates not entered.",
-    "civilian": "An Army engineer headquarters."
+    "civilian": "An Army engineer headquarters.",
+    "onCase": false
   },
   {
     "id": "3rd-sfg",
@@ -153,7 +159,8 @@
     "placeId": null,
     "explanation": "A U.S. Army Special Forces group. Joint/attached service; the role and dates have not been entered. Shown with the Special Forces shoulder sleeve insignia and the 3rd Group beret flash.",
     "open": "3rd Special Forces Group: role and dates not entered.",
-    "civilian": "An Army Special Forces unit."
+    "civilian": "An Army Special Forces unit.",
+    "onCase": false
   },
   {
     "id": "75th-ranger",
@@ -169,7 +176,8 @@
     "placeId": null,
     "explanation": "The U.S. Army's Ranger regiment. Joint/attached service; the role and dates have not been entered.",
     "open": "75th Ranger Regiment: role and dates not entered.",
-    "civilian": "An Army Ranger unit."
+    "civilian": "An Army Ranger unit.",
+    "onCase": false
   },
   {
     "id": "sercc",
@@ -231,7 +239,8 @@
     "placeId": "fob-orgun-e",
     "explanation": "A joint special-operations headquarters in Afghanistan during Operation Enduring Freedom. The shadowbox lists it under the JCSE years, 2010\u20132011. The role in the record is communications, not service as a special operator.",
     "civilian": "The headquarters he supported. Being the communicator for that headquarters is not the same job as the operators it commanded.",
-    "months": 7
+    "months": 7,
+    "onCase": false
   },
   {
     "id": "navhosp",
