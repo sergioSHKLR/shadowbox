@@ -1,4 +1,4 @@
-import { equipment, EQUIPMENT_GROUPS, formatSpan, operations, publicUrl, units, visits, type Kind } from "@/lib/shadowbox/model";
+import { equipment, EQUIPMENT_GROUPS, formatSpan, operations, publicUrl, visits, type Kind } from "@/lib/shadowbox/model";
 
 const TASK_FORCES = [
   { id: "troy", name: "CJTF Troy", image: "/incoming/troy.png", when: "2006" },
