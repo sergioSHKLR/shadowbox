@@ -24,6 +24,8 @@ const ym = (v: string) => {
 };
 const M0 = ym(START);
 const M1 = ym(END);
+const ESWS_FROM = ym("2001-01");
+const EXW_FROM = ym("2004-01");
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 function dayOf(month: number): string {
   if (month <= M0) return START.slice(0, 10);
@@ -48,15 +50,8 @@ function medalRows(list: Award[]): Award[][] {
   return rows;
 }
 
-/** AS-40, SERCC, and Naval Hospital are the surface commands. JCSE is the exception. */
-function pinOrder(month: number): "surface" | "jcse" | "other" {
-  const y = Math.floor(month / 12);
-  if (y >= 2009 && y < 2014) return "jcse";
-  if ((y >= 2001 && y <= 2004) || (y >= 2007 && y <= 2008) || y >= 2014) return "surface";
-  return "other";
-}
-
 function Rack({ list, onOpen }: { list: Award[]; onOpen: (id: string) => void }) {
+  if (!list.length) return null;
   return (
     <div className="living-rack" aria-label="Ribbon rack">
       {ribbonRows(list).map((row) => (
@@ -84,21 +79,14 @@ function Hanging({ award, onOpen }: { award: Award; onOpen: (id: string) => void
   );
 }
 
-function Pins({ ids, onOpen }: { ids: string[]; onOpen: (k: Kind, id: string) => void }) {
-  if (!ids.length) return null;
+function Pin({ id, onOpen }: { id: string; onOpen: (k: Kind, id: string) => void }) {
+  const pin = warfare.find((row) => row.id === id);
+  if (!pin) return null;
   return (
-    <div className="warfare-row">
-      {ids.map((id) => {
-        const pin = warfare.find((row) => row.id === id);
-        if (!pin) return null;
-        return (
-          <button key={pin.id} type="button" className="warfare-pin" onClick={() => onOpen("warfare", pin.id)} aria-label={pin.name}>
-            <img src={publicUrl(pin.image)} alt="" />
-            <span>{pin.abbreviation}</span>
-          </button>
-        );
-      })}
-    </div>
+    <button type="button" className="warfare-pin" onClick={() => onOpen("warfare", pin.id)} aria-label={pin.name}>
+      <img src={publicUrl(pin.image)} alt="" />
+      <span>{pin.abbreviation}</span>
+    </button>
   );
 }
 
@@ -140,15 +128,22 @@ export function Decorations({
   const ribbonOnly = list.filter((award) => !medalFor(award.id)?.front);
   const label = `${MONTHS[Number(day.slice(5, 7)) - 1]} ${day.slice(0, 4)}`;
   const openAward = (id: string) => onOpen("award", id);
-  const order = pinOrder(month);
-  const above = order === "jcse" ? ["exw"] : ["esws"];
-  const below = order === "jcse" ? ["esws"] : order === "surface" ? ["exw"] : [];
-  if (order === "other") above.push("exw");
+  const showSw = month >= ESWS_FROM;
+  const showExw = month >= EXW_FROM;
+
+  const ribbonBlock = (
+    <>
+      {showSw ? <Pin id="esws" onOpen={onOpen} /> : null}
+      <Rack list={list} onOpen={openAward} />
+      {!list.length ? <p className="quiet">Nothing dated before {label}.</p> : null}
+      {showExw ? <Pin id="exw" onOpen={onOpen} /> : null}
+    </>
+  );
 
   return (
-    <main className="sheet">
+    <main className="sheet decorations">
       <h2>Decorations</h2>
-      <p>The rack as it stood, with no uniform under it. On a surface command the surface pin sits above the rack. At JCSE the expeditionary pin takes the top.</p>
+      <p>The rack as it stood. The surface pin sits a quarter inch above it once the Frank Cable tour has started. The expeditionary pin sits a quarter inch below once EOD Mobile Unit Five has started. The board dates are not in the record.</p>
       <div className="uprog-controls">
         <button type="button" className="nav-btn icon-btn" aria-label="Back six months" onClick={() => { setPlaying(false); setMonth((m) => Math.max(M0, m - 6)); }}>
           <ChevronLeft size={20} strokeWidth={2} aria-hidden="true" />
@@ -168,31 +163,30 @@ export function Decorations({
           {medals ? "Ribbons and medals" : "Ribbons"}
         </button>
       </div>
-      <Pins ids={above} onOpen={onOpen} />
       {medals ? (
         <div className="decor-split">
-          <Rack list={list} onOpen={openAward} />
-          <div className="living-medals">
-            {medalRows(withMedal).map((row) => (
-              <div key={row.map((a) => a.id).join("-")} className={row.length >= 4 ? "medal-row overlap" : "medal-row"}>
-                {row.map((award, i) => (
-                  <span key={award.id} style={{ zIndex: row.length - i }}>
-                    <Hanging award={award} onOpen={openAward} />
-                  </span>
-                ))}
-              </div>
-            ))}
-            {!withMedal.length ? <p className="quiet">No full-size medal art for this date yet.</p> : null}
-            {ribbonOnly.length ? <p className="quiet">Unit awards and marksmanship stay on the ribbon rack. They have no pendant.</p> : null}
+          <div className="decor-ribbons">
+            <Rack list={ribbonOnly} onOpen={openAward} />
+            {!ribbonOnly.length ? <p className="quiet">No ribbon-only awards yet.</p> : null}
+          </div>
+          <div className="decor-medals">
+            {showSw ? <Pin id="esws" onOpen={onOpen} /> : null}
+            <div className="living-medals">
+              {medalRows(withMedal).map((row) => (
+                <div key={row.map((a) => a.id).join("-")} className={row.length >= 4 ? "medal-row overlap" : "medal-row"}>
+                  {row.map((award, i) => (
+                    <span key={award.id} style={{ zIndex: row.length - i }}>
+                      <Hanging award={award} onOpen={openAward} />
+                    </span>
+                  ))}
+                </div>
+              ))}
+              {!withMedal.length ? <p className="quiet">No full-size medal art for this date yet.</p> : null}
+            </div>
+            {showExw ? <Pin id="exw" onOpen={onOpen} /> : null}
           </div>
         </div>
-      ) : (
-        <>
-          <Rack list={list} onOpen={openAward} />
-          {!list.length ? <p className="quiet">Nothing dated before {label}.</p> : null}
-        </>
-      )}
-      <Pins ids={below} onOpen={onOpen} />
+      ) : ribbonBlock}
       <p className="uprog-caption">{list.length} on the rack</p>
       <div className="uniform-timeline-parked" hidden>
         <UniformProgression onOpen={onOpen} tour={tour} />
