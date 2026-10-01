@@ -20,6 +20,8 @@ import usedHereJson from "@/data/used-here.json";
 import visitsJson from "@/data/visits.json";
 import medalsJson from "@/data/medals.json";
 import ranksJson from "@/data/ranks.json";
+import supplementJson from "@/data/supplement.json";
+import worldEventsJson from "@/data/world-events.json";
 
 /** Public files are served from the base URL: the site root in dev and on https://mil.shklr.org. */
 export function publicUrl(path: string): string {
@@ -556,7 +558,7 @@ export type Bar = {
   detail: string;
   start: number;
   end: number;
-  group: "duty" | "ops" | "study" | "rank";
+  group: "duty" | "ops" | "study" | "rank" | "world";
   lane: number;
   point: boolean;
   /** Length of this bar. Null when the record has no duration. */
@@ -667,7 +669,7 @@ function opChipTitle(op: Operation): string {
   return place.name;
 }
 
-export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]; years: number[] } {
+export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]; world: Bar[]; years: number[] } {
   const duty = finish(pack(assignmentBars()));
   const ops = finish(pack(
     operations.map((op) => ({
@@ -712,13 +714,45 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]
       days: null,
     })),
   ));
+  const worldEvents = worldEventsJson as { id: string; date: string; title: string; detail: string }[];
+  const world = finish(pack(
+    worldEvents.map((event, i) => ({
+      key: `world-${event.id}`,
+      kind: "milestone" as const,
+      id: event.id,
+      title: event.title,
+      detail: event.detail,
+      start: bound(event.date, "start"),
+      end: worldEvents[i + 1] ? bound(worldEvents[i + 1].date, "start") : bound(profile.serviceEnd, "end"),
+      group: "world" as const,
+      point: false,
+      days: null,
+    })),
+  ));
   const first = serviceYear(profile.serviceStart);
   const last = serviceYear(profile.serviceEnd);
   const years = Array.from({ length: last - first + 1 }, (_, i) => first + i);
-  return { duty, ops, study, rank, years };
+  return { duty, ops, study, rank, world, years };
 }
 
-/** Undated commands keep their place in the list by borrowing the sort key of the dated command before them. */
+const SUPPLEMENT_FIELDS = ["Collateral", "Title", "Watch Station", "Division", "TAD", "Layover", "Partner", "Sponsor", "Customer", "Aircraft", "Port Visit", "Countries", "Cities/Residences", "POV", "Motorcycles", "Hobbies", "Off-duty work", "Under Instruction"];
+
+function supplementLabel(value: string): string {
+  return value.replace(/^[A-Z]+-\d+:\s*/, "");
+}
+
+/** Crosswalk rows from src/data/supplement.csv. Dated JSON still wins; this only adds fields the record did not have. */
+export function supplementFacts(kind: string, id: string): { label: string; value: string }[] {
+  const blocks = supplementJson as unknown as { kind: string | null; id: string | null; lists: Record<string, string[]> }[];
+  return blocks
+    .filter((block) => block.kind === kind && block.id === id)
+    .flatMap((block) =>
+      SUPPLEMENT_FIELDS.filter((field) => block.lists[field]?.length).map((field) => ({
+        label: field,
+        value: block.lists[field].map(supplementLabel).join(", "),
+      })),
+    );
+}
 function unitSortKeys(): { unit: Unit; sort: string }[] {
   let last = "";
   return units.map((unit) => {
@@ -958,6 +992,7 @@ export function toSubject(sel: Selection): SubjectView | null {
         { label: "When", value: formatSpan(unit.start, unit.end) },
         ...(unit.start ? [{ label: "Precision", value: unit.precision === "year" ? "Years only — months were not recorded" : "Month recorded" }] : []),
         ...(nec ? [{ label: "NEC on this tour", value: `${nec.code} · ${nec.name}` }] : []),
+        ...supplementFacts("unit", unit.id),
       ],
       placeIds: unitPlaceIds,
       related,
@@ -981,6 +1016,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       facts: [
         { label: "Phase", value: op.phase },
         { label: "When", value: formatSpan(op.start, op.end) },
+        ...supplementFacts("operation", op.id),
       ],
       placeIds: opBases.length ? opBases.map((place) => place.id) : op.placeId ? [op.placeId] : [],
       related: [

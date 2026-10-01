@@ -1,0 +1,15 @@
+[
+  {"id": "clinton", "date": "1997-06-30", "title": "Clinton", "detail": "Bill Clinton is president at enlistment. In office 20 January 1993 to 20 January 2001."},
+  {"id": "embassies", "date": "1998-08-07", "title": "Embassies", "detail": "Bombings of the U.S. embassies in Nairobi and Dar es Salaam, 7 August 1998."},
+  {"id": "cole", "date": "2000-10-12", "title": "Cole", "detail": "USS Cole attacked at Aden, 12 October 2000."},
+  {"id": "bush", "date": "2001-01-20", "title": "Bush", "detail": "George W. Bush inaugurated, 20 January 2001."},
+  {"id": "nine-eleven", "date": "2001-09-11", "title": "9/11", "detail": "Attacks on New York and the Pentagon, 11 September 2001."},
+  {"id": "oef", "date": "2001-10-07", "title": "OEF", "detail": "Operation Enduring Freedom begins in Afghanistan, 7 October 2001."},
+  {"id": "oif", "date": "2003-03-20", "title": "OIF", "detail": "Operation Iraqi Freedom begins, 20 March 2003."},
+  {"id": "saddam", "date": "2003-12-13", "title": "Saddam", "detail": "Saddam Hussein captured near Tikrit, 13 December 2003."},
+  {"id": "obama", "date": "2009-01-20", "title": "Obama", "detail": "Barack Obama inaugurated, 20 January 2009."},
+  {"id": "bin-laden", "date": "2011-05-02", "title": "bin Laden", "detail": "Osama bin Laden killed in Abbottabad, 2 May 2011."},
+  {"id": "iraq-end", "date": "2011-12-18", "title": "Iraq ends", "detail": "Last U.S. troops leave Iraq, 18 December 2011."},
+  {"id": "benghazi", "date": "2012-09-11", "title": "Benghazi", "detail": "Attack on the U.S. mission in Benghazi, 11 September 2012."},
+  {"id": "trump", "date": "2017-01-20", "title": "Trump", "detail": "Donald Trump inaugurated, 20 January 2017. In office at retirement."}
+]
