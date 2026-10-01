@@ -1,7 +1,7 @@
 [
   {
     "id": "jscm",
-    "front": "",
+    "front": "/incoming/JSC.png",
     "back": null,
     "w": 1.492,
     "h": 1.738,
@@ -9,7 +9,7 @@
   },
   {
     "id": "ncm",
-    "front": "",
+    "front": "/incoming/2.png",
     "back": null,
     "w": 1.322,
     "h": 1.554,
@@ -17,7 +17,7 @@
   },
   {
     "id": "arcom",
-    "front": "",
+    "front": "/incoming/11.png",
     "back": null,
     "w": 1.467,
     "h": 1.793,
@@ -25,7 +25,7 @@
   },
   {
     "id": "jsam",
-    "front": "",
+    "front": "/incoming/10.png",
     "back": null,
     "w": 1.334,
     "h": 1.443,
@@ -33,7 +33,7 @@
   },
   {
     "id": "nam",
-    "front": "",
+    "front": "/incoming/3.png",
     "back": null,
     "w": 1.248,
     "h": 1.488,
@@ -41,7 +41,7 @@
   },
   {
     "id": "aam",
-    "front": "",
+    "front": "/incoming/9.png",
     "back": null,
     "w": 1.5,
     "h": 1.74,
@@ -49,7 +49,7 @@
   },
   {
     "id": "ngcm",
-    "front": "",
+    "front": "/incoming/4.png",
     "back": null,
     "w": 1.352,
     "h": 1.435,
@@ -57,7 +57,7 @@
   },
   {
     "id": "ndsm",
-    "front": "",
+    "front": "/incoming/12.png",
     "back": null,
     "w": 1.204,
     "h": 1.388,
@@ -65,7 +65,7 @@
   },
   {
     "id": "acm",
-    "front": "",
+    "front": "/incoming/5.png",
     "back": null,
     "w": 1.379,
     "h": 1.661,
@@ -73,7 +73,7 @@
   },
   {
     "id": "icm",
-    "front": "",
+    "front": "/incoming/13.png",
     "back": null,
     "w": 1.39,
     "h": 1.697,
@@ -81,7 +81,7 @@
   },
   {
     "id": "gwotsm",
-    "front": "",
+    "front": "/incoming/6.png",
     "back": null,
     "w": 1.391,
     "h": 1.396,
@@ -89,7 +89,7 @@
   },
   {
     "id": "hsm",
-    "front": "",
+    "front": "/incoming/14.png",
     "back": null,
     "w": 1.227,
     "h": 1.445,
@@ -97,11 +97,19 @@
   },
   {
     "id": "nato",
-    "front": "",
+    "front": "/incoming/7.png",
     "back": null,
     "w": 1.42,
     "h": 1.42,
     "drape": "flat",
     "clasp": "ISAF"
+  },
+  {
+    "id": "pistol",
+    "front": "/incoming/8.png",
+    "back": null,
+    "w": 1.25,
+    "h": 1.45,
+    "drape": "flat"
   }
 ]
