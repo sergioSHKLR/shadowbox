@@ -20,23 +20,41 @@
   margin: 1.2rem auto;
   overflow-x: auto;
 }
-.uniform-carousel {
+.filmstrip {
   display: flex;
-  gap: 0.7rem;
+  gap: 1.1rem;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding: 0.2rem 0 0.8rem;
-  margin: 0 -0.2rem 1.2rem;
-  scrollbar-width: thin;
+  margin: 0 -1rem 1.4rem;
+  padding: 0.8rem 1rem;
+  background: #14233a;
+  scrollbar-width: none;
 }
-.uniform-carousel li {
-  flex: 0 0 11.5rem;
-  scroll-snap-align: start;
-  list-style: none;
+.filmstrip::-webkit-scrollbar { display: none; }
+.film-frame {
+  flex: 0 0 8.4rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #f6f1e7;
+  cursor: pointer;
+  font: inherit;
 }
-.uniform-carousel .uniform-card {
-  width: 100%;
-  min-height: 14rem;
+.film-frame img {
+  width: 7.2rem;
+  height: 7.2rem;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #f6f1e7;
+  border: 3px solid #b8923a;
+  padding: 0.35rem;
+}
+.film-frame span {
+  font-size: 0.78rem;
+  text-align: center;
+  line-height: 1.2;
 }
 .uniform-timeline-parked {
   display: none;
