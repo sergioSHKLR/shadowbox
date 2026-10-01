@@ -157,11 +157,13 @@ export function Case({ rows: _rows, onOpen, query: outerQuery = "" }: { rows: Re
   const chief = photos.find((photo) => photo.id === "chief-portrait-2018");
   const plaques = profile.casePlaques;
   useEffect(() => {
-    const check = () => setMoreDown(window.scrollY + window.innerHeight < document.documentElement.scrollHeight - 32);
+    const el = document.querySelector(".felt-surface");
+    if (!el) return;
+    const check = () => setMoreDown(el.scrollHeight - el.scrollTop - el.clientHeight > 24);
     check();
-    window.addEventListener("scroll", check);
+    el.addEventListener("scroll", check);
     window.addEventListener("resize", check);
-    return () => { window.removeEventListener("scroll", check); window.removeEventListener("resize", check); };
+    return () => { el.removeEventListener("scroll", check); window.removeEventListener("resize", check); };
   }, [tab]);
   const portrait = (photo: (typeof photos)[number] | undefined, lines: string[]) => photo ? (
     <figure className="case-portrait">
@@ -189,6 +191,8 @@ export function Case({ rows: _rows, onOpen, query: outerQuery = "" }: { rows: Re
                   return (
                     <article key={id} className="command-line">
                       <button type="button" className="story-crest" onClick={() => onOpen("unit", id)} aria-label={`${unit.name}. Open the sidebar.`}>{unit.image ? <img src={publicUrl(unit.image)} alt="" /> : null}</button>
+                      <div className="line-body">
+                      <p className="line-name">{unit.name}{unit.designator ? <span> ({unit.designator})</span> : null}</p>
                       <div className="line-marks">
                         {rank ? <Collar grade={rank.start} /> : null}
                         {rank ? <Collar grade={rank.end} gold={gold} /> : null}
@@ -196,6 +200,7 @@ export function Case({ rows: _rows, onOpen, query: outerQuery = "" }: { rows: Re
                         <AwardStrip kind="ribbon" items={earned.filter((award) => !medalFor(award.id)?.front)} onOpen={(awardId) => onOpen("award", awardId)} />
                         <AwardStrip kind="medal" items={earned.filter((award) => medalFor(award.id)?.front)} onOpen={(awardId) => onOpen("award", awardId)} />
                         {devices.length ? <ul className="story-awards device-line">{devices.map((mark) => mark ? <li key={mark.id}><button type="button" onClick={() => onOpen(mark.kind, mark.id)} aria-label={mark.name}>{<img src={publicUrl(DEVICE_ART[mark.id] || mark.image || "")} alt="" />}</button></li> : null)}</ul> : null}
+                      </div>
                       </div>
                     </article>
                   );
