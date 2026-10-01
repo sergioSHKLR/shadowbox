@@ -228,14 +228,15 @@ export function DetailPanel({
   const requestClose = () => {
     if (closing) return;
     setClosing(true);
-    window.setTimeout(() => { setClosing(false); onClose(); }, 420);
+    window.setTimeout(() => onClose(), 420);
   };
   return (
     <Dialog.Root open={Boolean(subject)} onOpenChange={(open) => { if (!open) requestClose(); }}>
       <Dialog.Portal container={frame instanceof HTMLElement ? frame : undefined}>
         <Dialog.Overlay className="detail-overlay" onClick={requestClose} />
-        <Dialog.Content className={closing ? "detail-panel closing" : "detail-panel"} aria-describedby={undefined} onEscapeKeyDown={(event) => { event.preventDefault(); requestClose(); }} onPointerDownOutside={(event) => { event.preventDefault(); requestClose(); }} onScroll={(event) => noteScroll(event.currentTarget)} ref={(node) => { if (node) noteScroll(node); }}>
+        <Dialog.Content className={closing ? "detail-panel closing" : "detail-panel"} aria-describedby={undefined} onEscapeKeyDown={(event) => { event.preventDefault(); requestClose(); }} onPointerDownOutside={(event) => { event.preventDefault(); requestClose(); }} >
           {subject ? (
+            <div className="detail-scroll" onScroll={(event) => noteScroll(event.currentTarget)} ref={(node) => { if (node) noteScroll(node); }}>
             <>
               <div className="detail-head">
                 <div>
@@ -368,6 +369,7 @@ export function DetailPanel({
             </>
           ) : null}
         {more ? <span className="detail-more" aria-hidden="true" /> : null}
+            </div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
