@@ -6,9 +6,9 @@
 .line-marks .story-awards { display: flex; flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 0.2rem; margin: 0; padding: 0; list-style: none; }
 .line-hit { border: 0; background: transparent; padding: 0; cursor: pointer; line-height: 0; color: inherit; }
 .line-marks .rate-patch, .line-marks img.medal-line { height: var(--mark); width: auto; max-height: none; object-fit: contain; display: block; }
-.line-marks .hashes img { height: var(--chevron); width: auto; display: block; }
+.line-marks .hashes img { height: calc(var(--chevron) * var(--stripes, 1)); width: auto; display: block; }
 .line-marks img.ribbon-line { width: var(--ribbon-w); height: auto; display: block; }
-.line-marks .device-line img { height: var(--ribbon-h); width: auto; max-width: var(--ribbon-w); object-fit: contain; display: block; }
+.line-marks .device-line img { width: calc(var(--ribbon-w) * 2); height: auto; max-width: none; object-fit: contain; display: block; }
 .line-marks .story-awards button, .line-marks li { width: auto; height: auto; line-height: 0; display: flex; align-items: flex-start; }
 .story-crest { position: relative; width: var(--crest); padding: 0; border: 0; background: transparent; cursor: pointer; color: inherit; flex: none; }
 .story-crest::after, .felt-pane button::after { content: "\203A"; position: absolute; right: 0; bottom: 0; color: #e8d7a8; font-size: 1.15rem; line-height: 1; text-shadow: 0 1px 2px #000; }
