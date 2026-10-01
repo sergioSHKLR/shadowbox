@@ -83,7 +83,7 @@ export function Decorations({
   onOpen: (k: Kind, id: string) => void;
   tour?: TourFocus | null;
 }) {
-  const [month, setMonth] = useState(M1);
+  const [month, setMonth] = useState(M0);
   const [playing, setPlaying] = useState(false);
   const [medals, setMedals] = useState(false);
   useEffect(() => {
