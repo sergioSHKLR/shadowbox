@@ -1,14 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import progressionJson from "@/data/uniform-progression.json";
-import { awards, deviceSummary, formatSpan, formatWhen, profile, publicUrl, ranks, tourItems, warfare, type Award, type Device, type Kind, type TourFocus } from "@/lib/shadowbox/model";
-import { RibbonArt } from "@/components/shadowbox/marks";
+import { formatWhen, profile, publicUrl, ranks, type Kind, type TourFocus } from "@/lib/shadowbox/model";
 
 const P = progressionJson as unknown as {
-  goldFrom: string;
-  breastInsignia: { id: string; date: string | null; approximate: boolean; position: "primary" | "secondary"; note: string }[];
-  shoulderPatch: { image: string; from: string; until?: string | null } | null;
-  awards: { awardId: string; date: string | null; recordYears: number[] }[];
-  deviceUpdates: { awardId: string; date: string; devices: Device[] }[];
   uniforms: UniformDef[];
 };
 
@@ -21,6 +15,12 @@ const PLATE: Record<string, string> = {
   "cpo-sdb": "/incoming/dress-blues.png",
   "cpo-sdw": "/incoming/chokers.png",
   "cpo-khaki": "/incoming/khakis.png",
+};
+
+const LOOK_LABEL: Record<Look, string> = {
+  blue: "Blues",
+  white: "Whites",
+  khaki: "Khakis",
 };
 
 const START = profile.serviceStart;
@@ -62,7 +62,9 @@ export function UniformProgression({ onOpen, tour }: { onOpen: (k: Kind, id: str
   }, [tour?.kind, tour?.id, tour?.start]);
   const day = dayOf(month);
   const s = useMemo(() => stateAt(day), [day]);
-  const uniform = s.uniforms.find((x) => x.look === look) ?? s.uniforms[0];
+  const looks = (["blue", "white", "khaki"] as Look[]).filter((id) => s.uniforms.some((u) => u.look === id));
+  const shown = looks.includes(look) ? look : looks[0];
+  const uniform = s.uniforms.find((x) => x.look === shown) ?? s.uniforms[0];
   const plate = uniform ? PLATE[uniform.id] : undefined;
   const label = `${MONTHS[Number(day.slice(5, 7)) - 1]} ${day.slice(0, 4)}`;
   return (
@@ -73,10 +75,10 @@ export function UniformProgression({ onOpen, tour }: { onOpen: (k: Kind, id: str
           <span className="sr-only">Date</span>
           <input type="range" min={M0} max={M1} step={1} value={month} aria-valuetext={label} onChange={(e) => setMonth(Number(e.target.value))} />
         </label>
-        <output className="uprog-date">{label}</output>
-        {(["blue", "white", "khaki"] as Look[]).map((id) => (
-          <button key={id} type="button" className={look === id ? "nav-btn on" : "nav-btn"} onClick={() => setLook(id)}>
-            {id}
+        <output className="uprog-date">{label}{s.rank ? ` · ${s.rank.abbreviation}` : ""}</output>
+        {looks.map((id) => (
+          <button key={id} type="button" className={shown === id ? "nav-btn on" : "nav-btn"} onClick={() => setLook(id)}>
+            {LOOK_LABEL[id]}
           </button>
         ))}
       </div>
