@@ -143,10 +143,11 @@ function Felt({ query, onOpen, onBack }: { query: string; onOpen: (k: Kind, id: 
   );
 }
 
-export function Case({ rows: _rows, onOpen }: { rows: ReturnType<typeof ribbonRows>; onOpen: (k: Kind, id: string) => void }) {
+export function Case({ rows: _rows, onOpen, query: outerQuery = "" }: { rows: ReturnType<typeof ribbonRows>; onOpen: (k: Kind, id: string) => void; query?: string }) {
   void _rows;
   const [tab, setTab] = useState<"assigned" | "supplemental">("assigned");
-  const [query, setQuery] = useState("");
+  const [localQuery, setQuery] = useState("");
+  const query = outerQuery || localQuery;
   const [back, setBack] = useState<(() => void) | undefined>();
   const [moreDown, setMoreDown] = useState(false);
   const marks = caseMarks();
