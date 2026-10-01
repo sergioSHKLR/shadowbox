@@ -48,8 +48,20 @@ function printAs(mode: "book" | "case-a4" | "case-a3") {
 export function ShadowboxApp() {
   const [view, setView] = useState<View>("case");
   const [selection, setSelection] = useState<Selection | null>(null);
+  const [trail, setTrail] = useState<Selection[]>([]);
   const [tour] = useState<TourFocus | null>(null);
-  const open = (kind: Kind, id: string) => setSelection({ kind, id });
+  const open = (kind: Kind, id: string) => {
+    const next = { kind, id };
+    setSelection(next);
+    setTrail([next]);
+  };
+  const follow = (next: Selection) => {
+    setSelection(next);
+    setTrail((current) => {
+      const at = current.findIndex((item) => item.kind === next.kind && item.id === next.id);
+      return at >= 0 ? current.slice(0, at + 1) : [...current, next];
+    });
+  };
   const rows = useMemo(() => ribbonRows(awards), []);
   const bars = useMemo(() => timeline(), []);
   const stops = useMemo(() => careerStops(), []);
@@ -97,7 +109,7 @@ export function ShadowboxApp() {
       <div className={`${pane("guestbook")} no-book`}><Guestbook /></div>
       <div className={`${pane("memories")} no-book`}><Memories /></div>
 
-      <DetailPanel selection={selection} onSelect={setSelection} onClose={() => setSelection(null)} />
+      <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setSelection(null); setTrail([]); }} />
       <section className="book-appendix" aria-label="Sidebar chapters">
         <h2>Sidebars</h2>
         {units.map((unit) => (
