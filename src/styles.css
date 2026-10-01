@@ -504,6 +504,7 @@ a { color: var(--color-navy); }
 
 /* Rank track and rank progression (dates: src/data/ranks.json). */
 .bar.bar--rank { background: #7d1c20; color: #fff; border-right: 2px solid var(--color-ivory); }
+.bar.bar--world { background: #3d4a5c; color: #f6f1e7; border-right: 2px solid var(--color-ivory); }
 .rank-steps { list-style: none; margin: 0.4rem 0 1.4rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 0.6rem; }
 .rank-step { display: grid; justify-items: center; gap: 0.15rem; width: 100%; min-height: 44px; padding: 0.6rem 0.4rem; border: 1px solid var(--color-line); background: #fff; color: var(--color-ink); text-align: center; font: inherit; cursor: pointer; }
 .rank-step img { height: 5.2rem; width: auto; max-width: 100%; object-fit: contain; margin-bottom: 0.3rem; }

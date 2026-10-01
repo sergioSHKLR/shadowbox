@@ -50,8 +50,10 @@ export function Timeline({
         <Track label="Assignments" items={bars.duty} onOpen={pick} />
         <Track label="Deployments" items={bars.ops} onOpen={pick} />
         <Track label="Schools" items={bars.study} onOpen={onOpen} />
+        <Track label="Events" items={bars.world} />
         </div>
       </div>
+      <p className="quiet">Events are public history during this enlistment — presidents, attacks, and the wars. They are not part of the service record. Command popups now also list the crosswalk fields (watch, collateral, aircraft, layovers) from the supplement.</p>
       <h3>Rank progression</h3>
       <ol className="rank-steps">
         {ranks.map((rank) => (
@@ -143,13 +145,28 @@ function Track({
 }: {
   label: string;
   items: ReturnType<typeof timeline>["duty"];
-  onOpen: (k: Kind, id: string) => void;
+  onOpen?: (k: Kind, id: string) => void;
 }) {
   return (
     <section className="track" aria-label={label}>
       <h3>{label}</h3>
       <div className="track-lanes">
-        {items.map((item) => (
+        {items.map((item) => {
+          const body = (
+            <>
+              <span className="bar-title">{item.title}</span>
+              <span className="bar-days">{item.group === "world" ? String(new Date(item.start).getUTCFullYear()) : barLength(item.days)}</span>
+              <span className="sr-only">{item.detail}</span>
+            </>
+          );
+          if (!onOpen) {
+            return (
+              <div key={item.key} className={`bar bar--${item.group}`} style={{ flexGrow: item.days && item.days > 0 ? item.days : 1 }} title={item.detail}>
+                {body}
+              </div>
+            );
+          }
+          return (
             <button
               key={item.key}
               type="button"
@@ -158,11 +175,10 @@ function Track({
               title={item.detail}
               onClick={() => onOpen(item.kind, item.id)}
             >
-              <span className="bar-title">{item.title}</span>
-              <span className="bar-days">{barLength(item.days)}</span>
-              <span className="sr-only">{item.detail}</span>
+              {body}
             </button>
-          ))}
+          );
+        })}
       </div>
     </section>
   );
