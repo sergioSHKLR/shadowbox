@@ -1,0 +1,6 @@
+.memory-grid { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 0.7rem; padding: 0; margin: 1rem 0; }
+.memory-card, .memory-grid img { width: 100%; }
+.memory-card { display: flex; flex-direction: column; gap: 0.25rem; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; }
+.memory-card img, .memory-grid img, .memory-empty { aspect-ratio: 1; object-fit: cover; background: #efe8da; }
+.memory-empty { display: grid; place-items: center; color: #6d6458; font-size: 0.8rem; }
+.memory-open { margin-top: 1rem; }
