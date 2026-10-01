@@ -5,19 +5,22 @@
 .line-marks .story-awards button { width: auto; height: auto; }
 .page-link { border: 0; background: transparent; color: #e8d7a8; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; margin-right: 0.8rem; }
 .page-link.on { text-decoration: underline; }
-.felt-surface { padding: 0.2rem 0.2rem 1rem; }
+.felt-surface { padding: 0.15rem 0.15rem 1rem; }
 .mast-nav { display: none; }
-.site-bar { margin: 0.4rem 0 0; border-radius: 0; }
 .case-wide { max-width: none; }
 .case-wide .case-frame {
   width: min(100%, calc(100vw - 1.5rem));
   margin-inline: auto;
   min-height: calc(100vh - 8rem);
   position: relative;
-  background: #101c33;
-  border-color: #6e4e2c;
-  box-shadow: 0 22px 48px rgba(20, 16, 10, 0.35);
-  padding-top: 0;
+  border: 22px solid transparent;
+  background:
+    linear-gradient(#101c33, #101c33) padding-box,
+    repeating-linear-gradient(95deg, #5a3b22 0 3px, #8a6240 3px 7px, #6d4a2c 7px 9px, #4a3018 9px 12px) border-box;
+  outline: 1px solid #e8d7a8;
+  outline-offset: -10px;
+  box-shadow: inset 0 0 0 1px rgba(255, 236, 196, 0.35), 0 22px 48px rgba(20, 16, 10, 0.35);
+  padding: 0.85rem 1.1rem 1.4rem;
 }
 .case-wide .detail-overlay { background: transparent; pointer-events: none; }
 .case-wide .detail-panel {
@@ -31,13 +34,13 @@
   animation: paper-in 0.45s ease;
 }
 @keyframes paper-in { from { transform: translateX(110%); } to { transform: translateX(0); } }
-.felt-bar { display: flex; align-items: center; gap: 0.7rem; background: #0c2340; color: #f6f1e7; padding: 0.55rem 0.8rem; margin: 0 -1.1rem 0.8rem; position: relative; }
-.felt-bar img { width: clamp(1.2rem, 3vw, 1.6rem); height: auto; }
-.felt-bar strong { display: block; letter-spacing: 0.12em; font-size: clamp(0.8rem, 2vw, 0.95rem); }
-.felt-bar span { display: block; font-size: 0.68rem; letter-spacing: 0.14em; opacity: 0.75; }
-.felt-bar input { margin-left: auto; width: min(14rem, 36vw); border: 0; border-radius: 999px; padding: 0.4rem 0.8rem; background: #17345c; color: #f6f1e7; }
-.felt-menu { border: 0; background: transparent; color: inherit; font-size: 1.3rem; cursor: pointer; }
-.felt-menu-list { position: absolute; right: 0.6rem; top: 100%; list-style: none; margin: 0; padding: 0.3rem; background: #f6f1e7; color: #14233a; min-width: 11rem; z-index: 5; }
+.felt-bar { display: flex; align-items: center; gap: 0.55rem; background: #0c2340; color: #f6f1e7; padding: 0.28rem 0.6rem; margin: 0 0 0.55rem; position: relative; }
+.felt-bar img { width: 1.15rem; height: auto; }
+.felt-bar strong { display: block; letter-spacing: 0.12em; font-size: 0.78rem; }
+.felt-bar span { display: block; font-size: 0.58rem; letter-spacing: 0.14em; opacity: 0.75; }
+.felt-bar input { margin-left: auto; width: min(12rem, 32vw); border: 0; border-radius: 999px; padding: 0.22rem 0.65rem; background: #17345c; color: #f6f1e7; }
+.felt-menu { border: 0; background: transparent; color: inherit; font-size: 1.05rem; cursor: pointer; }
+.felt-menu-list { position: absolute; right: 0.4rem; top: 100%; list-style: none; margin: 0; padding: 0.3rem; background: #f6f1e7; color: #14233a; min-width: 11rem; z-index: 5; }
 .felt-menu-list button { width: 100%; text-align: left; border: 0; background: transparent; padding: 0.45rem 0.6rem; cursor: pointer; }
 .case-column { width: 100%; gap: calc(var(--in) / 4); }
 .plaque { background: #c4a24a; }
