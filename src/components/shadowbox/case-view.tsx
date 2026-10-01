@@ -1,6 +1,8 @@
 import {
+  awards,
   formatSpan,
   insignia,
+  medalFor,
   photos,
   profile,
   publicUrl,
@@ -9,7 +11,7 @@ import {
   warfare,
   type Kind,
 } from "@/lib/shadowbox/model";
-import { CareerGlyph, RibbonButton } from "@/components/shadowbox/marks";
+import { CareerGlyph } from "@/components/shadowbox/marks";
 
 const COMMANDS = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"];
 
@@ -28,12 +30,13 @@ function caseMarks() {
 }
 
 export function Case({
-  rows,
+  rows: _rows,
   onOpen,
 }: {
   rows: ReturnType<typeof ribbonRows>;
   onOpen: (k: Kind, id: string) => void;
 }) {
+  void _rows;
   const marks = caseMarks();
   const mark = (id: string) => marks.find((entry) => entry.id === id);
   const etMark = mark("et-rating-mark");
@@ -44,6 +47,10 @@ export function Case({
   const chief = photos.find((photo) => photo.id === "chief-portrait-2018");
   const plaques = profile.casePlaques;
   const commands = COMMANDS.map((id) => units.find((unit) => unit.id === id)).filter((unit) => unit);
+  const medals = awards
+    .map((award) => ({ award, medal: medalFor(award.id) }))
+    .filter((row) => row.medal?.front)
+    .sort((a, b) => a.award.precedence - b.award.precedence);
   const portraitWithPlaque = (photo: (typeof photos)[number] | undefined, lines: string[]) =>
     photo ? (
       <figure className="case-portrait">
@@ -85,15 +92,15 @@ export function Case({
               {portraitWithPlaque(chief, plaques.chief)}
               {etMark ? renderMark(etMark, "worn worn-et") : null}
               {esws ? renderMark(esws, "worn worn-pin") : null}
-              <div className="rack" aria-label="Ribbon rack, highest award at the top left">
-                {rows.map((row) => (
-                  <div key={row.map((a) => a.id).join("-")} className="rack-row">
-                    {row.map((award) => (
-                      <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />
-                    ))}
-                  </div>
+              <ul className="case-medals" aria-label="Medals">
+                {medals.map(({ award, medal }) => (
+                  <li key={award.id}>
+                    <button type="button" onClick={() => onOpen("award", award.id)} aria-label={`${award.name}. Open the medal.`}>
+                      <img src={publicUrl(medal!.front)} alt="" />
+                    </button>
+                  </li>
                 ))}
-              </div>
+              </ul>
               {exw ? renderMark(exw, "worn worn-pin") : null}
               {jcse ? renderMark(jcse, "worn worn-badge") : null}
               <dl className="service-totals" aria-label="Service totals">
