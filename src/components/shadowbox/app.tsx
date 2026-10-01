@@ -7,6 +7,8 @@ import {
   publicUrl,
   ribbonRows,
   timeline,
+  units,
+  warfare,
   type Kind,
   type Selection,
   type TourFocus,
@@ -45,6 +47,7 @@ export function ShadowboxApp() {
   const bars = useMemo(() => timeline(), []);
   const stops = useMemo(() => careerStops(), []);
   const blanks = useMemo(() => openRecord(), []);
+  const pane = (id: View) => (view === id ? "view-pane" : "view-pane screen-off");
 
   useEffect(() => {
     document.title = profile.pageTitle;
@@ -75,23 +78,45 @@ export function ShadowboxApp() {
         </nav>
       </header>
 
-      {view === "case" ? <Case rows={rows} onOpen={open} /> : null}
-      {view === "uniforms" ? <Uniforms onOpen={open} /> : null}
-      {view === "decorations" ? <Decorations onOpen={open} tour={tour} /> : null}
-      {view === "timeline" ? <Timeline bars={bars} rows={rows} blanks={blanks} onOpen={open} onFocus={focusTour} /> : null}
-      {view === "equipment" ? <EquipmentView onOpen={open} /> : null}
-      {view === "map" ? <Stations stops={stops} onOpen={open} /> : null}
-      {view === "sources" ? <Sources /> : null}
-      {view === "contact" ? <Contact onOpenBook={() => setView("guestbook")} /> : null}
-      {view === "guestbook" ? <Guestbook /> : null}
+      <div className={pane("case")}><Case rows={rows} onOpen={open} /></div>
+      <div className={pane("uniforms")}><Uniforms onOpen={open} /></div>
+      <div className={pane("decorations")}><Decorations onOpen={open} tour={tour} /></div>
+      <div className={pane("timeline")}><Timeline bars={bars} rows={rows} blanks={blanks} onOpen={open} onFocus={focusTour} /></div>
+      <div className={pane("equipment")}><EquipmentView onOpen={open} /></div>
+      <div className={pane("map")}><Stations stops={stops} onOpen={open} /></div>
+      <div className={pane("sources")}><Sources /></div>
+      <div className={pane("contact")}><Contact onOpenBook={() => setView("guestbook")} /></div>
+      <div className={pane("guestbook")}><Guestbook /></div>
 
       <DetailPanel selection={selection} onSelect={setSelection} onClose={() => setSelection(null)} />
+      <section className="book-appendix" aria-label="Sidebar chapters">
+        <h2>Sidebars</h2>
+        {units.map((unit) => (
+          <article key={unit.id} className="book-chapter">
+            <h2>{unit.name}</h2>
+            <p>{unit.explanation}</p>
+          </article>
+        ))}
+        {warfare.map((pin) => (
+          <article key={pin.id} className="book-chapter">
+            <h2>{pin.name}</h2>
+            <p>{pin.explanation}</p>
+          </article>
+        ))}
+        {awards.map((award) => (
+          <article key={award.id} className="book-chapter">
+            <h2>{award.name}</h2>
+            <p>{award.explanation}</p>
+          </article>
+        ))}
+      </section>
       <footer className="site-footer">
         <span>Personal record. Graphics keep the license named on Sources.</span>
         <span>Itajaí, Santa Catarina, Brazil</span>
         <button type="button" className="footer-link" onClick={() => setView("sources")}>Sources</button>
         <button type="button" className="footer-link" onClick={() => setView("contact")}>Contact</button>
         <button type="button" className="footer-link" onClick={() => setView("guestbook")}>Guestbook</button>
+        <button type="button" className="footer-link" onClick={() => window.print()}>Print the book</button>
         <VisitorCount />
       </footer>
     </div>
