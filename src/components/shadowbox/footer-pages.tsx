@@ -62,23 +62,5 @@ export function Guestbook() {
 }
 
 export function VisitorCount() {
-  const [n, setN] = useState<number | null>(null);
-  useEffect(() => {
-    const key = "shadowbox-seen";
-    const seen = sessionStorage.getItem(key);
-    const url = seen
-      ? "https://api.counterapi.dev/v1/mil.shklr.org/visits"
-      : "https://api.counterapi.dev/v1/mil.shklr.org/visits/up";
-    fetch(url)
-      .then((r) => r.json())
-      .then((body: { count?: number }) => {
-        if (typeof body.count === "number") {
-          sessionStorage.setItem(key, "1");
-          setN(body.count);
-        }
-      })
-      .catch(() => setN(null));
-  }, []);
-  if (n == null) return <span>Visitors</span>;
-  return <span>{n.toLocaleString("en-US")} visitors</span>;
+  return null;
 }
