@@ -8,7 +8,6 @@ import {
   ribbonRows,
   units,
   warfare,
-  caseRanks,
   type Kind,
 } from "@/lib/shadowbox/model";
 import { CareerGlyph, RibbonButton } from "@/components/shadowbox/marks";
@@ -82,6 +81,19 @@ export function Case({
           <div className="case-display">
             <div className="case-column">
               {portraitWithPlaque(recruit, plaques.recruit)}
+              <ul className="patch-row" aria-label="Commands, in order">
+                {units.filter((unit) => unit.onCase !== false).map((unit) => (
+                  <li key={unit.id}>
+                    <button type="button" className={unit.image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name}${unit.designator ? `, ${unit.designator}` : ""}, ${formatSpan(unit.start, unit.end)}. Open the explanation.`}>
+                      {unit.image ? <img className="patch-crest" src={publicUrl(unit.image)} alt="" /> : null}
+                      <span className="patch-mark">{unit.patch}</span>
+                      {unit.designator ? <span className="designator">{unit.designator}</span> : null}
+                      <span>{formatSpan(unit.start, unit.end)}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              {portraitWithPlaque(chief, plaques.chief)}
               {etMark ? renderMark(etMark, "worn worn-et") : null}
               {esws ? renderMark(esws, "worn worn-pin") : null}
               <div className="rack" aria-label="Ribbon rack, highest award at the top left">
@@ -95,14 +107,6 @@ export function Case({
               </div>
               {exw ? renderMark(exw, "worn worn-pin") : null}
               {jcse ? renderMark(jcse, "worn worn-badge") : null}
-              <div className="grade-row" role="group" aria-label="Enlisted pay grades, E-3 to E-7">
-                {caseRanks.map((rank) => (
-                  <button key={rank.id} type="button" className={`worn worn-grade worn-grade--${rank.id}`} onClick={() => onOpen("rank", rank.id)} aria-label={`${rank.name} (${rank.abbreviation}, ${rank.grade})${rank.date ? `, ${formatWhen(rank.date)}` : ""}`} title={`${rank.abbreviation} · ${rank.grade}`}>
-                    {rank.image ? <img src={publicUrl(rank.image)} alt="" /> : <span className="mark-word">{rank.abbreviation}</span>}
-                  </button>
-                ))}
-              </div>
-              {portraitWithPlaque(chief, plaques.chief)}
               <dl className="service-totals" aria-label="Service totals">
                 {[
                   ["Active Duty", profile.serviceLength],
@@ -116,18 +120,6 @@ export function Case({
               </dl>
             </div>
           </div>
-          <ul className="patch-row" aria-label="Commands, in order">
-            {units.filter((unit) => unit.onCase !== false).map((unit) => (
-              <li key={unit.id}>
-                <button type="button" className={unit.image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name}${unit.designator ? `, ${unit.designator}` : ""}, ${formatSpan(unit.start, unit.end)}. Open the explanation.`}>
-                  {unit.image ? <img className="patch-crest" src={publicUrl(unit.image)} alt="" /> : null}
-                  <span className="patch-mark">{unit.patch}</span>
-                  {unit.designator ? <span className="designator">{unit.designator}</span> : null}
-                  <span>{formatSpan(unit.start, unit.end)}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
     </main>
