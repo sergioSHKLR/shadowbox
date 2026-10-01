@@ -6,7 +6,9 @@ import {
   medalFor,
   profile,
   publicUrl,
+  ribbonDevicePlate,
   ribbonRows,
+  warfare,
   type Award,
   type Kind,
   type TourFocus,
@@ -40,10 +42,38 @@ function earnedBy(day: string): Award[] {
   const got = new Set(instances.filter((row) => row.year != null && row.year <= y).map((row) => row.awardId));
   return awards.filter((award) => got.has(award.id));
 }
-function rowsOf(list: Award[], size: number): Award[][] {
+function medalRows(list: Award[]): Award[][] {
   const rows: Award[][] = [];
-  for (let i = 0; i < list.length; i += size) rows.push(list.slice(i, i + size));
+  for (let i = 0; i < list.length; i += 5) rows.push(list.slice(i, i + 5));
   return rows;
+}
+
+function Rack({ list, onOpen }: { list: Award[]; onOpen: (id: string) => void }) {
+  return (
+    <div className="living-rack" aria-label="Ribbon rack">
+      {ribbonRows(list).map((row) => (
+        <div key={row.map((a) => a.id).join("-")} className="rack-row">
+          {row.map((award) => (
+            <button key={award.id} type="button" className="ribbon living-ribbon" onClick={() => onOpen(award.id)} aria-label={award.name}>
+              <RibbonArt award={award} />
+            </button>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Hanging({ award, onOpen }: { award: Award; onOpen: (id: string) => void }) {
+  const medal = medalFor(award.id);
+  const devices = ribbonDevicePlate(award);
+  if (!medal?.front) return null;
+  return (
+    <button type="button" className="hanging-medal" onClick={() => onOpen(award.id)} aria-label={award.name}>
+      <img src={publicUrl(medal.front)} alt="" />
+      {devices ? <img className="suspension-device" src={publicUrl(devices)} alt="" /> : null}
+    </button>
+  );
 }
 
 export function Decorations({
@@ -80,15 +110,15 @@ export function Decorations({
   }, [playing]);
   const day = dayOf(month);
   const list = useMemo(() => earnedBy(day), [day]);
-  const rows = useMemo(() => ribbonRows(list), [list]);
   const withMedal = list.filter((award) => medalFor(award.id)?.front);
   const ribbonOnly = list.filter((award) => !medalFor(award.id)?.front);
   const label = `${MONTHS[Number(day.slice(5, 7)) - 1]} ${day.slice(0, 4)}`;
+  const openAward = (id: string) => onOpen("award", id);
 
   return (
     <main className="sheet">
       <h2>Decorations</h2>
-      <p>The rack as it stood, with no uniform under it. Ribbon bars until the toggle. The medal rasters already include the ribbon, so they hang as one piece.</p>
+      <p>The rack as it stood, with no uniform under it. Warfare pins sit above it. On a wide screen, ribbons stay left and medals hang right.</p>
       <div className="uprog-controls">
         <button type="button" className="nav-btn icon-btn" aria-label="Back six months" onClick={() => { setPlaying(false); setMonth((m) => Math.max(M0, m - 6)); }}>
           <ChevronLeft size={20} strokeWidth={2} aria-hidden="true" />
@@ -108,50 +138,36 @@ export function Decorations({
           {medals ? "Ribbons and medals" : "Ribbons"}
         </button>
       </div>
+      <div className="warfare-row" aria-label="Warfare devices">
+        {warfare.map((pin) => (
+          <button key={pin.id} type="button" className="warfare-pin" onClick={() => onOpen("warfare", pin.id)} aria-label={pin.name}>
+            <img src={publicUrl(pin.image)} alt="" />
+            <span>{pin.abbreviation}</span>
+          </button>
+        ))}
+      </div>
       {medals ? (
-        <div className="living-medals">
-          {rowsOf(withMedal, 3).map((row) => (
-            <div key={row.map((a) => a.id).join("-")} className="medal-row">
-              {row.map((award) => {
-                const medal = medalFor(award.id);
-                if (!medal?.front) return null;
-                return (
-                  <button key={award.id} type="button" className="hanging-medal" onClick={() => onOpen("award", award.id)} aria-label={award.name}>
-                    <img src={publicUrl(medal.front)} alt="" />
-                  </button>
-                );
-              })}
-            </div>
-          ))}
-          {!withMedal.length ? <p className="quiet">No full-size medal art for this date yet.</p> : null}
-          {ribbonOnly.length ? (
-            <div className="living-rack">
-              <p className="quiet">No pendant yet</p>
-              {ribbonRows(ribbonOnly).map((row) => (
-                <div key={row.map((a) => a.id).join("-")} className="rack-row">
-                  {row.map((award) => (
-                    <button key={award.id} type="button" className="ribbon living-ribbon" onClick={() => onOpen("award", award.id)} aria-label={award.name}>
-                      <RibbonArt award={award} />
-                    </button>
-                  ))}
-                </div>
-              ))}
-            </div>
-          ) : null}
+        <div className="decor-split">
+          <Rack list={list} onOpen={openAward} />
+          <div className="living-medals">
+            {medalRows(withMedal).map((row) => (
+              <div key={row.map((a) => a.id).join("-")} className={row.length >= 4 ? "medal-row overlap" : "medal-row"}>
+                {row.map((award, i) => (
+                  <span key={award.id} style={{ zIndex: row.length - i }}>
+                    <Hanging award={award} onOpen={openAward} />
+                  </span>
+                ))}
+              </div>
+            ))}
+            {!withMedal.length ? <p className="quiet">No full-size medal art for this date yet.</p> : null}
+            {ribbonOnly.length ? <p className="quiet">Unit awards and marksmanship stay on the ribbon rack. They have no pendant.</p> : null}
+          </div>
         </div>
       ) : (
-        <div className="living-rack" aria-label="Ribbon rack">
-          {rows.map((row) => (
-            <div key={row.map((a) => a.id).join("-")} className="rack-row">
-              {row.map((award) => (
-                <button key={award.id} type="button" className="ribbon living-ribbon" onClick={() => onOpen("award", award.id)} aria-label={award.name}>
-                  <RibbonArt award={award} />
-                </button>
-              ))}
-            </div>
-          ))}
-          {!rows.length ? <p className="quiet">Nothing dated before {label}.</p> : null}
-        </div>
+        <>
+          <Rack list={list} onOpen={openAward} />
+          {!list.length ? <p className="quiet">Nothing dated before {label}.</p> : null}
+        </>
       )}
       <p className="uprog-caption">{list.length} on the rack</p>
       <div className="uniform-timeline-parked" hidden>
