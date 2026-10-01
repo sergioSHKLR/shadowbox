@@ -21,163 +21,26 @@
   "shoulderPatch": null,
   "shoulderPatchNote": "No shoulder patch is worn on the jumper, the CPO Service Dress Blue coat, the Service Dress White choker or the Service Khaki shirt. The slot stays empty; set shoulderPatch to {\"image\": \"/path.svg\", \"from\": \"YYYY-MM\", \"until\": \"YYYY-MM\"} to show one.",
   "awards": [
-    {
-      "awardId": "jscm",
-      "date": null,
-      "recordYears": [
-        2013,
-        2014
-      ]
-    },
-    {
-      "awardId": "ncm",
-      "date": null,
-      "recordYears": [
-        2018
-      ]
-    },
-    {
-      "awardId": "arcom",
-      "date": null,
-      "recordYears": [
-        2009,
-        2011
-      ]
-    },
-    {
-      "awardId": "jsam",
-      "date": null,
-      "recordYears": [
-        2013
-      ]
-    },
-    {
-      "awardId": "nam",
-      "date": null,
-      "recordYears": [
-        2001,
-        2004,
-        2005,
-        2006,
-        2009
-      ]
-    },
-    {
-      "awardId": "aam",
-      "date": null,
-      "recordYears": [
-        2006
-      ]
-    },
-    {
-      "awardId": "jmua",
-      "date": null,
-      "recordYears": [
-        2006
-      ]
-    },
-    {
-      "awardId": "nmuc",
-      "date": null,
-      "recordYears": [
-        2000
-      ]
-    },
-    {
-      "awardId": "navy-e",
-      "date": null,
-      "recordYears": [
-        2001,
-        2002,
-        2003
-      ]
-    },
-    {
-      "awardId": "ngcm",
-      "date": null,
-      "recordYears": [
-        2000,
-        2003,
-        2006,
-        2009,
-        2012,
-        2015
-      ]
-    },
-    {
-      "awardId": "ndsm",
-      "date": null,
-      "recordYears": [
-        2001
-      ]
-    },
-    {
-      "awardId": "acm",
-      "date": null,
-      "recordYears": [
-        2011
-      ]
-    },
-    {
-      "awardId": "icm",
-      "date": null,
-      "recordYears": [
-        2006
-      ]
-    },
-    {
-      "awardId": "gwotsm",
-      "date": null,
-      "recordYears": [
-        2005
-      ]
-    },
-    {
-      "awardId": "hsm",
-      "date": null,
-      "recordYears": [
-        2003
-      ]
-    },
-    {
-      "awardId": "ssdr",
-      "date": null,
-      "recordYears": [
-        2001,
-        2002,
-        2003
-      ]
-    },
-    {
-      "awardId": "osr",
-      "date": null,
-      "recordYears": [
-        2001,
-        2002,
-        2003
-      ]
-    },
-    {
-      "awardId": "nato",
-      "date": null,
-      "recordYears": [
-        2013
-      ]
-    },
-    {
-      "awardId": "rifle",
-      "date": null,
-      "recordYears": [
-        2001
-      ]
-    },
-    {
-      "awardId": "pistol",
-      "date": null,
-      "recordYears": [
-        2000
-      ]
-    }
+    { "awardId": "jscm", "date": null, "recordYears": [2013, 2014] },
+    { "awardId": "ncm", "date": null, "recordYears": [2018] },
+    { "awardId": "arcom", "date": null, "recordYears": [2009, 2011] },
+    { "awardId": "jsam", "date": null, "recordYears": [2013] },
+    { "awardId": "nam", "date": null, "recordYears": [2001, 2004, 2005, 2006, 2009] },
+    { "awardId": "aam", "date": null, "recordYears": [2006] },
+    { "awardId": "jmua", "date": null, "recordYears": [2006] },
+    { "awardId": "nmuc", "date": null, "recordYears": [2000] },
+    { "awardId": "navy-e", "date": null, "recordYears": [2001, 2002, 2003] },
+    { "awardId": "ngcm", "date": null, "recordYears": [2000, 2003, 2006, 2009, 2012, 2015] },
+    { "awardId": "ndsm", "date": null, "recordYears": [2001] },
+    { "awardId": "acm", "date": null, "recordYears": [2011] },
+    { "awardId": "icm", "date": null, "recordYears": [2006] },
+    { "awardId": "gwotsm", "date": null, "recordYears": [2005] },
+    { "awardId": "hsm", "date": null, "recordYears": [2003] },
+    { "awardId": "ssdr", "date": null, "recordYears": [2001, 2002, 2003] },
+    { "awardId": "osr", "date": null, "recordYears": [2001, 2002, 2003] },
+    { "awardId": "nato", "date": null, "recordYears": [2013] },
+    { "awardId": "rifle", "date": null, "recordYears": [2001] },
+    { "awardId": "pistol", "date": null, "recordYears": [2000] }
   ],
   "deviceUpdates": [],
   "deviceUpdatesNote": "One line per device change, e.g. {\"awardId\": \"nam\", \"date\": \"2004-05\", \"devices\": [{\"kind\": \"star\", \"metal\": \"gold\", \"count\": 1}]}. Before the first update an award shows no device; after the last it shows the devices listed. With no updates an award shows its current devices from awards.json.",
@@ -201,6 +64,16 @@
       "grades": "E-6 and below",
       "from": "1997-06-30",
       "until": "2014-09-15"
+    },
+    {
+      "id": "cpo-sdb",
+      "look": "blue",
+      "kind": "coat",
+      "name": "CPO Service Dress Blue",
+      "short": "CPO Dress Blues",
+      "grades": "CPO",
+      "from": "2014-09-16",
+      "until": null
     },
     {
       "id": "cpo-sdw",
