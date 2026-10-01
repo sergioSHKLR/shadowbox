@@ -6,6 +6,7 @@ import "./case-crests.css";
 import "./timeline-scroll.css";
 import "./map-stage.css";
 import "./decorations.css";
+import "./print.css";
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Missing #root");
