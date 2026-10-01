@@ -9,13 +9,17 @@
 .line-marks .story-awards button { width: auto; height: auto; }
 .page-link { border: 0; background: transparent; color: #e8d7a8; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; margin-right: 0.8rem; }
 .page-link.on { text-decoration: underline; }
-.felt-surface { padding: 0.15rem 0.15rem 1rem; }
+.felt-surface { padding: 0.15rem 0.15rem 1rem; flex: 1; min-height: 0; overflow: auto; }
 .mast-nav { display: none; }
-.case-wide { max-width: none; }
+.case-wide { max-width: none; padding-bottom: 0.6rem; }
 .case-wide .case-frame {
   width: min(100%, calc(100vw - 1.5rem));
   margin-inline: auto;
-  min-height: calc(100vh - 8rem);
+  height: calc(100vh - 1.4rem);
+  max-height: calc(100vh - 1.4rem);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   position: relative;
   border: 22px solid transparent;
   background:
