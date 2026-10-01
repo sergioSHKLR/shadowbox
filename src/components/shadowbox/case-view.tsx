@@ -12,10 +12,6 @@ import {
 import { CareerGlyph, RibbonButton } from "@/components/shadowbox/marks";
 
 const COMMANDS = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"];
-const PARTNERS: { id: string; affiliation: string; patch?: string; name?: string; openId?: string; image?: string }[] = [
-  { id: "tortuga", affiliation: "TAD" },
-  { id: "acu-4", affiliation: "Partner", patch: "ACU 4", name: "Assault Craft Unit 4", openId: "tortuga", image: "/incoming/acu-4.png" },
-];
 
 function caseMarks() {
   const marks: { kind: Kind; id: string; short: string; glyph?: string; image?: string; name: string }[] = [];
@@ -74,7 +70,6 @@ export function Case({
           <div className="case-display">
             <div className="case-column">
               {portraitWithPlaque(recruit, plaques.recruit)}
-              <p className="case-label">Commands</p>
               <ul className="patch-row" aria-label="Assigned commands">
                 {commands.map((unit) => unit ? (
                   <li key={unit.id}>
@@ -86,24 +81,6 @@ export function Case({
                     </button>
                   </li>
                 ) : null)}
-              </ul>
-              <p className="case-label">Partners</p>
-              <ul className="patch-row" aria-label="Partners">
-                {PARTNERS.map((row) => {
-                  const unit = units.find((item) => item.id === row.id);
-                  const label = row.name ?? unit?.name ?? row.id;
-                  const image = row.image ?? unit?.image;
-                  return (
-                    <li key={row.id}>
-                      <button type="button" className={image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", row.openId ?? row.id)} aria-label={`${label}, ${row.affiliation}. Open the sidebar.`}>
-                        {image ? <img className="patch-crest" src={publicUrl(image)} alt="" /> : <span className="word-plate">{row.patch ?? unit?.patch}</span>}
-                        <span className="patch-mark">{label}</span>
-                        <span className="designator">{row.affiliation}</span>
-                        <span>{unit ? formatSpan(unit.start, unit.end) : "Dates not entered"}</span>
-                      </button>
-                    </li>
-                  );
-                })}
               </ul>
               {portraitWithPlaque(chief, plaques.chief)}
               {etMark ? renderMark(etMark, "worn worn-et") : null}
