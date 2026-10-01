@@ -63,7 +63,6 @@ export function ShadowboxApp() {
         <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setSelection(null); setTrail([]); }} />
         <footer className="site-footer">
           <span>Made by an expat while at Itajaí, SC, Brazil.</span>
-          {NAV.map((item) => <button type="button" key={item.id} className="footer-link" onClick={() => setView(item.id)}>{item.label}</button>)}
           <button type="button" className="footer-link" onClick={() => setView("sources")}>Sources</button>
           <button type="button" className="footer-link" onClick={() => setView("contact")}>Contact</button>
           <button type="button" className="footer-link" onClick={() => setView("guestbook")}>Guestbook</button>
