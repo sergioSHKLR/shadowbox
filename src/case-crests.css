@@ -8,8 +8,11 @@
 .line-marks .story-awards { display: flex; flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 0.2rem; margin: 0; padding: 0; list-style: none; }
 .line-hit { border: 0; background: transparent; padding: 0; cursor: pointer; line-height: 0; color: inherit; }
 .line-marks .rate-patch, .line-marks img.medal-line { height: var(--mark); width: auto; max-height: none; object-fit: contain; display: block; }
-.line-marks .hashes img { height: calc(var(--chevron) * var(--stripes, 1)); width: auto; display: block; }
+.line-marks .hashes img { height: calc(var(--chevron) * var(--stripes, 1)); width: auto; transform: scaleX(2); transform-origin: left center; display: block; }
 .line-marks img.ribbon-line { width: var(--ribbon-w); height: auto; display: block; }
+.line-marks .award-face { position: relative; display: inline-block; line-height: 0; }
+.line-marks .appurtenance { position: absolute; left: 50%; top: 46%; height: 46%; width: auto; transform: translate(-50%, -50%); pointer-events: none; }
+.line-marks .appurtenance.letter { height: auto; color: #d9dde3; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; }
 .line-marks .device-line img { width: calc(var(--ribbon-w) * 2); height: auto; max-width: none; object-fit: contain; display: block; }
 .line-marks .story-awards button, .line-marks li { width: auto; height: auto; line-height: 0; display: flex; align-items: flex-start; }
 .story-crest { position: relative; width: var(--crest); padding: 0; border: 0; background: transparent; cursor: pointer; color: inherit; flex: none; }
