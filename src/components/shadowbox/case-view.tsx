@@ -23,37 +23,44 @@ const RANK: Record<string, { start: string; end: string }> = {
   jcse: { start: "E-6", end: "E-6" }, navhosp: { start: "E-6", end: "E-7" },
 };
 const PATCH: Record<string, string> = {
-  "E-4": "/uniforms/pieces/patch-e4-red.svg",
-  "E-5": "/uniforms/pieces/patch-e5-red.svg",
-  "E-6": "/uniforms/pieces/patch-e6-red.svg",
-  "E-6-gold": "/uniforms/pieces/patch-e6-gold.svg",
+  "E-4": "/uniforms/pieces/patch-e4-red.svg", "E-5": "/uniforms/pieces/patch-e5-red.svg",
+  "E-6": "/uniforms/pieces/patch-e6-red.svg", "E-6-gold": "/uniforms/pieces/patch-e6-gold.svg",
   "E-7": "/uniforms/pieces/patch-e7-gold.svg",
 };
-type Side = { title: string; src?: string; open?: Kind; id?: string; partners: { name: string; src: string }[] };
-const LINKED: { id: string; sides: Side[] }[] = [
-  { id: "eodmu5", sides: [
-    { title: "Cobra Gold", src: "/incoming/cobra-gold.png", partners: [{ name: "Royal Thai Navy", src: "/incoming/rtn.png" }] },
-    { title: "Talisman Saber", src: "/incoming/talisman-saber.png", partners: [{ name: "AUSCDT", src: "/incoming/auscdt-1.png" }] },
-    { title: "Operation Iraqi Freedom", src: "/incoming/troy.png", open: "unit", id: "troy", partners: [{ name: "EODMU 11", src: "/incoming/eodmu11.png" }, { name: "52nd EOD", src: "/incoming/52nd-eod.png" }, { name: "16th EN", src: "/incoming/16th-en.png" }] },
+type Card = { title: string; src?: string; open?: Kind; id?: string; children?: Card[] };
+const FELT: Card[] = [
+  { title: "Instruction", children: [
+    { title: "Recruit Training Command", id: "rtc", open: "unit" },
+    { title: "Naval Training Center Great Lakes", id: "ntc-great-lakes", open: "unit" },
   ]},
-  { id: "sercc", sides: [
-    { title: "Individual Augmentee", src: "/incoming/ia-army.png", open: "unit", id: "ia-army", partners: [] },
-    { title: "Operation Iraqi Freedom", open: "unit", id: "ia-army", partners: [{ name: "11th ADA", src: "/incoming/11th-ada.png" }] },
+  { title: "Temporary Additional Duty", children: [
+    { title: "USS Tortuga", id: "tortuga", open: "unit", children: [{ title: "ACU 4", src: "/incoming/acu-4.png" }] },
   ]},
-  { id: "jcse", sides: [
-    { title: "Operation Enduring Freedom, 2010", src: "/incoming/cjsotf.png", open: "unit", id: "cjsotf", partners: [{ name: "3rd SFG", src: "/incoming/3rd-sfg.png" }] },
-    { title: "Operation Enduring Freedom, 2012", src: "/incoming/cjsotf.png", open: "unit", id: "cjsotf", partners: [{ name: "75th Rangers", src: "/incoming/75th-rgr.png" }] },
+  { title: "EOD Mobile Unit Five", id: "eodmu5", open: "unit", children: [
+    { title: "Cobra Gold", src: "/incoming/cobra-gold.png", children: [{ title: "Royal Thai Navy", src: "/incoming/rtn.png" }] },
+    { title: "Talisman Saber", src: "/incoming/talisman-saber.png", children: [{ title: "AUSCDT", src: "/incoming/auscdt-1.png" }] },
+    { title: "Operation Iraqi Freedom", src: "/incoming/troy.png", open: "unit", id: "troy", children: [
+      { title: "EODMU 11", src: "/incoming/eodmu11.png" },
+      { title: "52nd EOD", src: "/incoming/52nd-eod.png" },
+      { title: "16th EN", src: "/incoming/16th-en.png" },
+    ]},
+  ]},
+  { title: "Southeast Region Correctional Command", id: "sercc", open: "unit", children: [
+    { title: "Individual Augmentee", src: "/incoming/ia-army.png", open: "unit", id: "ia-army" },
+    { title: "Operation Iraqi Freedom", open: "unit", id: "ia-army", children: [{ title: "11th ADA", src: "/incoming/11th-ada.png" }] },
+  ]},
+  { title: "Joint Communications Support Element", id: "jcse", open: "unit", children: [
+    { title: "Operation Enduring Freedom, 2010", src: "/incoming/cjsotf.png", open: "unit", id: "cjsotf", children: [{ title: "3rd SFG", src: "/incoming/3rd-sfg.png" }] },
+    { title: "Operation Enduring Freedom, 2012", src: "/incoming/cjsotf.png", open: "unit", id: "cjsotf", children: [{ title: "75th Rangers", src: "/incoming/75th-rgr.png" }] },
   ]},
 ];
-const KEEP = [
-  { label: "Instruction", ids: ["rtc", "ntc-great-lakes"] },
-  { label: "Temporary Additional Duty", ids: ["tortuga"] },
-];
-const RELATED: Record<string, { name: string; src: string }[]> = { tortuga: [{ name: "ACU 4", src: "/incoming/acu-4.png" }] };
 type Block = { kind: string | null; id: string | null; lists: Record<string, string[]> };
 const blocks = supplementJson as unknown as Block[];
 const clean = (value: string) => value.replace(/^[A-Z]+-\d+:\s*/, "");
 const list = (id: string, field: string) => blocks.find((block) => block.kind === "unit" && block.id === id)?.lists[field]?.map(clean) ?? [];
+function crest(card: Card) {
+  return card.src || units.find((unit) => unit.id === card.id)?.image;
+}
 function Collar({ grade, gold }: { grade: string; gold?: boolean }) {
   const src = gold && grade === "E-6" ? PATCH["E-6-gold"] : PATCH[grade];
   return src ? <img className="rate-patch" src={publicUrl(src)} alt="" /> : null;
@@ -82,17 +89,39 @@ function AwardStrip({ items, onOpen }: { items: Award[]; onOpen: (id: string) =>
   if (!items.length) return <p className="quiet">Not entered</p>;
   return <ul className="story-awards">{items.map((award) => <li key={award.id}><button type="button" onClick={() => onOpen(award.id)} aria-label={`${award.name}, ${award.count}`}><img src={publicUrl(medalFor(award.id)?.front || award.ribbon)} alt="" /><span>{award.abbreviation}</span></button></li>)}</ul>;
 }
-function SideRow({ sides, onOpen }: { sides: Side[]; onOpen: (k: Kind, id: string) => void }) {
+function Felt({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
+  const [path, setPath] = useState<Card[]>([]);
+  const cards = path.length ? path[path.length - 1].children ?? [] : FELT;
+  const title = path.length ? path[path.length - 1].title : "Supplemental";
   return (
-    <ul className="supp-tree">
-      {sides.map((side) => (
-        <li key={side.title + (side.partners[0]?.name ?? "")} className="level-2">
-          <button type="button" className="story-crest" onClick={() => side.open && side.id && onOpen(side.open, side.id)} aria-label={side.title}>{side.src ? <img src={publicUrl(side.src)} alt="" /> : <span>{side.title}</span>}</button>
-          <p>{side.title}</p>
-          {side.partners.length ? <ul>{side.partners.map((partner) => <li key={partner.name} className="level-3"><img src={publicUrl(partner.src)} alt="" /><span>{partner.name}</span></li>)}</ul> : null}
-        </li>
-      ))}
-    </ul>
+    <div className="felt-window">
+      <div className="felt-track" style={{ transform: `translateX(-${path.length * 33.333}%)` }}>
+        {[0, 1, 2].map((pane) => {
+          const shown = pane === path.length;
+          const paneCards = pane === 0 ? FELT : pane === path.length ? cards : [];
+          const paneTitle = pane === 0 ? "Supplemental" : pane === path.length ? title : "";
+          return (
+            <section key={pane} className="felt-pane" aria-hidden={!shown}>
+              {pane > 0 && shown ? <button type="button" className="felt-back" onClick={() => setPath(path.slice(0, -1))}>Back</button> : null}
+              <h3>{paneTitle}</h3>
+              <ul>
+                {(shown ? paneCards : []).map((card) => {
+                  const image = crest(card);
+                  return (
+                    <li key={card.title}>
+                      <button type="button" onClick={() => card.children?.length ? setPath([...path, card]) : card.open && card.id && onOpen(card.open, card.id)} aria-label={card.title}>
+                        {image ? <img src={publicUrl(image)} alt="" /> : <span>{card.title}</span>}
+                      </button>
+                      <p>{card.title}</p>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
@@ -150,39 +179,7 @@ export function Case({ rows: _rows, onOpen }: { rows: ReturnType<typeof ribbonRo
                 <dl className="service-totals" aria-label="Service totals">{[["Active Duty", profile.serviceLength], ["Sea Service", profile.seaService], ["Overseas Sea Service", profile.foreignService]].map(([label, value]) => <div key={label}><dt>{label}:</dt> <dd>{value}</dd></div>)}</dl>
                 {portrait(chief, plaques.chief)}
               </>
-            ) : (
-              <div className="supp-tree">
-                {KEEP.map((group) => (
-                  <section key={group.label} className="level-1">
-                    <h3>{group.label}</h3>
-                    <ul>
-                      {group.ids.map((id) => {
-                        const unit = units.find((item) => item.id === id);
-                        if (!unit) return null;
-                        return (
-                          <li key={id} className="level-2">
-                            <button type="button" className="story-crest" onClick={() => onOpen("unit", id)} aria-label={`${unit.name}. Open the sidebar.`}>{unit.image ? <img src={publicUrl(unit.image)} alt="" /> : <span>{unit.patch}</span>}</button>
-                            <p>{unit.name}</p>
-                            <ul>{(RELATED[id] ?? []).map((item) => <li key={item.name} className="level-3"><img src={publicUrl(item.src)} alt="" /><span>{item.name}</span></li>)}</ul>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </section>
-                ))}
-                {LINKED.map((group) => {
-                  const unit = units.find((item) => item.id === group.id);
-                  if (!unit) return null;
-                  return (
-                    <section key={group.id} className="level-1">
-                      <button type="button" className="story-crest story-crest-lg" onClick={() => onOpen("unit", group.id)} aria-label={`${unit.name}. Open the sidebar.`}>{unit.image ? <img src={publicUrl(unit.image)} alt="" /> : <span>{unit.patch}</span>}</button>
-                      <h3>{unit.name}</h3>
-                      <SideRow sides={group.sides} onOpen={onOpen} />
-                    </section>
-                  );
-                })}
-              </div>
-            )}
+            ) : <Felt onOpen={onOpen} />}
           </div></div>
         </div>
       </section>
