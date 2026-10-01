@@ -237,7 +237,6 @@ export function DetailPanel({
         <Dialog.Content className={closing ? "detail-panel closing" : "detail-panel"} aria-describedby={undefined} onEscapeKeyDown={(event) => { event.preventDefault(); requestClose(); }} onPointerDownOutside={(event) => { event.preventDefault(); requestClose(); }} >
           {subject ? (
             <div className="detail-scroll" onScroll={(event) => noteScroll(event.currentTarget)} ref={(node) => { if (node) noteScroll(node); }}>
-            <>
               <div className="detail-head">
                 <div>
                   <p className="kicker">{subject.kicker}</p>
@@ -366,10 +365,9 @@ export function DetailPanel({
                   </section>
                 ) : null}
               </div>
-            </>
-          ) : null}
-        {more ? <span className="detail-more" aria-hidden="true" /> : null}
+              {more ? <span className="detail-more" aria-hidden="true" /> : null}
             </div>
+          ) : null}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
