@@ -13,6 +13,7 @@ const AWARD_CODE: Record<string, string> = {
   JSAM: "jsam", JMUA: "jmua", ACM: "acm", NATO: "nato", AAM: "aam", ARCOM: "arcom", NC: "ncm",
 };
 const DEVICES: Record<string, string[]> = { "frank-cable": ["esws"], jcse: ["exw", "jcse-device"] };
+const DEVICE_ART: Record<string, string> = { esws: "/incoming/esws.png", exw: "/incoming/exw.png", "jcse-device": "/incoming/jcse-breast.png" };
 const TOUR_AWARDS: Record<string, string[]> = { navhosp: ["NC"] };
 const RANK: Record<string, { start: string; end: string }> = {
   ncts: { start: "E-4", end: "E-5" }, "frank-cable": { start: "E-5", end: "E-6" },
@@ -58,12 +59,13 @@ function Collar({ grade, gold }: { grade: string; gold?: boolean }) {
   const src = gold && grade === "E-6" ? PATCH["E-6-gold"] : PATCH[grade];
   return src ? <img className="rate-patch" src={publicUrl(src)} alt="" /> : null;
 }
+const HASH = (count: number, gold: boolean) => `/incoming/hash-${count}-${gold ? "gold" : "red"}.png`;
 function HashMarks({ end }: { end?: string }) {
   const years = end ? Number(end) - 1997 : 0;
   const count = Math.floor(years / 4);
   const gold = years >= 12;
   if (!count) return null;
-  return <span className="hashes" aria-label={`${count} ${gold ? "gold" : "red"} service stripes`}>{Array.from({ length: count }, (_, index) => <img key={index} src={publicUrl(gold ? "/incoming/hash-gold.jpg" : "/incoming/hash-red.jpg")} alt="" />)}</span>;
+  return <span className="hashes" aria-label={`${count} ${gold ? "gold" : "red"} service stripes`}><img src={publicUrl(HASH(count, gold))} alt="" /></span>;
 }
 function caseMarks() {
   const marks: { kind: Kind; id: string; short: string; image?: string; glyph?: string; name: string }[] = [];
@@ -193,7 +195,7 @@ export function Case({ rows: _rows, onOpen, query: outerQuery = "" }: { rows: Re
                         <HashMarks end={unit.end} />
                         <AwardStrip kind="ribbon" items={earned.filter((award) => !medalFor(award.id)?.front)} onOpen={(awardId) => onOpen("award", awardId)} />
                         <AwardStrip kind="medal" items={earned.filter((award) => medalFor(award.id)?.front)} onOpen={(awardId) => onOpen("award", awardId)} />
-                        {devices.length ? <ul className="story-awards device-line">{devices.map((mark) => mark ? <li key={mark.id}><button type="button" onClick={() => onOpen(mark.kind, mark.id)} aria-label={mark.name}>{mark.image ? <img src={publicUrl(mark.image)} alt="" /> : <CareerGlyph image={mark.image} glyph={mark.glyph} />}</button></li> : null)}</ul> : null}
+                        {devices.length ? <ul className="story-awards device-line">{devices.map((mark) => mark ? <li key={mark.id}><button type="button" onClick={() => onOpen(mark.kind, mark.id)} aria-label={mark.name}>{<img src={publicUrl(DEVICE_ART[mark.id] || mark.image || "")} alt="" />}</button></li> : null)}</ul> : null}
                       </div>
                     </article>
                   );
