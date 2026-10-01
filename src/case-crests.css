@@ -60,6 +60,9 @@
 }
 .thumb-row img { width: 100%; aspect-ratio: 1; object-fit: contain; background: #efe8da; }
 .thumb-row span { display: block; font-size: 0.68rem; line-height: 1.2; }
+.crumb { display: flex; flex-wrap: wrap; gap: 0.2rem; margin: 0.35rem 0 0; font-size: 0.75rem; }
+.crumb button { border: 0; background: transparent; color: inherit; padding: 0; text-decoration: underline; cursor: pointer; }
+.crumb button:disabled { text-decoration: none; cursor: default; font-weight: 700; }
 @media (min-width: 520px) {
   .patch-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .case-medals { grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr)); }
