@@ -11,15 +11,22 @@ import {
 } from "@/lib/shadowbox/model";
 import { CareerGlyph, RibbonButton } from "@/components/shadowbox/marks";
 
-const PARTNERS: { id: string; affiliation: string }[] = [
+const CASE_ORDER: { id: string; affiliation: string }[] = [
   { id: "tortuga", affiliation: "TAD" },
-  { id: "troy", affiliation: "Deployment partner \u00b7 EODMU 5" },
-  { id: "52nd-ordnance", affiliation: "Customer" },
-  { id: "16th-engineer", affiliation: "Customer" },
-  { id: "3rd-sfg", affiliation: "Customer" },
-  { id: "75th-ranger", affiliation: "Customer" },
-  { id: "ia-army", affiliation: "Deployment \u00b7 Army" },
-  { id: "cjsotf", affiliation: "Deployment partner \u00b7 JCSE" },
+  { id: "ncts", affiliation: "Assigned" },
+  { id: "frank-cable", affiliation: "Assigned" },
+  { id: "eodmu5", affiliation: "Assigned" },
+  { id: "troy", affiliation: "Deployment partner" },
+  { id: "sercc", affiliation: "Assigned" },
+  { id: "ia-army", affiliation: "Deployment" },
+  { id: "jcse", affiliation: "Assigned" },
+  { id: "cjsotf", affiliation: "Two deployments" },
+  { id: "navhosp", affiliation: "Assigned" },
+];
+
+const HOSTS = [
+  { id: "rtn", name: "Royal Thai Navy", patch: "RTN", affiliation: "Host \u00b7 Cobra Gold \u00d72" },
+  { id: "auscdt", name: "Australian Clearance Diving Team", patch: "AUSCDT", affiliation: "Host \u00b7 Talisman Saber \u00d72" },
 ];
 
 function caseMarks() {
@@ -52,7 +59,7 @@ export function Case({
   const recruit = photos.find((photo) => photo.id === "recruit-portrait-1997");
   const chief = photos.find((photo) => photo.id === "chief-portrait-2018");
   const plaques = profile.casePlaques;
-  const partners = PARTNERS.map((row) => ({ ...row, unit: units.find((unit) => unit.id === row.id) })).filter((row) => row.unit);
+  const tiles = CASE_ORDER.map((row) => ({ ...row, unit: units.find((unit) => unit.id === row.id) })).filter((row) => row.unit);
   const portraitWithPlaque = (photo: (typeof photos)[number] | undefined, lines: string[]) =>
     photo ? (
       <figure className="case-portrait">
@@ -92,28 +99,25 @@ export function Case({
           <div className="case-display">
             <div className="case-column">
               {portraitWithPlaque(recruit, plaques.recruit)}
-              <ul className="patch-row" aria-label="Commands, in order">
-                {units.filter((unit) => unit.onCase !== false).map((unit) => (
+              <ul className="patch-row" aria-label="Commands and partners, in career order">
+                {tiles.map(({ unit, affiliation }) => unit ? (
                   <li key={unit.id}>
-                    <button type="button" className={unit.image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name}${unit.designator ? `, ${unit.designator}` : ""}, ${formatSpan(unit.start, unit.end)}. Open the explanation.`}>
-                      {unit.image ? <img className="patch-crest" src={publicUrl(unit.image)} alt="" /> : null}
-                      <span className="patch-mark">{unit.patch}</span>
-                      {unit.designator ? <span className="designator">{unit.designator}</span> : null}
-                      <span>{formatSpan(unit.start, unit.end)}</span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-              <ul className="patch-row partner-row" aria-label="Deployment partners, exercise partners, and customers">
-                {partners.map(({ unit, affiliation }) => unit ? (
-                  <li key={unit.id}>
-                    <button type="button" className={unit.image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name}, ${affiliation}. Open the explanation.`}>
+                    <button type="button" className={unit.image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name}, ${affiliation}. Open the sidebar.`}>
                       {unit.image ? <img className="patch-crest" src={publicUrl(unit.image)} alt="" /> : null}
                       <span className="patch-mark">{unit.patch}</span>
                       <span className="designator">{affiliation}</span>
+                      <span>{formatSpan(unit.start, unit.end)}</span>
                     </button>
                   </li>
                 ) : null)}
+                {HOSTS.map((host) => (
+                  <li key={host.id}>
+                    <button type="button" className="patch" onClick={() => onOpen("unit", "eodmu5")} aria-label={`${host.name}, ${host.affiliation}. Open the EOD Mobile Unit Five sidebar.`}>
+                      <span className="patch-mark">{host.patch}</span>
+                      <span className="designator">{host.affiliation}</span>
+                    </button>
+                  </li>
+                ))}
               </ul>
               {portraitWithPlaque(chief, plaques.chief)}
               {etMark ? renderMark(etMark, "worn worn-et") : null}
