@@ -29,12 +29,46 @@ const TOUR_AWARDS: Record<string, string[]> = { navhosp: ["NC"] };
 const TOUR_NOTE: Record<string, { nec?: string; workcenter?: string }> = {
   navhosp: { nec: "95PT \u00b7 Command Fitness Leader", workcenter: "CFL Office" },
 };
+const RANK: Record<string, { start: string; end: string }> = {
+  ncts: { start: "E-4", end: "E-5" },
+  "frank-cable": { start: "E-5", end: "E-6" },
+  eodmu5: { start: "E-6", end: "E-6" },
+  sercc: { start: "E-6", end: "E-6" },
+  jcse: { start: "E-6", end: "E-6" },
+  navhosp: { start: "E-6", end: "E-7" },
+};
 
 type Block = { kind: string | null; id: string | null; lists: Record<string, string[]> };
 const blocks = supplementJson as unknown as Block[];
 const clean = (value: string) => value.replace(/^[A-Z]+-\d+:\s*/, "");
 const list = (id: string, field: string) =>
   blocks.find((block) => block.kind === "unit" && block.id === id)?.lists[field]?.map(clean) ?? [];
+
+function Collar({ grade }: { grade: string }) {
+  const chevrons = grade === "E-4" ? 1 : grade === "E-5" ? 2 : grade === "E-6" ? 3 : 0;
+  const chief = grade === "E-7";
+  return (
+    <svg className="collar" viewBox="0 0 48 64" aria-hidden="true">
+      <path fill="#c4a24a" d="M24 4c2 6 6 8 8 10-4 2-6 6-8 10-2-4-4-8-8-10 2-2 6-4 8-10z" />
+      {chief ? <path fill="none" stroke="#c4a24a" strokeWidth="2" d="M14 30c4 10 16 10 20 0M16 36c3 8 13 8 16 0" /> : null}
+      {Array.from({ length: chevrons }, (_, index) => (
+        <path key={index} fill="none" stroke="#c4a24a" strokeWidth="2.4" d={`M${12 + index} ${34 + index * 6} L24 ${42 + index * 6} L${36 - index} ${34 + index * 6}`} />
+      ))}
+    </svg>
+  );
+}
+
+function Metal({ award }: { award: Award }) {
+  const marks = award.devices.filter((device) => device.kind !== "letter" || device.style !== "expert");
+  if (!marks.length || award.id === "jmua") return null;
+  return (
+    <span className="metal-devices" aria-hidden="true">
+      {marks.flatMap((device) => Array.from({ length: device.count }, (_, index) => (
+        <i key={`${device.kind}-${device.metal}-${index}`} className={`metal ${device.kind} ${device.metal ?? ""}`} />
+      )))}
+    </span>
+  );
+}
 
 function caseMarks() {
   const marks: { kind: Kind; id: string; short: string; glyph?: string; image?: string; name: string }[] = [];
@@ -58,8 +92,11 @@ function AwardStrip({ items, onOpen }: { items: Award[]; onOpen: (id: string) =>
         const medal = medalFor(award.id);
         return (
           <li key={award.id}>
-            <button type="button" onClick={() => onOpen(award.id)} aria-label={award.name}>
-              <img src={publicUrl(medal?.front || award.ribbon)} alt="" />
+            <button type="button" onClick={() => onOpen(award.id)} aria-label={`${award.name}, ${award.count}`}>
+              <span className="award-face">
+                <img src={publicUrl(medal?.front || award.ribbon)} alt="" />
+                <Metal award={award} />
+              </span>
               <span>{award.abbreviation}</span>
             </button>
           </li>
@@ -107,13 +144,23 @@ export function Case({
                 const ribbons = earned.filter((award) => !medalFor(award.id)?.front);
                 const devices = (DEVICES[id] ?? []).map((markId) => marks.find((mark) => mark.id === markId)).filter((mark) => mark);
                 const note = TOUR_NOTE[id];
+                const rank = RANK[id];
                 return (
                   <article key={id} className="command-story">
                     <button type="button" className="story-crest" onClick={() => onOpen("unit", id)} aria-label={`${unit.name}. Open the sidebar.`}>
                       {unit.image ? <img src={publicUrl(unit.image)} alt="" /> : <span>{unit.patch}</span>}
                     </button>
                     <div className="story-copy">
-                      <p className="story-rank">Rank {list(id, "Rank")[0] || "Not entered"} <span>{formatSpan(unit.start, unit.end)}</span></p>
+                      <p className="story-rank">
+                        {rank ? (
+                          <span className="rank-pair">
+                            <Collar grade={rank.start} /><em>{rank.start}</em>
+                            <span aria-hidden="true">to</span>
+                            <Collar grade={rank.end} /><em>{rank.end}</em>
+                          </span>
+                        ) : "Rank not entered"}
+                        <span>{formatSpan(unit.start, unit.end)}</span>
+                      </p>
                       {note?.nec ? <p>Billet NEC {note.nec}</p> : null}
                       {note?.workcenter ? <p>Workcenter {note.workcenter}</p> : null}
                       <h3>Medals</h3>
