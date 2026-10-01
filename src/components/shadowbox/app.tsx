@@ -15,15 +15,17 @@ import { DetailPanel } from "@/components/shadowbox/detail";
 import { Case } from "@/components/shadowbox/case-view";
 import { Timeline } from "@/components/shadowbox/timeline-view";
 import { Uniforms } from "@/components/shadowbox/uniforms-view";
+import { Decorations } from "@/components/shadowbox/decorations-view";
 import { EquipmentView } from "@/components/shadowbox/equipment-view";
 import { Stations } from "@/components/shadowbox/stations";
 import { Sources } from "@/components/shadowbox/sources-view";
 
-type View = "case" | "uniforms" | "timeline" | "equipment" | "map" | "sources";
+type View = "case" | "uniforms" | "decorations" | "timeline" | "equipment" | "map" | "sources";
 
 const NAV: { id: View; label: string }[] = [
   { id: "case", label: "Case" },
   { id: "uniforms", label: "Uniforms" },
+  { id: "decorations", label: "Decorations" },
   { id: "timeline", label: "Timeline" },
   { id: "equipment", label: "Gear & Vehicles" },
   { id: "map", label: "Map" },
@@ -37,7 +39,7 @@ export function ShadowboxApp() {
   const open = (kind: Kind, id: string) => setSelection({ kind, id });
   const focusTour = (next: TourFocus) => {
     setTour(next);
-    setView("uniforms");
+    setView("decorations");
   };
   const rows = useMemo(() => ribbonRows(awards), []);
   const bars = useMemo(() => timeline(), []);
@@ -74,7 +76,8 @@ export function ShadowboxApp() {
       </header>
 
       {view === "case" ? <Case rows={rows} onOpen={open} /> : null}
-      {view === "uniforms" ? <Uniforms onOpen={open} tour={tour} /> : null}
+      {view === "uniforms" ? <Uniforms onOpen={open} /> : null}
+      {view === "decorations" ? <Decorations onOpen={open} tour={tour} /> : null}
       {view === "timeline" ? <Timeline bars={bars} rows={rows} blanks={blanks} onOpen={open} onFocus={focusTour} /> : null}
       {view === "equipment" ? <EquipmentView onOpen={open} /> : null}
       {view === "map" ? <Stations stops={stops} onOpen={open} /> : null}
