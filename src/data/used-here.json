@@ -53,7 +53,8 @@
     "an-cyz-10",
     "kl-43",
     "taclane",
-    "magnetometer"
+    "magnetometer",
+    "eodmu5-pt-2"
   ],
   "jcse": [
     "jblox",
@@ -98,7 +99,8 @@
     "c-9",
     "black-hawk",
     "mi-17",
-    "c-17"
+    "c-17",
+    "cpo-summer-white"
   ],
   "oef-2010": [
     "plate-carrier-multicam",
@@ -211,6 +213,7 @@
     "cpo-sdw",
     "cpo-sdb",
     "cpo-khaki",
-    "navy-ptu"
+    "navy-ptu",
+    "cpo-summer-white"
   ]
 }
