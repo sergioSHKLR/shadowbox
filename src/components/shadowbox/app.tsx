@@ -9,6 +9,7 @@ import {
   timeline,
   type Kind,
   type Selection,
+  type TourFocus,
 } from "@/lib/shadowbox/model";
 import { DetailPanel } from "@/components/shadowbox/detail";
 import { Case } from "@/components/shadowbox/case-view";
@@ -18,12 +19,12 @@ import { EquipmentView } from "@/components/shadowbox/equipment-view";
 import { Stations } from "@/components/shadowbox/stations";
 import { Sources } from "@/components/shadowbox/sources-view";
 
-type View = "case" | "timeline" | "uniforms" | "equipment" | "map" | "sources";
+type View = "case" | "uniforms" | "timeline" | "equipment" | "map" | "sources";
 
 const NAV: { id: View; label: string }[] = [
   { id: "case", label: "Case" },
-  { id: "timeline", label: "Timeline" },
   { id: "uniforms", label: "Uniforms" },
+  { id: "timeline", label: "Timeline" },
   { id: "equipment", label: "Gear & Vehicles" },
   { id: "map", label: "Map" },
   { id: "sources", label: "Sources" },
@@ -32,7 +33,12 @@ const NAV: { id: View; label: string }[] = [
 export function ShadowboxApp() {
   const [view, setView] = useState<View>("case");
   const [selection, setSelection] = useState<Selection | null>(null);
+  const [tour, setTour] = useState<TourFocus | null>(null);
   const open = (kind: Kind, id: string) => setSelection({ kind, id });
+  const focusTour = (next: TourFocus) => {
+    setTour(next);
+    setView("uniforms");
+  };
   const rows = useMemo(() => ribbonRows(awards), []);
   const bars = useMemo(() => timeline(), []);
   const stops = useMemo(() => careerStops(), []);
@@ -68,8 +74,8 @@ export function ShadowboxApp() {
       </header>
 
       {view === "case" ? <Case rows={rows} onOpen={open} /> : null}
-      {view === "timeline" ? <Timeline bars={bars} rows={rows} blanks={blanks} onOpen={open} /> : null}
-      {view === "uniforms" ? <Uniforms onOpen={open} /> : null}
+      {view === "uniforms" ? <Uniforms onOpen={open} tour={tour} /> : null}
+      {view === "timeline" ? <Timeline bars={bars} rows={rows} blanks={blanks} onOpen={open} onFocus={focusTour} /> : null}
       {view === "equipment" ? <EquipmentView onOpen={open} /> : null}
       {view === "map" ? <Stations stops={stops} onOpen={open} /> : null}
       {view === "sources" ? <Sources /> : null}
