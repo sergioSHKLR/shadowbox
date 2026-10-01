@@ -1,0 +1,964 @@
+[
+  {
+    "block": "RTC",
+    "kind": "unit",
+    "id": "rtc",
+    "lists": {
+      "Rank": [
+        "RAN-01: E-3"
+      ],
+      "Bases": [
+        "BAS-18: Recruit Training Center"
+      ],
+      "Uniforms": [
+        "UNI-01: Smurfs",
+        "UNI-02: PO Working Whites",
+        "UNI-03: PO Working Blues",
+        "UNI-04: PO Dress Blues",
+        "UNI-05: PO Dress Whites",
+        "UNI-21: Dungarees"
+      ],
+      "Under Instruction": [
+        "UND-01: RTC"
+      ],
+      "Cities/Residences": [
+        "CIT-01: Great Lakes"
+      ],
+      "Division": [
+        "DIV-08: 333"
+      ],
+      "Watch Station": [
+        "WAT-08: Starboard"
+      ]
+    }
+  },
+  {
+    "block": "LSD-46",
+    "kind": "unit",
+    "id": "tortuga",
+    "lists": {
+      "Rank": [
+        "RAN-01: E-3"
+      ],
+      "TAD": [
+        "TAD-01: LSD-46"
+      ],
+      "Bases": [
+        "BAS-02: Little Creek"
+      ],
+      "Ships": [
+        "SHI-01: LSD-46",
+        "SHI-04: LCAC"
+      ],
+      "Uniforms": [
+        "UNI-01: Smurfs",
+        "UNI-02: PO Working Whites",
+        "UNI-03: PO Working Blues",
+        "UNI-04: PO Dress Blues",
+        "UNI-05: PO Dress Whites",
+        "UNI-21: Dungarees"
+      ],
+      "Cities/Residences": [
+        "CIT-02: Virginia Beach"
+      ],
+      "Division": [
+        "DIV-09: Deck"
+      ]
+    }
+  },
+  {
+    "block": "NTC",
+    "kind": "unit",
+    "id": "ntc-great-lakes",
+    "lists": {
+      "Rank": [
+        "RAN-02: E-4"
+      ],
+      "NEC": [
+        "NEC-01: 0000"
+      ],
+      "Schools": [
+        "SCH-01: Tech Core",
+        "SCH-02: A School"
+      ],
+      "Uniforms": [
+        "UNI-01: Smurfs",
+        "UNI-02: PO Working Whites",
+        "UNI-03: PO Working Blues",
+        "UNI-04: PO Dress Blues",
+        "UNI-05: PO Dress Whites",
+        "UNI-21: Dungarees"
+      ],
+      "Under Instruction": [
+        "UND-02: NTC"
+      ],
+      "Cities/Residences": [
+        "CIT-01: Great Lakes"
+      ]
+    }
+  },
+  {
+    "block": "Keesler AFB",
+    "kind": "school",
+    "id": "fcam",
+    "lists": {
+      "Rank": [
+        "RAN-02: E-4"
+      ],
+      "NEC": [
+        "NEC-01: 0000",
+        "NEC-02: 1589"
+      ],
+      "Schools": [
+        "SCH-03: GPETE",
+        "SCH-04: FCAM"
+      ],
+      "Bases": [
+        "BAS-18: Keesler AFB"
+      ],
+      "Uniforms": [
+        "UNI-01: Smurfs",
+        "UNI-02: PO Working Whites",
+        "UNI-03: PO Working Blues",
+        "UNI-04: PO Dress Blues",
+        "UNI-05: PO Dress Whites",
+        "UNI-21: Dungarees"
+      ],
+      "Under Instruction": [
+        "UND-03: Keesler AFB"
+      ],
+      "Cities/Residences": [
+        "CIT-09: Biloxi, MS"
+      ]
+    }
+  },
+  {
+    "block": "NCTS SD",
+    "kind": "unit",
+    "id": "ncts",
+    "lists": {
+      "Rank": [
+        "RAN-03: E-5"
+      ],
+      "NEC": [
+        "NEC-02: 1589"
+      ],
+      "Schools": [
+        "SCH-13: ASF"
+      ],
+      "Command": [
+        "COM-01: NCTS SD"
+      ],
+      "Collateral": [
+        "COL-03: ASF",
+        "COL-04: Supply"
+      ],
+      "TAD": [
+        "TAD-02: LHD-2"
+      ],
+      "Port Visit": [
+        "POR-05: San Francisco"
+      ],
+      "Bases": [
+        "BAS-01: NASNI",
+        "BAS-05: FISC SD",
+        "BAS-06: Coronado"
+      ],
+      "Comms": [
+        "COM-12: KG-84",
+        "COM-19: AN/FCC-100",
+        "COM-20: AN/WSC-3"
+      ],
+      "Uniforms": [
+        "UNI-01: Smurfs",
+        "UNI-02: PO Working Whites",
+        "UNI-03: PO Working Blues",
+        "UNI-04: PO Dress Blues",
+        "UNI-05: PO Dress Whites",
+        "UNI-06: Woodland Camo",
+        "UNI-22: Utilities"
+      ],
+      "Under Instruction": [
+        "UND-04: 32nd Street"
+      ],
+      "Cities/Residences": [
+        "CIT-04: Imperial Beach"
+      ],
+      "Countries": [
+        "COU-03: Mexico"
+      ],
+      "POV": [
+        "POV-01: Nissan Frontier"
+      ],
+      "Off-duty work": [
+        "OFF-01: CSC Events"
+      ],
+      "Division": [
+        "DIV-01: N6"
+      ],
+      "Awards": [
+        "AWA-05: NAM",
+        "AWA-10: GCM",
+        "AWA-11: NDSM",
+        "AWA-20: PISTOL"
+      ],
+      "Watch Station": [
+        "WAT-01: Gate Guard",
+        "WAT-02: Duty ET"
+      ]
+    }
+  },
+  {
+    "block": "AS-40",
+    "kind": "unit",
+    "id": "frank-cable",
+    "lists": {
+      "Rank": [
+        "RAN-04: E-6"
+      ],
+      "NEC": [
+        "NEC-02: 1589",
+        "NEC-08: 9571"
+      ],
+      "Schools": [
+        "SCH-07: Safety"
+      ],
+      "Command": [
+        "COM-02: AS-40"
+      ],
+      "Collateral": [
+        "COL-01: Safety"
+      ],
+      "Port Visit": [
+        "POR-01: Yokosuka",
+        "POR-02: Chinhae",
+        "POR-03: Sasebo",
+        "POR-04: Honk Kong"
+      ],
+      "Bases": [
+        "BAS-03: Santa Rita",
+        "BAS-04: Polaris Point"
+      ],
+      "Ships": [
+        "SHI-02: AS-40"
+      ],
+      "Weapons": [
+        "WEA-02: M9A2"
+      ],
+      "Uniforms": [
+        "UNI-01: Smurfs",
+        "UNI-02: PO Working Whites",
+        "UNI-03: PO Working Blues",
+        "UNI-04: PO Dress Blues",
+        "UNI-05: PO Dress Whites",
+        "UNI-22: Utilities",
+        "UNI-23: Coveralls"
+      ],
+      "Cities/Residences": [
+        "CIT-03: Talofofo",
+        "CIT-08: Santa Rita"
+      ],
+      "Countries": [
+        "COU-05: China",
+        "COU-06: Japan",
+        "COU-08: Korea"
+      ],
+      "POV": [
+        "POV-02: Ford Ranger",
+        "POV-03: Nissan Sentra Silver",
+        "POV-04: Nissan Sentra Red"
+      ],
+      "Motorcycles": [
+        "MOT-01: XT225"
+      ],
+      "Hobbies": [
+        "HOB-01: Kayak",
+        "HOB-02: Biking",
+        "HOB-03: Hash Run",
+        "HOB-04: Diving"
+      ],
+      "Division": [
+        "DIV-02: R6"
+      ],
+      "Awards": [
+        "AWA-05: NAM",
+        "AWA-08: MUC",
+        "AWA-09: NAVY E",
+        "AWA-10: GCM",
+        "AWA-11: NDSM",
+        "AWA-15: HSM",
+        "AWA-16: SSDR"
+      ],
+      "Title": [
+        "TIT-02: LPO"
+      ],
+      "Watch Station": [
+        "WAT-03: Pier Guard",
+        "WAT-04: Deck Rover",
+        "WAT-05: POOW",
+        "WAT-06: MOOW"
+      ]
+    }
+  },
+  {
+    "block": "EODMU5",
+    "kind": "unit",
+    "id": "eodmu5",
+    "lists": {
+      "Rank": [
+        "RAN-04: E-6"
+      ],
+      "NEC": [
+        "NEC-04: 1460",
+        "NEC-06: 9613",
+        "NEC-07: 9502"
+      ],
+      "Schools": [
+        "SCH-05: Comsec"
+      ],
+      "Command": [
+        "COM-03: EODMU 5"
+      ],
+      "Collateral": [
+        "COL-05: COMSEC Manager",
+        "COL-06: Magnetometer",
+        "COL-09: Safety Officer"
+      ],
+      "Operation": [
+        "OPE-01: Cobra Gold 2004",
+        "OPE-02: Cobra Gold 2005",
+        "OPE-03: Talisman Saber 2005",
+        "OPE-04: Talisman Saber 2007",
+        "OPE-05: Iraqi Freedom"
+      ],
+      "Layover": [
+        "LAY-01: Leipzig",
+        "LAY-02: Ireland",
+        "LAY-03: Bitburg",
+        "LAY-05: Qatar"
+      ],
+      "Bases": [
+        "BAS-15: Imperial Beach Annex"
+      ],
+      "Partner": [
+        "PAR-01: EODMU 11"
+      ],
+      "Equipment": [
+        "EQU-02: Magnetometer"
+      ],
+      "Vehicles": [
+        "VEH-01: CUCV",
+        "VEH-10: RHIB"
+      ],
+      "Weapons": [
+        "WEA-01: M4",
+        "WEA-02: M9A2"
+      ],
+      "Comms": [
+        "COM-01: AN/PRC-117F",
+        "COM-02: AN/PSC-5D",
+        "COM-03: AN/PRC-148",
+        "COM-04: Iridium 9505",
+        "COM-05: STE phone",
+        "COM-07: KOI-18",
+        "COM-08: KYK-13",
+        "COM-09: AN/CYZ-10",
+        "COM-10: KL-43",
+        "COM-11: KG-175A"
+      ],
+      "Uniforms": [
+        "UNI-02: PO Working Whites",
+        "UNI-03: PO Working Blues",
+        "UNI-04: PO Dress Blues",
+        "UNI-05: PO Dress Whites",
+        "UNI-06: Woodland Camo",
+        "UNI-17: EOD PT",
+        "UNI-19: Diver shorts"
+      ],
+      "Cities/Residences": [
+        "CIT-03: Talofofo",
+        "CIT-08: Santa Rita"
+      ],
+      "Countries": [
+        "COU-04: Australia",
+        "COU-06: Japan",
+        "COU-07: Thailand"
+      ],
+      "POV": [
+        "POV-04: Nissan Sentra Red"
+      ],
+      "Motorcycles": [
+        "MOT-01: XT225"
+      ],
+      "Hobbies": [
+        "HOB-01: Kayak",
+        "HOB-02: Biking"
+      ],
+      "Division": [
+        "DIV-01: N6"
+      ],
+      "Awards": [
+        "AWA-05: NAM",
+        "AWA-08: MUC",
+        "AWA-10: GCM",
+        "AWA-13: ICM",
+        "AWA-14: GWOT-SM",
+        "AWA-16: SSDR",
+        "AWA-17: OSSR"
+      ],
+      "Title": [
+        "TIT-02: LPO"
+      ],
+      "Watch Station": [
+        "WAT-07: Gateguard (Messages)"
+      ]
+    }
+  },
+  {
+    "block": "TROY",
+    "kind": "unit",
+    "id": "troy",
+    "lists": {
+      "Rank": [
+        "RAN-04: E-6"
+      ],
+      "Command": [
+        "COM-03: EODMU 5"
+      ],
+      "Deployment": [
+        "DEP-01: Iraq 2006"
+      ],
+      "Operation": [
+        "OPE-05: Iraqi Freedom"
+      ],
+      "Layover": [
+        "LAY-01: Leipzig",
+        "LAY-03: Bitburg"
+      ],
+      "Bases": [
+        "BAS-09: FOB Sykes",
+        "BAS-10: Tal Afar",
+        "BAS-11: Mosul"
+      ],
+      "Partner": [
+        "PAR-01: EODMU 11"
+      ],
+      "Sponsor": [
+        "SPO-01: 52nd EOD",
+        "SPO-02: 16th EN"
+      ],
+      "Gear": [
+        "GEA-01: IOTV",
+        "GEA-02: SPCS",
+        "GEA-03: PASGT",
+        "GEA-04: ACH/MICH"
+      ],
+      "Vehicles": [
+        "VEH-05: HMMWV",
+        "VEH-06: JERRV",
+        "VEH-07: Gator",
+        "VEH-12: APC"
+      ],
+      "Ships": [
+        "SHI-01: LSD-46",
+        "SHI-02: AS-40",
+        "SHI-03: LHD-2",
+        "SHI-04: LCAC"
+      ],
+      "Weapons": [
+        "WEA-01: M4",
+        "WEA-02: M9A2",
+        "WEA-03: M16A1",
+        "WEA-04: MK14",
+        "WEA-05: M60"
+      ],
+      "Comms": [
+        "COM-04: Iridium 9505",
+        "COM-09: AN/CYZ-10"
+      ],
+      "Uniforms": [
+        "UNI-07: Desert Camo",
+        "UNI-18: JCSE PT"
+      ],
+      "Aircraft": [
+        "AIR-02: C130",
+        "AIR-06: C17"
+      ],
+      "Countries": [
+        "COU-01: Kurdistan",
+        "COU-02: Canada",
+        "COU-10: Germany",
+        "COU-13: Iraq"
+      ],
+      "Awards": [
+        "AWA-06: AAM",
+        "AWA-13: ICM"
+      ]
+    }
+  },
+  {
+    "block": "SERCC",
+    "kind": "unit",
+    "id": "sercc",
+    "lists": {
+      "Rank": [
+        "RAN-04: E-6"
+      ],
+      "NEC": [
+        "NEC-02: 1589",
+        "NEC-03: 9527"
+      ],
+      "Command": [
+        "COM-04: SERCC"
+      ],
+      "Collateral": [
+        "COL-02: CFL"
+      ],
+      "Bases": [
+        "BAS-20: NS Jax"
+      ],
+      "Uniforms": [
+        "UNI-02: PO Working Whites",
+        "UNI-03: PO Working Blues",
+        "UNI-04: PO Dress Blues",
+        "UNI-05: PO Dress Whites",
+        "UNI-10: NWU Type I",
+        "UNI-16: New PT",
+        "UNI-22: Utilities"
+      ],
+      "Cities/Residences": [
+        "CIT-06: Orange Park"
+      ],
+      "Motorcycles": [
+        "MOT-02: Buell 500",
+        "MOT-03: Sportster 1200"
+      ],
+      "Hobbies": [
+        "HOB-02: Biking"
+      ],
+      "Awards": [
+        "AWA-05: NAM",
+        "AWA-10: GCM",
+        "AWA-13: ICM",
+        "AWA-16: SSDR",
+        "AWA-17: OSSR"
+      ]
+    }
+  },
+  {
+    "block": "C-RAM",
+    "kind": "unit",
+    "id": "ia-army",
+    "lists": {
+      "Rank": [
+        "RAN-04: E-6"
+      ],
+      "NEC": [
+        "NEC-05: 90CR",
+        "NEC-11: 90BC",
+        "NEC-12: 90MN"
+      ],
+      "Command": [
+        "COM-04: SERCC"
+      ],
+      "Collateral": [
+        "COL-07: SGT of the Guard",
+        "COL-08: Mount Watch"
+      ],
+      "Deployment": [
+        "DEP-02: Iraq 2009"
+      ],
+      "Operation": [
+        "OPE-06: Iraqi"
+      ],
+      "Layover": [
+        "LAY-01: Leipzig",
+        "LAY-02: Ireland",
+        "LAY-04: Kuwait"
+      ],
+      "Bases": [
+        "BAS-08: Arifjan",
+        "BAS-14: Ft Bliss"
+      ],
+      "Gear": [
+        "GEA-01: IOTV",
+        "GEA-02: SPCS",
+        "GEA-03: PASGT",
+        "GEA-04: ACH/MICH"
+      ],
+      "Equipment": [
+        "EQU-01: Centurion C-RAM"
+      ],
+      "Vehicles": [
+        "VEH-05: HMMWV",
+        "VEH-11: LMTV"
+      ],
+      "Weapons": [
+        "WEA-03: M16A1"
+      ],
+      "Uniforms": [
+        "UNI-08: ACU"
+      ],
+      "Countries": [
+        "COU-09: Kuwait",
+        "COU-13: Iraq"
+      ],
+      "Awards": [
+        "AWA-03: AC",
+        "AWA-13: ICM",
+        "AWA-17: OSSR",
+        "AWA-20: PISTOL"
+      ],
+      "Title": [
+        "TIT-02: LPO"
+      ]
+    }
+  },
+  {
+    "block": "JCSE",
+    "kind": "unit",
+    "id": "jcse",
+    "lists": {
+      "Rank": [
+        "RAN-04: E-6"
+      ],
+      "NEC": [
+        "NEC-09: 9QPB"
+      ],
+      "Schools": [
+        "SCH-10: Small Boat",
+        "SCH-11: Mountain Warfare",
+        "SCH-14: CLS"
+      ],
+      "Command": [
+        "COM-05: JCSE"
+      ],
+      "Operation": [
+        "OPE-07: Enduring"
+      ],
+      "Layover": [
+        "LAY-01: Leipzig",
+        "LAY-05: Qatar"
+      ],
+      "Bases": [
+        "BAS-07: Al-Udeid",
+        "BAS-12: Bagram",
+        "BAS-13: Camp Blanding",
+        "BAS-16: MWTC",
+        "BAS-19: MacDill AFB"
+      ],
+      "Customer": [
+        "CUS-01: ODA 3213",
+        "CUS-02: 75th Rangers"
+      ],
+      "Gear": [
+        "GEA-01: IOTV",
+        "GEA-02: SPCS",
+        "GEA-03: PASGT",
+        "GEA-04: ACH/MICH"
+      ],
+      "Vehicles": [
+        "VEH-02: Polaris",
+        "VEH-03: Hilux",
+        "VEH-04: Up armored",
+        "VEH-08: ATV",
+        "VEH-09: Bobcat",
+        "VEH-11: LMTV"
+      ],
+      "Ships": [
+        "SHI-01: LSD-46",
+        "SHI-02: AS-40",
+        "SHI-03: LHD-2",
+        "SHI-04: LCAC"
+      ],
+      "Weapons": [
+        "WEA-01: M4",
+        "WEA-02: M9A2",
+        "WEA-03: M16A1",
+        "WEA-04: MK14",
+        "WEA-05: M60"
+      ],
+      "Comms": [
+        "COM-06: SWE-dish",
+        "COM-11: KG-175A",
+        "COM-14: AN/PYQ-10 SKL",
+        "COM-15: JBLOX",
+        "COM-16: EEP",
+        "COM-17: IEP"
+      ],
+      "Uniforms": [
+        "UNI-02: PO Working Whites",
+        "UNI-03: PO Working Blues",
+        "UNI-04: PO Dress Blues",
+        "UNI-05: PO Dress Whites",
+        "UNI-09: Multicam",
+        "UNI-11: NWU Type III",
+        "UNI-12: Chief Whites",
+        "UNI-13: Chief Blues",
+        "UNI-14: Chief Choker",
+        "UNI-15: Chief Khakis",
+        "UNI-16: New PT",
+        "UNI-20: Red Polo",
+        "UNI-24: Peanut Butters"
+      ],
+      "Aircraft": [
+        "AIR-01: C5",
+        "AIR-02: C130",
+        "AIR-03: C9",
+        "AIR-04: Black Hawk",
+        "AIR-05: Mi-17",
+        "AIR-06: C17"
+      ],
+      "Cities/Residences": [
+        "CIT-07: South Tampa"
+      ],
+      "Countries": [
+        "COU-10: Germany",
+        "COU-11: Ireland",
+        "COU-12: Afghanistan",
+        "COU-14: Qatar"
+      ],
+      "POV": [
+        "POV-05: Chevy Spark Yellow",
+        "POV-06: Chevy Spark White",
+        "POV-07: Ford Transit Van",
+        "POV-08: Mitsubishi Outlander"
+      ],
+      "Motorcycles": [
+        "MOT-03: Sportster 1200"
+      ],
+      "Division": [
+        "DIV-03: 3rd SQD",
+        "DIV-06: J3"
+      ],
+      "Awards": [
+        "AWA-01: JSCM",
+        "AWA-04: JSAM",
+        "AWA-07: JMUA",
+        "AWA-10: GCM",
+        "AWA-12: ACM",
+        "AWA-16: SSDR",
+        "AWA-17: OSSR",
+        "AWA-18: NATO"
+      ],
+      "Title": [
+        "TIT-04: TEAM CHIEF"
+      ]
+    }
+  },
+  {
+    "block": "AFG 1",
+    "kind": "operation",
+    "id": "oef-2010",
+    "lists": {
+      "Rank": [
+        "RAN-04: E-6"
+      ],
+      "Command": [
+        "COM-05: JCSE"
+      ],
+      "Deployment": [
+        "DEP-03: Afg 2011"
+      ],
+      "Operation": [
+        "OPE-07: Enduring"
+      ],
+      "Layover": [
+        "LAY-01: Leipzig",
+        "LAY-02: Ireland",
+        "LAY-05: Qatar"
+      ],
+      "Bases": [
+        "BAS-07: Al-Udeid",
+        "BAS-12: Bagram",
+        "BAS-08: Arifjan"
+      ],
+      "Customer": [
+        "CUS-01: ODA 3213"
+      ],
+      "Gear": [
+        "GEA-01: IOTV",
+        "GEA-02: SPCS",
+        "GEA-03: PASGT",
+        "GEA-04: ACH/MICH"
+      ],
+      "Vehicles": [
+        "VEH-11: LMTV"
+      ],
+      "Weapons": [
+        "WEA-01: M4",
+        "WEA-02: M9A2"
+      ],
+      "Comms": [
+        "COM-16: EEP"
+      ],
+      "Uniforms": [
+        "UNI-09: Multicam",
+        "UNI-18: JCSE PT",
+        "UNI-20: Red Polo"
+      ],
+      "Aircraft": [
+        "AIR-04: Black Hawk",
+        "AIR-05: Mi-17",
+        "AIR-06: C17"
+      ],
+      "Cities/Residences": [
+        "CIT-07: South Tampa"
+      ],
+      "Countries": [
+        "COU-10: Germany",
+        "COU-11: Ireland",
+        "COU-12: Afghanistan",
+        "COU-14: Qatar"
+      ],
+      "Awards": [
+        "AWA-01: JSCM",
+        "AWA-03: AC",
+        "AWA-04: JSAM",
+        "AWA-05: NAM",
+        "AWA-06: AAM",
+        "AWA-07: JMUA",
+        "AWA-10: GCM",
+        "AWA-13: ICM",
+        "AWA-16: SSDR",
+        "AWA-17: OSSR",
+        "AWA-18: NATO"
+      ],
+      "Title": [
+        "TIT-04: TEAM CHIEF"
+      ]
+    }
+  },
+  {
+    "block": "AFG 2",
+    "kind": "operation",
+    "id": "oef-2012",
+    "lists": {
+      "Rank": [
+        "RAN-04: E-6"
+      ],
+      "Command": [
+        "COM-05: JCSE"
+      ],
+      "Deployment": [
+        "DEP-04: Afg 2013"
+      ],
+      "Operation": [
+        "OPE-07: Enduring"
+      ],
+      "Layover": [
+        "LAY-01: Leipzig",
+        "LAY-02: Ireland",
+        "LAY-05: Qatar"
+      ],
+      "Bases": [
+        "BAS-07: Al-Udeid",
+        "BAS-08: Arifjan",
+        "BAS-12: Bagram"
+      ],
+      "Customer": [
+        "CUS-02: 75th Rangers"
+      ],
+      "Gear": [
+        "GEA-01: IOTV",
+        "GEA-02: SPCS",
+        "GEA-03: PASGT",
+        "GEA-04: ACH/MICH"
+      ],
+      "Vehicles": [
+        "VEH-02: Polaris",
+        "VEH-03: Hilux",
+        "VEH-04: Up armored",
+        "VEH-07: Gator",
+        "VEH-08: ATV",
+        "VEH-09: Bobcat"
+      ],
+      "Weapons": [
+        "WEA-01: M4",
+        "WEA-02: M9A2"
+      ],
+      "Comms": [
+        "COM-16: EEP"
+      ],
+      "Uniforms": [
+        "UNI-09: Multicam",
+        "UNI-18: JCSE PT",
+        "UNI-20: Red Polo"
+      ],
+      "Aircraft": [
+        "AIR-04: Black Hawk",
+        "AIR-05: Mi-17",
+        "AIR-06: C17"
+      ],
+      "Cities/Residences": [
+        "CIT-07: South Tampa"
+      ],
+      "Countries": [
+        "COU-10: Germany",
+        "COU-11: Ireland",
+        "COU-12: Afghanistan",
+        "COU-14: Qatar"
+      ],
+      "Awards": [
+        "AWA-01: JSCM",
+        "AWA-03: AC",
+        "AWA-04: JSAM",
+        "AWA-05: NAM",
+        "AWA-06: AAM",
+        "AWA-07: JMUA",
+        "AWA-10: GCM",
+        "AWA-12: ACM",
+        "AWA-16: SSDR",
+        "AWA-17: OSSR",
+        "AWA-18: NATO"
+      ],
+      "Title": [
+        "TIT-04: TEAM CHIEF"
+      ]
+    }
+  },
+  {
+    "block": "NH JAX",
+    "kind": "unit",
+    "id": "navhosp",
+    "lists": {
+      "Rank": [
+        "RAN-05: E-7"
+      ],
+      "Schools": [
+        "SCH-12: CFL 2"
+      ],
+      "Command": [
+        "COM-06: NH JAX"
+      ],
+      "Bases": [
+        "BAS-20: NS Jax"
+      ],
+      "Uniforms": [
+        "UNI-12: Chief Whites",
+        "UNI-13: Chief Blues",
+        "UNI-14: Chief Choker",
+        "UNI-15: Chief Khakis",
+        "UNI-16: New PT"
+      ],
+      "Cities/Residences": [
+        "CIT-06: Orange Park"
+      ],
+      "POV": [
+        "POV-06: Chevy Spark White",
+        "POV-08: Mitsubishi Outlander"
+      ],
+      "Motorcycles": [
+        "MOT-03: Sportster 1200"
+      ],
+      "Awards": [
+        "AWA-02: NC",
+        "AWA-08: MUC",
+        "AWA-10: GCM"
+      ],
+      "Title": [
+        "TIT-03: LCPO"
+      ]
+    }
+  }
+]
