@@ -120,7 +120,7 @@ export function ShadowboxApp() {
             </ul>
           ) : null}
         </div>
-        <div className="felt-surface" onScroll={(event) => event.currentTarget.style.setProperty("--shrunk", String(Math.min(1, event.currentTarget.scrollTop / 140)))}>
+        <div className="felt-surface" onScroll={(event) => { const el = event.currentTarget; const max = el.scrollHeight - el.clientHeight; el.style.setProperty("--shrunk", String(Math.min(1, el.scrollTop / 140))); el.style.setProperty("--grown", String(max <= 0 ? 0 : Math.min(1, Math.max(0, (el.scrollTop - (max - 140)) / 140)))); }}>
       <div className={`${pane("case")} view-case`}><Case rows={rows} onOpen={open} query={query} /></div>
       <div className={pane("uniforms")}><Uniforms onOpen={open} /></div>
       <div className={pane("decorations")}><Decorations onOpen={open} tour={tour} /></div>
