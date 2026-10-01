@@ -29,6 +29,28 @@ type PlayState = {
   extra: Place[];
 };
 
+function toward(map: import("leaflet").Map, at: [number, number]): [number, number] {
+  const center = map.getCenter().lng;
+  let lng = at[1];
+  while (lng - center > 180) lng -= 360;
+  while (center - lng > 180) lng += 360;
+  return [at[0], lng];
+}
+
+/** Leaflet's fly wraps longitude into -180..180, which sends CA to Guam east. Hold the wrap off for the hop. */
+function flyUnwrapped(map: import("leaflet").Map, target: [number, number], zoom: number, instant: boolean) {
+  const crs = map.options.crs as { wrapLng?: [number, number] | null };
+  const saved = crs.wrapLng;
+  crs.wrapLng = null;
+  const restore = () => {
+    crs.wrapLng = saved;
+    map.off("moveend", restore);
+  };
+  map.on("moveend", restore);
+  if (instant) map.setView(target, zoom);
+  else map.flyTo(target, zoom, { duration: 0.9 });
+}
+
 function applyPlay(handle: Runtime, play: PlayState) {
   const allowed = play.revealedIds ? new Set(play.revealedIds) : null;
   play.stops.forEach((stop, i) => {
@@ -53,11 +75,10 @@ function applyPlay(handle: Runtime, play: PlayState) {
 
   const focus = play.focusId ? play.stops.find((stop) => stop.place.id === play.focusId) : undefined;
   if (focus && focus.place.lat != null && focus.place.lng != null) {
-    const target = handle.at(focus.place);
+    const target = toward(handle.map, handle.at(focus.place));
     const reduce = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const zoom = Math.min(6.5, Math.max(handle.map.getZoom(), 4));
-    if (reduce) handle.map.setView(target, zoom);
-    else handle.map.flyTo(target, zoom, { duration: 0.7 });
+    flyUnwrapped(handle.map, target, zoom, reduce);
   } else if (!allowed) {
     handle.fit();
   }
@@ -95,11 +116,11 @@ export function MapView({
     void import("leaflet").then((L) => {
       if (cancelled || !ref.current) return;
       const PIN_PX = ref.current.clientWidth < 520 ? 18 : 22;
-      map = L.map(ref.current, { scrollWheelZoom: false, zoomControl: true, zoomSnap: 0.25, zoomDelta: 0.5, worldCopyJump: true });
+      map = L.map(ref.current, { scrollWheelZoom: false, zoomControl: true, zoomSnap: 0.25, zoomDelta: 0.5 });
       const spec = BASEMAPS.topo;
       const tiles = L.tileLayer(spec.url, { attribution: spec.attribution, maxZoom: spec.maxZoom }).addTo(map);
 
-      // Keep the Pacific whole west of the Americas so CA → Guam follows the aircraft path.
+      // Keep the Pacific whole west of the Americas so CA to Guam follows the aircraft path.
       const wrapLng = (lng: number) => (lng > 100 ? lng - 360 : lng);
       const at = (place: Place): [number, number] => [place.lat ?? 0, wrapLng(place.lng ?? 0)];
 
@@ -119,7 +140,7 @@ export function MapView({
           zIndexOffset: (stop.n ?? 0) * 10,
         });
         marker.on("click", () => selectRef.current(stop.place.id));
-        marker.bindTooltip(stop.n ? `${stop.n} · ${stop.place.name}` : stop.place.name, { direction: "top", offset: [0, -12] });
+        marker.bindTooltip(stop.n ? `${stop.n} \u00b7 ${stop.place.name}` : stop.place.name, { direction: "top", offset: [0, -12] });
         return marker;
       });
       const baseMarkers = extra.map((place) => {
