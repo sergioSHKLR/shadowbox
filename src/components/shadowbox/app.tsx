@@ -19,18 +19,21 @@ import { Timeline } from "@/components/shadowbox/timeline-view";
 import { Uniforms } from "@/components/shadowbox/uniforms-view";
 import { Decorations } from "@/components/shadowbox/decorations-view";
 import { EquipmentView } from "@/components/shadowbox/equipment-view";
+import { OffDuty, Ops } from "@/components/shadowbox/ops-view";
 import { Stations } from "@/components/shadowbox/stations";
 import { Sources } from "@/components/shadowbox/sources-view";
 import { Contact, Guestbook, VisitorCount } from "@/components/shadowbox/footer-pages";
 
-type View = "case" | "uniforms" | "decorations" | "timeline" | "equipment" | "map" | "sources" | "contact" | "guestbook";
+type View = "case" | "uniforms" | "decorations" | "timeline" | "ops" | "onduty" | "offduty" | "map" | "sources" | "contact" | "guestbook";
 
 const NAV: { id: View; label: string }[] = [
   { id: "case", label: "Case" },
   { id: "uniforms", label: "Uniforms" },
   { id: "decorations", label: "Decorations" },
   { id: "timeline", label: "Timeline" },
-  { id: "equipment", label: "Gear & Vehicles" },
+  { id: "ops", label: "Ops" },
+  { id: "onduty", label: "On Duty" },
+  { id: "offduty", label: "Off Duty" },
   { id: "map", label: "Map" },
 ];
 
@@ -73,13 +76,7 @@ export function ShadowboxApp() {
         </div>
         <nav className="mast-nav" aria-label="Shadowbox sections">
           {NAV.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              className={view === item.id ? "nav-btn on" : "nav-btn"}
-              aria-current={view === item.id ? "page" : undefined}
-              onClick={() => setView(item.id)}
-            >
+            <button key={item.id} type="button" className={view === item.id ? "nav-btn on" : "nav-btn"} aria-current={view === item.id ? "page" : undefined} onClick={() => setView(item.id)}>
               {item.label}
             </button>
           ))}
@@ -90,7 +87,9 @@ export function ShadowboxApp() {
       <div className={pane("uniforms")}><Uniforms onOpen={open} /></div>
       <div className={pane("decorations")}><Decorations onOpen={open} tour={tour} /></div>
       <div className={pane("timeline")}><Timeline bars={bars} rows={rows} blanks={blanks} onOpen={open} /></div>
-      <div className={pane("equipment")}><EquipmentView onOpen={open} /></div>
+      <div className={pane("ops")}><Ops onOpen={open} /></div>
+      <div className={pane("onduty")}><EquipmentView onOpen={open} /></div>
+      <div className={pane("offduty")}><OffDuty onOpen={open} /></div>
       <div className={pane("map")}><Stations stops={stops} onOpen={open} /></div>
       <div className={`${pane("sources")} no-book`}><Sources /></div>
       <div className={`${pane("contact")} no-book`}><Contact onOpenBook={() => setView("guestbook")} /></div>
