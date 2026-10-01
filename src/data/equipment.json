@@ -863,5 +863,290 @@
       "creator": "U.S. Air Force",
       "license": "Public domain (U.S. federal government work)"
     }
+  },
+  {
+    "id": "nissan-frontier",
+    "group": "cars",
+    "order": 50,
+    "name": "Nissan Frontier",
+    "cutout": false,
+    "note": "POV-01. His truck at Imperial Beach. Model card, not a photo of that truck. Photograph is of the model, not his own.",
+    "image": "/equipment/nissan-frontier.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ANissan_Frontier_%28D41%29_Pro-4X_Automesse_Ludwigsburg_2022_1X7A5885.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File%3ANissan_Frontier_%28D41%29_Pro-4X_Automesse_Ludwigsburg_2022_1X7A5885.jpg",
+      "creator": "Wikimedia Commons",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "ford-ranger",
+    "group": "cars",
+    "order": 51,
+    "name": "Ford Ranger",
+    "cutout": false,
+    "note": "POV-02. Guam. Model card. Photograph is of the model, not his own.",
+    "image": "/equipment/ford-ranger.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AFord_Ranger_%28T6%2C_P703%29_Wildtrak_IMG_7320.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File%3AFord_Ranger_%28T6%2C_P703%29_Wildtrak_IMG_7320.jpg",
+      "creator": "Wikimedia Commons",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "nissan-sentra-silver",
+    "group": "cars",
+    "order": 52,
+    "name": "Nissan Sentra, silver",
+    "cutout": false,
+    "note": "POV-03. Guam. Model card. Photograph is of the model, not his own.",
+    "image": "/equipment/nissan-sentra-silver.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ANissan_Sentra_VII_Taiwanese_facelift_001.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File%3ANissan_Sentra_VII_Taiwanese_facelift_001.jpg",
+      "creator": "Wikimedia Commons",
+      "license": "CC0"
+    }
+  },
+  {
+    "id": "nissan-sentra-red",
+    "group": "cars",
+    "order": 53,
+    "name": "Nissan Sentra, red",
+    "cutout": false,
+    "note": "POV-04. Guam. Model card.",
+    "image": "",
+    "credit": {
+      "sourceUrl": "",
+      "file": "",
+      "creator": "",
+      "license": "No photograph yet."
+    }
+  },
+  {
+    "id": "chevy-spark-yellow",
+    "group": "cars",
+    "order": 54,
+    "name": "Chevy Spark, yellow",
+    "cutout": false,
+    "note": "POV-05. Tampa. Model card. Photograph is of the model, not his own.",
+    "image": "/equipment/chevy-spark-yellow.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AChevrolet_Spark._Bukhara%2C_Uzbekistan.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File%3AChevrolet_Spark._Bukhara%2C_Uzbekistan.jpg",
+      "creator": "Wikimedia Commons",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "chevy-spark-white",
+    "group": "cars",
+    "order": 55,
+    "name": "Chevy Spark, white",
+    "cutout": false,
+    "note": "POV-06. Tampa and Orange Park. Model card.",
+    "image": "",
+    "credit": {
+      "sourceUrl": "",
+      "file": "",
+      "creator": "",
+      "license": "No photograph yet."
+    }
+  },
+  {
+    "id": "ford-transit",
+    "group": "cars",
+    "order": 56,
+    "name": "Ford Transit van",
+    "cutout": false,
+    "note": "POV-07. Tampa. Model card.",
+    "image": "",
+    "credit": {
+      "sourceUrl": "",
+      "file": "",
+      "creator": "",
+      "license": "No photograph yet."
+    }
+  },
+  {
+    "id": "mitsubishi-outlander",
+    "group": "cars",
+    "order": 57,
+    "name": "Mitsubishi Outlander",
+    "cutout": false,
+    "note": "POV-08. Tampa and Orange Park. Model card.",
+    "image": "",
+    "credit": {
+      "sourceUrl": "",
+      "file": "",
+      "creator": "",
+      "license": "No photograph yet."
+    }
+  },
+  {
+    "id": "xt225",
+    "group": "motorcycles",
+    "order": 60,
+    "name": "Yamaha XT225",
+    "cutout": false,
+    "note": "MOT-01. Guam. Model card.",
+    "image": "",
+    "credit": {
+      "sourceUrl": "",
+      "file": "",
+      "creator": "",
+      "license": "No photograph yet."
+    }
+  },
+  {
+    "id": "buell-500",
+    "group": "motorcycles",
+    "order": 61,
+    "name": "Buell 500",
+    "cutout": false,
+    "note": "MOT-02. Orange Park. Model card.",
+    "image": "",
+    "credit": {
+      "sourceUrl": "",
+      "file": "",
+      "creator": "",
+      "license": "No photograph yet."
+    }
+  },
+  {
+    "id": "sportster-1200",
+    "group": "motorcycles",
+    "order": 62,
+    "name": "Sportster 1200",
+    "cutout": false,
+    "note": "MOT-03. Orange Park and Tampa. Model card.",
+    "image": "",
+    "credit": {
+      "sourceUrl": "",
+      "file": "",
+      "creator": "",
+      "license": "No photograph yet."
+    }
+  },
+  {
+    "id": "city-great-lakes",
+    "group": "cities",
+    "order": 70,
+    "name": "Great Lakes",
+    "cutout": false,
+    "note": "CIT-01. Boot camp and NTC. Photograph is of the model, not his own.",
+    "image": "/equipment/city-great-lakes.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AGreat_Lakes_Bldg_1.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File%3AGreat_Lakes_Bldg_1.jpg",
+      "creator": "Wikimedia Commons",
+      "license": "CC BY-SA 3.0"
+    }
+  },
+  {
+    "id": "city-virginia-beach",
+    "group": "cities",
+    "order": 71,
+    "name": "Virginia Beach",
+    "cutout": false,
+    "note": "CIT-02. Tortuga. Photograph is of the model, not his own.",
+    "image": "/equipment/city-virginia-beach.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ABeach_at_Virginia_Beach_Oceanfront_05.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File%3ABeach_at_Virginia_Beach_Oceanfront_05.jpg",
+      "creator": "Wikimedia Commons",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "city-talofofo",
+    "group": "cities",
+    "order": 72,
+    "name": "Talofofo",
+    "cutout": false,
+    "note": "CIT-03. Guam.",
+    "image": "",
+    "credit": {
+      "sourceUrl": "",
+      "file": "",
+      "creator": "",
+      "license": "No photograph yet."
+    }
+  },
+  {
+    "id": "city-imperial-beach",
+    "group": "cities",
+    "order": 73,
+    "name": "Imperial Beach",
+    "cutout": false,
+    "note": "CIT-04. NCTS. Photograph is of the model, not his own.",
+    "image": "/equipment/city-imperial-beach.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AImperial_Beach_Pier.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File%3AImperial_Beach_Pier.jpg",
+      "creator": "Wikimedia Commons",
+      "license": "CC BY 4.0"
+    }
+  },
+  {
+    "id": "city-orange-park",
+    "group": "cities",
+    "order": 74,
+    "name": "Orange Park",
+    "cutout": false,
+    "note": "CIT-06. SERCC and the hospital. Photograph is of the model, not his own.",
+    "image": "/equipment/city-orange-park.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ABlue_Sky_Orange_Park_Florida.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File%3ABlue_Sky_Orange_Park_Florida.jpg",
+      "creator": "Wikimedia Commons",
+      "license": "CC BY 4.0"
+    }
+  },
+  {
+    "id": "city-south-tampa",
+    "group": "cities",
+    "order": 75,
+    "name": "South Tampa",
+    "cutout": false,
+    "note": "CIT-07. JCSE and both Afghanistan tours. Photograph is of the model, not his own.",
+    "image": "/equipment/city-south-tampa.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ATampa_FL_Hyde_Park_Hist_Dist12c.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File%3ATampa_FL_Hyde_Park_Hist_Dist12c.jpg",
+      "creator": "Wikimedia Commons",
+      "license": "CC BY-SA 3.0"
+    }
+  },
+  {
+    "id": "city-santa-rita",
+    "group": "cities",
+    "order": 76,
+    "name": "Santa Rita",
+    "cutout": false,
+    "note": "CIT-08. Guam.",
+    "image": "",
+    "credit": {
+      "sourceUrl": "",
+      "file": "",
+      "creator": "",
+      "license": "No photograph yet."
+    }
+  },
+  {
+    "id": "city-biloxi",
+    "group": "cities",
+    "order": 77,
+    "name": "Biloxi",
+    "cutout": false,
+    "note": "CIT-09. Keesler. Photograph is of the model, not his own.",
+    "image": "/equipment/city-biloxi.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AThe_Biloxi_light%2C_Biloxi%2C_Mississippi%2C_1901.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File%3AThe_Biloxi_light%2C_Biloxi%2C_Mississippi%2C_1901.jpg",
+      "creator": "Wikimedia Commons",
+      "license": "Public domain"
+    }
   }
 ]
