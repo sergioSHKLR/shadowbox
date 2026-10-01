@@ -17,23 +17,23 @@ import {
   type Kind,
   type TourFocus,
 } from "@/lib/shadowbox/model";
-import { UniformProgression } from "@/components/shadowbox/uniform-progression";
 
 export function Timeline({
   bars,
   rows,
   blanks,
   onOpen,
+  onFocus,
 }: {
   bars: ReturnType<typeof timeline>;
   rows: ReturnType<typeof ribbonRows>;
   blanks: string[];
   onOpen: (k: Kind, id: string) => void;
+  onFocus: (tour: TourFocus) => void;
 }) {
-  const [tour, setTour] = useState<TourFocus | null>(null);
   const pick = (kind: Kind, id: string) => {
     const next = tourFocus(kind, id);
-    if (next) setTour(next);
+    if (next) onFocus(next);
     else onOpen(kind, id);
   };
   const dated = [
@@ -53,7 +53,7 @@ export function Timeline({
         <Track label="Events" items={bars.world} />
         </div>
       </ChartScroll>
-      <p className="quiet">Events are public history during this enlistment — presidents, attacks, and the wars. They are not part of the service record. Command popups now also list the crosswalk fields (watch, collateral, aircraft, layovers) from the supplement.</p>
+      <p className="quiet">Events are public history during this enlistment — presidents, attacks, and the wars. They are not part of the service record. A rank, assignment, or deployment opens the uniform plate on that date.</p>
       <h3>Rank progression</h3>
       <ol className="rank-steps">
         {ranks.map((rank) => (
@@ -74,7 +74,6 @@ export function Timeline({
           </div>
         </li>
       </ol>
-      <UniformProgression onOpen={onOpen} tour={tour} />
       <h3>Operations, named as the record names them</h3>
       <ul className="stack">
         {operations.map((op) => (
