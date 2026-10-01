@@ -1,11 +1,19 @@
-import { caseCopy, publicUrl, uniforms, UNIFORM_GROUPS, type Kind } from "@/lib/shadowbox/model";
+import { caseCopy, publicUrl, uniforms, type Kind, type UniformGroup } from "@/lib/shadowbox/model";
+
+const UNIFORM_SECTIONS: { id: UniformGroup; label: string }[] = [
+  { id: "battle", label: "Battle" },
+  { id: "organizational", label: "Organizational" },
+  { id: "work", label: "Working" },
+  { id: "pt", label: "PT" },
+  { id: "dress", label: "Dress" },
+];
 
 export function Uniforms({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
   return (
     <main className="sheet">
       <h2>Uniforms</h2>
       <p>{uniforms.length} uniforms. {caseCopy.uniformsLead}</p>
-      {UNIFORM_GROUPS.map((group) => {
+      {UNIFORM_SECTIONS.map((group) => {
         const list = uniforms.filter((uniform) => uniform.group === group.id).sort((a, b) => a.order - b.order);
         if (!list.length) return null;
         return (
