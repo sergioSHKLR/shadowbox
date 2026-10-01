@@ -223,6 +223,8 @@ export function DetailPanel({
 
   const frame = typeof document === "undefined" ? null : document.querySelector(".case-frame");
   const [closing, setClosing] = useState(false);
+  const [more, setMore] = useState(false);
+  const noteScroll = (el: HTMLElement) => setMore(el.scrollHeight - el.scrollTop - el.clientHeight > 24);
   const requestClose = () => {
     if (closing) return;
     setClosing(true);
@@ -232,7 +234,7 @@ export function DetailPanel({
     <Dialog.Root open={Boolean(subject)} onOpenChange={(open) => { if (!open) requestClose(); }}>
       <Dialog.Portal container={frame instanceof HTMLElement ? frame : undefined}>
         <Dialog.Overlay className="detail-overlay" onClick={requestClose} />
-        <Dialog.Content className={closing ? "detail-panel closing" : "detail-panel"} aria-describedby={undefined} onEscapeKeyDown={(event) => { event.preventDefault(); requestClose(); }} onPointerDownOutside={(event) => { event.preventDefault(); requestClose(); }}>
+        <Dialog.Content className={closing ? "detail-panel closing" : "detail-panel"} aria-describedby={undefined} onEscapeKeyDown={(event) => { event.preventDefault(); requestClose(); }} onPointerDownOutside={(event) => { event.preventDefault(); requestClose(); }} onScroll={(event) => noteScroll(event.currentTarget)} ref={(node) => { if (node) noteScroll(node); }}>
           {subject ? (
             <>
               <div className="detail-head">
@@ -365,6 +367,7 @@ export function DetailPanel({
               </div>
             </>
           ) : null}
+        {more ? <span className="detail-more" aria-hidden="true" /> : null}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

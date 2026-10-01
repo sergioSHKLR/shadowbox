@@ -32,7 +32,9 @@
 .case-wide { max-width: none; padding-bottom: 0.6rem; }
 .case-wide .case-frame { position: relative; width: min(100%, calc(100vw - 1.5rem)); margin-inline: auto; height: calc(100vh - 1.4rem); max-height: calc(100vh - 1.4rem); display: flex; flex-direction: column; overflow: hidden; border: 0; background: #071018; outline: none; box-shadow: none; padding: 0; }
 .case-wide .detail-overlay { position: absolute !important; inset: 0; background: transparent; pointer-events: none; }
-.case-wide .detail-panel { position: absolute !important; top: 2.6rem; right: 0; bottom: 0; left: auto; width: min(34rem, 100%); z-index: 4; pointer-events: auto; border-left: 0; background: #f4efe4; color: #1c1a16; font-family: Georgia, "Times New Roman", serif; box-shadow: -16px 0 28px rgba(0,0,0,0.28); animation: paper-in 0.45s ease; }
+.case-wide .detail-panel { position: absolute !important; top: 2.6rem; right: 0; bottom: 0; left: auto; width: min(34rem, 100%); z-index: 4; pointer-events: auto; border-left: 0; background: #f4efe4; color: #1c1a16; font-family: Georgia, "Times New Roman", serif; box-shadow: -16px 0 28px rgba(0,0,0,0.28); animation: paper-in 0.45s ease; overflow-y: auto; }
+.detail-more { position: sticky; bottom: 0.4rem; display: block; width: 1.4rem; margin: -1.2rem auto 0.3rem; text-align: center; color: #14233a; pointer-events: none; }
+.detail-more::after { content: "\2193"; font-size: 1.15rem; }
 @keyframes paper-in { from { transform: translateX(110%); } to { transform: translateX(0); } }
 @keyframes paper-out { from { transform: translateX(0); } to { transform: translateX(110%); } }
 .case-wide .detail-panel.closing { animation: paper-out 0.42s ease forwards; }
