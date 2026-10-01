@@ -67,8 +67,17 @@
 .story-crest { width: 7.5rem; padding: 0; border: 0; background: transparent; cursor: pointer; }
 .story-crest img { width: 100%; height: auto; object-fit: contain; }
 .story-copy h3 { margin: 0.45rem 0 0.2rem; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; }
-.story-rank { margin: 0; font-weight: 700; }
-.story-rank span { font-weight: 500; margin-left: 0.4rem; }
+.story-rank { margin: 0; font-weight: 700; display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; }
+.rank-pair { display: inline-flex; align-items: center; gap: 0.25rem; }
+.collar { width: 1.35rem; height: 1.8rem; }
+.award-face { position: relative; display: block; }
+.metal-devices { position: absolute; left: 0; right: 0; top: 38%; display: flex; justify-content: center; gap: 1px; pointer-events: none; }
+.metal { width: 0.42rem; height: 0.42rem; display: block; }
+.metal.star { background: currentColor; clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+.metal.gold { color: #e4c77a; }
+.metal.silver { color: #d9d9d9; }
+.metal.bronze { color: #b coa 8 67; }
+.metal.oak { width: 0.62rem; height: 0.38rem; border-radius: 40% 60%; background: #a67c52; }
 .story-awards { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0; margin: 0; }
 .story-awards button { width: 4.2rem; padding: 0; border: 0; background: transparent; cursor: pointer; color: inherit; }
 .story-awards img { width: 100%; height: 3.4rem; object-fit: contain; }
