@@ -78,7 +78,7 @@ export function ShadowboxApp() {
   }, []);
 
   return (
-    <div className="archive">
+    <div className={view === "case" ? "archive case-wide" : "archive"}>
       <header className="mast">
         <div className="mast-brand">
           <img className="mast-icon" src={publicUrl("/favicon.svg")} alt="" />
