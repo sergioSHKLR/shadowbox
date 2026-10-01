@@ -210,7 +210,7 @@ export type Uniform = {
   image: string;
 };
 
-export type EquipmentGroup = "armor" | "helmets" | "weapons" | "comms" | "vehicles" | "ships" | "aircraft";
+export type EquipmentGroup = "armor" | "helmets" | "weapons" | "comms" | "vehicles" | "ships" | "aircraft" | "cars" | "motorcycles" | "cities";
 
 export const EQUIPMENT_GROUPS: { id: EquipmentGroup; label: string }[] = [
   { id: "armor", label: "Body Armor" },
@@ -220,6 +220,9 @@ export const EQUIPMENT_GROUPS: { id: EquipmentGroup; label: string }[] = [
   { id: "vehicles", label: "Vehicles" },
   { id: "ships", label: "Ships & Boats" },
   { id: "aircraft", label: "Aircraft" },
+  { id: "cars", label: "Cars" },
+  { id: "motorcycles", label: "Motorcycles" },
+  { id: "cities", label: "Cities" },
 ];
 
 export type Equipment = {
@@ -736,7 +739,7 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]
   return { duty, ops, study, rank, world, years };
 }
 
-const SUPPLEMENT_FIELDS = ["Collateral", "Title", "Watch Station", "Division", "TAD", "Layover", "Partner", "Sponsor", "Customer", "Port Visit", "Countries", "Cities/Residences", "POV", "Motorcycles", "Hobbies", "Off-duty work", "Under Instruction"];
+const SUPPLEMENT_FIELDS = ["Collateral", "Title", "Watch Station", "Division", "TAD", "Layover", "Partner", "Sponsor", "Customer", "Port Visit", "Countries", "Hobbies", "Off-duty work", "Under Instruction"];
 
 function supplementLabel(value: string): string {
   return value.replace(/^[A-Z]+-\d+:\s*/, "");
@@ -829,7 +832,7 @@ export type UsedItem = { kind: "uniform" | "equipment"; id: string; name: string
  */
 export const usedHere = usedHereJson as Record<string, string[]>;
 
-const USED_ORDER = ["uniform", "armor", "helmets", "weapons", "comms", "vehicles", "ships", "aircraft"];
+const USED_ORDER = ["uniform", "armor", "helmets", "weapons", "comms", "vehicles", "ships", "aircraft", "cars", "motorcycles", "cities"];
 
 export function usedHereFor(subjectId: string): UsedItem[] {
   const items: UsedItem[] = [];
