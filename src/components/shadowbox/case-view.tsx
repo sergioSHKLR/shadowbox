@@ -25,6 +25,7 @@ const PATCH: Record<string, string> = {
   "E-6": "/uniforms/pieces/patch-e6-red.svg", "E-6-gold": "/uniforms/pieces/patch-e6-gold.svg",
   "E-7": "/uniforms/pieces/patch-e7-gold.svg",
 };
+const RANK_ID: Record<string, string> = { "E-4": "et3", "E-5": "et2", "E-6": "et1", "E-7": "etc" };
 type Card = { title: string; src?: string; open?: Kind; id?: string; children?: Card[] };
 const FELT: Card[] = [
   { title: "Instruction", children: [
@@ -55,17 +56,19 @@ const blocks = supplementJson as unknown as Block[];
 const clean = (value: string) => value.replace(/^[A-Z]+-\d+:\s*/, "");
 const list = (id: string, field: string) => blocks.find((block) => block.kind === "unit" && block.id === id)?.lists[field]?.map(clean) ?? [];
 function crest(card: Card) { return card.src || units.find((unit) => unit.id === card.id)?.image; }
-function Collar({ grade, gold }: { grade: string; gold?: boolean }) {
+function Collar({ grade, gold, onOpen }: { grade: string; gold?: boolean; onOpen: (k: Kind, id: string) => void }) {
   const src = gold && grade === "E-6" ? PATCH["E-6-gold"] : PATCH[grade];
-  return src ? <img className="rate-patch" src={publicUrl(src)} alt="" /> : null;
+  const id = RANK_ID[grade];
+  return src ? <button type="button" className="line-hit" onClick={() => id && onOpen("rank", id)} aria-label={`${grade} rate. Open the rank.`}><img className="rate-patch" src={publicUrl(src)} alt="" /></button> : null;
 }
 const HASH = (count: number, gold: boolean) => `/incoming/hash-${count}-${gold ? "gold" : "red"}.png`;
-function HashMarks({ end }: { end?: string }) {
+function HashMarks({ end, grade, onOpen }: { end?: string; grade?: string; onOpen: (k: Kind, id: string) => void }) {
   const years = end ? Number(end) - 1997 : 0;
   const count = Math.floor(years / 4);
   const gold = years >= 12;
+  const id = grade ? RANK_ID[grade] : undefined;
   if (!count) return null;
-  return <span className="hashes" aria-label={`${count} ${gold ? "gold" : "red"} service stripes`}><img src={publicUrl(HASH(count, gold))} alt="" /></span>;
+  return <button type="button" className="line-hit hashes" onClick={() => id && onOpen("rank", id)} aria-label={`${count} ${gold ? "gold" : "red"} service stripes. Open the rank they were worn with.`}><img src={publicUrl(HASH(count, gold))} alt="" /></button>;
 }
 function caseMarks() {
   const marks: { kind: Kind; id: string; short: string; image?: string; glyph?: string; name: string }[] = [];
@@ -194,9 +197,9 @@ export function Case({ rows: _rows, onOpen, query: outerQuery = "" }: { rows: Re
                       <div className="line-body">
                       <p className="line-name">{unit.name}{unit.designator ? <span> ({unit.designator})</span> : null}</p>
                       <div className="line-marks">
-                        {rank ? <Collar grade={rank.start} /> : null}
-                        {rank ? <Collar grade={rank.end} gold={gold} /> : null}
-                        <HashMarks end={unit.end} />
+                        {rank ? <Collar grade={rank.start} onOpen={onOpen} /> : null}
+                        {rank ? <Collar grade={rank.end} gold={gold} onOpen={onOpen} /> : null}
+                        <HashMarks end={unit.end} grade={rank?.end} onOpen={onOpen} />
                         <AwardStrip kind="ribbon" items={earned.filter((award) => !medalFor(award.id)?.front)} onOpen={(awardId) => onOpen("award", awardId)} />
                         <AwardStrip kind="medal" items={earned.filter((award) => medalFor(award.id)?.front)} onOpen={(awardId) => onOpen("award", awardId)} />
                         {devices.length ? <ul className="story-awards device-line">{devices.map((mark) => mark ? <li key={mark.id}><button type="button" onClick={() => onOpen(mark.kind, mark.id)} aria-label={mark.name}>{<img src={publicUrl(DEVICE_ART[mark.id] || mark.image || "")} alt="" />}</button></li> : null)}</ul> : null}
