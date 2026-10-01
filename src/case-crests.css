@@ -14,7 +14,9 @@
 .line-marks img.ribbon-line { width: var(--ribbon-w); height: auto; display: block; }
 .line-marks .award-face { position: relative; display: inline-block; line-height: 0; }
 .line-marks .appurtenance { position: absolute; left: 50%; top: 46%; height: 46%; width: auto; transform: translate(-50%, -50%); pointer-events: none; }
+.line-marks .award-face:has(.medal-line) .appurtenance { top: 17%; height: 14%; }
 .line-marks .appurtenance.letter { height: auto; color: #d9dde3; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; }
+.line-marks .award-face:has(.medal-line) .appurtenance.letter { font-size: 0.55rem; }
 .line-marks .device-line img { width: calc(var(--ribbon-w) * 2); height: auto; max-width: none; object-fit: contain; display: block; }
 .line-marks .story-awards button, .line-marks li { width: auto; height: auto; line-height: 0; display: flex; align-items: flex-start; }
 .story-crest { position: relative; width: var(--crest); padding: 0; border: 0; background: transparent; cursor: pointer; color: inherit; flex: none; }
