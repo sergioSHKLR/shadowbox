@@ -88,7 +88,7 @@ export function ShadowboxApp() {
       <DetailPanel selection={selection} onSelect={setSelection} onClose={() => setSelection(null)} />
       <footer className="site-footer">
         <span>Personal record. Graphics keep the license named on Sources.</span>
-        <span>Joinville, Santa Catarina, Brazil</span>
+        <span>Itajaí, Santa Catarina, Brazil</span>
         <button type="button" className="footer-link" onClick={() => setView("sources")}>Sources</button>
         <button type="button" className="footer-link" onClick={() => setView("contact")}>Contact</button>
         <button type="button" className="footer-link" onClick={() => setView("guestbook")}>Guestbook</button>
