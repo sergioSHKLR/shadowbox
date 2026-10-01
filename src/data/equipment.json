@@ -660,13 +660,13 @@
     "order": 30,
     "name": "LMTV",
     "cutout": false,
-    "note": "CSV VEH-11. Cargo truck. Model not further named.",
-    "image": "",
+    "note": "M1078 shown. The record names it LMTV only.",
+    "image": "/equipment/lmtv.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet. Named from the supplement crosswalk."
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:LMTV_Training_DVIDS113229.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:LMTV_Training_DVIDS113229.jpg",
+      "creator": "U.S. Army, DVIDS",
+      "license": "Public domain (U.S. federal government work)"
     }
   },
   {
@@ -675,13 +675,13 @@
     "order": 31,
     "name": "APC",
     "cutout": false,
-    "note": "CSV VEH-12. Armored personnel carrier. Model not further named.",
-    "image": "",
+    "note": "Representative M113. The record says APC and does not name the model.",
+    "image": "/equipment/apc.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet. Named from the supplement crosswalk."
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:M113_APC_production_model.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:M113_APC_production_model.jpg",
+      "creator": "U.S. Department of the Army",
+      "license": "Public domain (U.S. federal government work)"
     }
   },
   {
@@ -690,13 +690,13 @@
     "order": 32,
     "name": "Mk 14",
     "cutout": false,
-    "note": "CSV WEA-04. No photograph yet.",
-    "image": "",
+    "note": "Mk 14 Enhanced Battle Rifle.",
+    "image": "/equipment/mk14.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet. Named from the supplement crosswalk."
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:PEO_M14_EBR.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:PEO_M14_EBR.jpg",
+      "creator": "PEO Soldier, U.S. Army",
+      "license": "Public domain (U.S. federal government work)"
     }
   },
   {
@@ -705,13 +705,13 @@
     "order": 33,
     "name": "M60",
     "cutout": false,
-    "note": "CSV WEA-05. Machine gun. No photograph yet.",
-    "image": "",
+    "note": "7.62 mm M60 machine gun.",
+    "image": "/equipment/m60.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet. Named from the supplement crosswalk."
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Machine_Gun,_M60.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:Machine_Gun,_M60.jpg",
+      "creator": "U.S. Department of the Army",
+      "license": "Public domain (U.S. federal government work)"
     }
   },
   {
@@ -750,13 +750,13 @@
     "order": 36,
     "name": "AN/FCC-100",
     "cutout": false,
-    "note": "CSV COM-19. No photograph yet.",
-    "image": "",
+    "note": "FCC-100 circuit card at Balad, 2008. The set itself is not shown.",
+    "image": "/equipment/an-fcc-100.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet. Named from the supplement crosswalk."
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:MultiplexerCard.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:MultiplexerCard.jpg",
+      "creator": "Senior Airman Julianne Showalter, U.S. Air Force",
+      "license": "Public domain (U.S. federal government work)"
     }
   },
   {
@@ -765,13 +765,13 @@
     "order": 37,
     "name": "AN/WSC-3",
     "cutout": false,
-    "note": "CSV COM-20. No photograph yet.",
-    "image": "",
+    "note": "RT-1107/WSC-3. The only public photograph is this small manual figure.",
+    "image": "/equipment/an-wsc-3.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet. Named from the supplement crosswalk."
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:14088_79_1_Uhf_radio_RT-1107-WSC-3.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:14088_79_1_Uhf_radio_RT-1107-WSC-3.jpg",
+      "creator": "U.S. Navy, NAVEDTRA 14088",
+      "license": "Public domain (U.S. federal government work)"
     }
   },
   {
@@ -780,13 +780,13 @@
     "order": 40,
     "name": "C-5",
     "cutout": false,
-    "note": "CSV AIR-01. Transport aircraft. No photograph yet.",
-    "image": "",
+    "note": "C-5 Galaxy.",
+    "image": "/equipment/c-5.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet. Named from the supplement crosswalk."
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:C-5_Galaxy.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:C-5_Galaxy.jpg",
+      "creator": "U.S. Air Force",
+      "license": "Public domain (U.S. federal government work)"
     }
   },
   {
@@ -795,13 +795,13 @@
     "order": 41,
     "name": "C-130",
     "cutout": false,
-    "note": "CSV AIR-02. Transport aircraft. No photograph yet.",
-    "image": "",
+    "note": "C-130 Hercules.",
+    "image": "/equipment/c-130.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet. Named from the supplement crosswalk."
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:C-130_Hercules.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:C-130_Hercules.jpg",
+      "creator": "U.S. Air Force",
+      "license": "Public domain (U.S. federal government work)"
     }
   },
   {
@@ -810,13 +810,13 @@
     "order": 42,
     "name": "C-9",
     "cutout": false,
-    "note": "CSV AIR-03. Transport aircraft. No photograph yet.",
-    "image": "",
+    "note": "Navy C-9B Skytrain II, the C-9 the fleet flew.",
+    "image": "/equipment/c-9.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet. Named from the supplement crosswalk."
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:United_States_Navy_C-9B_Skytrain_II_(2677753909).jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:United_States_Navy_C-9B_Skytrain_II_(2677753909).jpg",
+      "creator": "Flickr photographer, via Wikimedia Commons",
+      "license": "CC BY-SA 2.0"
     }
   },
   {
@@ -825,13 +825,13 @@
     "order": 43,
     "name": "Black Hawk",
     "cutout": false,
-    "note": "CSV AIR-04. No photograph yet.",
-    "image": "",
+    "note": "UH-60 Black Hawk.",
+    "image": "/equipment/black-hawk.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet. Named from the supplement crosswalk."
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_right_underside_view_of_a_UH-60_Black_Hawk_helicopter_in_use_during_Operation_OCEAN_VENTURE_%2784_-_DPLA_-_8b1aa880ed2de2dbc665c77ef9d118ca.jpeg",
+      "file": "https://commons.wikimedia.org/wiki/File:A_right_underside_view_of_a_UH-60_Black_Hawk_helicopter_in_use_during_Operation_OCEAN_VENTURE_%2784_-_DPLA_-_8b1aa880ed2de2dbc665c77ef9d118ca.jpeg",
+      "creator": "U.S. Department of Defense",
+      "license": "Public domain (U.S. federal government work)"
     }
   },
   {
@@ -840,13 +840,13 @@
     "order": 44,
     "name": "Mi-17",
     "cutout": false,
-    "note": "CSV AIR-05. No photograph yet.",
-    "image": "",
+    "note": "Mi-17. Not the airframe from the tour.",
+    "image": "/equipment/mi-17.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet. Named from the supplement crosswalk."
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mil_Mi-17-1V_Hip_6112_(11749085526).jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:Mil_Mi-17-1V_Hip_6112_(11749085526).jpg",
+      "creator": "Flickr photographer, via Wikimedia Commons",
+      "license": "CC BY-SA 2.0"
     }
   },
   {
@@ -855,13 +855,13 @@
     "order": 45,
     "name": "C-17",
     "cutout": false,
-    "note": "CSV AIR-06. Transport aircraft. No photograph yet.",
-    "image": "",
+    "note": "C-17 Globemaster III.",
+    "image": "/equipment/c-17.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet. Named from the supplement crosswalk."
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:C-17_Globemaster_III.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:C-17_Globemaster_III.jpg",
+      "creator": "U.S. Air Force",
+      "license": "Public domain (U.S. federal government work)"
     }
   }
 ]
