@@ -14,11 +14,8 @@ import { CareerGlyph, RibbonButton } from "@/components/shadowbox/marks";
 const COMMANDS = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"];
 const PARTNERS: { id: string; affiliation: string; patch?: string; name?: string; openId?: string; image?: string }[] = [
   { id: "tortuga", affiliation: "TAD" },
-  { id: "rtn", affiliation: "Host \u00b7 Cobra Gold \u00d72", patch: "RTN", name: "Royal Thai Navy", openId: "eodmu5", image: "/incoming/rtn.png" },
-  { id: "auscdt", affiliation: "Host \u00b7 Talisman Saber \u00d72", patch: "AUSCDT", name: "Australian Clearance Diving Team", openId: "eodmu5", image: "/incoming/auscdt-1.png" },
-  { id: "troy", affiliation: "Deployment partner" },
-  { id: "ia-army", affiliation: "Deployment", patch: "IRON", name: "Task Force Iron Shield", image: "/incoming/cram.png" },
-  { id: "cjsotf", affiliation: "Two deployments" },
+  { id: "acu-4", affiliation: "Partner", patch: "ACU 4", name: "Assault Craft Unit 4", openId: "tortuga", image: "/incoming/acu-4.png" },
+  { id: "neo", affiliation: "Exercise partner", patch: "NEO", name: "Exercise NEO", openId: "eodmu5" },
 ];
 
 function caseMarks() {
@@ -92,7 +89,7 @@ export function Case({
                 ) : null)}
               </ul>
               <p className="case-label">Partners</p>
-              <ul className="patch-row" aria-label="Partners in chronological order">
+              <ul className="patch-row" aria-label="Partners">
                 {PARTNERS.map((row) => {
                   const unit = units.find((item) => item.id === row.id);
                   const label = row.name ?? unit?.name ?? row.id;
@@ -103,7 +100,7 @@ export function Case({
                         {image ? <img className="patch-crest" src={publicUrl(image)} alt="" /> : <span className="word-plate">{row.patch ?? unit?.patch}</span>}
                         <span className="patch-mark">{label}</span>
                         <span className="designator">{row.affiliation}</span>
-                        <span>{unit ? formatSpan(unit.start, unit.end) : ""}</span>
+                        <span>{unit ? formatSpan(unit.start, unit.end) : "Dates not entered"}</span>
                       </button>
                     </li>
                   );
