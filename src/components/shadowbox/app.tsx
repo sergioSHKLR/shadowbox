@@ -20,7 +20,6 @@ import { EquipmentView } from "@/components/shadowbox/equipment-view";
 import { Stations } from "@/components/shadowbox/stations";
 import { Sources } from "@/components/shadowbox/sources-view";
 import { Contact, Guestbook, VisitorCount } from "@/components/shadowbox/footer-pages";
-import { Night } from "@/components/shadowbox/night";
 
 type View = "case" | "uniforms" | "decorations" | "timeline" | "equipment" | "map" | "sources" | "contact" | "guestbook";
 
@@ -94,7 +93,6 @@ export function ShadowboxApp() {
         <button type="button" className="footer-link" onClick={() => setView("contact")}>Contact</button>
         <button type="button" className="footer-link" onClick={() => setView("guestbook")}>Guestbook</button>
         <VisitorCount />
-        <Night />
       </footer>
     </div>
   );
