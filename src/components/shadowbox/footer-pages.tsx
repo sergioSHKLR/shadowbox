@@ -16,7 +16,7 @@ export function Contact({ onOpenBook }: { onOpenBook: () => void }) {
     <main className="sheet">
       <h2>Contact</h2>
       <p>This is a personal record, kept so the uniform and the tours can be read. Questions about a date, a graphic, or a credit belong in the guestbook until a mail route is wired.</p>
-      <p>Joinville, Santa Catarina, Brazil.</p>
+      <p>Itajaí, Santa Catarina, Brazil.</p>
       <button type="button" className="nav-btn on" onClick={onOpenBook}>Open the guestbook</button>
     </main>
   );
