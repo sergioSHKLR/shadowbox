@@ -61,19 +61,19 @@ export function ShadowboxApp() {
           <div className={`${pane("contact")} no-book`}><Contact onOpenBook={() => setView("guestbook")} /></div>
           <div className={`${pane("guestbook")} no-book`}><Guestbook /></div>
           <div className={`${pane("memories")} no-book`}><Memories /></div>
+          <footer className="site-footer">
+            <span>Made by an expat while at Itajaí, SC, Brazil.</span>
+            <button type="button" className="footer-link" onClick={() => setView("sources")}>Sources</button>
+            <button type="button" className="footer-link" onClick={() => setView("contact")}>Contact</button>
+            <button type="button" className="footer-link" onClick={() => setView("guestbook")}>Guestbook</button>
+            <button type="button" className="footer-link" onClick={() => setView("memories")}>Memories</button>
+            <button type="button" className="footer-link" onClick={() => printAs("book")}>Print the book</button>
+            <button type="button" className="footer-link" onClick={() => printAs("case-a4")}>Case A4</button>
+            <button type="button" className="footer-link" onClick={() => printAs("case-a3")}>Case A3</button>
+            <VisitorCount />
+          </footer>
         </div>
         <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setSelection(null); setTrail([]); }} />
-        <footer className="site-footer">
-          <span>Made by an expat while at Itajaí, SC, Brazil.</span>
-          <button type="button" className="footer-link" onClick={() => setView("sources")}>Sources</button>
-          <button type="button" className="footer-link" onClick={() => setView("contact")}>Contact</button>
-          <button type="button" className="footer-link" onClick={() => setView("guestbook")}>Guestbook</button>
-          <button type="button" className="footer-link" onClick={() => setView("memories")}>Memories</button>
-          <button type="button" className="footer-link" onClick={() => printAs("book")}>Print the book</button>
-          <button type="button" className="footer-link" onClick={() => printAs("case-a4")}>Case A4</button>
-          <button type="button" className="footer-link" onClick={() => printAs("case-a3")}>Case A3</button>
-          <VisitorCount />
-        </footer>
       </div>
       <section className="book-appendix" aria-label="Sidebar chapters">
         <h2>Sidebars</h2>
