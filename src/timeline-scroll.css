@@ -1,0 +1,41 @@
+.chart-scroll-wrap {
+  position: relative;
+}
+.chart-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #b8923a #e7e0d2;
+}
+.chart-scroll-wrap.has-right::after,
+.chart-scroll-wrap.has-left::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0.35rem;
+  width: 2.8rem;
+  pointer-events: none;
+  z-index: 2;
+}
+.chart-scroll-wrap.has-right::after {
+  right: 0;
+  background: linear-gradient(to right, rgba(246, 241, 231, 0), #f6f1e7 78%);
+}
+.chart-scroll-wrap.has-left::before {
+  left: 0;
+  background: linear-gradient(to left, rgba(246, 241, 231, 0), #f6f1e7 78%);
+}
+.chart-scroll-hint {
+  position: absolute;
+  right: 0.15rem;
+  top: 0.15rem;
+  z-index: 3;
+  pointer-events: none;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6d6458;
+  background: rgba(246, 241, 231, 0.92);
+  padding: 0.2rem 0.45rem;
+}
+.chart-scroll-wrap:not(.has-right) .chart-scroll-hint {
+  display: none;
+}
