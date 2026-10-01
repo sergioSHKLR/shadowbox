@@ -1,6 +1,5 @@
 import {
   formatSpan,
-  formatWhen,
   insignia,
   photos,
   profile,
@@ -11,6 +10,17 @@ import {
   type Kind,
 } from "@/lib/shadowbox/model";
 import { CareerGlyph, RibbonButton } from "@/components/shadowbox/marks";
+
+const PARTNERS: { id: string; affiliation: string }[] = [
+  { id: "tortuga", affiliation: "TAD" },
+  { id: "troy", affiliation: "Deployment partner \u00b7 EODMU 5" },
+  { id: "52nd-ordnance", affiliation: "Customer" },
+  { id: "16th-engineer", affiliation: "Customer" },
+  { id: "3rd-sfg", affiliation: "Customer" },
+  { id: "75th-ranger", affiliation: "Customer" },
+  { id: "ia-army", affiliation: "Deployment \u00b7 Army" },
+  { id: "cjsotf", affiliation: "Deployment partner \u00b7 JCSE" },
+];
 
 function caseMarks() {
   const marks: { kind: Kind; id: string; short: string; glyph?: string; image?: string; name: string }[] = [];
@@ -42,6 +52,7 @@ export function Case({
   const recruit = photos.find((photo) => photo.id === "recruit-portrait-1997");
   const chief = photos.find((photo) => photo.id === "chief-portrait-2018");
   const plaques = profile.casePlaques;
+  const partners = PARTNERS.map((row) => ({ ...row, unit: units.find((unit) => unit.id === row.id) })).filter((row) => row.unit);
   const portraitWithPlaque = (photo: (typeof photos)[number] | undefined, lines: string[]) =>
     photo ? (
       <figure className="case-portrait">
@@ -92,6 +103,17 @@ export function Case({
                     </button>
                   </li>
                 ))}
+              </ul>
+              <ul className="patch-row partner-row" aria-label="Deployment partners, exercise partners, and customers">
+                {partners.map(({ unit, affiliation }) => unit ? (
+                  <li key={unit.id}>
+                    <button type="button" className={unit.image ? "patch has-crest" : "patch"} onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name}, ${affiliation}. Open the explanation.`}>
+                      {unit.image ? <img className="patch-crest" src={publicUrl(unit.image)} alt="" /> : null}
+                      <span className="patch-mark">{unit.patch}</span>
+                      <span className="designator">{affiliation}</span>
+                    </button>
+                  </li>
+                ) : null)}
               </ul>
               {portraitWithPlaque(chief, plaques.chief)}
               {etMark ? renderMark(etMark, "worn worn-et") : null}
