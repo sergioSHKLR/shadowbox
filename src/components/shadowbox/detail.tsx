@@ -222,11 +222,17 @@ export function DetailPanel({
   }, [subject]);
 
   const frame = typeof document === "undefined" ? null : document.querySelector(".case-frame");
+  const [closing, setClosing] = useState(false);
+  const requestClose = () => {
+    if (closing) return;
+    setClosing(true);
+    window.setTimeout(() => { setClosing(false); onClose(); }, 420);
+  };
   return (
-    <Dialog.Root open={Boolean(subject)} onOpenChange={(open) => { if (!open) onClose(); }}>
+    <Dialog.Root open={Boolean(subject)} onOpenChange={(open) => { if (!open) requestClose(); }}>
       <Dialog.Portal container={frame instanceof HTMLElement ? frame : undefined}>
-        <Dialog.Overlay className="detail-overlay" />
-        <Dialog.Content className="detail-panel" aria-describedby={undefined}>
+        <Dialog.Overlay className="detail-overlay" onClick={requestClose} />
+        <Dialog.Content className={closing ? "detail-panel closing" : "detail-panel"} aria-describedby={undefined} onEscapeKeyDown={(event) => { event.preventDefault(); requestClose(); }} onPointerDownOutside={(event) => { event.preventDefault(); requestClose(); }}>
           {subject ? (
             <>
               <div className="detail-head">
