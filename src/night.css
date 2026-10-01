@@ -1,7 +1,7 @@
 .night {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: -1;
   pointer-events: none;
   background: #070b14;
   overflow: hidden;
@@ -98,7 +98,7 @@
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-2%, 1%, 0); }
 }
-.archive { position: relative; z-index: 1; }
+.archive { position: relative; z-index: 1; background: transparent; }
 html, body { background: #070b14; }
 body {
   background:
