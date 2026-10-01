@@ -12,21 +12,58 @@
 .living-ribbon .ribbon {
   width: 100%;
 }
+.warfare-row {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin: 0.4rem 0 0.8rem;
+}
+.warfare-pin {
+  display: grid;
+  justify-items: center;
+  gap: 0.2rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.warfare-pin img {
+  width: 5.4rem;
+  height: 2.4rem;
+  object-fit: contain;
+}
+.warfare-pin span {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+.decor-split {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+}
 .living-medals {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.2rem;
-  margin: 1.2rem auto;
+  gap: 0.4rem;
+  margin: 0 auto;
 }
 .medal-row {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 0.6rem;
-  flex-wrap: wrap;
+}
+.medal-row.overlap .hanging-medal {
+  margin-left: -2.1rem;
+}
+.medal-row.overlap span:first-child .hanging-medal {
+  margin-left: 0;
 }
 .hanging-medal {
+  position: relative;
   width: 6.4rem;
   padding: 0;
   border: 0;
@@ -38,6 +75,26 @@
   width: 100%;
   height: 9.2rem;
   object-fit: contain;
+}
+.suspension-device {
+  position: absolute;
+  left: 50%;
+  top: 12%;
+  width: 42% !important;
+  height: auto !important;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+@media (min-width: 900px) {
+  .decor-split {
+    display: grid;
+    grid-template-columns: minmax(16rem, 22rem) minmax(18rem, 1fr);
+    align-items: start;
+    gap: 1.6rem;
+  }
+  .decor-split .living-rack {
+    margin: 0;
+  }
 }
 .filmstrip {
   display: flex;
