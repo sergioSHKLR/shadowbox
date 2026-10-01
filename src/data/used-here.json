@@ -8,7 +8,13 @@
     "dress-whites",
     "utilities",
     "coveralls",
-    "beretta-m9"
+    "beretta-m9",
+    "ford-ranger",
+    "nissan-sentra-silver",
+    "nissan-sentra-red",
+    "xt225",
+    "city-talofofo",
+    "city-santa-rita"
   ],
   "tortuga": [
     "tortuga",
@@ -18,7 +24,8 @@
     "dress-blues",
     "dress-whites",
     "dungarees",
-    "lcac"
+    "lcac",
+    "city-virginia-beach"
   ],
   "ia-army": [
     "centurion-c-ram",
@@ -54,7 +61,11 @@
     "kl-43",
     "taclane",
     "magnetometer",
-    "eodmu5-pt-2"
+    "eodmu5-pt-2",
+    "nissan-sentra-red",
+    "xt225",
+    "city-talofofo",
+    "city-santa-rita"
   ],
   "jcse": [
     "jblox",
@@ -93,7 +104,13 @@
     "black-hawk",
     "mi-17",
     "c-17",
-    "cpo-summer-white"
+    "cpo-summer-white",
+    "chevy-spark-yellow",
+    "chevy-spark-white",
+    "ford-transit",
+    "mitsubishi-outlander",
+    "sportster-1200",
+    "city-south-tampa"
   ],
   "oef-2010": [
     "plate-carrier-multicam",
@@ -109,7 +126,8 @@
     "ach-tan",
     "black-hawk",
     "mi-17",
-    "c-17"
+    "c-17",
+    "city-south-tampa"
   ],
   "oef-2012": [
     "plate-carrier-multicam",
@@ -130,7 +148,8 @@
     "ach-tan",
     "black-hawk",
     "mi-17",
-    "c-17"
+    "c-17",
+    "city-south-tampa"
   ],
   "rtc": [
     "smurfs",
@@ -138,7 +157,8 @@
     "johnny",
     "dress-blues",
     "dress-whites",
-    "dungarees"
+    "dungarees",
+    "city-great-lakes"
   ],
   "ntc-great-lakes": [
     "smurfs",
@@ -146,7 +166,8 @@
     "johnny",
     "dress-blues",
     "dress-whites",
-    "dungarees"
+    "dungarees",
+    "city-great-lakes"
   ],
   "fcam": [
     "smurfs",
@@ -154,7 +175,8 @@
     "johnny",
     "dress-blues",
     "dress-whites",
-    "dungarees"
+    "dungarees",
+    "city-biloxi"
   ],
   "ncts": [
     "smurfs",
@@ -166,7 +188,9 @@
     "utilities",
     "kg-84",
     "an-fcc-100",
-    "an-wsc-3"
+    "an-wsc-3",
+    "nissan-frontier",
+    "city-imperial-beach"
   ],
   "troy": [
     "desert",
@@ -195,13 +219,20 @@
     "dress-whites",
     "nwu",
     "navy-ptu",
-    "utilities"
+    "utilities",
+    "buell-500",
+    "sportster-1200",
+    "city-orange-park"
   ],
   "navhosp": [
     "cpo-sdw",
     "cpo-sdb",
     "cpo-khaki",
     "navy-ptu",
-    "cpo-summer-white"
+    "cpo-summer-white",
+    "chevy-spark-white",
+    "mitsubishi-outlander",
+    "sportster-1200",
+    "city-orange-park"
   ]
 }
