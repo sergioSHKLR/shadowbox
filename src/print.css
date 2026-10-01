@@ -1,17 +1,27 @@
-@page {
+@page book {
   size: letter;
   margin: 0.7in;
 }
+@page case-a4 {
+  size: A4 portrait;
+  margin: 0;
+}
+@page case-a3 {
+  size: A3 portrait;
+  margin: 0;
+}
 .screen-off { display: none; }
 .book-appendix { display: none; }
+
 @media print {
-  html, body { background: #fff !important; color: #1c1915; }
+  html, body { background: #fff !important; color: #1c1915; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .archive { max-width: none; padding: 0; }
   .mast-nav, .uprog-controls, .map-play, .map-filter, .detail-overlay,
-  .icon-btn, .guest-form, .site-footer button, .filmstrip { display: none !important; }
+  .icon-btn, .guest-form, .site-footer, .filmstrip, .no-book { display: none !important; }
   .screen-off { display: block !important; }
-  .view-pane { display: block !important; break-before: page; }
+  .view-pane { display: block !important; break-before: page; break-after: page; page: book; }
   .view-pane:first-of-type { break-before: auto; }
+  .sheet, .case-frame, .book-chapter, .detail-panel { break-inside: avoid; }
   .detail-panel {
     position: static !important;
     inset: auto !important;
@@ -20,10 +30,47 @@
     overflow: visible !important;
     box-shadow: none !important;
     break-before: page;
+    page: book;
   }
-  .book-appendix { display: block; }
-  .book-chapter { break-before: page; }
+  .book-appendix { display: block; page: book; }
+  .book-chapter { break-before: page; page: book; }
   .book-chapter h2 { font-size: 1.4rem; }
   .case-frame { box-shadow: none; }
   a { color: inherit; text-decoration: none; }
+}
+
+@media print {
+  body.print-case-a4 { page: case-a4; }
+  body.print-case-a3 { page: case-a3; }
+  body.print-case-a4 .view-case,
+  body.print-case-a3 .view-case {
+    display: block !important;
+    break-before: auto;
+    break-after: auto;
+    page: case-a4;
+    width: 210mm;
+    height: 297mm;
+    margin: 0;
+    overflow: hidden;
+  }
+  body.print-case-a3 .view-case { page: case-a3; width: 297mm; height: 420mm; }
+  body.print-case-a4 .archive > *:not(.view-case),
+  body.print-case-a3 .archive > *:not(.view-case),
+  body.print-case-a4 .book-appendix,
+  body.print-case-a3 .book-appendix,
+  body.print-case-a4 .detail-panel,
+  body.print-case-a3 .detail-panel { display: none !important; }
+  body.print-case-a4 .case,
+  body.print-case-a3 .case,
+  body.print-case-a4 .case-frame,
+  body.print-case-a3 .case-frame,
+  body.print-case-a4 .case-display,
+  body.print-case-a3 .case-display {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    margin: 0;
+    box-shadow: none;
+    border: 0;
+  }
 }
