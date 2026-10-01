@@ -91,8 +91,8 @@ export function ShadowboxApp() {
     <div className="archive case-wide">
       <div className="case-frame">
         <div className="felt-bar">
-          <img src={publicUrl("/favicon.svg")} alt="" />
-          <div><strong>SHADOWBOX</strong><span>U.S. Navy</span></div>
+          <img src={publicUrl("/bar-mark.svg")} alt="Shadowbox" />
+          <strong className="felt-title">Shadowbox</strong>
           <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search" aria-label="Search the record" />
           <button type="button" className="felt-menu" aria-label="Menu" onClick={() => setMenu((open) => !open)}>&#9776;</button>
           {menu ? (

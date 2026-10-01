@@ -43,7 +43,8 @@
 }
 @keyframes paper-in { from { transform: translateX(110%); } to { transform: translateX(0); } }
 .felt-bar { display: flex; align-items: center; gap: 0.55rem; background: #0c2340; color: #f6f1e7; padding: 0.28rem 0.6rem; margin: 0 0 0.55rem; position: relative; }
-.felt-bar img { width: 1.15rem; height: auto; }
+.felt-bar img { width: 1.75rem; height: 1.75rem; flex: none; }
+.felt-title { font-variant: small-caps; letter-spacing: 0.16em; font-size: 0.92rem; font-weight: 600; line-height: 1; }
 .felt-bar strong { display: block; letter-spacing: 0.12em; font-size: 0.78rem; }
 .felt-bar span { display: block; font-size: 0.58rem; letter-spacing: 0.14em; opacity: 0.75; }
 .felt-bar input { margin-left: auto; width: min(12rem, 32vw); border: 0; border-radius: 999px; padding: 0.22rem 0.65rem; background: #17345c; color: #f6f1e7; }
@@ -81,6 +82,7 @@
 .felt-down::after, .page-down::after { content: "\2193"; font-size: 1.2rem; }
 @media (prefers-reduced-motion: reduce) { .felt-track, .case-wide .detail-panel { transition: none; animation: none; } }
 @media (max-width: 640px) {
+  .felt-title { display: none; }
   .case-wide .detail-panel { width: 100%; right: 0; border-left: 0; }
   .felt-pane img { width: clamp(3.4rem, 28vw, 5.5rem); }
 }
