@@ -221,9 +221,10 @@ export function DetailPanel({
       .map((place) => ({ place, labels: [place.locality], when: "", n: pinNumbersFor(place.id)[0] }));
   }, [subject]);
 
+  const frame = typeof document === "undefined" ? null : document.querySelector(".case-frame");
   return (
     <Dialog.Root open={Boolean(subject)} onOpenChange={(open) => { if (!open) onClose(); }}>
-      <Dialog.Portal>
+      <Dialog.Portal container={frame instanceof HTMLElement ? frame : undefined}>
         <Dialog.Overlay className="detail-overlay" />
         <Dialog.Content className="detail-panel" aria-describedby={undefined}>
           {subject ? (
