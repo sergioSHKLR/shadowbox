@@ -94,7 +94,7 @@ export function DetailPanel({
                       {subject.usedHere.map((item) => (
                         <li key={item.kind + item.id}>
                           <button type="button" onClick={() => onSelect({ kind: item.kind, id: item.id })} aria-label={`${item.name}. Open.`}>
-                            <img src={publicUrl(item.image)} alt="" loading="lazy" />
+                            {item.image ? <img src={publicUrl(item.image)} alt="" loading="lazy" /> : null}
                             <span>{item.name}</span>
                           </button>
                         </li>
