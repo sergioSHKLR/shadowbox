@@ -16,29 +16,3 @@
     "subjectId": "cpo-sdb"
   }
 ]
-
-  {
-    "id": "dress-blues-portrait",
-    "src": "/photos/dress-blues-d.jpg",
-    "alt": "ETC Sergio Schickler, Service Dress Blue",
-    "caption": "ETC Sergio Schickler, Service Dress Blue",
-    "kind": "uniform",
-    "subjectId": "cpo-sdb"
-  },
-  {
-    "id": "recruit-portrait-1997",
-    "src": "/photos/recruit-1997.webp",
-    "alt": "Recruit Sergio Schickler in dress blue jumper and white hat, flags behind, 1997",
-    "caption": "Recruit portrait, RTC Great Lakes, 1997",
-    "kind": "unit",
-    "subjectId": "rtc"
-  },
-  {
-    "id": "chief-portrait-2018",
-    "src": "/photos/chief-2018.webp",
-    "alt": "Chief Petty Officer Sergio Schickler in service dress blue with combination cap, flags behind",
-    "caption": "ETC Sergio Schickler, Service Dress Blue",
-    "kind": "uniform",
-    "subjectId": "cpo-sdb"
-  }
-]

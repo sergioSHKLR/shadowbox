@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
@@ -42,7 +43,14 @@ export default defineConfig({
       workbox: {
         // App shell: the HTML, the JS/CSS bundles, the icons, and every image on the Case page (ribbons, devices, pins, photos, crests),
         // so the case works offline from the first visit. Uniform and gear photos are cached as they are viewed.
-        globPatterns: ["pages/index.html", "assets/**/*.{js,css}", "favicon.svg", "icons/apple-touch-icon.png", "{ribbons,devices,insignia,photos,crests,medals}/**/*.{png,svg,webp,jpg}", "shadowbox-cheat-sheet.pdf"],
+        globPatterns: [
+          "pages/index.html",
+          "assets/**/*.{js,css}",
+          ...["favicon.svg", "og.jpg", "icons/apple-touch-icon.png", "icons/icon-192.png", "icons/icon-512.png", "shadowbox-cheat-sheet.pdf"].filter((file) => existsSync(resolve("public", file))),
+          ...["ribbons", "devices", "insignia", "photos", "uniforms", "equipment", "crests", "medals"]
+            .filter((dir) => existsSync(resolve("public", dir)))
+            .map((dir) => `${dir}/**/*.{png,svg,webp,jpg}`),
+        ],
         // The cheat sheet PDF (about 1.7 MB) is precached so it downloads offline too.
         maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         globIgnores: ["__grok/**", "404.html"],
