@@ -19,8 +19,9 @@ import { Decorations } from "@/components/shadowbox/decorations-view";
 import { EquipmentView } from "@/components/shadowbox/equipment-view";
 import { Stations } from "@/components/shadowbox/stations";
 import { Sources } from "@/components/shadowbox/sources-view";
+import { Contact, Guestbook, VisitorCount } from "@/components/shadowbox/footer-pages";
 
-type View = "case" | "uniforms" | "decorations" | "timeline" | "equipment" | "map" | "sources";
+type View = "case" | "uniforms" | "decorations" | "timeline" | "equipment" | "map" | "sources" | "contact" | "guestbook";
 
 const NAV: { id: View; label: string }[] = [
   { id: "case", label: "Case" },
@@ -29,7 +30,6 @@ const NAV: { id: View; label: string }[] = [
   { id: "timeline", label: "Timeline" },
   { id: "equipment", label: "Gear & Vehicles" },
   { id: "map", label: "Map" },
-  { id: "sources", label: "Sources" },
 ];
 
 export function ShadowboxApp() {
@@ -82,8 +82,18 @@ export function ShadowboxApp() {
       {view === "equipment" ? <EquipmentView onOpen={open} /> : null}
       {view === "map" ? <Stations stops={stops} onOpen={open} /> : null}
       {view === "sources" ? <Sources /> : null}
+      {view === "contact" ? <Contact onOpenBook={() => setView("guestbook")} /> : null}
+      {view === "guestbook" ? <Guestbook /> : null}
 
       <DetailPanel selection={selection} onSelect={setSelection} onClose={() => setSelection(null)} />
+      <footer className="site-footer">
+        <span>Personal record. Graphics keep the license named on Sources.</span>
+        <span>Joinville, Santa Catarina, Brazil</span>
+        <button type="button" className="footer-link" onClick={() => setView("sources")}>Sources</button>
+        <button type="button" className="footer-link" onClick={() => setView("contact")}>Contact</button>
+        <button type="button" className="footer-link" onClick={() => setView("guestbook")}>Guestbook</button>
+        <VisitorCount />
+      </footer>
     </div>
   );
 }
