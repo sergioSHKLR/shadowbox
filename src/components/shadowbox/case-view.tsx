@@ -167,12 +167,10 @@ export function Case({ rows: _rows, onOpen, query: outerQuery = "" }: { rows: Re
       <figcaption className="plaque">{lines.map((line) => <span key={line}>{line}</span>)}</figcaption>
     </figure>
   ) : null;
-  const title = tab === "assigned" ? "Assigned" : "Supplemental";
   return (
     <main>
       <section className="case" aria-label="Shadowbox">
-        <div className="case-frame">
-          <FeltBar title={title} query={query} onQuery={setQuery} onAssigned={() => setTab("assigned")} onSupplemental={() => setTab("supplemental")} onBack={tab === "supplemental" ? back : undefined} />
+        <div className="case-pages"><button type="button" className={tab === "assigned" ? "page-link on" : "page-link"} onClick={() => setTab("assigned")}>Assigned</button><button type="button" className={tab === "supplemental" ? "page-link on" : "page-link"} onClick={() => setTab("supplemental")}>Supplemental</button></div>
           <h2 className="sr-only">{profile.name}, {profile.rating} {profile.rank}</h2>
           <div className="case-display"><div className="case-column">
             {tab === "assigned" ? (
@@ -187,11 +185,14 @@ export function Case({ rows: _rows, onOpen, query: outerQuery = "" }: { rows: Re
                   const rank = RANK[id];
                   const gold = Number(unit.end) - 1997 >= 12;
                   return (
-                    <article key={id} className="command-story">
+                    <article key={id} className="command-line">
                       <button type="button" className="story-crest" onClick={() => onOpen("unit", id)} aria-label={`${unit.name}. Open the sidebar.`}>{unit.image ? <img src={publicUrl(unit.image)} alt="" /> : null}</button>
-                      <div className="story-copy">
-                        <p className="story-rank">{rank ? <span className="rank-pair"><Collar grade={rank.start} /><span aria-hidden="true">to</span><Collar grade={rank.end} gold={gold} /><HashMarks end={unit.end} /></span> : null}<span>{formatSpan(unit.start, unit.end)}</span></p>
-                        <AwardStrip items={earned} onOpen={(awardId) => onOpen("award", awardId)} />
+                      <div className="line-marks">
+                        {rank ? <Collar grade={rank.start} /> : null}
+                        {rank ? <Collar grade={rank.end} gold={gold} /> : null}
+                        <HashMarks end={unit.end} />
+                        <AwardStrip items={earned.filter((award) => !medalFor(award.id)?.front)} onOpen={(awardId) => onOpen("award", awardId)} />
+                        <AwardStrip items={earned.filter((award) => medalFor(award.id)?.front)} onOpen={(awardId) => onOpen("award", awardId)} />
                         {devices.length ? <ul className="story-awards">{devices.map((mark) => mark ? <li key={mark.id}><button type="button" onClick={() => onOpen(mark.kind, mark.id)} aria-label={mark.name}>{mark.image ? <img src={publicUrl(mark.image)} alt="" /> : <CareerGlyph image={mark.image} glyph={mark.glyph} />}</button></li> : null)}</ul> : null}
                       </div>
                     </article>
@@ -202,7 +203,6 @@ export function Case({ rows: _rows, onOpen, query: outerQuery = "" }: { rows: Re
             ) : <Felt query={query} onOpen={onOpen} onBack={setBack} />}
           </div></div>
           {moreDown ? <span className="page-down" aria-hidden="true" /> : null}
-        </div>
       </section>
     </main>
   );
