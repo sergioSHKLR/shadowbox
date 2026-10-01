@@ -40,24 +40,30 @@
   opacity: 0.45;
 }
 
-/* Commands and assignments are blue. Deployments stay green. No dashed accuracy ring. */
+/* The Leaflet wrapper is a box. Leave it clear so only the pin shows. */
+.map-pin, .leaflet-div-icon.map-pin {
+  background: transparent;
+  border: 0;
+}
+
+/* Commands and assignments blue. Deployments green. Visits yellow. Approximate pins keep the fill. */
 .map-num, .pin-num, .map-dot {
   background: #1d4e89;
   color: #ffffff;
-  border-color: #0c2748;
-  border-style: solid;
+  border: 2px solid #0c2748;
 }
-.map-num.base, .pin-num.base, .map-dot.base {
+.map-num.base, .pin-num.base, .map-dot.base,
+.map-num.base.approximate, .pin-num.base.approximate, .map-dot.base.approximate {
   background: #1f8a3c;
   border-color: #0d4a1f;
 }
-.map-num.visit, .pin-num.visit {
+.map-num.visit, .pin-num.visit, .map-dot.visit,
+.map-num.visit.approximate, .pin-num.visit.approximate {
   background: #ffd21a;
   color: #1a1400;
   border-color: #8a6400;
 }
-.map-num.approximate, .pin-num.approximate, .map-dot.approximate, .map-dot.base.approximate {
+.map-num.approximate, .pin-num.approximate, .map-dot.approximate {
   border-style: solid;
   background: #1d4e89;
 }
-.map-dot.base.approximate { background: #1f8a3c; }
