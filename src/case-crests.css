@@ -70,8 +70,7 @@
 .felt-pane img { width: clamp(4rem, 14vw, 8rem); height: auto; }
 .felt-left, .felt-down, .page-down { position: absolute; z-index: 2; border: 0; color: #f6f1e7; background: transparent; cursor: pointer; }
 .felt-left { left: 0.2rem; top: 42%; width: 2rem; height: 2.4rem; }
-.felt-left::before { content: "\2190"; font-size: 1.15rem; }
-.felt-down, .page-down { right: 0.85rem; left: auto; bottom: 0.3rem; transform: none; width: 1.4rem; height: 1.4rem; pointer-events: none; }
+.felt-down, .page-down { left: 50%; right: auto; bottom: 0.35rem; transform: translateX(-50%); width: 1.4rem; height: 1.4rem; pointer-events: none; text-align: center; }
 .felt-down::after, .page-down::after { content: "\2193"; font-size: 1.15rem; }
 .map-frame { background: #f6f1e7; border: 1px solid #c4a24a; }
 .map-num, .pin-num { background: #1d4e89; color: #f6f1e7; border: 2px solid #0c2340; border-style: solid; }
