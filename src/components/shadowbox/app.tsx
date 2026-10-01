@@ -80,16 +80,11 @@ export function ShadowboxApp() {
   }, []);
 
   return (
-    <div className={view === "case" ? "archive case-wide" : "archive"}>
-      <header className="mast">
-        <div className="mast-brand">
-          <img className="mast-icon" src={publicUrl("/favicon.svg")} alt="" />
-          <div>
-            <h1 className="wordmark">SHADOWBOX</h1>
-            <p className="mast-tagline">Not for gawking but for learning!</p>
-          </div>
-        </div>
-        <div className="felt-bar site-bar">
+    <div className="archive case-wide">
+      <div className="case-frame">
+        <div className="felt-bar">
+          <img src={publicUrl("/favicon.svg")} alt="" />
+          <div><strong>SHADOWBOX</strong><span>U.S. Navy</span></div>
           <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search" aria-label="Search" />
           <button type="button" className="felt-menu" aria-label="Menu" onClick={() => setMenu((open) => !open)}>&#9776;</button>
           {menu ? (
@@ -100,8 +95,7 @@ export function ShadowboxApp() {
             </ul>
           ) : null}
         </div>
-      </header>
-
+        <div className="felt-surface">
       <div className={`${pane("case")} view-case`}><Case rows={rows} onOpen={open} query={query} /></div>
       <div className={pane("uniforms")}><Uniforms onOpen={open} /></div>
       <div className={pane("decorations")}><Decorations onOpen={open} tour={tour} /></div>
@@ -115,6 +109,8 @@ export function ShadowboxApp() {
       <div className={`${pane("guestbook")} no-book`}><Guestbook /></div>
       <div className={`${pane("memories")} no-book`}><Memories /></div>
 
+        </div>
+      </div>
       <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setSelection(null); setTrail([]); }} />
       <section className="book-appendix" aria-label="Sidebar chapters">
         <h2>Sidebars</h2>
