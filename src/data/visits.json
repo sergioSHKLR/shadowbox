@@ -11,6 +11,18 @@
     "unitId": "tortuga"
   },
   {
+    "id": "polaris-point",
+    "placeId": "polaris-point",
+    "kind": "duty-location",
+    "title": "Polaris Point, home berth of AS-40",
+    "when": "2001–2004",
+    "sort": "2001",
+    "prio": 0,
+    "approximate": true,
+    "unitId": "frank-cable",
+    "note": "Part of Naval Base Guam. Not the Polaris off-road vehicle."
+  },
+  {
     "id": "fecl-school",
     "placeId": "keesler",
     "kind": "school",
