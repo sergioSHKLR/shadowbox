@@ -49,6 +49,17 @@
   height: auto;
   object-fit: contain;
 }
+.sidebar-map { margin: 0.6rem 0 0.2rem; }
+.thumb-row ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(4.6rem, 1fr));
+  gap: 0.45rem;
+  padding: 0;
+  margin: 0.3rem 0 0.6rem;
+}
+.thumb-row img { width: 100%; aspect-ratio: 1; object-fit: contain; background: #efe8da; }
+.thumb-row span { display: block; font-size: 0.68rem; line-height: 1.2; }
 @media (min-width: 520px) {
   .patch-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .case-medals { grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr)); }
