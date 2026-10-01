@@ -95,22 +95,13 @@ export function MapView({
     void import("leaflet").then((L) => {
       if (cancelled || !ref.current) return;
       const PIN_PX = ref.current.clientWidth < 520 ? 18 : 22;
-      map = L.map(ref.current, { scrollWheelZoom: false, zoomControl: true, zoomSnap: 0.25, zoomDelta: 0.5 });
+      map = L.map(ref.current, { scrollWheelZoom: false, zoomControl: true, zoomSnap: 0.25, zoomDelta: 0.5, worldCopyJump: true });
       const spec = BASEMAPS.topo;
       const tiles = L.tileLayer(spec.url, { attribution: spec.attribution, maxZoom: spec.maxZoom }).addTo(map);
 
-      const lngs = stops.map((stop) => stop.place.lng ?? 0).sort((a, b) => a - b);
-      let cut = Infinity;
-      if (tall && lngs.length > 1) {
-        let widest = lngs[0] + 360 - lngs[lngs.length - 1];
-        for (let i = 1; i < lngs.length; i++) {
-          if (lngs[i] - lngs[i - 1] > widest) {
-            widest = lngs[i] - lngs[i - 1];
-            cut = lngs[i];
-          }
-        }
-      }
-      const at = (place: Place): [number, number] => [place.lat ?? 0, (place.lng ?? 0) < cut ? (place.lng ?? 0) + 360 : (place.lng ?? 0)];
+      // Keep the Pacific whole west of the Americas so CA → Guam follows the aircraft path.
+      const wrapLng = (lng: number) => (lng > 100 ? lng - 360 : lng);
+      const at = (place: Place): [number, number] => [place.lat ?? 0, wrapLng(place.lng ?? 0)];
 
       const pinHtml = (stop: Stop, dx = 0, dy = 0) => {
         const cls = `map-num ${PIN_PX < 22 ? "sm " : ""}${stop.place.type ? `${stop.place.type} ` : ""}${stop.place.accuracy}`;
