@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 type Note = { id: string; name: string; text: string; at: string };
 const KEY = "shadowbox-guestbook";
+const WHATSAPP = "https://wa.me/5547988695995";
 
 function loadNotes(): Note[] {
   try {
@@ -15,9 +16,10 @@ export function Contact({ onOpenBook }: { onOpenBook: () => void }) {
   return (
     <main className="sheet">
       <h2>Contact</h2>
-      <p>This is a personal record, kept so the uniform and the tours can be read. Questions about a date, a graphic, or a credit belong in the guestbook until a mail route is wired.</p>
+      <p>This is a personal record, kept so the uniform and the tours can be read. A question about a date, a graphic, or a credit can go to WhatsApp.</p>
       <p>Itajaí, Santa Catarina, Brazil.</p>
-      <button type="button" className="nav-btn on" onClick={onOpenBook}>Open the guestbook</button>
+      <p><a className="nav-btn on" href={WHATSAPP} target="_blank" rel="noreferrer">WhatsApp +55 47 98869-5995</a></p>
+      <button type="button" className="nav-btn" onClick={onOpenBook}>Open the guestbook</button>
     </main>
   );
 }
@@ -38,7 +40,7 @@ export function Guestbook() {
   return (
     <main className="sheet">
       <h2>Guestbook</h2>
-      <p className="quiet">Entries stay in this browser. A shared book needs a host; this is the page it will live on.</p>
+      <p className="quiet">Entries stay in this browser until a Google Form is linked.</p>
       <form className="guest-form" onSubmit={(e) => { e.preventDefault(); save(); }}>
         <label>Name <input value={name} onChange={(e) => setName(e.target.value)} maxLength={40} /></label>
         <label>Note <textarea value={text} onChange={(e) => setText(e.target.value)} maxLength={500} rows={4} required /></label>
