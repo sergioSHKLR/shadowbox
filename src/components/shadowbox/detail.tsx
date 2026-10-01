@@ -1,15 +1,21 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import { useMemo, useState } from "react";
+import supplementJson from "@/data/supplement.json";
 import {
   photosFor,
   awards,
+  formatSpan,
   medalFor,
+  necById,
+  operations,
   placeById,
   pinNumbersFor,
   publicUrl,
   reflectionFor,
   toSubject,
+  units,
+  visits,
   type Kind,
   type Selection,
   type Stop,
@@ -27,6 +33,90 @@ const COMMAND_LINKS: Record<string, { kind: Kind; id: string; label: string }[]>
   sercc: [{ kind: "unit", id: "ia-army", label: "IA \u00b7 Task Force Iron Shield" }],
   jcse: [{ kind: "unit", id: "cjsotf", label: "Ops \u00b7 CJSOTF-A" }],
 };
+
+type Block = { kind: string | null; id: string | null; lists: Record<string, string[]> };
+const blocks = supplementJson as unknown as Block[];
+const clean = (value: string) => value.replace(/^[A-Z]+-\d+:\s*/, "");
+const list = (id: string, field: string) =>
+  blocks.find((block) => block.kind === "unit" && block.id === id)?.lists[field]?.map(clean) ?? [];
+const joined = (values: string[]) => (values.length ? values.join(", ") : "Not entered");
+
+const ON_DUTY = [
+  ["Gear", "Gear"],
+  ["Equipment", "Equipment"],
+  ["Weapons", "Weapons"],
+  ["Comms", "Comms"],
+  ["Vehicles", "Vehicles"],
+  ["Ships", "Ships"],
+  ["Aircraft", "Aircraft"],
+] as const;
+const OFF_DUTY = [
+  ["Cities", "Cities/Residences"],
+  ["Cars", "POV"],
+  ["Motorcycles", "Motorcycles"],
+  ["Hobbies", "Hobbies"],
+  ["Off-duty work", "Off-duty work"],
+] as const;
+
+function UnitDossier({ id }: { id: string }) {
+  const unit = units.find((item) => item.id === id);
+  if (!unit) return null;
+  const nec = necById(unit.necId);
+  const gained = list(id, "NEC").filter((code) => !nec || !code.startsWith(nec.code));
+  const department = id === "jcse" ? list(id, "Division") : [];
+  const division = id === "jcse" ? [] : list(id, "Division");
+  const exercises = [
+    ...visits.filter((visit) => visit.unitId === id && visit.kind === "exercise").map((visit) => visit.title),
+    ...list(id, "Partner").map((name) => `Partner \u00b7 ${name}`),
+  ];
+  const ops = [
+    ...operations.filter((op) => op.unitId === id).map((op) => op.name),
+    ...list(id, "Operation"),
+    ...list(id, "Sponsor").map((name) => `Sponsor \u00b7 ${name}`),
+    ...list(id, "Partner").map((name) => `Partner \u00b7 ${name}`),
+  ];
+  const customers = id === "jcse" ? ["3rd SFG (ODA 3213)", "75th Rangers"] : list(id, "Customer");
+  const ia = id === "ia-army" ? ["Task Force Iron Shield"] : id === "sercc" ? ["Task Force Iron Shield"] : [];
+  const rows: { label: string; value: string }[] = [
+    { label: "Status", value: unit.designator || "Not entered" },
+    { label: "Timeframe", value: unit.start ? formatSpan(unit.start, unit.end) : "Not entered" },
+    { label: "Billet NEC", value: nec ? `${nec.code} \u00b7 ${nec.name}` : "Not entered" },
+    { label: "Gained NECs", value: joined(gained) },
+    { label: "Title", value: joined(list(id, "Title")) },
+    { label: "Department", value: joined(department) },
+    { label: "Division", value: joined(division) },
+    { label: "Workcenter", value: "Not entered" },
+    { label: "Exercises (and partners)", value: joined(exercises) },
+    { label: "Temporary Additional Duty", value: joined(list(id, "TAD")) },
+    { label: "Individual Augmentee", value: joined(ia) },
+    { label: "Operations (and sponsors & partners)", value: joined([...new Set(ops)]) },
+    { label: "Countries", value: joined(list(id, "Countries")) },
+    { label: "Customers", value: joined(customers) },
+    { label: "Uniforms", value: joined(list(id, "Uniforms")) },
+    { label: "Promotion", value: joined(list(id, "Rank")) },
+    { label: "Awards", value: joined(list(id, "Awards")) },
+  ];
+  return (
+    <section className="dossier">
+      <dl className="facts">
+        {rows.map((row) => (
+          <div key={row.label}>
+            <dt>{row.label}</dt>
+            <dd>{row.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <h3>On Duty</h3>
+      {ON_DUTY.map(([label, field]) => (
+        <p key={field}><strong>{label}.</strong> {joined(list(id, field))}</p>
+      ))}
+      <h3>Off duty</h3>
+      {OFF_DUTY.map(([label, field]) => (
+        <p key={field}><strong>{label}.</strong> {joined(list(id, field))}</p>
+      ))}
+    </section>
+  );
+}
 
 export function DetailPanel({
   selection,
@@ -87,13 +177,14 @@ export function DetailPanel({
               ))}
               <div className="detail-body">
                 <p className="lede">{subject.explanation}</p>
+                {selection?.kind === "unit" ? <UnitDossier id={selection.id} /> : null}
                 {subject.criteria ? (
                   <section>
                     <h3>What it takes</h3>
                     <p>{subject.criteria}</p>
                   </section>
                 ) : null}
-                {subject.facts.length ? (
+                {selection?.kind !== "unit" && subject.facts.length ? (
                   <dl className="facts">
                     {subject.facts.map((fact) => (
                       <div key={fact.label}>
