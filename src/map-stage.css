@@ -36,12 +36,28 @@
   border-color: var(--color-brass);
   box-shadow: none;
 }
-.nav-btn.on {
-  background: var(--color-brass);
-  color: var(--color-navy);
-  border-color: var(--color-brass);
-  box-shadow: none;
-}
 .nav-btn:disabled {
   opacity: 0.45;
 }
+
+/* Commands and assignments are blue. Deployments stay green. No dashed accuracy ring. */
+.map-num, .pin-num, .map-dot {
+  background: #1d4e89;
+  color: #ffffff;
+  border-color: #0c2748;
+  border-style: solid;
+}
+.map-num.base, .pin-num.base, .map-dot.base {
+  background: #1f8a3c;
+  border-color: #0d4a1f;
+}
+.map-num.visit, .pin-num.visit {
+  background: #ffd21a;
+  color: #1a1400;
+  border-color: #8a6400;
+}
+.map-num.approximate, .pin-num.approximate, .map-dot.approximate, .map-dot.base.approximate {
+  border-style: solid;
+  background: #1d4e89;
+}
+.map-dot.base.approximate { background: #1f8a3c; }
