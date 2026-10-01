@@ -78,9 +78,9 @@ function caseMarks() {
   }
   return marks;
 }
-function AwardStrip({ items, onOpen }: { items: Award[]; onOpen: (id: string) => void }) {
+function AwardStrip({ items, onOpen, kind }: { items: Award[]; onOpen: (id: string) => void; kind: "ribbon" | "medal" }) {
   if (!items.length) return null;
-  return <ul className="story-awards">{items.map((award) => <li key={award.id}><button type="button" onClick={() => onOpen(award.id)} aria-label={`${award.name}, ${award.count}`}><img src={publicUrl(medalFor(award.id)?.front || award.ribbon)} alt="" /></button></li>)}</ul>;
+  return <ul className={`story-awards ${kind}-line`}>{items.map((award) => <li key={award.id}><button type="button" onClick={() => onOpen(award.id)} aria-label={`${award.name}, ${award.count}`}><img className={kind === "medal" ? "medal-line" : "ribbon-line"} src={publicUrl(medalFor(award.id)?.front || award.ribbon)} alt="" /></button></li>)}</ul>;
 }
 function FeltBar({ title, query, onQuery, onAssigned, onSupplemental, onBack }: { title: string; query: string; onQuery: (value: string) => void; onAssigned: () => void; onSupplemental: () => void; onBack?: () => void }) {
   const [open, setOpen] = useState(false);
@@ -191,9 +191,9 @@ export function Case({ rows: _rows, onOpen, query: outerQuery = "" }: { rows: Re
                         {rank ? <Collar grade={rank.start} /> : null}
                         {rank ? <Collar grade={rank.end} gold={gold} /> : null}
                         <HashMarks end={unit.end} />
-                        <AwardStrip items={earned.filter((award) => !medalFor(award.id)?.front)} onOpen={(awardId) => onOpen("award", awardId)} />
-                        <AwardStrip items={earned.filter((award) => medalFor(award.id)?.front)} onOpen={(awardId) => onOpen("award", awardId)} />
-                        {devices.length ? <ul className="story-awards">{devices.map((mark) => mark ? <li key={mark.id}><button type="button" onClick={() => onOpen(mark.kind, mark.id)} aria-label={mark.name}>{mark.image ? <img src={publicUrl(mark.image)} alt="" /> : <CareerGlyph image={mark.image} glyph={mark.glyph} />}</button></li> : null)}</ul> : null}
+                        <AwardStrip kind="ribbon" items={earned.filter((award) => !medalFor(award.id)?.front)} onOpen={(awardId) => onOpen("award", awardId)} />
+                        <AwardStrip kind="medal" items={earned.filter((award) => medalFor(award.id)?.front)} onOpen={(awardId) => onOpen("award", awardId)} />
+                        {devices.length ? <ul className="story-awards device-line">{devices.map((mark) => mark ? <li key={mark.id}><button type="button" onClick={() => onOpen(mark.kind, mark.id)} aria-label={mark.name}>{mark.image ? <img src={publicUrl(mark.image)} alt="" /> : <CareerGlyph image={mark.image} glyph={mark.glyph} />}</button></li> : null)}</ul> : null}
                       </div>
                     </article>
                   );
