@@ -208,7 +208,8 @@
     "placeId": "jb-balad",
     "explanation": "An individual augmentee is a sailor loaned to another service for a deployment. This one was to the Army, in Iraq, with NEC ET-0000, meaning no extra specialty code. The campaign phase named for this tour is Iraq Sovereignty. The Army unit was the 11th Air Defense Artillery Brigade. The collection includes a challenge coin from Task Force C-RAM, 3rd Battalion, 3rd Air Defense Artillery (3-3 ADA).",
     "civilian": "He was still a sailor, working inside an Army deployment.",
-    "months": 7
+    "months": 7,
+    "onCase": false
   },
   {
     "id": "jcse",
