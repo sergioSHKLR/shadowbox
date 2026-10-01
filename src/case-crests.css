@@ -42,7 +42,7 @@
 }
 .case-wide .detail-overlay { background: transparent; pointer-events: none; }
 .case-wide .detail-panel {
-  top: 8.5rem; right: 0.75rem; bottom: 1rem; width: clamp(16rem, 38vw, 34rem);
+  position: absolute; top: 2.7rem; right: 0; bottom: 0; width: clamp(16rem, 42%, 34rem); z-index: 4;
   pointer-events: auto;
   border-left: 18px solid #6e4e2c;
   background: #f4efe4;
@@ -52,7 +52,7 @@
   animation: paper-in 0.45s ease;
 }
 @keyframes paper-in { from { transform: translateX(110%); } to { transform: translateX(0); } }
-.felt-bar { display: flex; align-items: center; gap: 0.55rem; background: #0c2340; color: #f6f1e7; padding: 0.28rem 0.6rem; margin: 0 0 0.55rem; position: relative; }
+.felt-bar { display: flex; align-items: center; gap: 0.55rem; background: #0c2340; color: #f6f1e7; padding: 0.28rem 0.6rem; margin: 0 0 0.55rem; position: relative; z-index: 5; }
 .felt-bar img, .felt-mark { width: 1.75rem; height: 1.75rem; flex: none; }
 .felt-title { font-variant: small-caps; letter-spacing: 0.16em; font-size: 0.92rem; font-weight: 600; line-height: 1; }
 .felt-bar strong { display: block; letter-spacing: 0.12em; font-size: 0.78rem; }
