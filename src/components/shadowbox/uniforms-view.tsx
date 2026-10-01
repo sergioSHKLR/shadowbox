@@ -1,4 +1,5 @@
-import { caseCopy, publicUrl, uniforms, type Kind, type UniformGroup } from "@/lib/shadowbox/model";
+import { caseCopy, publicUrl, uniforms, type Kind, type TourFocus, type UniformGroup } from "@/lib/shadowbox/model";
+import { UniformProgression } from "@/components/shadowbox/uniform-progression";
 
 const UNIFORM_SECTIONS: { id: UniformGroup; label: string }[] = [
   { id: "battle", label: "Battle" },
@@ -8,11 +9,12 @@ const UNIFORM_SECTIONS: { id: UniformGroup; label: string }[] = [
   { id: "dress", label: "Dress" },
 ];
 
-export function Uniforms({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
+export function Uniforms({ onOpen, tour }: { onOpen: (k: Kind, id: string) => void; tour?: TourFocus | null }) {
   return (
     <main className="sheet">
       <h2>Uniforms</h2>
       <p>{uniforms.length} uniforms. {caseCopy.uniformsLead}</p>
+      <UniformProgression onOpen={onOpen} tour={tour} />
       {UNIFORM_SECTIONS.map((group) => {
         const list = uniforms.filter((uniform) => uniform.group === group.id).sort((a, b) => a.order - b.order);
         if (!list.length) return null;
