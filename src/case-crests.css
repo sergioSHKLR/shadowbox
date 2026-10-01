@@ -7,9 +7,10 @@
 .line-marks .medal-line { width: calc(var(--in) * 1.375); height: calc(var(--in) * 3.25); object-fit: contain; }
 .line-marks .device-line img { width: calc(var(--in) * 2.75); height: auto; }
 .line-marks .story-awards button { width: auto; height: auto; }
-.page-link { border: 0; background: transparent; color: #e8d7a8; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; margin-right: 0.8rem; }
-.page-link.on { text-decoration: underline; }
-.felt-surface { padding: 0.15rem 0.15rem 1rem; flex: 1; min-height: 0; overflow: auto; }
+.page-link { border: 0; background: transparent; color: #e8d7a8; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0.35rem 0 0; padding: 0.28rem 0.55rem; font-size: 0.72rem; line-height: 1; }
+.page-link.on { text-decoration: none; background: #14233a; color: #f6f1e7; }
+.page-link:focus-visible, .felt-menu:focus-visible, .felt-bar input:focus-visible { outline: 2px solid #e8d7a8; outline-offset: 2px; }
+.felt-surface { padding: 0.15rem 0.15rem 1rem; flex: 1; min-height: 0; overflow: auto; scrollbar-color: #a67c45 transparent; }
 .mast-nav { display: none; }
 .case-wide { max-width: none; padding-bottom: 0.6rem; }
 .case-wide .case-frame {
@@ -42,14 +43,15 @@
   animation: paper-in 0.45s ease;
 }
 @keyframes paper-in { from { transform: translateX(110%); } to { transform: translateX(0); } }
-.felt-bar { display: flex; align-items: center; gap: 0.55rem; background: #0c2340; color: #f6f1e7; padding: 0.28rem 0.6rem; margin: 0 0 0.55rem; position: relative; }
-.felt-bar img { width: 1.15rem; height: auto; }
+.felt-bar { display: flex; align-items: center; gap: 0.55rem; background: #0c2340; color: #f6f1e7; padding: 0.2rem 0.45rem 0.2rem 0.6rem; margin: 0 0 0.55rem; position: relative; min-height: 2.5rem; }
+.felt-bar img { width: 1.15rem; height: auto; flex: none; }
 .felt-bar strong { display: block; letter-spacing: 0.12em; font-size: 0.78rem; }
 .felt-bar span { display: block; font-size: 0.58rem; letter-spacing: 0.14em; opacity: 0.75; }
-.felt-bar input { margin-left: auto; width: min(12rem, 32vw); border: 0; border-radius: 999px; padding: 0.22rem 0.65rem; background: #17345c; color: #f6f1e7; }
-.felt-menu { border: 0; background: transparent; color: inherit; font-size: 1.05rem; cursor: pointer; }
-.felt-menu-list { position: absolute; right: 0.4rem; top: 100%; list-style: none; margin: 0; padding: 0.3rem; background: #f6f1e7; color: #14233a; min-width: 11rem; z-index: 5; }
-.felt-menu-list button { width: 100%; text-align: left; border: 0; background: transparent; padding: 0.45rem 0.6rem; cursor: pointer; }
+.felt-bar input { margin-left: auto; width: min(12rem, 28vw); min-height: 1.75rem; border: 0; border-radius: 999px; padding: 0.22rem 0.65rem; background: #17345c; color: #f6f1e7; }
+.felt-menu { border: 0; background: transparent; color: inherit; font-size: 1.15rem; cursor: pointer; flex: none; min-width: 2.75rem; min-height: 2.75rem; display: grid; place-items: center; padding: 0; }
+.felt-menu-list { position: absolute; right: 0.4rem; top: 100%; list-style: none; margin: 0.2rem 0 0; padding: 0.3rem; background: #f6f1e7; color: #14233a; min-width: 11rem; z-index: 5; box-shadow: 0 10px 24px rgba(0,0,0,0.28); }
+.felt-menu-list button { width: 100%; text-align: left; border: 0; background: transparent; padding: 0.5rem 0.65rem; cursor: pointer; }
+.felt-menu-list button:hover, .felt-menu-list button:focus-visible { background: #14233a; color: #f6f1e7; outline: none; }
 .case-column { width: 100%; gap: calc(var(--in) / 4); }
 .plaque { background: #c4a24a; }
 .case-photo img { width: clamp(7rem, 22vw, 14rem); height: auto; }
@@ -76,4 +78,5 @@
 @media (max-width: 640px) {
   .case-wide .detail-panel { width: 100%; right: 0; border-left: 0; }
   .felt-pane img { width: clamp(3.4rem, 28vw, 5.5rem); }
+  .felt-bar input { width: min(8.5rem, 34vw); }
 }
