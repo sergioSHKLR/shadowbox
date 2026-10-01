@@ -19,6 +19,8 @@ function horn() {
   window.setTimeout(() => void ctx.close(), 3200);
 }
 
+const FACES = [0, 90, 180, 270];
+
 export function Night() {
   const [sound, setSound] = useState(false);
   const [fog, setFog] = useState(false);
@@ -43,10 +45,14 @@ export function Night() {
         <div className="stars" />
         <div className="fog" />
         <div className="lighthouse">
-          <div className="beam" />
+          <div className="head">
+            {FACES.map((y) => (
+              <div key={y} className="head-face" style={{ ["--y" as string]: `${y}deg` }} />
+            ))}
+          </div>
           <div className="tower" />
-          <div className="lamp" />
         </div>
+        <p className="hark">Hark.</p>
       </div>
       <button type="button" className={sound ? "footer-link on" : "footer-link"} aria-pressed={sound} onClick={() => setSound((on) => !on)}>
         {sound ? "Horn on" : "Horn off"}
