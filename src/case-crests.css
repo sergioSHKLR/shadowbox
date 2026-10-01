@@ -1,4 +1,4 @@
-/* Case crest row. Commands stay six across on a wide screen. Partners wrap so a card without a crest is still visible. */
+/* Case crest row. Commands stay six across on a wide screen. */
 .case-column {
   width: 100%;
   gap: calc(var(--in) / 4);
@@ -24,25 +24,36 @@
 .patch-row li { display: flex; min-width: 0; }
 .patch-row .patch { justify-content: flex-start; min-width: 0; overflow: hidden; }
 .patch-row .patch-mark { color: var(--color-navy); }
-.patch-row .word-plate {
-  display: grid;
-  place-items: center;
-  width: 4.4rem;
-  height: 4.4rem;
-  border: 1px solid var(--color-brass);
-  color: var(--color-navy);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-align: center;
-  line-height: 1.05;
-}
 .patch-row .designator { white-space: normal; text-align: center; }
-.plaque {
-  background: #c4a24a;
+.plaque { background: #c4a24a; }
+.case-medals {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+  gap: 0.7rem 0.55rem;
+  width: 100%;
+  margin: 0.4rem 0;
+  padding: 0;
+}
+.case-medals li { min-width: 0; }
+.case-medals button {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.case-medals img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 @media (min-width: 520px) {
   .patch-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .case-medals { grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr)); }
 }
 @media (min-width: 900px) {
   .patch-row { grid-template-columns: repeat(6, minmax(7.2rem, 1fr)); }
+  .case-medals { grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); }
 }
