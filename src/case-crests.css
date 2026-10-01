@@ -3,13 +3,13 @@
 .line-name { margin: 0 0 0.25rem; font-size: 0.78rem; line-height: 1.3; color: #f6f1e7; }
 .line-name span { color: #c9c0b0; }
 .line-marks { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 0.35rem; }
-.line-marks .story-awards { display: flex; align-items: flex-end; gap: 0.15rem; margin: 0; padding: 0; list-style: none; }
-.line-marks .rate-patch { height: 1.55rem; width: auto; display: block; }
-.line-marks .hashes img { height: 1.35rem; width: auto; display: block; }
-.line-marks .ribbon-line { width: 1.7rem; height: auto; display: block; }
-.line-marks .medal-line { width: auto; height: 3.1rem; max-height: 3.1rem; object-fit: contain; display: block; }
-.line-marks .device-line img { width: 2.1rem; height: auto; display: block; }
-.line-marks .story-awards button, .line-marks li { width: auto; height: auto; line-height: 0; }
+.line-marks .story-awards { display: flex; flex-direction: row; flex-wrap: wrap; align-items: flex-end; gap: 0.2rem; margin: 0; padding: 0; list-style: none; }
+.line-marks .rate-patch { height: 1.45rem; width: auto; display: block; }
+.line-marks .hashes img { height: 1.25rem; width: auto; display: block; }
+.line-marks img.ribbon-line { width: 1.35rem; height: auto; display: block; }
+.line-marks img.medal-line { width: auto; height: 2.35rem; max-height: 2.35rem; object-fit: contain; display: block; }
+.line-marks .device-line img { width: 1.7rem; height: auto; display: block; }
+.line-marks .story-awards button, .line-marks li { width: auto; height: auto; line-height: 0; display: flex; align-items: flex-end; }
 .story-crest { position: relative; }
 .story-crest::after, .felt-pane button::after { content: "\203A"; position: absolute; right: 0; bottom: 0; color: #e8d7a8; font-size: 1.15rem; line-height: 1; text-shadow: 0 1px 2px #000; }
 .felt-pane button { position: relative; }
