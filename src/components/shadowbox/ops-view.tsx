@@ -1,4 +1,4 @@
-import { formatSpan, operations, publicUrl, visits, type Kind } from "@/lib/shadowbox/model";
+import { equipment, EQUIPMENT_GROUPS, formatSpan, operations, publicUrl, visits, type Kind } from "@/lib/shadowbox/model";
 
 export function Ops({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
   const exercises = visits.filter((visit) => visit.kind === "exercise");
@@ -34,20 +34,6 @@ export function Ops({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
   );
 }
 
-export function OffDuty({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
-  return (
-    <main className="sheet">
-      <h2>Off Duty</h2>
-      <p>Cities, civilian vehicles, and hobbies. Hobbies have not been entered.</p>
-      <GearGroups groups={["cars", "motorcycles", "cities"]} onOpen={onOpen} />
-      <h3>Hobbies</h3>
-      <p className="quiet">None entered.</p>
-    </main>
-  );
-}
-
-import { equipment, EQUIPMENT_GROUPS } from "@/lib/shadowbox/model";
-
 export function GearGroups({ groups, onOpen }: { groups: string[]; onOpen: (k: Kind, id: string) => void }) {
   return (
     <>
@@ -72,5 +58,17 @@ export function GearGroups({ groups, onOpen }: { groups: string[]; onOpen: (k: K
         );
       })}
     </>
+  );
+}
+
+export function OffDuty({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
+  return (
+    <main className="sheet">
+      <h2>Off Duty</h2>
+      <p>Cities, civilian vehicles, and hobbies. Hobbies have not been entered.</p>
+      <GearGroups groups={["cars", "motorcycles", "cities"]} onOpen={onOpen} />
+      <h3>Hobbies</h3>
+      <p className="quiet">None entered.</p>
+    </main>
   );
 }
