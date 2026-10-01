@@ -306,10 +306,10 @@
     "id": "polaris-ranger",
     "group": "vehicles",
     "order": 23,
-    "name": "Polaris Ranger UTV",
-    "caption": "Side-by-side utility vehicle",
+    "name": "Polaris off-road vehicle",
+    "caption": "The vehicle. Not Polaris Point, Guam.",
     "cutout": false,
-    "note": "Polaris Ranger: a side-by-side utility task vehicle (UTV) with a cargo bed, used for moving people and gear around bases. Card photo: a Ranger XP 1000 at Mihail Kogalniceanu Air Base, 2023 (a newer model than the one he used).",
+    "note": "CSV VEH-02, Polaris. An off-road vehicle used at JCSE and on the 2013 Afghanistan tour. Not Polaris Point, the AS-40 berth on Naval Base Guam. Shown as a Ranger; the record does not name the model.",
     "image": "/equipment/polaris-ranger-utv.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Polaris_Ranger_XP_1000_-_Mihail_Kogalniceanu_Air_Base.jpg",

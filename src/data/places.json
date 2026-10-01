@@ -25,7 +25,17 @@
     "lat": 13.444,
     "lng": 144.654,
     "accuracy": "public-site",
-    "note": "Public location of the home port used by USS Frank Cable and by EOD Mobile Unit Five in these years."
+    "note": "Public location of the home port used by USS Frank Cable and by EOD Mobile Unit Five in these years. Frank Cable berthed at Polaris Point, on this base. That pier is not the Polaris off-road vehicle."
+  },
+  {
+    "id": "polaris-point",
+    "name": "Polaris Point",
+    "locality": "Naval Base Guam, Apra Harbor",
+    "lat": 13.455,
+    "lng": 144.671,
+    "accuracy": "approximate",
+    "note": "The AS-40 berth on Naval Base Guam, Inner Apra Harbor. A place, not the Polaris off-road vehicle. Pin is the point, not a specific pier.",
+    "type": "visit"
   },
   {
     "id": "nas-jax",
