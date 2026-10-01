@@ -234,10 +234,10 @@
     "designator": "Assigned",
     "necId": "nec-9613",
     "start": "2009",
-    "end": "2014-12-14",
-    "precision": "day",
+    "end": "2014",
+    "precision": "year",
     "placeId": "macdill",
-    "explanation": "A joint unit, based at MacDill Air Force Base in Florida, that sends small communications teams out quickly for special operations and other joint commanders. Reported in 2009 and detached on 14 December 2014. The NEC listed for the tour is 9613. It included the two Afghanistan deployments.",
+    "explanation": "A joint unit, based at MacDill Air Force Base in Florida, that sends small communications teams out quickly for special operations and other joint commanders. Reported in 2009 and detached in 2014. The NEC listed for the tour is 9613. It included the two Afghanistan deployments.",
     "civilian": "A communications unit made of every branch, not a Navy ship.",
     "image": "/incoming/jcse-device.svg",
     "extraImages": [
@@ -271,11 +271,11 @@
     "branch": "USN",
     "designator": "Assigned",
     "necId": null,
-    "start": "2014-12-14",
+    "start": "2014",
     "end": "2018",
-    "precision": "day",
+    "precision": "year",
     "placeId": "nh-jax",
-    "explanation": "The Navy hospital at Jacksonville, Florida, and the last active-duty command. He reported the day he detached from JCSE, 14 December 2014. Last duty assignment was Naval Hospital Jacksonville, with separation processing at the personnel support detachment on Naval Air Station Jacksonville.",
+    "explanation": "The Navy hospital at Jacksonville, Florida, and the last active-duty command. He reported in 2014 after detaching from JCSE. Last duty assignment was Naval Hospital Jacksonville, with separation processing at the personnel support detachment on Naval Air Station Jacksonville.",
     "civilian": "A hospital, not a ship. An electronics technician there maintains medical and other electronic equipment. The day-to-day job is not further described.",
     "image": "/incoming/nhjax.png"
   }
