@@ -47,6 +47,8 @@ function printAs(mode: "book" | "case-a4" | "case-a3") {
 
 export function ShadowboxApp() {
   const [view, setView] = useState<View>("case");
+  const [query, setQuery] = useState("");
+  const [menu, setMenu] = useState(false);
   const [selection, setSelection] = useState<Selection | null>(null);
   const [trail, setTrail] = useState<Selection[]>([]);
   const [tour] = useState<TourFocus | null>(null);
@@ -87,16 +89,20 @@ export function ShadowboxApp() {
             <p className="mast-tagline">Not for gawking but for learning!</p>
           </div>
         </div>
-        <nav className="mast-nav" aria-label="Shadowbox sections">
-          {NAV.map((item) => (
-            <button key={item.id} type="button" className={view === item.id ? "nav-btn on" : "nav-btn"} aria-current={view === item.id ? "page" : undefined} onClick={() => setView(item.id)}>
-              {item.label}
-            </button>
-          ))}
-        </nav>
+        <div className="felt-bar site-bar">
+          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search" aria-label="Search" />
+          <button type="button" className="felt-menu" aria-label="Menu" onClick={() => setMenu((open) => !open)}>&#9776;</button>
+          {menu ? (
+            <ul className="felt-menu-list">
+              {NAV.map((item) => (
+                <li key={item.id}><button type="button" onClick={() => { setView(item.id); setMenu(false); }}>{item.label}</button></li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
       </header>
 
-      <div className={`${pane("case")} view-case`}><Case rows={rows} onOpen={open} /></div>
+      <div className={`${pane("case")} view-case`}><Case rows={rows} onOpen={open} query={query} /></div>
       <div className={pane("uniforms")}><Uniforms onOpen={open} /></div>
       <div className={pane("decorations")}><Decorations onOpen={open} tour={tour} /></div>
       <div className={pane("timeline")}><Timeline bars={bars} rows={rows} blanks={blanks} onOpen={open} /></div>
