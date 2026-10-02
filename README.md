@@ -21,4 +21,4 @@ Pushes to `main` publish the built site from the repository root. GitHub Pages i
 
 ## Edit the record
 
-Facts live in `src/data`. Shapes are in `SCHEMAS.md`. Ribbon images are in `public/ribbons`, ribbon devices in `public/devices`, case insignia in `public/insignia`, unit crests in `public/crests`, and uniform figures in `public/uniforms`. The portrait is `public/photos/dress-blues-b.jpg`.
+Facts live in `src/data`. Shapes are in `SCHEMAS.md`. Ribbon images are in `public/ribbons`, ribbon devices in `public/devices`, case insignia in `public/insignia`, unit crests in `public/crests`, uniform figures in `public/uniforms`, medal illustrations in `incoming/medals` as `{id}.png`, and Decorations slides in `incoming/decorations` as `YYYY.png`. The portrait is `public/photos/dress-blues-b.jpg`.

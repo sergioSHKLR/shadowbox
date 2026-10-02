@@ -8,9 +8,9 @@ const TASK_FORCES: { id: string; name: string; image: string; when: string; mark
     image: "/incoming/troy.png",
     when: "2006",
     marks: [
-      { src: "/incoming/eodmu11.png", alt: "Partner \u00b7 EODMU 11" },
       { src: "/incoming/52nd-eod.png", alt: "Sponsor \u00b7 52nd EOD" },
       { src: "/incoming/16th-en.png", alt: "Sponsor \u00b7 16th EN" },
+      { src: "/incoming/eodmu11.png", alt: "Partner \u00b7 EODMU 11" },
     ],
   },
   {
@@ -18,16 +18,26 @@ const TASK_FORCES: { id: string; name: string; image: string; when: string; mark
     name: "Task Force Iron Shield",
     image: "/incoming/cram.png",
     when: "2008\u20132009",
-    marks: [{ src: "/incoming/11th-ada.png", alt: "Sponsor \u00b7 11th ADA" }],
+    marks: [
+      { src: "/incoming/11th-ada.png", alt: "Admin \u00b7 11th ADA" },
+      { src: "/incoming/332nd-aew.png", alt: "Customer \u00b7 332nd AEW" },
+    ],
   },
   {
     id: "cjsotf",
     name: "CJSOTF-A",
     image: "/incoming/cjsotf-a.png",
-    when: "2010\u20132013",
+    when: "2010\u20132011",
+    marks: [{ src: "/incoming/3rd-sfg.png", alt: "Customer \u00b7 3rd SFG" }],
+  },
+  {
+    id: "sojtf",
+    name: "SOJTF-A",
+    image: "/incoming/sojtf-a.png",
+    when: "2012\u20132013",
     marks: [
-      { src: "/incoming/3rd-sfg.png", alt: "3rd Special Forces Group" },
-      { src: "/incoming/75th-rgr.png", alt: "75th Ranger Regiment" },
+      { src: "/incoming/290jcss.png", alt: "Partner \u00b7 290th JCSS" },
+      { src: "/incoming/75th-rgr.svg", alt: "Customer \u00b7 75th Ranger Regiment" },
     ],
   },
 ];
@@ -41,24 +51,30 @@ const CAMPAIGN_LABEL: Record<string, string> = {
 
 const CAMPAIGN_MARKS: Record<string, Mark[]> = {
   "oif-2006": [
-    { src: "/incoming/eodmu11.png", alt: "Partner \u00b7 EODMU 11" },
     { src: "/incoming/52nd-eod.png", alt: "Sponsor \u00b7 52nd EOD" },
     { src: "/incoming/16th-en.png", alt: "Sponsor \u00b7 16th EN" },
+    { src: "/incoming/eodmu11.png", alt: "Partner \u00b7 EODMU 11" },
   ],
-  "oif-2009": [{ src: "/incoming/11th-ada.png", alt: "Sponsor \u00b7 11th ADA" }],
-  "oef-2010": [{ src: "/incoming/3rd-sfg.png", alt: "3rd Special Forces Group" }],
-  "oef-2012": [{ src: "/incoming/75th-rgr.png", alt: "75th Ranger Regiment" }],
+  "oif-2009": [
+    { src: "/incoming/11th-ada.png", alt: "Admin \u00b7 11th ADA" },
+    { src: "/incoming/332nd-aew.png", alt: "Customer \u00b7 332nd AEW" },
+  ],
+  "oef-2010": [{ src: "/incoming/3rd-sfg.png", alt: "Customer \u00b7 3rd SFG" }],
+  "oef-2012": [
+    { src: "/incoming/290jcss.png", alt: "Partner \u00b7 290th JCSS" },
+    { src: "/incoming/75th-rgr.svg", alt: "Customer \u00b7 75th Ranger Regiment" },
+  ],
 };
 
 const EXERCISE_CRESTS: Record<string, { image: string; host: string; marks: Mark[] }> = {
   "cobra-gold": {
     image: "/incoming/cobra-gold.png",
-    host: "Host \u00b7 Royal Thai Navy \u00d72",
+    host: "Host \u00b7 Royal Thai Navy \u00b7 2004 and 2005",
     marks: [{ src: "/incoming/rtn.png", alt: "Royal Thai Navy" }],
   },
   "talisman-saber": {
     image: "/incoming/talisman-saber.png",
-    host: "Host \u00b7 Australian Clearance Diving Team \u00d72",
+    host: "Host \u00b7 Australian Clearance Diving Team \u00b7 2005 and 2007",
     marks: [{ src: "/incoming/auscdt-1.png", alt: "Australian Clearance Diving Team" }],
   },
 };
@@ -68,7 +84,7 @@ export function Ops({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
   return (
     <main className="sheet">
       <h2>Ops</h2>
-      <p>Task forces are Troy, Iron Shield, and CJSOTF-A. Campaigns are OIF I, OIF II, OEF I, and OEF II. Exercises are Cobra Gold, Talisman Saber, and the other recorded training. Years that were not entered stay blank.</p>
+      <p>Task forces are Troy, Iron Shield, CJSOTF-A, and SOJTF-A. Campaigns are OIF I, OIF II, OEF I, and OEF II. Marks are admin, sponsor, partner, and customer. Exercises are Cobra Gold, Talisman Saber, and the other recorded training. Years that were not entered stay blank.</p>
       <h3>Task forces</h3>
       <ol className="uniform-grid equipment-grid">
         {TASK_FORCES.map((force) => (

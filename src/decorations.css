@@ -1,28 +1,20 @@
 .decorations { --in: 4.07rem; }
-.living-rack {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-  margin: calc(var(--in) * 0.25) auto;
-  max-width: 28rem;
+.decoration-slide {
+  margin: 1rem auto;
+  max-width: min(36rem, 100%);
+  text-align: center;
 }
-.living-ribbon { width: calc(var(--in) * 1.375); }
-.living-ribbon .ribbon { width: 100%; }
-.warfare-pin {
-  display: grid;
-  justify-items: center;
-  gap: 0.15rem;
-  margin: calc(var(--in) * 0.25) auto;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  font: inherit;
-  color: inherit;
+.decoration-slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
 }
-.warfare-pin img { width: calc(var(--in) * 2.75); height: auto; object-fit: contain; }
-.warfare-pin span { font-size: 0.75rem; letter-spacing: 0.08em; }
+.decoration-slide figcaption {
+  margin-top: 0.45rem;
+  color: var(--color-quiet);
+  font-size: 0.88rem;
+}
 .decorations .uprog-scrub {
   display: flex;
   align-items: center;
@@ -40,6 +32,8 @@
   align-items: center;
   justify-content: flex-end;
   width: min(72rem, calc(100% - 2rem));
+  max-width: 100%;
+  box-sizing: border-box;
   margin: 0 auto 1.4rem;
   padding-top: 0.8rem;
   border-top: 1px solid var(--color-line);

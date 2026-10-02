@@ -4,11 +4,12 @@
     "placeId": "little-creek",
     "kind": "tad",
     "title": "TAD to USS Tortuga (LSD-46)",
-    "when": "Dates not entered (placed after Great Lakes)",
-    "sort": "1998",
+    "when": "Winter 1997 into Q1 1998",
+    "sort": "1997",
     "prio": 1,
     "approximate": true,
-    "unitId": "tortuga"
+    "unitId": "tortuga",
+    "note": "Soon after RTC. Year only; the season is winter 1997 into the first quarter of 1998."
   },
   {
     "id": "polaris-point",
@@ -120,33 +121,42 @@
     "placeId": "u-tapao",
     "kind": "exercise",
     "title": "Exercise Cobra Gold with EODMU 5",
-    "when": "2004–2007 (year not recorded)",
+    "when": "2004 and 2005",
     "sort": "2004",
     "prio": 1,
-    "approximate": true,
-    "unitId": "eodmu5"
+    "approximate": false,
+    "unitId": "eodmu5",
+    "trips": [
+      "2004",
+      "2005"
+    ]
   },
   {
     "id": "talisman-saber",
     "placeId": "shoalwater-bay",
     "kind": "exercise",
     "title": "Exercise Talisman Saber (twice) with EODMU 5",
-    "when": "2005 and 2007 (inferred: Talisman Saber runs in odd years)",
-    "sort": "2004",
+    "when": "2005 and 2007",
+    "sort": "2005",
     "prio": 1,
-    "approximate": true,
-    "unitId": "eodmu5"
+    "approximate": false,
+    "unitId": "eodmu5",
+    "trips": [
+      "2005",
+      "2007"
+    ]
   },
   {
     "id": "whidbey-visit",
     "placeId": "whidbey",
     "kind": "visit",
     "title": "Stop with EODMU 5",
-    "when": "2004–2007 (year not recorded)",
-    "sort": "2004",
-    "prio": 1,
-    "approximate": true,
-    "unitId": "eodmu5"
+    "when": "January 2006",
+    "sort": "2006",
+    "prio": -0.5,
+    "approximate": false,
+    "unitId": "eodmu5",
+    "note": "Linked up in January 2006, en route to OIF I."
   },
   {
     "id": "duhok-dam-visit",
@@ -178,18 +188,19 @@
     "placeId": "fort-bragg",
     "kind": "exercise",
     "title": "Training with JCSE",
-    "when": "2009–14 Dec 2014 (year not recorded)",
+    "when": "2009–2014 (year still to be researched)",
     "sort": "2009",
     "prio": 1,
     "approximate": true,
-    "unitId": "jcse"
+    "unitId": "jcse",
+    "note": "Year not yet researched."
   },
   {
     "id": "camp-blanding-training",
     "placeId": "camp-blanding",
     "kind": "exercise",
     "title": "Training with JCSE",
-    "when": "2009–14 Dec 2014 (year not recorded)",
+    "when": "Multiple JTX, prior to the deployments",
     "sort": "2009",
     "prio": 1,
     "approximate": true,
@@ -200,11 +211,23 @@
     "placeId": "fob-patriot",
     "kind": "exercise",
     "title": "Training with JCSE",
-    "when": "2009–14 Dec 2014 (year not recorded)",
-    "sort": "2009",
+    "when": "Once, after 2013",
+    "sort": "2013",
     "prio": 1,
     "approximate": true,
     "unitId": "jcse"
+  },
+  {
+    "id": "fort-bliss-training",
+    "placeId": "fort-bliss",
+    "kind": "exercise",
+    "title": "Training with HHB 3-3 ADA",
+    "when": "2008",
+    "sort": "2008",
+    "prio": -0.5,
+    "approximate": false,
+    "unitId": "ia-army",
+    "note": "Pre-deployment training at Fort Bliss, El Paso, with Headquarters and Headquarters Battery, 3rd Battalion, 3rd Air Defense Artillery."
   },
   {
     "id": "kuwait-wtp",
