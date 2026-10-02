@@ -9,6 +9,8 @@ const en = {
   noMatch: "No match in the record.",
   timeline: "Timeline",
   admin: "Admin",
+  commands: "Comandos",
+  commands: "Commands",
   uniforms: "Uniforms",
   decorations: "Decorations",
   onduty: "On Duty",
@@ -24,7 +26,7 @@ const en = {
   memories: "Memories",
   settings: "Settings",
   close: "Close",
-  made: "Made by Myself & Grok, 2026",
+  made: "Eu & Grok",
   bio: "Sergio Schickler enlisted in Miami on 30 June 1997 and transferred to the Fleet Reserve on 28 February 2018 as a Chief Electronics Technician. SW is the Enlisted Surface Warfare Specialist pin, earned on USS Frank Cable. EXW is the Enlisted Expeditionary Warfare Specialist pin, earned later. The last duty station was Naval Hospital Jacksonville.",
   pathTitle: "The same years, one line",
   pathLead: "Rank, assignments, and deployments share one axis. A bar opens the explanation.",
@@ -40,6 +42,7 @@ const en = {
   settingsTitle: "Settings",
   settingsLead: "Language changes the menus and buttons. The service record stays in English until the Portuguese record is finished, and official names stay as written.",
   schoolsLead: "Courses in the order they were recorded. Open a row for the explanation, the place, and what the course was for.",
+  commandsLead: "The six commands. Layout waits on the mock-up. A row opens the record.",
   necsLead: "Navy Enlisted Classifications in the order awarded. A code that later changed shows the current code. Open a row for the criteria.",
 };
 
@@ -67,7 +70,7 @@ const pt: typeof en = {
   memories: "Memórias",
   settings: "Ajustes",
   close: "Fechar",
-  made: "Made by Myself & Grok, 2026",
+  made: "Eu & Grok",
   bio: "Sergio Schickler alistou-se em Miami em 30 de junho de 1997 e passou à reserva da frota em 28 de fevereiro de 2018, como Chief Electronics Technician. SW é o distintivo de Enlisted Surface Warfare Specialist, ganho no USS Frank Cable. EXW é o de Enlisted Expeditionary Warfare Specialist, ganho depois. O último posto foi o Naval Hospital Jacksonville.",
   pathTitle: "Os mesmos anos, numa linha",
   pathLead: "Posto, funções e deslocamentos partilham um eixo. Uma barra abre a explicação.",
@@ -83,6 +86,7 @@ const pt: typeof en = {
   settingsTitle: "Ajustes",
   settingsLead: "O idioma muda os menus e os botões. O registro de serviço continua em inglês até o registro em português ficar pronto, e os nomes oficiais ficam como foram escritos.",
   schoolsLead: "Cursos na ordem em que foram registrados. Abra uma linha para a explicação, o lugar e para que servia o curso.",
+  commandsLead: "Os seis comandos. O desenho espera o mock-up. A linha abre o registro.",
   necsLead: "Classificações de praça (NEC) na ordem em que foram concedidas. Código que mudou mostra o código atual. Abra a linha para o critério.",
 };
 
