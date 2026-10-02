@@ -33,7 +33,18 @@ export function Timeline({
   ].sort((a, b) => (a.when || "9999").localeCompare(b.when || "9999"));
   return (
     <main className="sheet">
-      <h2>{profile.serviceLength}, one line</h2>
+      <header className="person">
+        <img src={publicUrl("/photos/recruit-1997.webp")} alt="Recruit Sergio Schickler in dress blue jumper and white hat, 1997" />
+        <div className="person-copy">
+          <p className="kicker">{profile.branchName}</p>
+          <h2>{profile.headerLines[0]}</h2>
+          <p>{profile.headerLines[1]}</p>
+          <p>{profile.headerLines[2]}</p>
+          <p className="quiet">{profile.serviceLength}. Sea service {profile.seaService}. Overseas sea service {profile.foreignService}.</p>
+        </div>
+        <img src={publicUrl(profile.portrait)} alt="Chief Petty Officer Sergio Schickler in service dress blue, 2018" />
+      </header>
+      <h3>{profile.serviceLength}, one line</h3>
       <p>{caseCopy.timelineLead}</p>
       <ChartScroll>
         <div className="chart-stack">

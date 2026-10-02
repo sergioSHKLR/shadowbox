@@ -27,18 +27,30 @@ function row(title: string, kindLabel: string, text: string, open: Hit["open"]):
 }
 
 const PAGES: Hit[] = [
-  { title: "Case", kindLabel: "Page", snippet: "Assigned commands and supplemental felt", open: { view: "case" } },
-  { title: "Uniforms", kindLabel: "Page", snippet: "Uniform film", open: { view: "uniforms" } },
-  { title: "Decorations", kindLabel: "Page", snippet: "Ribbons and medals", open: { view: "decorations" } },
   { title: "Timeline", kindLabel: "Page", snippet: "Duty, deployments, schools, ranks", open: { view: "timeline" } },
-  { title: "Ops", kindLabel: "Page", snippet: "Operations", open: { view: "ops" } },
-  { title: "On Duty", kindLabel: "Page", snippet: "Gear and vehicles", open: { view: "onduty" } },
-  { title: "Off Duty", kindLabel: "Page", snippet: "Off duty", open: { view: "offduty" } },
+  { title: "Linha do tempo", kindLabel: "Página", snippet: "Serviço, deslocamentos, escolas, postos", open: { view: "timeline" } },
+  { title: "Uniforms", kindLabel: "Page", snippet: "Uniforms worn across the career", open: { view: "uniforms" } },
+  { title: "Uniformes", kindLabel: "Página", snippet: "Uniformes usados na carreira", open: { view: "uniforms" } },
+  { title: "Decorations", kindLabel: "Page", snippet: "Ribbons, medals, and what the devices count", open: { view: "decorations" } },
+  { title: "Condecorações", kindLabel: "Página", snippet: "Fitas, medalhas e o que os dispositivos contam", open: { view: "decorations" } },
+  { title: "Equipment", kindLabel: "Page", snippet: "Gear, vehicles, ships, and off duty", open: { view: "equipment" } },
+  { title: "Equipamento", kindLabel: "Página", snippet: "Equipamento, viaturas, navios e fora de serviço", open: { view: "equipment" } },
+  { title: "Ops", kindLabel: "Page", snippet: "Task forces, campaigns, exercises", open: { view: "ops" } },
+  { title: "Operações", kindLabel: "Página", snippet: "Forças-tarefa, campanhas, exercícios", open: { view: "ops" } },
   { title: "Map", kindLabel: "Page", snippet: "Stations and deployments", open: { view: "map" } },
+  { title: "Mapa", kindLabel: "Página", snippet: "Estações e deslocamentos", open: { view: "map" } },
+  { title: "Schools", kindLabel: "Page", snippet: "Courses in the order recorded", open: { view: "schools" } },
+  { title: "Escolas", kindLabel: "Página", snippet: "Cursos na ordem do registro", open: { view: "schools" } },
   { title: "Sources", kindLabel: "Page", snippet: "Credits and licenses", open: { view: "sources" } },
+  { title: "Fontes", kindLabel: "Página", snippet: "Créditos e licenças", open: { view: "sources" } },
   { title: "Contact", kindLabel: "Page", snippet: "Contact", open: { view: "contact" } },
+  { title: "Contato", kindLabel: "Página", snippet: "Contato", open: { view: "contact" } },
   { title: "Guestbook", kindLabel: "Page", snippet: "Guestbook", open: { view: "guestbook" } },
+  { title: "Livro de visitas", kindLabel: "Página", snippet: "Livro de visitas", open: { view: "guestbook" } },
   { title: "Memories", kindLabel: "Page", snippet: "Notes kept in this browser", open: { view: "memories" } },
+  { title: "Memórias", kindLabel: "Página", snippet: "Notas guardadas neste navegador", open: { view: "memories" } },
+  { title: "Settings", kindLabel: "Page", snippet: "Language and theme", open: { view: "settings" } },
+  { title: "Ajustes", kindLabel: "Página", snippet: "Idioma e tema", open: { view: "settings" } },
 ];
 
 function index(): { text: string; hit: Omit<Hit, "snippet"> }[] {

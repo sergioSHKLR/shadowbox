@@ -1,0 +1,71 @@
+import type { Locale } from "@/lib/shadowbox/prefs";
+
+const en = {
+  title: "Shadowbox",
+  home: "Home",
+  search: "Search",
+  searchPlaceholder: "Search the record",
+  menu: "Menu",
+  noMatch: "No match in the record.",
+  timeline: "Timeline",
+  uniforms: "Uniforms",
+  decorations: "Decorations",
+  equipment: "Equipment",
+  ops: "Ops",
+  map: "Map",
+  schools: "Schools",
+  sources: "Sources",
+  contact: "Contact",
+  guestbook: "Guestbook",
+  memories: "Memories",
+  settings: "Settings",
+  print: "Print",
+  made: "Made by an expat while at Itajaí, SC, Brazil.",
+  language: "Language",
+  english: "English",
+  portuguese: "Português",
+  theme: "Theme",
+  light: "Light",
+  dark: "Dark",
+  settingsTitle: "Settings",
+  settingsLead: "Language changes the menus and buttons. The service record stays in English, and official names stay as written.",
+  schoolsLead: "Courses in the order they were recorded. Open a row for the explanation, the place, and what the course was for.",
+};
+
+const pt: typeof en = {
+  title: "Shadowbox",
+  home: "Início",
+  search: "Buscar",
+  searchPlaceholder: "Buscar no registro",
+  menu: "Menu",
+  noMatch: "Nada encontrado no registro.",
+  timeline: "Linha do tempo",
+  uniforms: "Uniformes",
+  decorations: "Condecorações",
+  equipment: "Equipamento",
+  ops: "Operações",
+  map: "Mapa",
+  schools: "Escolas",
+  sources: "Fontes",
+  contact: "Contato",
+  guestbook: "Livro de visitas",
+  memories: "Memórias",
+  settings: "Ajustes",
+  print: "Imprimir",
+  made: "Feito por um expatriado em Itajaí, SC, Brasil.",
+  language: "Idioma",
+  english: "English",
+  portuguese: "Português",
+  theme: "Tema",
+  light: "Claro",
+  dark: "Escuro",
+  settingsTitle: "Ajustes",
+  settingsLead: "O idioma muda os menus e os botões. O registro de serviço continua em inglês, e os nomes oficiais ficam como foram escritos.",
+  schoolsLead: "Cursos na ordem em que foram registrados. Abra uma linha para a explicação, o lugar e para que servia o curso.",
+};
+
+export type Chrome = typeof en;
+
+export function chrome(locale: Locale): Chrome {
+  return locale === "pt" ? pt : en;
+}
