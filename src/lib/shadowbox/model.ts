@@ -187,6 +187,8 @@ export type Nec = {
   id: string;
   code: string;
   name: string;
+  awarded: string | null;
+  currentCode: string | null;
   years: string | null;
   role: string;
   explanation: string;
