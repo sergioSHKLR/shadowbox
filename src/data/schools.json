@@ -137,10 +137,10 @@
     "start": "2003-09-08",
     "end": "2003-09-08",
     "length": null,
-    "placeId": null,
-    "placeConfidence": "unknown",
+    "placeId": "guam",
+    "placeConfidence": "recorded",
     "source": "jst",
-    "explanation": "Quality Assurance Officer/Supervisor Course. JST completion 8 September 2003. Schoolhouse not named."
+    "explanation": "Quality Assurance Officer/Supervisor Course. JST completion 8 September 2003. Taken at AS-40."
   },
   {
     "id": "instructor-school",
@@ -215,10 +215,10 @@
     "start": "2010-03-10",
     "end": "2010-03-10",
     "length": null,
-    "placeId": null,
-    "placeConfidence": "unknown",
+    "placeId": "macdill",
+    "placeConfidence": "recorded",
     "source": "jst",
-    "explanation": "Army Combat Lifesaver correspondence course. JST completion 10 March 2010."
+    "explanation": "Army Combat Lifesaver correspondence course. JST completion 10 March 2010. Taken at JCSE."
   },
   {
     "id": "sere-100",
@@ -228,10 +228,10 @@
     "start": "2011-08-28",
     "end": "2011-08-28",
     "length": null,
-    "placeId": null,
-    "placeConfidence": "unknown",
+    "placeId": "macdill",
+    "placeConfidence": "recorded",
     "source": "jst",
-    "explanation": "SERE 100 / Code of Conduct course through Joint Warfighter Center (JKDDC), Suffolk. Completion 28 August 2011."
+    "explanation": "SERE 100 / Code of Conduct. Online, at JCSE. Completion 28 August 2011."
   },
   {
     "id": "cfl-school",
@@ -253,11 +253,11 @@
     "cin": null,
     "start": "",
     "end": null,
-    "length": null,
+    "length": "1 week",
     "placeId": "gryphon-maxton",
     "placeConfidence": "recorded",
     "source": "recorded",
-    "explanation": "Gryphon Group's school at Laurinburg–Maxton Airport, Maxton, North Carolina. The course and the dates have not been entered.",
-    "open": "Gryphon School: course and dates not entered."
+    "explanation": "Gryphon Group's school at Laurinburg–Maxton Airport, Maxton, North Carolina. About a week long, before OEF II. The start date has not been entered.",
+    "open": "Gryphon School: start date not entered."
   }
 ]

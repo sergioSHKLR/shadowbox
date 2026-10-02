@@ -24,7 +24,7 @@ for (const [src, dest] of [
   ["52nd-eod.png", "52nd-eod.png"],
   ["16th-en.png", "16th-en.png"],
   ["3rd-sfg.png", "3rd-sfg.png"],
-  ["75th-rgr.png", "75th-rgr.png"],
+  ["75th-rgr.svg", "75th-rgr.svg"],
   ["sercc.png", "sercc.png"],
   ["11th-ada.png", "11th-ada.png"],
   ["jcse-3rd-sqd.png", "jcse-3rd-sqd.png"],

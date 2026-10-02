@@ -32,6 +32,8 @@ const PAGES: Hit[] = [
   { title: "Linha do tempo", kindLabel: "Página", snippet: "Posto, funções e deslocamentos", open: { view: "timeline" } },
   { title: "Uniforms", kindLabel: "Page", snippet: "Uniforms worn across the career", open: { view: "uniforms" } },
   { title: "Uniformes", kindLabel: "Página", snippet: "Uniformes usados na carreira", open: { view: "uniforms" } },
+  { title: "Commands", kindLabel: "Page", snippet: "Command rows: crest, rating badges, loose ribbons and medals", open: { view: "commands" } },
+  { title: "Comandos", kindLabel: "Página", snippet: "Fileiras de comando: distintivo, postos, rack, medalhas", open: { view: "commands" } },
   { title: "Decorations", kindLabel: "Page", snippet: "Ribbons, medals, and what the devices count", open: { view: "decorations" } },
   { title: "Condecorações", kindLabel: "Página", snippet: "Fitas, medalhas e o que os dispositivos contam", open: { view: "decorations" } },
   { title: "On Duty", kindLabel: "Page", snippet: "Equipment, gear, vehicles, ships, and aircraft", open: { view: "onduty" } },

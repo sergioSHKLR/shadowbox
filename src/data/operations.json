@@ -26,11 +26,11 @@
     "months": 7,
     "theater": "Iraq",
     "unitId": "ia-army",
-    "placeId": null,
+    "placeId": "jb-balad",
     "baseIds": [
       "jb-balad"
     ],
-    "explanation": "The 2009 Iraq deployment as an individual augmentee to the Army, about seven months. The campaign phase recorded on the shadowbox is Iraq Sovereignty. This is the other bronze star on the Iraq Campaign Medal."
+    "explanation": "The 2009 Iraq deployment as an individual augmentee to the Army, about seven months. In theater: Task Force Iron Shield. Admin: 11th ADA. Customer: 332nd Air Expeditionary Wing at Joint Base Balad. The campaign phase recorded on the shadowbox is Iraq Sovereignty. This is the other bronze star on the Iraq Campaign Medal."
   },
   {
     "id": "oef-2010",
@@ -46,7 +46,7 @@
     "baseIds": [
       "fob-delaram"
     ],
-    "explanation": "Afghanistan deployment of about seven months with Combined Joint Special Operations Task Force — Afghanistan, while assigned to Joint Communications Support Element. One of the two bronze stars on the Afghanistan Campaign Medal."
+    "explanation": "Afghanistan deployment of about seven months. Assigned to JCSE. In theater: CJSOTF-A. Customer: 3rd Special Forces Group, at FOB Delaram. One of the two bronze stars on the Afghanistan Campaign Medal."
   },
   {
     "id": "oef-2012",
@@ -57,11 +57,11 @@
     "precision": "year",
     "months": 7,
     "theater": "Afghanistan",
-    "unitId": "jcse",
+    "unitId": "sojtf",
     "placeId": "fob-orgun-e",
     "baseIds": [
       "fob-orgun-e"
     ],
-    "explanation": "A second Afghanistan deployment of about seven months under Operation Enduring Freedom, from Joint Communications Support Element. The NATO Medal for ISAF is dated 2013 on the worksheet. This is the other Afghanistan campaign star."
+    "explanation": "A second Afghanistan deployment of about seven months, from Joint Communications Support Element. In theater: SOJTF-A. Partner: 290th JCSS. Customer: 75th Ranger Regiment, at FOB Orgun-E. The NATO Medal for ISAF is dated 2013 on the worksheet. This is the other Afghanistan campaign star."
   }
 ]

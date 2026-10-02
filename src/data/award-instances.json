@@ -96,28 +96,28 @@
     "note": null
   },
   {
-    "id": "jmua-2006",
+    "id": "jmua-2009",
     "awardId": "jmua",
-    "year": 2006,
-    "unitId": null,
+    "year": 2009,
+    "unitId": "jcse",
     "operationId": null,
-    "note": "One of three awards. The other two years are not on the worksheet."
+    "note": "JCSE. Wikipedia lists a Joint Meritorious Unit Award in 2009. One of three awards."
   },
   {
     "id": "jmua-u2",
     "awardId": "jmua",
     "year": null,
-    "unitId": null,
+    "unitId": "jcse",
     "operationId": null,
-    "note": "Year not on the worksheet."
+    "note": "JCSE. Year not entered."
   },
   {
     "id": "jmua-u3",
     "awardId": "jmua",
     "year": null,
-    "unitId": null,
+    "unitId": "jcse",
     "operationId": null,
-    "note": "Year not on the worksheet."
+    "note": "JCSE. Year not entered."
   },
   {
     "id": "nmuc-2000",
@@ -133,7 +133,7 @@
     "year": null,
     "unitId": null,
     "operationId": null,
-    "note": "Year not on the worksheet."
+    "note": "Year not entered. Likely NCTS, AS-40, EOD, or NH."
   },
   {
     "id": "nmuc-u3",
@@ -269,7 +269,7 @@
     "year": 2003,
     "unitId": null,
     "operationId": null,
-    "note": "The humanitarian operation has not been named yet."
+    "note": "Typhoon Pongsona."
   },
   {
     "id": "ssdr-2001",
@@ -301,7 +301,7 @@
     "year": null,
     "unitId": null,
     "operationId": null,
-    "note": "Year not on the worksheet."
+    "note": "Year not entered. EOD, IA, and JCSE were sea duty."
   },
   {
     "id": "ssdr-u5",
@@ -357,7 +357,7 @@
     "year": null,
     "unitId": null,
     "operationId": null,
-    "note": "Year not on the worksheet."
+    "note": "Year not entered. Six years at Guam, plus time in the Middle East."
   },
   {
     "id": "osr-u5",

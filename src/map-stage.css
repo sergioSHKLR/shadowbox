@@ -64,8 +64,7 @@
   border-color: #8a6400;
 }
 .map-num.approximate, .pin-num.approximate, .map-dot.approximate {
-  border-style: solid;
-  background: #1d4e89;
+  border-style: dashed;
 }
 .map-num.red, .pin-num.red, .map-dot.red,
 .map-num.red.approximate, .pin-num.red.approximate, .map-dot.red.approximate {
