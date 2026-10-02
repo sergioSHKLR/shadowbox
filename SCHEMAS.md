@@ -19,7 +19,7 @@ Dates are `YYYY`, `YYYY-MM`, or `YYYY-MM-DD`. A missing end date means the item 
 | `uniforms.json` | The uniforms. `group` is one of `pt`, `organizational`, `work`, `dress`, `battle`; `order` is wear order within the page. `image` is the figure in `public/uniforms` |
 | `places.json` | Map points. `accuracy` is `public-site`, `approximate`, or `placeholder` |
 | `warfare.json` / `insignia.json` | Pins and chief insignia |
-| `milestones.json` | Enlistment, chief, Fleet Reserve |
+| `milestones.json` | Enlistment, chief, retirement |
 | `photos.json` | `{ id, src, alt, caption, kind, subjectId }`. Empty subjects show the blank line |
 | `reflections.json` | `{ id, kind, subjectId, text }`. Empty array until notes are added |
 | `credits.json` | Ribbon files, licenses, and the portrait note |

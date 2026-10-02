@@ -8,7 +8,8 @@
   max-width: 100%;
 }
 .command-item { min-width: 0; max-width: 100%; }
-.command-head h3 { margin: 0; font-size: 1.35rem; }
+.command-head h3 { margin: 0; font-size: 1.35rem; display: flex; flex-direction: column; line-height: 1.15; }
+.command-head h3 span:last-child:not(:only-child) { font-size: 0.82em; font-weight: 600; }
 .command-head p { margin: 0.15rem 0 0.55rem; color: var(--color-quiet); font-size: 0.92rem; }
 .command-scroller {
   --crest-h: 6.2rem;

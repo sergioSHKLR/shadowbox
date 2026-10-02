@@ -162,7 +162,7 @@
     "deviceExplanation": "Five awards. Navy unit awards use bronze stars, not oak leaves. Four bronze stars mean five awards. A silver star would appear only on a sixth award.",
     "explanation": "A Navy unit award for meritorious service by a ship or command. It is junior to the Navy Unit Commendation, which is not in this record, and senior to the Navy E ribbon.",
     "criteria": "Worn by members of a cited Navy unit for the period of the citation.",
-    "sourceNote": "Navy Meritorious Unit Commendation (5). The worksheet names only 2000. The other four years are not entered.",
+    "sourceNote": "Navy Meritorious Unit Commendation (5). DD-214 count is official. The worksheet names 2000; the other four years are not entered.",
     "commonsFile": "Navy_Meritorious_Unit_Commendation_ribbon.svg"
   },
   {
@@ -247,10 +247,10 @@
         "count": 2
       }
     ],
-    "deviceExplanation": "Read as one medal with two bronze campaign stars. Those stars mark two campaign phases. They are not two extra medals, and they are not the gold stars used on a Navy achievement medal.",
-    "explanation": "For service in Afghanistan during named operations, here Operation Enduring Freedom. The two stars line up with the two Afghanistan tours in this record, 2010\u20132011 and 2012\u20132013.",
-    "criteria": "Service in the theater during a qualifying campaign phase. Recorded as (2).",
-    "sourceNote": "If the (2) was meant as two separate medals rather than two stars, the device should be changed. The worksheet lists the medal once, in 2011, and lists two OEF tours.",
+    "deviceExplanation": "One medal. Each campaign phase wears a bronze star. There is no bare ribbon. Two OEF phases, two stars. These are not gold stars as on a Navy achievement medal.",
+    "explanation": "For service in Afghanistan during named operations, here Operation Enduring Freedom. Two bronze stars for the two Afghanistan tours, 2010\u20132011 and 2012\u20132013.",
+    "criteria": "Service in the theater during a qualifying campaign phase. Each phase is a star.",
+    "sourceNote": "Afghanistan Campaign Medal with two campaign stars. The worksheet lists the medal once, in 2011, and two OEF tours.",
     "operationIds": [
       "oef-2010",
       "oef-2012"
@@ -274,10 +274,10 @@
         "count": 2
       }
     ],
-    "deviceExplanation": "One medal with two bronze campaign stars. The phases named in the record are National Resolution (the 2006 tour) and Iraq Sovereignty (the 2009 tour).",
-    "explanation": "For service in Iraq during Operation Iraqi Freedom. The two stars match the two Iraq deployments: Combined Joint Task Force Troy in 2006, and the individual augmentee tour in 2009.",
-    "criteria": "Service in Iraq during a qualifying campaign phase.",
-    "sourceNote": "Iraq Campaign Medal (2), read here as two campaign stars. The worksheet lists the medal in 2006 and names both phases under operations.",
+    "deviceExplanation": "One medal. Each campaign phase wears a bronze star. There is no bare ribbon. National Resolution (2006) is one star; Iraq Sovereignty (the IA, in country 2009) is the second.",
+    "explanation": "For service in Iraq during Operation Iraqi Freedom. Two bronze stars for the two Iraq phases: Combined Joint Task Force Troy in 2006, and the individual augmentee tour that started in October 2008 (five months at Fort Bliss, then Joint Base Balad).",
+    "criteria": "Service in Iraq during a qualifying campaign phase. Each phase is a star.",
+    "sourceNote": "Iraq Campaign Medal with two campaign stars. The worksheet lists the medal in 2006 and names both phases under operations.",
     "operationIds": [
       "oif-2006",
       "oif-2009"
@@ -343,7 +343,7 @@
     "deviceExplanation": "Seven awards. These ribbons use bronze stars, and a silver star replaces five bronze stars. Seven awards show as one silver star and one bronze star.",
     "explanation": "For deployed sea duty. In general it marks accumulated time deployed away from home port, often counted in months at sea or forward. Seven awards is a great deal of deployed time. Sea service of 6 years, 4 months, and 24 days is the total time, not the ribbon count.",
     "criteria": "Qualifying deployed sea service for each award.",
-    "sourceNote": "Sea Service Deployment Ribbon (7). The worksheet names only 2001, 2002, and 2003. Four years are not entered.",
+    "sourceNote": "Sea Service Deployment Ribbon (7). DD-214 count is official. The worksheet names 2001, 2002, and 2003; four years are not entered.",
     "commonsFile": "Sea_Service_Deployment_Ribbon.svg"
   },
   {
@@ -366,7 +366,7 @@
     "deviceExplanation": "Six awards. One silver star stands in for five bronze stars, so the ribbon plus the silver star is six awards.",
     "explanation": "For a completed tour at an overseas shore station, generally twelve months. It is not the same as the sea-service ribbon, which is for deployments. Guam is the overseas shore duty in this record; the form does not say which tours made up all six awards.",
     "criteria": "A qualifying overseas shore tour for each award.",
-    "sourceNote": "Navy and Marine Corps Overseas Ribbon (6). The worksheet names only 2001, 2002, and 2003. Three years are not entered.",
+    "sourceNote": "Navy and Marine Corps Overseas Ribbon (6). DD-214 count is official. The worksheet names 2001, 2002, and 2003; three years are not entered.",
     "commonsFile": "Navy_and_Marine_Corps_Overseas_Service_Ribbon.svg"
   },
   {

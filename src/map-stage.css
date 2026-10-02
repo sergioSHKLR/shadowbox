@@ -27,6 +27,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  background: #1d4e89;
+  color: var(--color-ivory);
+  border-color: #1d4e89;
+}
+.map-play .nav-btn.icon-btn.on {
+  background: #daa520;
+  color: var(--color-navy);
+  border-color: #daa520;
 }
 .map-play .nav-btn.icon-btn svg { display: block; }
 

@@ -15,7 +15,7 @@
     "precision": "day",
     "title": "Promoted to Chief Petty Officer",
     "short": "Chief",
-    "explanation": "Date of rank as a chief petty officer, E-7, Electronics Technician. Earlier promotions (ET3, ET2, ET1) are in the rank progression on the Timeline. Making chief changes the uniform: khakis, a fouled-anchor collar device, and a rating badge with a rocker.",
+    "explanation": "Date of rank as a chief petty officer, E-7, Electronics Technician, in the last year at JCSE. Earlier promotions (ET3, ET2, ET1) are in the rank progression on the Timeline. Making chief changes the uniform: khakis, a fouled-anchor collar device, and a rating badge with a rocker.",
     "placeIds": [],
     "related": [
       { "kind": "rank", "id": "etc" },
@@ -24,12 +24,12 @@
     ]
   },
   {
-    "id": "fltres",
+    "id": "retired",
     "date": "2018-02-28",
     "precision": "day",
-    "title": "Transferred to the Fleet Reserve",
-    "short": "Fleet Reserve",
-    "explanation": "Left active duty on 28 February 2018. Fleet Reserve status was effective 1 March 2018. Character of service: Honorable. A Fleet Reserve transfer is how a sailor with twenty or more years leaves active duty and draws retainer pay. It is not a punishment. Last ship or station was Naval Hospital Jacksonville.",
+    "title": "Retired",
+    "short": "Retired",
+    "explanation": "Retired from active duty on 28 February 2018. Character of service: Honorable. Last ship or station was Naval Hospital Jacksonville.",
     "placeIds": ["nh-jax"],
     "related": []
   }
