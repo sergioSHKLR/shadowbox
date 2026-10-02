@@ -497,6 +497,52 @@ export function firstUniformSlide(look: UniformLook): UniformSlide | null {
   return uniformSlides.find((slide) => slide.look === look && slide.month != null) ?? null;
 }
 
+/** Command walk on Timeline. SN/RTC opens; each command plate is one stop; NAVHOSP uses the CPO plates. */
+const UNIFORM_STEP_PLATES: { unitId: string; stem: string }[] = [
+  { unitId: "rtc", stem: "1a" },
+  { unitId: "ncts", stem: "2a" },
+  { unitId: "frank-cable", stem: "3a" },
+  { unitId: "eodmu5", stem: "4a" },
+  { unitId: "sercc", stem: "5a" },
+  { unitId: "jcse", stem: "6a" },
+  { unitId: "navhosp", stem: "7b" },
+];
+
+export type UniformStep = {
+  id: string;
+  unitId: string;
+  label: string;
+  span: string;
+  from: string;
+  month: number;
+};
+
+function spanForUnit(unit: Unit): string {
+  if (!unit.start) return "Dates not entered";
+  const a = unit.start.length === 4 ? unit.start : unit.start.slice(0, 4);
+  if (!unit.end) return a;
+  const b = unit.end.length === 4 ? unit.end : unit.end.slice(0, 4);
+  return a === b ? a : `${a}–${b}`;
+}
+
+export const uniformSteps: UniformStep[] = UNIFORM_STEP_PLATES.flatMap(({ unitId, stem }) => {
+  const unit = units.find((row) => row.id === unitId);
+  const plate = PLATE_FILE[stem];
+  if (!unit || !plate) return [];
+  return [{
+    id: unitId,
+    unitId,
+    label: unit.abbreviation,
+    span: spanForUnit(unit),
+    from: `${plate.y}-${String(plate.m).padStart(2, "0")}`,
+    month: plate.y * 12 + (plate.m - 1),
+  }];
+});
+
+export function uniformStepsForLook(look: UniformLook): UniformStep[] {
+  return uniformSteps.filter((step) => uniformSlideAt(step.month, look));
+}
+
 const medalArt = import.meta.glob("../../../incoming/medals/*.{png,svg,webp,jpg,jpeg}", {
   eager: true,
   query: "?url",

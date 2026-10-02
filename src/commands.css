@@ -47,12 +47,18 @@
 .command-extra { width: auto; }
 .command-crest img,
 .command-extra img {
-  height: var(--crest-h);
   width: auto;
-  max-width: calc(var(--crest-h) * 1.2);
   display: block;
   object-fit: contain;
   filter: var(--crest-shadow);
+}
+.command-crest img {
+  height: var(--crest-h);
+  max-width: calc(var(--crest-h) * 1.2);
+}
+.command-extra img {
+  height: calc(var(--crest-h) * 0.58);
+  max-width: calc(var(--crest-h) * 0.7);
 }
 .command-rank {
   display: grid;

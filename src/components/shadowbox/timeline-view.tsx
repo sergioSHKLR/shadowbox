@@ -86,6 +86,7 @@ export function Timeline({
     <main className="sheet">
       <h2>{title}</h2>
       <p>{lead}</p>
+      <UniformProgression />
       <ChartScroll>
         <div className="chart-stack">
         <Track label="Rank" items={bars.rank} onOpen={onOpen} />
@@ -95,7 +96,6 @@ export function Timeline({
         </div>
       </ChartScroll>
       <p className="quiet">{eventsNote}</p>
-      <UniformProgression />
     </main>
   );
 }
