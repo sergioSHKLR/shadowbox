@@ -341,8 +341,10 @@ h1, h2, h3, .detail-title {
   background: #1c2330;
   color: #f3ecdf;
 }
-[data-theme="dark"] .nav-btn { background: #1d4e89; color: var(--color-ivory); border-color: #1d4e89; }
-[data-theme="dark"] .nav-btn.on { color: var(--color-navy); background: #daa520; border-color: #daa520; }
+[data-theme="dark"] .nav-btn,
+[data-theme="dark"] .nav-btn.icon-btn { background: #1d4e89; color: var(--color-ivory); border-color: #1d4e89; }
+[data-theme="dark"] .nav-btn.on,
+[data-theme="dark"] .nav-btn.icon-btn.on { color: var(--color-navy); background: #daa520; border-color: #daa520; }
 
 h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); margin: 0; }
 h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin: 0 0 0.6rem; }
@@ -774,6 +776,16 @@ a { color: var(--color-navy); }
 .detail-title { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0; }
 .icon-btn { min-width: 44px; min-height: 44px; border: 1px solid var(--color-line); background: white; display: grid; place-items: center; }
 .icon-btn svg { width: 1.1rem; height: 1.1rem; }
+.nav-btn.icon-btn {
+  background: #1d4e89;
+  color: var(--color-ivory);
+  border-color: #1d4e89;
+}
+.nav-btn.icon-btn.on {
+  background: #daa520;
+  color: var(--color-navy);
+  border-color: #daa520;
+}
 .detail-body section { margin-top: 1.1rem; }
 /* The graphic that was clicked, large, at the top of every panel that has one. */
 .detail-hero { margin: 0.9rem 0 0.2rem; display: flex; justify-content: center; align-items: center; background: #fff; border: 1px solid var(--color-ivory-dim); padding: 1rem; }
