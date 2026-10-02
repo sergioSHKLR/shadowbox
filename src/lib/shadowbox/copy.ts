@@ -16,6 +16,8 @@ const en = {
   ops: "Ops",
   map: "Map",
   schools: "Schools",
+  necs: "NECs",
+  dateNeeded: "Date needed",
   sources: "Sources",
   contact: "Contact",
   guestbook: "Guestbook",
@@ -36,8 +38,9 @@ const en = {
   dark: "Dark",
   system: "System",
   settingsTitle: "Settings",
-  settingsLead: "Language changes the menus and buttons. The service record stays in English, and official names stay as written.",
+  settingsLead: "Language changes the menus and buttons. The service record stays in English until the Portuguese record is finished, and official names stay as written.",
   schoolsLead: "Courses in the order they were recorded. Open a row for the explanation, the place, and what the course was for.",
+  necsLead: "Navy Enlisted Classifications in the order awarded. A code that later changed shows the current code. Open a row for the criteria.",
 };
 
 const pt: typeof en = {
@@ -56,6 +59,8 @@ const pt: typeof en = {
   ops: "Operações",
   map: "Mapa",
   schools: "Escolas",
+  necs: "NECs",
+  dateNeeded: "Data em aberto",
   sources: "Fontes",
   contact: "Contato",
   guestbook: "Livro de visitas",
@@ -76,8 +81,9 @@ const pt: typeof en = {
   dark: "Escuro",
   system: "Sistema",
   settingsTitle: "Ajustes",
-  settingsLead: "O idioma muda os menus e os botões. O registro de serviço continua em inglês, e os nomes oficiais ficam como foram escritos.",
+  settingsLead: "O idioma muda os menus e os botões. O registro de serviço continua em inglês até o registro em português ficar pronto, e os nomes oficiais ficam como foram escritos.",
   schoolsLead: "Cursos na ordem em que foram registrados. Abra uma linha para a explicação, o lugar e para que servia o curso.",
+  necsLead: "Classificações de praça (NEC) na ordem em que foram concedidas. Código que mudou mostra o código atual. Abra a linha para o critério.",
 };
 
 export type Chrome = typeof en;
