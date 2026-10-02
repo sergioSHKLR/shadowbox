@@ -3,6 +3,10 @@ import { AppErrorComponent } from "@/lib/error-component";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 import mapStageCss from "../map-stage.css?url";
+import caseCrestsCss from "../case-crests.css?url";
+import timelineScrollCss from "../timeline-scroll.css?url";
+import decorationsCss from "../decorations.css?url";
+import printCss from "../print.css?url";
 import { profile } from "@/lib/shadowbox/model";
 
 export const Route = createRootRoute({
@@ -17,7 +21,11 @@ export const Route = createRootRoute({
       { rel: "icon", type: "image/svg+xml", href: `${import.meta.env.BASE_URL || "/"}favicon.svg` },
       { rel: "apple-touch-icon", href: `${import.meta.env.BASE_URL || "/"}icons/apple-touch-icon.png` },
       { rel: "stylesheet", href: appCss },
+      { rel: "stylesheet", href: caseCrestsCss },
+      { rel: "stylesheet", href: timelineScrollCss },
+      { rel: "stylesheet", href: decorationsCss },
       { rel: "stylesheet", href: mapStageCss },
+      { rel: "stylesheet", href: printCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -30,8 +38,8 @@ export const Route = createRootRoute({
   errorComponent: AppErrorComponent,
   notFoundComponent: () => (
     <main className="archive">
-      <h1>That page is not in the case</h1>
-      <p><Link to="/">Return to the shadowbox</Link></p>
+      <h1>That page is not in the record</h1>
+      <p><Link to="/">Return to the timeline</Link></p>
     </main>
   ),
 });

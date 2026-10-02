@@ -221,7 +221,7 @@ export function DetailPanel({
       .map((place) => ({ place, labels: [place.locality], when: "", n: pinNumbersFor(place.id)[0] }));
   }, [subject]);
 
-  const frame = typeof document === "undefined" ? null : document.querySelector(".case-frame");
+  const frame = typeof document === "undefined" ? null : document.querySelector(".app-shell");
   const [closing, setClosing] = useState(false);
   const [more, setMore] = useState(false);
   const noteScroll = (el: HTMLElement) => setMore(el.scrollHeight - el.scrollTop - el.clientHeight > 24);
@@ -232,7 +232,7 @@ export function DetailPanel({
   };
   return (
     <Dialog.Root open={Boolean(subject)} onOpenChange={(open) => { if (!open) requestClose(); }}>
-      <Dialog.Portal container={frame instanceof HTMLElement ? frame : undefined}>
+      <Dialog.Portal container={typeof HTMLElement !== "undefined" && frame instanceof HTMLElement ? frame : undefined}>
         <Dialog.Overlay className="detail-overlay" onClick={requestClose} />
         <Dialog.Content className={closing ? "detail-panel closing" : "detail-panel"} aria-describedby={undefined} onEscapeKeyDown={(event) => { event.preventDefault(); requestClose(); }} onPointerDownOutside={(event) => { event.preventDefault(); requestClose(); }} >
           {subject ? (

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import {
   awards,
+  caseCopy,
   instances,
   medalFor,
   profile,
@@ -81,7 +82,7 @@ function Hanging({ award, onOpen }: { award: Award; onOpen: (id: string) => void
 
 function Pin({ id, onOpen }: { id: string; onOpen: (k: Kind, id: string) => void }) {
   const pin = warfare.find((row) => row.id === id);
-  if (!pin) return null;
+  if (!pin?.image) return null;
   return (
     <button type="button" className="warfare-pin" onClick={() => onOpen("warfare", pin.id)} aria-label={pin.name}>
       <img src={publicUrl(pin.image)} alt="" />
@@ -144,6 +145,9 @@ export function Decorations({
     <main className="sheet decorations">
       <h2>Decorations</h2>
       <p>The rack as it stood. The surface pin sits a quarter inch above it from 2003. The expeditionary pin sits a quarter inch below from 2014. Both are years, not board dates.</p>
+      <ul className="plain">
+        {caseCopy.howToRead.map((line) => <li key={line}>{line}</li>)}
+      </ul>
       <div className="uprog-controls">
         <button type="button" className="nav-btn icon-btn" aria-label="Back six months" onClick={() => { setPlaying(false); setMonth((m) => Math.max(M0, m - 6)); }}>
           <ChevronLeft size={20} strokeWidth={2} aria-hidden="true" />
