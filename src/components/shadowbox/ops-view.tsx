@@ -1,10 +1,12 @@
-import { equipment, formatSpan, operations, publicUrl, visits, type Equipment, type Kind } from "@/lib/shadowbox/model";
+import { equipment, publicUrl, visits, type Equipment, type Kind } from "@/lib/shadowbox/model";
 
 type Mark = { src: string; alt: string };
-const TASK_FORCES: { id: string; name: string; image: string; when: string; marks: Mark[] }[] = [
+const DEPLOYMENTS: { id: string; campaign: string; name: string; phase: string; image: string; when: string; marks: Mark[] }[] = [
   {
     id: "troy",
+    campaign: "OIF I",
     name: "CJTF Troy",
+    phase: "National Resolution",
     image: "/incoming/troy.png",
     when: "2006",
     marks: [
@@ -15,56 +17,39 @@ const TASK_FORCES: { id: string; name: string; image: string; when: string; mark
   },
   {
     id: "ia-army",
+    campaign: "OIF II",
     name: "Task Force Iron Shield",
+    phase: "Iraq Sovereignty",
     image: "/incoming/cram.png",
     when: "Oct 2008\u20132009",
     marks: [
       { src: "/incoming/11th-ada.png", alt: "Admin \u00b7 11th ADA" },
+      { src: "/incoming/3-3ada.png", alt: "Partner \u00b7 3-3 ADA" },
       { src: "/incoming/332nd-aew.png", alt: "Customer \u00b7 332nd AEW" },
     ],
   },
   {
     id: "cjsotf",
+    campaign: "OEF I",
     name: "CJSOTF-A",
+    phase: "Afghanistan, 2010\u20132011",
     image: "/incoming/cjsotf-a.png",
     when: "2010\u20132011",
     marks: [{ src: "/incoming/3rd-sfg.png", alt: "Customer \u00b7 3rd SFG" }],
   },
   {
     id: "sojtf",
+    campaign: "OEF II",
     name: "SOJTF-A",
+    phase: "Afghanistan, 2012\u20132013",
     image: "/incoming/sojtf-a.png",
     when: "2012\u20132013",
     marks: [
       { src: "/incoming/290jcss.png", alt: "Partner \u00b7 290th JCSS" },
-      { src: "/incoming/75th-rgr.svg", alt: "Customer \u00b7 75th Ranger Regiment" },
+      { src: "/incoming/75th-rgr.svg", alt: "Customer \u00b7 75th Rangers" },
     ],
   },
 ];
-
-const CAMPAIGN_LABEL: Record<string, string> = {
-  "oif-2006": "OIF I",
-  "oif-2009": "OIF II",
-  "oef-2010": "OEF I",
-  "oef-2012": "OEF II",
-};
-
-const CAMPAIGN_MARKS: Record<string, Mark[]> = {
-  "oif-2006": [
-    { src: "/incoming/52nd-eod.png", alt: "Sponsor \u00b7 52nd EOD" },
-    { src: "/incoming/16th-en.png", alt: "Sponsor \u00b7 16th EN" },
-    { src: "/incoming/eodmu11.png", alt: "Partner \u00b7 EODMU 11" },
-  ],
-  "oif-2009": [
-    { src: "/incoming/11th-ada.png", alt: "Admin \u00b7 11th ADA" },
-    { src: "/incoming/332nd-aew.png", alt: "Customer \u00b7 332nd AEW" },
-  ],
-  "oef-2010": [{ src: "/incoming/3rd-sfg.png", alt: "Customer \u00b7 3rd SFG" }],
-  "oef-2012": [
-    { src: "/incoming/290jcss.png", alt: "Partner \u00b7 290th JCSS" },
-    { src: "/incoming/75th-rgr.svg", alt: "Customer \u00b7 75th Ranger Regiment" },
-  ],
-};
 
 const EXERCISE_CRESTS: Record<string, { image: string; host: string; marks: Mark[] }> = {
   "cobra-gold": {
@@ -74,51 +59,32 @@ const EXERCISE_CRESTS: Record<string, { image: string; host: string; marks: Mark
   },
   "talisman-saber": {
     image: "/incoming/talisman-saber.png",
-    host: "Host \u00b7 Australian Clearance Diving Team \u00b7 2005 and 2007",
-    marks: [{ src: "/incoming/auscdt-1.png", alt: "Australian Clearance Diving Team" }],
+    host: "Host \u00b7 Australian CDT \u00b7 2005 and 2007",
+    marks: [{ src: "/incoming/auscdt-1.png", alt: "Australian CDT" }],
   },
 };
 
-export function Ops({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
+export function Ops({ onOpen, title }: { onOpen: (k: Kind, id: string) => void; title: string }) {
   const exercises = visits.filter((visit) => visit.kind === "exercise");
   return (
     <main className="sheet">
-      <h2>Ops</h2>
-      <p>Task forces are Troy, Iron Shield, CJSOTF-A, and SOJTF-A. Campaigns are OIF I, OIF II, OEF I, and OEF II. Marks are admin, sponsor, partner, and customer. Exercises are Cobra Gold, Talisman Saber, and the other recorded training. Years that were not entered stay blank.</p>
-      <h3>Task forces</h3>
+      <h2>{title}</h2>
+      <p>Four deployments: OIF I with CJTF Troy, OIF II with Task Force Iron Shield, OEF I with CJSOTF-A, and OEF II with SOJTF-A. Marks are admin, sponsor, partner, and customer. Exercises are Cobra Gold, Talisman Saber, and the other recorded training.</p>
       <ol className="uniform-grid equipment-grid">
-        {TASK_FORCES.map((force) => (
+        {DEPLOYMENTS.map((force) => (
           <li key={force.id}>
             <button type="button" className="uniform-card equipment-card" onClick={() => onOpen("unit", force.id)}>
               <img className="crest-photo" src={publicUrl(force.image)} alt="" />
               <span className="card-marks">
                 {force.marks.map((mark) => <img key={mark.src} src={publicUrl(mark.src)} alt={mark.alt} />)}
               </span>
-              <strong>{force.name}</strong>
+              <strong>{force.campaign} · {force.name}</strong>
               <span>{force.when}</span>
+              <span>{force.phase}</span>
             </button>
           </li>
         ))}
       </ol>
-      <h3>Campaigns</h3>
-      <ul className="stack">
-        {operations.map((op) => (
-          <li key={op.id}>
-            <button type="button" className="row-btn" onClick={() => onOpen("operation", op.id)}>
-              <strong>{formatSpan(op.start, op.end)}</strong>
-              <span className="row-main">
-                {CAMPAIGN_LABEL[op.id] ?? op.name}
-                {CAMPAIGN_MARKS[op.id]?.length ? (
-                  <span className="card-marks">
-                    {CAMPAIGN_MARKS[op.id].map((mark) => <img key={mark.src} src={publicUrl(mark.src)} alt={mark.alt} />)}
-                  </span>
-                ) : null}
-              </span>
-              <em>{op.phase}</em>
-            </button>
-          </li>
-        ))}
-      </ul>
       <h3>Exercises</h3>
       <ol className="uniform-grid equipment-grid">
         {exercises.map((visit) => {

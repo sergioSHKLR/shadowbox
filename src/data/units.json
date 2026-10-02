@@ -96,7 +96,7 @@
     "end": "2007",
     "precision": "year",
     "placeId": "guam",
-    "explanation": "Explosive Ordnance Disposal Mobile Unit Five, a Navy bomb-disposal unit then based in Guam. Assignment to the unit is not the same as being a bomb-disposal technician. The shadowbox lists the NEC as 9613, a communications specialty. The Royal Thai Navy hosted Cobra Gold in 2004 and 2005. An Australian Clearance Diving Team was the partner on Talisman Saber in 2005 and 2007.",
+    "explanation": "Explosive Ordnance Disposal Mobile Unit Five, a Navy bomb-disposal unit then based in Guam. Assignment to the unit is not the same as being a bomb-disposal technician. The shadowbox lists the NEC as 9613, a communications specialty. The Royal Thai Navy hosted Cobra Gold in 2004 and 2005. An Australian CDT was the partner on Talisman Saber in 2005 and 2007.",
     "civilian": "The command's job was disposing of explosives. His recorded specialty there was communications.",
     "image": "/incoming/eodmu5.png"
   },
@@ -176,8 +176,8 @@
   },
   {
     "id": "75th-ranger",
-    "name": "75th Ranger Regiment",
-    "abbreviation": "75th Ranger Rgt",
+    "name": "75th Rangers",
+    "abbreviation": "75th Rangers",
     "patch": "75 RGR",
     "branch": "USA",
     "designator": "Assisting",
@@ -219,12 +219,13 @@
     "end": "2009",
     "precision": "month",
     "placeId": "jb-balad",
-    "explanation": "Individual-augmentee tour that started in October 2008, after SERCC. Five months at Fort Bliss with HHB 3-3 ADA, then the rest in country at Joint Base Balad. Task Force Iron Shield was the in-theater command. The 11th Air Defense Artillery Brigade was the over-arching parent (admin). The 332nd Air Expeditionary Wing at Joint Base Balad was the customer. HHB 3-3 ADA was the partner; its DUI is not yet a standalone file. The campaign phase named for this tour is Iraq Sovereignty.",
+    "explanation": "Individual-augmentee tour that started in October 2008, after SERCC. Five months at Fort Bliss with HHB 3-3 ADA, then the rest in country at Joint Base Balad. Task Force Iron Shield was the in-theater command. The 11th Air Defense Artillery Brigade was the over-arching parent (admin). HHB 3-3 ADA was the partner. The 332nd Air Expeditionary Wing at Joint Base Balad was the customer. The campaign phase named for this tour is Iraq Sovereignty.",
     "civilian": "He was still a sailor, working inside an Army deployment.",
     "onCase": false,
     "image": "/incoming/cram.png",
     "extraImages": [
       {"src": "/incoming/11th-ada.png", "alt": "11th Air Defense Artillery Brigade SSI", "caption": "Admin \u00b7 11th ADA"},
+      {"src": "/incoming/3-3ada.png", "alt": "3-3 ADA distinctive unit insignia", "caption": "Partner \u00b7 3-3 ADA"},
       {"src": "/incoming/332nd-aew.png", "alt": "332nd Air Expeditionary Wing emblem", "caption": "Customer \u00b7 332nd AEW"}
     ]
   },
@@ -244,6 +245,23 @@
     "civilian": "The Army brigade that owned the C-RAM deployment on paper.",
     "onCase": false,
     "image": "/incoming/11th-ada.png"
+  },
+  {
+    "id": "3-3-ada",
+    "name": "HHB, 3rd Battalion, 3rd Air Defense Artillery",
+    "abbreviation": "3-3 ADA",
+    "patch": "3-3 ADA",
+    "branch": "USA",
+    "designator": "Assisting",
+    "necId": null,
+    "start": "2008-10",
+    "end": "2009",
+    "precision": "month",
+    "placeId": "fort-bliss",
+    "explanation": "Headquarters and Headquarters Battery, 3rd Battalion, 3rd Air Defense Artillery Regiment. Partner on the OIF II individual-augmentee tour: five months of training at Fort Bliss from October 2008, then the rest of the tour in country at Joint Base Balad under Task Force Iron Shield. Fell under 11th ADA.",
+    "civilian": "The Army air-defense battery that trained with him at Fort Bliss and partnered on the C-RAM tour.",
+    "onCase": false,
+    "image": "/incoming/3-3ada.png"
   },
   {
     "id": "332nd-aew",
@@ -315,14 +333,14 @@
     "end": "2013",
     "precision": "year",
     "placeId": "fob-orgun-e",
-    "explanation": "OEF II in-theater command, 2012\u20132013, at FOB Orgun-E, while assigned to JCSE. The partner was 290th JCSS. The customer was 75th Ranger Regiment. The role in the record is communications, not service as a special operator. About seven months.",
+    "explanation": "OEF II in-theater command, 2012\u20132013, at FOB Orgun-E, while assigned to JCSE. The partner was 290th JCSS. The customer was 75th Rangers. The role in the record is communications, not service as a special operator. About seven months.",
     "civilian": "The later Afghanistan headquarters he supported.",
     "months": 7,
     "onCase": false,
     "image": "/incoming/sojtf-a.png",
     "extraImages": [
       {"src": "/incoming/290jcss.png", "alt": "290th Joint Communications Support Squadron patch", "caption": "Partner \u00b7 290th JCSS"},
-      {"src": "/incoming/75th-rgr.svg", "alt": "75th Ranger Regiment distinctive unit insignia", "caption": "Customer \u00b7 75th RGR"}
+      {"src": "/incoming/75th-rgr.svg", "alt": "75th Rangers distinctive unit insignia", "caption": "Customer \u00b7 75th Rangers"}
     ]
   },
   {

@@ -17,7 +17,7 @@
   html, body { background: #fff !important; color: #1c1915; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .archive { max-width: none; padding: 0; }
   .mast-nav, .uprog-controls, .map-play, .map-filter, .detail-overlay,
-  .icon-btn, .guest-form, .site-footer, .settings-overlay, .settings-modal,
+  .icon-btn, .guest-form, .site-footer, .page-turn, .settings-overlay, .settings-modal,
   .credits, .source-note, .face-note { display: none !important; }
   .screen-off { display: block !important; }
   .view-pane { display: block !important; break-before: page; break-after: page; page: book; }

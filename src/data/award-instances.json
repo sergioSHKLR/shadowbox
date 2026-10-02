@@ -122,10 +122,10 @@
   {
     "id": "nmuc-2000",
     "awardId": "nmuc",
-    "year": 2000,
+    "year": null,
     "unitId": null,
     "operationId": null,
-    "note": "One of five awards. The other four years are not on the worksheet."
+    "note": "One of five awards. The worksheet named 2000; NCTS was CONUS, so that year is not used."
   },
   {
     "id": "nmuc-u2",
@@ -133,7 +133,7 @@
     "year": null,
     "unitId": null,
     "operationId": null,
-    "note": "Year not entered. Likely NCTS, AS-40, EOD, or NH."
+    "note": "Year not entered. Likely AS-40, EOD, or NH."
   },
   {
     "id": "nmuc-u3",
@@ -387,9 +387,9 @@
     "id": "rifle-2001",
     "awardId": "rifle",
     "year": 2001,
-    "unitId": null,
+    "unitId": "frank-cable",
     "operationId": null,
-    "note": null
+    "note": "First on Frank Cable. NCTS was CONUS."
   },
   {
     "id": "pistol-2000",

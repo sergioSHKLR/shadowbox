@@ -7,18 +7,8 @@
     "pinsBelow": [],
     "rack": [
       { "id": "nam", "count": 1 },
-      { "id": "nmuc", "count": 1 },
-      { "id": "navy-e", "count": 1 },
       { "id": "ngcm", "count": 1 },
-      { "id": "ndsm", "count": 1 },
-      { "id": "ssdr", "count": 1 },
-      { "id": "osr", "count": 1 },
-      { "id": "rifle", "count": 1 },
       { "id": "pistol", "count": 1 }
-    ],
-    "extras": [
-      { "src": "/incoming/lsd-46.png", "title": "TAD", "unit": "USS Tortuga (LSD-46)", "date": "1997–1998", "kind": "unit", "id": "tortuga" },
-      { "src": "/incoming/acu-4.png", "title": "TAD", "unit": "ACU 4", "date": "1997–1998", "kind": "unit", "id": "tortuga" }
     ]
   },
   {
@@ -71,7 +61,7 @@
       { "src": "/incoming/cobra-gold.png", "title": "Exercise", "unit": "Cobra Gold", "date": "2004 and 2005", "kind": "place", "id": "u-tapao" },
       { "src": "/incoming/rtn.png", "title": "Host", "unit": "Royal Thai Navy", "date": "2004 and 2005", "kind": "place", "id": "u-tapao" },
       { "src": "/incoming/talisman-saber.png", "title": "Exercise", "unit": "Talisman Saber", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay" },
-      { "src": "/incoming/auscdt-1.png", "title": "Host", "unit": "Australian Clearance Diving Team", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay" }
+      { "src": "/incoming/auscdt-1.png", "title": "Host", "unit": "Australian CDT", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay" }
     ]
   },
   {
@@ -100,6 +90,7 @@
     "extras": [
       { "src": "/incoming/cram.png", "title": "In theater", "unit": "Task Force Iron Shield", "date": "Oct 2008–2009", "kind": "unit", "id": "ia-army" },
       { "src": "/incoming/11th-ada.png", "title": "Admin", "unit": "11th ADA", "date": "Oct 2008–2009", "kind": "unit", "id": "11th-ada" },
+      { "src": "/incoming/3-3ada.png", "title": "Partner", "unit": "3-3 ADA", "date": "Oct 2008–2009", "kind": "unit", "id": "3-3-ada" },
       { "src": "/incoming/332nd-aew.png", "title": "Customer", "unit": "332nd AEW", "date": "2009", "kind": "unit", "id": "332nd-aew" }
     ]
   },
@@ -137,7 +128,7 @@
       { "src": "/incoming/3rd-sfg.png", "title": "Customer", "unit": "3rd SFG", "date": "2010–2011", "kind": "unit", "id": "3rd-sfg" },
       { "src": "/incoming/sojtf-a.png", "title": "In theater", "unit": "SOJTF-A", "date": "2012–2013", "kind": "unit", "id": "sojtf" },
       { "src": "/incoming/290jcss.png", "title": "Partner", "unit": "290th JCSS", "date": "2012–2013", "kind": "unit", "id": "290th-jcss" },
-      { "src": "/incoming/75th-rgr.svg", "title": "Customer", "unit": "75th Ranger Regiment", "date": "2012–2013", "kind": "unit", "id": "75th-ranger" }
+      { "src": "/incoming/75th-rgr.svg", "title": "Customer", "unit": "75th Rangers", "date": "2012–2013", "kind": "unit", "id": "75th-ranger" }
     ]
   },
   {
