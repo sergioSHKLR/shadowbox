@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import * as Dialog from "@radix-ui/react-dialog";
-import { BookOpen, Car, ChartGantt, ClipboardList, Flag, Library, Map, Medal, MessageCircle, Radio, Settings, Shirt, X } from "lucide-react";
+import { BookOpen, Car, ChartGantt, ClipboardList, Flag, Library, Map, Medal, MessageCircle, Radio, Shirt } from "lucide-react";
 import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
-import { chrome, type Chrome } from "@/lib/shadowbox/copy";
-import { loadPrefs, resolveTheme, savePrefs, type Locale, type ThemeName } from "@/lib/shadowbox/prefs";
+import { chrome } from "@/lib/shadowbox/copy";
+import { loadPrefs, resolveTheme, savePrefs, type Locale } from "@/lib/shadowbox/prefs";
 import { DetailPanel } from "@/components/shadowbox/detail";
 import { Home, Timeline } from "@/components/shadowbox/timeline-view";
 import { Uniforms } from "@/components/shadowbox/uniforms-view";
@@ -21,61 +20,14 @@ type View = "home" | "uniforms" | "decorations" | "onduty" | "offduty" | "ops" |
 
 const NAV = ["uniforms", "decorations", "onduty", "ops", "map", "timeline", "admin", "offduty"] as const;
 const NAV_ICON = { uniforms: Shirt, decorations: Medal, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, admin: ClipboardList };
-const FOOTER = ["guestbook", "contact", "sources", "settings"] as const;
-const FOOTER_ICON = { sources: Library, contact: MessageCircle, guestbook: BookOpen, settings: Settings };
+const FOOTER = ["guestbook", "contact", "sources"] as const;
+const FOOTER_ICON = { sources: Library, contact: MessageCircle, guestbook: BookOpen };
 const ALIAS: Record<string, View> = { case: "home", schools: "admin", equipment: "onduty" };
 
 function asView(value: string): View {
   if (value in ALIAS) return ALIAS[value];
   const known: View[] = [...NAV, "sources", "contact", "guestbook", "memories"];
   return known.includes(value as View) ? (value as View) : "home";
-}
-
-function SettingsDialog({
-  open,
-  onClose,
-  locale,
-  theme,
-  setLocale,
-  setTheme,
-  t,
-}: {
-  open: boolean;
-  onClose: () => void;
-  locale: Locale;
-  theme: ThemeName;
-  setLocale: (locale: Locale) => void;
-  setTheme: (theme: ThemeName) => void;
-  t: Chrome;
-}) {
-  const frame = typeof document === "undefined" ? null : document.querySelector(".app-shell");
-  return (
-    <Dialog.Root open={open} onOpenChange={(next) => { if (!next) onClose(); }}>
-      <Dialog.Portal container={typeof HTMLElement !== "undefined" && frame instanceof HTMLElement ? frame : undefined}>
-        <Dialog.Overlay className="settings-overlay" />
-        <Dialog.Content className="settings-modal" aria-describedby="settings-lead">
-          <header>
-            <Dialog.Title>{t.settingsTitle}</Dialog.Title>
-            <Dialog.Close className="icon-btn" aria-label={t.close}>
-              <X />
-            </Dialog.Close>
-          </header>
-          <p id="settings-lead">{t.settingsLead}</p>
-          <h3>{t.language}</h3>
-          <div className="choice-row" role="group" aria-label={t.language}>
-            <button type="button" className={locale === "en" ? "nav-btn on" : "nav-btn"} aria-pressed={locale === "en"} onClick={() => setLocale("en")}>{t.english}</button>
-            <button type="button" className={locale === "pt" ? "nav-btn on" : "nav-btn"} aria-pressed={locale === "pt"} onClick={() => setLocale("pt")}>{t.portuguese}</button>
-          </div>
-          <h3>{t.theme}</h3>
-          <div className="choice-row" role="group" aria-label={t.theme}>
-            <button type="button" className={theme === "light" ? "nav-btn on" : "nav-btn"} aria-pressed={theme === "light"} onClick={() => setTheme("light")}>{t.light}</button>
-            <button type="button" className={theme === "dark" ? "nav-btn on" : "nav-btn"} aria-pressed={theme === "dark"} onClick={() => setTheme("dark")}>{t.dark}</button>
-            <button type="button" className={theme === "system" ? "nav-btn on" : "nav-btn"} aria-pressed={theme === "system"} onClick={() => setTheme("system")}>{t.system}</button>
-          </div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
-  );
 }
 
 function Mark() {
@@ -96,9 +48,7 @@ export function ShadowboxApp() {
   const [selection, setSelection] = useState<Selection | null>(null);
   const [trail, setTrail] = useState<Selection[]>([]);
   const [locale, setLocale] = useState<Locale>("en");
-  const [theme, setTheme] = useState<ThemeName>("light");
   const [prefsReady, setPrefsReady] = useState(false);
-  const [settingsOpen, setSettingsOpen] = useState(false);
   const menuRef = useRef<HTMLUListElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -126,8 +76,7 @@ export function ShadowboxApp() {
     });
   };
   const take = (hit: Hit) => {
-    if ("view" in hit.open && hit.open.view === "settings") setSettingsOpen(true);
-    else if ("view" in hit.open) go(asView(hit.open.view));
+    if ("view" in hit.open) go(asView(hit.open.view));
     else open(hit.open.kind, hit.open.id);
     setMenu(false);
     setQuery("");
@@ -137,7 +86,6 @@ export function ShadowboxApp() {
   useEffect(() => {
     const saved = loadPrefs();
     setLocale(saved.locale);
-    setTheme(saved.theme);
     setPrefsReady(true);
   }, []);
   useEffect(() => {
@@ -147,7 +95,7 @@ export function ShadowboxApp() {
     if (!prefsReady) return;
     const apply = () => {
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const resolved = resolveTheme(theme, prefersDark);
+      const resolved = resolveTheme("system", prefersDark);
       document.documentElement.lang = locale === "pt" ? "pt-BR" : "en";
       document.documentElement.dataset.theme = resolved;
       const base = import.meta.env.BASE_URL || "/";
@@ -157,12 +105,11 @@ export function ShadowboxApp() {
       if (apple) apple.href = `${base}icons/apple-touch-icon${resolved === "dark" ? "-dark" : ""}.png`;
     };
     apply();
-    savePrefs({ locale, theme });
-    if (theme !== "system") return;
+    savePrefs({ locale, theme: "system" });
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     media.addEventListener("change", apply);
     return () => media.removeEventListener("change", apply);
-  }, [prefsReady, locale, theme]);
+  }, [prefsReady, locale]);
   useEffect(() => {
     if (!menu) return;
     const close = (event: PointerEvent) => {
@@ -193,6 +140,10 @@ export function ShadowboxApp() {
           <Mark />
           <span className="app-title">{t.title}</span>
         </button>
+        <div className="app-end">
+        <button type="button" className="app-icon app-flag" aria-label={locale === "pt" ? t.english : t.portuguese} onClick={() => setLocale(locale === "pt" ? "en" : "pt")}>
+          {locale === "pt" ? "🇧🇷" : "🇺🇸"}
+        </button>
         <div className={searchOpen ? "app-search is-open" : "app-search"} ref={searchRef}>
           <button type="button" className="app-icon" aria-label={t.search} aria-expanded={searchOpen} onClick={() => { setSearchOpen((open) => !open); setMenu(false); }}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M16 16l4 4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
@@ -215,6 +166,7 @@ export function ShadowboxApp() {
         <button ref={menuButtonRef} type="button" className="app-icon" aria-label={t.menu} aria-expanded={menu} onClick={() => { setMenu((open) => !open); setSearchOpen(false); }}>
           &#9776;
         </button>
+        </div>
         {menu ? (
           <ul className="app-menu" ref={menuRef}>
             {NAV.map((id) => {
@@ -255,15 +207,8 @@ export function ShadowboxApp() {
         <nav className="footer-nav" aria-label={t.footerNav}>
           {FOOTER.map((id) => {
             const Icon = FOOTER_ICON[id];
-            const openSettings = id === "settings";
             return (
-              <button
-                key={id}
-                type="button"
-                className="footer-link"
-                aria-expanded={openSettings ? settingsOpen : undefined}
-                onClick={() => (openSettings ? setSettingsOpen(true) : go(id))}
-              >
+              <button key={id} type="button" className="footer-link" onClick={() => go(id)}>
                 <Icon size={16} strokeWidth={1.75} aria-hidden="true" />
                 {t[id]}
               </button>
@@ -271,7 +216,6 @@ export function ShadowboxApp() {
           })}
         </nav>
       </footer>
-      <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} locale={locale} theme={theme} setLocale={setLocale} setTheme={setTheme} t={t} />
       <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setSelection(null); setTrail([]); }} />
     </div>
   );
