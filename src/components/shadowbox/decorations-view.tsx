@@ -3,11 +3,10 @@ import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import {
   awards,
   caseCopy,
+  certificates,
   instances,
-  medalFor,
   profile,
   publicUrl,
-  ribbonDevicePlate,
   ribbonRows,
   warfare,
   type Award,
@@ -45,12 +44,6 @@ function earnedBy(day: string): Award[] {
   const got = new Set(instances.filter((row) => row.year != null && row.year <= y).map((row) => row.awardId));
   return awards.filter((award) => got.has(award.id));
 }
-function medalRows(list: Award[]): Award[][] {
-  const rows: Award[][] = [];
-  for (let i = 0; i < list.length; i += 5) rows.push(list.slice(i, i + 5));
-  return rows;
-}
-
 function Rack({ list, onOpen }: { list: Award[]; onOpen: (id: string) => void }) {
   if (!list.length) return null;
   return (
@@ -65,18 +58,6 @@ function Rack({ list, onOpen }: { list: Award[]; onOpen: (id: string) => void })
         </div>
       ))}
     </div>
-  );
-}
-
-function Hanging({ award, onOpen }: { award: Award; onOpen: (id: string) => void }) {
-  const medal = medalFor(award.id);
-  const devices = ribbonDevicePlate(award);
-  if (!medal?.front) return null;
-  return (
-    <button type="button" className="hanging-medal" onClick={() => onOpen(award.id)} aria-label={award.name}>
-      <img src={publicUrl(medal.front)} alt="" />
-      {devices ? <img className="suspension-device" src={publicUrl(devices)} alt="" /> : null}
-    </button>
   );
 }
 
@@ -100,7 +81,6 @@ export function Decorations({
 }) {
   const [month, setMonth] = useState(M0);
   const [playing, setPlaying] = useState(false);
-  const [medals, setMedals] = useState(false);
   useEffect(() => {
     if (!tour) return;
     setPlaying(false);
@@ -125,8 +105,6 @@ export function Decorations({
   }, [playing]);
   const day = dayOf(month);
   const list = useMemo(() => earnedBy(day), [day]);
-  const withMedal = list.filter((award) => medalFor(award.id)?.front);
-  const ribbonOnly = list.filter((award) => !medalFor(award.id)?.front);
   const label = `${MONTHS[Number(day.slice(5, 7)) - 1]} ${day.slice(0, 4)}`;
   const openAward = (id: string) => onOpen("award", id);
   const showSw = month >= ESWS_FROM;
@@ -158,40 +136,29 @@ export function Decorations({
         <button type="button" className="nav-btn icon-btn" aria-label="Forward six months" onClick={() => { setPlaying(false); setMonth((m) => Math.min(M1, m + 6)); }}>
           <ChevronRight size={20} strokeWidth={2} aria-hidden="true" />
         </button>
-        <label className="uprog-slider">
-          <span className="sr-only">Date</span>
-          <input type="range" min={M0} max={M1} step={1} value={month} aria-valuetext={label} onChange={(e) => { setPlaying(false); setMonth(Number(e.target.value)); }} />
-        </label>
-        <output className="uprog-date">{label}</output>
-        <button type="button" className={medals ? "nav-btn on" : "nav-btn"} aria-pressed={medals} onClick={() => setMedals((on) => !on)}>
-          {medals ? "Ribbons and medals" : "Ribbons"}
-        </button>
-      </div>
-      {medals ? (
-        <div className="decor-split">
-          <div className="decor-ribbons">
-            <Rack list={ribbonOnly} onOpen={openAward} />
-            {!ribbonOnly.length ? <p className="quiet">No ribbon-only awards yet.</p> : null}
-          </div>
-          <div className="decor-medals">
-            {showSw ? <Pin id="esws" onOpen={onOpen} /> : null}
-            <div className="living-medals">
-              {medalRows(withMedal).map((row) => (
-                <div key={row.map((a) => a.id).join("-")} className={row.length >= 4 ? "medal-row overlap" : "medal-row"}>
-                  {row.map((award, i) => (
-                    <span key={award.id} style={{ zIndex: row.length - i }}>
-                      <Hanging award={award} onOpen={openAward} />
-                    </span>
-                  ))}
-                </div>
-              ))}
-              {!withMedal.length ? <p className="quiet">No full-size medal art for this date yet.</p> : null}
-            </div>
-            {showExw ? <Pin id="exw" onOpen={onOpen} /> : null}
-          </div>
+        <div className="uprog-scrub">
+          <output className="uprog-date">{label}</output>
+          <label className="uprog-slider">
+            <span className="sr-only">Date</span>
+            <input type="range" min={M0} max={M1} step={1} value={month} aria-valuetext={label} onChange={(e) => { setPlaying(false); setMonth(Number(e.target.value)); }} />
+          </label>
         </div>
-      ) : ribbonBlock}
+      </div>
+      {ribbonBlock}
       <p className="uprog-caption">{list.length} on the rack</p>
+      <h3>Unofficial certificates</h3>
+      <p>Not worn on the rack.</p>
+      <ul className="stack">
+        {certificates.map((certificate) => (
+          <li key={certificate.id}>
+            <button type="button" className="row-btn" onClick={() => onOpen("certificate", certificate.id)}>
+              <strong>Date needed</strong>
+              <span>{certificate.name}</span>
+              <em>Unofficial</em>
+            </button>
+          </li>
+        ))}
+      </ul>
       <div className="uniform-timeline-parked" hidden>
         <UniformProgression onOpen={onOpen} tour={tour} />
       </div>

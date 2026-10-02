@@ -22,6 +22,7 @@ import medalsJson from "@/data/medals.json";
 import ranksJson from "@/data/ranks.json";
 import supplementJson from "@/data/supplement.json";
 import worldEventsJson from "@/data/world-events.json";
+import certificatesJson from "@/data/certificates.json";
 
 /** Public files are served from the base URL: the site root in dev and on https://mil.shklr.org. */
 export function publicUrl(path: string): string {
@@ -79,7 +80,8 @@ export type Kind =
   | "milestone"
   | "photo"
   | "equipment"
-  | "rank";
+  | "rank"
+  | "certificate";
 
 export type Device = {
   kind: "oak" | "star" | "letter";
@@ -212,7 +214,7 @@ export type Uniform = {
   image: string;
 };
 
-export type EquipmentGroup = "armor" | "helmets" | "weapons" | "comms" | "vehicles" | "ships" | "aircraft" | "cars" | "motorcycles" | "cities";
+export type EquipmentGroup = "armor" | "helmets" | "weapons" | "comms" | "vehicles" | "ships" | "aircraft" | "cars" | "motorcycles" | "cities" | "residences";
 
 export const EQUIPMENT_GROUPS: { id: EquipmentGroup; label: string }[] = [
   { id: "armor", label: "Body Armor" },
@@ -225,6 +227,7 @@ export const EQUIPMENT_GROUPS: { id: EquipmentGroup; label: string }[] = [
   { id: "cars", label: "Cars" },
   { id: "motorcycles", label: "Motorcycles" },
   { id: "cities", label: "Cities" },
+  { id: "residences", label: "Residences" },
 ];
 
 export type Equipment = {
@@ -251,6 +254,8 @@ export type Place = {
   note: string;
   /** "base" marks a deployment base (FOB, air base); "visit" a port visit, exercise, school or other stop. Both get their own pin colour. */
   type?: "base" | "visit";
+  /** "red" paints this pin red. Other duty pins stay blue. */
+  pin?: "red";
 };
 
 /** A port visit, exercise, school, TAD or secondary duty location, pinned on the map in chronological order. */
@@ -365,6 +370,8 @@ export const reflections = reflectionsJson as Reflection[];
 export const warfare = warfareJson as Warfare[];
 export const insignia = insigniaJson as Insignia[];
 export const milestones = milestonesJson as Milestone[];
+export type Certificate = { id: string; name: string; explanation: string };
+export const certificates = certificatesJson as Certificate[];
 export const credits = creditsJson as Credit[];
 export const equipment = equipmentJson as Equipment[];
 export const branches = branchesJson as Record<string, string>;
@@ -692,7 +699,7 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]
     })),
   ));
   const study = finish(pack(
-    schools.map((school) => ({
+    schools.filter((school) => school.start).map((school) => ({
       key: school.id,
       kind: "school" as const,
       id: school.id,
@@ -834,7 +841,7 @@ export type UsedItem = { kind: "uniform" | "equipment"; id: string; name: string
  */
 export const usedHere = usedHereJson as Record<string, string[]>;
 
-const USED_ORDER = ["uniform", "armor", "helmets", "weapons", "comms", "vehicles", "ships", "aircraft", "cars", "motorcycles", "cities"];
+const USED_ORDER = ["uniform", "armor", "helmets", "weapons", "comms", "vehicles", "ships", "aircraft", "cars", "motorcycles", "cities", "residences"];
 
 export function usedHereFor(subjectId: string): UsedItem[] {
   const items: UsedItem[] = [];
@@ -888,6 +895,7 @@ function linkLabel(link: LinkRef): string | null {
   if (link.kind === "school") return byId(schools, link.id)?.name ?? null;
   if (link.kind === "nec") return necById(link.id)?.name ?? null;
   if (link.kind === "award") return awardById(link.id)?.name ?? null;
+  if (link.kind === "certificate") return byId(certificates, link.id)?.name ?? null;
   return null;
 }
 
@@ -1112,7 +1120,7 @@ export function toSubject(sel: Selection): SubjectView | null {
         ...(unit ? [rel("unit", unit.id, unit.name)] : []),
         ...usedAt(item.id).filter((link) => link.id !== unit?.id),
       ],
-      hero: { type: "image", src: item.image, alt: item.caption ? `${item.name}: ${item.caption}` : item.name, shape: item.cutout ? "landscape" : "photo" },
+      hero: item.image ? { type: "image", src: item.image, alt: item.caption ? `${item.name}: ${item.caption}` : item.name, shape: item.cutout ? "landscape" : "photo" } : undefined,
     };
   }
 
@@ -1189,6 +1197,21 @@ export function toSubject(sel: Selection): SubjectView | null {
       facts: [{ label: "Date", value: formatWhen(mark.date) }],
       placeIds: mark.placeIds ?? [],
       related: resolveLinks(mark.related),
+    };
+  }
+
+  if (sel.kind === "certificate") {
+    const certificate = byId(certificates, sel.id);
+    if (!certificate) return null;
+    return {
+      kind: "certificate",
+      id: certificate.id,
+      kicker: "Unofficial certificate",
+      title: certificate.name,
+      explanation: certificate.explanation,
+      facts: [{ label: "Worn", value: "Not worn. This is not a decoration on the rack." }],
+      placeIds: [],
+      related: [],
     };
   }
 

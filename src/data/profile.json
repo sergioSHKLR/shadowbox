@@ -2,7 +2,7 @@
   "id": "schickler",
   "name": "Sergio Schickler",
   "rate": "ETC",
-  "warfareDesignators": "SW/EXW",
+  "warfareDesignators": "EXW/SW",
   "rating": "Electronics Technician",
   "rank": "Chief Petty Officer",
   "paygrade": "E-7",
@@ -54,7 +54,7 @@
   ],
   "portrait": "/photos/chief-2018.webp",
   "headerLines": [
-    "ETC (SW/EXW) Sergio Schickler",
+    "ETC (EXW/SW) Sergio Schickler",
     "United States Navy, Retired",
     "30 June 1997 - 28 Feb 2018"
   ],
@@ -66,7 +66,7 @@
       "30 Jun 1997"
     ],
     "chief": [
-      "ETC (SW/EXW) Sergio Schickler",
+      "ETC (EXW/SW) Sergio Schickler",
       "28 Feb 2018"
     ]
   }

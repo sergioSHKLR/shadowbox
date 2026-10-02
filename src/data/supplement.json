@@ -21,7 +21,7 @@
       "Under Instruction": [
         "UND-01: RTC"
       ],
-      "Cities/Residences": [
+      "Cities": [
         "CIT-01: Great Lakes"
       ],
       "Division": [
@@ -58,7 +58,7 @@
         "UNI-05: PO Dress Whites",
         "UNI-21: Dungarees"
       ],
-      "Cities/Residences": [
+      "Cities": [
         "CIT-02: Virginia Beach"
       ],
       "Division": [
@@ -92,7 +92,7 @@
       "Under Instruction": [
         "UND-02: NTC"
       ],
-      "Cities/Residences": [
+      "Cities": [
         "CIT-01: Great Lakes"
       ]
     }
@@ -127,7 +127,7 @@
       "Under Instruction": [
         "UND-03: Keesler AFB"
       ],
-      "Cities/Residences": [
+      "Residences": [
         "CIT-09: Biloxi, MS"
       ]
     }
@@ -181,14 +181,14 @@
       "Under Instruction": [
         "UND-04: 32nd Street"
       ],
-      "Cities/Residences": [
+      "Residences": [
         "CIT-04: Imperial Beach"
       ],
       "Countries": [
         "COU-03: Mexico"
       ],
       "POV": [
-        "POV-01: Nissan Frontier"
+        "POV-01: Nissan Frontier, silver, 1997"
       ],
       "Off-duty work": [
         "OFF-01: CSC Events"
@@ -254,9 +254,9 @@
         "UNI-22: Utilities",
         "UNI-23: Coveralls"
       ],
-      "Cities/Residences": [
+      "Residences": [
         "CIT-03: Talofofo",
-        "CIT-08: Santa Rita"
+        "CIT-08: Santa Rita, GU"
       ],
       "Countries": [
         "COU-05: China",
@@ -264,18 +264,22 @@
         "COU-08: Korea"
       ],
       "POV": [
-        "POV-02: Ford Ranger",
-        "POV-03: Nissan Sentra Silver",
-        "POV-04: Nissan Sentra Red"
+        "POV-02: Ford Ranger, green, 1995 or 1996",
+        "POV-03: Nissan Sentra, grey, 2007",
+        "POV-04: Nissan Sentra, red, 1991"
       ],
       "Motorcycles": [
-        "MOT-01: XT225"
+        "MOT-01: XT225, white and blue, 2001"
       ],
       "Hobbies": [
         "HOB-01: Kayak",
         "HOB-02: Biking",
         "HOB-03: Hash Run",
         "HOB-04: Diving"
+      ],
+      "Off-duty aircraft": [
+        "AIR-01: C5",
+        "AIR-03: C9"
       ],
       "Division": [
         "DIV-02: R6"
@@ -364,7 +368,11 @@
         "COM-08: KYK-13",
         "COM-09: AN/CYZ-10",
         "COM-10: KL-43",
-        "COM-11: KG-175A"
+        "COM-11: KG-175A",
+        "KY-99A"
+      ],
+      "Ships": [
+        "Zodiac"
       ],
       "Uniforms": [
         "UNI-02: PO Working Whites",
@@ -375,9 +383,9 @@
         "UNI-17: EOD PT",
         "UNI-19: Diver shorts"
       ],
-      "Cities/Residences": [
+      "Residences": [
         "CIT-03: Talofofo",
-        "CIT-08: Santa Rita"
+        "CIT-08: Santa Rita, GU"
       ],
       "Countries": [
         "COU-04: Australia",
@@ -385,10 +393,10 @@
         "COU-07: Thailand"
       ],
       "POV": [
-        "POV-04: Nissan Sentra Red"
+        "POV-04: Nissan Sentra, red, 1991"
       ],
       "Motorcycles": [
-        "MOT-01: XT225"
+        "MOT-01: XT225, white and blue, 2001"
       ],
       "Hobbies": [
         "HOB-01: Kayak",
@@ -526,11 +534,11 @@
         "UNI-16: New PT",
         "UNI-22: Utilities"
       ],
-      "Cities/Residences": [
-        "CIT-06: Orange Park"
+      "Residences": [
+        "CIT-06: Orange Park, FL"
       ],
       "Motorcycles": [
-        "MOT-02: Buell 500",
+        "MOT-02: Buell 500, black",
         "MOT-03: Sportster 1200"
       ],
       "Hobbies": [
@@ -702,14 +710,12 @@
         "UNI-24: Peanut Butters"
       ],
       "Aircraft": [
-        "AIR-01: C5",
         "AIR-02: C130",
-        "AIR-03: C9",
         "AIR-04: Black Hawk",
         "AIR-05: Mi-17",
         "AIR-06: C17"
       ],
-      "Cities/Residences": [
+      "Residences": [
         "CIT-07: South Tampa"
       ],
       "Countries": [
@@ -802,7 +808,7 @@
         "AIR-05: Mi-17",
         "AIR-06: C17"
       ],
-      "Cities/Residences": [
+      "Residences": [
         "CIT-07: South Tampa"
       ],
       "Countries": [
@@ -890,7 +896,7 @@
         "AIR-05: Mi-17",
         "AIR-06: C17"
       ],
-      "Cities/Residences": [
+      "Residences": [
         "CIT-07: South Tampa"
       ],
       "Countries": [
@@ -941,8 +947,8 @@
         "UNI-15: Chief Khakis",
         "UNI-16: New PT"
       ],
-      "Cities/Residences": [
-        "CIT-06: Orange Park"
+      "Residences": [
+        "CIT-06: Orange Park, FL"
       ],
       "POV": [
         "POV-06: Chevy Spark White",

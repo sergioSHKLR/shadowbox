@@ -13,6 +13,8 @@ import {
 
 const usedHere = usedHereJson as Record<string, string[]>;
 const DUTY = ["armor", "helmets", "weapons", "comms", "vehicles", "ships", "aircraft"];
+/** C-5 and C-9 are off duty on the AS-40 tour, so they stay off this page. */
+const OFF_DUTY_IDS = new Set(["c-5", "c-9"]);
 
 function ownersOf(id: string): string[] {
   const found = new Set<string>();
@@ -23,18 +25,41 @@ function ownersOf(id: string): string[] {
   }
   return [...found];
 }
+/** Short names for the deployment chips. The two Afghanistan tours are OEF I (2010–2011) and OEF II (2012–2013). */
+const CHIP_LABEL: Record<string, string> = {
+  "oef-2010": "OEF I",
+  "oef-2012": "OEF II",
+  troy: "OIF I",
+  "ia-army": "OIF II",
+};
+const UNLISTED = "unlisted";
+
 function ownerLabel(id: string): string {
+  if (CHIP_LABEL[id]) return CHIP_LABEL[id];
   const unit = unitById(id) ?? units.find((u) => u.id === id);
   if (unit) return unit.abbreviation || unit.name;
   const op = operations.find((o) => o.id === id);
   if (op) return op.theater || op.name;
   return id;
 }
-const COMMANDS = [...new Set(equipment.filter((item) => DUTY.includes(item.group)).flatMap((item) => ownersOf(item.id)))]
-  .map((id) => ({ id, label: ownerLabel(id) }))
-  .sort((a, b) => a.label.localeCompare(b.label));
+/** Date of a command. A unit with no date of its own keeps the previous command's start, the same way the record does. */
+function commandWhen(id: string): string {
+  const at = units.findIndex((unit) => unit.id === id);
+  if (at >= 0) {
+    let when = "";
+    for (let i = 0; i <= at; i++) if (units[i].start) when = units[i].start as string;
+    return when;
+  }
+  return operations.find((op) => op.id === id)?.start ?? "9999";
+}
+const COMMANDS = [
+  ...[...new Set(equipment.filter((item) => DUTY.includes(item.group)).flatMap((item) => ownersOf(item.id)))]
+    .map((id) => ({ id, label: ownerLabel(id) }))
+    .sort((a, b) => commandWhen(a.id).localeCompare(commandWhen(b.id)) || a.label.localeCompare(b.label)),
+  { id: UNLISTED, label: "Unlisted" },
+];
 
-export function EquipmentView({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
+export function OnDuty({ onOpen, title }: { onOpen: (k: Kind, id: string) => void; title: string }) {
   const [shown, setShown] = useState<string[] | null>(null);
   const toggle = (id: string) =>
     setShown((cur) => {
@@ -42,10 +67,16 @@ export function EquipmentView({ onOpen }: { onOpen: (k: Kind, id: string) => voi
       const next = cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id];
       return next.length === 0 || next.length === COMMANDS.length ? null : next;
     });
-  const visible = equipment.filter((item) => DUTY.includes(item.group) && (!shown || ownersOf(item.id).some((id) => shown.includes(id))));
+  const visible = equipment.filter((item) => {
+    if (!DUTY.includes(item.group) || OFF_DUTY_IDS.has(item.id)) return false;
+    if (!shown) return true;
+    const owners = ownersOf(item.id);
+    if (!owners.length) return shown.includes(UNLISTED);
+    return owners.some((id) => shown.includes(id));
+  });
   return (
     <main className="sheet">
-      <h2>On Duty</h2>
+      <h2>{title}</h2>
       <p>{caseCopy.equipmentLead}</p>
       <div className="map-filter" role="group" aria-label="Show gear by command">
         <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>All</button>

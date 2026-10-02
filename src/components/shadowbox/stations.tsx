@@ -32,6 +32,8 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
   const [cursor, setCursor] = useState<number | null>(null);
   const [playing, setPlaying] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef(cursor);
+  cursorRef.current = cursor;
   const last = Math.max(0, stops.length - 1);
 
   useEffect(() => {
@@ -45,18 +47,18 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
       setPlaying(false);
       return;
     }
+    const count = stops.length;
     const id = window.setInterval(() => {
-      setCursor((cur) => {
-        const next = cur == null ? 0 : cur + 1;
-        if (next >= stops.length) {
-          setPlaying(false);
-          return last;
-        }
-        return next;
-      });
+      const cur = cursorRef.current;
+      const next = cur == null ? 0 : cur + 1;
+      if (next >= count) {
+        setPlaying(false);
+        return;
+      }
+      setCursor(next);
     }, 2200);
     return () => window.clearInterval(id);
-  }, [playing, stops.length, last]);
+  }, [playing, stops.length]);
 
   const keepMapInView = () => {
     const stage = stageRef.current;
@@ -126,7 +128,7 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
               type="range"
               min={0}
               max={last}
-              value={cursor ?? last}
+              value={cursor ?? 0}
               onChange={(event) => {
                 setPlaying(false);
                 setCursor(Number(event.target.value));
@@ -156,7 +158,7 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
         {stops.map((stop, index) => (
           <li key={`${stop.place.id}-${index}`} data-stop={index} className={cursor == null ? undefined : index === cursor ? "now" : index > cursor ? "later" : "reached"}>
             <button type="button" onClick={() => { setPlaying(false); setCursor(index); onOpen("place", stop.place.id); }}>
-              <span className={`pin-num ${stop.place.type ? `${stop.place.type} ` : ""}${stop.place.accuracy}`} aria-label={`Pin ${stop.n}`}>{stop.n}</span>
+              <span className={`pin-num ${stop.place.type ? `${stop.place.type} ` : ""}${stop.place.pin ? `${stop.place.pin} ` : ""}${stop.place.accuracy}`} aria-label={`Pin ${stop.n}`}>{stop.n}</span>
               <strong>{stop.place.name}</strong>
               <span>{stop.labels.join(" · ")}</span>
             </button>
