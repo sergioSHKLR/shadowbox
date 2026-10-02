@@ -58,10 +58,10 @@ const COMMAND_LINKS: Record<string, Linked[]> = {
     {
       kind: "place",
       id: "shoalwater-bay",
-      label: "Exercise \u00b7 Talisman Saber \u00b7 Australian Clearance Diving Team",
+      label: "Exercise \u00b7 Talisman Saber \u00b7 Australian CDT",
       marks: [
         { src: "/incoming/talisman-saber.png", alt: "Talisman Saber" },
-        { src: "/incoming/auscdt-1.png", alt: "Australian Clearance Diving Team" },
+        { src: "/incoming/auscdt-1.png", alt: "Australian CDT" },
       ],
     },
   ],
@@ -71,6 +71,7 @@ const COMMAND_LINKS: Record<string, Linked[]> = {
     label: "In theater \u00b7 Task Force Iron Shield",
     marks: [
       { src: "/incoming/11th-ada.png", alt: "Admin \u00b7 11th ADA" },
+      { src: "/incoming/3-3ada.png", alt: "Partner \u00b7 3-3 ADA" },
       { src: "/incoming/332nd-aew.png", alt: "Customer \u00b7 332nd AEW" },
     ],
   }],
@@ -87,7 +88,7 @@ const COMMAND_LINKS: Record<string, Linked[]> = {
       label: "In theater \u00b7 SOJTF-A",
       marks: [
         { src: "/incoming/290jcss.png", alt: "Partner \u00b7 290th JCSS" },
-        { src: "/incoming/75th-rgr.svg", alt: "Customer \u00b7 75th Ranger Regiment" },
+        { src: "/incoming/75th-rgr.svg", alt: "Customer \u00b7 75th Rangers" },
       ],
     },
   ],
@@ -122,6 +123,8 @@ const CREST: Record<string, string> = {
   "52nd EOD": "/incoming/52nd-eod.png",
   "16th EN": "/incoming/16th-en.png",
   "11th ADA": "/incoming/11th-ada.png",
+  "3-3 ADA": "/incoming/3-3ada.png",
+  "HHB 3-3 ADA": "/incoming/3-3ada.png",
   "332nd AEW": "/incoming/332nd-aew.png",
   "332nd Air Expeditionary Wing": "/incoming/332nd-aew.png",
   "3rd SFG": "/incoming/3rd-sfg.png",
@@ -131,6 +134,7 @@ const CREST: Record<string, string> = {
   "ODA 3213": "/incoming/3rd-sfg.png",
   "3rd SFG (ODA 3213)": "/incoming/3rd-sfg.png",
   "Royal Thai Navy": "/incoming/rtn.png",
+  "Australian CDT": "/incoming/auscdt-1.png",
   "Australian Clearance Diving Team": "/incoming/auscdt-1.png",
   "Cobra Gold": "/incoming/cobra-gold.png",
   "Cobra Gold 2004": "/incoming/cobra-gold.png",
@@ -243,7 +247,7 @@ function UnitDossier({ id }: { id: string }) {
         src: visit.id === "cobra-gold" ? CREST["Cobra Gold"] : visit.id === "talisman-saber" ? CREST["Talisman Saber"] : undefined,
       }];
       if (visit.id === "cobra-gold") shots.push({ name: "Royal Thai Navy", src: CREST["Royal Thai Navy"] });
-      if (visit.id === "talisman-saber") shots.push({ name: "Australian Clearance Diving Team", src: CREST["Australian Clearance Diving Team"] });
+      if (visit.id === "talisman-saber") shots.push({ name: "Australian CDT", src: CREST["Australian CDT"] });
       return shots;
     }),
     ...list(id, "Operation").filter((name) => /cobra gold|talisman saber/i.test(name)).map((name) => ({ name, src: crestFor(name) })),
