@@ -5,7 +5,7 @@ United States Navy, Retired
 
 A reading copy of the Navy career of ETC (SW/EXW) Sergio Schickler, United States Navy, Retired.
 
-Open the case, then a ribbon, a patch, a uniform, or a pin. Each one explains what it is, what the devices mean, and which years are still blank. The timeline and the map use the same record.
+The timeline is the front page. Uniforms, decorations, equipment, operations, the map, and schools are in the menu. A ribbon, a uniform, a school, or a pin opens its explanation beside the page. Language and theme are in Settings.
 
 ## What is not here
 
