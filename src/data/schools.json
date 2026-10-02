@@ -245,5 +245,19 @@
     "placeConfidence": "recorded",
     "source": "jst",
     "explanation": "Command Fitness Leader course at Naval Air Station Jacksonville. Completion 26 June 2015. Lines up with NEC 95PT (later 8CFL)."
+  },
+  {
+    "id": "gryphon-school",
+    "name": "Gryphon School",
+    "abbreviation": "Gryphon",
+    "cin": null,
+    "start": "",
+    "end": null,
+    "length": null,
+    "placeId": "gryphon-maxton",
+    "placeConfidence": "recorded",
+    "source": "recorded",
+    "explanation": "Gryphon Group's school at Laurinburg–Maxton Airport, Maxton, North Carolina. The course and the dates have not been entered.",
+    "open": "Gryphon School: course and dates not entered."
   }
 ]

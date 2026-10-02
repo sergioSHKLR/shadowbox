@@ -12,14 +12,13 @@ function loadNotes(): Note[] {
   }
 }
 
-export function Contact({ onOpenBook }: { onOpenBook: () => void }) {
+export function Contact() {
   return (
     <main className="sheet">
       <h2>Contact</h2>
       <p>This is a personal record, kept so the uniform and the tours can be read. A question about a date, a graphic, or a credit can go to WhatsApp.</p>
       <p>Itajaí, Santa Catarina, Brazil.</p>
       <p><a className="nav-btn on" href={WHATSAPP} target="_blank" rel="noreferrer">WhatsApp +55 47 98869-5995</a></p>
-      <button type="button" className="nav-btn" onClick={onOpenBook}>Open the guestbook</button>
     </main>
   );
 }

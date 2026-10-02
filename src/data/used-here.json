@@ -9,6 +9,8 @@
     "utilities",
     "coveralls",
     "beretta-m9",
+    "c-5",
+    "c-9",
     "ford-ranger",
     "nissan-sentra-silver",
     "nissan-sentra-red",
@@ -36,7 +38,8 @@
     "m16a1",
     "plate-carrier-multicam",
     "pasgt-helmet-desert",
-    "ach-tan"
+    "ach-tan",
+    "ach-acu-cover"
   ],
   "eodmu5": [
     "rhib-eodmu5",
@@ -52,6 +55,8 @@
     "m4-carbine",
     "beretta-m9",
     "an-psc-5",
+    "ky-99a",
+    "zodiac",
     "an-prc-148",
     "iridium-9505",
     "ste",
@@ -100,6 +105,7 @@
     "plate-carrier-multicam",
     "pasgt-helmet-desert",
     "ach-tan",
+    "ach-acu-cover",
     "c-130",
     "black-hawk",
     "mi-17",
@@ -124,6 +130,7 @@
     "iotv-ucp",
     "pasgt-helmet-desert",
     "ach-tan",
+    "ach-acu-cover",
     "black-hawk",
     "mi-17",
     "c-17",
@@ -146,6 +153,7 @@
     "iotv-ucp",
     "pasgt-helmet-desert",
     "ach-tan",
+    "ach-acu-cover",
     "black-hawk",
     "mi-17",
     "c-17",
@@ -189,6 +197,7 @@
     "kg-84",
     "an-fcc-100",
     "an-wsc-3",
+    "essex",
     "nissan-frontier",
     "city-imperial-beach"
   ],
@@ -209,6 +218,7 @@
     "plate-carrier-multicam",
     "pasgt-helmet-desert",
     "ach-tan",
+    "ach-acu-cover",
     "c-130",
     "c-17"
   ],

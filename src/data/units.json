@@ -28,8 +28,8 @@
     "end": null,
     "precision": "none",
     "placeId": null,
-    "explanation": "A Whidbey Island-class dock landing ship. It carries Marines with their vehicles and landing craft, and launches the craft from a well deck that floods. Assault Craft Unit 4 (ACU 4) was the craft unit on this TAD. No ACU 4 crest is on file. The dates of this assignment have not been entered.",
-    "open": "USS Tortuga: dates not entered. ACU 4 crest not on file.",
+    "explanation": "A Whidbey Island-class dock landing ship. It carries Marines with their vehicles and landing craft, and launches the craft from a well deck that floods. Assault Craft Unit 4 (ACU 4) was the craft unit on this TAD. The dates of this assignment have not been entered.",
+    "open": "USS Tortuga: dates not entered.",
     "civilian": "A ship that carries Marines and their boats and vehicles to a beach. ACU 4 ran the landing craft.",
     "onCase": false,
     "image": "/incoming/lsd-46.png"
@@ -96,7 +96,7 @@
     "end": "2007",
     "precision": "year",
     "placeId": "guam",
-    "explanation": "Explosive Ordnance Disposal Mobile Unit Five, a Navy bomb-disposal unit then based in Guam. Assignment to the unit is not the same as being a bomb-disposal technician. The shadowbox lists the NEC as 9613, a communications specialty. The Royal Thai Navy hosted Cobra Gold twice. An Australian Clearance Diving Team was the partner on Talisman Saber twice. No RTN or AUSCDT crest is on file.",
+    "explanation": "Explosive Ordnance Disposal Mobile Unit Five, a Navy bomb-disposal unit then based in Guam. Assignment to the unit is not the same as being a bomb-disposal technician. The shadowbox lists the NEC as 9613, a communications specialty. The Royal Thai Navy hosted Cobra Gold twice. An Australian Clearance Diving Team was the partner on Talisman Saber twice.",
     "civilian": "The command's job was disposing of explosives. His recorded specialty there was communications.",
     "image": "/incoming/eodmu5.png"
   },
