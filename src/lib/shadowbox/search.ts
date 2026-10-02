@@ -52,8 +52,6 @@ const PAGES: Hit[] = [
   { title: "Livro de visitas", kindLabel: "Página", snippet: "Livro de visitas", open: { view: "guestbook" } },
   { title: "Memories", kindLabel: "Page", snippet: "Notes kept in this browser", open: { view: "memories" } },
   { title: "Memórias", kindLabel: "Página", snippet: "Notas guardadas neste navegador", open: { view: "memories" } },
-  { title: "Settings", kindLabel: "Page", snippet: "Language and theme", open: { view: "settings" } },
-  { title: "Ajustes", kindLabel: "Página", snippet: "Idioma e tema", open: { view: "settings" } },
 ];
 
 function index(): { text: string; hit: Omit<Hit, "snippet"> }[] {

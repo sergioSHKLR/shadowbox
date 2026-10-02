@@ -17,15 +17,15 @@ export function resolveTheme(theme: ThemeName, prefersDark: boolean): AppliedThe
 }
 
 export function loadPrefs(): Prefs {
-  if (typeof localStorage === "undefined") return { locale: "en", theme: "light" };
+  if (typeof localStorage === "undefined") return { locale: "en", theme: "system" };
   try {
     const raw = JSON.parse(localStorage.getItem(KEY) || "{}") as Partial<Prefs>;
     return {
       locale: raw.locale === "pt" ? "pt" : "en",
-      theme: storedTheme(raw.theme),
+      theme: "system",
     };
   } catch {
-    return { locale: "en", theme: "light" };
+    return { locale: "en", theme: "system" };
   }
 }
 
