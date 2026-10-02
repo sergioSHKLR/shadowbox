@@ -653,9 +653,9 @@ a { color: var(--color-navy); }
 .equipment-photo { width: 100%; aspect-ratio: 3 / 2; height: auto; object-fit: contain; background: #fff; border-radius: 2px; }
 .equipment-photo.is-photo { object-fit: cover; }
 .equipment-card .crest-photo {
-  width: auto;
-  height: 5.6rem;
-  max-width: 6.4rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  max-width: 2.8rem;
   aspect-ratio: auto;
   object-fit: contain;
   filter: var(--crest-shadow);

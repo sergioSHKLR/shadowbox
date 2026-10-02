@@ -4,8 +4,9 @@ import { ShadowboxApp } from "@/components/shadowbox/app";
 import "./styles.css";
 import "./case-crests.css";
 import "./timeline-scroll.css";
-import "./map-stage.css";
 import "./decorations.css";
+import "./commands.css";
+import "./map-stage.css";
 import "./print.css";
 
 const root = document.getElementById("root");
