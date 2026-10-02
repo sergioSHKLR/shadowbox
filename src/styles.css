@@ -163,7 +163,7 @@ h1, h2, h3, .detail-title {
 .app-menu button.on { background: transparent; color: inherit; font-weight: 600; box-shadow: inset 3px 0 0 var(--color-brass); }
 .app-menu button.on:hover,
 .app-menu button.on:focus-visible { background: #17345c; }
-.app-main { width: min(72rem, calc(100% - 2rem)); max-width: 100%; min-width: 0; box-sizing: border-box; margin: 0 auto; padding: 1.25rem 0 2rem; flex: 1; }
+.app-main { width: min(72rem, calc(100% - 2rem)); max-width: 100%; min-width: 0; box-sizing: border-box; margin: 0 auto; padding: 1.25rem 0 2rem; flex: 1; touch-action: pan-y; }
 .view-pane, .sheet { min-width: 0; max-width: 100%; }
 .app-search .search-hits {
   position: absolute;
@@ -388,6 +388,14 @@ a { color: var(--color-navy); }
   box-shadow: 0 0 0 2px var(--color-brass-bright);
 }
 .nav-btn:focus-visible { outline: 2px solid var(--color-navy); outline-offset: 2px; }
+.nav-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.nav-btn:disabled:hover {
+  box-shadow: none;
+  border-color: inherit;
+}
 
 .case-frame {
   background:
@@ -642,6 +650,15 @@ a { color: var(--color-navy); }
 .equipment-grid { grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); }
 .equipment-photo { width: 100%; aspect-ratio: 3 / 2; height: auto; object-fit: contain; background: #fff; border-radius: 2px; }
 .equipment-photo.is-photo { object-fit: cover; }
+.equipment-card .crest-photo {
+  width: auto;
+  height: 5.6rem;
+  max-width: 6.4rem;
+  aspect-ratio: auto;
+  object-fit: contain;
+  filter: var(--crest-shadow);
+  background: transparent;
+}
 .equipment-card span { font-family: var(--font-sans); font-size: 0.8rem; line-height: 1.3; color: var(--color-quiet); }
 /* One title style for unit, uniform and gear cards: Source Serif 4 semibold; captions and dates stay in the sans. */
 .uniform-card strong { font-family: var(--font-card); font-weight: 600; font-size: 0.95rem; line-height: 1.2; color: var(--color-navy); }
@@ -649,6 +666,11 @@ a { color: var(--color-navy); }
 .uniform-card--white { background: #ffffff; color: #000; }
 .uniform-card--white .uniform-photo { background: #ffffff; }
 .uniform-card--white strong { color: #000; }
+[data-theme="dark"] .uniform-card--white {
+  background: #1c2330;
+  color: #fff;
+}
+[data-theme="dark"] .uniform-card--white strong { color: #fff; }
 .uniform-card:hover, .uniform-card:focus-visible, .patch:hover, .patch:focus-visible { border-color: var(--color-brass); }
 .map-frame { position: relative; z-index: 0; isolation: isolate; height: 24rem; width: 100%; background: var(--color-ivory-dim); border: 1px solid var(--color-line); }
 /* About 60% of the old min(40rem, 70vh): the fit is width-limited (the stops span US, Guam, Iraq, Afghanistan). */
@@ -834,7 +856,7 @@ a { color: var(--color-navy); }
 
 /* Rank track and rank progression (dates: src/data/ranks.json). */
 .bar.bar--rank { background: #7d1c20; color: #fff; border-right: 2px solid var(--color-ivory); }
-.bar.bar--world { background: #3d4a5c; color: #f6f1e7; border-right: 2px solid var(--color-ivory); }
+.bar.bar--world { background: #ffd21a; color: #1a1400; border-right: 2px solid var(--color-ivory); }
 .rank-steps { list-style: none; margin: 0.4rem 0 1.4rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 0.6rem; }
 .rank-step { display: grid; justify-items: center; gap: 0.15rem; width: 100%; min-height: 44px; padding: 0.6rem 0.4rem; border: 1px solid var(--color-line); background: #fff; color: var(--color-ink); text-align: center; font: inherit; cursor: pointer; }
 .rank-step img { height: 5.2rem; width: auto; max-width: 100%; object-fit: contain; margin-bottom: 0.3rem; }
@@ -863,6 +885,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .map-play .nav-btn { min-height: 44px; padding: 0.25rem 0.75rem; font-size: 0.9rem; }
 .map-play .nav-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 .map-play-status { flex: 1 1 12rem; margin: 0; font-size: 0.95rem; color: var(--color-quiet); }
+[data-theme="dark"] .map-play-status { color: #c4b8a6; }
 .map-play-scrub { flex: 1 1 100%; display: block; }
 .map-play-scrub input { width: 100%; min-height: 44px; accent-color: var(--color-navy); }
 .map-num.now, .map-dot.now { box-shadow: 0 0 0 3px var(--color-ivory), 0 0 0 5px var(--color-navy); }
@@ -872,15 +895,15 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .cheat-sheet-link .nav-btn { display: inline-flex; align-items: center; text-decoration: none; }
 
 /* Uniform progression (Timeline). Ready slides from incoming/uniforms/. */
-.uprog { margin: 1.2rem 0 1.6rem; }
+.uprog { margin: 0.4rem 0 1.8rem; }
 .uprog-controls { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0.6rem 0; }
 .uprog-play { min-width: 5.2rem; justify-content: center; }
 .uprog-slider { flex: 1 1 10rem; min-width: 0; display: flex; }
 .uprog-slider input { width: 100%; min-height: 44px; accent-color: #8a6a1c; }
-.uprog-date { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 4.8rem; text-align: right; }
+.uprog-date { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 9rem; flex: 1 1 10rem; text-align: left; }
 .uprog-slide {
   margin: 0.6rem auto 0;
-  max-width: min(36rem, 100%);
+  max-width: min(25.2rem, 70%);
   text-align: center;
 }
 .uprog-slide img {
