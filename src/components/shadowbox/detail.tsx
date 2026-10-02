@@ -39,11 +39,11 @@ const COMMAND_LINKS: Record<string, Linked[]> = {
     {
       kind: "unit",
       id: "troy",
-      label: "Ops \u00b7 CJTF Troy",
+      label: "In theater \u00b7 CJTF Troy",
       marks: [
-        { src: "/incoming/eodmu11.png", alt: "Partner \u00b7 EODMU 11" },
         { src: "/incoming/52nd-eod.png", alt: "Sponsor \u00b7 52nd EOD" },
         { src: "/incoming/16th-en.png", alt: "Sponsor \u00b7 16th EN" },
+        { src: "/incoming/eodmu11.png", alt: "Partner \u00b7 EODMU 11" },
       ],
     },
     {
@@ -68,18 +68,29 @@ const COMMAND_LINKS: Record<string, Linked[]> = {
   sercc: [{
     kind: "unit",
     id: "ia-army",
-    label: "IA \u00b7 Task Force Iron Shield",
-    marks: [{ src: "/incoming/11th-ada.png", alt: "Sponsor \u00b7 11th ADA" }],
-  }],
-  jcse: [{
-    kind: "unit",
-    id: "cjsotf",
-    label: "Ops \u00b7 CJSOTF-A",
+    label: "In theater \u00b7 Task Force Iron Shield",
     marks: [
-      { src: "/incoming/3rd-sfg.png", alt: "3rd Special Forces Group" },
-      { src: "/incoming/75th-rgr.png", alt: "75th Ranger Regiment" },
+      { src: "/incoming/11th-ada.png", alt: "Admin \u00b7 11th ADA" },
+      { src: "/incoming/332nd-aew.png", alt: "Customer \u00b7 332nd AEW" },
     ],
   }],
+  jcse: [
+    {
+      kind: "unit",
+      id: "cjsotf",
+      label: "In theater \u00b7 CJSOTF-A",
+      marks: [{ src: "/incoming/3rd-sfg.png", alt: "Customer \u00b7 3rd SFG" }],
+    },
+    {
+      kind: "unit",
+      id: "sojtf",
+      label: "In theater \u00b7 SOJTF-A",
+      marks: [
+        { src: "/incoming/290jcss.png", alt: "Partner \u00b7 290th JCSS" },
+        { src: "/incoming/75th-rgr.svg", alt: "Customer \u00b7 75th Ranger Regiment" },
+      ],
+    },
+  ],
 };
 
 const UNIFORM_IMAGE: Record<string, string> = {
@@ -111,8 +122,12 @@ const CREST: Record<string, string> = {
   "52nd EOD": "/incoming/52nd-eod.png",
   "16th EN": "/incoming/16th-en.png",
   "11th ADA": "/incoming/11th-ada.png",
+  "332nd AEW": "/incoming/332nd-aew.png",
+  "332nd Air Expeditionary Wing": "/incoming/332nd-aew.png",
   "3rd SFG": "/incoming/3rd-sfg.png",
-  "75th Rangers": "/incoming/75th-rgr.png",
+  "75th Rangers": "/incoming/75th-rgr.svg",
+  "290th JCSS": "/incoming/290jcss.png",
+  "SOJTF-A": "/incoming/sojtf-a.png",
   "ODA 3213": "/incoming/3rd-sfg.png",
   "3rd SFG (ODA 3213)": "/incoming/3rd-sfg.png",
   "Royal Thai Navy": "/incoming/rtn.png",
@@ -184,8 +199,13 @@ function fieldNames(kind: string, id: string, field: string) {
   return blocks.find((block) => block.kind === kind && block.id === id)?.lists[field]?.map(clean) ?? [];
 }
 
+function unique(names: string[]) {
+  return [...new Set(names)];
+}
+
 function OperationMarks({ id }: { id: string }) {
   const op = operations.find((item) => item.id === id);
+  const admin: string[] = [];
   const partner = fieldNames("operation", id, "Partner");
   const sponsor = fieldNames("operation", id, "Sponsor");
   const customer = fieldNames("operation", id, "Customer");
@@ -193,13 +213,18 @@ function OperationMarks({ id }: { id: string }) {
     partner.push(...fieldNames("unit", "troy", "Partner"));
     sponsor.push(...fieldNames("unit", "troy", "Sponsor"));
   }
-  if (id === "oif-2009") sponsor.push("11th ADA");
+  if (id === "oif-2009") {
+    admin.push("11th ADA");
+    partner.push(...fieldNames("unit", "ia-army", "Partner"));
+    customer.push(...fieldNames("unit", "ia-army", "Customer"));
+  }
   const shot = (name: string) => ({ name, src: crestFor(name) });
   return (
     <>
-      <ThumbRow label="Partners" items={partner.map(shot)} />
-      <ThumbRow label="Sponsors" items={sponsor.map(shot)} />
-      <ThumbRow label="Customers" items={customer.map(shot)} />
+      <ThumbRow label="Admin" items={unique(admin).map(shot)} />
+      <ThumbRow label="Partners" items={unique(partner).map(shot)} />
+      <ThumbRow label="Sponsors" items={unique(sponsor).map(shot)} />
+      <ThumbRow label="Customers" items={unique(customer).map(shot)} />
     </>
   );
 }
@@ -246,7 +271,7 @@ function UnitDossier({ id }: { id: string }) {
     { label: "Title", value: joined(list(id, "Title")) },
     { label: "Department", value: joined(department) },
     { label: "Division", value: joined(division) },
-    { label: "Workcenter", value: "Not entered" },
+    { label: "Workcenter", value: unit.workcenter || "Not entered" },
     { label: "Temporary Additional Duty", value: joined(list(id, "TAD")) },
     { label: "Individual Augmentee", value: joined(ia) },
     { label: "Customers", value: joined(customers) },

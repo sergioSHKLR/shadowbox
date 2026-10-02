@@ -53,7 +53,6 @@
     "lat": 30.208937,
     "lng": -81.683563,
     "accuracy": "public-site",
-    "pin": "red",
     "note": "Public site at plus code 862W6858+HH (6858+HH, Southwest, Jacksonville, Florida)."
   },
   {
@@ -64,6 +63,16 @@
     "lng": -82.521,
     "accuracy": "public-site",
     "note": "Public location of MacDill, where Joint Communications Support Element is based."
+  },
+  {
+    "id": "mosul",
+    "type": "base",
+    "name": "Mosul",
+    "locality": "Mosul, Nineveh, Iraq",
+    "lat": 36.335,
+    "lng": 43.118,
+    "accuracy": "approximate",
+    "note": "City of Mosul. The 52nd Ordnance Group (EOD) linked up here in OIF I, January to June 2006. APPROXIMATE: the pin is the city, not a named compound."
   },
   {
     "id": "fob-sykes",
@@ -351,6 +360,16 @@
     "lng": -79.3647,
     "accuracy": "public-site",
     "note": "Laurinburg–Maxton Airport, where Gryphon Group's school sits. The pin is the airfield, not a street address.",
+    "type": "visit"
+  },
+  {
+    "id": "fort-bliss",
+    "name": "Fort Bliss",
+    "locality": "El Paso, Texas",
+    "lat": 31.8125,
+    "lng": -106.4214,
+    "accuracy": "public-site",
+    "note": "Fort Bliss, El Paso. Training in 2008 with HHB, 3rd Battalion, 3rd Air Defense Artillery.",
     "type": "visit"
   }
 ]

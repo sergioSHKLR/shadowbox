@@ -139,7 +139,7 @@
     "deviceExplanation": "Three awards. The gold frame is part of the award. Two bronze oak-leaf clusters mark the second and third awards.",
     "explanation": "A unit award, not a personal medal. Everyone assigned to the cited joint unit for the right dates may wear it. The ribbon is worn inside a gold frame. It comes before Navy unit awards on a Navy rack.",
     "criteria": "The unit, not the individual, is cited for exceptionally meritorious achievement. You wear it if you were assigned there during the cited period.",
-    "sourceNote": "Joint Meritorious Unit Award (3). The worksheet names only 2006. The other two years are not entered.",
+    "sourceNote": "Joint Meritorious Unit Award (3). All three are from JCSE. Years other than the public 2009 award are not entered.",
     "commonsFile": "Joint_Meritorious_Unit_Award_ribbon.svg"
   },
   {
@@ -313,10 +313,9 @@
     "countStatus": "confirmed",
     "devices": [],
     "deviceExplanation": "One award. No star.",
-    "explanation": "For taking part in a military operation whose purpose was humanitarian: disaster relief, rescue, or a similar effort that the service has designated. The specific operation is not named in the record yet.",
-    "criteria": "Direct participation in a designated humanitarian operation. Worksheet year: 2003.",
-    "sourceNote": "Humanitarian Service Medal, one award. The operation name is still blank.",
-    "open": "The humanitarian operation is unnamed.",
+    "explanation": "For taking part in a military operation whose purpose was humanitarian: disaster relief, rescue, or a similar effort that the service has designated. The operation here is Typhoon Pongsona, Guam, December 2002. The worksheet dates the medal 2003.",
+    "criteria": "Direct participation in a designated humanitarian operation. Worksheet year: 2003. Operation: Typhoon Pongsona.",
+    "sourceNote": "Humanitarian Service Medal, one award. Typhoon Pongsona.",
     "commonsFile": "Humanitarian_Service_Medal_ribbon.svg"
   },
   {

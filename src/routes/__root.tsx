@@ -6,6 +6,7 @@ import mapStageCss from "../map-stage.css?url";
 import caseCrestsCss from "../case-crests.css?url";
 import timelineScrollCss from "../timeline-scroll.css?url";
 import decorationsCss from "../decorations.css?url";
+import commandsCss from "../commands.css?url";
 import printCss from "../print.css?url";
 import { profile } from "@/lib/shadowbox/model";
 
@@ -13,7 +14,7 @@ export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: profile.pageTitle },
       { name: "description", content: profile.description },
     ],
@@ -25,6 +26,7 @@ export const Route = createRootRoute({
       { rel: "stylesheet", href: caseCrestsCss },
       { rel: "stylesheet", href: timelineScrollCss },
       { rel: "stylesheet", href: decorationsCss },
+      { rel: "stylesheet", href: commandsCss },
       { rel: "stylesheet", href: mapStageCss },
       { rel: "stylesheet", href: printCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

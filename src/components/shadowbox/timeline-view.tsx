@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { awards, insignia, photos, profile, publicUrl, ribbonRows, timeline, warfare, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
+import { UniformProgression } from "@/components/shadowbox/uniform-progression";
 
 const CHIEF = insignia.find((pin) => pin.id === "collar");
 const EXW = warfare.find((pin) => pin.id === "exw");
@@ -94,6 +95,7 @@ export function Timeline({
         </div>
       </ChartScroll>
       <p className="quiet">{eventsNote}</p>
+      <UniformProgression />
     </main>
   );
 }

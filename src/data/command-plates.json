@@ -1,0 +1,173 @@
+[
+  {
+    "unitId": "ncts",
+    "inRank": "et3",
+    "outRank": "et2",
+    "pinsAbove": [],
+    "pinsBelow": [],
+    "rack": [
+      { "id": "nam", "count": 1 },
+      { "id": "nmuc", "count": 1 },
+      { "id": "navy-e", "count": 1 },
+      { "id": "ngcm", "count": 1 },
+      { "id": "ndsm", "count": 1 },
+      { "id": "ssdr", "count": 1 },
+      { "id": "osr", "count": 1 },
+      { "id": "rifle", "count": 1 },
+      { "id": "pistol", "count": 1 }
+    ],
+    "extras": [
+      { "src": "/incoming/lsd-46.png", "title": "TAD", "unit": "USS Tortuga (LSD-46)", "date": "1997–1998", "kind": "unit", "id": "tortuga" },
+      { "src": "/incoming/acu-4.png", "title": "TAD", "unit": "ACU 4", "date": "1997–1998", "kind": "unit", "id": "tortuga" }
+    ]
+  },
+  {
+    "unitId": "frank-cable",
+    "inRank": "et2",
+    "outRank": "et1",
+    "pinsAbove": ["esws"],
+    "pinsBelow": [],
+    "rack": [
+      { "id": "nam", "count": 2 },
+      { "id": "nmuc", "count": 1 },
+      { "id": "navy-e", "count": 3 },
+      { "id": "ngcm", "count": 2 },
+      { "id": "ndsm", "count": 1 },
+      { "id": "hsm", "count": 1 },
+      { "id": "ssdr", "count": 3 },
+      { "id": "osr", "count": 3 },
+      { "id": "rifle", "count": 1 },
+      { "id": "pistol", "count": 1 }
+    ],
+    "note": "ESWS, 2003, year only. The second NAM is 2004. The HSM is 2003, Typhoon Pongsona."
+  },
+  {
+    "unitId": "eodmu5",
+    "inRank": "et1",
+    "outRank": "et1",
+    "pinsAbove": ["esws"],
+    "pinsBelow": [],
+    "rack": [
+      { "id": "nam", "count": 4 },
+      { "id": "aam", "count": 1 },
+      { "id": "nmuc", "count": 1 },
+      { "id": "navy-e", "count": 3 },
+      { "id": "ngcm", "count": 3 },
+      { "id": "ndsm", "count": 1 },
+      { "id": "icm", "count": 1, "campaignStars": 2 },
+      { "id": "gwotsm", "count": 1 },
+      { "id": "hsm", "count": 1 },
+      { "id": "ssdr", "count": 3 },
+      { "id": "osr", "count": 3 },
+      { "id": "rifle", "count": 1 },
+      { "id": "pistol", "count": 1 }
+    ],
+    "note": "Added on this tour: NAM 2005, NAM 2006, AAM 2006, ICM 2006, GWOTSM 2005, GCM 2006. JMUA awards sit on the JCSE plate.",
+    "extras": [
+      { "src": "/incoming/troy.png", "title": "In theater", "unit": "CJTF Troy", "date": "2006", "kind": "unit", "id": "troy" },
+      { "src": "/incoming/52nd-eod.png", "title": "Sponsor", "unit": "52nd EOD", "date": "2006", "kind": "unit", "id": "52nd-ordnance" },
+      { "src": "/incoming/16th-en.png", "title": "Sponsor", "unit": "16th EN", "date": "2006", "kind": "unit", "id": "16th-engineer" },
+      { "src": "/incoming/eodmu11.png", "title": "Partner", "unit": "EODMU 11", "date": "2006", "kind": "unit", "id": "troy" },
+      { "src": "/incoming/cobra-gold.png", "title": "Exercise", "unit": "Cobra Gold", "date": "2004 and 2005", "kind": "place", "id": "u-tapao" },
+      { "src": "/incoming/rtn.png", "title": "Host", "unit": "Royal Thai Navy", "date": "2004 and 2005", "kind": "place", "id": "u-tapao" },
+      { "src": "/incoming/talisman-saber.png", "title": "Exercise", "unit": "Talisman Saber", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay" },
+      { "src": "/incoming/auscdt-1.png", "title": "Host", "unit": "Australian Clearance Diving Team", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay" }
+    ]
+  },
+  {
+    "unitId": "sercc",
+    "inRank": "et1",
+    "outRank": "et1",
+    "pinsAbove": ["esws"],
+    "pinsBelow": [],
+    "rack": [
+      { "id": "arcom", "count": 1 },
+      { "id": "nam", "count": 5 },
+      { "id": "aam", "count": 1 },
+      { "id": "nmuc", "count": 1 },
+      { "id": "navy-e", "count": 3 },
+      { "id": "ngcm", "count": 4 },
+      { "id": "ndsm", "count": 1 },
+      { "id": "icm", "count": 1, "campaignStars": 2 },
+      { "id": "gwotsm", "count": 1 },
+      { "id": "hsm", "count": 1 },
+      { "id": "ssdr", "count": 3 },
+      { "id": "osr", "count": 3 },
+      { "id": "rifle", "count": 1 },
+      { "id": "pistol", "count": 1 }
+    ],
+    "note": "Added: ARCOM 2009, NAM 2009, GCM 2009. The IA is not a command plate.",
+    "extras": [
+      { "src": "/incoming/cram.png", "title": "In theater", "unit": "Task Force Iron Shield", "date": "2008–2009", "kind": "unit", "id": "ia-army" },
+      { "src": "/incoming/11th-ada.png", "title": "Admin", "unit": "11th ADA", "date": "2008–2009", "kind": "unit", "id": "11th-ada" },
+      { "src": "/incoming/332nd-aew.png", "title": "Customer", "unit": "332nd AEW", "date": "2009", "kind": "unit", "id": "332nd-aew" }
+    ]
+  },
+  {
+    "unitId": "jcse",
+    "inRank": "et1",
+    "outRank": "etc",
+    "pinsAbove": ["esws"],
+    "pinsBelow": ["exw"],
+    "rack": [
+      { "id": "jscm", "count": 2 },
+      { "id": "arcom", "count": 2 },
+      { "id": "jsam", "count": 1 },
+      { "id": "nam", "count": 5 },
+      { "id": "aam", "count": 1 },
+      { "id": "jmua", "count": 3 },
+      { "id": "nmuc", "count": 1 },
+      { "id": "navy-e", "count": 3 },
+      { "id": "ngcm", "count": 5 },
+      { "id": "ndsm", "count": 1 },
+      { "id": "acm", "count": 1, "campaignStars": 2 },
+      { "id": "icm", "count": 1, "campaignStars": 2 },
+      { "id": "gwotsm", "count": 1 },
+      { "id": "hsm", "count": 1 },
+      { "id": "ssdr", "count": 3 },
+      { "id": "osr", "count": 3 },
+      { "id": "nato", "count": 1 },
+      { "id": "rifle", "count": 1 },
+      { "id": "pistol", "count": 1 }
+    ],
+    "note": "EXW, 2014, year only. Chief date of rank is 16 September 2014. All three JMUA sit on this plate; 2009 is the dated one. Added: JSCM 2013, JSCM December 2014, ARCOM 2011, JSAM 2013, ACM 2011, NATO 2013, GCM 2012.",
+    "extras": [
+      { "src": "/incoming/jcse-3rd-sqd.png", "title": "Squadron", "unit": "3rd Squadron", "date": "2009–2014", "kind": "unit", "id": "jcse" },
+      { "src": "/incoming/cjsotf-a.png", "title": "In theater", "unit": "CJSOTF-A", "date": "2010–2011", "kind": "unit", "id": "cjsotf" },
+      { "src": "/incoming/3rd-sfg.png", "title": "Customer", "unit": "3rd SFG", "date": "2010–2011", "kind": "unit", "id": "3rd-sfg" },
+      { "src": "/incoming/sojtf-a.png", "title": "In theater", "unit": "SOJTF-A", "date": "2012–2013", "kind": "unit", "id": "sojtf" },
+      { "src": "/incoming/290jcss.png", "title": "Partner", "unit": "290th JCSS", "date": "2012–2013", "kind": "unit", "id": "290th-jcss" },
+      { "src": "/incoming/75th-rgr.svg", "title": "Customer", "unit": "75th Ranger Regiment", "date": "2012–2013", "kind": "unit", "id": "75th-ranger" }
+    ]
+  },
+  {
+    "unitId": "navhosp",
+    "inRank": "etc",
+    "outRank": "etc",
+    "pinsAbove": ["esws"],
+    "pinsBelow": ["exw"],
+    "rack": [
+      { "id": "jscm", "count": 2 },
+      { "id": "ncm", "count": 1 },
+      { "id": "arcom", "count": 2 },
+      { "id": "jsam", "count": 1 },
+      { "id": "nam", "count": 5 },
+      { "id": "aam", "count": 1 },
+      { "id": "jmua", "count": 3 },
+      { "id": "nmuc", "count": 1 },
+      { "id": "navy-e", "count": 3 },
+      { "id": "ngcm", "count": 6 },
+      { "id": "ndsm", "count": 1 },
+      { "id": "acm", "count": 1, "campaignStars": 2 },
+      { "id": "icm", "count": 1, "campaignStars": 2 },
+      { "id": "gwotsm", "count": 1 },
+      { "id": "hsm", "count": 1 },
+      { "id": "ssdr", "count": 3 },
+      { "id": "osr", "count": 3 },
+      { "id": "nato", "count": 1 },
+      { "id": "rifle", "count": 1 },
+      { "id": "pistol", "count": 1 }
+    ],
+    "note": "NH starts in 2015. The December 2014 JSCM sits on the JCSE out plate. NCM 2018 and GCM 2015 are added here."
+  }
+]

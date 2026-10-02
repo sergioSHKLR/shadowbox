@@ -588,6 +588,12 @@
         "BAS-08: Arifjan",
         "BAS-14: Ft Bliss"
       ],
+      "Partner": [
+        "PAR-02: HHB 3-3 ADA"
+      ],
+      "Customer": [
+        "CUS-03: 332nd AEW"
+      ],
       "Gear": [
         "GEA-01: IOTV",
         "GEA-02: SPCS",
@@ -861,6 +867,9 @@
         "BAS-07: Al-Udeid",
         "BAS-08: Arifjan",
         "BAS-12: Bagram"
+      ],
+      "Partner": [
+        "PAR-03: 290th JCSS"
       ],
       "Customer": [
         "CUS-02: 75th Rangers"

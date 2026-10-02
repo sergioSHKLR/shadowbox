@@ -31,6 +31,8 @@ const CHIP_LABEL: Record<string, string> = {
   "oef-2012": "OEF II",
   troy: "OIF I",
   "ia-army": "OIF II",
+  cjsotf: "OEF I",
+  sojtf: "OEF II",
 };
 const UNLISTED = "unlisted";
 

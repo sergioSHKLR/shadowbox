@@ -23,6 +23,7 @@ import ranksJson from "@/data/ranks.json";
 import supplementJson from "@/data/supplement.json";
 import worldEventsJson from "@/data/world-events.json";
 import certificatesJson from "@/data/certificates.json";
+import commandPlatesJson from "@/data/command-plates.json";
 
 /** Public files are served from the base URL: the site root in dev and on https://mil.shklr.org. */
 export function publicUrl(path: string): string {
@@ -140,6 +141,8 @@ export type Unit = {
   image?: string;
   /** How he was attached to the command. */
   designator?: Designator;
+  /** Shop or workcenter on this tour, when recorded. */
+  workcenter?: string;
   /** False for a school, TAD, operation, or customer. Those stay in the record but are not case commands. */
   onCase?: boolean;
   /** Further images shown under the crest in the unit popup (e.g. a coin). */
@@ -256,7 +259,7 @@ export type Place = {
   note: string;
   /** "base" marks a deployment base (FOB, air base); "visit" a port visit, exercise, school or other stop. Both get their own pin colour. */
   type?: "base" | "visit";
-  /** "red" paints this pin red. Other duty pins stay blue. */
+  /** Optional pin colour override. Duty pins are blue, deployments green, visits yellow. */
   pin?: "red";
 };
 
@@ -379,7 +382,165 @@ export const equipment = equipmentJson as Equipment[];
 export const branches = branchesJson as Record<string, string>;
 export const caseCopy = caseJson;
 export const medals = medalsJson as Medal[];
-export const medalFor = (awardId: string) => medals.find((medal) => medal.id === awardId && medal.front);
+
+const decorationSlideArt = import.meta.glob("../../../incoming/decorations/*.{png,svg,webp,jpg,jpeg}", {
+  eager: true,
+  query: "?url",
+  import: "default",
+}) as Record<string, string>;
+
+export type DecorationSlide = { src: string; file: string; from: string | null; month: number | null; caption: string };
+
+function slideFromPath(path: string, src: string): DecorationSlide {
+  const file = path.split("/").pop() ?? path;
+  const stem = file.replace(/\.[^.]+$/, "");
+  const match = stem.match(/(\d{4})(?:-(\d{2}))?/);
+  const from = match ? (match[2] ? `${match[1]}-${match[2]}` : match[1]) : null;
+  const month = match ? Number(match[1]) * 12 + (match[2] ? Number(match[2]) - 1 : 0) : null;
+  return { src, file, from, month, caption: stem.replace(/[-_]/g, " ") };
+}
+
+export const decorationSlides: DecorationSlide[] = Object.entries(decorationSlideArt)
+  .map(([path, src]) => slideFromPath(path, src))
+  .sort((a, b) => (a.month ?? 1e9) - (b.month ?? 1e9) || a.file.localeCompare(b.file));
+
+export function decorationSlideAt(month: number): DecorationSlide | null {
+  const dated = decorationSlides.filter((slide) => slide.month != null && slide.month <= month);
+  return dated.at(-1) ?? decorationSlides[0] ?? null;
+}
+
+const uniformSlideArt = import.meta.glob("../../../incoming/plates/*.{png,svg,webp,jpg,jpeg}", {
+  eager: true,
+  query: "?url",
+  import: "default",
+}) as Record<string, string>;
+
+export type UniformLook = "blue" | "white" | "khaki";
+export type UniformSlide = {
+  src: string;
+  file: string;
+  look: UniformLook;
+  from: string | null;
+  month: number | null;
+  caption: string;
+};
+
+const UNIFORM_LOOK: Record<string, UniformLook> = {
+  blue: "blue",
+  blues: "blue",
+  sdb: "blue",
+  white: "white",
+  whites: "white",
+  sdw: "white",
+  choker: "white",
+  khaki: "khaki",
+  khakis: "khaki",
+};
+
+/** incoming/plates/1a.svg … 7k.svg */
+const PLATE_FILE: Record<string, { look: UniformLook; y: number; m: number; caption: string }> = {
+  "1a": { look: "blue", y: 1997, m: 6, caption: "SN · dress blues" },
+  "1b": { look: "white", y: 1997, m: 6, caption: "SN · dress whites" },
+  "2a": { look: "blue", y: 2001, m: 1, caption: "NCTS · dress blues" },
+  "2b": { look: "white", y: 2001, m: 1, caption: "NCTS · dress whites" },
+  "3a": { look: "blue", y: 2004, m: 1, caption: "AS-40 · dress blues" },
+  "3b": { look: "white", y: 2004, m: 1, caption: "AS-40 · dress whites" },
+  "4a": { look: "blue", y: 2007, m: 1, caption: "EOD · dress blues" },
+  "4b": { look: "white", y: 2007, m: 1, caption: "EOD · dress whites" },
+  "5a": { look: "blue", y: 2009, m: 6, caption: "SERCC · dress blues" },
+  "5b": { look: "white", y: 2009, m: 6, caption: "SERCC · dress whites" },
+  "6a": { look: "blue", y: 2014, m: 1, caption: "JCSE · dress blues" },
+  "6b": { look: "white", y: 2014, m: 1, caption: "JCSE · dress whites" },
+  "7b": { look: "blue", y: 2014, m: 9, caption: "CPO · dress blues" },
+  "7c": { look: "white", y: 2014, m: 9, caption: "CPO · dress whites" },
+  "7k": { look: "khaki", y: 2014, m: 9, caption: "CPO · service khaki" },
+};
+
+function uniformFromPath(path: string, src: string): UniformSlide {
+  const file = path.split("/").pop() ?? path;
+  const stem = file.replace(/\.[^.]+$/, "");
+  const plate = PLATE_FILE[stem.toLowerCase()];
+  if (plate) {
+    return {
+      src,
+      file,
+      look: plate.look,
+      from: `${plate.y}-${String(plate.m).padStart(2, "0")}`,
+      month: plate.y * 12 + (plate.m - 1),
+      caption: plate.caption,
+    };
+  }
+  const lookHit = stem.toLowerCase().match(/\b(blue|blues|sdb|white|whites|sdw|choker|khaki|khakis)\b/);
+  const dateHit = stem.match(/(\d{4})(?:-(\d{2}))?/);
+  const look = (lookHit ? UNIFORM_LOOK[lookHit[1]] : undefined) ?? "blue";
+  const y = dateHit ? Number(dateHit[1]) : undefined;
+  const mo = dateHit ? (dateHit[2] ? Number(dateHit[2]) : 1) : undefined;
+  const from = y == null ? null : dateHit?.[2] ? `${y}-${String(mo).padStart(2, "0")}` : String(y);
+  const month = y != null && mo != null ? y * 12 + (mo - 1) : null;
+  return { src, file, look, from, month, caption: stem.replace(/[-_]/g, " ") };
+}
+
+export const uniformSlides: UniformSlide[] = Object.entries(uniformSlideArt)
+  .map(([path, src]) => uniformFromPath(path, src))
+  .sort((a, b) => (a.month ?? 1e9) - (b.month ?? 1e9) || a.file.localeCompare(b.file));
+
+export const uniformLooks: UniformLook[] = (["blue", "white", "khaki"] as const).filter((look) =>
+  uniformSlides.some((slide) => slide.look === look),
+);
+
+export function uniformSlideAt(month: number, look: UniformLook): UniformSlide | null {
+  const dated = uniformSlides.filter((slide) => slide.look === look && slide.month != null && slide.month <= month);
+  return dated.at(-1) ?? null;
+}
+
+export function firstUniformSlide(look: UniformLook): UniformSlide | null {
+  return uniformSlides.find((slide) => slide.look === look && slide.month != null) ?? null;
+}
+
+const medalArt = import.meta.glob("../../../incoming/medals/*.{png,svg,webp,jpg,jpeg}", {
+  eager: true,
+  query: "?url",
+  import: "default",
+}) as Record<string, string>;
+
+const MEDAL_FILE: Record<string, string> = {
+  jscm: "JSCM.png",
+  ncm: "NC.png",
+  arcom: "AC.png",
+  jsam: "JSAM.png",
+  nam: "NAM.png",
+  aam: "AAM.png",
+  ngcm: "GCM.png",
+  ndsm: "NDSM.png",
+  acm: "ACM.png",
+  icm: "ICM.png",
+  gwotsm: "GWOT-SM.png",
+  hsm: "HSM.png",
+  pistol: "PISTOL.png",
+  rifle: "RIFLE.png",
+};
+
+function medalArtFor(id: string): string {
+  const aliases = new Set([id.toLowerCase().replace(/[-_]/g, "")]);
+  if (id === "ncm") aliases.add("nc");
+  if (id === "ngcm") aliases.add("gcm");
+  if (id === "arcom") aliases.add("ac");
+  if (id === "gwotsm") aliases.add("gwotsm");
+  for (const [path, url] of Object.entries(medalArt)) {
+    const stem = (path.split("/").pop() ?? "").replace(/\.[^.]+$/, "").toLowerCase().replace(/[-_]/g, "");
+    if (aliases.has(stem)) return url;
+  }
+  const file = MEDAL_FILE[id];
+  return file ? `/incoming/medals/${file}` : "";
+}
+
+export const medalFor = (awardId: string) => {
+  const medal = medals.find((row) => row.id === awardId);
+  if (!medal) return null;
+  const front = medalArtFor(awardId);
+  if (!front) return null;
+  return { ...medal, front };
+};
 
 /** Rows of large medals per NAVPERS 15665J Table 5-3-1 (1-5 one row; 6 = 3+3 ... 13 = 3+5+5; top row first). */
 const MEDAL_ROWS: Record<number, number[]> = {
@@ -558,9 +719,72 @@ export type Rank = {
   date: string | null;
   /** Optional rating-badge art. Absent while insignia files are off the site. */
   image?: string;
+  /** Metal collar device in public/incoming. */
+  collar?: string;
   explanation: string;
   note?: string;
 };
+
+export type PlateEntry = { id: string; count: number; campaignStars?: number };
+export type PlateExtra = {
+  src: string;
+  title: string;
+  unit: string;
+  date: string;
+  kind: Kind;
+  id: string;
+};
+export type CommandPlate = {
+  unitId: string;
+  inRank: string;
+  outRank: string;
+  pinsAbove: string[];
+  pinsBelow: string[];
+  rack: PlateEntry[];
+  extras?: PlateExtra[];
+  note?: string;
+};
+export const commandPlates = commandPlatesJson as CommandPlate[];
+
+function devicesForPlate(id: string, count: number, campaignStars?: number): Device[] {
+  if (id === "acm" || id === "icm") {
+    const n = campaignStars ?? 0;
+    return n > 0 ? [{ kind: "star", metal: "bronze", count: n }] : [];
+  }
+  if (id === "navy-e") {
+    return count > 0 ? [{ kind: "letter", metal: "silver", letter: "E", count: Math.min(3, count), style: "battle" }] : [];
+  }
+  if (id === "rifle" || id === "pistol") {
+    return [{ kind: "letter", metal: "silver", letter: "E", count: 1, style: "expert" }];
+  }
+  if (count <= 1) return [];
+  if (id === "jscm" || id === "arcom" || id === "jmua") {
+    return [{ kind: "oak", metal: "bronze", count: count - 1 }];
+  }
+  if (id === "nam" || id === "ncm") {
+    return [{ kind: "star", metal: "gold", count: count - 1 }];
+  }
+  const extra = count - 1;
+  const silver = Math.floor(extra / 5);
+  const bronze = extra % 5;
+  const devices: Device[] = [];
+  if (silver) devices.push({ kind: "star", metal: "silver", count: silver });
+  if (bronze) devices.push({ kind: "star", metal: "bronze", count: bronze });
+  return devices;
+}
+
+/** A command's ending rack, with devices for that tour's counts rather than the career rack. */
+export function plateAwards(entries: PlateEntry[]): Award[] {
+  return entries.flatMap((entry) => {
+    const base = awardById(entry.id);
+    if (!base) return [];
+    return [{
+      ...base,
+      count: entry.count,
+      devices: devicesForPlate(entry.id, entry.count, entry.campaignStars),
+    }];
+  });
+}
 export const ranks = ranksJson as Rank[];
 /** Grades shown as worn badges in the case, Seaman through Chief. */
 export const caseRanks = ranks;
@@ -1008,6 +1232,7 @@ export function toSubject(sel: Selection): SubjectView | null {
         { label: "When", value: formatSpan(unit.start, unit.end) },
         ...(unit.start ? [{ label: "Precision", value: unit.precision === "year" ? "Years only — months were not recorded" : "Month recorded" }] : []),
         ...(nec ? [{ label: "NEC on this tour", value: `${nec.code} · ${nec.name}` }] : []),
+        ...(unit.workcenter ? [{ label: "Workcenter", value: unit.workcenter }] : []),
         ...supplementFacts("unit", unit.id),
       ],
       placeIds: unitPlaceIds,
