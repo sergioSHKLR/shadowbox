@@ -1,9 +1,9 @@
-# ETC (SW/EXW) Sergio Schickler
+# ETC (EXW/SW) Sergio Schickler
 
 United States Navy, Retired  
 30 June 1997 - 28 Feb 2018
 
-A reading copy of the Navy career of ETC (SW/EXW) Sergio Schickler, United States Navy, Retired.
+A reading copy of the Navy career of ETC (EXW/SW) Sergio Schickler, United States Navy, Retired.
 
 The timeline is the front page. Uniforms, decorations, equipment, operations, the map, and schools are in the menu. A ribbon, a uniform, a school, or a pin opens its explanation beside the page. Language and theme are in Settings.
 

@@ -1,140 +1,99 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import {
-  awards,
-  caseCopy,
-  formatSpan,
-  formatWhen,
-  milestones,
-  necs,
-  operations,
-  profile,
-  publicUrl,
-  ranks,
-  ribbonRows,
-  schools,
-  timeline,
-  type Kind,
-} from "@/lib/shadowbox/model";
+import { awards, insignia, photos, profile, publicUrl, ribbonRows, timeline, warfare, type Kind } from "@/lib/shadowbox/model";
+import { RibbonArt } from "@/components/shadowbox/marks";
+
+const CHIEF = insignia.find((pin) => pin.id === "collar");
+const EXW = warfare.find((pin) => pin.id === "exw");
+const SW = warfare.find((pin) => pin.id === "esws");
+const PORTRAIT = photos.find((photo) => photo.src === profile.portrait);
+
+export function Home({ onOpen, bio }: { onOpen: (k: Kind, id: string) => void; bio: string }) {
+  const rows = ribbonRows(awards);
+  return (
+    <main className="sheet">
+      <header className="intro">
+        <div className="intro-pair">
+          <figure className="wood-frame">
+            <div className="wood-mat">
+              <div className="mat-opening">
+                <button type="button" className="intro-portrait" onClick={() => { if (PORTRAIT) onOpen("photo", PORTRAIT.id); }} aria-label={PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"}>
+                  <img src={publicUrl(profile.portrait)} alt="" />
+                </button>
+              </div>
+            </div>
+          </figure>
+          <div className="wood-frame">
+            <div className="wood-mat">
+              <div className="mat-opening">
+                <div className="intro-marks">
+                  {CHIEF?.image ? (
+                    <button type="button" className="intro-device intro-anchor" onClick={() => onOpen("insignia", CHIEF.id)} aria-label={CHIEF.name}>
+                      <img src={publicUrl(CHIEF.image)} alt="" />
+                    </button>
+                  ) : null}
+                  {EXW?.image ? (
+                    <button type="button" className="intro-device" onClick={() => onOpen("warfare", EXW.id)} aria-label={EXW.name}>
+                      <img src={publicUrl(EXW.image)} alt="" />
+                    </button>
+                  ) : null}
+                  <div className="rack intro-rack" aria-label="Ribbon rack">
+                    {rows.map((row) => (
+                      <div key={row.map((award) => award.id).join("-")} className="rack-row">
+                        {row.map((award) => (
+                          <button key={award.id} type="button" className="ribbon intro-ribbon" onClick={() => onOpen("award", award.id)} aria-label={award.name}>
+                            <RibbonArt award={award} />
+                          </button>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                  {SW?.image ? (
+                    <button type="button" className="intro-device" onClick={() => onOpen("warfare", SW.id)} aria-label={SW.name}>
+                      <img src={publicUrl(SW.image)} alt="" />
+                    </button>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="intro-copy">
+          <p className="kicker">{profile.headerLines[1]}</p>
+          <h2>{profile.headerLines[0]}</h2>
+          <p className="quiet">{profile.headerLines[2]} · {profile.serviceLength}</p>
+          {bio.split("\n\n").map((paragraph) => <p className="bio" key={paragraph.slice(0, 24)}>{paragraph}</p>)}
+        </div>
+      </header>
+    </main>
+  );
+}
 
 export function Timeline({
   bars,
-  rows,
-  blanks,
   onOpen,
+  title,
+  lead,
+  eventsNote,
 }: {
   bars: ReturnType<typeof timeline>;
-  rows: ReturnType<typeof ribbonRows>;
-  blanks: string[];
   onOpen: (k: Kind, id: string) => void;
+  title: string;
+  lead: string;
+  eventsNote: string;
 }) {
-  const dated = [
-    ...schools.map((school) => ({ key: `school-${school.id}`, when: school.start ?? "", kind: "school" as Kind, id: school.id, title: school.name, note: school.length ?? "length not entered" })),
-    ...milestones.map((mark) => ({ key: `milestone-${mark.id}`, when: mark.date ?? "", kind: "milestone" as Kind, id: mark.id, title: mark.title, note: "Career" })),
-  ].sort((a, b) => (a.when || "9999").localeCompare(b.when || "9999"));
   return (
     <main className="sheet">
-      <header className="person">
-        <img src={publicUrl("/photos/recruit-1997.webp")} alt="Recruit Sergio Schickler in dress blue jumper and white hat, 1997" />
-        <div className="person-copy">
-          <p className="kicker">{profile.branchName}</p>
-          <h2>{profile.headerLines[0]}</h2>
-          <p>{profile.headerLines[1]}</p>
-          <p>{profile.headerLines[2]}</p>
-          <p className="quiet">{profile.serviceLength}. Sea service {profile.seaService}. Overseas sea service {profile.foreignService}.</p>
-        </div>
-        <img src={publicUrl(profile.portrait)} alt="Chief Petty Officer Sergio Schickler in service dress blue, 2018" />
-      </header>
-      <h3>{profile.serviceLength}, one line</h3>
-      <p>{caseCopy.timelineLead}</p>
+      <h2>{title}</h2>
+      <p>{lead}</p>
       <ChartScroll>
         <div className="chart-stack">
         <Track label="Rank" items={bars.rank} onOpen={onOpen} />
         <Track label="Assignments" items={bars.duty} onOpen={onOpen} />
         <Track label="Deployments" items={bars.ops} onOpen={onOpen} />
-        <Track label="Schools" items={bars.study} onOpen={onOpen} />
         <Track label="Events" items={bars.world} />
         </div>
       </ChartScroll>
-      <p className="quiet">Events are public history during this enlistment — presidents, attacks, and the wars. They are not part of the service record. A rank, assignment, or deployment opens its sidebar and stays on this page.</p>
-      <h3>Rank progression</h3>
-      <ol className="rank-steps">
-        {ranks.map((rank) => (
-          <li key={rank.id}>
-            <button type="button" className="rank-step" onClick={() => onOpen("rank", rank.id)}>
-              {rank.image ? <img src={publicUrl(rank.image)} alt="" loading="lazy" /> : <span className="mark-word">{rank.abbreviation}</span>}
-              <strong>{rank.date ? formatWhen(rank.date) : "Date needed"}</strong>
-              <span>{rank.abbreviation} · {rank.grade}</span>
-              <em>{rank.name}</em>
-            </button>
-          </li>
-        ))}
-        <li>
-          <div className="rank-step rank-step--end">
-            <strong>{formatWhen(profile.serviceEnd)}</strong>
-            <span>Retired</span>
-            <em>as a Chief Electronics Technician</em>
-          </div>
-        </li>
-      </ol>
-      <h3>Operations, named as the record names them</h3>
-      <ul className="stack">
-        {operations.map((op) => (
-          <li key={op.id}>
-            <button type="button" className="row-btn" onClick={() => onOpen("operation", op.id)}>
-              <strong>{formatSpan(op.start, op.end)}</strong>
-              <span>{op.name}</span>
-              <em>{op.phase}</em>
-            </button>
-          </li>
-        ))}
-      </ul>
-      <section className="split">
-        <div>
-          <h3>Schools and dates that matter</h3>
-          <ul className="stack">
-            {dated.map((item) => (
-              <li key={item.key}>
-                <button type="button" className="row-btn" onClick={() => onOpen(item.kind, item.id)}>
-                  <strong>{formatWhen(item.when)}</strong>
-                  <span>{item.title}</span>
-                  <em>{item.note}</em>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h3>Specialties</h3>
-          <ul className="stack">
-            {necs.map((nec) => (
-              <li key={nec.id}>
-                <button type="button" className="row-btn" onClick={() => onOpen("nec", nec.id)}>
-                  <strong>{nec.code}</strong>
-                  <span>{nec.name}</span>
-                  <em>{nec.years ?? "tour code"}</em>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-      <section className="ledger">
-        <div>
-          <h3>How to read the rack</h3>
-          {caseCopy.howToRead.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-          <p>{awards.length} ribbons. The top row holds {rows[0]?.length ?? 0}.</p>
-        </div>
-        <div>
-          <h3>What is still blank</h3>
-          <ul className="plain">
-            {blanks.map((line) => (
-              <li key={line}>{line}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      <p className="quiet">{eventsNote}</p>
     </main>
   );
 }

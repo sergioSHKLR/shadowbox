@@ -1,13 +1,15 @@
-import { useEffect, useMemo, useState } from "react";
-import { careerStops, openRecord, profile, ribbonRows, timeline, awards, type Kind, type Selection } from "@/lib/shadowbox/model";
+import { useEffect, useMemo, useRef, useState } from "react";
+import * as Dialog from "@radix-ui/react-dialog";
+import { BookOpen, Car, ChartGantt, ClipboardList, Flag, Library, Map, Medal, MessageCircle, Radio, Settings, Shirt, X } from "lucide-react";
+import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
-import { chrome } from "@/lib/shadowbox/copy";
-import { loadPrefs, savePrefs, type Locale, type ThemeName } from "@/lib/shadowbox/prefs";
+import { chrome, type Chrome } from "@/lib/shadowbox/copy";
+import { loadPrefs, resolveTheme, savePrefs, type Locale, type ThemeName } from "@/lib/shadowbox/prefs";
 import { DetailPanel } from "@/components/shadowbox/detail";
-import { Timeline } from "@/components/shadowbox/timeline-view";
+import { Home, Timeline } from "@/components/shadowbox/timeline-view";
 import { Uniforms } from "@/components/shadowbox/uniforms-view";
 import { Decorations } from "@/components/shadowbox/decorations-view";
-import { EquipmentView } from "@/components/shadowbox/equipment-view";
+import { OnDuty } from "@/components/shadowbox/equipment-view";
 import { OffDuty, Ops } from "@/components/shadowbox/ops-view";
 import { Stations } from "@/components/shadowbox/stations";
 import { Sources } from "@/components/shadowbox/sources-view";
@@ -15,30 +17,79 @@ import { Contact, Guestbook } from "@/components/shadowbox/footer-pages";
 import { Memories } from "@/components/shadowbox/memories-view";
 import { Schools } from "@/components/shadowbox/schools-view";
 
-type View = "timeline" | "uniforms" | "decorations" | "equipment" | "ops" | "map" | "schools" | "sources" | "contact" | "guestbook" | "memories" | "settings";
+type View = "home" | "uniforms" | "decorations" | "onduty" | "offduty" | "ops" | "map" | "timeline" | "admin" | "sources" | "contact" | "guestbook" | "memories";
 
-const NAV: View[] = ["timeline", "uniforms", "decorations", "equipment", "ops", "map", "schools"];
-const FOOTER: View[] = ["sources", "contact", "guestbook", "memories", "settings"];
-const ALIAS: Record<string, View> = { case: "timeline", onduty: "equipment", offduty: "equipment" };
+const NAV = ["uniforms", "decorations", "onduty", "ops", "map", "timeline", "admin", "offduty"] as const;
+const NAV_ICON = { uniforms: Shirt, decorations: Medal, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, admin: ClipboardList };
+const FOOTER = ["guestbook", "contact", "sources", "settings"] as const;
+const FOOTER_ICON = { sources: Library, contact: MessageCircle, guestbook: BookOpen, settings: Settings };
+const ALIAS: Record<string, View> = { case: "home", schools: "admin", equipment: "onduty" };
 
 function asView(value: string): View {
   if (value in ALIAS) return ALIAS[value];
-  const known: View[] = [...NAV, ...FOOTER];
-  return known.includes(value as View) ? (value as View) : "timeline";
+  const known: View[] = [...NAV, "sources", "contact", "guestbook", "memories"];
+  return known.includes(value as View) ? (value as View) : "home";
+}
+
+function SettingsDialog({
+  open,
+  onClose,
+  locale,
+  theme,
+  setLocale,
+  setTheme,
+  t,
+}: {
+  open: boolean;
+  onClose: () => void;
+  locale: Locale;
+  theme: ThemeName;
+  setLocale: (locale: Locale) => void;
+  setTheme: (theme: ThemeName) => void;
+  t: Chrome;
+}) {
+  const frame = typeof document === "undefined" ? null : document.querySelector(".app-shell");
+  return (
+    <Dialog.Root open={open} onOpenChange={(next) => { if (!next) onClose(); }}>
+      <Dialog.Portal container={typeof HTMLElement !== "undefined" && frame instanceof HTMLElement ? frame : undefined}>
+        <Dialog.Overlay className="settings-overlay" />
+        <Dialog.Content className="settings-modal" aria-describedby="settings-lead">
+          <header>
+            <Dialog.Title>{t.settingsTitle}</Dialog.Title>
+            <Dialog.Close className="icon-btn" aria-label={t.close}>
+              <X />
+            </Dialog.Close>
+          </header>
+          <p id="settings-lead">{t.settingsLead}</p>
+          <h3>{t.language}</h3>
+          <div className="choice-row" role="group" aria-label={t.language}>
+            <button type="button" className={locale === "en" ? "nav-btn on" : "nav-btn"} aria-pressed={locale === "en"} onClick={() => setLocale("en")}>{t.english}</button>
+            <button type="button" className={locale === "pt" ? "nav-btn on" : "nav-btn"} aria-pressed={locale === "pt"} onClick={() => setLocale("pt")}>{t.portuguese}</button>
+          </div>
+          <h3>{t.theme}</h3>
+          <div className="choice-row" role="group" aria-label={t.theme}>
+            <button type="button" className={theme === "light" ? "nav-btn on" : "nav-btn"} aria-pressed={theme === "light"} onClick={() => setTheme("light")}>{t.light}</button>
+            <button type="button" className={theme === "dark" ? "nav-btn on" : "nav-btn"} aria-pressed={theme === "dark"} onClick={() => setTheme("dark")}>{t.dark}</button>
+            <button type="button" className={theme === "system" ? "nav-btn on" : "nav-btn"} aria-pressed={theme === "system"} onClick={() => setTheme("system")}>{t.system}</button>
+          </div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
 }
 
 function Mark() {
   return (
     <svg className="app-mark" viewBox="0 0 24 24" aria-hidden="true">
-      <path fill="none" stroke="#DAA520" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
-      <path fill="none" stroke="#DAA520" strokeWidth="2" strokeLinecap="round" d="M6.376 18.91a6 6 0 0 1 11.249.003" />
-      <circle fill="none" stroke="#DAA520" strokeWidth="2" cx="12" cy="11" r="4" />
+      <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+      <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M6.376 18.91a6 6 0 0 1 11.249.003" />
+      <circle fill="none" stroke="currentColor" strokeWidth="2" cx="12" cy="11" r="4" />
     </svg>
   );
 }
 
 export function ShadowboxApp() {
-  const [view, setView] = useState<View>("timeline");
+  const [view, setView] = useState<View>("home");
   const [query, setQuery] = useState("");
   const [menu, setMenu] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -47,11 +98,13 @@ export function ShadowboxApp() {
   const [locale, setLocale] = useState<Locale>("en");
   const [theme, setTheme] = useState<ThemeName>("light");
   const [prefsReady, setPrefsReady] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const menuRef = useRef<HTMLUListElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
   const t = chrome(locale);
   const bars = useMemo(() => timeline(), []);
-  const rows = useMemo(() => ribbonRows(awards), []);
   const stops = useMemo(() => careerStops(), []);
-  const blanks = useMemo(() => openRecord(), []);
   const hits = useMemo(() => searchRecord(query), [query]);
   const pane = (id: View) => (view === id ? "view-pane" : "view-pane screen-off");
   const go = (next: View) => {
@@ -73,8 +126,10 @@ export function ShadowboxApp() {
     });
   };
   const take = (hit: Hit) => {
-    if ("view" in hit.open) go(asView(hit.open.view));
+    if ("view" in hit.open && hit.open.view === "settings") setSettingsOpen(true);
+    else if ("view" in hit.open) go(asView(hit.open.view));
     else open(hit.open.kind, hit.open.id);
+    setMenu(false);
     setQuery("");
     setSearchOpen(false);
   };
@@ -90,19 +145,55 @@ export function ShadowboxApp() {
   }, []);
   useEffect(() => {
     if (!prefsReady) return;
-    document.documentElement.lang = locale === "pt" ? "pt-BR" : "en";
-    document.documentElement.dataset.theme = theme;
+    const apply = () => {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const resolved = resolveTheme(theme, prefersDark);
+      document.documentElement.lang = locale === "pt" ? "pt-BR" : "en";
+      document.documentElement.dataset.theme = resolved;
+      const base = import.meta.env.BASE_URL || "/";
+      const icon = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+      if (icon) icon.href = `${base}icons/icon-${resolved}.svg`;
+      const apple = document.querySelector<HTMLLinkElement>('link[rel="apple-touch-icon"]');
+      if (apple) apple.href = `${base}icons/apple-touch-icon${resolved === "dark" ? "-dark" : ""}.png`;
+    };
+    apply();
     savePrefs({ locale, theme });
+    if (theme !== "system") return;
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    media.addEventListener("change", apply);
+    return () => media.removeEventListener("change", apply);
   }, [prefsReady, locale, theme]);
+  useEffect(() => {
+    if (!menu) return;
+    const close = (event: PointerEvent) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (menuRef.current?.contains(target) || menuButtonRef.current?.contains(target)) return;
+      setMenu(false);
+    };
+    document.addEventListener("pointerdown", close);
+    return () => document.removeEventListener("pointerdown", close);
+  }, [menu]);
+  useEffect(() => {
+    if (query.trim().length < 2) return;
+    const close = (event: PointerEvent) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (searchRef.current?.contains(target)) return;
+      setQuery("");
+    };
+    document.addEventListener("pointerdown", close);
+    return () => document.removeEventListener("pointerdown", close);
+  }, [query]);
 
   return (
     <div className="app-shell">
       <header className="app-bar">
-        <button type="button" className="app-home" onClick={() => go("timeline")} aria-label={t.home}>
+        <button type="button" className="app-home" onClick={() => go("home")} aria-label={t.home}>
           <Mark />
           <span className="app-title">{t.title}</span>
         </button>
-        <div className={searchOpen ? "app-search is-open" : "app-search"}>
+        <div className={searchOpen ? "app-search is-open" : "app-search"} ref={searchRef}>
           <button type="button" className="app-icon" aria-label={t.search} aria-expanded={searchOpen} onClick={() => { setSearchOpen((open) => !open); setMenu(false); }}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M16 16l4 4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
           </button>
@@ -121,58 +212,66 @@ export function ShadowboxApp() {
             </ul>
           ) : null}
         </div>
-        <button type="button" className="app-icon" aria-label={t.menu} aria-expanded={menu} onClick={() => { setMenu((open) => !open); setSearchOpen(false); }}>
+        <button ref={menuButtonRef} type="button" className="app-icon" aria-label={t.menu} aria-expanded={menu} onClick={() => { setMenu((open) => !open); setSearchOpen(false); }}>
           &#9776;
         </button>
         {menu ? (
-          <ul className="app-menu">
-            {NAV.map((id) => (
-              <li key={id}>
-                <button type="button" className={view === id ? "on" : undefined} onClick={() => go(id)}>{t[id]}</button>
-              </li>
-            ))}
+          <ul className="app-menu" ref={menuRef}>
+            {NAV.map((id) => {
+              const Icon = NAV_ICON[id];
+              return (
+                <li key={id}>
+                  <button type="button" className={view === id ? "on" : undefined} onClick={() => go(id)}>
+                    <Icon size={16} strokeWidth={1.75} aria-hidden="true" />
+                    {t[id]}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         ) : null}
       </header>
       <div className="app-main">
-        <div className={pane("timeline")}><Timeline bars={bars} rows={rows} blanks={blanks} onOpen={open} /></div>
+        <div className={pane("home")}><Home onOpen={open} bio={t.bio} /></div>
         <div className={pane("uniforms")}><Uniforms onOpen={open} /></div>
         <div className={pane("decorations")}><Decorations onOpen={open} tour={null} /></div>
-        <div className={pane("equipment")}>
-          <EquipmentView onOpen={open} />
-          <OffDuty onOpen={open} />
-        </div>
+        <div className={pane("onduty")}><OnDuty onOpen={open} title={t.onduty} /></div>
+        <div className={pane("offduty")}><OffDuty onOpen={open} title={t.offduty} /></div>
         <div className={pane("ops")}><Ops onOpen={open} /></div>
         <div className={pane("map")}><Stations stops={stops} onOpen={open} /></div>
-        <div className={pane("schools")}><Schools onOpen={open} title={t.schools} lead={t.schoolsLead} /></div>
+        <div className={pane("timeline")}>
+          <Timeline bars={bars} onOpen={open} title={t.pathTitle} lead={t.pathLead} eventsNote={t.eventsNote} />
+        </div>
+        <div className={pane("admin")}>
+          <Schools onOpen={open} title={t.schools} lead={t.schoolsLead} />
+        </div>
         <div className={`${pane("sources")} no-book`}><Sources /></div>
-        <div className={`${pane("contact")} no-book`}><Contact onOpenBook={() => go("guestbook")} /></div>
+        <div className={`${pane("contact")} no-book`}><Contact /></div>
         <div className={`${pane("guestbook")} no-book`}><Guestbook /></div>
         <div className={`${pane("memories")} no-book`}><Memories /></div>
-        <div className={pane("settings")}>
-          <main className="sheet">
-            <h2>{t.settingsTitle}</h2>
-            <p>{t.settingsLead}</p>
-            <h3>{t.language}</h3>
-            <div className="choice-row" role="group" aria-label={t.language}>
-              <button type="button" className={locale === "en" ? "nav-btn on" : "nav-btn"} aria-pressed={locale === "en"} onClick={() => setLocale("en")}>{t.english}</button>
-              <button type="button" className={locale === "pt" ? "nav-btn on" : "nav-btn"} aria-pressed={locale === "pt"} onClick={() => setLocale("pt")}>{t.portuguese}</button>
-            </div>
-            <h3>{t.theme}</h3>
-            <div className="choice-row" role="group" aria-label={t.theme}>
-              <button type="button" className={theme === "light" ? "nav-btn on" : "nav-btn"} aria-pressed={theme === "light"} onClick={() => setTheme("light")}>{t.light}</button>
-              <button type="button" className={theme === "dark" ? "nav-btn on" : "nav-btn"} aria-pressed={theme === "dark"} onClick={() => setTheme("dark")}>{t.dark}</button>
-            </div>
-          </main>
-        </div>
       </div>
       <footer className="site-footer">
-        <span>{t.made}</span>
-        {FOOTER.map((id) => (
-          <button key={id} type="button" className="footer-link" onClick={() => go(id)}>{t[id]}</button>
-        ))}
-        <button type="button" className="footer-link" onClick={() => window.print()}>{t.print}</button>
+        <span className="footer-credit">{t.made}</span>
+        <nav className="footer-nav" aria-label={t.footerNav}>
+          {FOOTER.map((id) => {
+            const Icon = FOOTER_ICON[id];
+            const openSettings = id === "settings";
+            return (
+              <button
+                key={id}
+                type="button"
+                className="footer-link"
+                aria-expanded={openSettings ? settingsOpen : undefined}
+                onClick={() => (openSettings ? setSettingsOpen(true) : go(id))}
+              >
+                <Icon size={16} strokeWidth={1.75} aria-hidden="true" />
+                {t[id]}
+              </button>
+            );
+          })}
+        </nav>
       </footer>
+      <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} locale={locale} theme={theme} setLocale={setLocale} setTheme={setTheme} t={t} />
       <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setSelection(null); setTrail([]); }} />
     </div>
   );

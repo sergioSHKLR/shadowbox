@@ -23,15 +23,63 @@ import {
 import { MapView } from "@/components/shadowbox/map-view";
 import { MedalArt, RibbonArt } from "@/components/shadowbox/marks";
 
-const COMMAND_LINKS: Record<string, { kind: Kind; id: string; label: string }[]> = {
-  ncts: [{ kind: "unit", id: "tortuga", label: "TAD \u00b7 USS Tortuga (LSD-46) \u00b7 ACU 4" }],
+type Mark = { src: string; alt: string };
+type Linked = { kind: Kind; id: string; label: string; marks?: Mark[] };
+const COMMAND_LINKS: Record<string, Linked[]> = {
+  ncts: [{
+    kind: "unit",
+    id: "tortuga",
+    label: "TAD \u00b7 USS Tortuga (LSD-46) \u00b7 ACU 4",
+    marks: [
+      { src: "/incoming/lsd-46.png", alt: "USS Tortuga (LSD-46)" },
+      { src: "/incoming/acu-4.png", alt: "Assault Craft Unit 4" },
+    ],
+  }],
   eodmu5: [
-    { kind: "unit", id: "troy", label: "Ops \u00b7 CJTF Troy" },
-    { kind: "place", id: "u-tapao", label: "Exercise \u00b7 Cobra Gold \u00b7 Royal Thai Navy" },
-    { kind: "place", id: "shoalwater-bay", label: "Exercise \u00b7 Talisman Saber \u00b7 Australian Clearance Diving Team" },
+    {
+      kind: "unit",
+      id: "troy",
+      label: "Ops \u00b7 CJTF Troy",
+      marks: [
+        { src: "/incoming/eodmu11.png", alt: "Partner \u00b7 EODMU 11" },
+        { src: "/incoming/52nd-eod.png", alt: "Sponsor \u00b7 52nd EOD" },
+        { src: "/incoming/16th-en.png", alt: "Sponsor \u00b7 16th EN" },
+      ],
+    },
+    {
+      kind: "place",
+      id: "u-tapao",
+      label: "Exercise \u00b7 Cobra Gold \u00b7 Royal Thai Navy",
+      marks: [
+        { src: "/incoming/cobra-gold.png", alt: "Cobra Gold" },
+        { src: "/incoming/rtn.png", alt: "Royal Thai Navy" },
+      ],
+    },
+    {
+      kind: "place",
+      id: "shoalwater-bay",
+      label: "Exercise \u00b7 Talisman Saber \u00b7 Australian Clearance Diving Team",
+      marks: [
+        { src: "/incoming/talisman-saber.png", alt: "Talisman Saber" },
+        { src: "/incoming/auscdt-1.png", alt: "Australian Clearance Diving Team" },
+      ],
+    },
   ],
-  sercc: [{ kind: "unit", id: "ia-army", label: "IA \u00b7 Task Force Iron Shield" }],
-  jcse: [{ kind: "unit", id: "cjsotf", label: "Ops \u00b7 CJSOTF-A" }],
+  sercc: [{
+    kind: "unit",
+    id: "ia-army",
+    label: "IA \u00b7 Task Force Iron Shield",
+    marks: [{ src: "/incoming/11th-ada.png", alt: "Sponsor \u00b7 11th ADA" }],
+  }],
+  jcse: [{
+    kind: "unit",
+    id: "cjsotf",
+    label: "Ops \u00b7 CJSOTF-A",
+    marks: [
+      { src: "/incoming/3rd-sfg.png", alt: "3rd Special Forces Group" },
+      { src: "/incoming/75th-rgr.png", alt: "75th Ranger Regiment" },
+    ],
+  }],
 };
 
 const UNIFORM_IMAGE: Record<string, string> = {
@@ -67,6 +115,8 @@ const CREST: Record<string, string> = {
   "75th Rangers": "/incoming/75th-rgr.png",
   "ODA 3213": "/incoming/3rd-sfg.png",
   "3rd SFG (ODA 3213)": "/incoming/3rd-sfg.png",
+  "Royal Thai Navy": "/incoming/rtn.png",
+  "Australian Clearance Diving Team": "/incoming/auscdt-1.png",
   "Cobra Gold": "/incoming/cobra-gold.png",
   "Cobra Gold 2004": "/incoming/cobra-gold.png",
   "Cobra Gold 2005": "/incoming/cobra-gold.png",
@@ -74,6 +124,7 @@ const CREST: Record<string, string> = {
   "Talisman Saber 2005": "/incoming/talisman-saber.png",
   "Talisman Saber 2007": "/incoming/talisman-saber.png",
   "LSD-46": "/incoming/lsd-46.png",
+  "LHD-2": "/incoming/lhd-2.png",
   "ACU 4": "/incoming/acu-4.png",
   "Iron Shield": "/incoming/cram.png",
   "Task Force Iron Shield": "/incoming/cram.png",
@@ -98,10 +149,12 @@ const ON_DUTY = [
   ["Aircraft", "Aircraft"],
 ] as const;
 const OFF_DUTY = [
-  ["Cities", "Cities/Residences"],
+  ["Cities", "Cities"],
+  ["Residences", "Residences"],
   ["Cars", "POV"],
   ["Motorcycles", "Motorcycles"],
   ["Hobbies", "Hobbies"],
+  ["Aircraft", "Off-duty aircraft"],
   ["Off-duty work", "Off-duty work"],
 ] as const;
 
@@ -127,6 +180,30 @@ function ThumbRow({ label, items }: { label: string; items: Shot[] }) {
   );
 }
 
+function fieldNames(kind: string, id: string, field: string) {
+  return blocks.find((block) => block.kind === kind && block.id === id)?.lists[field]?.map(clean) ?? [];
+}
+
+function OperationMarks({ id }: { id: string }) {
+  const op = operations.find((item) => item.id === id);
+  const partner = fieldNames("operation", id, "Partner");
+  const sponsor = fieldNames("operation", id, "Sponsor");
+  const customer = fieldNames("operation", id, "Customer");
+  if (op?.unitId === "troy") {
+    partner.push(...fieldNames("unit", "troy", "Partner"));
+    sponsor.push(...fieldNames("unit", "troy", "Sponsor"));
+  }
+  if (id === "oif-2009") sponsor.push("11th ADA");
+  const shot = (name: string) => ({ name, src: crestFor(name) });
+  return (
+    <>
+      <ThumbRow label="Partners" items={partner.map(shot)} />
+      <ThumbRow label="Sponsors" items={sponsor.map(shot)} />
+      <ThumbRow label="Customers" items={customer.map(shot)} />
+    </>
+  );
+}
+
 function UnitDossier({ id }: { id: string }) {
   const unit = units.find((item) => item.id === id);
   if (!unit) return null;
@@ -135,10 +212,15 @@ function UnitDossier({ id }: { id: string }) {
   const department = id === "jcse" ? list(id, "Division") : [];
   const division = id === "jcse" ? [] : list(id, "Division");
   const exerciseShots: Shot[] = [
-    ...visits.filter((visit) => visit.unitId === id && visit.kind === "exercise").map((visit) => ({
-      name: visit.title,
-      src: visit.id === "cobra-gold" ? CREST["Cobra Gold"] : visit.id === "talisman-saber" ? CREST["Talisman Saber"] : undefined,
-    })),
+    ...visits.filter((visit) => visit.unitId === id && visit.kind === "exercise").flatMap((visit) => {
+      const shots: Shot[] = [{
+        name: visit.title,
+        src: visit.id === "cobra-gold" ? CREST["Cobra Gold"] : visit.id === "talisman-saber" ? CREST["Talisman Saber"] : undefined,
+      }];
+      if (visit.id === "cobra-gold") shots.push({ name: "Royal Thai Navy", src: CREST["Royal Thai Navy"] });
+      if (visit.id === "talisman-saber") shots.push({ name: "Australian Clearance Diving Team", src: CREST["Australian Clearance Diving Team"] });
+      return shots;
+    }),
     ...list(id, "Operation").filter((name) => /cobra gold|talisman saber/i.test(name)).map((name) => ({ name, src: crestFor(name) })),
   ];
   const partnerShots = list(id, "Partner").map((name) => ({ name, src: crestFor(name) }));
@@ -149,6 +231,11 @@ function UnitDossier({ id }: { id: string }) {
     return { name, src: award?.ribbon };
   });
   const customers = id === "jcse" ? ["3rd SFG (ODA 3213)", "75th Rangers"] : list(id, "Customer");
+  const customerShots = customers.map((name) => ({ name, src: crestFor(name) }));
+  const tadShots: Shot[] = [
+    ...list(id, "TAD").map((name) => ({ name, src: crestFor(name) })),
+    ...(id === "tortuga" ? [{ name: "ACU 4", src: CREST["ACU 4"] }] : []),
+  ];
   const ia = id === "ia-army" || id === "sercc" ? ["Task Force Iron Shield"] : [];
   const countries = list(id, "Countries");
   const rows: { label: string; value: string }[] = [
@@ -171,6 +258,8 @@ function UnitDossier({ id }: { id: string }) {
       <ThumbRow label="Exercises" items={exerciseShots} />
       <ThumbRow label="Partners" items={partnerShots} />
       <ThumbRow label="Sponsors" items={sponsorShots} />
+      <ThumbRow label="Customers" items={customerShots} />
+      <ThumbRow label="Temporary duty" items={tadShots} />
       <ThumbRow label="Awards" items={awardShots} />
       <dl className="facts">
         {rows.map((row) => (
@@ -209,7 +298,7 @@ export function DetailPanel({
   const crumbs = trail.length ? trail : selection ? [selection] : [];
   const photos = selection ? photosFor(selection.kind, selection.id) : [];
   const words = selection ? reflectionFor(selection.kind, selection.id) : null;
-  const related = [
+  const related: Linked[] = [
     ...(subject?.related ?? []),
     ...(selection?.kind === "unit" ? COMMAND_LINKS[selection.id] ?? [] : []),
   ];
@@ -222,21 +311,15 @@ export function DetailPanel({
   }, [subject]);
 
   const frame = typeof document === "undefined" ? null : document.querySelector(".app-shell");
-  const [closing, setClosing] = useState(false);
   const [more, setMore] = useState(false);
   const noteScroll = (el: HTMLElement) => setMore(el.scrollHeight - el.scrollTop - el.clientHeight > 24);
-  const requestClose = () => {
-    if (closing) return;
-    setClosing(true);
-    window.setTimeout(() => onClose(), 420);
-  };
   return (
-    <Dialog.Root open={Boolean(subject)} onOpenChange={(open) => { if (!open) requestClose(); }}>
+    <Dialog.Root open={Boolean(subject)} onOpenChange={(open) => { if (!open) onClose(); }}>
       <Dialog.Portal container={typeof HTMLElement !== "undefined" && frame instanceof HTMLElement ? frame : undefined}>
-        <Dialog.Overlay className="detail-overlay" onClick={requestClose} />
-        <Dialog.Content className={closing ? "detail-panel closing" : "detail-panel"} aria-describedby={undefined} onEscapeKeyDown={(event) => { event.preventDefault(); requestClose(); }} onPointerDownOutside={(event) => { event.preventDefault(); requestClose(); }} >
+        <Dialog.Overlay className="detail-overlay" />
+        <Dialog.Content className="detail-panel" aria-describedby={undefined}>
           {subject ? (
-            <div className="detail-scroll" onScroll={(event) => noteScroll(event.currentTarget)} ref={(node) => { if (node) noteScroll(node); }}>
+            <>
               <div className="detail-head">
                 <div>
                   <p className="kicker">{subject.kicker}</p>
@@ -260,15 +343,16 @@ export function DetailPanel({
                   <X />
                 </Dialog.Close>
               </div>
+              <div className="detail-scroll" onScroll={(event) => noteScroll(event.currentTarget)} ref={(node) => { if (node) noteScroll(node); }}>
               {selection?.medal && selection.kind === "award" && medalFor(selection.id) ? (
                 <MedalHero key={selection.id} awardId={selection.id} />
               ) : subject.hero ? (
                 <figure className={`detail-hero hero-${subject.hero.type === "ribbon" ? "ribbon" : subject.hero.shape}`}>
                   {subject.hero.type === "ribbon" ? (
                     <RibbonArt award={subject.hero.award} className="ribbon-hero" />
-                  ) : (
+                  ) : subject.hero.src ? (
                     <img src={publicUrl(subject.hero.src)} alt={subject.hero.alt} />
-                  )}
+                  ) : null}
                 </figure>
               ) : null}
               <section className="sidebar-map">
@@ -278,7 +362,7 @@ export function DetailPanel({
                   <p className="quiet">No map location has been entered for this yet.</p>
                 )}
               </section>
-              {subject.extraImages?.map((extra) => (
+              {subject.extraImages?.filter((extra) => extra.src).map((extra) => (
                 <figure key={extra.src} className="detail-hero hero-extra">
                   <img src={publicUrl(extra.src)} alt={extra.alt} />
                   <figcaption>{extra.caption}</figcaption>
@@ -286,6 +370,7 @@ export function DetailPanel({
               ))}
               <div className="detail-body">
                 {selection?.kind === "unit" ? <UnitDossier id={selection.id} /> : null}
+                {selection?.kind === "operation" ? <OperationMarks id={selection.id} /> : null}
                 <p className="lede">{subject.explanation}</p>
                 {subject.criteria ? (
                   <section>
@@ -357,7 +442,14 @@ export function DetailPanel({
                       {related.map((item) => (
                         <li key={item.kind + item.id + item.label}>
                           <button type="button" onClick={() => onSelect({ kind: item.kind, id: item.id })}>
-                            {item.label}
+                            {item.marks?.length ? (
+                              <span className="related-marks">
+                                {item.marks.map((mark) => (
+                                  <img key={mark.src} src={publicUrl(mark.src)} alt={mark.alt} />
+                                ))}
+                              </span>
+                            ) : null}
+                            <span>{item.label}</span>
                           </button>
                         </li>
                       ))}
@@ -366,7 +458,8 @@ export function DetailPanel({
                 ) : null}
               </div>
               {more ? <span className="detail-more" aria-hidden="true" /> : null}
-            </div>
+              </div>
+            </>
           ) : null}
         </Dialog.Content>
       </Dialog.Portal>

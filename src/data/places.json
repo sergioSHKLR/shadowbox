@@ -31,10 +31,10 @@
     "id": "polaris-point",
     "name": "Polaris Point",
     "locality": "Naval Base Guam, Apra Harbor",
-    "lat": 13.455,
-    "lng": 144.671,
-    "accuracy": "approximate",
-    "note": "The AS-40 berth on Naval Base Guam, Inner Apra Harbor. A place, not the Polaris off-road vehicle. Pin is the point, not a specific pier.",
+    "lat": 13.440895,
+    "lng": 144.667285,
+    "accuracy": "public-site",
+    "note": "The AS-40 berth on Naval Base Guam, Inner Apra Harbor. A place, not the Polaris off-road vehicle.",
     "type": "visit"
   },
   {
@@ -50,10 +50,11 @@
     "id": "nh-jax",
     "name": "Naval Hospital Jacksonville",
     "locality": "Jacksonville, Florida",
-    "lat": 30.229,
-    "lng": -81.655,
-    "accuracy": "approximate",
-    "note": "Approximate public location of the hospital on the Jacksonville naval complex. Adjust the pin if you want a specific gate or building."
+    "lat": 30.208937,
+    "lng": -81.683563,
+    "accuracy": "public-site",
+    "pin": "red",
+    "note": "Public site at plus code 862W6858+HH (6858+HH, Southwest, Jacksonville, Florida)."
   },
   {
     "id": "macdill",
@@ -134,12 +135,12 @@
   },
   {
     "id": "imperial-beach",
-    "name": "Imperial Beach annex",
-    "locality": "Imperial Beach, San Diego, California",
-    "lat": 32.5667,
-    "lng": -117.1158,
-    "accuracy": "approximate",
-    "note": "The Navy annex at Imperial Beach where the NEC 9613 (NSW Communications Technician) school was taken. The exact building is not recorded, so the pin is approximate.",
+    "name": "Imperial Beach Elephant Cage",
+    "locality": "Coronado, California",
+    "lat": 32.593463,
+    "lng": -117.129078,
+    "accuracy": "public-site",
+    "note": "The Imperial Beach annex, the elephant cage, at plus code 8544HVVC+99M (HVVC+99M, Coronado, California). The NEC 9613 (NSW Communications Technician) school was taken at this annex.",
     "type": "visit"
   },
   {
@@ -214,12 +215,12 @@
   },
   {
     "id": "shoalwater-bay",
-    "name": "Shoalwater Bay Training Area",
-    "locality": "near Rockhampton, Queensland, Australia",
-    "lat": -22.55,
-    "lng": 150.45,
-    "accuracy": "approximate",
-    "note": "Exercise Talisman Saber, twice, in the Shoalwater Bay Training Area north of Rockhampton, with EODMU 5. The training area is large, so the pin is approximate.",
+    "name": "Camp Growl",
+    "locality": "Shoalwater Bay Training Area, Queensland, Australia",
+    "lat": -22.80404,
+    "lng": 150.33652,
+    "accuracy": "public-site",
+    "note": "Camp Growl in the Shoalwater Bay Training Area, north of Rockhampton. Exercise Talisman Saber, twice, with EODMU 5.",
     "type": "visit"
   },
   {
@@ -265,11 +266,11 @@
   {
     "id": "fob-patriot",
     "name": "FOB Patriot",
-    "locality": "Fort Bragg / Camp Mackall training area, North Carolina",
-    "lat": 35.035,
-    "lng": -79.496,
-    "accuracy": "approximate",
-    "note": "A training FOB on the Fort Bragg / Camp Mackall training area. The exact site is not recorded, so the pin is approximate. Training with JCSE.",
+    "locality": "Fort Bragg, North Carolina",
+    "lat": 35.1425,
+    "lng": -79.103333,
+    "accuracy": "public-site",
+    "note": "A training FOB at Fort Bragg, 35°8'33\"N 79°6'12\"W. Training with JCSE.",
     "type": "visit"
   },
   {
@@ -314,12 +315,12 @@
   },
   {
     "id": "bitburg",
-    "name": "Bitburg",
+    "name": "Bitburg Airport",
     "locality": "Bitburg, Rhineland-Palatinate, Germany",
-    "lat": 49.958,
-    "lng": 6.547,
-    "accuracy": "approximate",
-    "note": "Bitburg, Germany, near Spangdahlem Air Base. A stopover on the way home from the 2006 EOD deployment. The exact site in Bitburg is not recorded, so the pin is approximate.",
+    "lat": 49.94528,
+    "lng": 6.565,
+    "accuracy": "public-site",
+    "note": "Bitburg Airport (EDRB), the former Bitburg Air Base airfield, 49°56'43\"N 6°33'54\"E. A stopover on the way home from the 2006 EOD deployment.",
     "type": "visit"
   },
   {
@@ -340,6 +341,16 @@
     "lng": -117.16,
     "accuracy": "public-site",
     "note": "Public location of the Naval Special Warfare Center / NAB Coronado, where the NSW Communications course (K-431-0141) was taken.",
+    "type": "visit"
+  },
+  {
+    "id": "gryphon-maxton",
+    "name": "Gryphon School",
+    "locality": "Maxton, North Carolina",
+    "lat": 34.7898,
+    "lng": -79.3647,
+    "accuracy": "public-site",
+    "note": "Laurinburg–Maxton Airport, where Gryphon Group's school sits. The pin is the airfield, not a street address.",
     "type": "visit"
   }
 ]

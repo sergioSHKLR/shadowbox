@@ -18,11 +18,11 @@
 }
 .map-play .nav-btn.icon-btn svg { display: block; }
 
-/* Chips: idle navy, selected gold. Plaques stay brass. */
+/* Chips: idle blue #1d4e89, selected gold #daa520. Plaques stay brass. */
 .nav-btn {
-  background: var(--color-navy);
+  background: #1d4e89;
   color: var(--color-ivory);
-  border-color: var(--color-navy);
+  border-color: #1d4e89;
   box-shadow: none;
 }
 .nav-btn:hover:not(:disabled),
@@ -31,9 +31,9 @@
   box-shadow: 0 0 0 2px var(--color-brass-bright);
 }
 .nav-btn.on {
-  background: var(--color-brass);
+  background: #daa520;
   color: var(--color-navy);
-  border-color: var(--color-brass);
+  border-color: #daa520;
   box-shadow: none;
 }
 .nav-btn:disabled {
@@ -66,4 +66,10 @@
 .map-num.approximate, .pin-num.approximate, .map-dot.approximate {
   border-style: solid;
   background: #1d4e89;
+}
+.map-num.red, .pin-num.red, .map-dot.red,
+.map-num.red.approximate, .pin-num.red.approximate, .map-dot.red.approximate {
+  background: #c8102e;
+  color: #ffffff;
+  border-color: #5c0714;
 }

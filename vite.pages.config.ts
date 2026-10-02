@@ -32,12 +32,15 @@ export default defineConfig({
         display: "standalone",
         orientation: "any",
         theme_color: DARK,
-        // Splash / icon backdrop: solid black, matching the app icons (the gold shield-user mark on black).
-        background_color: "#000000",
+        // Splash behind the light icon. The mark itself is black on a light ground and white on a dark one.
+        background_color: "#ffffff",
         icons: [
+          { src: "/icons/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
           { src: "/icons/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
           { src: "/icons/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+          { src: "/icons/icon-maskable.svg", sizes: "any", type: "image/svg+xml", purpose: "maskable" },
           { src: "/icons/icon-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+          { src: "/icons/icon-monochrome-512.png", sizes: "512x512", type: "image/png", purpose: "monochrome" },
         ],
       },
       workbox: {
@@ -46,7 +49,7 @@ export default defineConfig({
         globPatterns: [
           "pages/index.html",
           "assets/**/*.{js,css}",
-          ...["favicon.svg", "og.jpg", "icons/apple-touch-icon.png", "icons/icon-192.png", "icons/icon-512.png", "shadowbox-cheat-sheet.pdf"].filter((file) => existsSync(resolve("public", file))),
+          ...["favicon.svg", "og.jpg", "icons/apple-touch-icon.png", "icons/apple-touch-icon-dark.png", "icons/icon.svg", "icons/icon-light.svg", "icons/icon-dark.svg", "icons/icon-maskable.svg", "icons/icon-192.png", "icons/icon-512.png", "icons/icon-maskable-512.png", "icons/icon-monochrome-512.png", "shadowbox-cheat-sheet.pdf"].filter((file) => existsSync(resolve("public", file))),
           ...["ribbons", "devices", "insignia", "photos", "uniforms", "equipment", "crests", "medals"]
             .filter((dir) => existsSync(resolve("public", dir)))
             .map((dir) => `${dir}/**/*.{png,svg,webp,jpg}`),
