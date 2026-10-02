@@ -90,7 +90,7 @@ export function Ops({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
         {TASK_FORCES.map((force) => (
           <li key={force.id}>
             <button type="button" className="uniform-card equipment-card" onClick={() => onOpen("unit", force.id)}>
-              <img className="equipment-photo" src={publicUrl(force.image)} alt="" />
+              <img className="crest-photo" src={publicUrl(force.image)} alt="" />
               <span className="card-marks">
                 {force.marks.map((mark) => <img key={mark.src} src={publicUrl(mark.src)} alt={mark.alt} />)}
               </span>
@@ -126,7 +126,7 @@ export function Ops({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
           return (
             <li key={visit.id}>
               <button type="button" className="uniform-card equipment-card" onClick={() => onOpen("place", visit.placeId)}>
-                {crest ? <img className="equipment-photo" src={publicUrl(crest.image)} alt="" /> : null}
+                {crest ? <img className="crest-photo" src={publicUrl(crest.image)} alt="" /> : null}
                 {crest?.marks.length ? (
                   <span className="card-marks">
                     {crest.marks.map((mark) => <img key={mark.src} src={publicUrl(mark.src)} alt={mark.alt} />)}

@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Anchor, BookOpen, Car, ChartGantt, ClipboardList, Flag, Library, Map, Medal, MessageCircle, Radio, Shirt } from "lucide-react";
+import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { Anchor, BookOpen, Car, ChartGantt, ClipboardList, Flag, Library, Map, MessageCircle, Radio, Shirt } from "lucide-react";
 import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
 import { chrome } from "@/lib/shadowbox/copy";
@@ -7,7 +7,6 @@ import { loadPrefs, resolveTheme, savePrefs, type Locale } from "@/lib/shadowbox
 import { DetailPanel } from "@/components/shadowbox/detail";
 import { Home, Timeline } from "@/components/shadowbox/timeline-view";
 import { Uniforms } from "@/components/shadowbox/uniforms-view";
-import { Decorations } from "@/components/shadowbox/decorations-view";
 import { OnDuty } from "@/components/shadowbox/equipment-view";
 import { OffDuty, Ops } from "@/components/shadowbox/ops-view";
 import { Stations } from "@/components/shadowbox/stations";
@@ -19,8 +18,8 @@ import { Commands } from "@/components/shadowbox/commands-view";
 
 type View = "home" | "uniforms" | "decorations" | "onduty" | "offduty" | "ops" | "map" | "timeline" | "admin" | "commands" | "sources" | "contact" | "guestbook" | "memories";
 
-const NAV = ["commands", "uniforms", "decorations", "onduty", "ops", "map", "timeline", "admin", "offduty"] as const;
-const NAV_ICON = { commands: Anchor, uniforms: Shirt, decorations: Medal, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, admin: ClipboardList };
+const NAV = ["commands", "timeline", "ops", "map", "uniforms", "onduty", "admin", "offduty"] as const;
+const NAV_ICON = { commands: Anchor, uniforms: Shirt, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, admin: ClipboardList };
 const FOOTER = ["guestbook", "contact", "sources"] as const;
 const FOOTER_ICON = { sources: Library, contact: MessageCircle, guestbook: BookOpen };
 const ALIAS: Record<string, View> = { case: "home", schools: "admin", equipment: "onduty" };
@@ -29,6 +28,22 @@ function asView(value: string): View {
   if (value in ALIAS) return ALIAS[value];
   const known: View[] = [...NAV, "sources", "contact", "guestbook", "memories"];
   return known.includes(value as View) ? (value as View) : "home";
+}
+
+const SWIPE_PX = 72;
+const SWIPE_MS = 800;
+const SWIPE_EDGE = 24;
+
+function swipeBlocked(target: EventTarget | null): boolean {
+  if (!(target instanceof Element)) return true;
+  if (target.closest("input, textarea, select, .leaflet-container, .map-frame, .command-scroller, .chart-scroll, .detail-overlay, .detail-panel, .app-menu, .uprog-slider")) return true;
+  let node: Element | null = target;
+  while (node) {
+    const style = getComputedStyle(node);
+    if ((style.overflowX === "auto" || style.overflowX === "scroll") && node.scrollWidth > node.clientWidth + 8) return true;
+    node = node.parentElement;
+  }
+  return false;
 }
 
 function Mark() {
@@ -53,6 +68,7 @@ export function ShadowboxApp() {
   const menuRef = useRef<HTMLUListElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
+  const swipeRef = useRef<{ id: number; x: number; y: number; t: number; skip: boolean } | null>(null);
   const t = chrome(locale);
   const bars = useMemo(() => timeline(), []);
   const stops = useMemo(() => careerStops(), []);
@@ -82,6 +98,28 @@ export function ShadowboxApp() {
     setMenu(false);
     setQuery("");
     setSearchOpen(false);
+  };
+  const onSwipeDown = (event: ReactPointerEvent) => {
+    if (event.pointerType === "mouse") return;
+    if (selection || menu || searchOpen) {
+      swipeRef.current = null;
+      return;
+    }
+    const edge = event.clientX < SWIPE_EDGE || event.clientX > window.innerWidth - SWIPE_EDGE;
+    swipeRef.current = { id: event.pointerId, x: event.clientX, y: event.clientY, t: Date.now(), skip: edge || swipeBlocked(event.target) };
+  };
+  const onSwipeUp = (event: ReactPointerEvent) => {
+    const start = swipeRef.current;
+    swipeRef.current = null;
+    if (!start || start.skip || start.id !== event.pointerId) return;
+    const dx = event.clientX - start.x;
+    const dy = event.clientY - start.y;
+    if (Date.now() - start.t > SWIPE_MS) return;
+    if (Math.abs(dx) < SWIPE_PX || Math.abs(dx) < Math.abs(dy) * 1.35) return;
+    const at = NAV.indexOf(view as (typeof NAV)[number]);
+    if (at < 0) return;
+    if (dx > 0 && at > 0) go(NAV[at - 1]);
+    else if (dx < 0 && at < NAV.length - 1) go(NAV[at + 1]);
   };
 
   useEffect(() => {
@@ -184,10 +222,9 @@ export function ShadowboxApp() {
           </ul>
         ) : null}
       </header>
-      <div className="app-main">
+      <div className="app-main" onPointerDown={onSwipeDown} onPointerUp={onSwipeUp} onPointerCancel={() => { swipeRef.current = null; }}>
         <div className={pane("home")}><Home onOpen={open} bio={t.bio} /></div>
         <div className={pane("uniforms")}><Uniforms onOpen={open} /></div>
-        <div className={pane("decorations")}><Decorations onOpen={open} tour={null} /></div>
         <div className={pane("onduty")}><OnDuty onOpen={open} title={t.onduty} /></div>
         <div className={pane("offduty")}><OffDuty onOpen={open} title={t.offduty} /></div>
         <div className={pane("ops")}><Ops onOpen={open} /></div>
