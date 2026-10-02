@@ -25,6 +25,12 @@ function yearOf(value: string | null | undefined): number {
   return Number((value ?? "").slice(0, 4)) || 0;
 }
 
+/** Ship name on one line, hull number on the next. */
+function hullLines(label: string): string[] {
+  const match = label.match(/^(.*?)\s*\(([A-Z]{2,5}-\d+)\)\s*$/);
+  return match ? [match[1].trim(), match[2]] : [label];
+}
+
 /** Rating badge in incoming/. Gold chevrons from 2009. */
 function patchFor(rankId: string, year: number): string | undefined {
   const gold = year >= 2009;
@@ -82,10 +88,15 @@ export function Commands({ onOpen, title, lead }: { onOpen: (k: Kind, id: string
           if (!unit) return null;
           const rack = plateAwards(plate.rack);
           const extras = plate.extras ?? [];
+          const titleLines = hullLines(unit.name);
           return (
             <li key={plate.unitId} className="command-item">
               <header className="command-head">
-                <h3>{unit.abbreviation}</h3>
+                <h3>
+                  {titleLines.length > 1
+                    ? titleLines.map((line) => <span key={line}>{line}</span>)
+                    : unit.abbreviation}
+                </h3>
                 <p>
                   {unit.start ? formatSpan(unit.start, unit.end) : ""}
                   {" · "}
@@ -120,7 +131,7 @@ export function Commands({ onOpen, title, lead }: { onOpen: (k: Kind, id: string
                     <img src={publicUrl(extra.src)} alt="" />
                     <span className="command-extra-label">
                       <strong>{extra.title}</strong>
-                      <b>{extra.unit}</b>
+                      {hullLines(extra.unit).map((line) => <b key={line}>{line}</b>)}
                       <em>{extra.date}</em>
                     </span>
                   </button>

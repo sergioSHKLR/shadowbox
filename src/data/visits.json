@@ -222,12 +222,12 @@
     "placeId": "fort-bliss",
     "kind": "exercise",
     "title": "Training with HHB 3-3 ADA",
-    "when": "2008",
-    "sort": "2008",
+    "when": "2008-10",
+    "sort": "2008-10",
     "prio": -0.5,
     "approximate": false,
     "unitId": "ia-army",
-    "note": "Pre-deployment training at Fort Bliss, El Paso, with Headquarters and Headquarters Battery, 3rd Battalion, 3rd Air Defense Artillery."
+    "note": "Five months of pre-deployment training at Fort Bliss, El Paso, from October 2008, with Headquarters and Headquarters Battery, 3rd Battalion, 3rd Air Defense Artillery. The rest of the IA was in country at Joint Base Balad."
   },
   {
     "id": "kuwait-wtp",

@@ -497,14 +497,15 @@ export function firstUniformSlide(look: UniformLook): UniformSlide | null {
   return uniformSlides.find((slide) => slide.look === look && slide.month != null) ?? null;
 }
 
-/** Command walk on Timeline. SN/RTC opens; each command plate is one stop; NAVHOSP uses the CPO plates. */
-const UNIFORM_STEP_PLATES: { unitId: string; stem: string }[] = [
+/** Command walk on Timeline. SN/RTC opens; CPO plates are JCSE last year, then NAVHOSP. */
+const UNIFORM_STEP_PLATES: { unitId: string; stem: string; id?: string; label?: string; span?: string }[] = [
   { unitId: "rtc", stem: "1a" },
   { unitId: "ncts", stem: "2a" },
   { unitId: "frank-cable", stem: "3a" },
   { unitId: "eodmu5", stem: "4a" },
   { unitId: "sercc", stem: "5a" },
   { unitId: "jcse", stem: "6a" },
+  { unitId: "jcse", stem: "7b", id: "jcse-cpo", label: "CPO", span: "2014" },
   { unitId: "navhosp", stem: "7b" },
 ];
 
@@ -525,15 +526,15 @@ function spanForUnit(unit: Unit): string {
   return a === b ? a : `${a}–${b}`;
 }
 
-export const uniformSteps: UniformStep[] = UNIFORM_STEP_PLATES.flatMap(({ unitId, stem }) => {
+export const uniformSteps: UniformStep[] = UNIFORM_STEP_PLATES.flatMap(({ unitId, stem, id, label, span }) => {
   const unit = units.find((row) => row.id === unitId);
   const plate = PLATE_FILE[stem];
   if (!unit || !plate) return [];
   return [{
-    id: unitId,
+    id: id ?? unitId,
     unitId,
-    label: unit.abbreviation,
-    span: spanForUnit(unit),
+    label: label ?? unit.abbreviation,
+    span: span ?? spanForUnit(unit),
     from: `${plate.y}-${String(plate.m).padStart(2, "0")}`,
     month: plate.y * 12 + (plate.m - 1),
   }];

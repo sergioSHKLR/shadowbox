@@ -17,7 +17,7 @@ const TASK_FORCES: { id: string; name: string; image: string; when: string; mark
     id: "ia-army",
     name: "Task Force Iron Shield",
     image: "/incoming/cram.png",
-    when: "2008\u20132009",
+    when: "Oct 2008\u20132009",
     marks: [
       { src: "/incoming/11th-ada.png", alt: "Admin \u00b7 11th ADA" },
       { src: "/incoming/332nd-aew.png", alt: "Customer \u00b7 332nd AEW" },
