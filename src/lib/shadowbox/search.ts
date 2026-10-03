@@ -3,6 +3,7 @@ import {
   ranks, reflections, schools, uniforms, units, visits, warfare,
   type Kind,
 } from "@/lib/shadowbox/model";
+import { remarksFor } from "@/lib/shadowbox/remarks";
 
 export type Hit = {
   title: string;
@@ -73,7 +74,7 @@ function index(): { text: string; hit: Omit<Hit, "snippet"> }[] {
     ...visits.map((item) => row(item.title, "Visit", `${item.when} ${item.note ?? ""} ${(item.trips ?? []).join(" ")}`, { kind: "place", id: item.placeId })),
     ...milestones.map((item) => row(item.title, "Milestone", `${item.short} ${item.explanation}`, { kind: "milestone", id: item.id })),
     ...certificates.map((item) => row(item.name, "Certificate", item.explanation, { kind: "certificate", id: item.id })),
-    ...photos.map((item) => row(item.caption || item.alt, "Photo", item.alt, { kind: "photo", id: item.id })),
+    ...photos.map((item) => row(item.caption || item.alt, "Photo", `${item.alt} ${remarksFor(item.src)}`, { kind: "photo", id: item.id })),
     ...equipment.map((item) => row(item.name, "Gear", `${item.caption ?? ""} ${item.note}`, { kind: "equipment", id: item.id })),
     ...ranks.map((item) => row(item.name, "Rank", `${item.abbreviation} ${item.grade} ${item.explanation} ${item.note ?? ""}`, { kind: "rank", id: item.id })),
     ...reflections.map((item) => row("Reflection", "Note", item.text, { kind: item.kind, id: item.subjectId })),

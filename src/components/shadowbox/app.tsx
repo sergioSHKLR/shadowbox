@@ -3,6 +3,7 @@ import { Anchor, BookOpen, Car, ChartGantt, ClipboardList, Flag, House, Library,
 import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
 import { chrome } from "@/lib/shadowbox/copy";
+import { loadRemoteFonts } from "@/lib/shadowbox/fonts";
 import { loadPrefs, resolveTheme, savePrefs, type Locale } from "@/lib/shadowbox/prefs";
 import { DetailPanel } from "@/components/shadowbox/detail";
 import { Home, Timeline } from "@/components/shadowbox/timeline-view";
@@ -97,6 +98,7 @@ export function ShadowboxApp() {
     const saved = loadPrefs();
     setLocale(saved.locale);
     setPrefsReady(true);
+    loadRemoteFonts();
   }, []);
   useEffect(() => {
     document.title = profile.pageTitle;
@@ -151,9 +153,14 @@ export function ShadowboxApp() {
           <span className="app-title">{t.title}</span>
         </button>
         <div className="app-end">
-        <button type="button" className="app-icon app-flag" aria-label={locale === "pt" ? t.english : t.portuguese} onClick={() => setLocale(locale === "pt" ? "en" : "pt")}>
-          {locale === "pt" ? "🇧🇷" : "🇺🇸"}
-        </button>
+        <div className="app-flags">
+          <button type="button" className={locale === "en" ? "app-flag is-on" : "app-flag"} aria-label={t.english} aria-pressed={locale === "en"} onClick={() => setLocale("en")}>
+            <span aria-hidden="true">🇺🇸</span>
+          </button>
+          <button type="button" className={locale === "pt" ? "app-flag is-on" : "app-flag"} aria-label={t.portuguese} aria-pressed={locale === "pt"} onClick={() => setLocale("pt")}>
+            <span aria-hidden="true">🇧🇷</span>
+          </button>
+        </div>
         <div className={searchOpen ? "app-search is-open" : "app-search"} ref={searchRef}>
           <button type="button" className="app-icon" aria-label={t.search} aria-expanded={searchOpen} onClick={() => { setSearchOpen((open) => !open); setMenu(false); }}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M16 16l4 4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
@@ -194,7 +201,7 @@ export function ShadowboxApp() {
         ) : null}
       </header>
       <div className="app-main">
-        <div className={pane("home")}><Home onOpen={open} bio={t.bio} /></div>
+        <div className={pane("home")}><Home onOpen={open} bio={t.bio} moreLabel={t.bioMore} lessLabel={t.bioLess} /></div>
         <div className={pane("uniforms")}><Uniforms onOpen={open} /></div>
         <div className={pane("onduty")}><OnDuty onOpen={open} title={t.onduty} /></div>
         <div className={pane("offduty")}><OffDuty onOpen={open} title={t.offduty} /></div>
