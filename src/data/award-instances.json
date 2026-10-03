@@ -27,9 +27,9 @@
     "id": "arcom-2009",
     "awardId": "arcom",
     "year": 2009,
-    "unitId": null,
-    "operationId": null,
-    "note": null
+    "unitId": "3-3-ada",
+    "operationId": "oif-2009",
+    "note": "Deployment award"
   },
   {
     "id": "arcom-2011",
@@ -51,17 +51,17 @@
     "id": "nam-2001",
     "awardId": "nam",
     "year": 2001,
-    "unitId": null,
+    "unitId": "ncts",
     "operationId": null,
-    "note": null
+    "note": "End of Tour (EOT) award"
   },
   {
     "id": "nam-2004",
     "awardId": "nam",
     "year": 2004,
-    "unitId": null,
+    "unitId": "frank-cable",
     "operationId": null,
-    "note": null
+    "note": "EOT Award"
   },
   {
     "id": "nam-2005",
@@ -75,17 +75,17 @@
     "id": "nam-2006",
     "awardId": "nam",
     "year": 2006,
-    "unitId": null,
+    "unitId": "eodmu5",
     "operationId": null,
-    "note": null
+    "note": "EOT award"
   },
   {
     "id": "nam-2009",
     "awardId": "nam",
     "year": 2009,
-    "unitId": null,
+    "unitId": "sercc",
     "operationId": null,
-    "note": null
+    "note": "EOT award"
   },
   {
     "id": "aam-2006",

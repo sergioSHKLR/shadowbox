@@ -1,16 +1,7 @@
-import { useEffect, useState } from "react";
-
-type Note = { id: string; name: string; text: string; at: string };
-const KEY = "shadowbox-guestbook";
 const WHATSAPP = "https://wa.me/5547988695995";
-
-function loadNotes(): Note[] {
-  try {
-    return JSON.parse(localStorage.getItem(KEY) || "[]") as Note[];
-  } catch {
-    return [];
-  }
-}
+const GUESTBOOK = "https://forms.gle/1nprDDo1dLpZnRmn9";
+const GUESTBOOK_EMBED =
+  "https://docs.google.com/forms/d/e/1FAIpQLScMaJJCnk2CT0cElS6uy7h3VgBXhF3in3N3qDwASAv3WtYNRg/viewform?embedded=true";
 
 export function Contact() {
   return (
@@ -24,38 +15,15 @@ export function Contact() {
 }
 
 export function Guestbook() {
-  const [notes, setNotes] = useState<Note[]>([]);
-  const [name, setName] = useState("");
-  const [text, setText] = useState("");
-  useEffect(() => setNotes(loadNotes()), []);
-  const save = () => {
-    const body = text.trim();
-    if (!body) return;
-    const next = [{ id: String(Date.now()), name: name.trim() || "Visitor", text: body, at: new Date().toISOString() }, ...notes];
-    localStorage.setItem(KEY, JSON.stringify(next));
-    setNotes(next);
-    setText("");
-  };
   return (
     <main className="sheet">
       <h2>Guestbook</h2>
-      <p className="quiet">Entries stay in this browser until a Google Form is linked.</p>
-      <form className="guest-form" onSubmit={(e) => { e.preventDefault(); save(); }}>
-        <label>Name <input value={name} onChange={(e) => setName(e.target.value)} maxLength={40} /></label>
-        <label>Note <textarea value={text} onChange={(e) => setText(e.target.value)} maxLength={500} rows={4} required /></label>
-        <button type="submit" className="nav-btn on">Sign</button>
-      </form>
-      <ul className="stack">
-        {notes.map((note) => (
-          <li key={note.id}>
-            <div className="row-btn static">
-              <strong>{note.name}</strong>
-              <span>{note.text}</span>
-              <em>{note.at.slice(0, 10)}</em>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <p>
+        <a className="nav-btn on" href={GUESTBOOK} target="_blank" rel="noreferrer">
+          Sign
+        </a>
+      </p>
+      <iframe className="guest-frame" title="Shadowbox Guestbook" src={GUESTBOOK_EMBED} />
     </main>
   );
 }

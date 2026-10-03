@@ -6,10 +6,17 @@ import { UniformProgression } from "@/components/shadowbox/uniform-progression";
 const CHIEF = insignia.find((pin) => pin.id === "collar");
 const EXW = warfare.find((pin) => pin.id === "exw");
 const SW = warfare.find((pin) => pin.id === "esws");
-const PORTRAIT = photos.find((photo) => photo.src === profile.portrait);
+const CHIEF_PORTRAIT = photos.find((photo) => photo.src === profile.portrait);
+const SN_PORTRAIT = photos.find((photo) => photo.id === "recruit-portrait-1997");
 
-export function Home({ onOpen, bio }: { onOpen: (k: Kind, id: string) => void; bio: string }) {
+export function Home({ onOpen, bio, moreLabel, lessLabel }: { onOpen: (k: Kind, id: string) => void; bio: string; moreLabel: string; lessLabel: string }) {
   const rows = ribbonRows(awards);
+  const [bioOpen, setBioOpen] = useState(false);
+  const [snPortrait, setSnPortrait] = useState(false);
+  const portrait = snPortrait && SN_PORTRAIT ? SN_PORTRAIT : CHIEF_PORTRAIT;
+  const paragraphs = bio.split("\n\n");
+  const lead = paragraphs.slice(0, 2);
+  const rest = paragraphs.slice(2);
   return (
     <main className="sheet">
       <header className="intro">
@@ -17,8 +24,8 @@ export function Home({ onOpen, bio }: { onOpen: (k: Kind, id: string) => void; b
           <figure className="wood-frame">
             <div className="wood-mat">
               <div className="mat-opening">
-                <button type="button" className="intro-portrait" onClick={() => { if (PORTRAIT) onOpen("photo", PORTRAIT.id); }} aria-label={PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"}>
-                  <img src={publicUrl(profile.portrait)} alt="" />
+                <button type="button" className="intro-portrait" onClick={() => { if (SN_PORTRAIT) setSnPortrait((on) => !on); }} aria-label={portrait?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"}>
+                  <img src={publicUrl(portrait?.src ?? profile.portrait)} alt="" />
                 </button>
               </div>
             </div>
@@ -26,15 +33,16 @@ export function Home({ onOpen, bio }: { onOpen: (k: Kind, id: string) => void; b
           <div className="wood-frame">
             <div className="wood-mat">
               <div className="mat-opening">
+                {snPortrait ? null : (
                 <div className="intro-marks">
                   {CHIEF?.image ? (
                     <button type="button" className="intro-device intro-anchor" onClick={() => onOpen("insignia", CHIEF.id)} aria-label={CHIEF.name}>
                       <img src={publicUrl(CHIEF.image)} alt="" />
                     </button>
                   ) : null}
-                  {EXW?.image ? (
-                    <button type="button" className="intro-device" onClick={() => onOpen("warfare", EXW.id)} aria-label={EXW.name}>
-                      <img src={publicUrl(EXW.image)} alt="" />
+                  {SW?.image ? (
+                    <button type="button" className="intro-device" onClick={() => onOpen("warfare", SW.id)} aria-label={SW.name}>
+                      <img src={publicUrl(SW.image)} alt="" />
                     </button>
                   ) : null}
                   <div className="rack intro-rack" aria-label="Ribbon rack">
@@ -48,12 +56,13 @@ export function Home({ onOpen, bio }: { onOpen: (k: Kind, id: string) => void; b
                       </div>
                     ))}
                   </div>
-                  {SW?.image ? (
-                    <button type="button" className="intro-device" onClick={() => onOpen("warfare", SW.id)} aria-label={SW.name}>
-                      <img src={publicUrl(SW.image)} alt="" />
+                  {EXW?.image ? (
+                    <button type="button" className="intro-device" onClick={() => onOpen("warfare", EXW.id)} aria-label={EXW.name}>
+                      <img src={publicUrl(EXW.image)} alt="" />
                     </button>
                   ) : null}
                 </div>
+                )}
               </div>
             </div>
           </div>
@@ -62,10 +71,109 @@ export function Home({ onOpen, bio }: { onOpen: (k: Kind, id: string) => void; b
           <p className="kicker">{profile.headerLines[1]}</p>
           <h2>{profile.headerLines[0]}</h2>
           <p className="quiet">{profile.headerLines[2]} · {profile.serviceLength}</p>
-          {bio.split("\n\n").map((paragraph) => <p className="bio" key={paragraph.slice(0, 24)}>{paragraph}</p>)}
+        </div>
+        <div className="bio-wrap">
+          {lead.map((paragraph) => (
+            <p className="bio" key={paragraph.slice(0, 24)}>{bioParagraph(paragraph)}</p>
+          ))}
+          {rest.length > 0 ? (
+            <>
+              <button
+                type="button"
+                className={bioOpen ? "bio-fold is-open" : "bio-fold"}
+                aria-expanded={bioOpen}
+                aria-label={bioOpen ? lessLabel : moreLabel}
+                onClick={() => setBioOpen((open) => !open)}
+              >
+                {bioOpen ? null : (
+                  <span className="bio-fold-lines" aria-hidden="true">
+                    <span /><span /><span />
+                  </span>
+                )}
+                <span className="bio-fold-chevron" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" focusable="false">
+                    <path d="M5 9.5 12 16.5 19 9.5" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </button>
+              {bioOpen ? (
+                <div className="bio-rest">
+                  {rest.map((paragraph) => (
+                    <p className="bio" key={paragraph.slice(0, 24)}>{bioParagraph(paragraph)}</p>
+                  ))}
+                  <img className="bio-pao" src={publicUrl("/incoming/pao.png")} alt="Approved for release. Unclassified. Unit PAO." />
+                </div>
+              ) : null}
+            </>
+          ) : (
+            <img className="bio-pao" src={publicUrl("/incoming/pao.png")} alt="Approved for release. Unclassified. Unit PAO." />
+          )}
         </div>
       </header>
     </main>
+  );
+}
+
+/** ViewBox height of a marker body. Ink stays inside it; nibs match the end thickness. */
+const MARKER_BOX = 56;
+
+function markerWeight(seed: number) {
+  return 15.4 + ((seed * 2.7) % 2.4);
+}
+
+/** One felt-marker pass the height of a typed line. Nibs stay round in CSS. */
+function markerBody(seed: number) {
+  const steps = 48;
+  const weight = markerWeight(seed);
+  const bow = (seed < 5 ? 1 : -1) * 3.1;
+  const top: string[] = [];
+  const bot: string[] = [];
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    const env = Math.sin(Math.PI * t);
+    const wander = env * (Math.sin(t * 6.2 + seed) * 1.55 + Math.sin(t * 14.5 + seed * 1.4) * 0.7);
+    const y = MARKER_BOX / 2 + Math.sin(Math.PI * t) * bow + wander + env * (t - 0.5) * 1.4;
+    const half = weight * (1 + env * 0.16 * Math.sin(t * 2.15 + seed * 0.8));
+    const x = (t * 100).toFixed(2);
+    top.push(`${x} ${(y - half).toFixed(2)}`);
+    bot.push(`${x} ${(y + half).toFixed(2)}`);
+  }
+  return `M ${top.join(" L ")} L ${bot.reverse().join(" L ")} Z`;
+}
+
+function MarkerLine({ seed, tilt, grow = 1 }: { seed: number; tilt: number; grow?: number }) {
+  const weight = markerWeight(seed);
+  const nib = `${((weight * 2) / MARKER_BOX) * 1.55}em`;
+  return (
+    <span className="marker-line" style={{ transform: `rotate(${tilt}deg)`, flexGrow: grow }} aria-label="Redacted">
+      <span className="marker-nib" style={{ width: nib, height: nib, marginRight: `calc(${nib} / -2)` }} aria-hidden="true" />
+      <svg viewBox={`0 0 100 ${MARKER_BOX}`} preserveAspectRatio="none" aria-hidden="true">
+        <path d={markerBody(seed)} fill="currentColor" />
+      </svg>
+      <span className="marker-nib" style={{ width: nib, height: nib, marginLeft: `calc(${nib} / -2)` }} aria-hidden="true" />
+    </span>
+  );
+}
+
+function bioParagraph(text: string) {
+  const marker = "{{redacted-2011}}";
+  if (!text.includes(marker)) return text;
+  const [before, after] = text.split(marker);
+  return (
+    <>
+      {before.trimEnd()}
+      <span className="redacted-sentence">
+        <span className="redacted-row">
+          <MarkerLine seed={2.2} tilt={-1.05} grow={0.88} />
+          <span className="redacted-year">2011</span>
+          <MarkerLine seed={5.4} tilt={0.55} grow={1.62} />
+        </span>
+        <span className="redacted-row redacted-row-tail">
+          <MarkerLine seed={8.6} tilt={0.85} />
+        </span>
+      </span>
+      {after.trimStart()}
+    </>
   );
 }
 
