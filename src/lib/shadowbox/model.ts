@@ -13,6 +13,7 @@ import insigniaJson from "@/data/insignia.json";
 import milestonesJson from "@/data/milestones.json";
 import creditsJson from "@/data/credits.json";
 import profileJson from "@/data/profile.json";
+import { patchedInstance } from "@/lib/shadowbox/instance-edits";
 import branchesJson from "@/data/branches.json";
 import caseJson from "@/data/case.json";
 import equipmentJson from "@/data/equipment.json";
@@ -283,13 +284,15 @@ export type Visit = {
 };
 export const visits = visitsJson as Visit[];
 
+export type PhotoSubject = { kind: Kind; id: string };
+
 export type Photo = {
   id: string;
   src: string;
   alt: string;
   caption: string;
-  kind: Kind;
-  subjectId: string;
+  /** One still can list several On Duty, Off Duty, command, operation, or uniform records. */
+  subjects: PhotoSubject[];
 };
 
 export type Reflection = {
@@ -367,7 +370,38 @@ export const units = unitsJson as Unit[];
 export const operations = operationsJson as Operation[];
 export const schools = schoolsJson as School[];
 export const necs = necsJson as Nec[];
-export const uniforms = uniformsJson as Uniform[];
+/** Numbered v12 mannequins. Cover cards stay these files; personal *-wear.jpg shots live in photos.json. */
+const UNIFORM_FIGURINE: Record<string, string> = {
+  smurfs: "/uniforms/v12/01-smurfs-boot-camp.jpg",
+  "navy-ptu": "/uniforms/v12/02-navy-ptu.jpg",
+  "eodmu5-pt-2": "/uniforms/v12/03-eodmu-5-pt-2-b.jpg",
+  "jcse-pt": "/uniforms/v12/04-jcse-pt.jpg",
+  "eodmu5-pt-1": "/uniforms/v12/05-eodmu-5-pt-1.jpg",
+  "jcse-afg": "/uniforms/v12/24-afg-civilian-attire-c.jpg",
+  dungarees: "/uniforms/v12/06-dungarees.jpg",
+  utilities: "/uniforms/v12/07-utilities.jpg",
+  coveralls: "/uniforms/v12/08-coveralls.jpg",
+  "working-whites": "/uniforms/v12/13-summer-white.jpg",
+  johnny: "/uniforms/v12/12-winter-blue.jpg",
+  nwu: "/uniforms/v12/09-nwu-type-i.jpg",
+  "nwu-type-iii": "/uniforms/v12/23-nwu-type-iii.jpg",
+  "peanut-butters": "/uniforms/v12/10-nsu-peanut-butter.jpg",
+  "cpo-summer-white": "/uniforms/v12/14-cpo-summer-white.jpg",
+  "cpo-khaki": "/uniforms/v12/11-cpo-working-khaki.jpg",
+  "dress-whites": "/uniforms/v12/16-sdw-crackerjack.jpg",
+  "dress-blues": "/uniforms/v12/15-sdb-crackerjack.jpg",
+  "cpo-sdw": "/uniforms/v12/18-cpo-sdw.jpg",
+  "cpo-sdb": "/uniforms/v12/17-cpo-sdb.jpg",
+  "green-camo": "/uniforms/v12/19-woodland-bdu.jpg",
+  desert: "/uniforms/v12/20-desert-dcu.jpg",
+  awu: "/uniforms/v12/21-army-acu.jpg",
+  multicam: "/uniforms/v12/22-army-ocp.jpg",
+};
+
+export const uniforms = (uniformsJson as Uniform[]).map((uniform) => ({
+  ...uniform,
+  image: UNIFORM_FIGURINE[uniform.id] ?? uniform.image,
+}));
 export const places = placesJson as Place[];
 export const bases = places.filter((place) => place.type === "base");
 export const photos = photosJson as Photo[];
@@ -1087,6 +1121,16 @@ export function pinNumbersFor(placeId: string): number[] {
   return pinNumbers.get(placeId) ?? [];
 }
 
+export type AwardInstanceView = {
+  id: string;
+  year: number | null;
+  unitId: string | null;
+  operationId: string | null;
+  note: string | null;
+  title: string;
+  detail: string;
+};
+
 export type SubjectView = {
   kind: Kind;
   id: string;
@@ -1095,7 +1139,7 @@ export type SubjectView = {
   explanation: string;
   criteria?: string;
   facts: { label: string; value: string }[];
-  instances?: { title: string; detail: string }[];
+  instances?: AwardInstanceView[];
   placeIds: string[];
   related: { kind: Kind; id: string; label: string }[];
   /** The graphic that was clicked, shown large at the top of the panel. */
@@ -1169,6 +1213,7 @@ function linkLabel(link: LinkRef): string | null {
   if (link.kind === "nec") return necById(link.id)?.name ?? null;
   if (link.kind === "award") return awardById(link.id)?.name ?? null;
   if (link.kind === "certificate") return byId(certificates, link.id)?.name ?? null;
+  if (link.kind === "equipment") return byId(equipment, link.id)?.name ?? null;
   return null;
 }
 
@@ -1198,7 +1243,6 @@ export function toSubject(sel: Selection): SubjectView | null {
   if (sel.kind === "photo") {
     const photo = byId(photos, sel.id);
     if (!photo) return null;
-    const subject = linkLabel({ kind: photo.kind, id: photo.subjectId });
     return {
       kind: "photo",
       id: photo.id,
@@ -1207,7 +1251,10 @@ export function toSubject(sel: Selection): SubjectView | null {
       explanation: photo.alt,
       facts: [],
       placeIds: [],
-      related: subject ? [rel(photo.kind, photo.subjectId, subject)] : [],
+      related: photo.subjects.flatMap((entry) => {
+        const label = linkLabel({ kind: entry.kind, id: entry.id });
+        return label ? [rel(entry.kind, entry.id, label)] : [];
+      }),
       hero: { type: "image", src: photo.src, alt: photo.alt, shape: "photo" },
     };
   }
@@ -1239,15 +1286,23 @@ export function toSubject(sel: Selection): SubjectView | null {
         { label: "Devices", value: award.deviceExplanation },
         { label: "Record", value: award.sourceNote },
       ],
-      instances: rows.map((row, index) => ({
-        title: row.year ? String(row.year) : `Award ${index + 1}`,
-        detail: [
-          row.year ? null : "Year not entered",
-          unitById(row.unitId)?.abbreviation,
-          byId(operations, row.operationId)?.phase,
-          row.note,
-        ].filter(Boolean).join(" · "),
-      })),
+      instances: rows.map((raw, index) => {
+        const row = patchedInstance(raw);
+        return {
+          id: row.id,
+          year: row.year,
+          unitId: row.unitId,
+          operationId: row.operationId,
+          note: row.note,
+          title: row.year ? String(row.year) : `Award ${index + 1}`,
+          detail: [
+            row.year ? null : "Year not entered",
+            unitById(row.unitId)?.abbreviation,
+            byId(operations, row.operationId)?.phase,
+            row.note,
+          ].filter(Boolean).join(" · "),
+        };
+      }),
       placeIds: [...related.values()]
         .map((item) => (item.kind === "operation" ? byId(operations, item.id)?.placeId : unitById(item.id)?.placeId))
         .filter((id): id is string => Boolean(id)),
@@ -1524,7 +1579,7 @@ export function toSubject(sel: Selection): SubjectView | null {
 }
 
 export function photosFor(kind: Kind, id: string): Photo[] {
-  return photos.filter((photo) => photo.kind === kind && photo.subjectId === id);
+  return photos.filter((photo) => photo.subjects.some((entry) => entry.kind === kind && entry.id === id));
 }
 
 export function reflectionFor(kind: Kind, id: string): string | null {

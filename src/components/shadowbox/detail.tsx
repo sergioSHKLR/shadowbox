@@ -1,6 +1,8 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import { useMemo, useState } from "react";
+import { InstanceEntry, useInstanceEdits } from "@/components/shadowbox/instance-form";
+import { PhotoRemarks } from "@/components/shadowbox/photo-remarks";
 import supplementJson from "@/data/supplement.json";
 import {
   photosFor,
@@ -17,6 +19,7 @@ import {
   units,
   visits,
   type Kind,
+  type Photo,
   type Selection,
   type Stop,
 } from "@/lib/shadowbox/model";
@@ -26,15 +29,20 @@ import { MedalArt, RibbonArt } from "@/components/shadowbox/marks";
 type Mark = { src: string; alt: string };
 type Linked = { kind: Kind; id: string; label: string; marks?: Mark[] };
 const COMMAND_LINKS: Record<string, Linked[]> = {
-  ncts: [{
-    kind: "unit",
-    id: "tortuga",
-    label: "TAD \u00b7 USS Tortuga (LSD-46) \u00b7 ACU 4",
-    marks: [
-      { src: "/incoming/lsd-46.png", alt: "USS Tortuga (LSD-46)" },
-      { src: "/incoming/acu-4.png", alt: "Assault Craft Unit 4" },
-    ],
-  }],
+  ncts: [
+    {
+      kind: "unit",
+      id: "tortuga",
+      label: "TAD \u00b7 USS Tortuga (LSD-46)",
+      marks: [{ src: "/incoming/lsd-46.png", alt: "USS Tortuga (LSD-46)" }],
+    },
+    {
+      kind: "unit",
+      id: "tortuga",
+      label: "Exercise Partner \u00b7 ACU 4",
+      marks: [{ src: "/incoming/acu-4.png", alt: "Exercise Partner \u00b7 ACU 4" }],
+    },
+  ],
   eodmu5: [
     {
       kind: "unit",
@@ -261,10 +269,7 @@ function UnitDossier({ id }: { id: string }) {
   });
   const customers = id === "jcse" ? ["3rd SFG (ODA 3213)", "75th Rangers"] : list(id, "Customer");
   const customerShots = customers.map((name) => ({ name, src: crestFor(name) }));
-  const tadShots: Shot[] = [
-    ...list(id, "TAD").map((name) => ({ name, src: crestFor(name) })),
-    ...(id === "tortuga" ? [{ name: "ACU 4", src: CREST["ACU 4"] }] : []),
-  ];
+  const tadShots: Shot[] = list(id, "TAD").map((name) => ({ name, src: crestFor(name) }));
   const ia = id === "ia-army" || id === "sercc" ? ["Task Force Iron Shield"] : [];
   const countries = list(id, "Countries");
   const rows: { label: string; value: string }[] = [
@@ -323,9 +328,16 @@ export function DetailPanel({
   onSelect: (sel: Selection) => void;
   onClose: () => void;
 }) {
+  const instanceEditTick = useInstanceEdits();
   const subject = selection ? toSubject(selection) : null;
   const crumbs = trail.length ? trail : selection ? [selection] : [];
   const photos = selection ? photosFor(selection.kind, selection.id) : [];
+  const catalog = selection?.kind === "uniform" || selection?.kind === "equipment";
+  const heroSrc = subject?.hero && subject.hero.type === "image" ? subject.hero.src : undefined;
+  const gallery = photos
+    .filter((photo) => photo.src !== heroSrc)
+    .sort((a, b) => Number(b.src.startsWith("/uniforms/")) - Number(a.src.startsWith("/uniforms/")));
+  const showUsage = selection?.kind === "uniform" || (selection?.kind === "equipment" && (gallery.length > 0 || !heroSrc));
   const words = selection ? reflectionFor(selection.kind, selection.id) : null;
   const related: Linked[] = [
     ...(subject?.related ?? []),
@@ -376,14 +388,21 @@ export function DetailPanel({
               {selection?.medal && selection.kind === "award" && medalFor(selection.id) ? (
                 <MedalHero key={selection.id} awardId={selection.id} />
               ) : subject.hero ? (
-                <figure className={`detail-hero hero-${subject.hero.type === "ribbon" ? "ribbon" : subject.hero.shape}`}>
+                <>
+                <figure className={`detail-hero hero-${subject.hero.type === "ribbon" ? "ribbon" : subject.hero.shape}${showUsage && gallery.length ? " hero-with-shots" : ""}`}>
                   {subject.hero.type === "ribbon" ? (
                     <RibbonArt award={subject.hero.award} className="ribbon-hero" />
                   ) : subject.hero.src ? (
                     <img src={publicUrl(subject.hero.src)} alt={subject.hero.alt} />
                   ) : null}
                 </figure>
+                {subject.hero.type === "image" && subject.hero.src && selection?.kind !== "uniform" ? (
+                  <PhotoRemarks src={subject.hero.src} />
+                ) : null}
+                </>
               ) : null}
+              {showUsage ? <Photographs photos={gallery} onSelect={onSelect} prominent /> : null}
+              {selection?.kind === "uniform" ? null : (
               <section className="sidebar-map">
                 {stops.length ? (
                   <MapView stops={stops} onSelect={(id) => onSelect({ kind: "place", id })} />
@@ -391,6 +410,7 @@ export function DetailPanel({
                   <p className="quiet">No map location has been entered for this yet.</p>
                 )}
               </section>
+              )}
               {subject.extraImages?.filter((extra) => extra.src).map((extra) => (
                 <figure key={extra.src} className="detail-hero hero-extra">
                   <img src={publicUrl(extra.src)} alt={extra.alt} />
@@ -435,31 +455,23 @@ export function DetailPanel({
                 {subject.instances ? (
                   <section>
                     <h3>Each award</h3>
-                    <ul className="instance-list">
+                    <ul className="instance-list" data-edits={instanceEditTick}>
                       {subject.instances.map((row) => (
-                        <li key={row.title + row.detail}>
-                          <strong>{row.title}</strong>
-                          <span>{row.detail}</span>
+                        <li key={row.id}>
+                          {subject.instances && subject.instances.length > 1 ? (
+                            <InstanceEntry row={row} />
+                          ) : (
+                            <>
+                              <strong>{row.title}</strong>
+                              <span>{row.detail}</span>
+                            </>
+                          )}
                         </li>
                       ))}
                     </ul>
                   </section>
                 ) : null}
-                <section>
-                  <h3>Photographs</h3>
-                  {photos.length ? (
-                    <ul className="gallery">
-                      {photos.map((photo) => (
-                        <li key={photo.id}>
-                          <img src={publicUrl(photo.src)} alt={photo.alt} />
-                          <p>{photo.caption}</p>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="quiet">No photographs have been added for this yet.</p>
-                  )}
-                </section>
+                {selection?.kind === "photo" || catalog ? null : <Photographs photos={photos} onSelect={onSelect} />}
                 <section>
                   <h3>In my words</h3>
                   {words ? <p className="words">{words}</p> : <p className="quiet">Nothing written here yet.</p>}
@@ -493,6 +505,29 @@ export function DetailPanel({
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
+  );
+}
+
+function Photographs({ photos, onSelect, prominent = false }: { photos: Photo[]; onSelect: (item: Selection) => void; prominent?: boolean }) {
+  return (
+    <section className={prominent ? "usage-shots" : undefined}>
+      <h3>Photographs</h3>
+      {photos.length ? (
+        <ul className="gallery">
+          {photos.map((photo) => (
+            <li key={photo.id}>
+              <button type="button" className="gallery-open" onClick={() => onSelect({ kind: "photo", id: photo.id })}>
+                <img src={publicUrl(photo.src)} alt={photo.alt} />
+              </button>
+              <p>{photo.caption}</p>
+              <PhotoRemarks src={photo.src} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="quiet">No photographs have been added for this yet.</p>
+      )}
+    </section>
   );
 }
 

@@ -28,8 +28,8 @@
     "end": "1998",
     "precision": "season",
     "placeId": "little-creek",
-    "explanation": "A Whidbey Island-class dock landing ship. It carries Marines with their vehicles and landing craft, and launches the craft from a well deck that floods. Assault Craft Unit 4 (ACU 4) was the craft unit on this TAD. Late 1997, after RTC, into early 1998.",
-    "civilian": "A ship that carries Marines and their boats and vehicles to a beach. ACU 4 ran the landing craft.",
+    "explanation": "A Whidbey Island-class dock landing ship. It carries Marines with their vehicles and landing craft, and launches the craft from a well deck that floods. Assault Craft Unit 4 (ACU 4) was the exercise partner on this TAD. Late 1997, after RTC, into early 1998.",
+    "civilian": "A ship that carries Marines and their boats and vehicles to a beach. ACU 4 was the exercise partner that ran the landing craft.",
     "onCase": false,
     "image": "/incoming/lsd-46.png"
   },

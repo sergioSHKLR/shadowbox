@@ -203,7 +203,7 @@
     "file": null,
     "sourceUrl": "https://www.openstreetmap.org/copyright",
     "creator": "OpenStreetMap contributors",
-    "license": "Open Database License (tiles © OpenStreetMap contributors).",
+    "license": "Open Database License (tiles \u00a9 OpenStreetMap contributors).",
     "notes": "Tiles are requested when a map is opened. They are not packaged in the project."
   },
   {
@@ -244,7 +244,7 @@
   },
   {
     "id": "equipment-hmmwv-up-armored",
-    "title": "Up-armored HMMWV with turtleback (M1114 shown, with the armored gunner’s turret)",
+    "title": "Up-armored HMMWV with turtleback (M1114 shown, with the armored gunner\u2019s turret)",
     "file": "/equipment/hmmwv-up-armored.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Marine_vehicles_roll_out_for_Marine_Week_Cleveland_120611-M-QZ986-385.jpg",
     "creator": "Sgt. Shannon Yount, U.S. Marine Corps",
@@ -666,6 +666,150 @@
     "notes": "Placed on white and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/d/d2/Soldier_Plate_Carrier_System_%28SPCS%29.jpg . Not hotlinked."
   },
   {
+    "id": "equipment-apc",
+    "title": "APC",
+    "file": "/equipment/apc.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:M113_APC_production_model.jpg",
+    "creator": "U.S. Department of the Army",
+    "license": "Public domain (U.S. federal government work)",
+    "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked."
+  },
+  {
+    "id": "equipment-apc-usage",
+    "title": "APC (M113, Iraq)",
+    "file": "/equipment/apc.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-mk14",
+    "title": "Mk 14",
+    "file": "/equipment/mk14.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:PEO_M14_EBR.jpg",
+    "creator": "PEO Soldier, U.S. Army",
+    "license": "Public domain (U.S. federal government work)",
+    "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked."
+  },
+  {
+    "id": "equipment-mk14-usage",
+    "title": "Mk 14 (Two Mk 14s, Iraq, 18 March 2006)",
+    "file": "/equipment/mk14.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-m60",
+    "title": "M60",
+    "file": "/equipment/m60.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Machine_Gun,_M60.jpg",
+    "creator": "U.S. Department of the Army",
+    "license": "Public domain (U.S. federal government work)",
+    "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked."
+  },
+  {
+    "id": "equipment-m60-usage",
+    "title": "M60 (On the range, Guam)",
+    "file": "/equipment/m60.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-c-17",
+    "title": "C-17",
+    "file": "/equipment/c-17.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:C-17_Globemaster_III.jpg",
+    "creator": "U.S. Air Force",
+    "license": "Public domain (U.S. federal government work)",
+    "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked."
+  },
+  {
+    "id": "equipment-c-17-usage",
+    "title": "C-17 (0106, 437th Airlift Wing, 22 February 2006)",
+    "file": "/equipment/c-17.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-nissan-sentra-silver",
+    "title": "Nissan Sentra, grey, 2007",
+    "file": "/equipment/nissan-sentra-silver.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ANissan_Sentra_VII_Taiwanese_facelift_001.jpg",
+    "creator": "Wikimedia Commons",
+    "license": "CC0",
+    "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked."
+  },
+  {
+    "id": "equipment-nissan-sentra-silver-usage",
+    "title": "Nissan Sentra, grey, 2007 (Grey Sentra, Guam, 23 December 2006)",
+    "file": "/equipment/nissan-sentra-silver.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-chevy-spark-yellow",
+    "title": "Chevy Spark, yellow",
+    "file": "/equipment/chevy-spark-yellow.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AChevrolet_Spark._Bukhara%2C_Uzbekistan.jpg",
+    "creator": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked."
+  },
+  {
+    "id": "equipment-chevy-spark-yellow-usage",
+    "title": "Chevy Spark, yellow (Yellow Spark, Tampa)",
+    "file": "/equipment/chevy-spark-yellow.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-buell-500",
+    "title": "Buell 500, black",
+    "file": "/equipment/buell-500.webp",
+    "sourceUrl": "https://www.rideapart.com/news/267653/buell-blast-project-erik-buell/",
+    "creator": "RideApart",
+    "license": "See source page",
+    "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked."
+  },
+  {
+    "id": "equipment-buell-500-usage",
+    "title": "Buell 500, black (Black Blast, 11 August 2007)",
+    "file": "/equipment/buell-500.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-sportster-1200",
+    "title": "Sportster 1200",
+    "file": "/equipment/sportster-1200.webp",
+    "sourceUrl": "https://www.vikingbags.com/blogs/news/harleydavidson-sportster-1200-custom-detailed-specs-background-performance-and-more",
+    "creator": "Motorcyclecruiser, via Viking Bags",
+    "license": "See source page",
+    "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked."
+  },
+  {
+    "id": "equipment-sportster-1200-usage",
+    "title": "Sportster 1200 (Black Sportster 1200)",
+    "file": "/equipment/sportster-1200.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
     "id": "photo-recruit-1997",
     "title": "Recruit portrait, RTC Great Lakes, 1997",
     "file": "/photos/recruit-1997.webp",
@@ -730,7 +874,7 @@
   },
   {
     "id": "crest-sojtf-a",
-    "title": "Special Operations Joint Task Force — Afghanistan seal",
+    "title": "Special Operations Joint Task Force \u2014 Afghanistan seal",
     "file": "/incoming/sojtf-a.png",
     "sourceUrl": null,
     "creator": "Graphic supplied for this shadowbox",
@@ -880,5 +1024,149 @@
     "creator": "Illustration to be placed",
     "license": "Pending the illustration in incoming/medals.",
     "notes": "Obverse illustration. File: incoming/medals/nato.png."
+  },
+  {
+    "id": "equipment-m16a1-usage",
+    "title": "M16A1 rifle (Stacked M16A1s, desert training)",
+    "file": "/equipment/m16a1.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-m4-carbine-usage",
+    "title": "M4 carbine (His rifle, Iraq, March 2006)",
+    "file": "/equipment/m4-carbine.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-centurion-c-ram-usage",
+    "title": "Centurion C-RAM (Trailer-mounted, with its generator (Iraq))",
+    "file": "/equipment/centurion-c-ram.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-hmmwv-up-armored-usage",
+    "title": "Up-armored HMMWV with turtleback (M1114 shown, with the armored gunner\u2019s turret)",
+    "file": "/equipment/hmmwv-up-armored.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-hilux-usage",
+    "title": "Toyota Hilux pickup (Double cab, Afghanistan)",
+    "file": "/equipment/toyota-hilux.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-pasgt-helmet-desert-usage",
+    "title": "PASGT helmet, desert cover (3-color desert (DCU) cover)",
+    "file": "/equipment/pasgt-helmet-desert.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-ach-tan-usage",
+    "title": "ACH / MICH, bare tan (Tan shell, no cover)",
+    "file": "/equipment/ach-helmet-tan.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-ach-acu-cover-usage",
+    "title": "ACH / MICH, ACU cover (UCP cover and night-vision mount)",
+    "file": "/equipment/ach-helmet-acu-cover.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-jerrv-6x6-usage",
+    "title": "JERRV (Cougar 6x6)",
+    "file": "/equipment/jerrv-cougar-6x6.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-m-gator-usage",
+    "title": "John Deere M-Gator (6x4 military utility vehicle)",
+    "file": "/equipment/m-gator.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-polaris-sportsman-usage",
+    "title": "Polaris Sportsman ATV (Military all-terrain vehicle)",
+    "file": "/equipment/polaris-sportsman-atv.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-polaris-ranger-usage",
+    "title": "Polaris Ranger UTV (Side-by-side utility vehicle)",
+    "file": "/equipment/polaris-ranger-utv.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-bobcat-usage",
+    "title": "Bobcat skid-steer loader (Compact loader (bucket or forks))",
+    "file": "/equipment/bobcat-skid-steer.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-swe-dish-usage",
+    "title": "SWE-DISH flyaway terminal (Portable satellite terminal)",
+    "file": "/equipment/swe-dish-flyaway.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-iotv-ucp-usage",
+    "title": "Interceptor / IOTV, ACU (UCP) (IOTV in UCP shown, with deltoid protectors)",
+    "file": "/equipment/iotv-ucp.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "equipment-plate-carrier-multicam-usage",
+    "title": "Plate carrier, MultiCam (Soldier Plate Carrier System (SPCS) shown)",
+    "file": "/equipment/plate-carrier-multicam.jpg",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
   }
 ]

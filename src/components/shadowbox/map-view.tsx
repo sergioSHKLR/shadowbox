@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import type { Place, Stop } from "@/lib/shadowbox/model";
+import { allowRemoteAssets } from "@/lib/shadowbox/remote";
 import "leaflet/dist/leaflet.css";
 
 export type BasemapId = "topo";
@@ -134,6 +135,7 @@ export function MapView({
     let started = false;
     let timer = 0;
     let observer: ResizeObserver | undefined;
+    let onOnline: (() => void) | undefined;
 
     const boot = () => {
       if (!alive || started || map) return;
@@ -157,7 +159,7 @@ export function MapView({
         const tiles = L.tileLayer(spec.url, {
           attribution: spec.attribution,
           maxZoom: spec.maxZoom,
-        }).addTo(map);
+        });
         // Places east of 100°E are drawn one world to the west. Repeat the
         // tile columns so that copy is the Pacific, not an empty grid.
         tiles.getTileUrl = (coords) => {
@@ -165,6 +167,14 @@ export function MapView({
           const x = ((coords.x % span) + span) % span;
           return spec.url.replace("{z}", String(coords.z)).replace("{y}", String(coords.y)).replace("{x}", String(x));
         };
+        const mountTiles = () => {
+          if (!map || map.hasLayer(tiles)) return;
+          if (!allowRemoteAssets()) return;
+          tiles.addTo(map);
+        };
+        mountTiles();
+        onOnline = mountTiles;
+        window.addEventListener("online", onOnline);
 
         const wrapLng = (lng: number) => (lng > 100 ? lng - 360 : lng);
         const at = (place: Place): [number, number] => [place.lat ?? 0, wrapLng(place.lng ?? 0)];
@@ -283,6 +293,7 @@ export function MapView({
       alive = false;
       window.clearTimeout(timer);
       observer?.disconnect();
+      if (onOnline) window.removeEventListener("online", onOnline);
       const current = map;
       map = undefined;
       runtime.current = null;
