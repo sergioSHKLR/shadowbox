@@ -74,7 +74,7 @@ export function Home({ onOpen, bio, moreLabel, lessLabel }: { onOpen: (k: Kind, 
         </div>
         <div className="bio-wrap">
           {lead.map((paragraph) => (
-            <p className="bio" key={paragraph.slice(0, 24)}>{bioParagraph(paragraph)}</p>
+            <BioBlock key={paragraph.slice(0, 24)} text={paragraph} />
           ))}
           {rest.length > 0 ? (
             <>
@@ -99,7 +99,7 @@ export function Home({ onOpen, bio, moreLabel, lessLabel }: { onOpen: (k: Kind, 
               {bioOpen ? (
                 <div className="bio-rest">
                   {rest.map((paragraph) => (
-                    <p className="bio" key={paragraph.slice(0, 24)}>{bioParagraph(paragraph)}</p>
+                    <BioBlock key={paragraph.slice(0, 24)} text={paragraph} />
                   ))}
                   <img className="bio-pao" src={publicUrl("/incoming/pao.png")} alt="Approved for release. Unclassified. Unit PAO." />
                 </div>
@@ -155,26 +155,36 @@ function MarkerLine({ seed, tilt, grow = 1 }: { seed: number; tilt: number; grow
   );
 }
 
-function bioParagraph(text: string) {
-  const marker = "{{redacted-2011}}";
-  if (!text.includes(marker)) return text;
-  const [before, after] = text.split(marker);
-  return (
-    <>
-      {before.trimEnd()}
-      <span className="redacted-sentence">
-        <span className="redacted-row">
-          <MarkerLine seed={2.2} tilt={-1.05} grow={0.88} />
-          <span className="redacted-year">2011</span>
-          <MarkerLine seed={5.4} tilt={0.55} grow={1.62} />
+function BioBlock({ text }: { text: string }) {
+  if (text.startsWith("{{quote}}")) {
+    return <blockquote className="bio-quote">{text.slice("{{quote}}".length)}</blockquote>;
+  }
+  return <p className="bio">{bioInline(text)}</p>;
+}
+
+function bioInline(text: string) {
+  const bits = text.split(/(\{\{b\}\}[\s\S]*?\{\{\/b\}\}|\{\{redacted-2011\}\})/);
+  if (bits.length === 1) return text;
+  return bits.map((bit, index) => {
+    if (!bit) return null;
+    if (bit === "{{redacted-2011}}") {
+      return (
+        <span className="redacted-sentence" key={index}>
+          <span className="redacted-row">
+            <MarkerLine seed={2.2} tilt={-1.05} grow={0.88} />
+            <span className="redacted-year">2011</span>
+            <MarkerLine seed={5.4} tilt={0.55} grow={1.62} />
+          </span>
+          <span className="redacted-row redacted-row-tail">
+            <MarkerLine seed={8.6} tilt={0.85} />
+          </span>
         </span>
-        <span className="redacted-row redacted-row-tail">
-          <MarkerLine seed={8.6} tilt={0.85} />
-        </span>
-      </span>
-      {after.trimStart()}
-    </>
-  );
+      );
+    }
+    const name = /^\{\{b\}\}([\s\S]*)\{\{\/b\}\}$/.exec(bit);
+    if (name) return <strong key={index}>{name[1]}</strong>;
+    return bit;
+  });
 }
 
 export function Timeline({
