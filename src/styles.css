@@ -426,7 +426,23 @@ h1, h2, h3, .detail-title {
   hyphens: auto;
 }
 .bio + .bio { margin-top: 1.35rem; }
+.bio strong { font-weight: 600; }
+.bio-quote {
+  margin: 1.35rem 0 0.15rem;
+  margin-inline-start: 1.75rem;
+  margin-inline-end: 0.35rem;
+  padding: 0;
+  border: 0;
+  font-size: 1.12rem;
+  font-style: italic;
+  font-weight: 400;
+  text-align: justify;
+  hyphens: auto;
+}
 .bio-rest > .bio:first-child { margin-top: 1.35rem; }
+@media (max-width: 720px) {
+  .bio-quote { margin-inline-start: 1.05rem; margin-inline-end: 0; }
+}
 .bio-fold {
   display: flex;
   flex-direction: column;
