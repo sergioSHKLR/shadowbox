@@ -8,8 +8,8 @@ import {
   logbookAdminAsOf,
   logbookBeats,
   logbookRankPath,
+  mapPlaceLabel,
   offDutyForCommand,
-  placeById,
   onDutyForCommand,
   deviceSummary,
   publicUrl,
@@ -154,7 +154,7 @@ function necCode(nec: { code: string }): string {
 /** "School: COMSEC · NS San Diego, San Diego, CA" from the NEC's linked school(s) and its place, when the data has them. */
 function necSchoolLine(nec: { schoolIds?: string[]; placeId?: string }): string {
   const names = (nec.schoolIds ?? []).map((id) => schools.find((school) => school.id === id)?.abbreviation).filter(Boolean);
-  const place = nec.placeId ? placeById(nec.placeId)?.name : undefined;
+  const place = nec.placeId ? mapPlaceLabel(nec.placeId) || undefined : undefined;
   if (!names.length && !place) return "";
   return `School: ${[names.join(", "), place].filter(Boolean).join(" · ")}`;
 }
