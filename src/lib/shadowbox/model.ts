@@ -26,6 +26,7 @@ import supplementJson from "@/data/supplement.json";
 import worldEventsJson from "@/data/world-events.json";
 import certificatesJson from "@/data/certificates.json";
 import commandPlatesJson from "@/data/command-plates.json";
+import deploymentGearJson from "@/data/deployment-gear.json";
 
 /** Public files are served from the base URL: the site root in dev and on https://mil.shklr.org. */
 export function publicUrl(path: string): string {
@@ -2073,4 +2074,47 @@ export function logbookAdminAsOf(beat: LogbookBeat): {
     .filter((school) => !tourSchoolIds.has(school.id) && school.start && dateKey(school.end || school.start) <= cutoff)
     .sort(byDate);
   return { necsHeld, schoolsThisTour, schoolsEarlier };
+}
+
+/* ---------- Logbook On Duty: deployment body armor + helmets (deployment-gear.json) ---------- */
+type GearName = { short: string; name: string };
+type DeploymentGearFile = {
+  helmets: GearName[];
+  deployments: { unitId: string; label: string; bodyArmor: GearName | null; helmet: GearName | null }[];
+};
+const deploymentGear = deploymentGearJson as DeploymentGearFile;
+
+export type LogbookDeployment = {
+  unitId: string;
+  label: string;
+  unitName: string;
+  unitAbbreviation: string;
+  span: string;
+  theater: string | null;
+  bodyArmor: GearName | null;
+  /** Recorded helmet for this deployment; null when only the pair (ACH / ECH) is known. */
+  helmet: GearName | null;
+  helmetsKnown: GearName[];
+};
+
+/** Deployments that fall inside a command's tour (by the deployment unit's dates), with their recorded armor and helmets. */
+export function deploymentsForCommand(unitId: string | null | undefined): LogbookDeployment[] {
+  const command = unitId ? units.find((row) => row.id === unitId) : undefined;
+  if (!command?.start) return [];
+  return deploymentGear.deployments.flatMap((row) => {
+    const unit = units.find((u) => u.id === row.unitId);
+    if (!unit?.start || !inTour(unit.start, command.start, command.end)) return [];
+    const op = operations.find((o) => (o as { unitId?: string }).unitId === row.unitId);
+    return [{
+      unitId: row.unitId,
+      label: row.label,
+      unitName: unit.name,
+      unitAbbreviation: unit.abbreviation,
+      span: formatSpan(unit.start, unit.end),
+      theater: (op as { theater?: string } | undefined)?.theater ?? null,
+      bodyArmor: row.bodyArmor,
+      helmet: row.helmet,
+      helmetsKnown: deploymentGear.helmets,
+    }];
+  });
 }

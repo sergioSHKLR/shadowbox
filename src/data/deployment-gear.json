@@ -1,0 +1,13 @@
+{
+  "_note": "Deployment body armor and helmets, as stated by Sergio (Oct 5, 2026). Helmets were not assigned per deployment, so each deployment's helmet stays null and the Logbook shows the pair (ACH / ECH).",
+  "helmets": [
+    { "short": "ACH", "name": "Advanced Combat Helmet" },
+    { "short": "ECH", "name": "Enhanced Combat Helmet" }
+  ],
+  "deployments": [
+    { "unitId": "troy", "label": "OIF I", "bodyArmor": { "short": "IOTV", "name": "Improved Outer Tactical Vest" }, "helmet": null },
+    { "unitId": "ia-army", "label": "OIF II", "bodyArmor": { "short": "OTV", "name": "Outer Tactical Vest" }, "helmet": null },
+    { "unitId": "cjsotf", "label": "OEF I", "bodyArmor": { "short": "IOTV", "name": "Improved Outer Tactical Vest" }, "helmet": null },
+    { "unitId": "sojtf", "label": "OEF II", "bodyArmor": { "short": "IOTV", "name": "Improved Outer Tactical Vest" }, "helmet": null }
+  ]
+}
