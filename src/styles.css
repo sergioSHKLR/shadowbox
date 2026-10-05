@@ -855,12 +855,13 @@ a { color: var(--color-navy); }
   font-family: var(--font-sans); font-weight: 700; font-size: 11px; line-height: 1; font-variant-numeric: tabular-nums;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
 }
-/* Primary colours by group: commands red, deployments green, visits/exercises/schools/transit yellow with a dark gold ring. */
+/* Mutually exclusive Map categories: command blue, base green, field orange, port yellow, flight teal. */
 .map-num, .pin-num { background: #1d4e89; color: #ffffff; border-color: #0c2748; }
-.map-num.base, .pin-num.base { background: #1f8a3c; color: #ffffff; border-color: #0d4a1f; }
-.map-num.visit, .pin-num.visit { background: #ffd21a; color: #1a1400; border-color: #8a6400; }
-.map-num.city, .pin-num.city { background: #ffd21a; color: #1a1400; border-color: #8a6400; }
 .map-num.command, .pin-num.command { background: #1d4e89; color: #ffffff; border-color: #0c2748; }
+.map-num.base, .pin-num.base { background: #1f8a3c; color: #ffffff; border-color: #0d4a1f; }
+.map-num.field, .pin-num.field { background: #c45c26; color: #ffffff; border-color: #6e2e10; }
+.map-num.port, .pin-num.port, .map-num.visit, .pin-num.visit, .map-num.city, .pin-num.city { background: #ffd21a; color: #1a1400; border-color: #8a6400; }
+.map-num.flight, .pin-num.flight { background: #0e7490; color: #ffffff; border-color: #083344; }
 
 .map-num.approximate, .pin-num.approximate { border-style: dashed; }
 .map-legend { list-style: none; display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; margin: 0 0 0.7rem; padding: 0; font-size: 0.85rem; color: var(--color-quiet); }

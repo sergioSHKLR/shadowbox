@@ -162,7 +162,7 @@ export function Timeline({
   eventsNote,
 }: {
   bars: ReturnType<typeof timeline>;
-  stops: { n: number; labels: string[]; when: string; place: { id: string; name: string; accuracy: string }; layers: string[]; cityId: string | null; baseId: string | null; commandId: string | null }[];
+  stops: { n: number; labels: string[]; when: string; place: { id: string; name: string; accuracy: string }; layers: string[]; kind: string; cityId: string | null; baseId: string | null; commandId: string | null }[];
   onOpen: (k: Kind, id: string) => void;
   title: string;
   lead: string;
@@ -187,7 +187,7 @@ export function Timeline({
         <p className="quiet">The same order as the Map. Numbers do not change.</p>
         <ol className="stop-list">
           {stops.map((stop) => {
-            const layer = stop.commandId ? "command" : stop.baseId ? "base" : "city";
+            const layer = "kind" in stop && stop.kind ? String(stop.kind) : "base";
             return (
               <li key={stop.n}>
                 <button type="button" onClick={() => onOpen("place", stop.place.id)}>

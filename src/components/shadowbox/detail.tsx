@@ -348,17 +348,20 @@ export function DetailPanel({
     return subject.placeIds
       .map((id) => placeById(id))
       .filter((place): place is NonNullable<typeof place> => Boolean(place && place.lat != null))
-      .map((place) => ({
-        place,
-        labels: [place.locality],
-        when: "",
-        n: pinNumbersFor(place.id)[0] ?? 0,
-        cityId: place.type === "city" ? place.id : null,
-        baseId: place.type === "base" ? place.id : null,
-        commandId: null,
-        kind: place.type ?? "duty",
-        layers: place.type === "city" ? ["city"] : place.type === "base" ? ["base"] : [],
-      }));
+      .map((place) => {
+        const kind = place.type === "city" || place.type === "visit" ? "port" as const : "base" as const;
+        return {
+          place,
+          labels: [place.locality],
+          when: "",
+          n: pinNumbersFor(place.id)[0] ?? 0,
+          cityId: place.type === "city" ? place.id : null,
+          baseId: place.type === "base" ? place.id : null,
+          commandId: null,
+          kind,
+          layers: [kind],
+        };
+      });
   }, [subject]);
 
   const frame = typeof document === "undefined" ? null : document.querySelector(".app-shell");

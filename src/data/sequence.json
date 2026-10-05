@@ -5,7 +5,7 @@
     "cityId": "city-great-lakes",
     "baseId": "great-lakes",
     "commandId": "rtc",
-    "kind": "command",
+    "kind": "base",
     "when": "1997-06-30"
   },
   {
@@ -14,7 +14,7 @@
     "cityId": "city-great-lakes",
     "baseId": "great-lakes",
     "commandId": "ntc-great-lakes",
-    "kind": "command",
+    "kind": "base",
     "when": "1998"
   },
   {
@@ -32,7 +32,7 @@
     "cityId": "city-virginia-beach",
     "baseId": "little-creek",
     "commandId": "tortuga",
-    "kind": "command",
+    "kind": "base",
     "when": "1997"
   },
   {
@@ -41,7 +41,7 @@
     "cityId": "city-great-lakes",
     "baseId": "great-lakes",
     "commandId": "ntc-great-lakes",
-    "kind": "command",
+    "kind": "base",
     "when": "1998"
   },
   {
@@ -50,7 +50,7 @@
     "cityId": "city-biloxi",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "port",
     "when": null
   },
   {
@@ -68,7 +68,7 @@
     "cityId": "city-san-diego",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "port",
     "when": null
   },
   {
@@ -95,7 +95,7 @@
     "cityId": "city-san-diego",
     "baseId": "san-diego",
     "commandId": "essex",
-    "kind": "command",
+    "kind": "base",
     "when": null
   },
   {
@@ -104,7 +104,7 @@
     "cityId": "city-san-francisco",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "port",
     "when": null
   },
   {
@@ -122,7 +122,7 @@
     "cityId": "city-agana",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "port",
     "when": null
   },
   {
@@ -149,7 +149,7 @@
     "cityId": "city-yokosuka",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "port",
     "when": null
   },
   {
@@ -158,7 +158,7 @@
     "cityId": "city-sasebo",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "port",
     "when": null
   },
   {
@@ -167,7 +167,7 @@
     "cityId": "city-hong-kong",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "port",
     "when": null
   },
   {
@@ -176,7 +176,7 @@
     "cityId": "city-saipan",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "port",
     "when": null
   },
   {
@@ -203,7 +203,7 @@
     "cityId": "city-san-diego",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "port",
     "when": null
   },
   {
@@ -212,7 +212,7 @@
     "cityId": "city-san-diego",
     "baseId": "san-diego",
     "commandId": "comsec-school",
-    "kind": "school",
+    "kind": "base",
     "when": "2004-04"
   },
   {
@@ -248,7 +248,7 @@
     "cityId": "city-pattaya",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "port",
     "when": null
   },
   {
@@ -275,7 +275,7 @@
     "cityId": "city-san-diego",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "port",
     "when": null
   },
   {
@@ -284,7 +284,7 @@
     "cityId": "city-san-diego",
     "baseId": "imperial-beach",
     "commandId": "nsw-comms-school",
-    "kind": "school",
+    "kind": "base",
     "when": null
   },
   {
@@ -302,7 +302,7 @@
     "cityId": "city-oak-harbor",
     "baseId": "whidbey",
     "commandId": null,
-    "kind": "visit",
+    "kind": "port",
     "when": "2006"
   },
   {
@@ -311,7 +311,7 @@
     "cityId": "mosul",
     "baseId": null,
     "commandId": "52nd-ordnance",
-    "kind": "command",
+    "kind": "field",
     "when": "2006-01"
   },
   {
@@ -347,7 +347,7 @@
     "cityId": "mosul",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "field",
     "when": "2006"
   },
   {
@@ -365,7 +365,7 @@
     "cityId": null,
     "baseId": "u-tapao",
     "commandId": null,
-    "kind": "exercise",
+    "kind": "field",
     "when": null
   },
   {
@@ -410,7 +410,7 @@
     "cityId": "city-san-diego",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "port",
     "when": null
   },
   {
@@ -419,7 +419,7 @@
     "cityId": "city-el-paso",
     "baseId": "fort-bliss",
     "commandId": null,
-    "kind": "base",
+    "kind": "field",
     "when": "2008-10"
   },
   {
@@ -428,7 +428,7 @@
     "cityId": "city-baltimore",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "flight",
     "when": null
   },
   {
@@ -437,7 +437,7 @@
     "cityId": "city-leipzig",
     "baseId": "leipzig",
     "commandId": null,
-    "kind": "transit",
+    "kind": "flight",
     "when": "2009"
   },
   {
@@ -473,7 +473,7 @@
     "cityId": "city-baltimore",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "flight",
     "when": null
   },
   {
@@ -491,7 +491,7 @@
     "cityId": "city-tampa",
     "baseId": null,
     "commandId": null,
-    "kind": "city",
+    "kind": "port",
     "when": null
   },
   {
@@ -527,7 +527,7 @@
     "cityId": "city-leipzig",
     "baseId": "leipzig",
     "commandId": null,
-    "kind": "transit",
+    "kind": "flight",
     "when": null
   },
   {
@@ -536,7 +536,7 @@
     "cityId": null,
     "baseId": "al-udeid",
     "commandId": null,
-    "kind": "field",
+    "kind": "flight",
     "when": "2010"
   },
   {
@@ -545,7 +545,7 @@
     "cityId": null,
     "baseId": "bagram",
     "commandId": null,
-    "kind": "field",
+    "kind": "flight",
     "when": "2010"
   },
   {
@@ -581,7 +581,7 @@
     "cityId": null,
     "baseId": "bagram",
     "commandId": null,
-    "kind": "field",
+    "kind": "flight",
     "when": "2010"
   },
   {
@@ -590,7 +590,7 @@
     "cityId": null,
     "baseId": "al-udeid",
     "commandId": null,
-    "kind": "field",
+    "kind": "flight",
     "when": "2010"
   },
   {
@@ -599,7 +599,7 @@
     "cityId": "city-leipzig",
     "baseId": "leipzig",
     "commandId": null,
-    "kind": "transit",
+    "kind": "flight",
     "when": null
   },
   {
@@ -626,7 +626,7 @@
     "cityId": "city-fayetteville",
     "baseId": null,
     "commandId": "gryphon-school",
-    "kind": "school",
+    "kind": "field",
     "when": null
   },
   {
@@ -635,7 +635,7 @@
     "cityId": "city-leipzig",
     "baseId": "leipzig",
     "commandId": null,
-    "kind": "transit",
+    "kind": "flight",
     "when": null
   },
   {
@@ -644,7 +644,7 @@
     "cityId": null,
     "baseId": "al-udeid",
     "commandId": null,
-    "kind": "field",
+    "kind": "flight",
     "when": null
   },
   {
@@ -653,7 +653,7 @@
     "cityId": null,
     "baseId": "bagram",
     "commandId": null,
-    "kind": "field",
+    "kind": "flight",
     "when": null
   },
   {
@@ -689,7 +689,7 @@
     "cityId": null,
     "baseId": "bagram",
     "commandId": null,
-    "kind": "field",
+    "kind": "flight",
     "when": null
   },
   {
@@ -698,7 +698,7 @@
     "cityId": null,
     "baseId": "al-udeid",
     "commandId": null,
-    "kind": "field",
+    "kind": "flight",
     "when": null
   },
   {
@@ -707,7 +707,7 @@
     "cityId": "city-leipzig",
     "baseId": "leipzig",
     "commandId": null,
-    "kind": "transit",
+    "kind": "flight",
     "when": null
   },
   {
@@ -725,7 +725,7 @@
     "cityId": "city-fayetteville",
     "baseId": "fort-bragg",
     "commandId": null,
-    "kind": "base",
+    "kind": "field",
     "when": null
   },
   {
