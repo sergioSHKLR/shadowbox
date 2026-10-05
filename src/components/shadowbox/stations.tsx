@@ -11,16 +11,40 @@ import {
 import { MapView } from "@/components/shadowbox/map-view";
 
 const PIN_GROUPS: { id: StopLayer; label: string; legend: string; cls: string }[] = [
-  { id: "command", label: "Commands", legend: "Assigned commands (NCTS, AS-40, EODMU 5, SERCC, JCSE, NH Jax)", cls: "command" },
-  { id: "base", label: "Bases", legend: "Home bases, NAS, NS, annexes, and schools at those places", cls: "base" },
-  { id: "field", label: "Field", legend: "FOBs, camps, airfields in theater, training sites, and exercises", cls: "field" },
-  { id: "port", label: "Port visits", legend: "Ship port calls and city port stops", cls: "port" },
-  { id: "flight", label: "Flight stops", legend: "Transit hubs and flight legs", cls: "flight" },
+  { id: "command", label: "Commands", legend: "Assigned commands (NCTS, AS-40, EODMU 5, SERCC, JCSE, NH Jax); San Diego also as command host", cls: "command" },
+  { id: "instruction", label: "Instruction", legend: "Schools and instruction sites (Great Lakes, Biloxi, San Diego, Fort Bragg)", cls: "instruction" },
+  { id: "base", label: "Bases", legend: "Home bases, NAS, NS, annexes, U-Tapao, Shoalwater, Bliss, Blanding", cls: "base" },
+  { id: "field", label: "Field", legend: "FOBs, camps, theater sites, and exercises", cls: "field" },
+  { id: "port", label: "Port visits", legend: "Ship port calls, homeport ship visits, and city port stops", cls: "port" },
+  { id: "flight", label: "Flight stops", legend: "Transit hubs and flight legs (including Camp Arifjan)", cls: "flight" },
 ];
 
-function stopVisible(stop: Stop, shown: StopLayer[] | null) {
+function stopMatchesFilter(stop: Stop, shown: StopLayer[] | null) {
   if (!shown) return true;
-  return shown.includes(stop.kind);
+  return stop.layers.some((layer) => shown.includes(layer));
+}
+
+/** When a filter is on, show each place or assigned command once (first / canonical pin). Full sequence keeps every visit. */
+function uniqueKey(stop: Stop, shown: StopLayer[] | null): string {
+  if (!shown) return `n:${stop.n}`;
+  if (shown.includes("command") && stop.kind === "command" && stop.commandId) {
+    return `command:${stop.commandId}`;
+  }
+  return `place:${stop.place.id}`;
+}
+
+function filterStops(all: Stop[], shown: StopLayer[] | null): Stop[] {
+  const matched = all.filter((stop) => stopMatchesFilter(stop, shown));
+  if (!shown) return matched;
+  const seen = new Set<string>();
+  const out: Stop[] = [];
+  for (const stop of matched) {
+    const key = uniqueKey(stop, shown);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(stop);
+  }
+  return out;
 }
 
 export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof careerStops>; onOpen: (k: Kind, id: string) => void }) {
@@ -33,7 +57,7 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
     });
 
   const stops = useMemo(
-    () => allStops.filter((stop) => stopVisible(stop, shown)),
+    () => filterStops(allStops, shown),
     [allStops, shown],
   );
 

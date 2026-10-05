@@ -66,7 +66,7 @@
   border: 0;
 }
 
-/* Mutually exclusive: command blue, base green, field orange, port yellow, flight teal. */
+/* Pin colours: command blue, instruction purple, base green, field orange, port yellow, flight teal. */
 .map-num, .pin-num, .map-dot {
   background: #1d4e89;
   color: #ffffff;
@@ -75,6 +75,12 @@
 .map-num.command, .pin-num.command, .map-dot.command {
   background: #1d4e89;
   border-color: #0c2748;
+}
+.map-num.instruction, .pin-num.instruction, .map-dot.instruction,
+.map-num.instruction.approximate, .pin-num.instruction.approximate, .map-dot.instruction.approximate {
+  background: #7c3aed;
+  border-color: #4c1d95;
+  color: #ffffff;
 }
 .map-num.base, .pin-num.base, .map-dot.base,
 .map-num.base.approximate, .pin-num.base.approximate, .map-dot.base.approximate {

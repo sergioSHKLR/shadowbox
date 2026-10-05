@@ -5,7 +5,7 @@
     "cityId": "city-great-lakes",
     "baseId": "great-lakes",
     "commandId": "rtc",
-    "kind": "base",
+    "kind": "instruction",
     "when": "1997-06-30"
   },
   {
@@ -14,7 +14,7 @@
     "cityId": "city-great-lakes",
     "baseId": "great-lakes",
     "commandId": "ntc-great-lakes",
-    "kind": "base",
+    "kind": "instruction",
     "when": "1998"
   },
   {
@@ -32,7 +32,7 @@
     "cityId": "city-virginia-beach",
     "baseId": "little-creek",
     "commandId": "tortuga",
-    "kind": "base",
+    "kind": "port",
     "when": "1997"
   },
   {
@@ -41,7 +41,7 @@
     "cityId": "city-great-lakes",
     "baseId": "great-lakes",
     "commandId": "ntc-great-lakes",
-    "kind": "base",
+    "kind": "instruction",
     "when": "1998"
   },
   {
@@ -50,7 +50,7 @@
     "cityId": "city-biloxi",
     "baseId": null,
     "commandId": null,
-    "kind": "port",
+    "kind": "instruction",
     "when": null
   },
   {
@@ -68,8 +68,11 @@
     "cityId": "city-san-diego",
     "baseId": null,
     "commandId": null,
-    "kind": "port",
-    "when": null
+    "kind": "instruction",
+    "when": null,
+    "alsoKinds": [
+      "command"
+    ]
   },
   {
     "order": 9,
@@ -95,7 +98,7 @@
     "cityId": "city-san-diego",
     "baseId": "san-diego",
     "commandId": "essex",
-    "kind": "base",
+    "kind": "port",
     "when": null
   },
   {
@@ -203,8 +206,11 @@
     "cityId": "city-san-diego",
     "baseId": null,
     "commandId": null,
-    "kind": "port",
-    "when": null
+    "kind": "instruction",
+    "when": null,
+    "alsoKinds": [
+      "command"
+    ]
   },
   {
     "order": 24,
@@ -230,7 +236,7 @@
     "cityId": null,
     "baseId": "shoalwater-bay",
     "commandId": null,
-    "kind": "field",
+    "kind": "base",
     "when": "2005"
   },
   {
@@ -257,7 +263,7 @@
     "cityId": null,
     "baseId": "u-tapao",
     "commandId": null,
-    "kind": "field",
+    "kind": "base",
     "when": "2004"
   },
   {
@@ -275,8 +281,11 @@
     "cityId": "city-san-diego",
     "baseId": null,
     "commandId": null,
-    "kind": "port",
-    "when": null
+    "kind": "instruction",
+    "when": null,
+    "alsoKinds": [
+      "command"
+    ]
   },
   {
     "order": 32,
@@ -383,7 +392,7 @@
     "cityId": null,
     "baseId": "shoalwater-bay",
     "commandId": null,
-    "kind": "field",
+    "kind": "base",
     "when": "2007"
   },
   {
@@ -410,8 +419,11 @@
     "cityId": "city-san-diego",
     "baseId": null,
     "commandId": null,
-    "kind": "port",
-    "when": null
+    "kind": "instruction",
+    "when": null,
+    "alsoKinds": [
+      "command"
+    ]
   },
   {
     "order": 47,
@@ -419,7 +431,7 @@
     "cityId": "city-el-paso",
     "baseId": "fort-bliss",
     "commandId": null,
-    "kind": "field",
+    "kind": "base",
     "when": "2008-10"
   },
   {
@@ -446,7 +458,7 @@
     "cityId": null,
     "baseId": "camp-arifjan",
     "commandId": null,
-    "kind": "field",
+    "kind": "flight",
     "when": "2009"
   },
   {
@@ -464,7 +476,7 @@
     "cityId": null,
     "baseId": "camp-arifjan",
     "commandId": null,
-    "kind": "field",
+    "kind": "flight",
     "when": "2009"
   },
   {
@@ -482,7 +494,7 @@
     "cityId": "city-jacksonville",
     "baseId": "nas-jax",
     "commandId": "sercc",
-    "kind": "command",
+    "kind": "base",
     "when": "2007"
   },
   {
@@ -518,7 +530,7 @@
     "cityId": null,
     "baseId": "camp-blanding",
     "commandId": null,
-    "kind": "field",
+    "kind": "base",
     "when": null
   },
   {
@@ -617,7 +629,7 @@
     "cityId": null,
     "baseId": "camp-blanding",
     "commandId": null,
-    "kind": "field",
+    "kind": "base",
     "when": null
   },
   {
@@ -725,7 +737,7 @@
     "cityId": "city-fayetteville",
     "baseId": "fort-bragg",
     "commandId": null,
-    "kind": "field",
+    "kind": "instruction",
     "when": null
   },
   {
