@@ -21,22 +21,61 @@
   }
   .map-stage.is-playing .map-frame.tall { height: min(18rem, 38vh, 78vw); min-height: 11rem; }
 }
+/* Map player controls: same outline / navy-fill language as category chips. */
 .map-play .nav-btn.icon-btn {
   min-width: 44px;
   padding: 0.25rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #1d4e89;
-  color: var(--color-ivory);
-  border-color: #1d4e89;
-}
-.map-play .nav-btn.icon-btn.on {
-  background: #daa520;
+  background: transparent;
   color: var(--color-navy);
-  border-color: #daa520;
+  border-color: var(--color-navy);
+  box-shadow: none;
+}
+.map-play .nav-btn.icon-btn:hover:not(:disabled),
+.map-play .nav-btn.icon-btn:not(.on):hover:not(:disabled) {
+  border-color: var(--color-navy);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-navy) 28%, transparent);
+}
+.map-play .nav-btn.icon-btn.on,
+.map-play .nav-btn.icon-btn.on:hover:not(:disabled) {
+  background: var(--color-navy);
+  color: #ffffff;
+  border-color: var(--color-navy);
+  box-shadow: none;
+}
+.map-play .nav-btn.icon-btn:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 2px;
+}
+.map-play .nav-btn.icon-btn.on:focus-visible {
+  outline-color: var(--color-brass-bright);
+}
+.map-play .nav-btn.icon-btn:disabled {
+  opacity: 0.45;
 }
 .map-play .nav-btn.icon-btn svg { display: block; }
+[data-theme="dark"] .map-play .nav-btn.icon-btn {
+  background: transparent;
+  color: var(--color-ivory);
+  border-color: #9eb6d4;
+}
+[data-theme="dark"] .map-play .nav-btn.icon-btn:hover:not(:disabled),
+[data-theme="dark"] .map-play .nav-btn.icon-btn:not(.on):hover:not(:disabled) {
+  border-color: var(--color-ivory);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-ivory) 25%, transparent);
+}
+[data-theme="dark"] .map-play .nav-btn.icon-btn.on,
+[data-theme="dark"] .map-play .nav-btn.icon-btn.on:hover:not(:disabled) {
+  background: var(--color-navy);
+  color: #ffffff;
+  border-color: var(--color-navy);
+  box-shadow: none;
+}
+[data-theme="dark"] .map-play .nav-btn.icon-btn:focus-visible {
+  outline-color: var(--color-ivory);
+}
 
 /* Chips: idle blue #1d4e89, selected gold #daa520. Plaques stay brass. */
 .nav-btn {
@@ -95,6 +134,16 @@
   color: #ffffff;
   border-color: var(--color-navy);
   box-shadow: none;
+}
+.map-stage + .map-filter .nav-btn:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 2px;
+}
+.map-stage + .map-filter .nav-btn.on:focus-visible {
+  outline-color: var(--color-brass-bright);
+}
+[data-theme="dark"] .map-stage + .map-filter .nav-btn:focus-visible {
+  outline-color: var(--color-ivory);
 }
 
 /* The Leaflet wrapper is a box. Leave it clear so only the pin shows. */
@@ -246,3 +295,55 @@
 }
 html.map-cover-lock, html.map-cover-lock body { overflow: hidden; }
 .map-filter + .map-legend, .map-stage + .map-filter { margin-top: 0.8rem; }
+
+/* Collapsible map intro — closed by default. */
+.map-about {
+  margin: 0 0 0.85rem;
+  border: 1px solid var(--color-line, #c4b8a6);
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--color-ivory) 88%, var(--color-navy) 4%);
+  padding: 0;
+}
+[data-theme="dark"] .map-about {
+  border-color: #2a3344;
+  background: #161c28;
+}
+.map-about > summary {
+  list-style: none;
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.75rem;
+  font-weight: 600;
+  color: var(--color-navy);
+  user-select: none;
+}
+.map-about > summary::-webkit-details-marker { display: none; }
+.map-about > summary::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+  flex: 0 0 auto;
+}
+.map-about[open] > summary::before { transform: rotate(45deg); }
+[data-theme="dark"] .map-about > summary { color: var(--color-ivory); }
+.map-about > summary:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+[data-theme="dark"] .map-about > summary:focus-visible { outline-color: var(--color-ivory); }
+.map-about > p {
+  margin: 0;
+  padding: 0 0.75rem 0.75rem;
+  color: var(--color-quiet);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+[data-theme="dark"] .map-about > p { color: #c4b8a6; }

@@ -237,7 +237,7 @@ export function ShadowboxApp() {
         <div className={pane("onduty")}><OnDuty onOpen={open} title={t.onduty} /></div>
         <div className={pane("offduty")}><OffDuty onOpen={open} title={t.offduty} /></div>
         <div className={pane("ops")}><Ops onOpen={open} title={t.ops} /></div>
-        <div className={pane("map")}><Boundary label="map" resetKey={view}><Stations stops={stops} onOpen={open} /></Boundary></div>
+        <div className={pane("map")}><Boundary label="map" resetKey={view}><Stations stops={stops} onOpen={open} aboutLabel={t.mapAbout} /></Boundary></div>
         <div className={pane("timeline")}>
           <Timeline bars={bars} stops={stops} onOpen={open} title={t.pathTitle} lead={t.pathLead} eventsNote={t.eventsNote} />
         </div>

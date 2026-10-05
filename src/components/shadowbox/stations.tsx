@@ -22,7 +22,9 @@ const PIN_GROUPS: { id: StopLayer; label: string; legend: string; cls: string }[
 
 function stopMatchesFilter(stop: Stop, shown: StopLayer[] | null) {
   if (!shown) return true;
-  return stop.layers.some((layer) => shown.includes(layer));
+  // Match primary category only so Commands is the six assigned-command pins
+  // (San Diego's alsoKinds "command" does not add a seventh Commands pin).
+  return shown.includes(stop.kind);
 }
 
 /** When a filter is on, show each place or assigned command once (first / canonical pin). Full sequence keeps every visit. */
@@ -48,8 +50,8 @@ function filterStops(all: Stop[], shown: StopLayer[] | null): Stop[] {
   return out;
 }
 
-export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof careerStops>; onOpen: (k: Kind, id: string) => void }) {
-  const [shown, setShown] = useState<StopLayer[] | null>(null);
+export function Stations({ stops: allStops, onOpen, aboutLabel }: { stops: ReturnType<typeof careerStops>; onOpen: (k: Kind, id: string) => void; aboutLabel: string }) {
+  const [shown, setShown] = useState<StopLayer[] | null>(["command"]);
   const toggle = (g: StopLayer) =>
     setShown((cur) => {
       if (!cur) return [g];
@@ -176,7 +178,10 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
   return (
     <main className="sheet">
       <h2>Where the career went</h2>
-      <p>{caseCopy.mapLead}</p>
+      <details className="map-about">
+        <summary>{aboutLabel}</summary>
+        <p>{caseCopy.mapLead}</p>
+      </details>
       <div ref={stageRef} className={`map-stage${cursor != null ? " is-playing" : ""}${full ? " is-full" : ""}`}>
       <div className="map-play" role="group" aria-label="Play the map in career order">
         <button type="button" className="nav-btn icon-btn" aria-label="Back" title="Back" onClick={() => step(-1)} disabled={!stops.length}>
@@ -197,7 +202,9 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
         <p className="map-play-status" aria-live="polite">
           {here
             ? `${here.n}${whenLabel ? ` · ${whenLabel}` : ""} · ${here.labels[0]}`
-            : `Full map · ${stops.length} of ${allStops.length} stops`}
+            : shown
+              ? `${stops.length} of ${allStops.length} stops`
+              : `Full map · ${allStops.length} stops`}
         </p>
         {stops.length ? (
           <label className="map-play-scrub">
