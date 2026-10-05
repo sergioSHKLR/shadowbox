@@ -6,6 +6,7 @@ import {
   formatWhen,
   isMapExcludedUnit,
   logbookAdminAsOf,
+  commandDutiesFor,
   logbookBeats,
   logbookRankPath,
   mapPlaceLabel,
@@ -161,6 +162,11 @@ function necSchoolLine(nec: { schoolIds?: string[]; placeId?: string }): string 
 /** Admin as of the end of this command: NECs held and schools (necs.json / schools.json). */
 function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
   const { necsHeld, schoolsThisTour } = logbookAdminAsOf(beat);
+  const duties = commandDutiesFor(beat.stop.commandId);
+  const dutyRows = [
+    { id: "collateral", label: "Collateral Duty", items: duties.collateralDuties },
+    { id: "watch", label: "Watch", items: duties.watches },
+  ].filter((row) => row.items.length);
   const schoolBtn = (school: (typeof schoolsThisTour)[number]) => (
     <li key={school.id}>
       <button type="button" onClick={() => onOpen("school", school.id)} aria-label={school.name}>
@@ -205,6 +211,26 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
         <Kicker>Schools this tour</Kicker>
         {schoolsThisTour.length ? <ul className="logbook-admin-list">{schoolsThisTour.map(schoolBtn)}</ul> : <p className="quiet">No schools recorded during this command.</p>}
       </section>
+      {dutyRows.length ? (
+        <section aria-label="Duties this tour">
+          <Kicker>Duties</Kicker>
+          <dl className="logbook-duties">
+            {dutyRows.map((row) => (
+              <div key={row.id} className="logbook-duty-row">
+                <dt>{row.label}</dt>
+                <dd>
+                  {row.items.map((item) => (
+                    <span key={item.label} className="logbook-duty">
+                      {item.label}
+                      {item.abbreviation ? <span className="quiet"> ({item.abbreviation})</span> : null}
+                    </span>
+                  ))}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      ) : null}
     </div>
   );
 }
