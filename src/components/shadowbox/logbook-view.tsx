@@ -1,253 +1,157 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import {
-  branchName,
   formatSpan,
   formatWhen,
   isMapExcludedUnit,
+  logbookAdminAsOf,
   logbookBeats,
+  medalFor,
+  medalRows,
+  offDutyForCommand,
+  onDutyForCommand,
   publicUrl,
   ribbonRows,
-  warfare,
-  type Kind,
+  uniformPlatesForCommand,
+  uniformsNamingCommand,
   unitById,
-  type LogbookAdminFact,
+  warfare,
+  type Award,
+  type Kind,
   type LogbookBeat,
+  type LogbookGearGroup,
   type Stop,
+  type UniformSlide,
 } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
-import { RibbonArt } from "@/components/shadowbox/marks";
+import { MedalBlock, RibbonArt } from "@/components/shadowbox/marks";
 import { Boundary } from "@/components/shadowbox/boundary";
 
-function PinMark({ id, onOpen }: { id: string; onOpen: (k: Kind, id: string) => void }) {
+type Open = (k: Kind, id: string) => void;
+type MainTab = "rank" | "admin";
+
+function Kicker({ children }: { children: React.ReactNode }) {
+  return <p className="logbook-kicker">{children}</p>;
+}
+
+function PinMark({ id, onOpen }: { id: string; onOpen: Open }) {
   const pin = warfare.find((row) => row.id === id);
   if (!pin?.image) return null;
   return (
-    <button type="button" className="logbook-pin" onClick={() => onOpen("warfare", pin.id)} aria-label={pin.name}>
+    <button type="button" className="logbook-pin" onClick={() => onOpen("warfare", pin.id)} aria-label={pin.name} title={pin.name}>
       <img src={publicUrl(pin.image)} alt="" />
     </button>
   );
 }
 
-function UniformPlate({ beat, onOpen }: { beat: LogbookBeat; onOpen: (k: Kind, id: string) => void }) {
-  const slide = beat.uniform;
-  return (
-    <section className="logbook-plate" aria-label="Uniform">
-      <p className="logbook-kicker">Uniform</p>
-      {slide ? (
-        <button type="button" className="logbook-plate-art" onClick={() => beat.rank && onOpen("rank", beat.rank.id)} aria-label={slide.caption}>
-          <img src={publicUrl(slide.src)} alt="" />
-        </button>
-      ) : (
-        <p className="quiet">No plate for this date.</p>
-      )}
-      <p className="logbook-plate-cap">
-        {beat.rank ? <strong>{beat.rank.abbreviation}</strong> : null}
-        {slide ? <span>{slide.caption}</span> : null}
-      </p>
-    </section>
-  );
-}
-
-function RackPlate({ beat, onOpen }: { beat: LogbookBeat; onOpen: (k: Kind, id: string) => void }) {
+/** Rank & Awards as of the end of this command: rank insignia, warfare pins, ribbons, medals (command-plates.json). */
+function RankAwards({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
+  const rank = beat.rank;
   const rows = ribbonRows(beat.rack);
+  const medalList = beat.rack.filter((award) => medalFor(award.id));
+  const pins = [...beat.pinsAbove, ...beat.pinsBelow];
   return (
-    <section className="logbook-rack" aria-label="Decorations">
-      <p className="logbook-kicker">Decorations</p>
-      {beat.pinsAbove.length || rows.length || beat.pinsBelow.length ? (
-        <div className="logbook-dress">
-          {beat.pinsAbove.map((id) => (
-            <PinMark key={`above-${id}`} id={id} onOpen={onOpen} />
-          ))}
-          {rows.length ? (
-            <div className="rack logbook-ribbons" aria-label="Ribbon rack">
-              {rows.map((row) => (
-                <div key={row.map((award) => award.id).join("-")} className="rack-row">
-                  {row.map((award) => (
-                    <button key={award.id} type="button" className="ribbon" onClick={() => onOpen("award", award.id)} aria-label={award.name}>
-                      <RibbonArt award={award} />
-                    </button>
-                  ))}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="quiet">No ribbons on this plate yet.</p>
-          )}
-          {beat.pinsBelow.map((id) => (
-            <PinMark key={`below-${id}`} id={id} onOpen={onOpen} />
-          ))}
-        </div>
-      ) : (
-        <p className="quiet">No command plate for this command.</p>
-      )}
-      {beat.plate ? <p className="logbook-plate-cap quiet">As of {unitById(beat.plate.unitId)?.abbreviation ?? beat.plate.unitId}</p> : null}
-    </section>
-  );
-}
-
-function UnitsInset({ beat, onOpen }: { beat: LogbookBeat; onOpen: (k: Kind, id: string) => void }) {
-  if (!beat.units.length) return <p className="quiet">No units recorded for this command.</p>;
-  return (
-    <ul className="logbook-units">
-      {beat.units.map((unit) => (
-        <li key={unit.id}>
-          <button type="button" className="logbook-unit" onClick={() => onOpen("unit", unit.id)} aria-label={unit.name}>
-            {unit.image ? <img src={publicUrl(unit.image)} alt="" /> : <strong>{unit.abbreviation}</strong>}
+    <div className="logbook-ra">
+      <section className="logbook-ra-rank" aria-label="Rank insignia">
+        <Kicker>Rank</Kicker>
+        {rank ? (
+          <button type="button" className="logbook-rank" onClick={() => onOpen("rank", rank.id)} aria-label={`${rank.abbreviation}, ${rank.name}`}>
+            {rank.image ? <img className="logbook-rank-patch" src={publicUrl(rank.image)} alt="" /> : null}
+            {rank.collar ? <img className="logbook-rank-collar" src={publicUrl(rank.collar)} alt="" /> : null}
             <span>
-              <b>{unit.abbreviation}</b>
-              {unit.designator ? <em>{unit.designator}</em> : null}
+              <strong>{rank.abbreviation}</strong>
+              <small>{[rank.grade, rank.name].filter(Boolean).join(" · ")}</small>
             </span>
           </button>
-        </li>
-      ))}
-    </ul>
+        ) : (
+          <p className="quiet">No rank recorded for this command.</p>
+        )}
+        <p className="logbook-ra-note quiet">Service stripes: shown on the uniform plate; the count is not entered in the record.</p>
+      </section>
+      {pins.length ? (
+        <section aria-label="Warfare and qualification pins">
+          <Kicker>Pins</Kicker>
+          <div className="logbook-pins">
+            {pins.map((id) => (
+              <PinMark key={id} id={id} onOpen={onOpen} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+      <section aria-label="Ribbons">
+        <Kicker>Ribbons</Kicker>
+        {rows.length ? (
+          <div className="rack logbook-ribbons" aria-label="Ribbon rack">
+            {rows.map((row) => (
+              <div key={row.map((award) => award.id).join("-")} className="rack-row">
+                {row.map((award) => (
+                  <button key={award.id} type="button" className="ribbon" onClick={() => onOpen("award", award.id)} aria-label={award.name} title={award.name}>
+                    <RibbonArt award={award} />
+                  </button>
+                ))}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="quiet">No ribbons on this command plate.</p>
+        )}
+      </section>
+      <section aria-label="Medals">
+        <Kicker>Medals</Kicker>
+        {medalList.length ? (
+          <div className="logbook-medals">
+            <MedalBlock rows={medalRows(medalList)} onOpen={(award: Award) => onOpen("award", award.id)} />
+          </div>
+        ) : (
+          <p className="quiet">No medal art for this command plate.</p>
+        )}
+      </section>
+    </div>
   );
 }
 
-type Open = (k: Kind, id: string) => void;
-
-export type LogbookTab = "overview" | "command" | "admin";
-const TABS: LogbookTab[] = ["overview", "command", "admin"];
-const TAB_LABEL: Record<LogbookTab, string> = { overview: "Overview", command: "Command", admin: "Admin" };
-
-const ADMIN_GROUPS: { kind: LogbookAdminFact["kind"]; label: string }[] = [
-  { kind: "rank", label: "Rank" },
-  { kind: "nec", label: "NEC" },
-  { kind: "school", label: "Schools" },
-  { kind: "milestone", label: "Milestones" },
-];
-
-function AdminPanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
-  if (!beat.admin.length) {
-    return <p className="logbook-admin-empty quiet">No schools, NECs, or admin facts tied to this command.</p>;
-  }
+/** Admin as of the end of this command: NECs held and schools (necs.json / schools.json). */
+function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
+  const { necsHeld, schoolsThisTour, schoolsEarlier } = logbookAdminAsOf(beat);
+  const schoolBtn = (school: (typeof schoolsThisTour)[number]) => (
+    <li key={school.id}>
+      <button type="button" onClick={() => onOpen("school", school.id)} aria-label={school.name}>
+        <strong>{school.abbreviation || school.name}</strong>
+        <span>{[school.abbreviation ? school.name : "", school.start ? formatSpan(school.start, school.end ?? null) : ""].filter(Boolean).join(" · ")}</span>
+      </button>
+    </li>
+  );
   return (
     <div className="logbook-admin-groups">
-      {ADMIN_GROUPS.map((group) => {
-        const facts = beat.admin.filter((fact) => fact.kind === group.kind);
-        if (!facts.length) return null;
-        return (
-          <section key={group.kind} className="logbook-admin-group" aria-label={group.label}>
-            <p className="logbook-kicker">{group.label}</p>
-            <ul className="logbook-admin-list">
-              {facts.map((fact) => (
-                <li key={`${fact.kind}-${fact.id}`}>
-                  <button type="button" onClick={() => onOpen(fact.kind, fact.id)} aria-label={`${fact.label}. ${fact.detail}`}>
-                    <strong>{fact.label}</strong>
-                    <span>{fact.detail}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </section>
-        );
-      })}
-    </div>
-  );
-}
-
-function Fact({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <>
-      <dt>{label}</dt>
-      <dd>{children}</dd>
-    </>
-  );
-}
-
-function OverviewPanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
-  const command = beat.stop.commandId ? unitById(beat.stop.commandId) : undefined;
-  const span = command ? formatSpan(command.start, command.end) : beat.when ? formatWhen(beat.when) : "";
-  return (
-    <div className="logbook-panel-body">
-      <dl className="logbook-facts">
-        <Fact label="Place">
-          <button type="button" className="logbook-link" onClick={() => onOpen("place", beat.stop.place.id)}>
-            {beat.stop.place.name}
-          </button>
-        </Fact>
-        {span ? <Fact label="Tour">{span}</Fact> : null}
-        {beat.rank ? (
-          <Fact label="Rank">
-            <button type="button" className="logbook-link" onClick={() => onOpen("rank", beat.rank!.id)}>
-              {beat.rank.abbreviation}
-            </button>{" "}
-            <span className="quiet">{beat.rank.name}</span>
-          </Fact>
-        ) : null}
-      </dl>
-      {command?.civilian ? <p className="logbook-plain">{command.civilian}</p> : null}
-    </div>
-  );
-}
-
-function CommandPanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
-  const command = beat.stop.commandId ? unitById(beat.stop.commandId) : undefined;
-  if (!command) return <p className="quiet">No command recorded for this stop.</p>;
-  return (
-    <div className="logbook-panel-body">
-      <p className="logbook-command-name">
-        <button type="button" className="logbook-link" onClick={() => onOpen("unit", command.id)}>
-          {command.name}
-        </button>
-      </p>
-      <dl className="logbook-facts">
-        <Fact label="Branch">{branchName(command.branch)}</Fact>
-        {command.designator ? <Fact label="Attached">{command.designator}</Fact> : null}
-        {command.workcenter ? <Fact label="Workcenter">{command.workcenter}</Fact> : null}
-      </dl>
-      {command.explanation ? <p className="logbook-plain">{command.explanation}</p> : null}
-    </div>
-  );
-}
-
-function BeatTabs({
-  beat,
-  tab,
-  onTab,
-  onOpen,
-}: {
-  beat: LogbookBeat;
-  tab: LogbookTab;
-  onTab: (tab: LogbookTab, beatIndex: number) => void;
-  onOpen: Open;
-}) {
-  const base = `logbook-${beat.stop.n}`;
-  const onKey = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight" && event.key !== "Home" && event.key !== "End") return;
-    event.preventDefault();
-    event.stopPropagation();
-    const at = TABS.indexOf(tab);
-    const next =
-      event.key === "Home" ? 0 : event.key === "End" ? TABS.length - 1 : (at + (event.key === "ArrowRight" ? 1 : -1) + TABS.length) % TABS.length;
-    onTab(TABS[next], beat.index);
-    window.requestAnimationFrame(() => document.getElementById(`${base}-tab-${TABS[next]}`)?.focus());
-  };
-  return (
-    <div className="logbook-tabbed">
-      <div className="logbook-tabs" role="tablist" aria-label={`${beat.lines[0]} details`} onKeyDown={onKey}>
-        {TABS.map((name) => (
-          <button
-            key={name}
-            id={`${base}-tab-${name}`}
-            type="button"
-            role="tab"
-            aria-selected={tab === name}
-            aria-controls={`${base}-panel-${name}`}
-            tabIndex={tab === name ? 0 : -1}
-            className={tab === name ? "nav-btn on" : "nav-btn"}
-            onClick={() => onTab(name, beat.index)}
-          >
-            {TAB_LABEL[name]}
-            {name === "admin" && beat.admin.length ? <span className="logbook-tab-count">{beat.admin.length}</span> : null}
-          </button>
-        ))}
-      </div>
-      <div className="logbook-panel" role="tabpanel" id={`${base}-panel-${tab}`} aria-labelledby={`${base}-tab-${tab}`}>
-        {tab === "overview" ? <OverviewPanel beat={beat} onOpen={onOpen} /> : null}
-        {tab === "command" ? <CommandPanel beat={beat} onOpen={onOpen} /> : null}
-        {tab === "admin" ? <AdminPanel beat={beat} onOpen={onOpen} /> : null}
-      </div>
+      <section aria-label="NECs held">
+        <Kicker>NECs held</Kicker>
+        {necsHeld.length ? (
+          <ul className="logbook-admin-list">
+            {necsHeld.map(({ nec, isNew }) => (
+              <li key={nec.id}>
+                <button type="button" onClick={() => onOpen("nec", nec.id)} aria-label={`NEC ${nec.code}, ${nec.name}`}>
+                  <strong>
+                    NEC {nec.code}
+                    {isNew ? <em className="logbook-new">this tour</em> : null}
+                  </strong>
+                  <span>{[nec.name, nec.awarded ? formatWhen(nec.awarded) : ""].filter(Boolean).join(" · ")}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="quiet">No NEC recorded by the end of this command.</p>
+        )}
+      </section>
+      <section aria-label="Schools this tour">
+        <Kicker>Schools this tour</Kicker>
+        {schoolsThisTour.length ? <ul className="logbook-admin-list">{schoolsThisTour.map(schoolBtn)}</ul> : <p className="quiet">No schools recorded during this command.</p>}
+      </section>
+      {schoolsEarlier.length ? (
+        <details className="logbook-earlier">
+          <summary>Earlier schools ({schoolsEarlier.length})</summary>
+          <ul className="logbook-admin-list">{schoolsEarlier.map(schoolBtn)}</ul>
+        </details>
+      ) : null}
     </div>
   );
 }
@@ -261,7 +165,7 @@ function MapInset({
   beat: LogbookBeat;
   onOpen: (k: Kind, id: string) => void;
 }) {
-  // Full sequence keeps Leaflet stable; only focus/reveal change per beat.
+  // Full sequence, all six pins shown; only the focus changes per beat (shrinking the reveal mid-flight trips markercluster).
   // Excluded customer units never become map pins here (their places are not added as extras).
   void isMapExcludedUnit;
   return (
@@ -273,13 +177,242 @@ function MapInset({
         tall={false}
         focusId={beat.stop.place.id}
         focusIndex={beat.index}
-        revealedCount={beat.index + 1}
+        revealedCount={stops.length}
         onSelect={(id) => onOpen("place", id)}
       />
       </Boundary>
     </div>
   );
 }
+
+function ComingSoon({ what }: { what: string }) {
+  return (
+    <div className="logbook-soon">
+      <strong>Coming soon</strong>
+      <span className="quiet">No {what} recorded for this command yet.</span>
+    </div>
+  );
+}
+
+function GearPanel({ groups, what, onOpen }: { groups: LogbookGearGroup[]; what: string; onOpen: Open }) {
+  if (!groups.length) return <ComingSoon what={what} />;
+  return (
+    <div className="logbook-gear">
+      {groups.map((group) => (
+        <section key={group.id} aria-label={group.label}>
+          <p className="logbook-kicker">{group.label}</p>
+          <ul className="logbook-gear-list">
+            {group.items.map((item) => (
+              <li key={item.id}>
+                <button type="button" className="logbook-gear-item" onClick={() => onOpen("equipment", item.id)} aria-label={item.name}>
+                  {item.image ? <img src={publicUrl(item.image)} alt="" loading="lazy" /> : <span className="logbook-gear-blank" aria-hidden="true" />}
+                  <span>{item.name}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  );
+}
+
+type Look = "white" | "blue" | "khaki";
+const LOOKS: { id: Look; label: string }[] = [
+  { id: "white", label: "Whites" },
+  { id: "blue", label: "Blues" },
+  { id: "khaki", label: "Khakis" },
+];
+
+/** The active command's own plate for a uniform (command-plates.json + its ready plates). Never another command's. */
+function plateFor(beat: LogbookBeat, look: Look): UniformSlide | null {
+  const plates = uniformPlatesForCommand(beat.stop.commandId).filter((slide) => slide.look === look);
+  if (!plates.length) return null;
+  const code = (file?: string) => (file ?? "").replace(/\.[^.]+$/, "").replace(/[a-z]+$/i, "");
+  const own = code(beat.uniform?.file);
+  return plates.find((slide) => code(slide.file) === own) ?? plates[0];
+}
+
+/** Uniforms: Whites / Blues / Khakis segmented control + the mannequin plate for the active command. */
+function UniformsPanel({
+  beat,
+  look,
+  onLook,
+  onOpen,
+}: {
+  beat: LogbookBeat;
+  look: Look;
+  onLook: (look: Look) => void;
+  onOpen: Open;
+}) {
+  const plate = plateFor(beat, look);
+  const worn = uniformsNamingCommand(beat.stop.commandId);
+  return (
+    <div className="logbook-gear">
+      <div className="logbook-seg" role="radiogroup" aria-label="Uniform">
+        {LOOKS.map((row) => (
+          <button
+            key={row.id}
+            type="button"
+            role="radio"
+            aria-checked={look === row.id}
+            className={look === row.id ? "logbook-seg-btn on" : "logbook-seg-btn"}
+            onClick={() => onLook(row.id)}
+          >
+            {row.label}
+          </button>
+        ))}
+      </div>
+      {plate ? (
+        <figure className="logbook-mannequin">
+          <button type="button" className="logbook-plate-art" onClick={() => beat.rank && onOpen("rank", beat.rank.id)} aria-label={plate.caption}>
+            <img key={plate.file} src={publicUrl(plate.src)} alt="" />
+          </button>
+          <figcaption>
+            {beat.rank ? <strong>{beat.rank.abbreviation}</strong> : null} <span>{plate.caption}</span>
+          </figcaption>
+        </figure>
+      ) : (
+        <div className="logbook-soon logbook-mannequin-empty">
+          <strong>Not available</strong>
+          <span className="quiet">No {LOOKS.find((row) => row.id === look)?.label.toLowerCase()} plate for {beatTitle(beat)}.</span>
+        </div>
+      )}
+      {worn.length ? (
+        <section aria-label="Command uniforms">
+          <Kicker>Command gear</Kicker>
+          <ul className="logbook-gear-list">
+            {worn.map((item) => (
+              <li key={item.id}>
+                <button type="button" className="logbook-gear-item" onClick={() => onOpen("uniform", item.id)} aria-label={item.name}>
+                  {item.image ? <img src={publicUrl(item.image)} alt="" loading="lazy" /> : <span className="logbook-gear-blank" aria-hidden="true" />}
+                  <span>{item.name}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+    </div>
+  );
+}
+
+/** Crests of the active and already-visited commands' units; the active command's units are highlighted. */
+function CrestStrip({ beats, active, onOpen }: { beats: LogbookBeat[]; active: number; onOpen: Open }) {
+  const current = new Set(beats[active]?.units.map((unit) => unit.id) ?? []);
+  const seen = new Set<string>();
+  const list: { unit: LogbookBeat["units"][number]; beatN: number }[] = [];
+  beats.slice(0, active + 1).forEach((beat) => {
+    beat.units.forEach((unit) => {
+      if (seen.has(unit.id) || isMapExcludedUnit(unit.id)) return;
+      seen.add(unit.id);
+      list.push({ unit, beatN: beat.stop.n });
+    });
+  });
+  if (!list.length) return <ComingSoon what="unit crests" />;
+  return (
+    <ul className="logbook-crests">
+      {list.map(({ unit, beatN }) => (
+        <li key={unit.id}>
+          <button
+            type="button"
+            className={current.has(unit.id) ? "logbook-crest on" : "logbook-crest"}
+            aria-current={current.has(unit.id) ? "true" : undefined}
+            onClick={() => onOpen("unit", unit.id)}
+            aria-label={`${unit.name}${current.has(unit.id) ? " (this command)" : ""}`}
+            title={unit.name}
+          >
+            {unit.image ? <img src={publicUrl(unit.image)} alt="" loading="lazy" onError={(event) => { event.currentTarget.hidden = true; }} /> : null}
+            <b>{unit.abbreviation}</b>
+            <em>#{beatN}{unit.designator ? ` · ${unit.designator}` : ""}</em>
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+type TabDef<T extends string> = { id: T; label: string; badge?: number };
+
+/** A real tab bar attached to its content panel (role=tablist / tab / tabpanel). */
+function Tabbed<T extends string>({
+  idBase,
+  label,
+  tabs,
+  value,
+  onChange,
+  className,
+  panelClassName,
+  panelFocusable = true,
+  children,
+}: {
+  idBase: string;
+  label: string;
+  tabs: TabDef<T>[];
+  value: T;
+  onChange: (id: T) => void;
+  className?: string;
+  panelClassName?: string;
+  panelFocusable?: boolean;
+  children: React.ReactNode;
+}) {
+  const onKey = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const at = tabs.findIndex((tab) => tab.id === value);
+    const next =
+      event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (at + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+    onChange(tabs[next].id);
+    window.requestAnimationFrame(() => document.getElementById(`${idBase}-tab-${tabs[next].id}`)?.focus());
+  };
+  return (
+    <div className={`lb-tabbed${className ? ` ${className}` : ""}`}>
+      <div className="lb-tablist" role="tablist" aria-label={label} onKeyDown={onKey}>
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            id={`${idBase}-tab-${tab.id}`}
+            type="button"
+            role="tab"
+            aria-selected={value === tab.id}
+            aria-controls={`${idBase}-panel`}
+            tabIndex={value === tab.id ? 0 : -1}
+            className={value === tab.id ? "lb-tab on" : "lb-tab"}
+            onClick={() => onChange(tab.id)}
+          >
+            {tab.label}
+            {tab.badge ? <span className="lb-tab-count">{tab.badge}</span> : null}
+          </button>
+        ))}
+      </div>
+      <div className={`lb-tabpanel${panelClassName ? ` ${panelClassName}` : ""}`} role="tabpanel" id={`${idBase}-panel`} aria-labelledby={`${idBase}-tab-${value}`} tabIndex={panelFocusable ? 0 : undefined}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function useNarrow(query = "(max-width: 900px)") {
+  const [narrow, setNarrow] = useState(() => (typeof window !== "undefined" ? window.matchMedia(query).matches : false));
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const on = () => setNarrow(mq.matches);
+    on();
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, [query]);
+  return narrow;
+}
+
+/** Card titles: command abbreviation, except NAVHOSP reads as its pin label (NH Jacksonville, from places.json). */
+function beatTitle(row: LogbookBeat): string {
+  if (row.stop.commandId === "navhosp") return row.stop.place.name.split(",")[0];
+  return row.lines[0];
+}
+
+type AsideTab = "uniforms" | "onduty" | "offduty";
+type PhoneTab = AsideTab | "crests" | "map";
 
 export function Logbook({
   onOpen,
@@ -292,102 +425,144 @@ export function Logbook({
 }) {
   const beats = useMemo(() => logbookBeats(), []);
   const stops = useMemo(() => beats.map((row) => row.stop), [beats]);
+  const narrow = useNarrow();
   const [active, setActive] = useState(0);
-  const [tab, setTab] = useState<LogbookTab>("overview");
-  const [phonePanel, setPhonePanel] = useState<"map" | "units" | null>(null);
+  const [mainTab, setMainTab] = useState<MainTab>("rank");
+  const [asideTab, setAsideTab] = useState<AsideTab>("uniforms");
+  const [phoneTab, setPhoneTab] = useState<PhoneTab>("uniforms");
+  /** Uniform chosen in the Uniforms tab; kept as the beat changes. */
+  const [look, setLook] = useState<Look>("blue");
+  const rootRef = useRef<HTMLElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const stickyPhoneRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef(0);
-  /** While a programmatic scroll settles, the scroll tracker must not override the chosen beat. */
+  /** While a programmatic scroll settles, scroll sync must not override the chosen beat. */
   const lockUntil = useRef(0);
   const beat = beats[Math.min(active, Math.max(0, beats.length - 1))] ?? beats[0];
   activeRef.current = active;
 
-  /** Desktop: the beats panel is its own scroller. Phone: the page scrolls. */
-  const panelScrolls = useCallback(() => {
-    const root = scrollerRef.current;
-    if (!root) return false;
-    return getComputedStyle(root).overflowY !== "visible" && root.scrollHeight > root.clientHeight + 4;
-  }, []);
 
-  const phoneTop = useCallback(() => {
-    const sticky = stickyPhoneRef.current;
-    if (!sticky || getComputedStyle(sticky).display === "none") return 56;
-    return Math.max(56, sticky.getBoundingClientRect().bottom);
-  }, []);
+  // Hold the map's beat while its phone tab is hidden; Leaflet must not animate a 0×0 map.
+  const mapVisible = !narrow || phoneTab === "map";
+  const mapBeatRef = useRef<LogbookBeat | undefined>(undefined);
+  if (mapVisible || !mapBeatRef.current) mapBeatRef.current = beat;
+  const mapBeat = mapBeatRef.current ?? beat;
 
-  const scrollToBeat = useCallback(
-    (index: number, smooth = true) => {
-      const root = scrollerRef.current;
-      const node = root?.querySelector<HTMLElement>(`[data-beat="${index}"]`);
-      if (!root || !node) return;
-      const behavior: ScrollBehavior =
-        smooth && !window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "smooth" : "auto";
-      lockUntil.current = performance.now() + (behavior === "smooth" ? 900 : 120);
-      setActive(index);
-      if (panelScrolls()) {
-        const top = node.getBoundingClientRect().top - root.getBoundingClientRect().top + root.scrollTop - 8;
-        root.scrollTo({ top: Math.max(0, top), behavior });
-      } else {
-        const top = node.getBoundingClientRect().top + window.scrollY - phoneTop() - 10;
-        window.scrollTo({ top: Math.max(0, top), behavior });
-      }
-    },
-    [panelScrolls, phoneTop],
-  );
-
-  // Scroll-position tracking (not IntersectionObserver): the active beat is the last one whose
-  // top has crossed the reading line. Reaching the end of the scroll always activates the last beat,
-  // and a bottom spacer gives the last beat room to reach the reading line.
+  // Fit the whole Logbook in one viewport: measure the chrome around it (top bar, page padding,
+  // pager, footer) and let CSS size the page to calc(100dvh - chrome).
   useEffect(() => {
-    const root = scrollerRef.current;
-    if (!root || !beats.length) return;
+    const main = rootRef.current;
+    if (!main) return;
     let frame = 0;
     const measure = () => {
       frame = 0;
-      if (performance.now() < lockUntil.current) return;
-      const nodes = Array.from(root.querySelectorAll<HTMLElement>("[data-beat]"));
-      if (!nodes.length) return;
-      const inPanel = panelScrolls();
-      let line: number;
-      let atEnd: boolean;
-      let atStart: boolean;
-      if (inPanel) {
-        const box = root.getBoundingClientRect();
-        line = box.top + box.height * 0.3;
-        atEnd = root.scrollTop + root.clientHeight >= root.scrollHeight - 4;
-        atStart = root.scrollTop <= 2;
-      } else {
-        const top = phoneTop();
-        line = top + (window.innerHeight - top) * 0.25;
-        const doc = document.documentElement;
-        atEnd = window.scrollY + window.innerHeight >= doc.scrollHeight - 4;
-        atStart = nodes[0].getBoundingClientRect().top >= line;
-      }
-      let next = 0;
-      if (atEnd) next = nodes.length - 1;
-      else if (!atStart) {
-        nodes.forEach((node, i) => {
-          if (node.getBoundingClientRect().top <= line) next = i;
-        });
-      }
-      if (next !== activeRef.current) setActive(next);
+      const box = main.getBoundingClientRect();
+      if (!box.height) return;
+      const footer = document.querySelector<HTMLElement>(".site-footer");
+      const shell = footer?.parentElement;
+      const tail = footer
+        ? parseFloat(getComputedStyle(footer).marginBottom) +
+          (shell ? parseFloat(getComputedStyle(shell).paddingBottom) + parseFloat(getComputedStyle(shell).borderBottomWidth) : 0)
+        : 0;
+      const below = footer ? footer.getBoundingClientRect().bottom + (tail || 0) - box.bottom : 0;
+      const chrome = Math.max(0, Math.round(box.top + window.scrollY + below));
+      main.style.setProperty("--lb-chrome", `${chrome}px`);
     };
-    const onScroll = () => {
+    const queue = () => {
       if (!frame) frame = requestAnimationFrame(measure);
     };
-    root.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    const ro = new ResizeObserver(queue);
+    ro.observe(main);
+    [".app-bar", ".site-footer", ".page-pager"].forEach((sel) => {
+      const node = document.querySelector(sel);
+      if (node) ro.observe(node);
+    });
+    window.addEventListener("resize", queue);
+    queue();
     return () => {
       if (frame) cancelAnimationFrame(frame);
-      root.removeEventListener("scroll", onScroll);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      ro.disconnect();
+      window.removeEventListener("resize", queue);
     };
-  }, [beats.length, panelScrolls, phoneTop]);
+  }, []);
 
-  const onBeatsKey = (event: KeyboardEvent<HTMLDivElement>) => {
+  const scrollToBeat = useCallback((index: number, smooth = true) => {
+    const root = scrollerRef.current;
+    const node = root?.querySelector<HTMLElement>(`[data-beat="${index}"]`);
+    if (!root || !node) return;
+    const behavior: ScrollBehavior = smooth && !window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "smooth" : "auto";
+    lockUntil.current = performance.now() + (behavior === "smooth" ? 900 : 150);
+    setActive(index);
+    const top = node.getBoundingClientRect().top - root.getBoundingClientRect().top + root.scrollTop - 6;
+    root.scrollTo({ top: Math.max(0, top), behavior });
+  }, []);
+
+  // Scroll sync: IntersectionObserver rooted on the commands track's own scroller.
+  // A card is "in the band" while it overlaps the top 30% of the track; the highest-numbered card in
+  // the band is active. The spacer after the last card lets NH Jacksonville reach the band, and an
+  // end sentinel activates it whenever the track is scrolled to the end.
+  useEffect(() => {
+    const root = scrollerRef.current;
+    if (!root || !beats.length) return;
+    const nodes = Array.from(root.querySelectorAll<HTMLElement>("[data-beat]"));
+    const sentinel = root.querySelector<HTMLElement>(".logbook-beats-sentinel");
+    const inBand = new Set<number>();
+    let atEnd = false;
+    let frame = 0;
+    const commit = () => {
+      frame = 0;
+      if (performance.now() < lockUntil.current) return;
+      let next: number;
+      if (atEnd) next = nodes.length - 1;
+      else if (inBand.size) next = Math.max(...inBand);
+      else return;
+      if (next !== activeRef.current) setActive(next);
+    };
+    const queue = () => {
+      if (!frame) frame = requestAnimationFrame(commit);
+    };
+    const band = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const index = Number((entry.target as HTMLElement).dataset.beat);
+          if (!Number.isFinite(index)) continue;
+          if (entry.isIntersecting) inBand.add(index);
+          else inBand.delete(index);
+        }
+        queue();
+      },
+      { root, rootMargin: "0px 0px -70% 0px", threshold: 0 },
+    );
+    nodes.forEach((node) => band.observe(node));
+    const end = new IntersectionObserver(
+      (entries) => {
+        atEnd = entries.some((entry) => entry.isIntersecting);
+        queue();
+      },
+      { root, threshold: 0 },
+    );
+    if (sentinel) end.observe(sentinel);
+    const onScrollEnd = () => window.setTimeout(queue, 0);
+    root.addEventListener("scrollend", onScrollEnd);
+    // Spacer after the last card: just enough room for NH Jacksonville to sit at the top of the track.
+    const spacer = root.querySelector<HTMLElement>(".logbook-beats-end");
+    const last = nodes[nodes.length - 1];
+    const size = new ResizeObserver(() => {
+      if (!spacer || !last) return;
+      spacer.style.height = `${Math.max(16, root.clientHeight - last.offsetHeight - 24)}px`;
+    });
+    size.observe(root);
+    if (last) size.observe(last);
+    return () => {
+      size.disconnect();
+      if (frame) cancelAnimationFrame(frame);
+      band.disconnect();
+      end.disconnect();
+      root.removeEventListener("scrollend", onScrollEnd);
+    };
+  }, [beats.length, narrow]);
+
+  const onTrackKey = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.target !== event.currentTarget) return;
     const keys: Record<string, number> = { ArrowDown: 1, PageDown: 1, ArrowUp: -1, PageUp: -1 };
     let next: number | null = null;
     if (event.key in keys) next = activeRef.current + keys[event.key];
@@ -398,13 +573,10 @@ export function Logbook({
     scrollToBeat(Math.max(0, Math.min(beats.length - 1, next)));
   };
 
-  const chooseTab = (name: LogbookTab, beatIndex: number) => {
-    setTab(name);
-    if (beatIndex !== activeRef.current) scrollToBeat(beatIndex);
-    else {
-      // Every card switches tab together; keep the active card pinned at the reading line.
-      window.requestAnimationFrame(() => scrollToBeat(beatIndex, false));
-    }
+  const chooseMainTab = (name: MainTab) => {
+    setMainTab(name);
+    // Card heights change with the tab; keep the active command at the top of the track.
+    window.requestAnimationFrame(() => scrollToBeat(activeRef.current, false));
   };
 
   if (!beat) {
@@ -416,56 +588,47 @@ export function Logbook({
     );
   }
 
-  return (
-    <main className="sheet logbook">
-      <header className="logbook-head">
-        <h2>{title}</h2>
-        <p>{lead}</p>
-        <p className="logbook-count quiet" aria-live="polite">
-          Command {beat.stop.n} of {beats.length}
-          {beat.when ? ` · ${beat.when.length === 4 ? beat.when : formatWhen(beat.when)}` : ""}
-        </p>
-      </header>
+  const asideTabs: TabDef<AsideTab>[] = [
+    { id: "uniforms", label: "Uniforms" },
+    { id: "onduty", label: "On Duty" },
+    { id: "offduty", label: "Off Duty" },
+  ];
+  const asideContent = (name: AsideTab) =>
+    name === "uniforms" ? (
+      <UniformsPanel beat={beat} look={look} onLook={setLook} onOpen={onOpen} />
+    ) : name === "onduty" ? (
+      <GearPanel groups={onDutyForCommand(beat.stop.commandId)} what="duty gear" onOpen={onOpen} />
+    ) : (
+      <GearPanel groups={offDutyForCommand(beat.stop.commandId)} what="off-duty life" onOpen={onOpen} />
+    );
+  const mapRegion = (hidden: boolean) => (
+    <div className="logbook-map-tab" hidden={hidden}>
+      <p className="logbook-inset-label">
+        <span className={`pin-num ${mapBeat.stop.kind}`}>{mapBeat.stop.n}</span>
+        {mapBeat.stop.labels[0]}
+      </p>
+      <MapInset stops={stops} beat={mapBeat} onOpen={onOpen} />
+    </div>
+  );
 
-      <div className="logbook-sticky-phone" ref={stickyPhoneRef} aria-label="Uniform and decorations">
-        <UniformPlate beat={beat} onOpen={onOpen} />
-        <RackPlate beat={beat} onOpen={onOpen} />
-      </div>
-
-      <div className="logbook-layout">
-        <aside className="logbook-side logbook-side-left" aria-label="Uniform for this command">
-          <div className="logbook-sticky">
-            <UniformPlate beat={beat} onOpen={onOpen} />
-          </div>
-        </aside>
-
-        <div className="logbook-center">
-          <nav className="logbook-steps" aria-label="Commands">
-            {beats.map((row) => (
-              <button
-                key={row.stop.n}
-                type="button"
-                className={row.index === active ? "logbook-step on" : "logbook-step"}
-                aria-current={row.index === active ? "step" : undefined}
-                aria-label={`${row.stop.n}. ${row.lines[0]}`}
-                title={row.lines[0]}
-                onClick={() => scrollToBeat(row.index)}
-              >
-                <span className={`pin-num ${row.stop.kind}`} aria-hidden="true">
-                  {row.stop.n}
-                </span>
-                <span className="logbook-step-label">{row.lines[0]}</span>
-              </button>
-            ))}
-          </nav>
-          <div
-            className="logbook-beats"
-            ref={scrollerRef}
-            tabIndex={0}
-            aria-label="Assigned commands. Arrow keys move between commands."
-            onKeyDown={onBeatsKey}
-          >
-            {beats.map((row) => (
+  const main = (
+    <section className="logbook-main" aria-label="Commands">
+      <Tabbed
+        idBase="logbook-main"
+        label="Rank and awards, or admin, for each command"
+        tabs={[
+          { id: "rank", label: "Rank & Awards" },
+          { id: "admin", label: "Admin" },
+        ]}
+        value={mainTab}
+        onChange={chooseMainTab}
+        className="logbook-main-tabs"
+        panelFocusable={false}
+      >
+        <div className="logbook-beats" ref={scrollerRef} tabIndex={0} aria-label="Commands track. Arrow keys move between commands." onKeyDown={onTrackKey}>
+          {beats.map((row) => {
+            const unit = row.stop.commandId ? unitById(row.stop.commandId) : undefined;
+            return (
               <article
                 key={row.stop.n}
                 id={`logbook-beat-${row.stop.n}`}
@@ -473,76 +636,78 @@ export function Logbook({
                 className={row.index === active ? "logbook-beat is-active" : "logbook-beat"}
                 aria-current={row.index === active ? "step" : undefined}
               >
-                <header className="logbook-beat-head" onClick={() => row.index !== active && scrollToBeat(row.index)}>
+                <header className="logbook-beat-head">
                   <span className={`pin-num ${row.stop.kind} ${row.stop.place.accuracy}`} aria-hidden="true">
                     {row.stop.n}
                   </span>
                   <div>
-                    <h3>{row.lines[0]}</h3>
+                    <h3 title={unit?.name}>{beatTitle(row)}</h3>
                     <p className="quiet">{row.lines[1] ?? "Command"}</p>
                   </div>
                 </header>
-                <BeatTabs beat={row} tab={tab} onTab={chooseTab} onOpen={onOpen} />
+                <div className="logbook-beat-body">
+                  {mainTab === "rank" ? <RankAwards beat={row} onOpen={onOpen} /> : <AdminAsOf beat={row} onOpen={onOpen} />}
+                </div>
               </article>
-            ))}
-            <div className="logbook-beats-end" aria-hidden="true" />
+            );
+          })}
+          <div className="logbook-beats-end" aria-hidden="true">
+            <span className="logbook-beats-sentinel" />
           </div>
         </div>
+      </Tabbed>
+    </section>
+  );
 
-        <aside className="logbook-side logbook-side-right" aria-label="Decorations for this command">
-          <div className="logbook-sticky">
-            <RackPlate beat={beat} onOpen={onOpen} />
-          </div>
-        </aside>
-      </div>
+  return (
+    <main className={`sheet logbook${narrow ? " is-narrow" : ""}`} ref={rootRef}>
+      <header className="logbook-head">
+        <h2>{title}</h2>
+        <p className="logbook-lead">{lead}</p>
+        <p className="logbook-count quiet" aria-live="polite">
+          Command {beat.stop.n} of {beats.length}
+          {beat.when ? ` · ${beat.when.length === 4 ? beat.when : formatWhen(beat.when)}` : ""}
+        </p>
+      </header>
 
-      <div className="logbook-insets" aria-label="Map and units for this command">
-        <section className="logbook-inset logbook-inset-map">
-          <p className="logbook-kicker">Map</p>
-          <p className="logbook-inset-label">
-            <span className={`pin-num ${beat.stop.kind}`}>{beat.stop.n}</span>
-            {beat.stop.labels[0]}
-          </p>
-          <MapInset stops={stops} beat={beat} onOpen={onOpen} />
-        </section>
-        <section className="logbook-inset logbook-inset-units">
-          <p className="logbook-kicker">Units</p>
-          <UnitsInset beat={beat} onOpen={onOpen} />
-        </section>
-      </div>
-
-      <div className="logbook-phone-chips" aria-label="Map and units">
-        <button
-          type="button"
-          className={phonePanel === "map" ? "nav-btn on" : "nav-btn"}
-          aria-expanded={phonePanel === "map"}
-          onClick={() => setPhonePanel((cur) => (cur === "map" ? null : "map"))}
-        >
-          Map
-        </button>
-        <button
-          type="button"
-          className={phonePanel === "units" ? "nav-btn on" : "nav-btn"}
-          aria-expanded={phonePanel === "units"}
-          onClick={() => setPhonePanel((cur) => (cur === "units" ? null : "units"))}
-        >
-          Units
-        </button>
-      </div>
-      {phonePanel === "map" ? (
-        <section className="logbook-phone-panel" aria-label="Map">
-          <p className="logbook-inset-label">
-            <span className={`pin-num ${beat.stop.kind}`}>{beat.stop.n}</span>
-            {beat.stop.labels[0]}
-          </p>
-          <MapInset stops={stops} beat={beat} onOpen={onOpen} />
-        </section>
-      ) : null}
-      {phonePanel === "units" ? (
-        <section className="logbook-phone-panel" aria-label="Units">
-          <UnitsInset beat={beat} onOpen={onOpen} />
-        </section>
-      ) : null}
+      {narrow ? (
+        <div className="logbook-phone">
+          {main}
+          <Tabbed
+            idBase="logbook-phone"
+            label="Uniforms, duty, crests and map"
+            tabs={[...asideTabs, { id: "crests", label: "Crests" }, { id: "map", label: "Map" }]}
+            value={phoneTab}
+            onChange={setPhoneTab}
+            className="logbook-phone-tabs"
+          >
+            {phoneTab === "uniforms" || phoneTab === "onduty" || phoneTab === "offduty" ? asideContent(phoneTab) : null}
+            {phoneTab === "crests" ? <CrestStrip beats={beats} active={active} onOpen={onOpen} /> : null}
+            {mapRegion(phoneTab !== "map")}
+          </Tabbed>
+        </div>
+      ) : (
+        <div className="logbook-grid">
+          {main}
+          <aside className="logbook-aside" aria-label="Uniforms, on duty, off duty for this command">
+            <Tabbed idBase="logbook-aside" label="Uniforms, On Duty, Off Duty" tabs={asideTabs} value={asideTab} onChange={setAsideTab} className="logbook-aside-tabs">
+              <p className="logbook-for quiet">{beatTitle(beat)}</p>
+              {asideContent(asideTab)}
+            </Tabbed>
+          </aside>
+          <footer className="logbook-foot">
+            <section className="logbook-foot-half logbook-foot-crests" aria-label="Unit crests">
+              <Kicker>Unit crests</Kicker>
+              <div className="logbook-foot-scroll">
+                <CrestStrip beats={beats} active={active} onOpen={onOpen} />
+              </div>
+            </section>
+            <section className="logbook-foot-half logbook-foot-map" aria-label="Map">
+              {mapRegion(false)}
+            </section>
+          </footer>
+        </div>
+      )}
     </main>
   );
 }
