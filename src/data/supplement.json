@@ -459,10 +459,7 @@
         "SPO-02: 16th EN"
       ],
       "Gear": [
-        "GEA-01: IOTV",
-        "GEA-02: SPCS",
-        "GEA-03: PASGT",
-        "GEA-04: ACH/MICH"
+        "GEA-01: IOTV"
       ],
       "Vehicles": [
         "VEH-05: HMMWV",
@@ -470,16 +467,9 @@
         "VEH-07: Gator",
         "VEH-12: APC"
       ],
-      "Ships": [
-        "SHI-01: LSD-46",
-        "SHI-02: AS-40",
-        "SHI-03: LHD-2",
-        "SHI-04: LCAC"
-      ],
       "Weapons": [
         "WEA-01: M4",
         "WEA-02: M9A2",
-        "WEA-03: M16A1",
         "WEA-04: MK14",
         "WEA-05: M60"
       ],
