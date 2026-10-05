@@ -503,3 +503,26 @@
 .logbook-beat-head.logbook-stepper { min-height: 3.1rem; margin-bottom: 0.65rem; }
 .logbook-about { margin-top: 0; }
 @media (max-width: 900px) { .logbook-beat-head.logbook-stepper { min-height: 2.5rem; } }
+
+/* Tabs / switches (Oct 2026): ACTIVE = goldenrod fill + navy text; INACTIVE = navy fill + light text. Disabled stays a muted grey (not navy). */
+.lb-tab, [data-theme="dark"] .lb-tab { background: var(--color-navy); color: var(--color-ivory, #f4efe4); border-color: var(--color-navy); }
+.lb-tab:not(.on):hover { background: var(--color-navy-deep); }
+.lb-tab.on, [data-theme="dark"] .lb-tab.on { background: var(--color-goldenrod); color: var(--color-navy); border-color: var(--color-goldenrod); font-weight: 600; }
+.lb-tab-count, [data-theme="dark"] .lb-tab-count { background: var(--color-goldenrod); color: var(--color-navy); }
+.lb-tab.on .lb-tab-count { background: var(--color-navy); color: var(--color-ivory, #f4efe4); }
+.lb-tab:focus-visible { outline: 2px solid var(--color-goldenrod); outline-offset: 2px; }
+.lb-tab.on:focus-visible { outline-color: var(--color-navy); }
+
+.logbook-seg, [data-theme="dark"] .logbook-seg { border-color: var(--color-navy); }
+.logbook-seg-btn, [data-theme="dark"] .logbook-seg-btn { background: var(--color-navy); color: var(--color-ivory, #f4efe4); border-right-color: color-mix(in srgb, var(--color-ivory) 30%, var(--color-navy)); }
+.logbook-seg-btn:not(.on):not(.is-off):hover { background: var(--color-navy-deep); }
+.logbook-seg-btn.on, [data-theme="dark"] .logbook-seg-btn.on { background: var(--color-goldenrod); color: var(--color-navy); font-weight: 600; box-shadow: none; }
+.logbook-seg-btn.is-off, .logbook-seg-btn:disabled,
+[data-theme="dark"] .logbook-seg-btn.is-off { background: #d9d6cf; color: #7d7a74; cursor: not-allowed; font-weight: 400; }
+.logbook-seg-btn:focus-visible { outline: 2px solid var(--color-goldenrod); outline-offset: -3px; }
+
+.logbook-step-btn, [data-theme="dark"] .logbook-step-btn { background: var(--color-navy); color: var(--color-ivory, #f4efe4); border-color: var(--color-navy); }
+.logbook-step-btn:not(:disabled):hover { background: var(--color-navy-deep); }
+.logbook-step-btn:not(:disabled):active,
+[data-theme="dark"] .logbook-step-btn:not(:disabled):active { background: var(--color-goldenrod); color: var(--color-navy); border-color: var(--color-goldenrod); }
+.logbook-step-btn:disabled { opacity: 1; background: #d9d6cf; border-color: #d9d6cf; color: #8d8a84; }

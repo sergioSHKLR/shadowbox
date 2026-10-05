@@ -19,6 +19,8 @@ import {
   schools,
   ranks,
   uniformPlatesForCommand,
+  plateGroup,
+  wardrobePlateFor,
   wardrobeForBeat,
   unitById,
   warfare,
@@ -329,9 +331,8 @@ const KHAKI_NOTE = CHIEF_RANK
 function plateFor(beat: LogbookBeat, look: Look): UniformSlide | null {
   const plates = uniformPlatesForCommand(beat.stop.commandId).filter((slide) => slide.look === look);
   if (!plates.length) return null;
-  const code = (file?: string) => (file ?? "").replace(/\.[^.]+$/, "").replace(/[a-z]+$/i, "");
-  const own = code(beat.uniform?.file);
-  return plates.find((slide) => code(slide.file) === own) ?? plates[0];
+  const own = plateGroup(beat.uniform?.file);
+  return plates.find((slide) => plateGroup(slide.file) === own) ?? plates[0];
 }
 
 /** Wardrobe: every uniform used-here.json lists for this command (and its deployments), as mannequin plates. */
@@ -349,7 +350,9 @@ function WardrobePanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
             aria-label={`${uniform.name}, ${uniform.context}${via.length ? ` (${via.join(", ")})` : ""}`}
             title={[uniform.name, via.length ? via.join(" · ") : uniform.context].filter(Boolean).join(" — ")}
           >
-            {uniform.image ? (
+            {wardrobePlateFor(beat.stop.commandId, uniform.id) ? (
+              <img src={wardrobePlateFor(beat.stop.commandId, uniform.id)!.src} alt="" loading="lazy" onError={(event) => { event.currentTarget.hidden = true; }} />
+            ) : uniform.image ? (
               <img src={publicUrl(uniform.image)} alt="" loading="lazy" onError={(event) => { event.currentTarget.hidden = true; }} />
             ) : (
               <span className="logbook-gear-blank" aria-hidden="true" />
