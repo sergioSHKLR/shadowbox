@@ -240,7 +240,7 @@ function OperationMarks({ id }: { id: string }) {
   );
 }
 
-function UnitDossier({ id }: { id: string }) {
+function UnitDossier({ id, hideUniforms = false }: { id: string; hideUniforms?: boolean }) {
   const unit = units.find((item) => item.id === id);
   if (!unit) return null;
   const nec = necById(unit.necId);
@@ -293,7 +293,7 @@ function UnitDossier({ id }: { id: string }) {
   ];
   return (
     <section className="dossier">
-      <ThumbRow label="Uniforms" items={uniformShots} />
+      {hideUniforms ? null : <ThumbRow label="Uniforms" items={uniformShots} />}
       <ThumbRow label="Exercises" items={exerciseShots} />
       <ThumbRow label="Partners" items={partnerShots} />
       <ThumbRow label="Sponsors" items={sponsorShots} />
@@ -420,15 +420,22 @@ export function DetailPanel({
                 </>
               ) : null}
               {showUsage ? <Photographs photos={gallery} onSelect={onSelect} prominent /> : null}
-              {selection?.kind === "uniform" ? null : (
-              <section className="sidebar-map">
-                {stops.length ? (
-                  <MapView stops={stops} onSelect={(id) => onSelect({ kind: "place", id })} />
-                ) : (
-                  <p className="quiet">No map location has been entered for this yet.</p>
-                )}
-              </section>
-              )}
+              {/* Used here first (uniforms live only here); the map sits at the bottom of the sidebar. */}
+                {subject.usedHere?.length ? (
+                  <section className="used-here used-here-top">
+                    <h3>Used here</h3>
+                    <ul>
+                      {subject.usedHere.map((item) => (
+                        <li key={item.kind + item.id}>
+                          <button type="button" onClick={() => onSelect({ kind: item.kind, id: item.id })} aria-label={`${item.name}. Open.`}>
+                            {item.image ? <img src={publicUrl(item.image)} alt="" loading="lazy" /> : null}
+                            <span>{item.name}</span>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ) : null}
               {subject.extraImages?.filter((extra) => extra.src).map((extra) => (
                 <figure key={extra.src} className="detail-hero hero-extra">
                   <img src={publicUrl(extra.src)} alt={extra.alt} />
@@ -436,7 +443,7 @@ export function DetailPanel({
                 </figure>
               ))}
               <div className="detail-body">
-                {selection?.kind === "unit" ? <UnitDossier id={selection.id} /> : null}
+                {selection?.kind === "unit" ? <UnitDossier id={selection.id} hideUniforms={Boolean(subject.usedHere?.some((item) => item.kind === "uniform"))} /> : null}
                 {selection?.kind === "operation" ? <OperationMarks id={selection.id} /> : null}
                 <p className="lede">{subject.explanation}</p>
                 {subject.criteria ? (
@@ -454,21 +461,6 @@ export function DetailPanel({
                       </div>
                     ))}
                   </dl>
-                ) : null}
-                {subject.usedHere?.length ? (
-                  <section className="used-here">
-                    <h3>Used here</h3>
-                    <ul>
-                      {subject.usedHere.map((item) => (
-                        <li key={item.kind + item.id}>
-                          <button type="button" onClick={() => onSelect({ kind: item.kind, id: item.id })} aria-label={`${item.name}. Open.`}>
-                            {item.image ? <img src={publicUrl(item.image)} alt="" loading="lazy" /> : null}
-                            <span>{item.name}</span>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
                 ) : null}
                 {subject.instances ? (
                   <section>
@@ -516,6 +508,15 @@ export function DetailPanel({
                   </section>
                 ) : null}
               </div>
+              {selection?.kind === "uniform" ? null : (
+              <section className="sidebar-map">
+                {stops.length ? (
+                  <MapView stops={stops} onSelect={(id) => onSelect({ kind: "place", id })} />
+                ) : (
+                  <p className="quiet">No map location has been entered for this yet.</p>
+                )}
+              </section>
+              )}
               {more ? <span className="detail-more" aria-hidden="true" /> : null}
               </div>
             </>

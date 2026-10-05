@@ -1162,3 +1162,6 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .places-track .stop-list { margin-top: 0.4rem; }
 .places-track .stop-list button { cursor: pointer; }
 .bar.bar--place { background: #2a3d55; color: #fff; min-width: 0; flex: 1 1 0; padding: 0.35rem 0.2rem; font-size: 0.65rem; }
+/* Sidebar order: Used here at the top, the map at the bottom. */
+.used-here-top { margin: 0.6rem 0 0.9rem; }
+.detail-scroll > .sidebar-map { margin-top: 1rem; }
