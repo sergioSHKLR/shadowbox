@@ -1,12 +1,54 @@
 {
-  "_note": "Per-command collateral duties and watch stations for the Logbook Admin tab, keyed by units.json id. As stated by Sergio (Oct 5, 2026). ASF (Auxiliary Security Force) is a collateral/watch qualification and sits under collateral duties. Commands not listed show nothing.",
+  "_note": "Per-command billet titles, collateral duties and watch stations for the Logbook Admin tab, keyed by units.json id. As stated by Sergio (Oct 5, 2026). ASF (Auxiliary Security Force) is a collateral/watch qualification and sits under collateral duties. Commands not listed show nothing.",
   "ncts": {
     "collateralDuties": [
-      { "label": "Supply PO" },
-      { "label": "Auxiliary Security Force", "abbreviation": "ASF" }
+      {
+        "label": "Supply PO"
+      },
+      {
+        "label": "Auxiliary Security Force",
+        "abbreviation": "ASF"
+      }
     ],
     "watches": [
-      { "label": "Duty ET" }
+      {
+        "label": "Duty ET"
+      }
+    ]
+  },
+  "frank-cable": {
+    "titles": [
+      {
+        "label": "Calibration Tech"
+      },
+      {
+        "label": "Shop LPO"
+      }
+    ],
+    "collateralDuties": [
+      {
+        "label": "Division Safety PO"
+      }
+    ]
+  },
+  "eodmu5": {
+    "titles": [
+      {
+        "label": "Comms LPO"
+      }
+    ],
+    "collateralDuties": [
+      {
+        "label": "Safety Officer"
+      },
+      {
+        "label": "Magnetometer Operator"
+      }
+    ],
+    "watches": [
+      {
+        "label": "Gateguard Operator"
+      }
     ]
   }
 }
