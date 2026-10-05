@@ -1153,6 +1153,18 @@ export function sequencePinPlace(entry: Pick<SequenceEntry, "cityId" | "baseId" 
   return undefined;
 }
 
+/**
+ * The Map's label for a place: the label of its own Map stop in sequence.json (a place row, not a school/NEC
+ * row such as "… (1460)"). A place with no Map stop falls back to its places.json name, which uses the same
+ * "Base, City, ST" convention the Map labels follow.
+ */
+export function mapPlaceLabel(placeId: string | null | undefined): string {
+  if (!placeId) return "";
+  const rows = sequence.filter((row) => row.baseId === placeId || (!row.baseId && row.cityId === placeId));
+  const own = rows.find((row) => !row.commandId || unitById(row.commandId)) ?? rows[0];
+  return own?.label ?? placeById(placeId)?.name ?? "";
+}
+
 /** Pin place is fixed per stop. Filters hide whole stops; they do not swap the pin. */
 export function stopPlaceForLayers(stop: Stop, _shown: StopLayer[] | null): Place {
   return stop.place;
@@ -2128,20 +2140,30 @@ export function uniformsNamingCommand(unitId: string | null | undefined) {
 }
 
 /**
- * Rank path for one Logbook command, from ranks.json dates against units.json tour dates.
- * Window: after the previous command's end (or the first rank, for the first command) through this command's end,
- * so a promotion in the school pipeline between commands lands on the command he reported to.
- * Returns the rank on arrival and each promotion in the window (last one = rank at transfer).
+ * Rank path for one Logbook command. Arrival and transfer ranks come from command-plates.json (inRank / outRank);
+ * the promotions shown are the ranks.json steps after the arrival rank through the transfer rank, with their dates.
+ * A promotion in the school pipeline before reporting (e.g. ET3, Dec 1998, before NCTS) is therefore not a
+ * promotion at that command. Without a plate, falls back to ranks.json dates against the tour window.
  */
 export function logbookRankPath(beats: LogbookBeat[], index: number): { arrival: Rank | null; promotions: Rank[] } {
-  const endKey = (beat: LogbookBeat | undefined) => {
-    const unit = beat?.stop.commandId ? unitById(beat.stop.commandId) : undefined;
+  const beat = beats[index];
+  const plate = beat ? commandPlates.find((row) => row.unitId === beat.stop.commandId) : undefined;
+  const order = ranks.map((rank) => rank.id);
+  if (plate) {
+    const from = order.indexOf(plate.inRank);
+    const to = order.indexOf(plate.outRank);
+    const arrival = ranks[from] ?? null;
+    if (from < 0 || to < 0 || to <= from) return { arrival: arrival ?? beat?.rank ?? null, promotions: [] };
+    return { arrival, promotions: ranks.slice(from + 1, to + 1) };
+  }
+  const endKey = (row: LogbookBeat | undefined) => {
+    const unit = row?.stop.commandId ? unitById(row.stop.commandId) : undefined;
     const raw = unit?.end ? (unit.end.length === 4 ? `${unit.end}-12-31` : unit.end) : "";
     return dateKey(raw);
   };
-  const dated = ranks.filter((rank) => rank.date).sort((a, b) => dateKey(a.date).localeCompare(dateKey(b.date)));
-  const to = endKey(beats[index]);
-  if (!to || !dated.length) return { arrival: beats[index]?.rank ?? null, promotions: [] };
+  const dated = ranks.filter((rank) => rank.date).sort((x, y) => dateKey(x.date).localeCompare(dateKey(y.date)));
+  const to = endKey(beat);
+  if (!to || !dated.length) return { arrival: beat?.rank ?? null, promotions: [] };
   const from = index > 0 ? endKey(beats[index - 1]) : dateKey(dated[0].date);
   const promotions = dated.filter((rank) => dateKey(rank.date) > from && dateKey(rank.date) <= to);
   const before = dated.filter((rank) => dateKey(rank.date) <= from);

@@ -210,8 +210,10 @@
     "length": null,
     "placeId": "norfolk",
     "placeConfidence": "recorded",
+    "commandId": "sercc",
     "source": "jst",
-    "explanation": "ADAMS for Supervisors at Center for Personal and Professional Development Detachment DAPMA, Norfolk. Completion 18 October 2007."
+    "explanation": "ADAMS for Supervisors at Center for Personal and Professional Development Detachment DAPMA, Norfolk. Completion 18 October 2007.",
+    "commandNote": "Taken during the SERCC tour, as stated by Sergio (Oct 5, 2026). Date is the JST completion date."
   },
   {
     "id": "combat-lifesaver",
