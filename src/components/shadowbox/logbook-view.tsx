@@ -16,7 +16,6 @@ import {
   schools,
   ranks,
   uniformPlatesForCommand,
-  uniformsNamingCommand,
   wardrobeForBeat,
   unitById,
   warfare,
@@ -348,7 +347,6 @@ function UniformsPanel({
   const chief = isChiefBeat(beat);
   const look: Look = chosen === "khaki" && !chief ? fallback : chosen;
   const plate = plateFor(beat, look);
-  const worn = uniformsNamingCommand(beat.stop.commandId);
   return (
     <div className="logbook-gear">
       <div className="logbook-seg" role="radiogroup" aria-label="Uniform">
@@ -386,21 +384,6 @@ function UniformsPanel({
           <span className="quiet">No {LOOKS.find((row) => row.id === look)?.label.toLowerCase()} plate for {beatTitle(beat)}.</span>
         </div>
       )}
-      {worn.length ? (
-        <section aria-label="Command uniforms">
-          <Kicker>Command gear</Kicker>
-          <ul className="logbook-gear-list">
-            {worn.map((item) => (
-              <li key={item.id}>
-                <button type="button" className="logbook-gear-item" onClick={() => onOpen("uniform", item.id)} aria-label={item.name}>
-                  {item.image ? <img src={publicUrl(item.image)} alt="" loading="lazy" /> : <span className="logbook-gear-blank" aria-hidden="true" />}
-                  <span>{item.name}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
     </div>
   );
 }
