@@ -204,7 +204,7 @@ export function ShadowboxApp() {
           <span className="app-title">{t.title}</span>
         </button>
         <div className="app-end">
-        <div className="app-flags">
+        <div className="app-flags" role="group" aria-label={t.language}>
           <button type="button" className={locale === "en" ? "app-flag is-on" : "app-flag"} aria-label={t.english} aria-pressed={locale === "en"} onClick={() => setLocale("en")}>
             <span aria-hidden="true">🇺🇸</span>
           </button>
