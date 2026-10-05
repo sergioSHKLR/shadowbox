@@ -9,14 +9,11 @@ const SW = warfare.find((pin) => pin.id === "esws");
 const CHIEF_PORTRAIT = photos.find((photo) => photo.src === profile.portrait);
 const SN_PORTRAIT = photos.find((photo) => photo.id === "recruit-portrait-1997");
 
-export function Home({ onOpen, bio, moreLabel, lessLabel }: { onOpen: (k: Kind, id: string) => void; bio: string; moreLabel: string; lessLabel: string }) {
+export function Home({ onOpen, bio }: { onOpen: (k: Kind, id: string) => void; bio: string }) {
   const rows = ribbonRows(awards);
-  const [bioOpen, setBioOpen] = useState(false);
   const [snPortrait, setSnPortrait] = useState(false);
   const portrait = snPortrait && SN_PORTRAIT ? SN_PORTRAIT : CHIEF_PORTRAIT;
   const paragraphs = bio.split("\n\n");
-  const lead = paragraphs.slice(0, 2);
-  const rest = paragraphs.slice(2);
   return (
     <main className="sheet">
       <header className="intro">
@@ -73,41 +70,10 @@ export function Home({ onOpen, bio, moreLabel, lessLabel }: { onOpen: (k: Kind, 
           <p className="quiet">{profile.headerLines[2]} · {profile.serviceLength}</p>
         </div>
         <div className="bio-wrap">
-          {lead.map((paragraph) => (
+          {paragraphs.map((paragraph) => (
             <BioBlock key={paragraph.slice(0, 24)} text={paragraph} />
           ))}
-          {rest.length > 0 ? (
-            <>
-              <button
-                type="button"
-                className={bioOpen ? "bio-fold is-open" : "bio-fold"}
-                aria-expanded={bioOpen}
-                aria-label={bioOpen ? lessLabel : moreLabel}
-                onClick={() => setBioOpen((open) => !open)}
-              >
-                {bioOpen ? null : (
-                  <span className="bio-fold-lines" aria-hidden="true">
-                    <span /><span /><span />
-                  </span>
-                )}
-                <span className="bio-fold-chevron" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="22" height="22" focusable="false">
-                    <path d="M5 9.5 12 16.5 19 9.5" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              </button>
-              {bioOpen ? (
-                <div className="bio-rest">
-                  {rest.map((paragraph) => (
-                    <BioBlock key={paragraph.slice(0, 24)} text={paragraph} />
-                  ))}
-                  <img className="bio-pao" src={publicUrl("/incoming/pao.png")} alt="Approved for release. Unclassified. Unit PAO." />
-                </div>
-              ) : null}
-            </>
-          ) : (
-            <img className="bio-pao" src={publicUrl("/incoming/pao.png")} alt="Approved for release. Unclassified. Unit PAO." />
-          )}
+          <img className="bio-pao" src={publicUrl("/incoming/pao.png")} alt="Approved for release. Unclassified. Unit PAO." />
         </div>
       </header>
     </main>

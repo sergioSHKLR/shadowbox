@@ -412,57 +412,8 @@ h1, h2, h3, .detail-title {
   text-align: justify;
   hyphens: auto;
 }
-.bio-rest > .bio:first-child { margin-top: 1.35rem; }
 @media (max-width: 720px) {
   .bio-quote { margin-inline-start: 1.05rem; margin-inline-end: 0; }
-}
-.bio-fold {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 44px;
-  margin: 0.85rem 0 0;
-  padding: 0.2rem 0 0.15rem;
-  border: 0;
-  background: transparent;
-  color: var(--color-brass);
-  cursor: pointer;
-  font: inherit;
-}
-.bio-fold-lines {
-  display: grid;
-  gap: 0.42rem;
-  width: min(22rem, 78%);
-  margin: 0 auto 0.1rem;
-}
-.bio-fold-lines > span {
-  display: block;
-  height: 0.38rem;
-  border-radius: 999px;
-  background: currentColor;
-  justify-self: center;
-}
-.bio-fold-lines > span:nth-child(1) { width: 100%; opacity: 0.38; }
-.bio-fold-lines > span:nth-child(2) { width: 84%; opacity: 0.24; }
-.bio-fold-lines > span:nth-child(3) { width: 62%; opacity: 0.13; }
-.bio-fold-chevron {
-  display: grid;
-  place-items: center;
-  width: 2.75rem;
-  height: 1.7rem;
-  transition: transform 0.18s ease;
-}
-.bio-fold.is-open .bio-fold-chevron { transform: rotate(180deg); }
-.bio-fold:hover,
-.bio-fold:focus-visible { color: var(--color-goldenrod); }
-.bio-fold:focus-visible {
-  outline: 2px solid var(--color-brass);
-  outline-offset: 3px;
-}
-@media (prefers-reduced-motion: reduce) {
-  .bio-fold-chevron { transition: none; }
 }
 .redacted-sentence {
   display: flex;
