@@ -844,6 +844,8 @@ export type PlateExtra = {
   date: string;
   kind: Kind;
   id: string;
+  /** The crest's own units.json record, when kind/id point somewhere else (e.g. RTN → U-Tapao on the Commands page). */
+  unitId?: string;
 };
 export type CommandPlate = {
   unitId: string;
@@ -1217,7 +1219,7 @@ function monthKey(value: string | null | undefined): number | null {
 const PLATE_UNIT_IDS = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"] as const;
 
 /** Customers/partners kept off the Map inset (still OK as unit chips from structured data). */
-const MAP_EXCLUDED_UNIT_IDS = new Set(["52nd-ordnance", "3rd-sfg", "75th-ranger"]);
+const MAP_EXCLUDED_UNIT_IDS = new Set(["52nd-ordnance", "3rd-sfg", "75th-ranger", "eodmu11", "rtn", "auscdt"]);
 
 export type LogbookUnitChip = {
   id: string;
@@ -1463,7 +1465,8 @@ function unitsForCommandBeat(stop: Stop, plate: CommandPlate | null): LogbookUni
       // A role on the plate (e.g. "TAD", "Partner · Cobra Gold") puts the unit on the crests, even a Map-excluded
       // partner; the Map never reads these chips.
       if (extra.role) {
-        const unit = extra.kind === "unit" ? unitById(extra.id) : undefined;
+        // unitId points a crest at its own unit record when kind/id link elsewhere (the Commands page keeps kind/id).
+        const unit = extra.unitId ? unitById(extra.unitId) : extra.kind === "unit" ? unitById(extra.id) : undefined;
         if (unit && !seen.has(unit.id)) {
           add(unit);
           out[out.length - 1].designator = extra.role;

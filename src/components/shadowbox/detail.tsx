@@ -215,6 +215,11 @@ function unique(names: string[]) {
   return [...new Set(names)];
 }
 
+function uniqueShots(shots: Shot[]) {
+  const seen = new Set<string>();
+  return shots.filter((shot) => (seen.has(shot.name) ? false : (seen.add(shot.name), true)));
+}
+
 function OperationMarks({ id }: { id: string }) {
   const op = operations.find((item) => item.id === id);
   const admin: string[] = [];
@@ -248,19 +253,25 @@ function UnitDossier({ id }: { id: string }) {
   const gained = list(id, "NEC").filter((code) => !nec || !code.startsWith(nec.code));
   const department = id === "jcse" ? list(id, "Division") : [];
   const division = id === "jcse" ? [] : list(id, "Division");
-  const exerciseShots: Shot[] = [
-    ...visits.filter((visit) => visit.unitId === id && visit.kind === "exercise").flatMap((visit) => {
-      const shots: Shot[] = [{
-        name: visit.title,
-        src: visit.id === "cobra-gold" ? CREST["Cobra Gold"] : visit.id === "talisman-saber" ? CREST["Talisman Saber"] : undefined,
-      }];
-      if (visit.id === "cobra-gold") shots.push({ name: "Royal Thai Navy", src: CREST["Royal Thai Navy"] });
-      if (visit.id === "talisman-saber") shots.push({ name: "Australian CDT", src: CREST["Australian CDT"] });
-      return shots;
+  // One entry per iteration (visits.json trips: Cobra Gold 2004 / 2005, Talisman Saber 2005 / 2007); host partners go to Partners.
+  const EXERCISE_HOST: Record<string, { name: string; host: string }> = {
+    "cobra-gold": { name: "Cobra Gold", host: "Royal Thai Navy" },
+    "talisman-saber": { name: "Talisman Saber", host: "Australian CDT" },
+  };
+  const unitExercises = visits.filter((visit) => visit.unitId === id && visit.kind === "exercise");
+  const exerciseShots: Shot[] = uniqueShots([
+    ...unitExercises.flatMap((visit): Shot[] => {
+      const known = EXERCISE_HOST[visit.id];
+      if (!known) return [{ name: visit.title }];
+      const trips = (visit as { trips?: string[] }).trips ?? [];
+      return trips.length ? trips.map((year) => ({ name: `${known.name} ${year}`, src: CREST[known.name] })) : [{ name: known.name, src: CREST[known.name] }];
     }),
-    ...list(id, "Operation").filter((name) => /cobra gold|talisman saber/i.test(name)).map((name) => ({ name, src: crestFor(name) })),
-  ];
-  const partnerShots = list(id, "Partner").map((name) => ({ name, src: crestFor(name) }));
+    ...list(id, "Operation").filter((name) => /cobra gold|talisman saber/i.test(name)).map((name) => ({ name, src: crestFor(name) ?? CREST[/cobra/i.test(name) ? "Cobra Gold" : "Talisman Saber"] })),
+  ]);
+  const partnerShots = uniqueShots([
+    ...list(id, "Partner").map((name) => ({ name, src: crestFor(name) })),
+    ...unitExercises.flatMap((visit) => (EXERCISE_HOST[visit.id] ? [{ name: EXERCISE_HOST[visit.id].host, src: CREST[EXERCISE_HOST[visit.id].host] }] : [])),
+  ]);
   const sponsorShots = list(id, "Sponsor").map((name) => ({ name, src: crestFor(name) }));
   const uniformShots = list(id, "Uniforms").map((name) => ({ name, src: UNIFORM_IMAGE[name] }));
   const awardShots = list(id, "Awards").map((name) => {
