@@ -273,5 +273,21 @@
     "source": "recorded",
     "explanation": "Gryphon Group's school at Laurinburg–Maxton Airport, Maxton, North Carolina. About a week long, before OEF II. The start date has not been entered.",
     "open": "Gryphon School: start date not entered."
+  },
+  {
+    "id": "asf",
+    "name": "Auxiliary Security Force",
+    "abbreviation": "ASF",
+    "cin": null,
+    "start": "",
+    "end": null,
+    "length": null,
+    "placeId": null,
+    "placeConfidence": "not recorded",
+    "commandId": "ncts",
+    "commandNote": "Taken during the NCTS tour, as stated by Sergio (Oct 5, 2026). Also listed as a collateral duty in command-duties.json.",
+    "source": "recorded",
+    "explanation": "Auxiliary Security Force training, during the NCTS tour. The date has not been entered.",
+    "open": "ASF: date not entered."
   }
 ]
