@@ -60,11 +60,11 @@
       { "src": "/incoming/troy.png", "title": "In theater", "unit": "CJTF Troy", "date": "2006", "kind": "unit", "id": "troy" },
       { "src": "/incoming/52nd-eod.png", "title": "Sponsor", "unit": "52nd EOD", "date": "2006", "kind": "unit", "id": "52nd-ordnance", "role": "Partner · OIF I" },
       { "src": "/incoming/16th-en.png", "title": "Sponsor", "unit": "16th EN", "date": "2006", "kind": "unit", "id": "16th-engineer", "role": "Partner · OIF I" },
-      { "src": "/incoming/eodmu11.png", "title": "Partner", "unit": "EODMU 11", "date": "2006", "kind": "unit", "id": "troy", "role": "Partner · OIF I" },
+      { "src": "/incoming/eodmu11.png", "title": "Partner", "unit": "EODMU 11", "date": "2006", "kind": "unit", "id": "troy", "role": "Partner · OIF I", "unitId": "eodmu11" },
       { "src": "/incoming/cobra-gold.png", "title": "Exercise", "unit": "Cobra Gold", "date": "2004 and 2005", "kind": "place", "id": "u-tapao" },
-      { "src": "/incoming/rtn.png", "title": "Host", "unit": "Royal Thai Navy", "date": "2004 and 2005", "kind": "place", "id": "u-tapao", "role": "Partner · Cobra Gold" },
+      { "src": "/incoming/rtn.png", "title": "Host", "unit": "Royal Thai Navy", "date": "2004 and 2005", "kind": "place", "id": "u-tapao", "role": "Partner · Cobra Gold", "unitId": "rtn" },
       { "src": "/incoming/talisman-saber.png", "title": "Exercise", "unit": "Talisman Saber", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay" },
-      { "src": "/incoming/auscdt-1.png", "title": "Host", "unit": "Australian CDT", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay", "role": "Partner · Talisman Saber" }
+      { "src": "/incoming/auscdt-1.png", "title": "Host", "unit": "Australian CDT", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay", "role": "Partner · Talisman Saber", "unitId": "auscdt" }
     ]
   },
   {

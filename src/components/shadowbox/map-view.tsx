@@ -298,11 +298,12 @@ export function MapView({
       started = true;
 
       void import("leaflet").then(async (mod) => {
-        const L = leafletApi(mod);
-        // leaflet.markercluster's UMD build expects a global `L`.
+        // leaflet.markercluster's UMD build attaches to the global `L` once (the module is cached). Keep that first
+        // Leaflet object for every later map (e.g. the detail drawer) so L.markerClusterGroup and its instanceof checks exist.
         const root = globalThis as typeof globalThis & { L?: LeafletApi };
-        root.L = L;
+        root.L ??= leafletApi(mod);
         await import("leaflet.markercluster");
+        const L = root.L;
         if (!alive || map || !ref.current) return;
         if (ref.current.clientWidth < 1 || ref.current.clientHeight < 1) {
           started = false;
