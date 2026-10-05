@@ -6,8 +6,6 @@ import {
   isMapExcludedUnit,
   logbookAdminAsOf,
   logbookBeats,
-  medalFor,
-  medalRows,
   offDutyForCommand,
   onDutyForCommand,
   publicUrl,
@@ -16,7 +14,6 @@ import {
   uniformsNamingCommand,
   unitById,
   warfare,
-  type Award,
   type Kind,
   type LogbookBeat,
   type LogbookGearGroup,
@@ -24,7 +21,7 @@ import {
   type UniformSlide,
 } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
-import { MedalBlock, RibbonArt } from "@/components/shadowbox/marks";
+import { RibbonArt } from "@/components/shadowbox/marks";
 import { Boundary } from "@/components/shadowbox/boundary";
 
 type Open = (k: Kind, id: string) => void;
@@ -44,11 +41,10 @@ function PinMark({ id, onOpen }: { id: string; onOpen: Open }) {
   );
 }
 
-/** Rank & Awards as of the end of this command: rank insignia, warfare pins, ribbons, medals (command-plates.json). */
+/** Rank & Awards as of the end of this command: rank insignia, warfare pins, ribbons (command-plates.json). Medals: later. */
 function RankAwards({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
   const rank = beat.rank;
   const rows = ribbonRows(beat.rack);
-  const medalList = beat.rack.filter((award) => medalFor(award.id));
   const pins = [...beat.pinsAbove, ...beat.pinsBelow];
   return (
     <div className="logbook-ra">
@@ -94,16 +90,6 @@ function RankAwards({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
           </div>
         ) : (
           <p className="quiet">No ribbons on this command plate.</p>
-        )}
-      </section>
-      <section aria-label="Medals">
-        <Kicker>Medals</Kicker>
-        {medalList.length ? (
-          <div className="logbook-medals">
-            <MedalBlock rows={medalRows(medalList)} onOpen={(award: Award) => onOpen("award", award.id)} />
-          </div>
-        ) : (
-          <p className="quiet">No medal art for this command plate.</p>
         )}
       </section>
     </div>
