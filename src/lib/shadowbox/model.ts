@@ -761,7 +761,7 @@ export function deviceSummary(award: Award): string {
   return award.devices
     .map((d) => {
       const what = d.kind === "letter" ? `letter ${d.letter}` : d.kind === "oak" ? "oak leaf" : "star";
-      const plural = d.count === 1 ? what : `${what}s`;
+      const plural = d.count === 1 ? what : d.kind === "oak" ? "oak leaves" : `${what}s`;
       return `${d.count} ${d.metal} ${plural}`;
     })
     .join(", ");
@@ -2044,6 +2044,51 @@ export function uniformPlatesForCommand(unitId: string | null | undefined): Unif
     UNIFORM_STEP_PLATES.filter((row) => row.unitId === unitId).map((row) => row.stem.replace(/[a-z]+$/i, "")),
   );
   return uniformSlides.filter((slide) => codes.has(slide.file.replace(/\.[^.]+$/, "").replace(/[a-z]+$/i, "")));
+}
+
+export type WardrobeItem = { uniform: Uniform; via: string[] };
+
+/** A chief's uniform (E7 khaki / whites / dress): never shown before the first E-7 date of rank. */
+export function isChiefUniform(uniform: Pick<Uniform, "id" | "context">): boolean {
+  return uniform.id.startsWith("cpo-") || /chief petty officer|after promotion/i.test(uniform.context ?? "");
+}
+
+/**
+ * Logbook Wardrobe: every uniform used-here.json lists for this command, its own deployed / assisting /
+ * parent units, and the operations those units ran (operations.json unitId). Ordered as uniforms.json.
+ * Chief uniforms are dropped unless the beat's rank (as of the end of the command) is E-7 or above.
+ * Nothing is inferred: a uniform not listed in used-here.json for these subjects does not appear.
+ */
+export function wardrobeForBeat(beat: LogbookBeat): { items: WardrobeItem[]; withheld: Uniform[] } {
+  const commandId = beat.stop.commandId;
+  if (!commandId) return { items: [], withheld: [] };
+  const unitIds = [commandId, ...beat.units.map((unit) => unit.id).filter((id) => id !== commandId)];
+  const subjects: { id: string; label: string | null }[] = unitIds.map((id) => ({
+    id,
+    label: id === commandId ? null : (unitById(id)?.abbreviation ?? id),
+  }));
+  for (const op of operations) {
+    if (op.unitId && unitIds.includes(op.unitId)) {
+      subjects.push({ id: op.id, label: unitById(op.unitId)?.abbreviation ?? op.unitId });
+    }
+  }
+  const via = new Map<string, Set<string>>();
+  const own = new Set<string>();
+  for (const subject of subjects) {
+    for (const id of usedHere[subject.id] ?? []) {
+      if (!uniforms.some((uniform) => uniform.id === id)) continue;
+      if (!via.has(id)) via.set(id, new Set());
+      if (subject.label) via.get(id)!.add(subject.label);
+      else own.add(id);
+    }
+  }
+  const chief = Number((beat.rank?.grade ?? "").replace(/\D/g, "")) >= 7;
+  const listed = uniforms.filter((uniform) => via.has(uniform.id)).sort((a, b) => a.order - b.order);
+  const withheld = chief ? [] : listed.filter(isChiefUniform);
+  const items = listed
+    .filter((uniform) => chief || !isChiefUniform(uniform))
+    .map((uniform) => ({ uniform, via: own.has(uniform.id) ? [] : [...via.get(uniform.id)!] }));
+  return { items, withheld };
 }
 
 /** uniforms.json entries whose recorded context names this command. */

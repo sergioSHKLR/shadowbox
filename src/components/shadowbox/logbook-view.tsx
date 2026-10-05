@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import {
   deploymentsForCommand,
@@ -8,11 +9,12 @@ import {
   logbookBeats,
   offDutyForCommand,
   onDutyForCommand,
+  deviceSummary,
   publicUrl,
   ranks,
-  ribbonRows,
   uniformPlatesForCommand,
   uniformsNamingCommand,
+  wardrobeForBeat,
   unitById,
   warfare,
   type Kind,
@@ -42,10 +44,28 @@ function PinMark({ id, onOpen }: { id: string; onOpen: Open }) {
   );
 }
 
+/**
+ * Ribbons unmounted: one wrapping row, highest precedence first (awards.json `precedence`, lower = senior, Navy order).
+ * Any ribbon without a precedence value goes last, in plate order — never guessed.
+ */
+function unmountedRibbons(list: LogbookBeat["rack"]): LogbookBeat["rack"] {
+  const ranked = list.filter((award) => Number.isFinite(award.precedence));
+  const unranked = list.filter((award) => !Number.isFinite(award.precedence));
+  return [...ranked.sort((a, b) => a.precedence - b.precedence), ...unranked];
+}
+
+/** Name, plus count and devices only when the plate data carries them. */
+function ribbonLabel(award: LogbookBeat["rack"][number]): string {
+  const bits = [award.name];
+  if (award.count > 1) bits.push(`${award.count} awards`);
+  if (award.devices?.length) bits.push(deviceSummary(award));
+  return bits.join(" · ");
+}
+
 /** Rank & Awards as of the end of this command: rank insignia, warfare pins, ribbons (command-plates.json). Medals: later. */
 function RankAwards({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
   const rank = beat.rank;
-  const rows = ribbonRows(beat.rack);
+  const ribbons = unmountedRibbons(beat.rack);
   const pins = [...beat.pinsAbove, ...beat.pinsBelow];
   return (
     <div className="logbook-ra">
@@ -75,20 +95,21 @@ function RankAwards({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
           </div>
         </section>
       ) : null}
-      <section aria-label="Ribbons">
+      <section aria-label="Ribbons" className="logbook-ribbons-sec">
         <Kicker>Ribbons</Kicker>
-        {rows.length ? (
-          <div className="rack logbook-ribbons" aria-label="Ribbon rack">
-            {rows.map((row) => (
-              <div key={row.map((award) => award.id).join("-")} className="rack-row">
-                {row.map((award) => (
-                  <button key={award.id} type="button" className="ribbon" onClick={() => onOpen("award", award.id)} aria-label={award.name} title={award.name}>
+        {ribbons.length ? (
+          <ol className="logbook-ribbons-flat" aria-label="Ribbons, unmounted, in order of precedence">
+            {ribbons.map((award) => {
+              const label = ribbonLabel(award);
+              return (
+                <li key={award.id}>
+                  <button type="button" className="logbook-ribbon-btn" onClick={() => onOpen("award", award.id)} aria-label={label} title={label}>
                     <RibbonArt award={award} />
                   </button>
-                ))}
-              </div>
-            ))}
-          </div>
+                </li>
+              );
+            })}
+          </ol>
         ) : (
           <p className="quiet">No ribbons on this command plate.</p>
         )}
@@ -233,6 +254,35 @@ function plateFor(beat: LogbookBeat, look: Look): UniformSlide | null {
   const code = (file?: string) => (file ?? "").replace(/\.[^.]+$/, "").replace(/[a-z]+$/i, "");
   const own = code(beat.uniform?.file);
   return plates.find((slide) => code(slide.file) === own) ?? plates[0];
+}
+
+/** Wardrobe: every uniform used-here.json lists for this command (and its deployments), as mannequin plates. */
+function WardrobePanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
+  const { items } = wardrobeForBeat(beat);
+  if (!items.length) return <ComingSoon what="wardrobe" />;
+  return (
+    <ul className="logbook-wardrobe" aria-label={`Uniforms at ${beatTitle(beat)}`}>
+      {items.map(({ uniform, via }) => (
+        <li key={uniform.id}>
+          <button
+            type="button"
+            className="logbook-wardrobe-item"
+            onClick={() => onOpen("uniform", uniform.id)}
+            aria-label={`${uniform.name}, ${uniform.context}${via.length ? ` (${via.join(", ")})` : ""}`}
+            title={uniform.context}
+          >
+            {uniform.image ? (
+              <img src={publicUrl(uniform.image)} alt="" loading="lazy" onError={(event) => { event.currentTarget.hidden = true; }} />
+            ) : (
+              <span className="logbook-gear-blank" aria-hidden="true" />
+            )}
+            <strong>{uniform.name}</strong>
+            <small>{via.length ? via.join(" · ") : uniform.context}</small>
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 /** Uniforms: Whites / Blues / Khakis segmented control + the mannequin plate for the active command. */
@@ -463,17 +513,19 @@ function beatTitle(row: LogbookBeat): string {
   return row.lines[0];
 }
 
-type AsideTab = "uniforms" | "onduty" | "offduty";
+type AsideTab = "uniforms" | "wardrobe" | "onduty" | "offduty";
 type PhoneTab = AsideTab | "crests" | "map";
 
 export function Logbook({
   onOpen,
   title,
   lead,
+  wardrobeLabel = "Wardrobe",
 }: {
   onOpen: (k: Kind, id: string) => void;
   title: string;
   lead: string;
+  wardrobeLabel?: string;
 }) {
   const beats = useMemo(() => logbookBeats(), []);
   const stops = useMemo(() => beats.map((row) => row.stop), [beats]);
@@ -491,10 +543,8 @@ export function Logbook({
     if (next !== "khaki") setLookFallback(next);
   }, []);
   const rootRef = useRef<HTMLElement>(null);
-  const scrollerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef(0);
-  /** While a programmatic scroll settles, scroll sync must not override the chosen beat. */
-  const lockUntil = useRef(0);
   const beat = beats[Math.min(active, Math.max(0, beats.length - 1))] ?? beats[0];
   activeRef.current = active;
 
@@ -543,98 +593,43 @@ export function Logbook({
     };
   }, []);
 
-  const scrollToBeat = useCallback((index: number, smooth = true) => {
-    const root = scrollerRef.current;
-    const node = root?.querySelector<HTMLElement>(`[data-beat="${index}"]`);
-    if (!root || !node) return;
-    const behavior: ScrollBehavior = smooth && !window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "smooth" : "auto";
-    lockUntil.current = performance.now() + (behavior === "smooth" ? 900 : 150);
-    setActive(index);
-    const top = node.getBoundingClientRect().top - root.getBoundingClientRect().top + root.scrollTop - 6;
-    root.scrollTo({ top: Math.max(0, top), behavior });
-  }, []);
+  /** Prev / next (and arrow keys) step the active command; it drives every panel. No scroll sync. */
+  const goTo = useCallback(
+    (index: number) => {
+      const next = Math.max(0, Math.min(beats.length - 1, index));
+      if (next === activeRef.current) return;
+      activeRef.current = next;
+      setActive(next);
+    },
+    [beats.length],
+  );
+  const stepperRef = useRef<HTMLDivElement>(null);
+  const step = useCallback(
+    (delta: number) => {
+      goTo(activeRef.current + delta);
+      // At an end the pressed button disables; hand focus to the other one so keys keep working.
+      const edge = activeRef.current === 0 || activeRef.current === beats.length - 1;
+      if (edge) window.requestAnimationFrame(() => stepperRef.current?.querySelector<HTMLButtonElement>(".logbook-step-btn:not(:disabled)")?.focus());
+    },
+    [goTo, beats.length],
+  );
 
-  // Scroll sync: IntersectionObserver rooted on the commands track's own scroller.
-  // A card is "in the band" while it overlaps the top 30% of the track; the highest-numbered card in
-  // the band is active. The spacer after the last card lets NH Jacksonville reach the band, and an
-  // end sentinel activates it whenever the track is scrolled to the end.
+  // A new command starts at the top of its card.
   useEffect(() => {
-    const root = scrollerRef.current;
-    if (!root || !beats.length) return;
-    const nodes = Array.from(root.querySelectorAll<HTMLElement>("[data-beat]"));
-    const sentinel = root.querySelector<HTMLElement>(".logbook-beats-sentinel");
-    const inBand = new Set<number>();
-    let atEnd = false;
-    let frame = 0;
-    const commit = () => {
-      frame = 0;
-      if (performance.now() < lockUntil.current) return;
-      let next: number;
-      if (atEnd) next = nodes.length - 1;
-      else if (inBand.size) next = Math.max(...inBand);
-      else return;
-      if (next !== activeRef.current) setActive(next);
-    };
-    const queue = () => {
-      if (!frame) frame = requestAnimationFrame(commit);
-    };
-    const band = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          const index = Number((entry.target as HTMLElement).dataset.beat);
-          if (!Number.isFinite(index)) continue;
-          if (entry.isIntersecting) inBand.add(index);
-          else inBand.delete(index);
-        }
-        queue();
-      },
-      { root, rootMargin: "0px 0px -70% 0px", threshold: 0 },
-    );
-    nodes.forEach((node) => band.observe(node));
-    const end = new IntersectionObserver(
-      (entries) => {
-        atEnd = entries.some((entry) => entry.isIntersecting);
-        queue();
-      },
-      { root, threshold: 0 },
-    );
-    if (sentinel) end.observe(sentinel);
-    const onScrollEnd = () => window.setTimeout(queue, 0);
-    root.addEventListener("scrollend", onScrollEnd);
-    // Spacer after the last card: just enough room for NH Jacksonville to sit at the top of the track.
-    const spacer = root.querySelector<HTMLElement>(".logbook-beats-end");
-    const last = nodes[nodes.length - 1];
-    const size = new ResizeObserver(() => {
-      if (!spacer || !last) return;
-      spacer.style.height = `${Math.max(16, root.clientHeight - last.offsetHeight - 24)}px`;
-    });
-    size.observe(root);
-    if (last) size.observe(last);
-    return () => {
-      size.disconnect();
-      if (frame) cancelAnimationFrame(frame);
-      band.disconnect();
-      end.disconnect();
-      root.removeEventListener("scrollend", onScrollEnd);
-    };
-  }, [beats.length, narrow]);
+    cardRef.current?.scrollTo({ top: 0 });
+  }, [active, mainTab]);
 
-  const onTrackKey = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.target !== event.currentTarget) return;
-    const keys: Record<string, number> = { ArrowDown: 1, PageDown: 1, ArrowUp: -1, PageUp: -1 };
+  const onMainKey = (event: KeyboardEvent<HTMLElement>) => {
+    const target = event.target as HTMLElement;
+    if (target.closest('[role="tablist"], input, textarea, select')) return;
+    const keys: Record<string, number> = { ArrowDown: 1, ArrowRight: 1, PageDown: 1, ArrowUp: -1, ArrowLeft: -1, PageUp: -1 };
     let next: number | null = null;
     if (event.key in keys) next = activeRef.current + keys[event.key];
     else if (event.key === "Home") next = 0;
     else if (event.key === "End") next = beats.length - 1;
     if (next == null) return;
     event.preventDefault();
-    scrollToBeat(Math.max(0, Math.min(beats.length - 1, next)));
-  };
-
-  const chooseMainTab = (name: MainTab) => {
-    setMainTab(name);
-    // Card heights change with the tab; keep the active command at the top of the track.
-    window.requestAnimationFrame(() => scrollToBeat(activeRef.current, false));
+    goTo(next);
   };
 
   if (!beat) {
@@ -648,12 +643,15 @@ export function Logbook({
 
   const asideTabs: TabDef<AsideTab>[] = [
     { id: "uniforms", label: "Uniforms" },
+    { id: "wardrobe", label: wardrobeLabel },
     { id: "onduty", label: "On Duty" },
     { id: "offduty", label: "Off Duty" },
   ];
   const asideContent = (name: AsideTab) =>
     name === "uniforms" ? (
       <UniformsPanel beat={beat} look={look} fallback={lookFallback} onLook={setLook} onOpen={onOpen} />
+    ) : name === "wardrobe" ? (
+      <WardrobePanel beat={beat} onOpen={onOpen} />
     ) : name === "onduty" ? (
       <OnDutyPanel beat={beat} onOpen={onOpen} />
     ) : (
@@ -669,49 +667,69 @@ export function Logbook({
     </div>
   );
 
+  const unit = beat.stop.commandId ? unitById(beat.stop.commandId) : undefined;
+  const atStart = beat.index <= 0;
+  const atEnd = beat.index >= beats.length - 1;
   const main = (
-    <section className="logbook-main" aria-label="Commands">
+    <section className="logbook-main" aria-label="Commands" onKeyDown={onMainKey}>
+      <div className="logbook-stepper" ref={stepperRef} role="group" aria-label="Step through the commands">
+        <button
+          type="button"
+          className="logbook-step-btn"
+          aria-label="Previous command"
+          title={atStart ? "First command" : `Previous: ${beatTitle(beats[beat.index - 1])}`}
+          onClick={() => step(-1)}
+          disabled={atStart}
+        >
+          <ChevronLeft size={20} strokeWidth={2} aria-hidden="true" />
+        </button>
+        <p className="logbook-step-label" aria-live="polite" aria-atomic="true">
+          <strong>
+            Command {beat.index + 1} of {beats.length}
+          </strong>
+          <span className="quiet">
+            {beatTitle(beat)}
+            {beat.when ? ` · ${beat.when.length === 4 ? beat.when : formatWhen(beat.when)}` : ""}
+          </span>
+        </p>
+        <button
+          type="button"
+          className="logbook-step-btn"
+          aria-label="Next command"
+          title={atEnd ? "Last command" : `Next: ${beatTitle(beats[beat.index + 1])}`}
+          onClick={() => step(1)}
+          disabled={atEnd}
+        >
+          <ChevronRight size={20} strokeWidth={2} aria-hidden="true" />
+        </button>
+      </div>
       <Tabbed
         idBase="logbook-main"
-        label="Rank and awards, or admin, for each command"
+        label="Rank and awards, or admin, for this command"
         tabs={[
           { id: "rank", label: "Rank & Awards" },
           { id: "admin", label: "Admin" },
         ]}
         value={mainTab}
-        onChange={chooseMainTab}
+        onChange={setMainTab}
         className="logbook-main-tabs"
         panelFocusable={false}
       >
-        <div className="logbook-beats" ref={scrollerRef} tabIndex={0} aria-label="Commands track. Arrow keys move between commands." onKeyDown={onTrackKey}>
-          {beats.map((row) => {
-            const unit = row.stop.commandId ? unitById(row.stop.commandId) : undefined;
-            return (
-              <article
-                key={row.stop.n}
-                id={`logbook-beat-${row.stop.n}`}
-                data-beat={row.index}
-                className={row.index === active ? "logbook-beat is-active" : "logbook-beat"}
-                aria-current={row.index === active ? "step" : undefined}
-              >
-                <header className="logbook-beat-head">
-                  <span className={`pin-num ${row.stop.kind} ${row.stop.place.accuracy}`} aria-hidden="true">
-                    {row.stop.n}
-                  </span>
-                  <div>
-                    <h3 title={unit?.name}>{beatTitle(row)}</h3>
-                    <p className="quiet">{row.lines[1] ?? "Command"}</p>
-                  </div>
-                </header>
-                <div className="logbook-beat-body">
-                  {mainTab === "rank" ? <RankAwards beat={row} onOpen={onOpen} /> : <AdminAsOf beat={row} onOpen={onOpen} />}
-                </div>
-              </article>
-            );
-          })}
-          <div className="logbook-beats-end" aria-hidden="true">
-            <span className="logbook-beats-sentinel" />
-          </div>
+        <div className="logbook-beats" ref={cardRef} tabIndex={0} aria-label="Active command. Arrow keys step between commands.">
+          <article key={beat.stop.n} id={`logbook-beat-${beat.stop.n}`} data-beat={beat.index} className="logbook-beat is-active" aria-current="step">
+            <header className="logbook-beat-head">
+              <span className={`pin-num ${beat.stop.kind} ${beat.stop.place.accuracy}`} aria-hidden="true">
+                {beat.stop.n}
+              </span>
+              <div>
+                <h3 title={unit?.name}>{beatTitle(beat)}</h3>
+                <p className="quiet">{beat.lines[1] ?? "Command"}</p>
+              </div>
+            </header>
+            <div className="logbook-beat-body">
+              {mainTab === "rank" ? <RankAwards beat={beat} onOpen={onOpen} /> : <AdminAsOf beat={beat} onOpen={onOpen} />}
+            </div>
+          </article>
         </div>
       </Tabbed>
     </section>
@@ -722,10 +740,6 @@ export function Logbook({
       <header className="logbook-head">
         <h2>{title}</h2>
         <p className="logbook-lead">{lead}</p>
-        <p className="logbook-count quiet" aria-live="polite">
-          Command {beat.stop.n} of {beats.length}
-          {beat.when ? ` · ${beat.when.length === 4 ? beat.when : formatWhen(beat.when)}` : ""}
-        </p>
       </header>
 
       {narrow ? (
@@ -733,13 +747,13 @@ export function Logbook({
           {main}
           <Tabbed
             idBase="logbook-phone"
-            label="Uniforms, duty, crests and map"
+            label="Uniforms, wardrobe, duty, crests and map"
             tabs={[...asideTabs, { id: "crests", label: "Crests" }, { id: "map", label: "Map" }]}
             value={phoneTab}
             onChange={setPhoneTab}
             className="logbook-phone-tabs"
           >
-            {phoneTab === "uniforms" || phoneTab === "onduty" || phoneTab === "offduty" ? asideContent(phoneTab) : null}
+            {phoneTab === "uniforms" || phoneTab === "wardrobe" || phoneTab === "onduty" || phoneTab === "offduty" ? asideContent(phoneTab) : null}
             {phoneTab === "crests" ? <CrestStrip beat={beats[active]} onOpen={onOpen} /> : null}
             {mapRegion(phoneTab !== "map")}
           </Tabbed>
@@ -747,8 +761,8 @@ export function Logbook({
       ) : (
         <div className="logbook-grid">
           {main}
-          <aside className="logbook-aside" aria-label="Uniforms, on duty, off duty for this command">
-            <Tabbed idBase="logbook-aside" label="Uniforms, On Duty, Off Duty" tabs={asideTabs} value={asideTab} onChange={setAsideTab} className="logbook-aside-tabs">
+          <aside className="logbook-aside" aria-label="Uniforms, wardrobe, on duty, off duty for this command">
+            <Tabbed idBase="logbook-aside" label="Uniforms, Wardrobe, On Duty, Off Duty" tabs={asideTabs} value={asideTab} onChange={setAsideTab} className="logbook-aside-tabs">
               <p className="logbook-for quiet">{beatTitle(beat)}</p>
               {asideContent(asideTab)}
             </Tabbed>
