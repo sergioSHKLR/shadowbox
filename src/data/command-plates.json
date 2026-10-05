@@ -9,6 +9,9 @@
       { "id": "nam", "count": 1 },
       { "id": "ngcm", "count": 1 },
       { "id": "pistol", "count": 1 }
+    ],
+    "extras": [
+      { "src": "/incoming/lhd-2.png", "title": "TAD", "unit": "USS Essex (LHD-2)", "date": "", "kind": "unit", "id": "essex", "role": "TAD" }
     ]
   },
   {

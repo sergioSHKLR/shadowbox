@@ -7,6 +7,7 @@ import {
   isMapExcludedUnit,
   logbookAdminAsOf,
   logbookBeats,
+  logbookRankPath,
   offDutyForCommand,
   placeById,
   onDutyForCommand,
@@ -65,26 +66,51 @@ function ribbonLabel(award: LogbookBeat["rack"][number]): string {
 }
 
 /** Rank & Awards as of the end of this command: rank insignia, warfare pins, ribbons (command-plates.json). Medals: later. */
-function RankAwards({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
+function RankChip({ rank, tag, onOpen }: { rank: NonNullable<LogbookBeat["rank"]>; tag?: string; onOpen: Open }) {
+  return (
+    <button type="button" className="logbook-rank" onClick={() => onOpen("rank", rank.id)} aria-label={`${tag ? `${tag}: ` : ""}${rank.abbreviation}, ${rank.name}`}>
+      {rank.image ? <img className="logbook-rank-patch" src={publicUrl(rank.image)} alt="" /> : null}
+      {rank.collar ? <img className="logbook-rank-collar" src={publicUrl(rank.collar)} alt="" /> : null}
+      <span>
+        {tag ? <em className="logbook-rank-tag">{tag}</em> : null}
+        <strong>{rank.abbreviation}</strong>
+        <small>{[rank.grade, rank.name].filter(Boolean).join(" · ")}</small>
+      </span>
+    </button>
+  );
+}
+
+/** Arrived → (promotion date) → … → Transferred, when the command saw a promotion; else the single rank. */
+function RankPath({ beat, beats, onOpen }: { beat: LogbookBeat; beats: LogbookBeat[]; onOpen: Open }) {
+  const { arrival, promotions } = logbookRankPath(beats, beat.index);
   const rank = beat.rank;
+  if (!promotions.length || !arrival) {
+    return rank ? <RankChip rank={rank} onOpen={onOpen} /> : <p className="quiet">No rank recorded for this command.</p>;
+  }
+  return (
+    <ol className="logbook-rank-path" aria-label="Rank on arrival, promotions, and rank at transfer">
+      <li>
+        <RankChip rank={arrival} tag="Arrived" onOpen={onOpen} />
+      </li>
+      {promotions.map((step, i) => (
+        <li key={step.id} className="logbook-rank-step">
+          <span className="logbook-rank-arrow" aria-hidden="true">→</span>
+          <span className="logbook-rank-when">{step.date ? formatWhen(step.date) : "Date not entered"}</span>
+          <RankChip rank={step} tag={i === promotions.length - 1 ? "Transferred" : "Promoted"} onOpen={onOpen} />
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function RankAwards({ beat, beats, onOpen }: { beat: LogbookBeat; beats: LogbookBeat[]; onOpen: Open }) {
   const ribbons = unmountedRibbons(beat.rack);
   const pins = [...beat.pinsAbove, ...beat.pinsBelow];
   return (
     <div className="logbook-ra">
       <section className="logbook-ra-rank" aria-label="Rank insignia">
         <Kicker>Rank</Kicker>
-        {rank ? (
-          <button type="button" className="logbook-rank" onClick={() => onOpen("rank", rank.id)} aria-label={`${rank.abbreviation}, ${rank.name}`}>
-            {rank.image ? <img className="logbook-rank-patch" src={publicUrl(rank.image)} alt="" /> : null}
-            {rank.collar ? <img className="logbook-rank-collar" src={publicUrl(rank.collar)} alt="" /> : null}
-            <span>
-              <strong>{rank.abbreviation}</strong>
-              <small>{[rank.grade, rank.name].filter(Boolean).join(" · ")}</small>
-            </span>
-          </button>
-        ) : (
-          <p className="quiet">No rank recorded for this command.</p>
-        )}
+        <RankPath beat={beat} beats={beats} onOpen={onOpen} />
         <p className="logbook-ra-note quiet">Service stripes: shown on the uniform plate; the count is not entered in the record.</p>
       </section>
       {pins.length ? (
@@ -753,7 +779,7 @@ export function Logbook({
               </div>
             </header>
             <div className="logbook-beat-body">
-              {mainTab === "rank" ? <RankAwards beat={beat} onOpen={onOpen} /> : <AdminAsOf beat={beat} onOpen={onOpen} />}
+              {mainTab === "rank" ? <RankAwards beat={beat} beats={beats} onOpen={onOpen} /> : <AdminAsOf beat={beat} onOpen={onOpen} />}
             </div>
           </article>
         </div>

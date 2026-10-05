@@ -834,6 +834,8 @@ export type PlateEntry = { id: string; count: number; campaignStars?: number };
 export type PlateExtra = {
   src: string;
   title: string;
+  /** This unit's role for this command (shown on the Logbook crest instead of the unit's own designator), e.g. "TAD". */
+  role?: string;
   unit: string;
   date: string;
   kind: Kind;
@@ -1443,6 +1445,8 @@ function unitsForCommandBeat(stop: Stop, plate: CommandPlate | null): LogbookUni
       if (extra.kind !== "unit") continue;
       if (MAP_EXCLUDED_UNIT_IDS.has(extra.id)) continue;
       add(unitById(extra.id));
+      const chip = out.find((row) => row.id === extra.id);
+      if (chip && extra.role) chip.designator = extra.role;
     }
   }
   return out;
@@ -2121,6 +2125,27 @@ export function uniformsNamingCommand(unitId: string | null | undefined) {
   const unit = unitId ? units.find((row) => row.id === unitId) : undefined;
   if (!unit) return [];
   return uniforms.filter((uniform) => (uniform.context ?? "").includes(unit.name));
+}
+
+/**
+ * Rank path for one Logbook command, from ranks.json dates against units.json tour dates.
+ * Window: after the previous command's end (or the first rank, for the first command) through this command's end,
+ * so a promotion in the school pipeline between commands lands on the command he reported to.
+ * Returns the rank on arrival and each promotion in the window (last one = rank at transfer).
+ */
+export function logbookRankPath(beats: LogbookBeat[], index: number): { arrival: Rank | null; promotions: Rank[] } {
+  const endKey = (beat: LogbookBeat | undefined) => {
+    const unit = beat?.stop.commandId ? unitById(beat.stop.commandId) : undefined;
+    const raw = unit?.end ? (unit.end.length === 4 ? `${unit.end}-12-31` : unit.end) : "";
+    return dateKey(raw);
+  };
+  const dated = ranks.filter((rank) => rank.date).sort((a, b) => dateKey(a.date).localeCompare(dateKey(b.date)));
+  const to = endKey(beats[index]);
+  if (!to || !dated.length) return { arrival: beats[index]?.rank ?? null, promotions: [] };
+  const from = index > 0 ? endKey(beats[index - 1]) : dateKey(dated[0].date);
+  const promotions = dated.filter((rank) => dateKey(rank.date) > from && dateKey(rank.date) <= to);
+  const before = dated.filter((rank) => dateKey(rank.date) <= from);
+  return { arrival: before.at(-1) ?? null, promotions };
 }
 
 /** Logbook Admin tab: NECs held and schools completed as of the end of a command (from necs.json / schools.json). */

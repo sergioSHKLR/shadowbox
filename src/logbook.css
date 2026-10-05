@@ -372,3 +372,15 @@
 /* Billet NEC ("this tour"): highlighted row in the cumulative NEC list. */
 .logbook-admin-list li.is-billet > button { border-color: var(--color-navy); background: color-mix(in srgb, var(--color-navy) 8%, transparent); box-shadow: inset 3px 0 0 var(--color-navy); }
 [data-theme="dark"] .logbook-admin-list li.is-billet > button { border-color: var(--color-brass-bright); box-shadow: inset 3px 0 0 var(--color-brass-bright); }
+/* Rank path: Arrived → date → Transferred (with any intermediate promotions). */
+.logbook-rank-path { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem 0.5rem; }
+.logbook-rank-path > li { display: flex; align-items: center; gap: 0.45rem; }
+.logbook-rank-arrow { font-size: 1.15rem; color: var(--color-navy); }
+.logbook-rank-when { font-size: 0.76rem; color: var(--color-quiet); white-space: nowrap; }
+.logbook-rank-tag { font-style: normal; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-quiet); }
+.logbook-rank-path .logbook-rank-patch { height: 2.8rem; }
+.logbook-rank-path .logbook-rank-collar { display: none; }
+@media (max-width: 900px) {
+  .logbook-rank-path .logbook-rank small { display: none; }
+  .logbook-rank-path .logbook-rank-patch { height: 2.2rem; }
+}
