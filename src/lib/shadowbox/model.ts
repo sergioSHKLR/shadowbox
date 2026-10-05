@@ -1090,9 +1090,9 @@ export type SequenceEntry = {
 };
 
 /** Map pin categories. One stop, one primary kind — except San Diego (instruction + command host). */
-export type StopLayer = "command" | "instruction" | "base" | "field" | "port" | "flight";
+export type StopLayer = "command" | "instruction" | "base" | "field" | "port" | "layover" | "stopover";
 
-export const STOP_LAYERS: StopLayer[] = ["command", "instruction", "base", "field", "port", "flight"];
+export const STOP_LAYERS: StopLayer[] = ["command", "instruction", "base", "field", "port", "layover", "stopover"];
 
 /** n: fixed sequence order (1-based). Never renumbered when categories are filtered. */
 export type Stop = {

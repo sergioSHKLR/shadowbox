@@ -84,7 +84,8 @@
 .map-num.base, .pin-num.base, .map-dot.base { background: #1f8a3c; color: #ffffff; border-color: #0d4a1f; }
 .map-num.field, .pin-num.field, .map-dot.field { background: #c45c26; color: #ffffff; border-color: #6e2e10; }
 .map-num.port, .pin-num.port, .map-num.visit, .pin-num.visit { background: #ffd21a; color: #1a1400; border-color: #8a6400; }
-.map-num.flight, .pin-num.flight, .map-dot.flight { background: #0e7490; color: #ffffff; border-color: #083344; }
+.map-num.layover, .pin-num.layover, .map-dot.layover { background: #0e7490; color: #ffffff; border-color: #083344; }
+.map-num.stopover, .pin-num.stopover, .map-dot.stopover { background: #be185d; color: #ffffff; border-color: #831843; }
 .map-dot { background: #1d4e89; border-color: #0c2340; }
 @media (prefers-reduced-motion: reduce) { .felt-track, .case-wide .detail-panel { transition: none; animation: none; } }
 @media (max-width: 640px) {

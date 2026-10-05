@@ -66,7 +66,7 @@
   border: 0;
 }
 
-/* Pin colours: command blue, instruction purple, base green, field orange, port yellow, flight teal. */
+/* Pin colours: command blue, instruction purple, base green, field orange, port yellow, layover teal, stopover rose. */
 .map-num, .pin-num, .map-dot {
   background: #1d4e89;
   color: #ffffff;
@@ -100,10 +100,15 @@
   color: #1a1400;
   border-color: #8a6400;
 }
-.map-num.flight, .pin-num.flight, .map-dot.flight,
-.map-num.flight.approximate, .pin-num.flight.approximate {
+.map-num.layover, .pin-num.layover, .map-dot.layover,
+.map-num.layover.approximate, .pin-num.layover.approximate {
   background: #0e7490;
   border-color: #083344;
+}
+.map-num.stopover, .pin-num.stopover, .map-dot.stopover,
+.map-num.stopover.approximate, .pin-num.stopover.approximate {
+  background: #be185d;
+  border-color: #831843;
 }
 .map-num.approximate, .pin-num.approximate, .map-dot.approximate {
   border-style: dashed;

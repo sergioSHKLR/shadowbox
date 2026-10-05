@@ -112,7 +112,7 @@
   },
   {
     "order": 13,
-    "label": "Hagåtña (Agana), GU",
+    "label": "Hag\u00e5t\u00f1a (Agana), GU",
     "cityId": "city-agana",
     "baseId": null,
     "commandId": null,
@@ -413,7 +413,7 @@
     "cityId": "city-baltimore",
     "baseId": null,
     "commandId": null,
-    "kind": "flight",
+    "kind": "layover",
     "when": null
   },
   {
@@ -422,7 +422,7 @@
     "cityId": "city-leipzig",
     "baseId": "leipzig",
     "commandId": null,
-    "kind": "flight",
+    "kind": "layover",
     "when": "2009"
   },
   {
@@ -431,7 +431,7 @@
     "cityId": null,
     "baseId": "camp-arifjan",
     "commandId": null,
-    "kind": "flight",
+    "kind": "stopover",
     "when": "2009"
   },
   {
@@ -449,7 +449,7 @@
     "cityId": null,
     "baseId": "camp-arifjan",
     "commandId": null,
-    "kind": "flight",
+    "kind": "stopover",
     "when": "2009"
   },
   {
@@ -458,7 +458,7 @@
     "cityId": "city-baltimore",
     "baseId": null,
     "commandId": null,
-    "kind": "flight",
+    "kind": "layover",
     "when": null
   },
   {
@@ -512,7 +512,7 @@
     "cityId": "city-leipzig",
     "baseId": "leipzig",
     "commandId": null,
-    "kind": "flight",
+    "kind": "layover",
     "when": null
   },
   {
@@ -521,7 +521,7 @@
     "cityId": null,
     "baseId": "al-udeid",
     "commandId": null,
-    "kind": "flight",
+    "kind": "stopover",
     "when": "2010"
   },
   {
@@ -530,7 +530,7 @@
     "cityId": null,
     "baseId": "bagram",
     "commandId": null,
-    "kind": "flight",
+    "kind": "layover",
     "when": "2010"
   },
   {
@@ -566,7 +566,7 @@
     "cityId": null,
     "baseId": "bagram",
     "commandId": null,
-    "kind": "flight",
+    "kind": "layover",
     "when": "2010"
   },
   {
@@ -575,7 +575,7 @@
     "cityId": null,
     "baseId": "al-udeid",
     "commandId": null,
-    "kind": "flight",
+    "kind": "stopover",
     "when": "2010"
   },
   {
@@ -584,7 +584,7 @@
     "cityId": "city-leipzig",
     "baseId": "leipzig",
     "commandId": null,
-    "kind": "flight",
+    "kind": "layover",
     "when": null
   },
   {
@@ -620,7 +620,7 @@
     "cityId": "city-leipzig",
     "baseId": "leipzig",
     "commandId": null,
-    "kind": "flight",
+    "kind": "layover",
     "when": null
   },
   {
@@ -629,7 +629,7 @@
     "cityId": null,
     "baseId": "al-udeid",
     "commandId": null,
-    "kind": "flight",
+    "kind": "stopover",
     "when": null
   },
   {
@@ -638,7 +638,7 @@
     "cityId": null,
     "baseId": "bagram",
     "commandId": null,
-    "kind": "flight",
+    "kind": "layover",
     "when": null
   },
   {
@@ -674,7 +674,7 @@
     "cityId": null,
     "baseId": "bagram",
     "commandId": null,
-    "kind": "flight",
+    "kind": "layover",
     "when": null
   },
   {
@@ -683,7 +683,7 @@
     "cityId": null,
     "baseId": "al-udeid",
     "commandId": null,
-    "kind": "flight",
+    "kind": "stopover",
     "when": null
   },
   {
@@ -692,7 +692,7 @@
     "cityId": "city-leipzig",
     "baseId": "leipzig",
     "commandId": null,
-    "kind": "flight",
+    "kind": "layover",
     "when": null
   },
   {
