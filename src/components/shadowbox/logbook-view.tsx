@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  careerStops,
   formatWhen,
   isMapExcludedUnit,
   logbookBeats,
@@ -14,16 +13,6 @@ import {
 } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
 import { RibbonArt } from "@/components/shadowbox/marks";
-
-const KIND_LABEL: Record<Stop["kind"], string> = {
-  command: "Command",
-  instruction: "Instruction",
-  base: "Base",
-  field: "Field",
-  port: "Port visit",
-  layover: "Layover",
-  stopover: "Stopover",
-};
 
 function PinMark({ id, onOpen }: { id: string; onOpen: (k: Kind, id: string) => void }) {
   const pin = warfare.find((row) => row.id === id);
@@ -85,7 +74,7 @@ function RackPlate({ beat, onOpen }: { beat: LogbookBeat; onOpen: (k: Kind, id: 
           ))}
         </div>
       ) : (
-        <p className="quiet">No command plate for this stop.</p>
+        <p className="quiet">No command plate for this command.</p>
       )}
       {beat.plate ? <p className="logbook-plate-cap quiet">As of {unitById(beat.plate.unitId)?.abbreviation ?? beat.plate.unitId}</p> : null}
     </section>
@@ -93,7 +82,7 @@ function RackPlate({ beat, onOpen }: { beat: LogbookBeat; onOpen: (k: Kind, id: 
 }
 
 function UnitsInset({ beat, onOpen }: { beat: LogbookBeat; onOpen: (k: Kind, id: string) => void }) {
-  if (!beat.units.length) return <p className="quiet">No units recorded for this stop.</p>;
+  if (!beat.units.length) return <p className="quiet">No units recorded for this command.</p>;
   return (
     <ul className="logbook-units">
       {beat.units.map((unit) => (
@@ -113,7 +102,7 @@ function UnitsInset({ beat, onOpen }: { beat: LogbookBeat; onOpen: (k: Kind, id:
 
 function AdminStrip({ beat, onOpen }: { beat: LogbookBeat; onOpen: (k: Kind, id: string) => void }) {
   if (!beat.admin.length) {
-    return <p className="logbook-admin-empty quiet">No schools, NECs, or admin facts tied to this stop.</p>;
+    return <p className="logbook-admin-empty quiet">No schools, NECs, or admin facts tied to this command.</p>;
   }
   return (
     <ul className="logbook-admin-list">
@@ -171,7 +160,7 @@ export function Logbook({
   lead: string;
 }) {
   const beats = useMemo(() => logbookBeats(), []);
-  const stops = useMemo(() => careerStops(), []);
+  const stops = useMemo(() => beats.map((row) => row.stop), [beats]);
   const [active, setActive] = useState(0);
   const [phonePanel, setPhonePanel] = useState<"map" | "units" | null>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -224,7 +213,7 @@ export function Logbook({
     return (
       <main className="sheet logbook">
         <h2>{title}</h2>
-        <p>No place sequence to drive the logbook.</p>
+        <p>No command plates to drive the logbook.</p>
       </main>
     );
   }
@@ -235,9 +224,8 @@ export function Logbook({
         <h2>{title}</h2>
         <p>{lead}</p>
         <p className="logbook-count quiet" aria-live="polite">
-          Stop {beat.stop.n} of {beats.length}
+          Command {beat.stop.n} of {beats.length}
           {beat.when ? ` · ${beat.when.length === 4 ? beat.when : formatWhen(beat.when)}` : ""}
-          {` · ${KIND_LABEL[beat.stop.kind]}`}
         </p>
       </header>
 
@@ -247,14 +235,14 @@ export function Logbook({
       </div>
 
       <div className="logbook-layout">
-        <aside className="logbook-side logbook-side-left" aria-label="Uniform for this stop">
+        <aside className="logbook-side logbook-side-left" aria-label="Uniform for this command">
           <div className="logbook-sticky">
             <UniformPlate beat={beat} onOpen={onOpen} />
           </div>
         </aside>
 
         <div className="logbook-center">
-          <div className="logbook-beats" ref={scrollerRef} tabIndex={0} aria-label="Career stops">
+          <div className="logbook-beats" ref={scrollerRef} tabIndex={0} aria-label="Assigned commands">
             {beats.map((row) => (
               <article
                 key={row.stop.n}
@@ -269,7 +257,7 @@ export function Logbook({
                   <div>
                     <h3>{row.lines[0]}</h3>
                     <p className="quiet">
-                      {KIND_LABEL[row.stop.kind]}
+                      Command
                       {row.stop.when ? ` · ${row.stop.when.length === 4 ? row.stop.when : formatWhen(row.stop.when)}` : ""}
                     </p>
                   </div>
@@ -280,7 +268,7 @@ export function Logbook({
                   ))}
                 </div>
                 {row.index === active ? (
-                  <div className="logbook-admin" aria-label="Admin for this stop">
+                  <div className="logbook-admin" aria-label="Admin for this command">
                     <p className="logbook-kicker">Admin</p>
                     <AdminStrip beat={row} onOpen={onOpen} />
                   </div>
@@ -290,14 +278,14 @@ export function Logbook({
           </div>
         </div>
 
-        <aside className="logbook-side logbook-side-right" aria-label="Decorations for this stop">
+        <aside className="logbook-side logbook-side-right" aria-label="Decorations for this command">
           <div className="logbook-sticky">
             <RackPlate beat={beat} onOpen={onOpen} />
           </div>
         </aside>
       </div>
 
-      <div className="logbook-insets" aria-label="Map and units for this stop">
+      <div className="logbook-insets" aria-label="Map and units for this command">
         <section className="logbook-inset logbook-inset-map">
           <p className="logbook-kicker">Map</p>
           <p className="logbook-inset-label">

@@ -1333,23 +1333,132 @@ function unitsForBeat(stop: Stop, plate: CommandPlate | null, when: string): Log
   return out;
 }
 
-/** One scroll beat per place-sequence stop. Facts only — blank beats invented prose. */
+/** Uniform slide tied to a command plate stem (Commands / Timeline walk). */
+function uniformForPlateUnit(unitId: string, look: UniformLook): UniformSlide | null {
+  const step =
+    UNIFORM_STEP_PLATES.find((row) => row.unitId === unitId && !row.id) ??
+    UNIFORM_STEP_PLATES.find((row) => row.unitId === unitId);
+  if (!step) return null;
+  const stem = step.stem.toLowerCase();
+  const byFile = uniformSlides.find((slide) => slide.file.replace(/\.[^.]+$/, "").toLowerCase() === stem);
+  if (byFile) return byFile;
+  const meta = PLATE_FILE[stem];
+  if (!meta) return null;
+  const month = meta.y * 12 + (meta.m - 1);
+  return uniformSlideAt(month, look) ?? uniformSlideAt(month, meta.look) ?? uniformSlideAt(month, "blue");
+}
+
+/** Schools / NECs / milestones that fall inside a command tour window. */
+function inTour(when: string | null | undefined, start: string | null | undefined, end: string | null | undefined): boolean {
+  const key = dateKey(when);
+  if (!key) return false;
+  const a = dateKey(start);
+  if (!a) return false;
+  const endRaw = end ? (end.length === 4 ? `${end}-12-31` : end) : "9999-12-31";
+  const b = dateKey(endRaw);
+  return a <= key && key <= b;
+}
+
+function schoolsForCommand(stop: Stop, unit: Unit | undefined, when: string): School[] {
+  if (!unit?.start) return schoolsForBeat(stop, when);
+  const placeIds = new Set([stop.place.id, stop.cityId, stop.baseId, unit.placeId].filter(Boolean) as string[]);
+  return schools.filter((school) => {
+    const overlapsTour = inTour(school.start, unit.start, unit.end) || inTour(school.end ?? school.start, unit.start, unit.end);
+    const samePlace = Boolean(school.placeId && placeIds.has(school.placeId));
+    if (samePlace) return overlapsTour || !school.start;
+    return overlapsTour;
+  });
+}
+
+function necsForCommand(unit: Unit | undefined, when: string): Nec[] {
+  if (!unit?.start) return necsForBeat(when);
+  return necs.filter((nec) => nec.awarded && inTour(nec.awarded, unit.start, unit.end));
+}
+
+function milestonesForCommand(unit: Unit | undefined, when: string): Milestone[] {
+  if (!unit?.start) return milestonesForBeat(when);
+  return milestones.filter((row) => inTour(row.date, unit.start, unit.end));
+}
+
+function ranksForCommand(unit: Unit | undefined, plate: CommandPlate | null): Rank[] {
+  const out: Rank[] = [];
+  const seen = new Set<string>();
+  const add = (id: string | null | undefined) => {
+    if (!id || seen.has(id)) return;
+    const rank = ranks.find((row) => row.id === id);
+    if (!rank) return;
+    seen.add(id);
+    out.push(rank);
+  };
+  if (plate) {
+    add(plate.inRank);
+    add(plate.outRank);
+  }
+  if (unit?.start) {
+    for (const rank of ranks) {
+      if (rank.date && inTour(rank.date, unit.start, unit.end)) add(rank.id);
+    }
+  }
+  return out;
+}
+
+function unitsForCommandBeat(stop: Stop, plate: CommandPlate | null): LogbookUnitChip[] {
+  const out: LogbookUnitChip[] = [];
+  const seen = new Set<string>();
+  const add = (unit: Unit | undefined) => {
+    if (!unit || seen.has(unit.id)) return;
+    seen.add(unit.id);
+    out.push(unitChip(unit));
+  };
+  if (stop.commandId) add(unitById(stop.commandId));
+  if (plate) add(unitById(plate.unitId));
+  if (plate?.extras) {
+    for (const extra of plate.extras) {
+      if (extra.kind !== "unit") continue;
+      if (MAP_EXCLUDED_UNIT_IDS.has(extra.id)) continue;
+      add(unitById(extra.id));
+    }
+  }
+  return out;
+}
+
+/**
+ * One scroll beat per assigned command that has a ready uniform/command plate.
+ * Map page keeps the full place sequence; Logbook does not.
+ * Tortuga/Essex stay off until plates exist in command-plates.json.
+ */
 export function logbookBeats(): LogbookBeat[] {
-  const stops = careerStops();
-  let carried = profile.serviceStart ?? "1997-06-30";
-  return stops.map((stop, index) => {
-    const when = stop.when || carried;
-    if (stop.when) carried = stop.when;
-    const month = monthKey(when);
-    const rank = rankAt(when);
+  const plateIds = new Set(commandPlates.map((row) => row.unitId));
+  const commandStops = careerStops().filter(
+    (stop) => stop.kind === "command" && stop.commandId && plateIds.has(stop.commandId),
+  );
+  return commandStops.map((raw, index) => {
+    const stop: Stop = { ...raw, n: index + 1 };
+    const command = stop.commandId ? unitById(stop.commandId) : undefined;
+    const when = stop.when || command?.start || profile.serviceStart || "1997-06-30";
+    // Prefer out-plate timing (end of tour) so the sticky uniform matches the ready snapshot.
+    const plateWhen = command?.end || when;
+    const month = monthKey(plateWhen) ?? monthKey(when);
+    const plate = commandPlates.find((row) => row.unitId === stop.commandId) ?? plateForStop(stop, when);
+    const outRank = plate ? ranks.find((row) => row.id === plate.outRank) ?? null : null;
+    const rank = outRank ?? rankAt(plateWhen) ?? rankAt(when);
     const look = lookForRank(rank);
-    const uniform = month != null ? uniformSlideAt(month, look) ?? uniformSlideAt(month, "blue") : firstUniformSlide(look) ?? firstUniformSlide("blue");
-    const plate = plateForStop(stop, when);
+    const uniform =
+      (stop.commandId ? uniformForPlateUnit(stop.commandId, look) : null) ??
+      (month != null ? uniformSlideAt(month, look) ?? uniformSlideAt(month, "blue") : null) ??
+      firstUniformSlide(look) ??
+      firstUniformSlide("blue");
     const rack = plate ? plateAwards(plate.rack) : [];
-    const schoolRows = schoolsForBeat(stop, when);
-    const necRows = necsForBeat(when);
-    const mileRows = milestonesForBeat(when);
+    const schoolRows = schoolsForCommand(stop, command, when);
+    const necRows = necsForCommand(command, when);
+    const mileRows = milestonesForCommand(command, when);
     const admin: LogbookAdminFact[] = [
+      ...ranksForCommand(command, plate).map((row) => ({
+        kind: "rank" as const,
+        id: row.id,
+        label: row.abbreviation,
+        detail: [row.name, row.date ? formatWhen(row.date) : ""].filter(Boolean).join(" · "),
+      })),
       ...schoolRows.map((school) => ({
         kind: "school" as const,
         id: school.id,
@@ -1369,25 +1478,19 @@ export function logbookBeats(): LogbookBeat[] {
         detail: row.title,
       })),
     ];
-    if (rank?.date && dateKey(rank.date) === dateKey(when)) {
-      admin.unshift({
-        kind: "rank",
-        id: rank.id,
-        label: rank.abbreviation,
-        detail: rank.name,
-      });
-    }
-    const command = stop.commandId ? unitById(stop.commandId) : undefined;
     const lines = [
-      stop.labels[0],
-      [stop.place.name, stop.when ? (stop.when.length === 4 ? stop.when : formatWhen(stop.when)) : null].filter(Boolean).join(" · "),
-      command ? `${command.abbreviation}${command.designator ? ` · ${command.designator}` : ""}` : null,
+      command?.abbreviation ?? stop.labels[0],
+      [stop.place.name, command ? formatSpan(command.start, command.end) : stop.when ? (stop.when.length === 4 ? stop.when : formatWhen(stop.when)) : null]
+        .filter(Boolean)
+        .join(" · "),
+      command?.designator ? command.designator : null,
+      command?.name && command.name !== command.abbreviation ? command.name : null,
       rank ? `${rank.abbreviation} · ${rank.name}` : null,
     ].filter((line): line is string => Boolean(line && line.trim()));
     return {
       index,
       stop,
-      when,
+      when: plateWhen,
       month,
       rank,
       uniform,
@@ -1395,7 +1498,7 @@ export function logbookBeats(): LogbookBeat[] {
       rack,
       pinsAbove: plate?.pinsAbove ?? [],
       pinsBelow: plate?.pinsBelow ?? [],
-      units: unitsForBeat(stop, plate, when),
+      units: unitsForCommandBeat(stop, plate),
       admin,
       lines,
     };
