@@ -20,7 +20,6 @@ import {
   ranks,
   uniformPlatesForCommand,
   plateGroup,
-  wardrobePlateFor,
   wardrobeForBeat,
   unitById,
   warfare,
@@ -352,9 +351,7 @@ function WardrobePanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
             aria-label={`${uniform.name}, ${uniform.context}${via.length ? ` (${via.join(", ")})` : ""}`}
             title={[uniform.name, via.length ? via.join(" · ") : uniform.context].filter(Boolean).join(" — ")}
           >
-            {wardrobePlateFor(beat.stop.commandId, uniform.id) ? (
-              <img src={wardrobePlateFor(beat.stop.commandId, uniform.id)!.src} alt="" loading="lazy" onError={(event) => { event.currentTarget.hidden = true; }} />
-            ) : uniform.image ? (
+            {uniform.image ? (
               <img src={publicUrl(uniform.image)} alt="" loading="lazy" onError={(event) => { event.currentTarget.hidden = true; }} />
             ) : (
               <span className="logbook-gear-blank" aria-hidden="true" />
