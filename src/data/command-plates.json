@@ -1,7 +1,7 @@
 [
   {
     "unitId": "rtc",
-    "inRank": "sn",
+    "inRank": "sr",
     "outRank": "sn",
     "pinsAbove": [],
     "pinsBelow": [],
@@ -15,7 +15,9 @@
     "pinsAbove": [],
     "pinsBelow": [],
     "rack": [],
-    "extras": []
+    "extras": [
+      { "src": "/incoming/acu-4.png", "title": "Partner", "unit": "ACU 4", "date": "1997–1998", "kind": "unit", "id": "acu4", "role": "Partner", "unitId": "acu4" }
+    ]
   },
   {
     "unitId": "ntc-great-lakes",

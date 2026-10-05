@@ -451,6 +451,23 @@
     "open": "Minimal record built from command-plates.json and units.json (CJTF Troy). Branch, dates and place not entered."
   },
   {
+    "id": "acu4",
+    "name": "Assault Craft Unit 4",
+    "abbreviation": "ACU 4",
+    "patch": "ACU 4",
+    "branch": "USN",
+    "necId": null,
+    "start": null,
+    "end": null,
+    "precision": "",
+    "placeId": null,
+    "explanation": "Exercise partner on the USS Tortuga (LSD-46) TAD, late 1997 into early 1998. It ran the landing craft launched from the ship's well deck.",
+    "civilian": "",
+    "onCase": false,
+    "image": "/incoming/acu-4.png",
+    "open": "Minimal record built from units.json (USS Tortuga) and supplement.json (PAR-04: ACU 4). Dates and place not entered on the unit."
+  },
+  {
     "id": "rtn",
     "name": "Royal Thai Navy",
     "abbreviation": "RTN",

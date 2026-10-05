@@ -1,5 +1,12 @@
 {
-  "_note": "Per-command billet titles, collateral duties and watch stations for the Logbook Admin tab, keyed by units.json id. As stated by Sergio (Oct 5, 2026). ASF (Auxiliary Security Force) is a collateral/watch qualification and sits under collateral duties. Commands not listed show nothing.",
+  "_note": "Per-command billet titles, collateral duties and watch stations for the Logbook Admin tab, keyed by units.json id. As stated by Sergio (Oct 5, 2026). ASF (Auxiliary Security Force) is a collateral/watch qualification and sits under collateral duties. Commands not listed show nothing. RTC Division 333 from supplement.json (DIV-08: 333), confirmed by Sergio.",
+  "rtc": {
+    "divisions": [
+      {
+        "label": "333"
+      }
+    ]
+  },
   "ncts": {
     "collateralDuties": [
       {
