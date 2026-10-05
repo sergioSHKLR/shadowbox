@@ -89,7 +89,7 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
         return;
       }
       setCursor(next);
-    }, 2200);
+    }, 4500);
     return () => window.clearInterval(id);
   }, [playing, stops.length]);
 
@@ -188,9 +188,9 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
       </div>
       <ul className="map-legend" aria-label="Pin colours">
         {PIN_GROUPS.map((g) => (
-          <li key={g.id}><span className={`pin-num ${g.cls}`}>1</span> {g.legend}</li>
+          <li key={g.id}><span className={`pin-num ${g.cls}`}>#</span> {g.legend}</li>
         ))}
-        <li><span className="pin-num approximate">1</span> Approximate location</li>
+        <li><span className="pin-num approximate">#</span> Approximate location</li>
       </ul>
       <ol className="stop-list">
         {stops.map((stop, index) => (

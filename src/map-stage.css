@@ -119,3 +119,41 @@
   color: #ffffff;
   border-color: #5c0714;
 }
+
+/* Marker clusters: navy bubbles that match command pins. */
+.map-cluster.marker-cluster {
+  background-color: rgba(29, 78, 137, 0.35);
+}
+.map-cluster.marker-cluster div {
+  background-color: #1d4e89;
+  color: #f5f0e6;
+  font-weight: 700;
+  border: 2px solid #0c2748;
+  box-shadow: 0 1px 4px rgba(12, 39, 72, 0.35);
+}
+.map-cluster.marker-cluster-small,
+.map-cluster.marker-cluster-small div {
+  background-color: rgba(29, 78, 137, 0.35);
+}
+.map-cluster.marker-cluster-small div {
+  background-color: #1d4e89;
+}
+.map-cluster.marker-cluster-medium,
+.map-cluster.marker-cluster-medium div {
+  background-color: rgba(12, 74, 110, 0.4);
+}
+.map-cluster.marker-cluster-medium div {
+  background-color: #0e7490;
+  border-color: #083344;
+}
+.map-cluster.marker-cluster-large,
+.map-cluster.marker-cluster-large div {
+  background-color: rgba(190, 24, 93, 0.35);
+}
+.map-cluster.marker-cluster-large div {
+  background-color: #be185d;
+  border-color: #831843;
+}
+[data-theme="dark"] .map-cluster.marker-cluster div {
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+}
