@@ -229,7 +229,6 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
       ) : null}
       </div>
       <div className="map-filter" role="group" aria-label="Show pin categories">
-        <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>All</button>
         {PIN_GROUPS.map((g) => (
           <button key={g.id} type="button" className={`nav-btn${shown?.includes(g.id) ? " on" : ""}`} aria-pressed={!!shown?.includes(g.id)} onClick={() => toggle(g.id)}>
             <span className={`pin-num ${g.cls}`} aria-hidden="true" />

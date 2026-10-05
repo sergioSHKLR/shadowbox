@@ -60,6 +60,43 @@
   opacity: 0.45;
 }
 
+/* Map category chips: outline when idle, app-bar navy when active. */
+.map-stage + .map-filter .nav-btn {
+  background: transparent;
+  color: var(--color-navy);
+  border-color: var(--color-navy);
+  box-shadow: none;
+}
+.map-stage + .map-filter .nav-btn:hover:not(:disabled),
+.map-stage + .map-filter .nav-btn:not(.on):hover:not(:disabled) {
+  border-color: var(--color-navy);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-navy) 28%, transparent);
+}
+.map-stage + .map-filter .nav-btn.on,
+.map-stage + .map-filter .nav-btn.on:hover:not(:disabled) {
+  background: var(--color-navy);
+  color: #ffffff;
+  border-color: var(--color-navy);
+  box-shadow: none;
+}
+[data-theme="dark"] .map-stage + .map-filter .nav-btn {
+  background: transparent;
+  color: var(--color-ivory);
+  border-color: #9eb6d4;
+}
+[data-theme="dark"] .map-stage + .map-filter .nav-btn:hover:not(:disabled),
+[data-theme="dark"] .map-stage + .map-filter .nav-btn:not(.on):hover:not(:disabled) {
+  border-color: var(--color-ivory);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-ivory) 25%, transparent);
+}
+[data-theme="dark"] .map-stage + .map-filter .nav-btn.on,
+[data-theme="dark"] .map-stage + .map-filter .nav-btn.on:hover:not(:disabled) {
+  background: var(--color-navy);
+  color: #ffffff;
+  border-color: var(--color-navy);
+  box-shadow: none;
+}
+
 /* The Leaflet wrapper is a box. Leave it clear so only the pin shows. */
 .map-pin, .leaflet-div-icon.map-pin {
   background: transparent;
