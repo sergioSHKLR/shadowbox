@@ -2192,24 +2192,25 @@ export function logbookAdminAsOf(beat: LogbookBeat): {
   schoolsThisTour: School[];
 } {
   const unit = beat.stop.commandId ? unitById(beat.stop.commandId) : undefined;
-  const endRaw = unit?.end ? (unit.end.length === 4 ? `${unit.end}-12-31` : unit.end) : beat.when;
-  const cutoff = dateKey(endRaw) || "9999-12-31";
   const tourNecIds = new Set(beat.admin.filter((fact) => fact.kind === "nec").map((fact) => fact.id));
   const tourSchoolIds = new Set(beat.admin.filter((fact) => fact.kind === "school").map((fact) => fact.id));
-  const tourStart = unit?.start ? dateKey(unit.start) : "";
-  // An NEC pinned to a later command is not held yet, even if its date falls inside this tour.
-  const pinnedLater = (row: { commandId?: string }) => {
-    if (!row.commandId || row.commandId === beat.stop.commandId) return false;
-    const owner = unitById(row.commandId);
-    return Boolean(owner?.start && tourStart && dateKey(owner.start) > tourStart);
-  };
-  // Cumulative: every NEC earned by the end of this command. "This tour" marks only the billet NEC
-  // (units.json necId, per Sergio). 0000 (no specific NEC) is listed only when it is the billet.
+  // Not cumulative (Sergio): the billet NEC line (units.json necId) plus the NECs GAINED during this command.
+  // A date that fits two year-precision tours counts at the first Logbook command whose tour holds it.
   const billetId = unit?.necId ?? null;
-  const necsHeld = necs
-    .filter((nec) => nec.id === billetId || (nec.id !== "nec-0000" && ((nec.awarded && dateKey(nec.awarded) <= cutoff && !pinnedLater(nec)) || tourNecIds.has(nec.id))))
-    .sort((a, b) => dateKey(a.awarded).localeCompare(dateKey(b.awarded)))
-    .map((nec) => ({ nec, isNew: nec.id === billetId }));
+  const order = PLATE_UNIT_IDS as readonly string[];
+  const here = order.indexOf(beat.stop.commandId ?? "");
+  const earlier = order.slice(0, Math.max(0, here)).map((id) => unitById(id)).filter(Boolean) as Unit[];
+  const gainedEarlier = (nec: Nec) =>
+    !nec.commandId && Boolean(nec.awarded) && earlier.some((row) => row.start && inTour(nec.awarded!, row.start, row.end));
+  const gained = necs.filter((nec) => tourNecIds.has(nec.id) && nec.id !== "nec-0000" && !gainedEarlier(nec));
+  const billet = billetId ? necById(billetId) : undefined;
+  const necsHeld = [
+    ...(billet ? [{ nec: billet, isNew: true }] : []),
+    ...gained
+      .filter((nec) => nec.id !== billetId)
+      .sort((x, y) => dateKey(x.awarded).localeCompare(dateKey(y.awarded)))
+      .map((nec) => ({ nec, isNew: false })),
+  ];
   const byDate = (a: School, b: School) => dateKey(a.start).localeCompare(dateKey(b.start));
   // Dedupe: a school that awarded an NEC shown here is listed under that NEC, not again as a school.
   const viaNec = new Set(necsHeld.flatMap(({ nec }) => nec.schoolIds ?? []));

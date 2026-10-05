@@ -171,8 +171,8 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
   );
   return (
     <div className="logbook-admin-groups">
-      <section aria-label="NECs held">
-        <Kicker>NECs held</Kicker>
+      <section aria-label="NECs this tour">
+        <Kicker>NECs</Kicker>
         {necsHeld.length ? (
           <ul className="logbook-admin-list">
             {necsHeld.map(({ nec, isNew }) => (
@@ -184,7 +184,7 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
                 >
                   <strong>
                     NEC {necCode(nec)}
-                    {isNew ? <em className="logbook-new">this tour</em> : null}
+                    {isNew ? <em className="logbook-new">this tour</em> : <em className="logbook-gained">gained</em>}
                   </strong>
                   <span>
                     {isNew && nec.billetLabel
@@ -197,7 +197,7 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
             ))}
           </ul>
         ) : (
-          <p className="quiet">No NEC recorded by the end of this command.</p>
+          <p className="quiet">No NEC recorded for this command.</p>
         )}
       </section>
       <section aria-label="Schools this tour">
