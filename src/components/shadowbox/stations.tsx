@@ -16,7 +16,8 @@ const PIN_GROUPS: { id: StopLayer; label: string; legend: string; cls: string }[
   { id: "base", label: "Bases", legend: "Home bases, NAS, NS, annexes, ship TADs (LSD-46, LHD-2), U-Tapao, Shoalwater, Bliss, Blanding", cls: "base" },
   { id: "field", label: "Field", legend: "FOBs, camps, theater sites, and exercises", cls: "field" },
   { id: "port", label: "Port visits", legend: "City and ship port calls (Yokosuka, Sasebo, Hong Kong, Saipan, Pattaya, Whidbey, Tampa, Hagåtña)", cls: "port" },
-  { id: "flight", label: "Flight stops", legend: "Transit hubs and flight legs (including Camp Arifjan)", cls: "flight" },
+  { id: "layover", label: "Layovers", legend: "Transit hubs and flight legs (Baltimore, Leipzig, Bagram)", cls: "layover" },
+  { id: "stopover", label: "Stopovers", legend: "Theater air hubs in Kuwait and Qatar (Camp Arifjan, Al Udeid)", cls: "stopover" },
 ];
 
 function stopMatchesFilter(stop: Stop, shown: StopLayer[] | null) {
