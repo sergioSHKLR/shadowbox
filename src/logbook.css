@@ -440,3 +440,16 @@
 .logbook-phone-tabs > .lb-tabpanel:has(> .logbook-map-tab:not([hidden])) { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
 .logbook-phone-tabs > .lb-tabpanel > .logbook-map-tab:not([hidden]) { flex: 1; min-height: 0; }
 .logbook-phone-tabs .logbook-map-tab:not([hidden]) .logbook-map-frame { flex: 1; min-height: 0; }
+/* Admin NEC cards: one fixed size in a grid on every command; long names / school lines are clamped (full text in the tooltip and drawer). */
+.logbook-nec-grid { --lb-nec-w: 15.5rem; display: grid; grid-template-columns: repeat(auto-fill, var(--lb-nec-w)); gap: 0.45rem; }
+.logbook-nec-grid > li { display: flex; }
+.logbook-nec-grid > li > button {
+  width: var(--lb-nec-w); max-width: none; height: 7.6rem; flex: none; overflow: hidden; justify-content: flex-start; gap: 0.12rem;
+}
+.logbook-nec-grid strong { display: flex; align-items: center; flex-wrap: nowrap; white-space: nowrap; line-height: 1.25; }
+.logbook-nec-grid .logbook-nec-name,
+.logbook-nec-grid .logbook-nec-place {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; width: 100%; line-height: 1.2;
+}
+.logbook-nec-grid .logbook-nec-date { line-height: 1.2; white-space: nowrap; }
+@media (max-width: 900px) { .logbook-nec-grid { --lb-nec-w: 100%; grid-template-columns: 1fr; } .logbook-nec-grid > li > button { width: 100%; } }
