@@ -526,3 +526,9 @@
 .logbook-step-btn:not(:disabled):active,
 [data-theme="dark"] .logbook-step-btn:not(:disabled):active { background: var(--color-goldenrod); color: var(--color-navy); border-color: var(--color-goldenrod); }
 .logbook-step-btn:disabled { opacity: 1; background: #d9d6cf; border-color: #d9d6cf; color: #8d8a84; }
+
+/* Footer panels (Unit Crests | mini map) ~20% taller; main card / aside give up the room (still 100dvh, no page scroll). */
+.logbook-grid { grid-template-rows: minmax(0, 1fr) minmax(9.6rem, 30%); }
+/* Phone: crests and map live in the lower tab panel; it grows from 42% to ~50% of the column. */
+.logbook-phone .logbook-main { flex: 1 1 50%; }
+.logbook-phone-tabs { flex: 1 1 50%; }
