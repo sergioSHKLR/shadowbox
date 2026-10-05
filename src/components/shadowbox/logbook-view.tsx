@@ -7,6 +7,7 @@ import {
   isMapExcludedUnit,
   logbookAdminAsOf,
   commandDutiesFor,
+  displayEquipmentName,
   logbookBeats,
   logbookRankPath,
   mapPlaceLabel,
@@ -275,8 +276,7 @@ function ComingSoon({ what }: { what: string }) {
 
 
 /** Off Duty vehicles show Make + Model only; color and year stay in equipment.json ("Nissan Frontier, silver, 1997" → "Nissan Frontier"). */
-const VEHICLE_GROUPS = new Set(["cars", "motorcycles"]);
-const gearLabel = (item: { group: string; name: string }) => (VEHICLE_GROUPS.has(item.group) ? item.name.split(",")[0].trim() : item.name);
+const gearLabel = displayEquipmentName;
 
 function GearPanel({ groups, what, onOpen }: { groups: LogbookGearGroup[]; what: string; onOpen: Open }) {
   if (!groups.length) return <ComingSoon what={what} />;
@@ -288,7 +288,7 @@ function GearPanel({ groups, what, onOpen }: { groups: LogbookGearGroup[]; what:
           <ul className="logbook-gear-list">
             {group.items.map((item) => (
               <li key={item.id}>
-                <button type="button" className="logbook-gear-item" onClick={() => onOpen("equipment", item.id)} aria-label={item.name} title={item.name}>
+                <button type="button" className="logbook-gear-item" onClick={() => onOpen("equipment", item.id)} aria-label={gearLabel(item)} title={gearLabel(item)}>
                   {item.image ? <img src={publicUrl(item.image)} alt="" loading="lazy" decoding="async" /> : <span className="logbook-gear-blank" aria-hidden="true" />}
                   <span>{gearLabel(item)}</span>
                 </button>
@@ -480,7 +480,7 @@ function CrestStrip({ beat, onOpen }: { beat: LogbookBeat | undefined; onOpen: O
               title={unit.name}
             >
               {unit.image ? <img src={publicUrl(unit.image)} alt="" loading="lazy" onError={(event) => { event.currentTarget.hidden = true; }} /> : null}
-              <b>{LOGBOOK_NAME[unit.id] ?? unit.abbreviation}</b>
+              <b>{unit.abbreviation}</b>
               {unit.designator ? <em>{unit.designator}</em> : null}
             </button>
           </li>
@@ -564,13 +564,13 @@ function useNarrow(query = "(max-width: 900px)") {
 }
 
 /** Card titles: command abbreviation, except NAVHOSP reads as its pin label (NH Jacksonville, from places.json). */
-/** Logbook-only display names (the Map keeps its own sequence labels). */
-const LOGBOOK_NAME: Record<string, string> = { "frank-cable": "USS Frank Cable" };
 /** Logbook mini map: pins kept off a beat's view, by command → hidden command stops (main Map unchanged). */
 const LOGBOOK_MAP_HIDE: Record<string, string[]> = { "frank-cable": ["eodmu5"] };
 
 function beatTitle(row: LogbookBeat): string {
-  if (row.stop.commandId && LOGBOOK_NAME[row.stop.commandId]) return LOGBOOK_NAME[row.stop.commandId];
+  // Ships read by name; the hull number stays on the card title ("USS Frank Cable (AS-40)").
+  const ship = /^(USS .+?)\s*\(/.exec(row.lines[0] ?? "");
+  if (ship) return ship[1];
   if (row.stop.commandId === "navhosp") return row.stop.place.name.split(",")[0];
   return row.lines[0];
 }
@@ -788,7 +788,7 @@ export function Logbook({
                 {beat.stop.n}
               </span>
               <div>
-                <h3 title={unit?.name}>{beat.stop.commandId && LOGBOOK_NAME[beat.stop.commandId] && unit ? unit.name : beatTitle(beat)}</h3>
+                <h3 title={unit?.name}>{unit?.name.startsWith("USS ") ? unit.name : beatTitle(beat)}</h3>
                 <p className="quiet">{beat.lines[1] ?? "Command"}</p>
               </div>
             </header>

@@ -36,7 +36,7 @@
     "lat": 13.440895,
     "lng": 144.667285,
     "accuracy": "public-site",
-    "note": "The AS-40 berth on Naval Base Guam, Inner Apra Harbor. A place, not the Polaris off-road vehicle.",
+    "note": "The USS Frank Cable (AS-40) berth on Naval Base Guam, Inner Apra Harbor. A place, not the Polaris off-road vehicle.",
     "type": "base"
   },
   {
@@ -426,7 +426,7 @@
     "lat": 37.7749,
     "lng": -122.4194,
     "accuracy": "approximate",
-    "note": "City-level pin for San Francisco (LHD-2 stop).",
+    "note": "City-level pin for San Francisco (USS Essex stop).",
     "type": "city"
   },
   {

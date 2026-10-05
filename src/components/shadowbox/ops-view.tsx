@@ -139,7 +139,7 @@ export function OffDuty({ onOpen, title }: { onOpen: (k: Kind, id: string) => vo
   return (
     <main className="sheet">
       <h2>{title}</h2>
-      <p>Cars, motorcycles, residences, cities, and the C-5 and C-9 from the AS-40 tour. Hobbies have not been entered.</p>
+      <p>Cars, motorcycles, residences, cities, and the C-5 and C-9 from the USS Frank Cable tour. Hobbies have not been entered.</p>
       <GearList label="Cars" items={inGroup("cars")} onOpen={onOpen} />
       <GearList label="Motorcycles" items={inGroup("motorcycles")} onOpen={onOpen} />
       <GearList label="Aircraft" items={inGroup("aircraft").filter((item) => item.id === "c-5" || item.id === "c-9")} onOpen={onOpen} />
