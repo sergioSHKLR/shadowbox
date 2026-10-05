@@ -1961,9 +1961,15 @@ export function toSubject(sel: Selection): SubjectView | null {
     if (!item) return null;
     const i = ranks.indexOf(item);
     const next = ranks[i + 1];
+    const endDate = next?.date ?? profile.serviceEnd;
+    const tir = timeInRate(item.date, endDate);
     const facts = [
       { label: "Pay grade", value: `${item.grade} · ${item.abbreviation}` },
-      { label: item.id === "sn" ? "Date" : "Promoted", value: item.date ? formatWhen(item.date) : "Date needed" },
+      {
+        label: "Date of rate",
+        value: item.date ? `${formatWhen(item.date)}${dayPrecision(item.date) ? "" : " (day not recorded)"}` : "Date needed",
+      },
+      { label: "Time in rate", value: tir ?? "Not computable (date missing)" },
       { label: "Held until", value: next?.date ? `${formatWhen(next.date)} (${next.abbreviation})` : `${formatWhen(profile.serviceEnd)} (retired)` },
     ];
     if (item.note) facts.push({ label: "Note", value: item.note });
@@ -2277,4 +2283,29 @@ export function commandDutiesFor(unitId: string | null | undefined): CommandDuti
   const row = unitId ? (commandDutiesJson as unknown as Record<string, Partial<CommandDuties> | string>)[unitId] : undefined;
   if (!row || typeof row === "string") return { titles: [], collateralDuties: [], watches: [] };
   return { titles: row.titles ?? [], collateralDuties: row.collateralDuties ?? [], watches: row.watches ?? [] };
+}
+
+/* ---------- Rank drawer: Date of Rate and Time in Rate from ranks.json (never invents a day) ---------- */
+const dayPrecision = (date: string | null | undefined) => /^\d{4}-\d{2}-\d{2}$/.test(date ?? "");
+/** Earliest and latest calendar day a recorded date can mean (YYYY, YYYY-MM or YYYY-MM-DD), as UTC ms. */
+function dateBounds(date: string): [number, number] | null {
+  const m = /^(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?$/.exec(date);
+  if (!m) return null;
+  const y = Number(m[1]);
+  if (m[3]) { const t = Date.UTC(y, Number(m[2]) - 1, Number(m[3])); return [t, t]; }
+  if (m[2]) { const mo = Number(m[2]) - 1; return [Date.UTC(y, mo, 1), Date.UTC(y, mo + 1, 0)]; }
+  return [Date.UTC(y, 0, 1), Date.UTC(y, 11, 31)];
+}
+const DAY_MS = 86_400_000;
+/** Days from this date of rate to the next one (or retirement). Month-only ends give "~" with the possible range. */
+export function timeInRate(from: string | null | undefined, to: string | null | undefined): string | null {
+  const a = from ? dateBounds(from) : null;
+  const b = to ? dateBounds(to) : null;
+  if (!a || !b) return null;
+  const min = Math.round((b[0] - a[1]) / DAY_MS);
+  const max = Math.round((b[1] - a[0]) / DAY_MS);
+  const n = (v: number) => v.toLocaleString("en-US");
+  if (min === max) return `${n(min)} days`;
+  const mid = Math.round((min + max) / 2);
+  return `~${n(mid)} days (between ${n(min)} and ${n(max)}; approximate because a date of rate is recorded to the month only)`;
 }
