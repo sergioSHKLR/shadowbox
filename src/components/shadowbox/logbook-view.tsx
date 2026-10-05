@@ -163,6 +163,7 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
   const { necsHeld, schoolsThisTour } = logbookAdminAsOf(beat);
   const duties = commandDutiesFor(beat.stop.commandId);
   const dutyRows = [
+    { id: "title", label: "Title", items: duties.titles },
     { id: "collateral", label: "Collateral Duty", items: duties.collateralDuties },
     { id: "watch", label: "Watch", items: duties.watches },
   ].filter((row) => row.items.length);
