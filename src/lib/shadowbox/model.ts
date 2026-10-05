@@ -2340,11 +2340,11 @@ export function deploymentsForCommand(unitId: string | null | undefined): Logboo
 
 /* ---------- Logbook Admin: collateral duties and watch stations (command-duties.json) ---------- */
 export type CommandDuty = { label: string; abbreviation?: string };
-export type CommandDuties = { titles: CommandDuty[]; divisions: CommandDuty[]; collateralDuties: CommandDuty[]; watches: CommandDuty[] };
+export type CommandDuties = { titles: CommandDuty[]; departments: CommandDuty[]; divisions: CommandDuty[]; collateralDuties: CommandDuty[]; watches: CommandDuty[] };
 export function commandDutiesFor(unitId: string | null | undefined): CommandDuties {
   const row = unitId ? (commandDutiesJson as unknown as Record<string, Partial<CommandDuties> | string>)[unitId] : undefined;
-  if (!row || typeof row === "string") return { titles: [], divisions: [], collateralDuties: [], watches: [] };
-  return { titles: row.titles ?? [], divisions: row.divisions ?? [], collateralDuties: row.collateralDuties ?? [], watches: row.watches ?? [] };
+  if (!row || typeof row === "string") return { titles: [], departments: [], divisions: [], collateralDuties: [], watches: [] };
+  return { titles: row.titles ?? [], departments: row.departments ?? [], divisions: row.divisions ?? [], collateralDuties: row.collateralDuties ?? [], watches: row.watches ?? [] };
 }
 
 /* ---------- Rank drawer: Date of Rate and Time in Rate from ranks.json (never invents a day) ---------- */
