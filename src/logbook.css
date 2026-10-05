@@ -467,8 +467,8 @@
 }
 .logbook-crests .logbook-crest b { grid-row: 2; -webkit-line-clamp: 2; font-size: 0.72rem; align-self: end; }
 .logbook-crests .logbook-crest em { grid-row: 3; -webkit-line-clamp: 2; font-size: 0.64rem; line-height: 1.2; align-self: start; }
-/* Mini map is the whole footer card: no padding, margin, inner frame or border; the card radius clips the map. */
-.logbook-foot-half.logbook-foot-map { padding: 0; margin: 0; border: 0; background: none; border-radius: 6px; overflow: hidden; }
+/* Mini map fills the footer card edge to edge (no padding or inner frame); the card keeps the standard footer border, and its radius clips the map. */
+.logbook-foot-half.logbook-foot-map { padding: 0; margin: 0; border: 1px solid var(--lb-border); background: var(--lb-panel); border-radius: 6px; overflow: hidden; }
 .logbook-foot-map > .logbook-map-tab, .logbook-foot-map .logbook-map-frame, .logbook-foot-map .map-frame,
 .logbook-phone-tabs .logbook-map-tab, .logbook-phone-tabs .logbook-map-frame, .logbook-phone-tabs .map-frame { margin: 0; padding: 0; border: 0; border-radius: 0; box-shadow: none; }
 .logbook-foot-map .map-frame, .logbook-foot-map .leaflet-container { width: 100%; height: 100%; }
