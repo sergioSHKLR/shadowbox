@@ -192,11 +192,8 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
                     {isNew ? <em className="logbook-new">this tour</em> : null}
                     {gained ? <em className="logbook-gained">gained</em> : null}
                   </strong>
-                  <span>
-                    {isNew && nec.billetLabel
-                      ? nec.billetLabel
-                      : [nec.name, nec.awarded ? formatWhen(nec.awarded) : ""].filter(Boolean).join(" · ")}
-                  </span>
+                  <span>{isNew && nec.billetLabel ? nec.billetLabel : nec.name}</span>
+                  {!(isNew && nec.billetLabel) && nec.awarded ? <span className="logbook-nec-date">{formatWhen(nec.awarded)}</span> : null}
                   {!(isNew && nec.billetLabel) && necSchoolLine(nec) ? <small className="logbook-nec-place">{necSchoolLine(nec)}</small> : null}
                 </button>
               </li>
