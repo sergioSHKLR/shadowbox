@@ -1966,11 +1966,10 @@ export function toSubject(sel: Selection): SubjectView | null {
     const facts = [
       { label: "Pay grade", value: `${item.grade} · ${item.abbreviation}` },
       {
-        label: "Date of rate",
+        label: "Date of Rate",
         value: item.date ? `${formatWhen(item.date)}${dayPrecision(item.date) ? "" : " (day not recorded)"}` : "Date needed",
       },
-      { label: "Time in rate", value: tir ?? "Not computable (date missing)" },
-      { label: "Held until", value: next?.date ? `${formatWhen(next.date)} (${next.abbreviation})` : `${formatWhen(profile.serviceEnd)} (retired)` },
+      { label: "Time in Rate", value: tir ?? "Not computable (date missing)" },
     ];
     if (item.note) facts.push({ label: "Note", value: item.note });
     const petty = ["E-4", "E-5", "E-6"].includes(item.grade);

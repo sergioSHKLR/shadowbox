@@ -29,20 +29,6 @@ import { MedalArt, RibbonArt } from "@/components/shadowbox/marks";
 type Mark = { src: string; alt: string };
 type Linked = { kind: Kind; id: string; label: string; marks?: Mark[] };
 const COMMAND_LINKS: Record<string, Linked[]> = {
-  ncts: [
-    {
-      kind: "unit",
-      id: "tortuga",
-      label: "TAD \u00b7 USS Tortuga (LSD-46)",
-      marks: [{ src: "/incoming/lsd-46.png", alt: "USS Tortuga (LSD-46)" }],
-    },
-    {
-      kind: "unit",
-      id: "tortuga",
-      label: "Exercise Partner \u00b7 ACU 4",
-      marks: [{ src: "/incoming/acu-4.png", alt: "Exercise Partner \u00b7 ACU 4" }],
-    },
-  ],
   eodmu5: [
     {
       kind: "unit",

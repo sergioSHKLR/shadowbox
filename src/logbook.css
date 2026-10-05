@@ -393,22 +393,35 @@
 .logbook-crest[data-static] { cursor: default; }
 .logbook-gained { margin-left: 0.35rem; padding: 0 0.3rem; border: 1px solid var(--color-navy); border-radius: 3px; font-style: normal; font-size: 0.66rem; color: var(--color-navy); }
 [data-theme="dark"] .logbook-gained { border-color: var(--color-ivory); color: var(--color-ivory); }
-/* On Duty / Off Duty tiles: one fixed size everywhere; 4:3 cover image, caption clamped to two lines. */
-.logbook-gear-list { grid-template-columns: repeat(auto-fill, var(--lb-tile-w)); justify-content: start; gap: 0.45rem; --lb-tile-w: 7.25rem; }
+/* On Duty / Off Duty tiles: one fixed size on every tab and command. Photo (4:3, cover) fills the tile; one label, two lines max. */
+.logbook-gear-list { --lb-tile-w: 8rem; --lb-tile-pad: 3px; --lb-cap: calc(2 * 1.15 * 0.72rem); grid-template-columns: repeat(auto-fill, var(--lb-tile-w)); justify-content: start; gap: 0.45rem; }
 .logbook-gear-list > li { display: flex; }
 .logbook-gear-item {
-  width: var(--lb-tile-w); height: calc(var(--lb-tile-w) * 0.75 + 3.6rem); flex: none;
-  justify-content: flex-start; gap: 0.25rem; padding: 0.3rem; overflow: hidden;
+  width: var(--lb-tile-w); height: calc((var(--lb-tile-w) - 2 * var(--lb-tile-pad)) * 0.75 + var(--lb-cap) + 2 * var(--lb-tile-pad) + 0.3rem); flex: none;
+  justify-content: flex-start; gap: 0.15rem; padding: var(--lb-tile-pad); overflow: hidden;
 }
 .logbook-gear-item img,
-.logbook-gear-blank { display: block; flex: none; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 3px; }
+.logbook-gear-item .logbook-gear-blank { display: block; flex: none; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 3px; }
 .logbook-gear-blank { background: color-mix(in srgb, var(--lb-border) 35%, transparent); }
 .logbook-gear-item > span:not(.logbook-gear-blank) {
   display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden;
-  width: 100%; min-height: calc(2 * 1.15em); font-size: 0.72rem; line-height: 1.15; text-align: center; overflow-wrap: anywhere;
+  width: 100%; height: var(--lb-cap); font-size: 0.72rem; line-height: 1.15; text-align: center; overflow-wrap: anywhere;
 }
-.logbook-gear-item .logbook-same-model { flex: none; line-height: 1.1; white-space: nowrap; }
-@media (max-width: 900px) { .logbook-gear-list { --lb-tile-w: 6.6rem; } }
+@media (max-width: 900px) { .logbook-gear-list { --lb-tile-w: 6.9rem; } }
+/* Wardrobe: one fixed mannequin tile (9:16, contain so plates are never cropped), one label. */
+.logbook-wardrobe { --lb-ward-w: 7.6rem; --lb-ward-pad: 3px; --lb-ward-cap: calc(2 * 1.15 * 0.74rem); grid-template-columns: repeat(auto-fill, var(--lb-ward-w)); justify-content: start; gap: 0.45rem; }
+.logbook-wardrobe > li { display: flex; }
+.logbook-wardrobe-item {
+  width: var(--lb-ward-w); height: calc((var(--lb-ward-w) - 2 * var(--lb-ward-pad)) * 16 / 9 + var(--lb-ward-cap) + 2 * var(--lb-ward-pad) + 0.3rem); flex: none;
+  justify-content: flex-start; gap: 0.15rem; padding: var(--lb-ward-pad); overflow: hidden;
+}
+.logbook-wardrobe-item img,
+.logbook-wardrobe-item .logbook-gear-blank { display: block; flex: none; width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: contain; background: #fff; border-radius: 4px; }
+.logbook-wardrobe-item strong {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden;
+  width: 100%; height: var(--lb-ward-cap); font-size: 0.74rem; line-height: 1.15;
+}
+@media (max-width: 900px) { .logbook-wardrobe { --lb-ward-w: 6.9rem; } }
 /* Deployment cards (On Duty): one width (full column) and equal heights. */
 .logbook-deploys { display: grid; grid-auto-rows: 1fr; }
 /* Admin: collateral duties / watch stations as labeled rows (command-duties.json). */
