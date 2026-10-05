@@ -532,3 +532,7 @@
 /* Phone: crests and map live in the lower tab panel; it grows from 42% to ~50% of the column. */
 .logbook-phone .logbook-main { flex: 1 1 50%; }
 .logbook-phone-tabs { flex: 1 1 50%; }
+
+/* Desktop aside wide enough for three Wardrobe mannequin cards (7.6rem ≈ 122×244) side by side, with room for the panel's
+   padding, border and a vertical scrollbar; the main column (1fr) gives up the width. Phone uses its own stacked layout. */
+.logbook-grid { grid-template-columns: minmax(0, 1fr) minmax(16rem, 27rem); }
