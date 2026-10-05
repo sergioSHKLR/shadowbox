@@ -536,3 +536,8 @@
 /* Desktop aside wide enough for three Wardrobe mannequin cards (7.6rem ≈ 122×244) side by side, with room for the panel's
    padding, border and a vertical scrollbar; the main column (1fr) gives up the width. Phone uses its own stacked layout. */
 .logbook-grid { grid-template-columns: minmax(0, 1fr) minmax(16rem, 27rem); }
+
+/* No navy rule under the tab bars (main card + aside). The panel keeps its own light border all round, so the card still closes at the top. */
+.lb-tablist, [data-theme="dark"] .lb-tablist { border-bottom: 0; }
+.lb-tab { margin-bottom: 0; }
+.lb-tabpanel { border-top: 1px solid var(--lb-border); border-top-right-radius: 6px; }
