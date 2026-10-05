@@ -244,6 +244,8 @@ function MapInset({
   // Full sequence, all six pins shown; only the focus changes per beat (shrinking the reveal mid-flight trips markercluster).
   // Excluded customer units never become map pins here (their places are not added as extras).
   void isMapExcludedUnit;
+  const hideIds = (beat.stop.commandId && LOGBOOK_MAP_HIDE[beat.stop.commandId]) || [];
+  const hiddenStops = stops.flatMap((stop, i) => (stop.commandId && hideIds.includes(stop.commandId) ? [i] : []));
   return (
     <div className="logbook-map-frame">
       <Boundary label="logbook map" fallback={<p className="quiet">Map unavailable right now.</p>}>
@@ -254,6 +256,7 @@ function MapInset({
         focusId={beat.stop.place.id}
         focusIndex={beat.index}
         revealedCount={stops.length}
+        hidden={hiddenStops}
         onSelect={(id) => onOpen("place", id)}
       />
       </Boundary>
@@ -477,7 +480,7 @@ function CrestStrip({ beat, onOpen }: { beat: LogbookBeat | undefined; onOpen: O
               title={unit.name}
             >
               {unit.image ? <img src={publicUrl(unit.image)} alt="" loading="lazy" onError={(event) => { event.currentTarget.hidden = true; }} /> : null}
-              <b>{unit.abbreviation}</b>
+              <b>{LOGBOOK_NAME[unit.id] ?? unit.abbreviation}</b>
               {unit.designator ? <em>{unit.designator}</em> : null}
             </button>
           </li>
@@ -561,7 +564,13 @@ function useNarrow(query = "(max-width: 900px)") {
 }
 
 /** Card titles: command abbreviation, except NAVHOSP reads as its pin label (NH Jacksonville, from places.json). */
+/** Logbook-only display names (the Map keeps its own sequence labels). */
+const LOGBOOK_NAME: Record<string, string> = { "frank-cable": "USS Frank Cable" };
+/** Logbook mini map: pins kept off a beat's view, by command → hidden command stops (main Map unchanged). */
+const LOGBOOK_MAP_HIDE: Record<string, string[]> = { "frank-cable": ["eodmu5"] };
+
 function beatTitle(row: LogbookBeat): string {
+  if (row.stop.commandId && LOGBOOK_NAME[row.stop.commandId]) return LOGBOOK_NAME[row.stop.commandId];
   if (row.stop.commandId === "navhosp") return row.stop.place.name.split(",")[0];
   return row.lines[0];
 }
@@ -779,7 +788,7 @@ export function Logbook({
                 {beat.stop.n}
               </span>
               <div>
-                <h3 title={unit?.name}>{beatTitle(beat)}</h3>
+                <h3 title={unit?.name}>{beat.stop.commandId && LOGBOOK_NAME[beat.stop.commandId] && unit ? unit.name : beatTitle(beat)}</h3>
                 <p className="quiet">{beat.lines[1] ?? "Command"}</p>
               </div>
             </header>

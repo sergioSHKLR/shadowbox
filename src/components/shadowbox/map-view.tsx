@@ -36,6 +36,8 @@ type PlayState = {
   revealedCount: number | null;
   stops: Stop[];
   extra: Place[];
+  /** Stop indices kept off this map view (e.g. a Logbook beat that hides a nearby pin). */
+  hidden?: number[];
 };
 
 /** Great-circle distance in km between [lat, lng] points (lng may be unwrapped). */
@@ -123,7 +125,7 @@ function syncClusterMembership(handle: Runtime, play: PlayState) {
   play.stops.forEach((stop, i) => {
     const marker = handle.markers[i];
     if (!marker) return;
-    const show = revealedCount == null || i < revealedCount;
+    const show = (revealedCount == null || i < revealedCount) && !play.hidden?.includes(i);
     const has = handle.cluster.hasLayer(marker);
     if (show && !has) toAdd.push(marker);
     if (!show && has) toRemove.push(marker);
@@ -146,7 +148,7 @@ function syncClusterMembership(handle: Runtime, play: PlayState) {
   play.stops.forEach((stop, i) => {
     const marker = handle.markers[i];
     if (!marker) return;
-    const show = revealedCount == null || i < revealedCount;
+    const show = (revealedCount == null || i < revealedCount) && !play.hidden?.includes(i);
     if (!show) return;
     const el = marker.getElement();
     const isNow = focusIndex === i;
@@ -173,6 +175,7 @@ function applyPlay(handle: Runtime, play: PlayState) {
     const neighbors: [number, number][] = [];
     for (let i = 0; i < limit; i++) {
       const stop = play.stops[i];
+      if (play.hidden?.includes(i)) continue;
       if (stop.place.lat == null || stop.place.lng == null) continue;
       const pt = toward(handle.map, handle.at(stop.place));
       if (kmBetween(target, pt) <= CLUSTER_KM) neighbors.push(pt);
@@ -250,6 +253,8 @@ function applyPlay(handle: Runtime, play: PlayState) {
   handle.spread();
 }
 
+const NO_HIDDEN: number[] = [];
+
 export function MapView({
   stops,
   extra = [],
@@ -258,6 +263,7 @@ export function MapView({
   focusId = null,
   focusIndex = null,
   revealedCount = null,
+  hidden = NO_HIDDEN,
   layoutEpoch = "inline",
 }: {
   stops: Stop[];
@@ -268,6 +274,8 @@ export function MapView({
   focusIndex?: number | null;
   /** Progressive play: only indices [0, revealedCount) are visible. null = full map. */
   revealedCount?: number | null;
+  /** Stop indices to keep off this view without rebuilding the markers. */
+  hidden?: number[];
   /** Bumps when the map chrome resizes (e.g. fullscreen) so Leaflet reflows and play continues. */
   layoutEpoch?: string | number;
 }) {
@@ -275,8 +283,9 @@ export function MapView({
   const selectRef = useRef(onSelect);
   selectRef.current = onSelect;
   const runtime = useRef<Runtime | null>(null);
-  const playRef = useRef({ focusId, focusIndex, revealedCount, stops, extra });
-  playRef.current = { focusId, focusIndex, revealedCount, stops, extra };
+  const playRef = useRef({ focusId, focusIndex, revealedCount, stops, extra, hidden });
+  playRef.current = { focusId, focusIndex, revealedCount, stops, extra, hidden };
+  const hiddenKey = hidden.join(",");
   const signature = [...stops.map((stop) => `${stop.place.id}:${stop.n ?? ""}`), ...extra.map((place) => place.id)].join("|");
   const revealKey = revealedCount == null ? "all" : String(revealedCount);
 
@@ -510,7 +519,7 @@ export function MapView({
 
   useEffect(() => {
     safeApply(runtime.current, playRef.current);
-  }, [focusId, focusIndex, revealKey, signature]);
+  }, [focusId, focusIndex, revealKey, signature, hiddenKey]);
 
   // Fullscreen / CSS cover changes the stage size without remounting. Wait a frame
   // for flex layout, then invalidate and re-run the current play step.
