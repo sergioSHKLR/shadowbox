@@ -28,6 +28,7 @@ import certificatesJson from "@/data/certificates.json";
 import commandPlatesJson from "@/data/command-plates.json";
 import deploymentGearJson from "@/data/deployment-gear.json";
 import commandDutiesJson from "@/data/command-duties.json";
+import commandProfilesJson from "@/data/command-profiles.json";
 
 /** Public files are served from the base URL: the site root in dev and on https://mil.shklr.org. */
 export function publicUrl(path: string): string {
@@ -2336,3 +2337,17 @@ export function povLabel(name: string): string {
 }
 export const isPovGroup = (group: string) => POV_GROUPS.has(group);
 export const displayEquipmentName = (item: { group: string; name: string }) => (isPovGroup(item.group) ? povLabel(item.name) : item.name);
+
+/* ---------- Logbook: official name, purpose and short history per command (command-profiles.json, sourced) ---------- */
+export type CommandProfile = {
+  unitId: string;
+  officialName: string;
+  purpose: string;
+  history: string;
+  sources: { label: string; url: string }[];
+  sourceNote?: string;
+};
+const commandProfiles = commandProfilesJson as CommandProfile[];
+export function commandProfileFor(unitId: string | null | undefined): CommandProfile | undefined {
+  return unitId ? commandProfiles.find((row) => row.unitId === unitId) : undefined;
+}
