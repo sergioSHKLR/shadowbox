@@ -857,6 +857,7 @@ export type CommandPlate = {
   rack: PlateEntry[];
   extras?: PlateExtra[];
   note?: string;
+  rankNote?: string;
 };
 export const commandPlates = commandPlatesJson as CommandPlate[];
 
@@ -1218,6 +1219,10 @@ function monthKey(value: string | null | undefined): number | null {
 
 /** Assigned-command plates in career order (Commands page). */
 const PLATE_UNIT_IDS = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"] as const;
+/** Pre-NCTS Logbook commands (Sergio): boot camp, the Tortuga TAD, and A-school, in tour order (units.json dates). */
+export const LOGBOOK_PIPELINE_UNIT_IDS = ["rtc", "tortuga", "ntc-great-lakes"] as const;
+/** Every Logbook command, in career order. */
+const LOGBOOK_UNIT_IDS = [...LOGBOOK_PIPELINE_UNIT_IDS, ...PLATE_UNIT_IDS] as const;
 
 /** Customers/partners kept off the Map inset (still OK as unit chips from structured data). */
 const MAP_EXCLUDED_UNIT_IDS = new Set(["52nd-ordnance", "3rd-sfg", "75th-ranger", "eodmu11", "rtn", "auscdt"]);
@@ -1495,9 +1500,20 @@ function unitsForCommandBeat(stop: Stop, plate: CommandPlate | null): LogbookUni
  */
 export function logbookBeats(): LogbookBeat[] {
   const plateIds = new Set(commandPlates.map((row) => row.unitId));
-  const commandStops = careerStops().filter(
-    (stop) => stop.kind === "command" && stop.commandId && plateIds.has(stop.commandId),
-  );
+  const pipeline = new Set<string>(LOGBOOK_PIPELINE_UNIT_IDS);
+  // Assigned commands are their "command" pins; the pipeline / TAD commands (RTC, USS Tortuga, NTC) are sequence pins
+  // of another kind. NTC appears twice in sequence.json (before and after the Tortuga TAD): its later pin is kept, so the
+  // order follows units.json dates (RTC Jun–Sep 1997, Tortuga 1997–98, NTC 1998 – Dec 1998).
+  const picked = new Map<string, Stop>();
+  for (const stop of careerStops()) {
+    if (!stop.commandId || !plateIds.has(stop.commandId)) continue;
+    if (stop.kind === "command" ? pipeline.has(stop.commandId) : !pipeline.has(stop.commandId)) continue;
+    if (stop.kind === "command" && picked.has(stop.commandId)) continue;
+    picked.delete(stop.commandId);
+    picked.set(stop.commandId, stop);
+  }
+  const order = LOGBOOK_UNIT_IDS as readonly string[];
+  const commandStops = [...picked.values()].sort((a, b) => order.indexOf(a.commandId!) - order.indexOf(b.commandId!));
   return commandStops.map((raw, index) => {
     const stop: Stop = { ...raw, n: index + 1 };
     const command = stop.commandId ? unitById(stop.commandId) : undefined;
@@ -2108,10 +2124,14 @@ export function offDutyForCommand(unitId: string | null | undefined): LogbookGea
 }
 
 /** Ready uniform plates for a command (e.g. NCTS → 2a blues, 2b whites; NAVHOSP → 7b/7c/7k CPO). */
+/** Logbook-only plate reuse: the Tortuga TAD (Seaman, between RTC and NTC) wears the RTC Seaman plates 1a / 1b. */
+const LOGBOOK_PLATE_REUSE: Record<string, string> = { tortuga: "rtc" };
+
 export function uniformPlatesForCommand(unitId: string | null | undefined): UniformSlide[] {
   if (!unitId) return [];
+  const source = LOGBOOK_PLATE_REUSE[unitId] ?? unitId;
   const codes = new Set(
-    UNIFORM_STEP_PLATES.filter((row) => row.unitId === unitId).map((row) => row.stem.replace(/[a-z]+$/i, "")),
+    UNIFORM_STEP_PLATES.filter((row) => row.unitId === source).map((row) => row.stem.replace(/[a-z]+$/i, "")),
   );
   return uniformSlides.filter((slide) => codes.has(slide.file.replace(/\.[^.]+$/, "").replace(/[a-z]+$/i, "")));
 }
@@ -2211,7 +2231,7 @@ export function logbookAdminAsOf(beat: LogbookBeat): {
   // gainedAt in necs.json pins the command outright; otherwise a date that fits two year-precision tours
   // counts at the first Logbook command whose tour holds it.
   const billetId = unit?.necId ?? null;
-  const order = PLATE_UNIT_IDS as readonly string[];
+  const order = LOGBOOK_UNIT_IDS as readonly string[];
   const here = order.indexOf(beat.stop.commandId ?? "");
   const earlier = order.slice(0, Math.max(0, here)).map((id) => unitById(id)).filter(Boolean) as Unit[];
   const gainedEarlier = (nec: Nec) =>

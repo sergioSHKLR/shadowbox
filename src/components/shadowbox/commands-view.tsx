@@ -1,5 +1,6 @@
 import {
   commandPlates,
+  LOGBOOK_PIPELINE_UNIT_IDS,
   formatSpan,
   plateAwards,
   publicUrl,
@@ -83,7 +84,7 @@ export function Commands({ onOpen, title, lead }: { onOpen: (k: Kind, id: string
       <h2>{title}</h2>
       <p>{lead}</p>
       <ol className="command-list">
-        {commandPlates.map((plate) => {
+        {commandPlates.filter((plate) => !(LOGBOOK_PIPELINE_UNIT_IDS as readonly string[]).includes(plate.unitId)).map((plate) => {
           const unit = units.find((row) => row.id === plate.unitId);
           if (!unit) return null;
           const rack = plateAwards(plate.rack);

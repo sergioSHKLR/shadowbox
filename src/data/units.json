@@ -57,7 +57,7 @@
     "patch": "NTC",
     "branch": "USN",
     "designator": "Instruction",
-    "necId": null,
+    "necId": "nec-0000",
     "start": "1998",
     "end": "1998-12",
     "precision": "year",
