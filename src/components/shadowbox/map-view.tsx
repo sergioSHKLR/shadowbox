@@ -258,6 +258,7 @@ export function MapView({
   focusId = null,
   focusIndex = null,
   revealedCount = null,
+  layoutEpoch = "inline",
 }: {
   stops: Stop[];
   extra?: Place[];
@@ -267,6 +268,8 @@ export function MapView({
   focusIndex?: number | null;
   /** Progressive play: only indices [0, revealedCount) are visible. null = full map. */
   revealedCount?: number | null;
+  /** Bumps when the map chrome resizes (e.g. fullscreen) so Leaflet reflows and play continues. */
+  layoutEpoch?: string | number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const selectRef = useRef(onSelect);
@@ -466,15 +469,27 @@ export function MapView({
           boot();
           return;
         }
-        const before = map.getSize();
-        map.invalidateSize();
-        const after = map.getSize();
-        if ((before.x < 1 || before.y < 1) && after.x >= 1 && after.y >= 1 && runtime.current) {
-          if (!playRef.current.focusId) {
+        try {
+          const node = ref.current;
+          // Skip while the pane is collapsed (flex fullscreen transition can hit 0×0 briefly).
+          if (!node || node.clientWidth < 1 || node.clientHeight < 1) return;
+          const before = map.getSize();
+          map.invalidateSize({ animate: false });
+          const after = map.getSize();
+          if (!runtime.current || after.x < 1 || after.y < 1) return;
+          const grew = before.x < 1 || before.y < 1 || Math.abs(after.x - before.x) > 1 || Math.abs(after.y - before.y) > 1;
+          if (!grew) return;
+          const play = playRef.current;
+          const focused = play.focusIndex != null || play.focusId != null || play.revealedCount != null;
+          if (!focused) {
             runtime.current.fit();
             runtime.current.spread();
           }
-          safeApply(runtime.current, playRef.current);
+          // Always re-apply the current play step after a real resize so fullscreen
+          // reflow does not leave the tour stuck on a stale camera.
+          safeApply(runtime.current, play);
+        } catch (error) {
+          console.warn("[map] resize skipped:", error instanceof Error ? error.message : error);
         }
       });
       observer.observe(el);
@@ -495,6 +510,35 @@ export function MapView({
   useEffect(() => {
     safeApply(runtime.current, playRef.current);
   }, [focusId, focusIndex, revealKey, signature]);
+
+  // Fullscreen / CSS cover changes the stage size without remounting. Wait a frame
+  // for flex layout, then invalidate and re-run the current play step.
+  useEffect(() => {
+    const handle = runtime.current;
+    if (!handle) return;
+    let alive = true;
+    const run = () => {
+      if (!alive || !runtime.current) return;
+      const node = ref.current;
+      if (!node || node.clientWidth < 1 || node.clientHeight < 1) return;
+      try {
+        runtime.current.map.invalidateSize({ animate: false });
+      } catch (error) {
+        console.warn("[map] layout invalidate skipped:", error instanceof Error ? error.message : error);
+        return;
+      }
+      safeApply(runtime.current, playRef.current);
+    };
+    const raf = window.requestAnimationFrame(() => {
+      window.setTimeout(run, 50);
+    });
+    const later = window.setTimeout(run, 220);
+    return () => {
+      alive = false;
+      window.cancelAnimationFrame(raf);
+      window.clearTimeout(later);
+    };
+  }, [layoutEpoch]);
 
   if (!stops.length && !extra.length) {
     return <p className="quiet">No map location has been entered for this yet.</p>;

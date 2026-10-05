@@ -140,6 +140,9 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
   const keepMapInView = () => {
     const stage = stageRef.current;
     if (!stage) return;
+    // Never scroll while fullscreen — scrollIntoView can exit the Fullscreen API
+    // or fight the CSS cover lock, which stops the tour looking like it "isn't playing".
+    if (full || stage.dataset.cover === "1" || document.fullscreenElement) return;
     const top = stage.getBoundingClientRect().top;
     if (top < 8 || top > 120) {
       stage.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
@@ -220,6 +223,7 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
           focusId={here?.place.id ?? null}
           focusIndex={cursor}
           revealedCount={cursor == null ? null : cursor + 1}
+          layoutEpoch={full ? "full" : "inline"}
           onSelect={(id) => onOpen("place", id)}
         />
       ) : null}
