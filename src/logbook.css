@@ -431,3 +431,12 @@
 .logbook-duty-row dd { margin: 0; display: flex; flex-wrap: wrap; gap: 0.25rem 0.9rem; font-size: 0.88rem; }
 @media (max-width: 900px) { .logbook-duty-row { grid-template-columns: 1fr; gap: 0.15rem; } }
 .logbook-nec-date { display: block; }
+/* Mini map fills its footer panel edge to edge: no inner padding or frame; the panel's radius clips the map. */
+.logbook-foot-half.logbook-foot-map { padding: 0; overflow: hidden; }
+.logbook-foot-map .logbook-map-tab,
+.logbook-foot-map .logbook-map-frame { flex: 1; min-height: 0; height: 100%; }
+.logbook-foot-map .logbook-map-frame .map-frame,
+.logbook-phone-tabs .logbook-map-frame .map-frame { height: 100%; min-height: 0; border: 0; border-radius: 0; }
+.logbook-phone-tabs > .lb-tabpanel:has(> .logbook-map-tab:not([hidden])) { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.logbook-phone-tabs > .lb-tabpanel > .logbook-map-tab:not([hidden]) { flex: 1; min-height: 0; }
+.logbook-phone-tabs .logbook-map-tab:not([hidden]) .logbook-map-frame { flex: 1; min-height: 0; }
