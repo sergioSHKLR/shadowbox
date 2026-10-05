@@ -2160,24 +2160,6 @@ export function uniformPlatesForCommand(unitId: string | null | undefined): Unif
   return uniformSlides.filter((slide) => sets.includes(plateGroup(slide.file)));
 }
 
-/** Wardrobe uniforms that are the same uniform as a ready plate: shown with the command's own plate instead of the generic mannequin. */
-const WARDROBE_PLATE_LOOK: Record<string, { look: UniformLook; chief: boolean }> = {
-  "dress-blues": { look: "blue", chief: false },
-  "dress-whites": { look: "white", chief: false },
-  "cpo-sdb": { look: "blue", chief: true },
-  "cpo-sdw": { look: "white", chief: true },
-};
-
-export function wardrobePlateFor(unitId: string | null | undefined, uniformId: string): UniformSlide | null {
-  const want = WARDROBE_PLATE_LOOK[uniformId];
-  if (!want) return null;
-  return (
-    uniformPlatesForCommand(unitId).find(
-      (slide) => slide.look === want.look && plateGroup(slide.file).startsWith("e7") === want.chief,
-    ) ?? null
-  );
-}
-
 export type WardrobeItem = { uniform: Uniform; via: string[] };
 
 /** A chief's uniform (E7 khaki / whites / dress): never shown before the first E-7 date of rank. */
