@@ -1221,6 +1221,8 @@ export type LogbookUnitChip = {
   abbreviation: string;
   image: string | null;
   designator: string | null;
+  /** Partner recorded only on the command plate (no units.json record of its own): crest + label, no detail page. */
+  plateOnly?: boolean;
 };
 
 export type LogbookAdminFact = {
@@ -1454,11 +1456,25 @@ function unitsForCommandBeat(stop: Stop, plate: CommandPlate | null): LogbookUni
   if (plate) add(unitById(plate.unitId));
   if (plate?.extras) {
     for (const extra of plate.extras) {
+      // A role on the plate (e.g. "TAD", "Partner · Cobra Gold") puts the unit on the crests, even a Map-excluded
+      // partner; the Map never reads these chips.
+      if (extra.role) {
+        const unit = extra.kind === "unit" ? unitById(extra.id) : undefined;
+        if (unit && !seen.has(unit.id)) {
+          add(unit);
+          out[out.length - 1].designator = extra.role;
+          out[out.length - 1].image = extra.src || out[out.length - 1].image;
+        } else if (!unit || seen.has(unit.id)) {
+          const key = `plate:${extra.unit}`;
+          if (seen.has(key)) continue;
+          seen.add(key);
+          out.push({ id: key, name: extra.unit, abbreviation: extra.unit, image: extra.src || null, designator: extra.role, plateOnly: true });
+        }
+        continue;
+      }
       if (extra.kind !== "unit") continue;
       if (MAP_EXCLUDED_UNIT_IDS.has(extra.id)) continue;
       add(unitById(extra.id));
-      const chip = out.find((row) => row.id === extra.id);
-      if (chip && extra.role) chip.designator = extra.role;
     }
   }
   return out;

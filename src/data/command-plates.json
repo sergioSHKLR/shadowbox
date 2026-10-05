@@ -58,13 +58,13 @@
     "note": "Added on this tour: NAM 2005, NAM 2006, AAM 2006, ICM 2006 with one campaign star (National Resolution; each phase is a star, no bare ribbon), GWOTSM 2005, GCM 2006. JMUA awards sit on the JCSE plate.",
     "extras": [
       { "src": "/incoming/troy.png", "title": "In theater", "unit": "CJTF Troy", "date": "2006", "kind": "unit", "id": "troy" },
-      { "src": "/incoming/52nd-eod.png", "title": "Sponsor", "unit": "52nd EOD", "date": "2006", "kind": "unit", "id": "52nd-ordnance" },
-      { "src": "/incoming/16th-en.png", "title": "Sponsor", "unit": "16th EN", "date": "2006", "kind": "unit", "id": "16th-engineer" },
-      { "src": "/incoming/eodmu11.png", "title": "Partner", "unit": "EODMU 11", "date": "2006", "kind": "unit", "id": "troy" },
+      { "src": "/incoming/52nd-eod.png", "title": "Sponsor", "unit": "52nd EOD", "date": "2006", "kind": "unit", "id": "52nd-ordnance", "role": "Partner · OIF I" },
+      { "src": "/incoming/16th-en.png", "title": "Sponsor", "unit": "16th EN", "date": "2006", "kind": "unit", "id": "16th-engineer", "role": "Partner · OIF I" },
+      { "src": "/incoming/eodmu11.png", "title": "Partner", "unit": "EODMU 11", "date": "2006", "kind": "unit", "id": "troy", "role": "Partner · OIF I" },
       { "src": "/incoming/cobra-gold.png", "title": "Exercise", "unit": "Cobra Gold", "date": "2004 and 2005", "kind": "place", "id": "u-tapao" },
-      { "src": "/incoming/rtn.png", "title": "Host", "unit": "Royal Thai Navy", "date": "2004 and 2005", "kind": "place", "id": "u-tapao" },
+      { "src": "/incoming/rtn.png", "title": "Host", "unit": "Royal Thai Navy", "date": "2004 and 2005", "kind": "place", "id": "u-tapao", "role": "Partner · Cobra Gold" },
       { "src": "/incoming/talisman-saber.png", "title": "Exercise", "unit": "Talisman Saber", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay" },
-      { "src": "/incoming/auscdt-1.png", "title": "Host", "unit": "Australian CDT", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay" }
+      { "src": "/incoming/auscdt-1.png", "title": "Host", "unit": "Australian CDT", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay", "role": "Partner · Talisman Saber" }
     ]
   },
   {
@@ -94,7 +94,7 @@
       { "src": "/incoming/cram.png", "title": "In theater", "unit": "Task Force Iron Shield", "date": "Oct 2008–2009", "kind": "unit", "id": "ia-army" },
       { "src": "/incoming/11th-ada.png", "title": "Admin", "unit": "11th ADA", "date": "Oct 2008–2009", "kind": "unit", "id": "11th-ada" },
       { "src": "/incoming/3-3ada.png", "title": "Partner", "unit": "3-3 ADA", "date": "Oct 2008–2009", "kind": "unit", "id": "3-3-ada" },
-      { "src": "/incoming/332nd-aew.png", "title": "Customer", "unit": "332nd AEW", "date": "2009", "kind": "unit", "id": "332nd-aew" }
+      { "src": "/incoming/332nd-aew.png", "title": "Customer", "unit": "332nd AEW", "date": "2009", "kind": "unit", "id": "332nd-aew", "role": "Host" }
     ]
   },
   {
