@@ -80,8 +80,11 @@
 .felt-down::after, .page-down::after { content: "\2193"; font-size: 1.15rem; }
 .map-frame { background: #f6f1e7; border: 1px solid #c4a24a; }
 .map-num, .pin-num { background: #1d4e89; color: #f6f1e7; border: 2px solid #0c2340; border-style: solid; }
+.map-num.command, .pin-num.command, .map-dot.command { background: #1d4e89; color: #ffffff; border-color: #0c2340; }
 .map-num.base, .pin-num.base, .map-dot.base { background: #1f8a3c; color: #ffffff; border-color: #0d4a1f; }
-.map-num.visit, .pin-num.visit { background: #c4a24a; color: #14233a; border-color: #6e531c; }
+.map-num.field, .pin-num.field, .map-dot.field { background: #c45c26; color: #ffffff; border-color: #6e2e10; }
+.map-num.port, .pin-num.port, .map-num.visit, .pin-num.visit { background: #ffd21a; color: #1a1400; border-color: #8a6400; }
+.map-num.flight, .pin-num.flight, .map-dot.flight { background: #0e7490; color: #ffffff; border-color: #083344; }
 .map-dot { background: #1d4e89; border-color: #0c2340; }
 @media (prefers-reduced-motion: reduce) { .felt-track, .case-wide .detail-panel { transition: none; animation: none; } }
 @media (max-width: 640px) {

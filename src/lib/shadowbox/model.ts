@@ -259,9 +259,9 @@ export type Place = {
   lng: number | null;
   accuracy: "public-site" | "approximate" | "placeholder";
   note: string;
-  /** "city" is a city-level pin; "base" a base, FOB, camp or airfield; "visit" a legacy visit pin. Sequence layers drive Map filters. */
+  /** Legacy place shape. Map filters use sequence `kind`, not this field. */
   type?: "city" | "base" | "visit";
-  /** Optional pin colour override. Duty pins are blue, deployments green, visits yellow. */
+  /** Optional pin colour override (rare). */
   pin?: "red";
 };
 
@@ -1082,13 +1082,17 @@ export type SequenceEntry = {
   cityId: string | null;
   baseId: string | null;
   commandId: string | null;
-  kind: string;
+  /** Mutually exclusive Map category. A stop occupies exactly one. */
+  kind: StopLayer;
   when: string | null;
 };
 
-export type StopLayer = "city" | "base" | "command";
+/** Map pin categories. Mutually exclusive: one stop, one category, one colour. */
+export type StopLayer = "command" | "base" | "field" | "port" | "flight";
 
-/** n: fixed sequence order (1-based). Never renumbered when layers are filtered. */
+export const STOP_LAYERS: StopLayer[] = ["command", "base", "field", "port", "flight"];
+
+/** n: fixed sequence order (1-based). Never renumbered when categories are filtered. */
 export type Stop = {
   place: Place;
   labels: string[];
@@ -1097,7 +1101,8 @@ export type Stop = {
   cityId: string | null;
   baseId: string | null;
   commandId: string | null;
-  kind: string;
+  kind: StopLayer;
+  /** Always a single-element array matching `kind` (kept for filter helpers). */
   layers: StopLayer[];
 };
 
@@ -1121,37 +1126,8 @@ export function sequencePinPlace(entry: Pick<SequenceEntry, "cityId" | "baseId" 
   return undefined;
 }
 
-/** Resolve which place to pin given the active Map layers. */
-export function stopPlaceForLayers(stop: Stop, shown: StopLayer[] | null): Place {
-  const on = (layer: StopLayer) => !shown || shown.includes(layer);
-  if (on("base") && stop.baseId) {
-    const place = placeById(stop.baseId);
-    if (place) return place;
-  }
-  if (on("city") && stop.cityId) {
-    const place = placeById(stop.cityId);
-    if (place) return place;
-  }
-  if (on("command") && stop.commandId) {
-    const unit = unitById(stop.commandId);
-    if (unit?.placeId) {
-      const place = placeById(unit.placeId);
-      if (place) return place;
-    }
-    const school = schoolById(stop.commandId);
-    if (school?.placeId) {
-      const place = placeById(school.placeId);
-      if (place) return place;
-    }
-    if (stop.baseId) {
-      const place = placeById(stop.baseId);
-      if (place) return place;
-    }
-    if (stop.cityId) {
-      const place = placeById(stop.cityId);
-      if (place) return place;
-    }
-  }
+/** Pin place is fixed per stop. Filters hide whole stops; they do not swap the pin. */
+export function stopPlaceForLayers(stop: Stop, _shown: StopLayer[] | null): Place {
   return stop.place;
 }
 
@@ -1160,10 +1136,7 @@ export function careerStops(): Stop[] {
   for (const entry of [...sequence].sort((a, b) => a.order - b.order)) {
     const place = sequencePinPlace(entry);
     if (!place) continue;
-    const layers: StopLayer[] = [];
-    if (entry.cityId) layers.push("city");
-    if (entry.baseId) layers.push("base");
-    if (entry.commandId) layers.push("command");
+    const kind = entry.kind;
     stops.push({
       place,
       labels: [entry.label],
@@ -1172,8 +1145,8 @@ export function careerStops(): Stop[] {
       cityId: entry.cityId,
       baseId: entry.baseId,
       commandId: entry.commandId,
-      kind: entry.kind,
-      layers,
+      kind,
+      layers: [kind],
     });
   }
   return stops;

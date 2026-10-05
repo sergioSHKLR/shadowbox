@@ -180,13 +180,14 @@ export function MapView({
         const at = (place: Place): [number, number] => [place.lat ?? 0, wrapLng(place.lng ?? 0)];
 
         const pinHtml = (stop: Stop, dx = 0, dy = 0) => {
-          const cls = `map-num ${PIN_PX < 22 ? "sm " : ""}${stop.place.type ? `${stop.place.type} ` : ""}${stop.place.pin ? `${stop.place.pin} ` : ""}${stop.place.accuracy}`;
+          const kind = stop.kind ? `${stop.kind} ` : stop.place.type ? `${stop.place.type} ` : "";
+          const cls = `map-num ${PIN_PX < 22 ? "sm " : ""}${kind}${stop.place.pin ? `${stop.place.pin} ` : ""}${stop.place.accuracy}`;
           return `<span class="${cls}" style="transform:translate(${dx}px,${dy}px)">${stop.n ?? ""}</span>`;
         };
         const iconFor = (stop: Stop, dx = 0, dy = 0) =>
           stop.n
             ? L.divIcon({ className: "map-pin", html: pinHtml(stop, dx, dy), iconSize: [PIN_PX, PIN_PX], iconAnchor: [PIN_PX / 2, PIN_PX / 2] })
-            : L.divIcon({ className: "map-pin", html: `<span class="map-dot ${stop.place.type === "base" ? "base " : ""}${stop.place.pin ? `${stop.place.pin} ` : ""}${stop.place.accuracy}"></span>`, iconSize: [16, 16], iconAnchor: [8, 8] });
+            : L.divIcon({ className: "map-pin", html: `<span class="map-dot ${stop.kind ? `${stop.kind} ` : stop.place.type === "base" ? "base " : ""}${stop.place.pin ? `${stop.place.pin} ` : ""}${stop.place.accuracy}"></span>`, iconSize: [16, 16], iconAnchor: [8, 8] });
 
         const markers = stops.map((stop) => {
           const marker = L.marker(at(stop.place), {
