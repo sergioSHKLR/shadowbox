@@ -176,7 +176,7 @@
     "lat": 36.9163,
     "lng": -76.1745,
     "accuracy": "public-site",
-    "note": "NAB Little Creek (now Joint Expeditionary Base Little Creek–Fort Story), homeport of USS Tortuga (LSD-46). TAD to the ship.",
+    "note": "NAB Little Creek (now Joint Expeditionary Base Little Creek\u2013Fort Story), homeport of USS Tortuga (LSD-46). TAD to the ship.",
     "type": "base"
   },
   {
@@ -247,7 +247,7 @@
     "lng": -122.6556,
     "accuracy": "public-site",
     "note": "Naval Air Station Whidbey Island, Oak Harbor. A stop with EODMU 5.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "duhok-dam",
@@ -286,7 +286,7 @@
     "lat": 35.1425,
     "lng": -79.103333,
     "accuracy": "public-site",
-    "note": "A training FOB at Fort Bragg, 35°8'33\"N 79°6'12\"W. Training with JCSE.",
+    "note": "A training FOB at Fort Bragg, 35\u00b08'33\"N 79\u00b06'12\"W. Training with JCSE.",
     "type": "base"
   },
   {
@@ -336,7 +336,7 @@
     "lat": 49.94528,
     "lng": 6.565,
     "accuracy": "public-site",
-    "note": "Bitburg Airport (EDRB), the former Bitburg Air Base airfield, 49°56'43\"N 6°33'54\"E. A stopover on the way home from the 2006 EOD deployment.",
+    "note": "Bitburg Airport (EDRB), the former Bitburg Air Base airfield, 49\u00b056'43\"N 6\u00b033'54\"E. A stopover on the way home from the 2006 EOD deployment.",
     "type": "visit"
   },
   {
@@ -366,7 +366,7 @@
     "lat": 34.7898,
     "lng": -79.3647,
     "accuracy": "public-site",
-    "note": "Laurinburg–Maxton Airport, where Gryphon Group's school sits. The pin is the airfield, not a street address.",
+    "note": "Laurinburg\u2013Maxton Airport, where Gryphon Group's school sits. The pin is the airfield, not a street address.",
     "type": "base"
   },
   {
@@ -431,12 +431,12 @@
   },
   {
     "id": "city-agana",
-    "name": "Hagåtña (Agana), GU",
-    "locality": "Hagåtña (Agana), GU",
+    "name": "Hag\u00e5t\u00f1a (Agana), GU",
+    "locality": "Hag\u00e5t\u00f1a (Agana), GU",
     "lat": 13.475,
     "lng": 144.75,
     "accuracy": "approximate",
-    "note": "City-level pin for Hagåtña, formerly Agana, the capital of Guam.",
+    "note": "City-level pin for Hag\u00e5t\u00f1a, formerly Agana, the capital of Guam.",
     "type": "city"
   },
   {
@@ -526,7 +526,7 @@
     "lat": 34.7352,
     "lng": -79.3489,
     "accuracy": "approximate",
-    "note": "City-level pin for Maxton, NC, near the Gryphon Group school at Laurinburg–Maxton Airport.",
+    "note": "City-level pin for Maxton, NC, near the Gryphon Group school at Laurinburg\u2013Maxton Airport.",
     "type": "city"
   },
   {

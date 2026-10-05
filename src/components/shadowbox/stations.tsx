@@ -11,13 +11,13 @@ import {
 import { MapView } from "@/components/shadowbox/map-view";
 
 const PIN_GROUPS: { id: StopLayer; label: string; legend: string; cls: string }[] = [
-  { id: "command", label: "Commands", legend: "Assigned commands (NCTS, AS-40, EODMU 5, SERCC, JCSE, NH Jax); San Diego also as command host", cls: "command" },
-  { id: "instruction", label: "Instruction", legend: "Schools and instruction sites (Great Lakes, Biloxi, San Diego, Fort Bragg)", cls: "instruction" },
-  { id: "base", label: "Bases", legend: "Home bases, NAS, NS, annexes, ship TADs (LSD-46, LHD-2), U-Tapao, Shoalwater, Bliss, Blanding", cls: "base" },
+  { id: "command", label: "Commands", legend: "Assigned commands; San Diego also as command host", cls: "command" },
+  { id: "instruction", label: "Instruction", legend: "Schools and instruction sites", cls: "instruction" },
+  { id: "base", label: "Bases", legend: "Home bases, NAS, NS, annexes, and ship TADs", cls: "base" },
   { id: "field", label: "Field", legend: "FOBs, camps, theater sites, and exercises", cls: "field" },
-  { id: "port", label: "Port visits", legend: "City and ship port calls (Yokosuka, Sasebo, Hong Kong, Saipan, Pattaya, Whidbey, Tampa, Hagåtña)", cls: "port" },
-  { id: "layover", label: "Layovers", legend: "Transit hubs and flight legs (Baltimore, Leipzig, Bagram)", cls: "layover" },
-  { id: "stopover", label: "Stopovers", legend: "Theater air hubs in Kuwait and Qatar (Camp Arifjan, Al Udeid)", cls: "stopover" },
+  { id: "port", label: "Port visits", legend: "City and ship port calls", cls: "port" },
+  { id: "layover", label: "Layovers", legend: "Transit hubs and flight legs", cls: "layover" },
+  { id: "stopover", label: "Stopovers", legend: "Theater air hubs in Kuwait and Qatar", cls: "stopover" },
 ];
 
 function stopMatchesFilter(stop: Stop, shown: StopLayer[] | null) {
