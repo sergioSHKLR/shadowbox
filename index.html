@@ -19,6 +19,17 @@
     <!-- The site has one designed (light) look: no automatic dark rendering of the page or its browser chrome. -->
     <meta name="color-scheme" content="light only" />
     <meta name="theme-color" content="#f6f1e7" />
+    <script>
+      // Theme before first paint (no flash): saved light / dark, or "system" following prefers-color-scheme.
+      (function () {
+        try {
+          var raw = JSON.parse(localStorage.getItem("shadowbox-prefs") || "{}");
+          var pick = raw.theme === "light" || raw.theme === "dark" ? raw.theme : "system";
+          var dark = pick === "dark" || (pick === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+          document.documentElement.dataset.theme = dark ? "dark" : "light";
+        } catch (e) {}
+      })();
+    </script>
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon-dark.png" media="(prefers-color-scheme: dark)" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -26,8 +37,8 @@
     <meta name="apple-mobile-web-app-title" content="SHADOWBOX" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-    <script type="module" crossorigin src="/assets/index-OzjdY3FV.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DOTSfLWX.css">
+    <script type="module" crossorigin src="/assets/index-DnzSBG1J.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Bi4otfh2.css">
   <link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:inline-sw">if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/sw.js', { scope: '/' })})}</script></head>
   <body>
     <div id="root"></div>
