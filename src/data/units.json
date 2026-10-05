@@ -44,11 +44,11 @@
     "end": null,
     "precision": "year",
     "placeId": "city-san-francisco",
-    "explanation": "A Wasp-class amphibious assault ship. Port visit recorded at San Francisco, CA. Homeported at Naval Station San Diego (32nd Street) in that period. Dates for this stop have not been entered.",
+    "explanation": "A Wasp-class amphibious assault ship. Stop recorded at San Francisco, CA. Homeported at Naval Station San Diego (32nd Street) in that period. Dates for this stop have not been entered.",
     "civilian": "A big amphibious assault ship with a flight deck and a well deck for landing craft.",
     "onCase": false,
     "image": "/incoming/lhd-2.png",
-    "open": "USS Essex (LHD-2): San Francisco port visit; dates not entered."
+    "open": "USS Essex (LHD-2): San Francisco stop; dates not entered."
   },
   {
     "id": "ntc-great-lakes",

@@ -13,9 +13,9 @@ import { MapView } from "@/components/shadowbox/map-view";
 const PIN_GROUPS: { id: StopLayer; label: string; legend: string; cls: string }[] = [
   { id: "command", label: "Commands", legend: "Assigned commands (NCTS, AS-40, EODMU 5, SERCC, JCSE, NH Jax); San Diego also as command host", cls: "command" },
   { id: "instruction", label: "Instruction", legend: "Schools and instruction sites (Great Lakes, Biloxi, San Diego, Fort Bragg)", cls: "instruction" },
-  { id: "base", label: "Bases", legend: "Home bases, NAS, NS, annexes, U-Tapao, Shoalwater, Bliss, Blanding", cls: "base" },
+  { id: "base", label: "Bases", legend: "Home bases, NAS, NS, annexes, ship TADs (LSD-46, LHD-2), U-Tapao, Shoalwater, Bliss, Blanding", cls: "base" },
   { id: "field", label: "Field", legend: "FOBs, camps, theater sites, and exercises", cls: "field" },
-  { id: "port", label: "Port visits", legend: "Ship port calls, homeport ship visits, and city port stops", cls: "port" },
+  { id: "port", label: "Port visits", legend: "City and ship port calls (Yokosuka, Sasebo, Hong Kong, Saipan, Pattaya, Whidbey, Tampa, Hagåtña)", cls: "port" },
   { id: "flight", label: "Flight stops", legend: "Transit hubs and flight legs (including Camp Arifjan)", cls: "flight" },
 ];
 
