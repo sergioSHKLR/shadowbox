@@ -959,6 +959,8 @@
   },
   {
     "id": "ford-transit",
+    "hidden": true,
+    "hiddenNote": "Removed from the POVs by Sergio (Oct 5, 2026). Record and image kept; hidden everywhere on the site.",
     "group": "cars",
     "order": 56,
     "name": "Ford Transit Connect",

@@ -181,12 +181,18 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
       <section aria-label="NECs this tour">
         <Kicker>NECs</Kicker>
         {necsHeld.length ? (
-          <ul className="logbook-admin-list">
+          <ul className="logbook-admin-list logbook-nec-grid">
             {necsHeld.map(({ nec, isNew, gained }) => (
               <li key={nec.id} className={isNew ? "is-billet" : undefined}>
                 <button
                   type="button"
                   onClick={() => onOpen("nec", nec.id)}
+                  title={[
+                    `NEC ${necCode(nec)}`,
+                    isNew && nec.billetLabel ? nec.billetLabel : nec.name,
+                    !(isNew && nec.billetLabel) && nec.awarded ? formatWhen(nec.awarded) : "",
+                    !(isNew && nec.billetLabel) ? necSchoolLine(nec) ?? "" : "",
+                  ].filter(Boolean).join("\n")}
                   aria-label={`NEC ${necCode(nec)}, ${isNew && nec.billetLabel ? nec.billetLabel : nec.name}${isNew ? ", this tour's billet NEC" : ""}${gained ? ", gained this tour" : ""}`}
                 >
                   <strong>
@@ -194,7 +200,7 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
                     {isNew ? <em className="logbook-new">this tour</em> : null}
                     {gained ? <em className="logbook-gained">gained</em> : null}
                   </strong>
-                  <span>{isNew && nec.billetLabel ? nec.billetLabel : nec.name}</span>
+                  <span className="logbook-nec-name">{isNew && nec.billetLabel ? nec.billetLabel : nec.name}</span>
                   {!(isNew && nec.billetLabel) && nec.awarded ? <span className="logbook-nec-date">{formatWhen(nec.awarded)}</span> : null}
                   {!(isNew && nec.billetLabel) && necSchoolLine(nec) ? <small className="logbook-nec-place">{necSchoolLine(nec)}</small> : null}
                 </button>
@@ -245,8 +251,8 @@ function MapInset({
   // Full sequence, all six pins shown; only the focus changes per beat (shrinking the reveal mid-flight trips markercluster).
   // Excluded customer units never become map pins here (their places are not added as extras).
   void isMapExcludedUnit;
-  const hideIds = (beat.stop.commandId && LOGBOOK_MAP_HIDE[beat.stop.commandId]) || [];
-  const hiddenStops = stops.flatMap((stop, i) => (stop.commandId && hideIds.includes(stop.commandId) ? [i] : []));
+  // Each command's mini map shows only its own pin (Sergio); the main Map keeps every pin.
+  const hiddenStops = stops.flatMap((_stop, i) => (i === beat.index ? [] : [i]));
   return (
     <div className="logbook-map-frame">
       <Boundary label="logbook map" fallback={<p className="quiet">Map unavailable right now.</p>}>
@@ -564,8 +570,6 @@ function useNarrow(query = "(max-width: 900px)") {
 }
 
 /** Card titles: command abbreviation, except NAVHOSP reads as its pin label (NH Jacksonville, from places.json). */
-/** Logbook mini map: pins kept off a beat's view, by command → hidden command stops (main Map unchanged). */
-const LOGBOOK_MAP_HIDE: Record<string, string[]> = { "frank-cable": ["eodmu5"] };
 
 function beatTitle(row: LogbookBeat): string {
   // Ships read by name; the hull number stays on the card title ("USS Frank Cable (AS-40)").
