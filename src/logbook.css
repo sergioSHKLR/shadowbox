@@ -301,7 +301,12 @@
 }
 .logbook-seg-btn:last-child { border-right: 0; }
 .logbook-seg-btn.on { background: var(--color-navy); color: #fff; }
-.logbook-seg-btn:not(.on):hover { background: color-mix(in srgb, var(--color-navy) 8%, transparent); }
+.logbook-seg-btn.is-off, .logbook-seg-btn:disabled {
+  color: color-mix(in srgb, var(--color-navy) 38%, transparent); background: color-mix(in srgb, var(--color-navy) 6%, transparent);
+  cursor: not-allowed;
+}
+[data-theme="dark"] .logbook-seg-btn.is-off { color: color-mix(in srgb, var(--color-ivory) 35%, transparent); }
+.logbook-seg-btn:not(.on):not(.is-off):hover { background: color-mix(in srgb, var(--color-navy) 8%, transparent); }
 .logbook-seg-btn:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: -2px; }
 [data-theme="dark"] .logbook-seg { border-color: color-mix(in srgb, var(--color-ivory) 55%, transparent); }
 [data-theme="dark"] .logbook-seg-btn { color: var(--color-ivory); border-color: color-mix(in srgb, var(--color-ivory) 55%, transparent); }

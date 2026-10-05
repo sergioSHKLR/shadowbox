@@ -9,6 +9,7 @@ import {
   offDutyForCommand,
   onDutyForCommand,
   publicUrl,
+  ranks,
   ribbonRows,
   uniformPlatesForCommand,
   uniformsNamingCommand,
@@ -215,6 +216,16 @@ const LOOKS: { id: Look; label: string }[] = [
   { id: "khaki", label: "Khakis" },
 ];
 
+/** Khakis are a chief's uniform: the first E-7+ rank in ranks.json (ETC, date of rank) gates them. */
+const gradeNumber = (grade?: string | null) => Number((grade ?? "").replace(/\D/g, "")) || 0;
+const CHIEF_RANK = ranks.find((rank) => gradeNumber(rank.grade) >= 7) ?? null;
+function isChiefBeat(beat: LogbookBeat): boolean {
+  return gradeNumber(beat.rank?.grade) >= 7;
+}
+const KHAKI_NOTE = CHIEF_RANK
+  ? `Khakis from ${CHIEF_RANK.abbreviation}${CHIEF_RANK.date ? `, ${formatWhen(CHIEF_RANK.date.slice(0, 7))}` : ""}`
+  : "Khakis are a chief's uniform";
+
 /** The active command's own plate for a uniform (command-plates.json + its ready plates). Never another command's. */
 function plateFor(beat: LogbookBeat, look: Look): UniformSlide | null {
   const plates = uniformPlatesForCommand(beat.stop.commandId).filter((slide) => slide.look === look);
@@ -227,32 +238,44 @@ function plateFor(beat: LogbookBeat, look: Look): UniformSlide | null {
 /** Uniforms: Whites / Blues / Khakis segmented control + the mannequin plate for the active command. */
 function UniformsPanel({
   beat,
-  look,
+  look: chosen,
+  fallback,
   onLook,
   onOpen,
 }: {
   beat: LogbookBeat;
+  /** The user's pick (may be Khakis even on a pre-Chief beat). */
   look: Look;
+  /** Last non-Khaki pick, shown while Khakis are disabled. */
+  fallback: Exclude<Look, "khaki">;
   onLook: (look: Look) => void;
   onOpen: Open;
 }) {
+  const chief = isChiefBeat(beat);
+  const look: Look = chosen === "khaki" && !chief ? fallback : chosen;
   const plate = plateFor(beat, look);
   const worn = uniformsNamingCommand(beat.stop.commandId);
   return (
     <div className="logbook-gear">
       <div className="logbook-seg" role="radiogroup" aria-label="Uniform">
-        {LOOKS.map((row) => (
-          <button
-            key={row.id}
-            type="button"
-            role="radio"
-            aria-checked={look === row.id}
-            className={look === row.id ? "logbook-seg-btn on" : "logbook-seg-btn"}
-            onClick={() => onLook(row.id)}
-          >
-            {row.label}
-          </button>
-        ))}
+        {LOOKS.map((row) => {
+          const off = row.id === "khaki" && !chief;
+          return (
+            <button
+              key={row.id}
+              type="button"
+              role="radio"
+              aria-checked={look === row.id}
+              aria-disabled={off || undefined}
+              disabled={off}
+              title={off ? `${KHAKI_NOTE} (${beatTitle(beat)}: ${beat.rank?.abbreviation ?? "before Chief"})` : undefined}
+              className={["logbook-seg-btn", look === row.id ? "on" : "", off ? "is-off" : ""].filter(Boolean).join(" ")}
+              onClick={off ? undefined : () => onLook(row.id)}
+            >
+              {row.label}
+            </button>
+          );
+        })}
       </div>
       {plate ? (
         <figure className="logbook-mannequin">
@@ -332,36 +355,31 @@ function OnDutyPanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
 }
 
 /** Crests of the active and already-visited commands' units; the active command's units are highlighted. */
-function CrestStrip({ beats, active, onOpen }: { beats: LogbookBeat[]; active: number; onOpen: Open }) {
-  const current = new Set(beats[active]?.units.map((unit) => unit.id) ?? []);
-  const seen = new Set<string>();
-  const list: { unit: LogbookBeat["units"][number]; beatN: number }[] = [];
-  beats.slice(0, active + 1).forEach((beat) => {
-    beat.units.forEach((unit) => {
-      if (seen.has(unit.id) || isMapExcludedUnit(unit.id)) return;
-      seen.add(unit.id);
-      list.push({ unit, beatN: beat.stop.n });
-    });
-  });
-  if (!list.length) return <ComingSoon what="unit crests" />;
+/** Crests for the active command only (its assigned unit plus its own deployed / assisting / parent units). Swaps fully per beat; not cumulative. */
+function CrestStrip({ beat, onOpen }: { beat: LogbookBeat | undefined; onOpen: Open }) {
+  const list = (beat?.units ?? []).filter((unit) => !isMapExcludedUnit(unit.id));
+  if (!beat || !list.length) return <ComingSoon what="unit crests" />;
   return (
-    <ul className="logbook-crests">
-      {list.map(({ unit, beatN }) => (
-        <li key={unit.id}>
-          <button
-            type="button"
-            className={current.has(unit.id) ? "logbook-crest on" : "logbook-crest"}
-            aria-current={current.has(unit.id) ? "true" : undefined}
-            onClick={() => onOpen("unit", unit.id)}
-            aria-label={`${unit.name}${current.has(unit.id) ? " (this command)" : ""}`}
-            title={unit.name}
-          >
-            {unit.image ? <img src={publicUrl(unit.image)} alt="" loading="lazy" onError={(event) => { event.currentTarget.hidden = true; }} /> : null}
-            <b>{unit.abbreviation}</b>
-            <em>#{beatN}{unit.designator ? ` · ${unit.designator}` : ""}</em>
-          </button>
-        </li>
-      ))}
+    <ul className="logbook-crests" key={beat.index} aria-label={`Unit crests: ${beatTitle(beat)}`}>
+      {list.map((unit, i) => {
+        const lead = i === 0;
+        return (
+          <li key={unit.id}>
+            <button
+              type="button"
+              className={lead ? "logbook-crest on" : "logbook-crest"}
+              aria-current={lead ? "true" : undefined}
+              onClick={() => onOpen("unit", unit.id)}
+              aria-label={`${unit.name}${unit.designator ? ` (${unit.designator})` : ""}`}
+              title={unit.name}
+            >
+              {unit.image ? <img src={publicUrl(unit.image)} alt="" loading="lazy" onError={(event) => { event.currentTarget.hidden = true; }} /> : null}
+              <b>{unit.abbreviation}</b>
+              {unit.designator ? <em>{unit.designator}</em> : null}
+            </button>
+          </li>
+        );
+      })}
     </ul>
   );
 }
@@ -465,7 +483,13 @@ export function Logbook({
   const [asideTab, setAsideTab] = useState<AsideTab>("uniforms");
   const [phoneTab, setPhoneTab] = useState<PhoneTab>("uniforms");
   /** Uniform chosen in the Uniforms tab; kept as the beat changes. */
-  const [look, setLook] = useState<Look>("blue");
+  const [look, setLookState] = useState<Look>("blue");
+  /** Last non-Khaki pick: what a pre-Chief beat shows while Khakis stay chosen. */
+  const [lookFallback, setLookFallback] = useState<Exclude<Look, "khaki">>("blue");
+  const setLook = useCallback((next: Look) => {
+    setLookState(next);
+    if (next !== "khaki") setLookFallback(next);
+  }, []);
   const rootRef = useRef<HTMLElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef(0);
@@ -629,7 +653,7 @@ export function Logbook({
   ];
   const asideContent = (name: AsideTab) =>
     name === "uniforms" ? (
-      <UniformsPanel beat={beat} look={look} onLook={setLook} onOpen={onOpen} />
+      <UniformsPanel beat={beat} look={look} fallback={lookFallback} onLook={setLook} onOpen={onOpen} />
     ) : name === "onduty" ? (
       <OnDutyPanel beat={beat} onOpen={onOpen} />
     ) : (
@@ -716,7 +740,7 @@ export function Logbook({
             className="logbook-phone-tabs"
           >
             {phoneTab === "uniforms" || phoneTab === "onduty" || phoneTab === "offduty" ? asideContent(phoneTab) : null}
-            {phoneTab === "crests" ? <CrestStrip beats={beats} active={active} onOpen={onOpen} /> : null}
+            {phoneTab === "crests" ? <CrestStrip beat={beats[active]} onOpen={onOpen} /> : null}
             {mapRegion(phoneTab !== "map")}
           </Tabbed>
         </div>
@@ -733,7 +757,7 @@ export function Logbook({
             <section className="logbook-foot-half logbook-foot-crests" aria-label="Unit crests">
               <Kicker>Unit crests</Kicker>
               <div className="logbook-foot-scroll">
-                <CrestStrip beats={beats} active={active} onOpen={onOpen} />
+                <CrestStrip beat={beats[active]} onOpen={onOpen} />
               </div>
             </section>
             <section className="logbook-foot-half logbook-foot-map" aria-label="Map">
