@@ -91,10 +91,10 @@
   },
   {
     "order": 11,
-    "label": "LHD-2",
+    "label": "LHD-2 (USS Essex)",
     "cityId": "city-san-diego",
     "baseId": "san-diego",
-    "commandId": null,
+    "commandId": "essex",
     "kind": "command",
     "when": null
   },
@@ -298,11 +298,11 @@
   },
   {
     "order": 34,
-    "label": "Seattle, WA (EODMU11)",
-    "cityId": "city-seattle",
-    "baseId": null,
+    "label": "NAS Whidbey Island",
+    "cityId": "city-oak-harbor",
+    "baseId": "whidbey",
     "commandId": null,
-    "kind": "city",
+    "kind": "visit",
     "when": "2006"
   },
   {
@@ -623,7 +623,7 @@
   {
     "order": 70,
     "label": "Gryphon Group, Maxton, NC",
-    "cityId": "city-maxton",
+    "cityId": "city-fayetteville",
     "baseId": null,
     "commandId": "gryphon-school",
     "kind": "school",
@@ -722,7 +722,7 @@
   {
     "order": 81,
     "label": "Fort Bragg",
-    "cityId": null,
+    "cityId": "city-fayetteville",
     "baseId": "fort-bragg",
     "commandId": null,
     "kind": "base",
@@ -731,7 +731,7 @@
   {
     "order": 82,
     "label": "FOB Patriot",
-    "cityId": null,
+    "cityId": "city-fayetteville",
     "baseId": "fob-patriot",
     "commandId": null,
     "kind": "field",

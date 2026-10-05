@@ -34,6 +34,23 @@
     "image": "/incoming/lsd-46.png"
   },
   {
+    "id": "essex",
+    "name": "USS Essex (LHD-2)",
+    "abbreviation": "LHD-2",
+    "patch": "LHD-2",
+    "branch": "USN",
+    "necId": null,
+    "start": null,
+    "end": null,
+    "precision": "year",
+    "placeId": "san-diego",
+    "explanation": "A Wasp-class amphibious assault ship. Homeported at Naval Station San Diego (32nd Street). Recorded in the place sequence as LHD-2; dates for this stop have not been entered.",
+    "civilian": "A big amphibious assault ship with a flight deck and a well deck for landing craft.",
+    "onCase": false,
+    "image": "/incoming/lhd-2.png",
+    "open": "USS Essex (LHD-2): dates not entered."
+  },
+  {
     "id": "ntc-great-lakes",
     "name": "Naval Training Center Great Lakes",
     "abbreviation": "NTC Great Lakes",
@@ -118,9 +135,21 @@
     "onCase": false,
     "image": "/incoming/troy.png",
     "extraImages": [
-      {"src": "/incoming/eodmu11.png", "alt": "EOD Mobile Unit 11 crest", "caption": "Partner \u00b7 EODMU 11"},
-      {"src": "/incoming/52nd-eod.png", "alt": "52nd Ordnance Group crest", "caption": "Sponsor \u00b7 52nd EOD"},
-      {"src": "/incoming/16th-en.png", "alt": "16th Engineer Brigade crest", "caption": "Sponsor \u00b7 16th EN"}
+      {
+        "src": "/incoming/eodmu11.png",
+        "alt": "EOD Mobile Unit 11 crest",
+        "caption": "Partner · EODMU 11"
+      },
+      {
+        "src": "/incoming/52nd-eod.png",
+        "alt": "52nd Ordnance Group crest",
+        "caption": "Sponsor · 52nd EOD"
+      },
+      {
+        "src": "/incoming/16th-en.png",
+        "alt": "16th Engineer Brigade crest",
+        "caption": "Sponsor · 16th EN"
+      }
     ]
   },
   {
@@ -224,9 +253,21 @@
     "onCase": false,
     "image": "/incoming/cram.png",
     "extraImages": [
-      {"src": "/incoming/11th-ada.png", "alt": "11th Air Defense Artillery Brigade SSI", "caption": "Admin \u00b7 11th ADA"},
-      {"src": "/incoming/3-3ada.png", "alt": "3-3 ADA distinctive unit insignia", "caption": "Partner \u00b7 3-3 ADA"},
-      {"src": "/incoming/332nd-aew.png", "alt": "332nd Air Expeditionary Wing emblem", "caption": "Customer \u00b7 332nd AEW"}
+      {
+        "src": "/incoming/11th-ada.png",
+        "alt": "11th Air Defense Artillery Brigade SSI",
+        "caption": "Admin · 11th ADA"
+      },
+      {
+        "src": "/incoming/3-3ada.png",
+        "alt": "3-3 ADA distinctive unit insignia",
+        "caption": "Partner · 3-3 ADA"
+      },
+      {
+        "src": "/incoming/332nd-aew.png",
+        "alt": "332nd Air Expeditionary Wing emblem",
+        "caption": "Customer · 332nd AEW"
+      }
     ]
   },
   {
@@ -297,12 +338,16 @@
     "civilian": "A communications unit made of every branch, not a Navy ship.",
     "image": "/incoming/jcse-device.svg",
     "extraImages": [
-      {"src": "/incoming/jcse-3rd-sqd.png", "alt": "JCSE 3rd Squadron SSI", "caption": "3rd Squadron"}
+      {
+        "src": "/incoming/jcse-3rd-sqd.png",
+        "alt": "JCSE 3rd Squadron SSI",
+        "caption": "3rd Squadron"
+      }
     ]
   },
   {
     "id": "cjsotf",
-    "name": "Combined Joint Special Operations Task Force \u2014 Afghanistan",
+    "name": "Combined Joint Special Operations Task Force — Afghanistan",
     "abbreviation": "CJSOTF-A",
     "patch": "CJSOTF-A",
     "branch": "JOINT",
@@ -312,18 +357,22 @@
     "end": "2011",
     "precision": "year",
     "placeId": "fob-delaram",
-    "explanation": "OEF I in-theater command, 2010\u20132011, at FOB Delaram, while assigned to JCSE. The customer was an ODA of 3rd Special Forces Group. The role in the record is communications, not service as a special operator. About seven months.",
+    "explanation": "OEF I in-theater command, 2010–2011, at FOB Delaram, while assigned to JCSE. The customer was an ODA of 3rd Special Forces Group. The role in the record is communications, not service as a special operator. About seven months.",
     "civilian": "The headquarters he supported. Being the communicator for that headquarters is not the same job as the operators it commanded.",
     "months": 7,
     "onCase": false,
     "image": "/incoming/cjsotf-a.png",
     "extraImages": [
-      {"src": "/incoming/3rd-sfg.png", "alt": "3rd Special Forces Group beret flash", "caption": "Customer \u00b7 3rd SFG"}
+      {
+        "src": "/incoming/3rd-sfg.png",
+        "alt": "3rd Special Forces Group beret flash",
+        "caption": "Customer · 3rd SFG"
+      }
     ]
   },
   {
     "id": "sojtf",
-    "name": "Special Operations Joint Task Force \u2014 Afghanistan",
+    "name": "Special Operations Joint Task Force — Afghanistan",
     "abbreviation": "SOJTF-A",
     "patch": "SOJTF-A",
     "branch": "JOINT",
@@ -333,14 +382,22 @@
     "end": "2013",
     "precision": "year",
     "placeId": "fob-orgun-e",
-    "explanation": "OEF II in-theater command, 2012\u20132013, at FOB Orgun-E, while assigned to JCSE. The partner was 290th JCSS. The customer was 75th Rangers. The role in the record is communications, not service as a special operator. About seven months.",
+    "explanation": "OEF II in-theater command, 2012–2013, at FOB Orgun-E, while assigned to JCSE. The partner was 290th JCSS. The customer was 75th Rangers. The role in the record is communications, not service as a special operator. About seven months.",
     "civilian": "The later Afghanistan headquarters he supported.",
     "months": 7,
     "onCase": false,
     "image": "/incoming/sojtf-a.png",
     "extraImages": [
-      {"src": "/incoming/290jcss.png", "alt": "290th Joint Communications Support Squadron patch", "caption": "Partner \u00b7 290th JCSS"},
-      {"src": "/incoming/75th-rgr.svg", "alt": "75th Rangers distinctive unit insignia", "caption": "Customer \u00b7 75th Rangers"}
+      {
+        "src": "/incoming/290jcss.png",
+        "alt": "290th Joint Communications Support Squadron patch",
+        "caption": "Partner · 290th JCSS"
+      },
+      {
+        "src": "/incoming/75th-rgr.svg",
+        "alt": "75th Rangers distinctive unit insignia",
+        "caption": "Customer · 75th Rangers"
+      }
     ]
   },
   {

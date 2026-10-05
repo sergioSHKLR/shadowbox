@@ -456,7 +456,17 @@
     "lat": 47.6062,
     "lng": -122.3321,
     "accuracy": "approximate",
-    "note": "City-level pin for Seattle. Sequence stop for the EODMU 11 link-up en route to Iraq.",
+    "note": "City-level pin for Seattle, Washington.",
+    "type": "city"
+  },
+  {
+    "id": "city-oak-harbor",
+    "name": "Oak Harbor",
+    "locality": "Oak Harbor, Washington",
+    "lat": 48.2932,
+    "lng": -122.6415,
+    "accuracy": "approximate",
+    "note": "City-level pin for Oak Harbor, Washington, the town for NAS Whidbey Island.",
     "type": "city"
   },
   {
@@ -517,6 +527,16 @@
     "lng": -79.3489,
     "accuracy": "approximate",
     "note": "City-level pin for Maxton, NC, near the Gryphon Group school at Laurinburg–Maxton Airport.",
+    "type": "city"
+  },
+  {
+    "id": "city-fayetteville",
+    "name": "Fayetteville",
+    "locality": "Fayetteville, North Carolina",
+    "lat": 35.0527,
+    "lng": -78.8784,
+    "accuracy": "approximate",
+    "note": "City-level pin for Fayetteville, NC. Parent city for Fort Bragg, Gryphon Group, and FOB Patriot in the place sequence.",
     "type": "city"
   },
   {
