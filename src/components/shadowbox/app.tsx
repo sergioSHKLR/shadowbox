@@ -52,7 +52,6 @@ export function ShadowboxApp() {
   const [trail, setTrail] = useState<Selection[]>([]);
   const [locale, setLocale] = useState<Locale>("en");
   const [prefsReady, setPrefsReady] = useState(false);
-  const [navPulse, setNavPulse] = useState(true);
   const menuRef = useRef<HTMLUListElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -144,6 +143,36 @@ export function ShadowboxApp() {
     document.addEventListener("pointerdown", close);
     return () => document.removeEventListener("pointerdown", close);
   }, [query]);
+  useEffect(() => {
+    if (!showPager) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      if (menu || searchOpen || selection) return;
+      const target = event.target;
+      if (target instanceof HTMLElement) {
+        const tag = target.tagName;
+        if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || target.isContentEditable) return;
+        if (target.closest(".map-frame, .map-stage, .leaflet-container, .uprog-slider, .map-play-scrub, .command-scroller, .chart-scroll, [role='slider']")) return;
+        let node: HTMLElement | null = target;
+        while (node && node !== document.body) {
+          const style = window.getComputedStyle(node);
+          const overflowX = style.overflowX;
+          if ((overflowX === "auto" || overflowX === "scroll") && node.scrollWidth > node.clientWidth + 1) return;
+          node = node.parentElement;
+        }
+      }
+      if (event.key === "ArrowLeft" && prevView) {
+        event.preventDefault();
+        go(prevView);
+      } else if (event.key === "ArrowRight" && nextView) {
+        event.preventDefault();
+        go(nextView);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [showPager, menu, searchOpen, selection, prevView, nextView]);
 
   return (
     <div className="app-shell">
@@ -220,23 +249,29 @@ export function ShadowboxApp() {
         <div className={`${pane("contact")} no-book`}><Contact /></div>
         <div className={`${pane("guestbook")} no-book`}><Guestbook /></div>
         <div className={`${pane("memories")} no-book`}><Memories /></div>
+        {showPager ? (
+          <nav className="page-pager" aria-label={t.pageNav}>
+            {prevView && PrevIcon ? (
+              <button type="button" className="page-pager-link is-prev" aria-label={`${t.prevPage}: ${t[prevView]}`} onClick={() => go(prevView)}>
+                <PrevIcon size={18} strokeWidth={1.85} aria-hidden="true" />
+                <span className="page-pager-stack">
+                  <span className="page-pager-dir">{t.prevPage}</span>
+                  <span className="page-pager-label">{t[prevView]}</span>
+                </span>
+              </button>
+            ) : <span className="page-pager-spacer" aria-hidden="true" />}
+            {nextView && NextIcon ? (
+              <button type="button" className="page-pager-link is-next" aria-label={`${t.nextPage}: ${t[nextView]}`} onClick={() => go(nextView)}>
+                <span className="page-pager-stack">
+                  <span className="page-pager-dir">{t.nextPage}</span>
+                  <span className="page-pager-label">{t[nextView]}</span>
+                </span>
+                <NextIcon size={18} strokeWidth={1.85} aria-hidden="true" />
+              </button>
+            ) : <span className="page-pager-spacer" aria-hidden="true" />}
+          </nav>
+        ) : null}
       </div>
-      {showPager ? (
-        <nav className={navPulse ? "page-turn is-pulse" : "page-turn"} aria-label={t.pageNav} onAnimationEnd={(event) => { if (event.animationName === "page-turn-glint") setNavPulse(false); }}>
-          {prevView && PrevIcon ? (
-            <button type="button" className="page-turn-edge is-prev" aria-label={`${t.prevPage}: ${t[prevView]}`} onClick={() => go(prevView)}>
-              <PrevIcon size={18} strokeWidth={1.85} aria-hidden="true" />
-              <span>{t[prevView]}</span>
-            </button>
-          ) : null}
-          {nextView && NextIcon ? (
-            <button type="button" className="page-turn-edge is-next" aria-label={`${t.nextPage}: ${t[nextView]}`} onClick={() => go(nextView)}>
-              <NextIcon size={18} strokeWidth={1.85} aria-hidden="true" />
-              <span>{t[nextView]}</span>
-            </button>
-          ) : null}
-        </nav>
-      ) : null}
       <footer className="site-footer">
         <span className="footer-credit">{t.made}</span>
         <nav className="footer-nav" aria-label={t.footerNav}>
