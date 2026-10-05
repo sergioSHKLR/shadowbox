@@ -7,6 +7,7 @@ import {
   isMapExcludedUnit,
   logbookAdminAsOf,
   commandDutiesFor,
+  commandProfileFor,
   displayEquipmentName,
   logbookBeats,
   logbookRankPath,
@@ -465,8 +466,10 @@ function OnDutyPanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
 /** Crests for the active command only (its assigned unit plus its own deployed / assisting / parent units). Swaps fully per beat; not cumulative. */
 function CrestStrip({ beat, onOpen }: { beat: LogbookBeat | undefined; onOpen: Open }) {
   // Map-excluded partners reach this list only when the plate gives them a role (crests only, never the Map).
-  const list = beat?.units ?? [];
-  if (!beat || !list.length) return <ComingSoon what="unit crests" />;
+  // The command's own crest sits in the command card; the footer lists only the other units (TAD, deployed, host, partner, customer).
+  const list = (beat?.units ?? []).filter((unit) => unit.id !== beat?.stop.commandId);
+  if (!beat) return <ComingSoon what="unit crests" />;
+  if (!list.length) return <p className="logbook-crests-none quiet">No other units recorded for this command.</p>;
   return (
     <ul className="logbook-crests" key={beat.index} aria-label={`Unit crests: ${beatTitle(beat)}`}>
       {list.map((unit, i) => {
@@ -727,6 +730,7 @@ export function Logbook({
   );
 
   const unit = beat.stop.commandId ? unitById(beat.stop.commandId) : undefined;
+  const profile = commandProfileFor(beat.stop.commandId);
   const atStart = beat.index <= 0;
   const atEnd = beat.index >= beats.length - 1;
   const main = (
@@ -765,8 +769,13 @@ export function Logbook({
               >
                 <ChevronLeft size={20} strokeWidth={2} aria-hidden="true" />
               </button>
+              {unit?.image ? (
+                <button type="button" className="logbook-own-crest" onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name} (unit details)`} title={unit.name}>
+                  <img src={publicUrl(unit.image)} alt="" onError={(event) => { event.currentTarget.hidden = true; }} />
+                </button>
+              ) : null}
               <div className="logbook-beat-title">
-                <h3 title={unit?.name}>{unit?.name.startsWith("USS ") ? unit.name : beatTitle(beat)}</h3>
+                <h3 title={profile?.officialName ?? unit?.name}>{profile?.officialName ?? (unit?.name.startsWith("USS ") ? unit.name : beatTitle(beat))}</h3>
                 <p className="quiet">{beat.lines[1] ?? "Command"}</p>
                 <p className="sr-only" aria-live="polite" aria-atomic="true">
                   Command {beat.index + 1} of {beats.length}: {beatTitle(beat)}
@@ -783,6 +792,22 @@ export function Logbook({
                 <ChevronRight size={20} strokeWidth={2} aria-hidden="true" />
               </button>
             </header>
+            {profile ? (
+              <details className="logbook-about" key={beat.index}>
+                <summary>About</summary>
+                <p>{profile.purpose}</p>
+                {profile.history ? <p>{profile.history}</p> : null}
+                <p className="logbook-about-src quiet">
+                  {profile.sources.length > 1 ? "Sources: " : "Source: "}
+                  {profile.sources.map((src, i) => (
+                    <span key={src.url}>
+                      {i ? "; " : ""}
+                      <a href={src.url} target="_blank" rel="noreferrer">{src.label}</a>
+                    </span>
+                  ))}
+                </p>
+              </details>
+            ) : null}
             <div className="logbook-beat-body">
               {mainTab === "rank" ? <RankAwards beat={beat} beats={beats} onOpen={onOpen} /> : <AdminAsOf beat={beat} onOpen={onOpen} />}
             </div>
