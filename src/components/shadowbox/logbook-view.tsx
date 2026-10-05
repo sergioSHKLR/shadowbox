@@ -270,8 +270,6 @@ function ComingSoon({ what }: { what: string }) {
   );
 }
 
-/** equipment.json notes that say the card photo is a stock/model photo, not the owner's own vehicle. */
-const SAME_MODEL = /model card|stock photograph|photograph is of the model|shows another|of another/i;
 
 /** Off Duty vehicles show Make + Model only; color and year stay in equipment.json ("Nissan Frontier, silver, 1997" → "Nissan Frontier"). */
 const VEHICLE_GROUPS = new Set(["cars", "motorcycles"]);
@@ -287,10 +285,9 @@ function GearPanel({ groups, what, onOpen }: { groups: LogbookGearGroup[]; what:
           <ul className="logbook-gear-list">
             {group.items.map((item) => (
               <li key={item.id}>
-                <button type="button" className="logbook-gear-item" onClick={() => onOpen("equipment", item.id)} aria-label={item.name}>
+                <button type="button" className="logbook-gear-item" onClick={() => onOpen("equipment", item.id)} aria-label={item.name} title={item.name}>
                   {item.image ? <img src={publicUrl(item.image)} alt="" loading="lazy" decoding="async" /> : <span className="logbook-gear-blank" aria-hidden="true" />}
                   <span>{gearLabel(item)}</span>
-                  {item.image && SAME_MODEL.test(item.note ?? "") ? <small className="logbook-same-model">Same model</small> : null}
                 </button>
               </li>
             ))}
@@ -340,7 +337,7 @@ function WardrobePanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
             className="logbook-wardrobe-item"
             onClick={() => onOpen("uniform", uniform.id)}
             aria-label={`${uniform.name}, ${uniform.context}${via.length ? ` (${via.join(", ")})` : ""}`}
-            title={uniform.context}
+            title={[uniform.name, via.length ? via.join(" · ") : uniform.context].filter(Boolean).join(" — ")}
           >
             {uniform.image ? (
               <img src={publicUrl(uniform.image)} alt="" loading="lazy" onError={(event) => { event.currentTarget.hidden = true; }} />
@@ -348,7 +345,6 @@ function WardrobePanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
               <span className="logbook-gear-blank" aria-hidden="true" />
             )}
             <strong>{uniform.name}</strong>
-            <small>{via.length ? via.join(" · ") : uniform.context}</small>
           </button>
         </li>
       ))}
