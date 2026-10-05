@@ -1,10 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Anchor, BookOpen, Car, ChartGantt, ClipboardList, Flag, House, Library, Map, MessageCircle, NotebookText, Radio, Shirt } from "lucide-react";
+import { Anchor, BookOpen, Car, ChartGantt, ClipboardList, Flag, House, Library, Map, MessageCircle, Monitor, Moon, NotebookText, Radio, Shirt, Sun } from "lucide-react";
 import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
 import { chrome } from "@/lib/shadowbox/copy";
 import { loadRemoteFonts } from "@/lib/shadowbox/fonts";
-import { loadPrefs, resolveTheme, savePrefs, type Locale } from "@/lib/shadowbox/prefs";
+import { loadPrefs, resolveTheme, savePrefs, type Locale, type ThemeName } from "@/lib/shadowbox/prefs";
+
+/** Site search is off for now (Sergio). Flip to true to bring back the top-bar search box; the code stays wired. */
+const SEARCH_ENABLED = false;
+const THEMES: { id: ThemeName; Icon: typeof Sun }[] = [
+  { id: "light", Icon: Sun },
+  { id: "system", Icon: Monitor },
+  { id: "dark", Icon: Moon },
+];
 import { DetailPanel } from "@/components/shadowbox/detail";
 import { Home, Timeline } from "@/components/shadowbox/timeline-view";
 import { Uniforms } from "@/components/shadowbox/uniforms-view";
@@ -58,6 +66,7 @@ export function ShadowboxApp() {
   const [selection, setSelection] = useState<Selection | null>(null);
   const [trail, setTrail] = useState<Selection[]>([]);
   const [locale, setLocale] = useState<Locale>("en");
+  const [theme, setTheme] = useState<ThemeName>("system");
   const [prefsReady, setPrefsReady] = useState(false);
   const menuRef = useRef<HTMLUListElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -104,6 +113,7 @@ export function ShadowboxApp() {
   useEffect(() => {
     const saved = loadPrefs();
     setLocale(saved.locale);
+    setTheme(saved.theme);
     setPrefsReady(true);
     loadRemoteFonts();
   }, []);
@@ -114,7 +124,7 @@ export function ShadowboxApp() {
     if (!prefsReady) return;
     const apply = () => {
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const resolved = resolveTheme("system", prefersDark);
+      const resolved = resolveTheme(theme, prefersDark);
       document.documentElement.lang = locale === "pt" ? "pt-BR" : "en";
       document.documentElement.dataset.theme = resolved;
       const base = import.meta.env.BASE_URL || "/";
@@ -122,13 +132,15 @@ export function ShadowboxApp() {
       if (icon) icon.href = `${base}icons/icon-${resolved}.svg`;
       const apple = document.querySelector<HTMLLinkElement>('link[rel="apple-touch-icon"]');
       if (apple) apple.href = `${base}icons/apple-touch-icon${resolved === "dark" ? "-dark" : ""}.png`;
+      const tint = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+      if (tint) tint.content = resolved === "dark" ? "#14181f" : "#f6f1e7";
     };
     apply();
-    savePrefs({ locale, theme: "system" });
+    savePrefs({ locale, theme });
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     media.addEventListener("change", apply);
     return () => media.removeEventListener("change", apply);
-  }, [prefsReady, locale]);
+  }, [prefsReady, locale, theme]);
   useEffect(() => {
     if (!menu) return;
     const close = (event: PointerEvent) => {
@@ -200,6 +212,14 @@ export function ShadowboxApp() {
             <span aria-hidden="true">🇧🇷</span>
           </button>
         </div>
+        <div className="app-themes" role="group" aria-label={t.theme}>
+          {THEMES.map(({ id, Icon }) => (
+            <button key={id} type="button" className={theme === id ? "app-theme is-on" : "app-theme"} aria-label={t[id]} title={t[id]} aria-pressed={theme === id} onClick={() => setTheme(id)}>
+              <Icon size={16} strokeWidth={2} aria-hidden="true" />
+            </button>
+          ))}
+        </div>
+        {SEARCH_ENABLED ? (
         <div className={searchOpen ? "app-search is-open" : "app-search"} ref={searchRef}>
           <button type="button" className="app-icon" aria-label={t.search} aria-expanded={searchOpen} onClick={() => { setSearchOpen((open) => !open); setMenu(false); }}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M16 16l4 4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
@@ -219,6 +239,7 @@ export function ShadowboxApp() {
             </ul>
           ) : null}
         </div>
+        ) : null}
         <button ref={menuButtonRef} type="button" className="app-icon" aria-label={t.menu} aria-expanded={menu} onClick={() => { setMenu((open) => !open); setSearchOpen(false); }}>
           &#9776;
         </button>

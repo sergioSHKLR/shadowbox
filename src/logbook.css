@@ -541,3 +541,14 @@
 .lb-tablist, [data-theme="dark"] .lb-tablist { border-bottom: 0; }
 .lb-tab { margin-bottom: 0; }
 .lb-tabpanel { border-top: 1px solid var(--lb-border); border-top-right-radius: 6px; }
+
+/* Dark theme: the panels are already navy-dark, so inactive tabs / switches / steppers lift to a lighter navy with a hairline so they still read as buttons. */
+[data-theme="dark"] .lb-tab:not(.on),
+[data-theme="dark"] .logbook-seg-btn:not(.on):not(.is-off):not(:disabled),
+[data-theme="dark"] .logbook-step-btn:not(:disabled) { background: #2a4066; color: #f4efe4; border-color: #3d5680; }
+[data-theme="dark"] .lb-tab:not(.on):hover,
+[data-theme="dark"] .logbook-seg-btn:not(.on):not(.is-off):hover,
+[data-theme="dark"] .logbook-step-btn:not(:disabled):hover { background: #34507d; }
+[data-theme="dark"] .logbook-step-btn:not(:disabled):active { background: var(--color-goldenrod); color: var(--color-navy); border-color: var(--color-goldenrod); }
+[data-theme="dark"] .logbook-seg { border-color: #3d5680; }
+[data-theme="dark"] .logbook-rank-arrow { color: #f4efe4; }
