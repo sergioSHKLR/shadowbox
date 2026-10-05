@@ -100,8 +100,10 @@
     "length": null,
     "placeId": "norfolk",
     "placeConfidence": "recorded",
+    "commandId": "frank-cable",
     "source": "jst",
-    "explanation": "Safety Programs Afloat at the Naval Occupational Safety, Health and Environmental Training Center, Norfolk. Completion 27 April 2001. Qualifying course for NEC 9571."
+    "explanation": "Safety Programs Afloat at the Naval Occupational Safety, Health and Environmental Training Center, Norfolk. Completion 27 April 2001. Qualifying course for NEC 9571.",
+    "commandNote": "Taken during the AS-40 (USS Frank Cable) tour, as stated by Sergio (Oct 5, 2026). Dates are the JST completion dates."
   },
   {
     "id": "hazmat-afloat",
@@ -113,8 +115,10 @@
     "length": null,
     "placeId": "norfolk",
     "placeConfidence": "recorded",
+    "commandId": "frank-cable",
     "source": "jst",
-    "explanation": "Afloat Hazardous Materials Coordinator at the same Norfolk safety schoolhouse. Completion 31 August 2001."
+    "explanation": "Afloat Hazardous Materials Coordinator at the same Norfolk safety schoolhouse. Completion 31 August 2001.",
+    "commandNote": "Taken during the AS-40 (USS Frank Cable) tour, as stated by Sergio (Oct 5, 2026). Dates are the JST completion dates."
   },
   {
     "id": "flldp",
@@ -126,8 +130,10 @@
     "length": "2 weeks",
     "placeId": "yokosuka",
     "placeConfidence": "recorded",
+    "commandId": "frank-cable",
     "source": "jst",
-    "explanation": "First Line Leadership Development Program at Afloat Training Group Western Pacific, Yokosuka, Japan. 26 November 2001 to 7 December 2001. Junior petty-officer leadership course. Not Chief Indoctrination."
+    "explanation": "First Line Leadership Development Program at Afloat Training Group Western Pacific, Yokosuka, Japan. 26 November 2001 to 7 December 2001. Junior petty-officer leadership course. Not Chief Indoctrination.",
+    "commandNote": "Taken during the AS-40 (USS Frank Cable) tour, as stated by Sergio (Oct 5, 2026). Dates are the JST completion dates."
   },
   {
     "id": "qa-sup",
