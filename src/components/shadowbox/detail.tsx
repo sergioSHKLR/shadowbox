@@ -22,6 +22,7 @@ import {
   type Photo,
   type Selection,
   type Stop,
+  povLabel,
 } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
 import { MedalArt, RibbonArt } from "@/components/shadowbox/marks";
@@ -138,6 +139,8 @@ const CREST: Record<string, string> = {
   "Talisman Saber 2007": "/incoming/talisman-saber.png",
   "LSD-46": "/incoming/lsd-46.png",
   "LHD-2": "/incoming/lhd-2.png",
+  "USS Tortuga": "/incoming/lsd-46.png",
+  "USS Essex": "/incoming/lhd-2.png",
   "ACU 4": "/incoming/acu-4.png",
   "Iron Shield": "/incoming/cram.png",
   "Task Force Iron Shield": "/incoming/cram.png",
@@ -146,7 +149,12 @@ const CREST: Record<string, string> = {
 type Block = { kind: string | null; id: string | null; lists: Record<string, string[]> };
 type Shot = { name: string; src?: string };
 const blocks = supplementJson as unknown as Block[];
-const clean = (value: string) => value.replace(/^[A-Z]+-\d+:\s*/, "");
+/** Ship hull numbers in supplement lists display as ship names (data keeps the hull numbers). */
+const SHIP_NAME: Record<string, string> = { "LSD-46": "USS Tortuga", "AS-40": "USS Frank Cable", "LHD-2": "USS Essex" };
+const clean = (value: string) => {
+  const name = value.replace(/^[A-Z]+-\d+:\s*/, "");
+  return SHIP_NAME[name] ?? name;
+};
 const list = (id: string, field: string) =>
   blocks.find((block) => block.kind === "unit" && block.id === id)?.lists[field]?.map(clean) ?? [];
 const joined = (values: string[]) => (values.length ? values.join(", ") : "Not entered");
@@ -308,7 +316,7 @@ function UnitDossier({ id }: { id: string }) {
       <h3>Off duty</h3>
       <p><strong>Countries.</strong> {joined(countries)}</p>
       {OFF_DUTY.map(([label, field]) => (
-        <p key={field}><strong>{label}.</strong> {joined(list(id, field))}</p>
+        <p key={field}><strong>{label}.</strong> {joined(field === "POV" || field === "Motorcycles" ? unique(list(id, field).map(povLabel)) : list(id, field))}</p>
       ))}
     </section>
   );

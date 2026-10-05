@@ -37,7 +37,7 @@
   },
   {
     "order": 5,
-    "label": "LSD-46",
+    "label": "USS Tortuga (LSD-46)",
     "cityId": "city-virginia-beach",
     "baseId": "little-creek",
     "commandId": "tortuga",
@@ -103,7 +103,7 @@
   },
   {
     "order": 12,
-    "label": "LHD-2 (USS Essex)",
+    "label": "USS Essex (LHD-2)",
     "cityId": "city-san-francisco",
     "baseId": null,
     "commandId": "essex",
@@ -139,7 +139,7 @@
   },
   {
     "order": 16,
-    "label": "AS-40",
+    "label": "USS Frank Cable (AS-40)",
     "cityId": "city-agana",
     "baseId": "polaris-point",
     "commandId": "frank-cable",

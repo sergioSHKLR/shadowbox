@@ -505,8 +505,8 @@ const PLATE_FILE: Record<string, { look: UniformLook; y: number; m: number; capt
   "1b": { look: "white", y: 1997, m: 6, caption: "SN · dress whites" },
   "2a": { look: "blue", y: 2001, m: 1, caption: "NCTS · dress blues" },
   "2b": { look: "white", y: 2001, m: 1, caption: "NCTS · dress whites" },
-  "3a": { look: "blue", y: 2004, m: 1, caption: "AS-40 · dress blues" },
-  "3b": { look: "white", y: 2004, m: 1, caption: "AS-40 · dress whites" },
+  "3a": { look: "blue", y: 2004, m: 1, caption: "USS Frank Cable · dress blues" },
+  "3b": { look: "white", y: 2004, m: 1, caption: "USS Frank Cable · dress whites" },
   "4a": { look: "blue", y: 2007, m: 1, caption: "EOD · dress blues" },
   "4b": { look: "white", y: 2007, m: 1, caption: "EOD · dress whites" },
   "5a": { look: "blue", y: 2009, m: 6, caption: "SERCC · dress blues" },
@@ -1638,7 +1638,7 @@ export function usedHereFor(subjectId: string): UsedItem[] {
       continue;
     }
     const item = equipment.find((entry) => entry.id === id);
-    if (item) items.push({ kind: "equipment", id, name: item.name, image: item.image, group: item.group });
+    if (item) items.push({ kind: "equipment", id, name: displayEquipmentName(item), image: item.image, group: item.group });
   }
   return items.sort((a, b) => USED_ORDER.indexOf(a.group) - USED_ORDER.indexOf(b.group));
 }
@@ -1907,7 +1907,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       kind: "equipment",
       id: item.id,
       kicker: group?.label ?? "Equipment",
-      title: item.name,
+      title: displayEquipmentName(item),
       explanation: item.note,
       facts: [
         ...(item.caption ? [{ label: "Shown", value: item.caption }] : []),
@@ -2306,5 +2306,17 @@ export function timeInRate(from: string | null | undefined, to: string | null | 
   const n = (v: number) => v.toLocaleString("en-US");
   if (min === max) return `${n(min)} days`;
   const mid = Math.round((min + max) / 2);
-  return `~${n(mid)} days (between ${n(min)} and ${n(max)}; approximate because a date of rate is recorded to the month only)`;
+  return `~${n(mid)} days`;
 }
+
+/* ---------- POV labels: Make + Model only (color and year stay in the data) ---------- */
+const POV_GROUPS = new Set(["cars", "motorcycles"]);
+const POV_TRAILING = /\s+(?:yellow|white|red|grey|gray|silver|green|black|blue|pearl|(?:19|20)\d{2}(?:\s+or\s+(?:19|20)\d{2})?)$/i;
+/** "Nissan Frontier, silver, 1997" → "Nissan Frontier"; "Chevy Spark Yellow" → "Chevy Spark". */
+export function povLabel(name: string): string {
+  let out = name.split(",")[0].trim();
+  while (POV_TRAILING.test(out)) out = out.replace(POV_TRAILING, "").trim();
+  return out || name;
+}
+export const isPovGroup = (group: string) => POV_GROUPS.has(group);
+export const displayEquipmentName = (item: { group: string; name: string }) => (isPovGroup(item.group) ? povLabel(item.name) : item.name);

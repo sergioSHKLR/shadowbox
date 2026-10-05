@@ -19,7 +19,7 @@
   {
     "id": "tortuga",
     "name": "USS Tortuga (LSD-46)",
-    "abbreviation": "LSD-46",
+    "abbreviation": "USS Tortuga",
     "patch": "LSD-46",
     "branch": "USN",
     "designator": "TAD",
@@ -36,7 +36,7 @@
   {
     "id": "essex",
     "name": "USS Essex (LHD-2)",
-    "abbreviation": "LHD-2",
+    "abbreviation": "USS Essex",
     "patch": "LHD-2",
     "branch": "USN",
     "necId": null,
@@ -62,7 +62,7 @@
     "end": "1998-12",
     "precision": "year",
     "placeId": "great-lakes",
-    "explanation": "The Navy's training center at Great Lakes, Illinois. Started after the LSD-46 TAD, in the first quarter of 1998, and ran through December 1998. The emblem shown is the seal of Naval Station Great Lakes, the installation's current name.",
+    "explanation": "The Navy's training center at Great Lakes, Illinois. Started after the USS Tortuga (LSD-46) TAD, in the first quarter of 1998, and ran through December 1998. The emblem shown is the seal of Naval Station Great Lakes, the installation's current name.",
     "civilian": "The Navy's big training base north of Chicago.",
     "onCase": false,
     "image": "/incoming/ntc.png"
@@ -87,7 +87,7 @@
   {
     "id": "frank-cable",
     "name": "USS Frank Cable (AS-40)",
-    "abbreviation": "AS-40",
+    "abbreviation": "USS Frank Cable",
     "patch": "AS-40",
     "branch": "USN",
     "designator": "Assigned",
