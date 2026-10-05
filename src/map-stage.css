@@ -158,10 +158,15 @@
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
 }
 
-/* Fullscreen map stage: Fullscreen API (:fullscreen) or CSS viewport cover (.is-full). */
-.map-stage.is-full {
+/* Fullscreen map stage: Fullscreen API (:fullscreen) or CSS viewport cover (.is-full).
+   Beat sticky (.is-playing) must not win over fixed cover — keep play chrome usable. */
+.map-stage.is-full,
+.map-stage.is-full.is-playing,
+.map-stage:fullscreen,
+.map-stage:fullscreen.is-playing {
   position: fixed;
   inset: 0;
+  top: 0;
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -170,15 +175,37 @@
   background: var(--color-ivory);
   box-shadow: none;
 }
-[data-theme="dark"] .map-stage.is-full { background: #14181f; }
-.map-stage.is-full .map-play { flex: 0 0 auto; margin-bottom: 0.5rem; }
-.map-stage.is-full .map-play-scrub { flex-basis: 100%; }
+[data-theme="dark"] .map-stage.is-full,
+[data-theme="dark"] .map-stage:fullscreen { background: #14181f; }
+.map-stage.is-full .map-play,
+.map-stage:fullscreen .map-play { flex: 0 0 auto; margin-bottom: 0.5rem; }
+.map-stage.is-full .map-play-scrub,
+.map-stage:fullscreen .map-play-scrub { flex-basis: 100%; }
 .map-stage.is-full .map-frame,
 .map-stage.is-full .map-frame.tall,
-.map-stage.is-full.is-playing .map-frame.tall {
+.map-stage.is-full.is-playing .map-frame.tall,
+.map-stage:fullscreen .map-frame,
+.map-stage:fullscreen .map-frame.tall,
+.map-stage:fullscreen.is-playing .map-frame.tall {
   flex: 1 1 auto;
+  width: 100%;
   height: auto;
-  min-height: 0;
+  /* Keep a real box during flex reflow so Leaflet never sees 0×0 mid-play. */
+  min-height: min(50vh, 20rem);
+}
+@media (max-width: 720px) {
+  .map-stage.is-full.is-playing,
+  .map-stage:fullscreen.is-playing {
+    position: fixed;
+    top: 0;
+    padding: max(0.6rem, env(safe-area-inset-top)) max(0.75rem, env(safe-area-inset-right)) max(0.6rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left));
+    box-shadow: none;
+  }
+  .map-stage.is-full.is-playing .map-frame.tall,
+  .map-stage:fullscreen.is-playing .map-frame.tall {
+    height: auto;
+    min-height: min(50vh, 16rem);
+  }
 }
 html.map-cover-lock, html.map-cover-lock body { overflow: hidden; }
 .map-filter + .map-legend, .map-stage + .map-filter { margin-top: 0.8rem; }
