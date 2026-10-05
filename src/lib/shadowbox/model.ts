@@ -501,10 +501,12 @@ const UNIFORM_LOOK: Record<string, UniformLook> = {
   khakis: "khaki",
 };
 
-/** incoming/plates/e3-blues.svg … e7-khakis.svg (Sergio's set, Oct 2026). Grade, then the E-6 tour index (1 USS Frank Cable … 4 JCSE), then the look. */
+/** incoming/plates/e1-blues.svg … e7-khakis.svg (Sergio's set, Oct 2026). Grade, then the E-6 tour index (1 USS Frank Cable … 4 JCSE), then the look. */
 const PLATE_FILE: Record<string, { look: UniformLook; y: number; m: number; caption: string }> = {
-  "e3-blues": { look: "blue", y: 1997, m: 6, caption: "SN · dress blues" },
-  "e3-whites": { look: "white", y: 1997, m: 6, caption: "SN · dress whites" },
+  "e1-blues": { look: "blue", y: 1997, m: 6, caption: "SR · dress blues" },
+  "e1-whites": { look: "white", y: 1997, m: 6, caption: "SR · dress whites" },
+  "e3-blues": { look: "blue", y: 1997, m: 9, caption: "SN · dress blues" },
+  "e3-whites": { look: "white", y: 1997, m: 9, caption: "SN · dress whites" },
   "e4-blues": { look: "blue", y: 1998, m: 12, caption: "ET3 · dress blues" },
   "e4-whites": { look: "white", y: 1998, m: 12, caption: "ET3 · dress whites" },
   "e5-blues": { look: "blue", y: 2001, m: 1, caption: "ET2 · dress blues" },
@@ -568,9 +570,9 @@ export function firstUniformSlide(look: UniformLook): UniformSlide | null {
   return uniformSlides.find((slide) => slide.look === look && slide.month != null) ?? null;
 }
 
-/** Command walk on Timeline. SN/RTC opens; CPO plates are JCSE last year, then NAVHOSP. */
+/** Command walk on Timeline. SR/RTC opens; CPO plates are JCSE last year, then NAVHOSP. */
 const UNIFORM_STEP_PLATES: { unitId: string; stem: string; id?: string; label?: string; span?: string }[] = [
-  { unitId: "rtc", stem: "e3-blues" },
+  { unitId: "rtc", stem: "e1-blues" },
   { unitId: "ncts", stem: "e5-blues" },
   { unitId: "frank-cable", stem: "e6-1-blues" },
   { unitId: "eodmu5", stem: "e6-2-blues" },
@@ -580,9 +582,9 @@ const UNIFORM_STEP_PLATES: { unitId: string; stem: string; id?: string; label?: 
   { unitId: "navhosp", stem: "e7-blues" },
 ];
 
-/** Logbook plate sets per command (end-of-tour snapshot). Tortuga (Seaman TAD) wears the SN set; NTC ends as ET3. */
+/** Logbook plate sets per command (end-of-tour snapshot). RTC is Seaman Recruit (E-1); Tortuga (Seaman TAD) wears the SN set; NTC ends as ET3. */
 const LOGBOOK_PLATE_SETS: Record<string, string[]> = {
-  rtc: ["e3"],
+  rtc: ["e1"],
   tortuga: ["e3"],
   "ntc-great-lakes": ["e4"],
   ncts: ["e5"],
@@ -922,7 +924,7 @@ export function plateAwards(entries: PlateEntry[]): Award[] {
   });
 }
 export const ranks = ranksJson as Rank[];
-/** Grades shown as worn badges in the case, Seaman through Chief. */
+/** Grades shown as worn badges in the case, Seaman Recruit through Chief. */
 export const caseRanks = ranks;
 
 export type Bar = {
@@ -1246,7 +1248,7 @@ export const LOGBOOK_PIPELINE_UNIT_IDS = ["rtc", "tortuga", "ntc-great-lakes"] a
 const LOGBOOK_UNIT_IDS = [...LOGBOOK_PIPELINE_UNIT_IDS, ...PLATE_UNIT_IDS] as const;
 
 /** Customers/partners kept off the Map inset (still OK as unit chips from structured data). */
-const MAP_EXCLUDED_UNIT_IDS = new Set(["52nd-ordnance", "3rd-sfg", "75th-ranger", "eodmu11", "rtn", "auscdt"]);
+const MAP_EXCLUDED_UNIT_IDS = new Set(["52nd-ordnance", "3rd-sfg", "75th-ranger", "eodmu11", "rtn", "auscdt", "acu4"]);
 
 export type LogbookUnitChip = {
   id: string;
@@ -2338,11 +2340,11 @@ export function deploymentsForCommand(unitId: string | null | undefined): Logboo
 
 /* ---------- Logbook Admin: collateral duties and watch stations (command-duties.json) ---------- */
 export type CommandDuty = { label: string; abbreviation?: string };
-export type CommandDuties = { titles: CommandDuty[]; collateralDuties: CommandDuty[]; watches: CommandDuty[] };
+export type CommandDuties = { titles: CommandDuty[]; divisions: CommandDuty[]; collateralDuties: CommandDuty[]; watches: CommandDuty[] };
 export function commandDutiesFor(unitId: string | null | undefined): CommandDuties {
   const row = unitId ? (commandDutiesJson as unknown as Record<string, Partial<CommandDuties> | string>)[unitId] : undefined;
-  if (!row || typeof row === "string") return { titles: [], collateralDuties: [], watches: [] };
-  return { titles: row.titles ?? [], collateralDuties: row.collateralDuties ?? [], watches: row.watches ?? [] };
+  if (!row || typeof row === "string") return { titles: [], divisions: [], collateralDuties: [], watches: [] };
+  return { titles: row.titles ?? [], divisions: row.divisions ?? [], collateralDuties: row.collateralDuties ?? [], watches: row.watches ?? [] };
 }
 
 /* ---------- Rank drawer: Date of Rate and Time in Rate from ranks.json (never invents a day) ---------- */
