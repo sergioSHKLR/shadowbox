@@ -1,11 +1,11 @@
 {
   "howToRead": [
-    "Navy racks run in rows of three, from the wearer’s right, which is the left side of this rack. The top row is short when the number of ribbons is not divisible by three.",
+    "Navy racks run in rows of three, from the wearer\u2019s right, which is the left side of this rack. The top row is short when the number of ribbons is not divisible by three.",
     "A star or an oak leaf is not extra decoration. It counts awards. A silver star on the Good Conduct Medal replaces five gold stars. Two bronze stars on a campaign medal are campaign phases, not two more medals. The Navy E uses a letter instead of a star."
   ],
-  "timelineLead": "Assignments sit on the first track, including the tours that overlap a longer command. Deployments are the second track. Schools and the dated career events are marks, not bars, because only a start month or a single day was recorded.",
+  "timelineLead": "Rank, assignments and deployments share one axis. Below them, Places follows the same ordered sequence as the Map. A bar opens the explanation.",
   "uniformsLead": "Grouped by type, in the order worn within each group.",
-  "mapLead": "Pins are numbered in the order of the record, and the list below uses the same numbers. Blue pins are commands and assignments, green pins are deployment bases, and yellow pins are port visits, exercises, schools, transit stopovers and other stops. Use the buttons above the map to show one group or any mix. Play walks that same list, one stop at a time, so the finished 2018 map is not the first frame. A dashed ring means the location is approximate; where a year was not recorded, the period comes from the command at the time and says so. Pins that sit close together are nudged apart slightly so each number can be read.",
+  "mapLead": "Pins follow Sergio's place sequence in order. Blue pins are commands, ships and schools; green pins are bases, FOBs, camps and airfields; yellow pins are cities. Use the buttons above the map to show one layer or any mix. Numbers stay fixed when layers are hidden. Play walks the visible stops in that same order. A dashed ring means the location is approximate.",
   "sourcesLead": "Years, units, and campaign phases come from the shadowbox worksheet. Award counts, schools, and specialties come from the service record.",
   "equipmentLead": "Body armor, helmets, weapons, comms and crypto gear, vehicles, and ships and boats, grouped by type. The cards are stock photographs of that kind of gear. A photograph from his collection, when there is one, is in the sidebar. Credits are on the Sources page."
 }
