@@ -60,6 +60,8 @@
     "end": "1999-04-28",
     "length": "15 weeks",
     "placeId": "keesler",
+    "commandId": "pipeline",
+    "commandNote": "Keesler AFB pipeline, before reporting to NCTS (Sergio, Oct 5, 2026); not a Logbook command's school.",
     "placeConfidence": "recorded",
     "source": "jst",
     "explanation": "Repair and calibration of general-purpose electronic test equipment. Technical Training Unit, Keesler AFB, Mississippi. 12 January 1999 to 28 April 1999."
@@ -73,6 +75,8 @@
     "end": "1999-05-19",
     "length": "3 weeks",
     "placeId": "keesler",
+    "commandId": "pipeline",
+    "commandNote": "Keesler AFB pipeline, before reporting to NCTS (Sergio, Oct 5, 2026); not a Logbook command's school.",
     "placeConfidence": "recorded",
     "source": "jst",
     "explanation": "Field calibration of Navy METCAL test equipment. Technical Training Unit, Keesler AFB. 29 April 1999 to 19 May 1999."
@@ -86,6 +90,8 @@
     "end": "1999-05-19",
     "length": null,
     "placeId": "keesler",
+    "commandId": "pipeline",
+    "commandNote": "Keesler AFB pipeline, before reporting to NCTS (Sergio, Oct 5, 2026); not a Logbook command's school.",
     "placeConfidence": "recorded",
     "source": "jst",
     "explanation": "Pipeline course recorded on the JST at Keesler AFB, completion 19 May 1999, after FCAM."
