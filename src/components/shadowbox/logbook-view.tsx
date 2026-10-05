@@ -8,9 +8,11 @@ import {
   logbookAdminAsOf,
   logbookBeats,
   offDutyForCommand,
+  placeById,
   onDutyForCommand,
   deviceSummary,
   publicUrl,
+  schools,
   ranks,
   uniformPlatesForCommand,
   uniformsNamingCommand,
@@ -118,9 +120,22 @@ function RankAwards({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
   );
 }
 
+/** "ET-0000" reads as "0000". */
+function necCode(nec: { code: string }): string {
+  return nec.code.replace(/^[A-Z]+-(?=\d{4}$)/, "");
+}
+
+/** "School: COMSEC · NS San Diego, San Diego, CA" from the NEC's linked school(s) and its place, when the data has them. */
+function necSchoolLine(nec: { schoolIds?: string[]; placeId?: string }): string {
+  const names = (nec.schoolIds ?? []).map((id) => schools.find((school) => school.id === id)?.abbreviation).filter(Boolean);
+  const place = nec.placeId ? placeById(nec.placeId)?.name : undefined;
+  if (!names.length && !place) return "";
+  return `School: ${[names.join(", "), place].filter(Boolean).join(" · ")}`;
+}
+
 /** Admin as of the end of this command: NECs held and schools (necs.json / schools.json). */
 function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
-  const { necsHeld, schoolsThisTour, schoolsEarlier } = logbookAdminAsOf(beat);
+  const { necsHeld, schoolsThisTour } = logbookAdminAsOf(beat);
   const schoolBtn = (school: (typeof schoolsThisTour)[number]) => (
     <li key={school.id}>
       <button type="button" onClick={() => onOpen("school", school.id)} aria-label={school.name}>
@@ -136,13 +151,22 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
         {necsHeld.length ? (
           <ul className="logbook-admin-list">
             {necsHeld.map(({ nec, isNew }) => (
-              <li key={nec.id}>
-                <button type="button" onClick={() => onOpen("nec", nec.id)} aria-label={`NEC ${nec.code}, ${nec.name}`}>
+              <li key={nec.id} className={isNew ? "is-billet" : undefined}>
+                <button
+                  type="button"
+                  onClick={() => onOpen("nec", nec.id)}
+                  aria-label={`NEC ${necCode(nec)}, ${isNew && nec.billetLabel ? nec.billetLabel : nec.name}${isNew ? ", this tour's billet NEC" : ""}`}
+                >
                   <strong>
-                    NEC {nec.code}
+                    NEC {necCode(nec)}
                     {isNew ? <em className="logbook-new">this tour</em> : null}
                   </strong>
-                  <span>{[nec.name, nec.awarded ? formatWhen(nec.awarded) : ""].filter(Boolean).join(" · ")}</span>
+                  <span>
+                    {isNew && nec.billetLabel
+                      ? nec.billetLabel
+                      : [nec.name, nec.awarded ? formatWhen(nec.awarded) : ""].filter(Boolean).join(" · ")}
+                  </span>
+                  {!(isNew && nec.billetLabel) && necSchoolLine(nec) ? <small className="logbook-nec-place">{necSchoolLine(nec)}</small> : null}
                 </button>
               </li>
             ))}
@@ -155,12 +179,6 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
         <Kicker>Schools this tour</Kicker>
         {schoolsThisTour.length ? <ul className="logbook-admin-list">{schoolsThisTour.map(schoolBtn)}</ul> : <p className="quiet">No schools recorded during this command.</p>}
       </section>
-      {schoolsEarlier.length ? (
-        <details className="logbook-earlier">
-          <summary>Earlier schools ({schoolsEarlier.length})</summary>
-          <ul className="logbook-admin-list">{schoolsEarlier.map(schoolBtn)}</ul>
-        </details>
-      ) : null}
     </div>
   );
 }
@@ -543,7 +561,7 @@ export function Logbook({
     if (next !== "khaki") setLookFallback(next);
   }, []);
   const rootRef = useRef<HTMLElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLElement>(null);
   const activeRef = useRef(0);
   const beat = beats[Math.min(active, Math.max(0, beats.length - 1))] ?? beats[0];
   activeRef.current = active;
@@ -715,8 +733,16 @@ export function Logbook({
         className="logbook-main-tabs"
         panelFocusable={false}
       >
-        <div className="logbook-beats" ref={cardRef} tabIndex={0} aria-label="Active command. Arrow keys step between commands.">
-          <article key={beat.stop.n} id={`logbook-beat-${beat.stop.n}`} data-beat={beat.index} className="logbook-beat is-active" aria-current="step">
+        <div className="logbook-beats">
+          <article
+            ref={cardRef}
+            tabIndex={0}
+            aria-label={`${beatTitle(beat)}. Arrow keys step between commands.`}
+            id={`logbook-beat-${beat.stop.n}`}
+            data-beat={beat.index}
+            className="logbook-beat is-active"
+            aria-current="step"
+          >
             <header className="logbook-beat-head">
               <span className={`pin-num ${beat.stop.kind} ${beat.stop.place.accuracy}`} aria-hidden="true">
                 {beat.stop.n}

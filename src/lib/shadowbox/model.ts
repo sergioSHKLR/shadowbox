@@ -188,6 +188,9 @@ export type School = {
   placeConfidence: string;
   explanation: string;
   open?: string;
+  /** The command whose tour this school belongs to, when stated outright (overrides date/place matching). */
+  commandId?: string;
+  commandNote?: string;
 };
 
 export type Nec = {
@@ -200,6 +203,15 @@ export type Nec = {
   role: string;
   explanation: string;
   criteria: string;
+  /** Command whose tour this NEC belongs to, when stated outright (overrides date matching). */
+  commandId?: string;
+  /** Where its school was taken (places.json). Admin only; NECs are never Map pins. */
+  placeId?: string;
+  commandNote?: string;
+  /** The school(s) that awarded it (CIN / name in criteria). Admin lists the NEC instead of these schools. */
+  schoolIds?: string[];
+  /** Shown instead of the name when this NEC is a command's billet NEC (e.g. 0000 · No NEC billet). */
+  billetLabel?: string;
 };
 
 export type UniformGroup = "pt" | "organizational" | "work" | "dress" | "battle";
@@ -372,6 +384,15 @@ export const instances = instancesJson as Instance[];
 export const units = unitsJson as Unit[];
 export const operations = operationsJson as Operation[];
 export const schools = schoolsJson as School[];
+/**
+ * The command a school belongs to when the data says so outright: its own commandId, or the commandId of the
+ * NEC it awarded (necs.json schoolIds). Otherwise null, and date / place matching decides.
+ */
+export function schoolCommandId(school: School): string | null {
+  if (school.commandId) return school.commandId;
+  const nec = (necsJson as { schoolIds?: string[]; commandId?: string }[]).find((row) => row.commandId && row.schoolIds?.includes(school.id));
+  return nec?.commandId ?? null;
+}
 export const necs = necsJson as Nec[];
 /** Numbered v12 mannequins. Cover cards stay these files; personal *-wear.jpg shots live in photos.json. */
 const UNIFORM_FIGURINE: Record<string, string> = {
@@ -1271,6 +1292,8 @@ function schoolsForBeat(stop: Stop, when: string): School[] {
   const key = dateKey(when);
   const year = key.slice(0, 4);
   return schools.filter((school) => {
+    const pinned = schoolCommandId(school);
+    if (pinned) return pinned === stop.commandId;
     if (!school.start) {
       return Boolean(school.placeId && placeIds.has(school.placeId));
     }
@@ -1364,6 +1387,8 @@ function schoolsForCommand(stop: Stop, unit: Unit | undefined, when: string): Sc
   if (!unit?.start) return schoolsForBeat(stop, when);
   const placeIds = new Set([stop.place.id, stop.cityId, stop.baseId, unit.placeId].filter(Boolean) as string[]);
   return schools.filter((school) => {
+    const pinned = schoolCommandId(school);
+    if (pinned) return pinned === unit.id;
     const overlapsTour = inTour(school.start, unit.start, unit.end) || inTour(school.end ?? school.start, unit.start, unit.end);
     const samePlace = Boolean(school.placeId && placeIds.has(school.placeId));
     if (samePlace) return overlapsTour || !school.start;
@@ -1372,8 +1397,8 @@ function schoolsForCommand(stop: Stop, unit: Unit | undefined, when: string): Sc
 }
 
 function necsForCommand(unit: Unit | undefined, when: string): Nec[] {
-  if (!unit?.start) return necsForBeat(when);
-  return necs.filter((nec) => nec.awarded && inTour(nec.awarded, unit.start, unit.end));
+  if (!unit?.start) return necsForBeat(when).filter((nec) => !nec.commandId);
+  return necs.filter((nec) => (nec.commandId ? nec.commandId === unit.id : Boolean(nec.awarded && inTour(nec.awarded, unit.start, unit.end))));
 }
 
 function milestonesForCommand(unit: Unit | undefined, when: string): Milestone[] {
@@ -2102,23 +2127,31 @@ export function uniformsNamingCommand(unitId: string | null | undefined) {
 export function logbookAdminAsOf(beat: LogbookBeat): {
   necsHeld: { nec: Nec; isNew: boolean }[];
   schoolsThisTour: School[];
-  schoolsEarlier: School[];
 } {
   const unit = beat.stop.commandId ? unitById(beat.stop.commandId) : undefined;
   const endRaw = unit?.end ? (unit.end.length === 4 ? `${unit.end}-12-31` : unit.end) : beat.when;
   const cutoff = dateKey(endRaw) || "9999-12-31";
   const tourNecIds = new Set(beat.admin.filter((fact) => fact.kind === "nec").map((fact) => fact.id));
   const tourSchoolIds = new Set(beat.admin.filter((fact) => fact.kind === "school").map((fact) => fact.id));
+  const tourStart = unit?.start ? dateKey(unit.start) : "";
+  // An NEC pinned to a later command is not held yet, even if its date falls inside this tour.
+  const pinnedLater = (row: { commandId?: string }) => {
+    if (!row.commandId || row.commandId === beat.stop.commandId) return false;
+    const owner = unitById(row.commandId);
+    return Boolean(owner?.start && tourStart && dateKey(owner.start) > tourStart);
+  };
+  // Cumulative: every NEC earned by the end of this command. "This tour" marks only the billet NEC
+  // (units.json necId, per Sergio). 0000 (no specific NEC) is listed only when it is the billet.
+  const billetId = unit?.necId ?? null;
   const necsHeld = necs
-    .filter((nec) => nec.awarded && dateKey(nec.awarded) <= cutoff)
+    .filter((nec) => nec.id === billetId || (nec.id !== "nec-0000" && ((nec.awarded && dateKey(nec.awarded) <= cutoff && !pinnedLater(nec)) || tourNecIds.has(nec.id))))
     .sort((a, b) => dateKey(a.awarded).localeCompare(dateKey(b.awarded)))
-    .map((nec) => ({ nec, isNew: tourNecIds.has(nec.id) }));
+    .map((nec) => ({ nec, isNew: nec.id === billetId }));
   const byDate = (a: School, b: School) => dateKey(a.start).localeCompare(dateKey(b.start));
-  const schoolsThisTour = schools.filter((school) => tourSchoolIds.has(school.id)).sort(byDate);
-  const schoolsEarlier = schools
-    .filter((school) => !tourSchoolIds.has(school.id) && school.start && dateKey(school.end || school.start) <= cutoff)
-    .sort(byDate);
-  return { necsHeld, schoolsThisTour, schoolsEarlier };
+  // Dedupe: a school that awarded an NEC shown here is listed under that NEC, not again as a school.
+  const viaNec = new Set(necsHeld.flatMap(({ nec }) => nec.schoolIds ?? []));
+  const schoolsThisTour = schools.filter((school) => tourSchoolIds.has(school.id) && !viaNec.has(school.id)).sort(byDate);
+  return { necsHeld, schoolsThisTour };
 }
 
 /* ---------- Logbook On Duty: deployment body armor + helmets (deployment-gear.json) ---------- */

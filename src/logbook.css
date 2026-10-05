@@ -82,15 +82,25 @@
 .logbook-mannequin img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .logbook-mannequin figcaption { font-size: 0.85rem; text-align: center; }
 
+/* One card, always the full height of the main column; it scrolls inside only when its content overflows. */
 .logbook-beats {
   flex: 1;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0.6rem;
+}
+.logbook-beats > .logbook-beat {
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 0;
   overflow: auto;
   overscroll-behavior: contain;
-  padding: 0.6rem;
   outline: none;
 }
-.logbook-beats:focus-visible { box-shadow: inset 0 0 0 2px var(--color-brass-bright); }
+.logbook-beat-body > :last-child, .logbook-beat-body > :last-child > :last-child { margin-bottom: 0; }
+.logbook-beats > .logbook-beat:focus-visible { box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-brass) 45%, transparent), inset 0 0 0 2px var(--color-brass-bright); }
 .logbook-beat {
   margin: 0;
   padding: 0.75rem 0.8rem;
@@ -276,7 +286,6 @@
 .logbook-ribbons .ribbon { width: calc(var(--in) * 1.375); }
 .logbook-medals { max-width: 100%; overflow-x: auto; }
 .logbook-new { margin-left: 0.4rem; padding: 0 0.3rem; border-radius: 3px; font-size: 0.66rem; font-style: normal; font-weight: 600; background: var(--color-navy); color: #fff; vertical-align: middle; }
-.logbook-earlier summary { cursor: pointer; font-size: 0.82rem; color: var(--color-quiet); margin-bottom: 0.35rem; }
 
 /* Unit crests (footer left) */
 .logbook-crests { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(5.2rem, 1fr)); gap: 0.4rem; }
@@ -359,3 +368,7 @@
   .logbook-phone-tabs > .lb-tablist { gap: 2px; }
   .logbook-phone-tabs > .lb-tablist > .lb-tab { flex: 1 1 auto; justify-content: center; padding: 0.25rem 0.28rem; font-size: 0.74rem; letter-spacing: -0.01em; }
 }
+.logbook-nec-place { display: block; font-size: 0.76rem; color: var(--color-muted, #6b6457); }
+/* Billet NEC ("this tour"): highlighted row in the cumulative NEC list. */
+.logbook-admin-list li.is-billet > button { border-color: var(--color-navy); background: color-mix(in srgb, var(--color-navy) 8%, transparent); box-shadow: inset 3px 0 0 var(--color-navy); }
+[data-theme="dark"] .logbook-admin-list li.is-billet > button { border-color: var(--color-brass-bright); box-shadow: inset 3px 0 0 var(--color-brass-bright); }
