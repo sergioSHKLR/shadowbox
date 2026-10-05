@@ -195,6 +195,9 @@ function ComingSoon({ what }: { what: string }) {
   );
 }
 
+/** equipment.json notes that say the card photo is a stock/model photo, not the owner's own vehicle. */
+const SAME_MODEL = /model card|stock photograph|photograph is of the model|shows another|of another/i;
+
 function GearPanel({ groups, what, onOpen }: { groups: LogbookGearGroup[]; what: string; onOpen: Open }) {
   if (!groups.length) return <ComingSoon what={what} />;
   return (
@@ -206,8 +209,9 @@ function GearPanel({ groups, what, onOpen }: { groups: LogbookGearGroup[]; what:
             {group.items.map((item) => (
               <li key={item.id}>
                 <button type="button" className="logbook-gear-item" onClick={() => onOpen("equipment", item.id)} aria-label={item.name}>
-                  {item.image ? <img src={publicUrl(item.image)} alt="" loading="lazy" /> : <span className="logbook-gear-blank" aria-hidden="true" />}
+                  {item.image ? <img src={publicUrl(item.image)} alt="" loading="lazy" decoding="async" /> : <span className="logbook-gear-blank" aria-hidden="true" />}
                   <span>{item.name}</span>
+                  {item.image && SAME_MODEL.test(item.note ?? "") ? <small className="logbook-same-model">Same model</small> : null}
                 </button>
               </li>
             ))}
