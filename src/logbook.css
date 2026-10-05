@@ -91,6 +91,14 @@
   overflow: hidden;
   padding: 0.6rem;
 }
+.logbook-beats > .logbook-beat,
+.logbook-beats > .logbook-beat.is-active {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0.15rem 0.2rem;
+}
 .logbook-beats > .logbook-beat {
   flex: 1 1 auto;
   height: 100%;
@@ -296,9 +304,10 @@
 .logbook-crest img { display: block; height: 2.5rem; width: auto; max-width: 100%; object-fit: contain; }
 .logbook-crest b { font-size: 0.74rem; text-align: center; }
 .logbook-crest em { font-size: 0.66rem; font-style: normal; color: var(--color-quiet); text-align: center; }
-.logbook-crest.on { opacity: 1; border: 2px solid var(--color-navy); box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-brass) 45%, transparent); }
-.logbook-crest:hover, .logbook-crest:focus-visible { opacity: 1; border-color: var(--color-navy); }
-[data-theme="dark"] .logbook-crest.on { border-color: var(--color-brass-bright); }
+.logbook-crest.on { opacity: 1; background: color-mix(in srgb, var(--color-navy) 7%, transparent); box-shadow: inset 0 2px 0 color-mix(in srgb, var(--color-navy) 55%, transparent); }
+.logbook-crest:hover, .logbook-crest:focus-visible { opacity: 1; }
+.logbook-crest:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 1px; }
+[data-theme="dark"] .logbook-crest.on { background: color-mix(in srgb, var(--color-ivory) 8%, transparent); box-shadow: inset 0 2px 0 color-mix(in srgb, var(--color-brass-bright) 70%, transparent); }
 
 /* Phone / tablet: main (with tabs) on top, one stacked tab panel below: Uniforms, On Duty, Off Duty, Crests, Map. */
 .logbook-phone { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 0.55rem; }
@@ -350,7 +359,6 @@
 .logbook-deploy .logbook-facts { font-size: 0.82rem; gap: 0.2rem 0.6rem; margin-top: 0.15rem; }
 .logbook-deploy > .quiet { font-size: 0.76rem; }
 .logbook-same-model { font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-quiet); }
-.logbook-gear-item img { width: 100%; height: 3.4rem; object-fit: contain; border-radius: 3px; }
 
 /* Wardrobe: every uniform for the active command as a grid of mannequin plates. */
 .logbook-wardrobe { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(6.4rem, 1fr)); gap: 0.5rem; }
@@ -387,3 +395,21 @@
 .logbook-crest[data-static] { cursor: default; }
 .logbook-gained { margin-left: 0.35rem; padding: 0 0.3rem; border: 1px solid var(--color-navy); border-radius: 3px; font-style: normal; font-size: 0.66rem; color: var(--color-navy); }
 [data-theme="dark"] .logbook-gained { border-color: var(--color-ivory); color: var(--color-ivory); }
+/* On Duty / Off Duty tiles: one fixed size everywhere; 4:3 cover image, caption clamped to two lines. */
+.logbook-gear-list { grid-template-columns: repeat(auto-fill, var(--lb-tile-w)); justify-content: start; gap: 0.45rem; --lb-tile-w: 7.25rem; }
+.logbook-gear-list > li { display: flex; }
+.logbook-gear-item {
+  width: var(--lb-tile-w); height: calc(var(--lb-tile-w) * 0.75 + 3.6rem); flex: none;
+  justify-content: flex-start; gap: 0.25rem; padding: 0.3rem; overflow: hidden;
+}
+.logbook-gear-item img,
+.logbook-gear-blank { display: block; flex: none; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 3px; }
+.logbook-gear-blank { background: color-mix(in srgb, var(--lb-border) 35%, transparent); }
+.logbook-gear-item > span:not(.logbook-gear-blank) {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden;
+  width: 100%; min-height: calc(2 * 1.15em); font-size: 0.72rem; line-height: 1.15; text-align: center; overflow-wrap: anywhere;
+}
+.logbook-gear-item .logbook-same-model { flex: none; line-height: 1.1; white-space: nowrap; }
+@media (max-width: 900px) { .logbook-gear-list { --lb-tile-w: 6.6rem; } }
+/* Deployment cards (On Duty): one width (full column) and equal heights. */
+.logbook-deploys { display: grid; grid-auto-rows: 1fr; }
