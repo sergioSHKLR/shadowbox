@@ -1,6 +1,7 @@
 [
   {
     "id": "rtc-school",
+    "commandId": "rtc",
     "name": "Recruit training",
     "abbreviation": "RTC",
     "cin": "A-950-0001",
@@ -14,6 +15,7 @@
   },
   {
     "id": "core",
+    "commandId": "ntc-great-lakes",
     "name": "Advanced Electronics Technical Core",
     "abbreviation": "AETC",
     "cin": "A-100-0139",
@@ -27,6 +29,7 @@
   },
   {
     "id": "eta",
+    "commandId": "ntc-great-lakes",
     "name": "Electronics Technician Radar Strand Class A",
     "abbreviation": "ET A",
     "cin": "A-100-0147",
@@ -40,6 +43,7 @@
   },
   {
     "id": "po-indoc",
+    "commandId": "ntc-great-lakes",
     "name": "Petty Officer Indoctrination",
     "abbreviation": "PO Indoc",
     "cin": "P-500-0047",

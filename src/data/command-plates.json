@@ -1,5 +1,33 @@
 [
   {
+    "unitId": "rtc",
+    "inRank": "sn",
+    "outRank": "sn",
+    "pinsAbove": [],
+    "pinsBelow": [],
+    "rack": [],
+    "extras": []
+  },
+  {
+    "unitId": "tortuga",
+    "inRank": "sn",
+    "outRank": "sn",
+    "pinsAbove": [],
+    "pinsBelow": [],
+    "rack": [],
+    "extras": []
+  },
+  {
+    "unitId": "ntc-great-lakes",
+    "inRank": "sn",
+    "outRank": "et3",
+    "rankNote": "supplement.json lists E-4 at NTC; ranks.json dates ET3 1998-12, the month the NTC tour ends (units.json end 1998-12).",
+    "pinsAbove": [],
+    "pinsBelow": [],
+    "rack": [],
+    "extras": []
+  },
+  {
     "unitId": "ncts",
     "inRank": "et3",
     "outRank": "et2",

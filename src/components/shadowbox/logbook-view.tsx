@@ -248,7 +248,7 @@ function MapInset({
   beat: LogbookBeat;
   onOpen: (k: Kind, id: string) => void;
 }) {
-  // Full sequence, all six pins shown; only the focus changes per beat (shrinking the reveal mid-flight trips markercluster).
+  // One pin per Logbook command; only the focus changes per beat (shrinking the reveal mid-flight trips markercluster).
   // Excluded customer units never become map pins here (their places are not added as extras).
   void isMapExcludedUnit;
   // Each command's mini map shows only its own pin (Sergio); the main Map keeps every pin.
