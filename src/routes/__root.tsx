@@ -7,6 +7,7 @@ import caseCrestsCss from "../case-crests.css?url";
 import timelineScrollCss from "../timeline-scroll.css?url";
 import decorationsCss from "../decorations.css?url";
 import commandsCss from "../commands.css?url";
+import logbookCss from "../logbook.css?url";
 import printCss from "../print.css?url";
 import { profile } from "@/lib/shadowbox/model";
 
@@ -27,6 +28,7 @@ export const Route = createRootRoute({
       { rel: "stylesheet", href: timelineScrollCss },
       { rel: "stylesheet", href: decorationsCss },
       { rel: "stylesheet", href: commandsCss },
+      { rel: "stylesheet", href: logbookCss },
       { rel: "stylesheet", href: mapStageCss },
       { rel: "stylesheet", href: printCss },
     ],
