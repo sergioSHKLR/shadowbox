@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Maximize2, Pause, Play } from "lucide-react";
+import { ChevronLeft, ChevronRight, Expand, Maximize2, Pause, Play, Shrink } from "lucide-react";
 import {
   careerStops,
   caseCopy,
@@ -69,6 +69,50 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
   cursorRef.current = cursor;
   const last = Math.max(0, stops.length - 1);
 
+  // Fullscreen: browser Fullscreen API where available; CSS viewport cover otherwise (iPhone Safari).
+  const [full, setFull] = useState(false);
+  useEffect(() => {
+    const sync = () => {
+      const stage = stageRef.current;
+      if (!stage) return;
+      if (document.fullscreenElement === stage) setFull(true);
+      else if (!document.fullscreenElement && stage.dataset.cover !== "1") setFull(false);
+    };
+    document.addEventListener("fullscreenchange", sync);
+    return () => document.removeEventListener("fullscreenchange", sync);
+  }, []);
+  useEffect(() => {
+    if (!full) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && stageRef.current?.dataset.cover === "1") exitFull();
+    };
+    window.addEventListener("keydown", onKey);
+    document.documentElement.classList.add("map-cover-lock");
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.documentElement.classList.remove("map-cover-lock");
+    };
+  }, [full]);
+  const enterFull = () => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    if (typeof stage.requestFullscreen === "function" && document.fullscreenEnabled) {
+      stage.requestFullscreen().then(() => setFull(true)).catch(() => {
+        stage.dataset.cover = "1";
+        setFull(true);
+      });
+    } else {
+      stage.dataset.cover = "1";
+      setFull(true);
+    }
+  };
+  function exitFull() {
+    const stage = stageRef.current;
+    if (stage) delete stage.dataset.cover;
+    if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
+    setFull(false);
+  }
+
   useEffect(() => {
     setPlaying(false);
     setCursor(null);
@@ -130,16 +174,7 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
     <main className="sheet">
       <h2>Where the career went</h2>
       <p>{caseCopy.mapLead}</p>
-      <div className="map-filter" role="group" aria-label="Show pin categories">
-        <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>All</button>
-        {PIN_GROUPS.map((g) => (
-          <button key={g.id} type="button" className={`nav-btn${shown?.includes(g.id) ? " on" : ""}`} aria-pressed={!!shown?.includes(g.id)} onClick={() => toggle(g.id)}>
-            <span className={`pin-num ${g.cls}`} aria-hidden="true" />
-            {g.label}
-          </button>
-        ))}
-      </div>
-      <div ref={stageRef} className={`map-stage${cursor != null ? " is-playing" : ""}`}>
+      <div ref={stageRef} className={`map-stage${cursor != null ? " is-playing" : ""}${full ? " is-full" : ""}`}>
       <div className="map-play" role="group" aria-label="Play the map in career order">
         <button type="button" className="nav-btn icon-btn" aria-label="Back" title="Back" onClick={() => step(-1)} disabled={!stops.length}>
           <ChevronLeft size={20} strokeWidth={2} aria-hidden="true" />
@@ -152,6 +187,9 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
         </button>
         <button type="button" className={`nav-btn icon-btn${cursor == null ? " on" : ""}`} aria-label="Full map" title="Full map" onClick={resetPlay} disabled={cursor == null}>
           <Maximize2 size={18} strokeWidth={2} aria-hidden="true" />
+        </button>
+        <button type="button" className={`nav-btn icon-btn map-full-btn${full ? " on" : ""}`} aria-pressed={full} aria-label={full ? "Exit fullscreen" : "Fullscreen"} title={full ? "Exit fullscreen (Esc)" : "Fullscreen"} onClick={() => (full ? exitFull() : enterFull())}>
+          {full ? <Shrink size={18} strokeWidth={2} aria-hidden="true" /> : <Expand size={18} strokeWidth={2} aria-hidden="true" />}
         </button>
         <p className="map-play-status" aria-live="polite">
           {here
@@ -185,6 +223,15 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
           onSelect={(id) => onOpen("place", id)}
         />
       ) : null}
+      </div>
+      <div className="map-filter" role="group" aria-label="Show pin categories">
+        <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>All</button>
+        {PIN_GROUPS.map((g) => (
+          <button key={g.id} type="button" className={`nav-btn${shown?.includes(g.id) ? " on" : ""}`} aria-pressed={!!shown?.includes(g.id)} onClick={() => toggle(g.id)}>
+            <span className={`pin-num ${g.cls}`} aria-hidden="true" />
+            {g.label}
+          </button>
+        ))}
       </div>
       <ul className="map-legend" aria-label="Pin colours">
         {PIN_GROUPS.map((g) => (

@@ -13,6 +13,7 @@ import {
 } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
 import { RibbonArt } from "@/components/shadowbox/marks";
+import { Boundary } from "@/components/shadowbox/boundary";
 
 function PinMark({ id, onOpen }: { id: string; onOpen: (k: Kind, id: string) => void }) {
   const pin = warfare.find((row) => row.id === id);
@@ -137,6 +138,7 @@ function MapInset({
   void isMapExcludedUnit;
   return (
     <div className="logbook-map-frame">
+      <Boundary label="logbook map" fallback={<p className="quiet">Map unavailable right now.</p>}>
       <MapView
         stops={stops}
         extra={[]}
@@ -146,6 +148,7 @@ function MapInset({
         revealedCount={beat.index + 1}
         onSelect={(id) => onOpen("place", id)}
       />
+      </Boundary>
     </div>
   );
 }

@@ -17,6 +17,7 @@ import { Memories } from "@/components/shadowbox/memories-view";
 import { Schools } from "@/components/shadowbox/schools-view";
 import { Commands } from "@/components/shadowbox/commands-view";
 import { Logbook } from "@/components/shadowbox/logbook-view";
+import { Boundary } from "@/components/shadowbox/boundary";
 
 type View = "home" | "uniforms" | "decorations" | "onduty" | "offduty" | "ops" | "map" | "timeline" | "logbook" | "admin" | "commands" | "sources" | "contact" | "guestbook" | "memories";
 
@@ -236,12 +237,14 @@ export function ShadowboxApp() {
         <div className={pane("onduty")}><OnDuty onOpen={open} title={t.onduty} /></div>
         <div className={pane("offduty")}><OffDuty onOpen={open} title={t.offduty} /></div>
         <div className={pane("ops")}><Ops onOpen={open} title={t.ops} /></div>
-        <div className={pane("map")}><Stations stops={stops} onOpen={open} /></div>
+        <div className={pane("map")}><Boundary label="map" resetKey={view}><Stations stops={stops} onOpen={open} /></Boundary></div>
         <div className={pane("timeline")}>
           <Timeline bars={bars} stops={stops} onOpen={open} title={t.pathTitle} lead={t.pathLead} eventsNote={t.eventsNote} />
         </div>
         <div className={pane("logbook")}>
-          <Logbook onOpen={open} title={t.logbook} lead={t.logbookLead} />
+          <Boundary label="logbook" resetKey={view}>
+            <Logbook onOpen={open} title={t.logbook} lead={t.logbookLead} />
+          </Boundary>
         </div>
         <div className={pane("admin")}>
           <Schools onOpen={open} title={t.schools} lead={t.schoolsLead} necTitle={t.necs} necLead={t.necsLead} dateNeeded={t.dateNeeded} />
