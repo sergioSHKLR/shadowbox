@@ -1082,15 +1082,17 @@ export type SequenceEntry = {
   cityId: string | null;
   baseId: string | null;
   commandId: string | null;
-  /** Mutually exclusive Map category. A stop occupies exactly one. */
+  /** Primary Map category (pin colour). Mutually exclusive except San Diego, which may also list `command` in alsoKinds. */
   kind: StopLayer;
+  /** Optional extra filter membership. Only San Diego uses this (Instruction + Command host). */
+  alsoKinds?: StopLayer[];
   when: string | null;
 };
 
-/** Map pin categories. Mutually exclusive: one stop, one category, one colour. */
-export type StopLayer = "command" | "base" | "field" | "port" | "flight";
+/** Map pin categories. One stop, one primary kind — except San Diego (instruction + command host). */
+export type StopLayer = "command" | "instruction" | "base" | "field" | "port" | "flight";
 
-export const STOP_LAYERS: StopLayer[] = ["command", "base", "field", "port", "flight"];
+export const STOP_LAYERS: StopLayer[] = ["command", "instruction", "base", "field", "port", "flight"];
 
 /** n: fixed sequence order (1-based). Never renumbered when categories are filtered. */
 export type Stop = {
@@ -1102,7 +1104,7 @@ export type Stop = {
   baseId: string | null;
   commandId: string | null;
   kind: StopLayer;
-  /** Always a single-element array matching `kind` (kept for filter helpers). */
+  /** Filter membership: primary kind, plus alsoKinds (San Diego only). */
   layers: StopLayer[];
 };
 
@@ -1137,6 +1139,7 @@ export function careerStops(): Stop[] {
     const place = sequencePinPlace(entry);
     if (!place) continue;
     const kind = entry.kind;
+    const extras = (entry.alsoKinds ?? []).filter((layer) => layer !== kind);
     stops.push({
       place,
       labels: [entry.label],
@@ -1146,7 +1149,7 @@ export function careerStops(): Stop[] {
       baseId: entry.baseId,
       commandId: entry.commandId,
       kind,
-      layers: [kind],
+      layers: [kind, ...extras],
     });
   }
   return stops;
