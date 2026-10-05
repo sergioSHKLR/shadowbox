@@ -961,15 +961,15 @@
     "id": "ford-transit",
     "group": "cars",
     "order": 56,
-    "name": "Ford Transit van",
+    "name": "Ford Transit Connect",
     "cutout": false,
-    "note": "POV-07. Tampa. Model card.",
-    "image": "",
+    "note": "POV-07. Tampa. Photograph is of his own Transit Connect (confirmed by Sergio, Oct 5, 2026).",
+    "image": "/equipment/offduty-ford-transit.webp",
     "credit": {
       "sourceUrl": "",
-      "file": "",
+      "file": "incoming/off-duty/ford-connect.webp",
       "creator": "",
-      "license": "No photograph yet."
+      "license": "Supplied by the owner (uploaded to incoming/off-duty)."
     }
   },
   {
