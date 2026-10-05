@@ -74,7 +74,6 @@
 .logbook-aside-tabs { flex: 1; min-height: 0; }
 .logbook-aside-tabs > .lb-tabpanel { flex: 1; overflow: auto; display: flex; flex-direction: column; }
 .logbook-aside-tabs > .lb-tabpanel > .logbook-gear { flex: 1; min-height: 0; }
-.logbook-for { margin: 0 0 0.45rem; font-size: 0.78rem; }
 
 .logbook-plate-art { display: block; width: 100%; margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; }
 .logbook-mannequin { margin: 0; flex: 1 1 auto; min-height: 10rem; display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
@@ -299,15 +298,14 @@
 .logbook-crests { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(5.2rem, 1fr)); gap: 0.4rem; }
 .logbook-crest {
   display: flex; flex-direction: column; align-items: center; gap: 0.15rem; width: 100%; padding: 0.3rem;
-  border: 1px solid var(--lb-border); border-radius: 4px; background: transparent; color: inherit; font: inherit; cursor: pointer; opacity: 0.7;
+  border: 1px solid var(--lb-border); border-radius: 4px; background: transparent; color: inherit; font: inherit; cursor: pointer;
 }
 .logbook-crest img { display: block; height: 2.5rem; width: auto; max-width: 100%; object-fit: contain; }
 .logbook-crest b { font-size: 0.74rem; text-align: center; }
 .logbook-crest em { font-size: 0.66rem; font-style: normal; color: var(--color-quiet); text-align: center; }
-.logbook-crest.on { opacity: 1; background: color-mix(in srgb, var(--color-navy) 7%, transparent); box-shadow: inset 0 2px 0 color-mix(in srgb, var(--color-navy) 55%, transparent); }
+/* Active crest looks like the others; only its "Assigned" label marks it. */
 .logbook-crest:hover, .logbook-crest:focus-visible { opacity: 1; }
 .logbook-crest:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 1px; }
-[data-theme="dark"] .logbook-crest.on { background: color-mix(in srgb, var(--color-ivory) 8%, transparent); box-shadow: inset 0 2px 0 color-mix(in srgb, var(--color-brass-bright) 70%, transparent); }
 
 /* Phone / tablet: main (with tabs) on top, one stacked tab panel below: Uniforms, On Duty, Off Duty, Crests, Map. */
 .logbook-phone { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 0.55rem; }

@@ -111,7 +111,6 @@ function RankAwards({ beat, beats, onOpen }: { beat: LogbookBeat; beats: Logbook
       <section className="logbook-ra-rank" aria-label="Rank insignia">
         <Kicker>Rank</Kicker>
         <RankPath beat={beat} beats={beats} onOpen={onOpen} />
-        <p className="logbook-ra-note quiet">Service stripes: shown on the uniform plate; the count is not entered in the record.</p>
       </section>
       {pins.length ? (
         <section aria-label="Warfare and qualification pins">
@@ -276,6 +275,10 @@ function ComingSoon({ what }: { what: string }) {
 /** equipment.json notes that say the card photo is a stock/model photo, not the owner's own vehicle. */
 const SAME_MODEL = /model card|stock photograph|photograph is of the model|shows another|of another/i;
 
+/** Off Duty vehicles show Make + Model only; color and year stay in equipment.json ("Nissan Frontier, silver, 1997" → "Nissan Frontier"). */
+const VEHICLE_GROUPS = new Set(["cars", "motorcycles"]);
+const gearLabel = (item: { group: string; name: string }) => (VEHICLE_GROUPS.has(item.group) ? item.name.split(",")[0].trim() : item.name);
+
 function GearPanel({ groups, what, onOpen }: { groups: LogbookGearGroup[]; what: string; onOpen: Open }) {
   if (!groups.length) return <ComingSoon what={what} />;
   return (
@@ -288,7 +291,7 @@ function GearPanel({ groups, what, onOpen }: { groups: LogbookGearGroup[]; what:
               <li key={item.id}>
                 <button type="button" className="logbook-gear-item" onClick={() => onOpen("equipment", item.id)} aria-label={item.name}>
                   {item.image ? <img src={publicUrl(item.image)} alt="" loading="lazy" decoding="async" /> : <span className="logbook-gear-blank" aria-hidden="true" />}
-                  <span>{item.name}</span>
+                  <span>{gearLabel(item)}</span>
                   {item.image && SAME_MODEL.test(item.note ?? "") ? <small className="logbook-same-model">Same model</small> : null}
                 </button>
               </li>
@@ -402,7 +405,7 @@ function UniformsPanel({
             <img key={plate.file} src={publicUrl(plate.src)} alt="" />
           </button>
           <figcaption>
-            {beat.rank ? <strong>{beat.rank.abbreviation}</strong> : null} <span>{plate.caption}</span>
+            {beat.rank ? <strong>{beat.rank.abbreviation}</strong> : null}
           </figcaption>
         </figure>
       ) : (
@@ -714,11 +717,7 @@ export function Logbook({
       <GearPanel groups={offDutyForCommand(beat.stop.commandId)} what="off-duty life" onOpen={onOpen} />
     );
   const mapRegion = (hidden: boolean) => (
-    <div className="logbook-map-tab" hidden={hidden}>
-      <p className="logbook-inset-label">
-        <span className={`pin-num ${mapBeat.stop.kind}`}>{mapBeat.stop.n}</span>
-        {mapBeat.stop.labels[0]}
-      </p>
+    <div className="logbook-map-tab" hidden={hidden} role="group" aria-label={`Map: ${mapBeat.stop.labels[0]}`}>
       <MapInset stops={stops} beat={mapBeat} onOpen={onOpen} />
     </div>
   );
@@ -827,7 +826,6 @@ export function Logbook({
           {main}
           <aside className="logbook-aside" aria-label="Uniforms, wardrobe, on duty, off duty for this command">
             <Tabbed idBase="logbook-aside" label="Uniforms, Wardrobe, On Duty, Off Duty" tabs={asideTabs} value={asideTab} onChange={setAsideTab} className="logbook-aside-tabs">
-              <p className="logbook-for quiet">{beatTitle(beat)}</p>
               {asideContent(asideTab)}
             </Tabbed>
           </aside>
