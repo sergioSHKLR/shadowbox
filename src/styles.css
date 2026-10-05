@@ -1165,3 +1165,11 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 /* Sidebar order: Used here at the top, the map at the bottom. */
 .used-here-top { margin: 0.6rem 0 0.9rem; }
 .detail-scroll > .sidebar-map { margin-top: 1rem; }
+
+/* Theme switch (Sun / Monitor / Moon): the selected one wears the active-tab goldenrod; the others stay subtle on the navy bar. */
+.app-themes { display: flex; align-items: center; gap: 2px; margin-right: 0.35rem; padding: 2px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); }
+.app-theme { display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 999px; background: transparent; color: color-mix(in srgb, var(--color-ivory, #f4efe4) 70%, transparent); cursor: pointer; }
+.app-theme:hover { color: var(--color-ivory, #f4efe4); background: rgba(255, 255, 255, 0.1); }
+.app-theme.is-on, .app-theme.is-on:hover { background: var(--color-goldenrod); color: var(--color-navy); }
+.app-theme:focus-visible { outline: 2px solid var(--color-goldenrod); outline-offset: 2px; }
+@media (max-width: 420px) { .app-themes { margin-right: 0.15rem; } .app-theme { width: 28px; height: 28px; } }

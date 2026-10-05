@@ -7,7 +7,7 @@ export type Prefs = { locale: Locale; theme: ThemeName };
 const KEY = "shadowbox-prefs";
 
 function storedTheme(value: unknown): ThemeName {
-  return value === "dark" || value === "system" ? value : "light";
+  return value === "light" || value === "dark" ? value : "system";
 }
 
 /** System follows the device. Light and dark stay as chosen. */
@@ -22,7 +22,7 @@ export function loadPrefs(): Prefs {
     const raw = JSON.parse(localStorage.getItem(KEY) || "{}") as Partial<Prefs>;
     return {
       locale: raw.locale === "pt" ? "pt" : "en",
-      theme: "system",
+      theme: storedTheme(raw.theme),
     };
   } catch {
     return { locale: "en", theme: "system" };
