@@ -47,7 +47,7 @@ const en = {
   schoolsLead: "Courses in the order they were recorded. Open a row for the explanation, the place, and what the course was for.",
   commandsLead: "The six commands. Each row is the crest, the rating badge on the way in, loose ribbons, and the rating badge on the way out. Slide left for in-theater commands, sponsors, partners, customers, and exercises.",
   necsLead: "Navy Enlisted Classifications in the order awarded. A code that later changed shows the current code. Open a row for the criteria.",
-  logbookLead: "Scroll or step through the assigned commands. Each command has Overview, Command, and Admin tabs; the uniform plate, ribbon rack, map pin, and supporting units follow along. Labels and dates come from the record — blank beats a guess.",
+  logbookLead: "Scroll the commands track. Rank & Awards and Admin show each command as of its end; Uniforms, On Duty, and Off Duty, the unit crests, and the map follow the active command. Labels and dates come from the record — blank beats a guess.",
   mapAbout: "About this map",
 };
 
@@ -98,7 +98,7 @@ const pt: typeof en = {
   schoolsLead: "Cursos na ordem em que foram registrados. Abra uma linha para a explicação, o lugar e para que servia o curso.",
   commandsLead: "Os seis comandos. Cada fileira é o distintivo, o distintivo de posto na entrada, fitas soltas, e o distintivo de posto na saída. Deslize para o comando no teatro, patrocinadores, parceiros, clientes e exercícios.",
   necsLead: "Classificações de praça (NEC) na ordem em que foram concedidas. Código que mudou mostra o código atual. Abra a linha para o critério.",
-  logbookLead: "Role ou avance pelos comandos atribuídos. Cada comando tem as abas Overview, Command e Admin; o uniforme, o rack, o pino no mapa e as unidades acompanham. Rótulos e datas vêm do registro — em branco vale mais que um palpite.",
+  logbookLead: "Role a trilha de comandos. Posto e condecorações e Admin mostram cada comando ao seu término; uniformes, serviço, folga, brasões e o mapa acompanham o comando ativo. Rótulos e datas vêm do registro — em branco vale mais que um palpite.",
   mapAbout: "Sobre este mapa",
 };
 

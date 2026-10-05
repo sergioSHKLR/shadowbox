@@ -1,423 +1,313 @@
-/* Logbook: sticky plate + rack, scroll-driven beats, map/units insets. */
+/* Logbook: one viewport (100dvh incl. top bar, pager, footer). Each column scrolls on its own.
+   Center = scroll-synced beats with Overview/Command/Admin tabs. Right = Uniforms/On Duty/Off Duty
+   tabs over a Map/Units tab panel. Phone = beats + one stacked tab panel. No chips anywhere. */
 
-.logbook-head { margin-bottom: 0.85rem; }
-.logbook-head h2 { margin: 0 0 0.35rem; }
-.logbook-head p { margin: 0.25rem 0; }
-.logbook-count { font-size: 0.92rem; }
+/* Tighten the page chrome while the Logbook is the live view. */
+.app-main:has(> .view-pane:not(.screen-off) .logbook) { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.app-main:has(> .view-pane:not(.screen-off) .logbook) .page-pager { margin-top: 0.5rem; padding-top: 0.45rem; }
+
+.logbook {
+  --lb-panel: color-mix(in srgb, var(--color-ivory) 88%, #fff);
+  --lb-border: var(--color-line);
+  margin-top: 0;
+  box-sizing: border-box;
+  height: calc(100vh - var(--lb-chrome, 170px));
+  height: calc(100dvh - var(--lb-chrome, 170px));
+  min-height: 22rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+[data-theme="dark"] .logbook { --lb-panel: #1a2130; --lb-border: #2a3344; }
+
+.logbook-head {
+  flex: none;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.2rem 1rem;
+  margin-bottom: 0.6rem;
+}
+.logbook-head h2 { margin: 0; }
+.logbook-lead {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--color-quiet);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.logbook-count { margin: 0; font-size: 0.88rem; white-space: nowrap; }
 .logbook-kicker {
-  margin: 0 0 0.45rem;
+  margin: 0 0 0.4rem;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-quiet);
 }
 
-.logbook-layout {
+/* Desktop grid: MAIN (commands track, tabbed) | ASIDE (Uniforms / On Duty / Off Duty) over a FOOTER row (crests | map). */
+.logbook-grid {
+  flex: 1;
+  min-height: 0;
   display: grid;
-  grid-template-columns: minmax(9.5rem, 14rem) minmax(0, 1fr) minmax(9.5rem, 14rem);
-  gap: 1rem 1.1rem;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem);
+  grid-template-rows: minmax(0, 1fr) minmax(8rem, 25%);
+  grid-template-areas: "main aside" "foot foot";
+  gap: 0.75rem 0.9rem;
 }
-
-.logbook-sticky {
-  position: sticky;
-  top: 3.6rem;
+.logbook-main { grid-area: main; min-height: 0; display: flex; flex-direction: column; }
+.logbook-aside { grid-area: aside; min-height: 0; display: flex; flex-direction: column; }
+.logbook-foot { grid-area: foot; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+.logbook-foot-half {
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-}
-
-.logbook-plate,
-.logbook-rack {
-  padding: 0.7rem 0.75rem;
-  border: 1px solid var(--color-line);
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--lb-border);
   border-radius: 6px;
-  background: color-mix(in srgb, var(--color-ivory) 88%, #fff);
+  background: var(--lb-panel);
 }
-[data-theme="dark"] .logbook-plate,
-[data-theme="dark"] .logbook-rack {
-  background: #1a2130;
-  border-color: #2a3344;
-}
+.logbook-foot-scroll { flex: 1; min-height: 0; overflow: auto; }
+.logbook-main-tabs { flex: 1; min-height: 0; }
+.logbook-main-tabs > .lb-tabpanel { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+.logbook-aside-tabs { flex: 1; min-height: 0; }
+.logbook-aside-tabs > .lb-tabpanel { flex: 1; overflow: auto; display: flex; flex-direction: column; }
+.logbook-aside-tabs > .lb-tabpanel > .logbook-gear { flex: 1; min-height: 0; }
+.logbook-for { margin: 0 0 0.45rem; font-size: 0.78rem; }
 
-.logbook-plate-art {
-  display: block;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-.logbook-plate-art img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: min(42vh, 22rem);
-  object-fit: contain;
-}
-.logbook-plate-cap {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  margin: 0.45rem 0 0;
-  font-size: 0.85rem;
-}
-.logbook-dress {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.35rem;
-}
-.logbook-ribbons { width: 100%; }
-.logbook-ribbons .ribbon { width: calc(var(--in, 1.05rem) * 1.35); }
-.logbook-pin {
-  display: inline-flex;
-  border: 0;
-  background: transparent;
-  padding: 0;
-  cursor: pointer;
-}
-.logbook-pin img {
-  display: block;
-  height: 1.55rem;
-  width: auto;
-}
+.logbook-plate-art { display: block; width: 100%; margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.logbook-mannequin { margin: 0; flex: 1 1 auto; min-height: 10rem; display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+.logbook-mannequin .logbook-plate-art { flex: 1; min-height: 0; display: flex; justify-content: center; }
+.logbook-mannequin img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.logbook-mannequin figcaption { font-size: 0.85rem; text-align: center; }
 
 .logbook-beats {
-  max-height: min(68vh, 42rem);
+  flex: 1;
+  min-height: 0;
   overflow: auto;
-  scroll-snap-type: y proximity;
-  padding-right: 0.25rem;
+  overscroll-behavior: contain;
+  padding: 0.6rem 0.6rem 0;
   outline: none;
 }
+.logbook-beats:focus-visible { box-shadow: inset 0 0 0 2px var(--color-brass-bright); }
 .logbook-beat {
-  scroll-snap-align: start;
-  margin: 0 0 0.85rem;
-  padding: 0.85rem 0.9rem;
-  border: 1px solid transparent;
+  margin: 0 0 0.75rem;
+  padding: 0.75rem 0.8rem;
+  border: 1px solid var(--lb-border);
   border-radius: 6px;
-  background: color-mix(in srgb, var(--color-ivory) 70%, transparent);
+  background: var(--lb-panel);
 }
 .logbook-beat.is-active {
   border-color: var(--color-brass);
-  background: color-mix(in srgb, var(--color-brass) 10%, var(--color-ivory));
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-brass) 35%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-brass) 45%, transparent);
 }
-[data-theme="dark"] .logbook-beat { background: #161c28; }
-[data-theme="dark"] .logbook-beat.is-active {
-  background: #1f2a3d;
-  border-color: var(--color-brass);
-}
+.logbook-beat:not(.is-active) .logbook-beat-body { opacity: 0.6; }
+.logbook-beat-head { display: flex; gap: 0.7rem; align-items: flex-start; }
+.logbook-beat-head h3 { margin: 0; font-size: 1.12rem; }
+.logbook-beat-head p { margin: 0.15rem 0 0; font-size: 0.9rem; }
+.logbook-beat-body { margin: 0.55rem 0 0 2.1rem; }
+/* Room after the last beat so it can reach the sync band; the sentinel marks the end of the column. */
+.logbook-beats-end { position: relative; height: 40%; }
+.logbook-beats-sentinel { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; }
 
-.logbook-beat-head {
-  cursor: pointer;
+/* Real tabs: bar attached to its panel. Inactive = outline, active = top-bar navy, white text. */
+.lb-tabbed { display: flex; flex-direction: column; min-height: 0; }
+.lb-tablist {
+  flex: none;
   display: flex;
-  gap: 0.7rem;
-  align-items: flex-start;
+  gap: 0.25rem;
+  overflow-x: auto;
+  padding: 0 0.1rem;
+  border-bottom: 2px solid var(--color-navy);
+  scrollbar-width: none;
 }
-.logbook-beat-head h3 { margin: 0; font-size: 1.15rem; }
-.logbook-beat-head p { margin: 0.2rem 0 0; }
-
-/* Numbered command rail above the beats. */
-.logbook-steps {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin: 0 0 0.65rem;
-}
-.logbook-step {
+.lb-tab {
+  flex: none;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  min-height: 36px;
-  padding: 0.2rem 0.65rem 0.2rem 0.25rem;
-  border: 1px solid var(--color-line);
-  border-radius: 999px;
+  min-height: 34px;
+  padding: 0.25rem 0.8rem;
+  margin-bottom: -1px;
+  border: 1px solid var(--color-navy);
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
   background: transparent;
-  color: inherit;
+  color: var(--color-navy);
   font: inherit;
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   cursor: pointer;
 }
-
-.logbook-step:focus-visible { outline: 2px solid var(--color-navy); outline-offset: 2px; }
-[data-theme="dark"] .logbook-step:focus-visible { outline-color: #daa520; }
-
-/* Tabs inside each beat: navy chips, gold when selected. */
-.logbook-tabbed { margin: 0.6rem 0 0 2.1rem; }
-.logbook-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  padding-bottom: 0.55rem;
-  border-bottom: 1px solid var(--color-line);
-}
-.logbook-tabs .nav-btn {
-  min-height: 36px;
-  padding: 0.25rem 0.85rem;
-  font-size: 0.86rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-.logbook-tab-count {
+.lb-tab.on { background: var(--color-navy); color: #fff; }
+.lb-tab:not(.on):hover { background: color-mix(in srgb, var(--color-navy) 8%, transparent); }
+.lb-tab:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 1px; }
+.lb-tab-count {
   display: inline-grid;
   place-items: center;
-  min-width: 1.25rem;
-  height: 1.25rem;
-  padding: 0 0.3rem;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  padding: 0 0.28rem;
   border-radius: 999px;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
   background: var(--color-navy);
   color: #fff;
 }
-.logbook-tabs .nav-btn.on .logbook-tab-count { background: #fff; color: var(--color-navy); }
-.logbook-panel { padding-top: 0.6rem; }
-.logbook-beat:not(.is-active) .logbook-tabbed { opacity: 0.62; }
-.logbook-panel-body > :first-child { margin-top: 0; }
-.logbook-facts {
-  display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
-  gap: 0.3rem 0.9rem;
-  margin: 0;
-  font-size: 0.95rem;
+.lb-tab.on .lb-tab-count { background: #fff; color: var(--color-navy); }
+.lb-tabpanel {
+  min-height: 0;
+  padding: 0.65rem 0.7rem;
+  border: 1px solid var(--lb-border);
+  border-top: 0;
+  border-radius: 0 0 6px 6px;
+  background: var(--lb-panel);
+  outline: none;
 }
-.logbook-facts dt {
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-quiet);
-  padding-top: 0.15rem;
-}
+.lb-tabpanel:focus-visible { box-shadow: inset 0 0 0 2px var(--color-brass-bright); }
+[data-theme="dark"] .lb-tablist { border-bottom-color: color-mix(in srgb, var(--color-ivory) 55%, transparent); }
+[data-theme="dark"] .lb-tab { color: var(--color-ivory); border-color: color-mix(in srgb, var(--color-ivory) 55%, transparent); }
+[data-theme="dark"] .lb-tab.on { background: var(--color-navy); color: #fff; border-color: var(--color-brass-bright); }
+[data-theme="dark"] .lb-tab-count { background: var(--color-ivory); color: var(--color-navy); }
+
+
+.logbook-facts { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.3rem 0.9rem; margin: 0; font-size: 0.95rem; }
+.logbook-facts dt { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-quiet); padding-top: 0.15rem; }
 .logbook-facts dd { margin: 0; }
 .logbook-plain { margin: 0.6rem 0 0; font-size: 0.95rem; line-height: 1.45; }
 .logbook-command-name { margin: 0 0 0.45rem; font-size: 1.02rem; font-weight: 600; }
 .logbook-link {
-  padding: 0;
-  border: 0;
-  background: none;
-  color: inherit;
-  font: inherit;
-  text-align: left;
-  text-decoration: underline;
-  text-decoration-color: var(--color-brass);
-  text-underline-offset: 0.18em;
-  cursor: pointer;
+  padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer;
+  text-decoration: underline; text-decoration-color: var(--color-brass); text-underline-offset: 0.18em;
 }
 .logbook-link:hover { text-decoration-thickness: 2px; }
 
 .logbook-admin-groups { display: flex; flex-direction: column; gap: 0.6rem; }
 .logbook-admin-group .logbook-kicker { margin-bottom: 0.3rem; }
-.logbook-admin-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
+.logbook-admin-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .logbook-admin-list button {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.1rem;
-  max-width: 18rem;
-  padding: 0.35rem 0.55rem;
-  border: 1px solid var(--color-line);
-  border-radius: 4px;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0.1rem; max-width: 18rem;
+  padding: 0.35rem 0.55rem; border: 1px solid var(--lb-border); border-radius: 4px;
+  background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;
 }
 .logbook-admin-list button:hover,
-.logbook-admin-list button:focus-visible { border-color: var(--color-brass); }
+.logbook-admin-list button:focus-visible { border-color: var(--color-navy); }
 .logbook-admin-list strong { font-size: 0.9rem; }
 .logbook-admin-list span { font-size: 0.8rem; color: var(--color-quiet); }
 .logbook-admin-empty { margin: 0; font-size: 0.88rem; }
 
-/* Room after the last beat so it can reach the reading line (desktop panel scroll). */
-.logbook-beats-end { height: calc(min(68vh, 42rem) * 0.62); }
+.logbook-gear { display: flex; flex-direction: column; gap: 0.55rem; }
+.logbook-gear .logbook-kicker { margin-bottom: 0.3rem; }
+.logbook-gear-list,
+.logbook-plate-options { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(4.6rem, 1fr)); gap: 0.35rem; }
+.logbook-gear-item,
+.logbook-plate-option {
+  display: flex; flex-direction: column; align-items: center; gap: 0.2rem; width: 100%; padding: 0.3rem;
+  border: 1px solid var(--lb-border); border-radius: 4px; background: transparent; color: inherit; font: inherit; cursor: pointer;
+}
+.logbook-gear-item:hover,
+.logbook-gear-item:focus-visible,
+.logbook-plate-option:hover,
+.logbook-plate-option:focus-visible { border-color: var(--color-navy); }
+.logbook-plate-option.on { border: 2px solid var(--color-navy); }
+[data-theme="dark"] .logbook-plate-option.on { border-color: var(--color-brass-bright); }
+.logbook-gear-item img,
+.logbook-plate-option img { display: block; height: 3rem; width: auto; max-width: 100%; object-fit: contain; }
+.logbook-plate-option img { height: 4.6rem; }
+.logbook-gear-blank { display: block; height: 3rem; }
+.logbook-gear-item span,
+.logbook-plate-option span { font-size: 0.7rem; line-height: 1.15; text-align: center; }
+.logbook-soon { display: flex; flex-direction: column; gap: 0.2rem; padding: 0.7rem; border: 1px dashed var(--lb-border); border-radius: 4px; font-size: 0.85rem; }
 
-.logbook-insets {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  gap: 0.9rem;
-  margin-top: 1.1rem;
-}
-.logbook-inset {
-  padding: 0.7rem 0.75rem;
-  border: 1px solid var(--color-line);
-  border-radius: 6px;
-  background: color-mix(in srgb, var(--color-ivory) 88%, #fff);
-}
-[data-theme="dark"] .logbook-inset {
-  background: #1a2130;
-  border-color: #2a3344;
-}
-.logbook-inset-label {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  margin: 0 0 0.5rem;
-  font-size: 0.92rem;
-}
-.logbook-map-frame { min-height: 14rem; }
-.logbook-map-frame .map-frame { height: 14rem; min-height: 14rem; }
-
-.logbook-units {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
-  gap: 0.45rem;
-}
+.logbook-inset-label { display: flex; align-items: center; gap: 0.45rem; margin: 0 0 0.45rem; font-size: 0.88rem; }
+.logbook-map-tab { height: 100%; display: flex; flex-direction: column; }
+.logbook-map-tab[hidden] { display: none; }
+.logbook-map-frame { flex: 1; min-height: 10rem; }
+.logbook-map-frame .map-frame { height: 100%; min-height: 10rem; }
+.logbook-units { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr)); gap: 0.45rem; }
 .logbook-unit {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-  width: 100%;
-  padding: 0.35rem;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 0.25rem; width: 100%; padding: 0.35rem;
+  border: 1px solid transparent; border-radius: 4px; background: transparent; color: inherit; font: inherit; cursor: pointer;
 }
 .logbook-unit:hover,
-.logbook-unit:focus-visible {
-  border-color: var(--color-brass);
-}
-.logbook-unit img {
-  display: block;
-  height: 2.6rem;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-}
-.logbook-unit span {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  line-height: 1.15;
-}
+.logbook-unit:focus-visible { border-color: var(--color-navy); }
+.logbook-unit img { display: block; height: 2.6rem; width: auto; max-width: 100%; object-fit: contain; }
+.logbook-unit span { display: flex; flex-direction: column; align-items: center; text-align: center; line-height: 1.15; }
 .logbook-unit b { font-size: 0.78rem; }
-.logbook-unit em {
-  font-size: 0.68rem;
-  font-style: normal;
-  color: var(--color-quiet);
-}
+.logbook-unit em { font-size: 0.68rem; font-style: normal; color: var(--color-quiet); }
 
-/* Phone: sticky plate+rack on top; map/units as chips. */
-.logbook-sticky-phone,
-.logbook-phone-chips,
-.logbook-phone-panel { display: none; }
+/* Rank & Awards */
+.logbook-ra { display: flex; flex-wrap: wrap; gap: 0.7rem 1.4rem; align-items: flex-start; --in: 1.6rem; --mi: 1.3rem; }
+.logbook-ra > section { min-width: 0; }
+.logbook-ra-rank { flex: 1 1 100%; }
+.logbook-rank { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.3rem 0.5rem; border: 1px solid var(--lb-border); border-radius: 4px; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.logbook-rank:hover, .logbook-rank:focus-visible { border-color: var(--color-navy); }
+.logbook-rank-patch { height: 3.4rem; width: auto; }
+.logbook-rank-collar { height: 2.2rem; width: auto; border-radius: 3px; }
+.logbook-rank span { display: flex; flex-direction: column; line-height: 1.2; }
+.logbook-rank small { font-size: 0.78rem; color: var(--color-quiet); }
+.logbook-ra-note { margin: 0.3rem 0 0; font-size: 0.75rem; }
+.logbook-pins { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.logbook-pin { display: inline-flex; border: 0; background: transparent; padding: 0; cursor: pointer; }
+.logbook-pin img { display: block; height: 1.7rem; width: auto; }
+.logbook-ribbons { width: max-content; max-width: 100%; }
+.logbook-ribbons .ribbon { width: calc(var(--in) * 1.375); }
+.logbook-medals { max-width: 100%; overflow-x: auto; }
+.logbook-new { margin-left: 0.4rem; padding: 0 0.3rem; border-radius: 3px; font-size: 0.66rem; font-style: normal; font-weight: 600; background: var(--color-navy); color: #fff; vertical-align: middle; }
+.logbook-earlier summary { cursor: pointer; font-size: 0.82rem; color: var(--color-quiet); margin-bottom: 0.35rem; }
+
+/* Unit crests (footer left) */
+.logbook-crests { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(5.2rem, 1fr)); gap: 0.4rem; }
+.logbook-crest {
+  display: flex; flex-direction: column; align-items: center; gap: 0.15rem; width: 100%; padding: 0.3rem;
+  border: 1px solid var(--lb-border); border-radius: 4px; background: transparent; color: inherit; font: inherit; cursor: pointer; opacity: 0.7;
+}
+.logbook-crest img { display: block; height: 2.5rem; width: auto; max-width: 100%; object-fit: contain; }
+.logbook-crest b { font-size: 0.74rem; text-align: center; }
+.logbook-crest em { font-size: 0.66rem; font-style: normal; color: var(--color-quiet); text-align: center; }
+.logbook-crest.on { opacity: 1; border: 2px solid var(--color-navy); box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-brass) 45%, transparent); }
+.logbook-crest:hover, .logbook-crest:focus-visible { opacity: 1; border-color: var(--color-navy); }
+[data-theme="dark"] .logbook-crest.on { border-color: var(--color-brass-bright); }
+
+/* Phone / tablet: main (with tabs) on top, one stacked tab panel below: Uniforms, On Duty, Off Duty, Crests, Map. */
+.logbook-phone { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 0.55rem; }
+.logbook-phone .logbook-main { flex: 1 1 58%; }
+.logbook-phone-tabs { flex: 1 1 42%; min-height: 0; }
+.logbook-phone-tabs > .lb-tabpanel { flex: 1; overflow: auto; }
+.logbook-phone-tabs > .lb-tabpanel > .logbook-gear { min-height: 100%; }
+.logbook-phone-tabs .logbook-mannequin { min-height: 12rem; }
+.logbook-phone-tabs .logbook-map-frame { min-height: 8rem; }
 
 @media (max-width: 900px) {
-  .logbook-layout { grid-template-columns: 1fr; }
-  .logbook-side { display: none; }
-  .logbook-sticky-phone {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.55rem;
-    position: sticky;
-    top: 3.25rem;
-    z-index: 12;
-    padding: 0.35rem 0 0.55rem;
-    background: color-mix(in srgb, var(--color-ivory) 92%, transparent);
-    backdrop-filter: blur(6px);
-  }
-  [data-theme="dark"] .logbook-sticky-phone {
-    background: color-mix(in srgb, #14181f 92%, transparent);
-  }
-  .logbook-sticky-phone .logbook-plate-art img { max-height: 28vh; }
-  .logbook-beats { max-height: none; overflow: visible; }
-  .logbook-insets { display: none; }
-  .logbook-phone-chips {
-    display: flex;
-    gap: 0.45rem;
-    position: sticky;
-    bottom: 0.65rem;
-    z-index: 14;
-    justify-content: flex-end;
-    pointer-events: none;
-  }
-  .logbook-phone-chips .nav-btn {
-    pointer-events: auto;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
-  }
-  .logbook-phone-panel {
-    display: block;
-    margin: 0.55rem 0 1rem;
-    padding: 0.7rem;
-    border: 1px solid var(--color-line);
-    border-radius: 6px;
-    background: color-mix(in srgb, var(--color-ivory) 88%, #fff);
-  }
-  [data-theme="dark"] .logbook-phone-panel {
-    background: #1a2130;
-    border-color: #2a3344;
-  }
-  .logbook-tabbed { margin-left: 0; }
-  .logbook-beats-end { height: 45vh; }
-  .logbook-step-label { display: none; }
-  .logbook-step { padding: 0.2rem; }
+  .logbook-head { grid-template-columns: auto minmax(0, 1fr); margin-bottom: 0.45rem; }
+  .logbook-lead { display: none; }
+  .logbook-count { justify-self: end; }
+  .logbook-beat { padding: 0.6rem 0.65rem; }
+  .logbook-beat-body { margin-left: 0; }
+  .app-main:has(> .view-pane:not(.screen-off) .logbook) .page-pager { margin-top: 0.35rem; padding-top: 0.3rem; }
 }
+.logbook-foot-map { overflow: hidden; }
+.logbook-foot-map .logbook-map-tab { flex: 1; min-height: 0; height: auto; }
+.logbook-foot-map .logbook-map-frame,
+.logbook-foot-map .logbook-map-frame .map-frame { min-height: 5rem; }
+.logbook-foot-map .logbook-inset-label { margin-bottom: 0.3rem; }
 
-@media (max-width: 520px) {
-  .logbook-sticky-phone { grid-template-columns: 1fr 1fr; gap: 0.4rem; }
-  .logbook-plate,
-  .logbook-rack { padding: 0.5rem; }
+/* Whites / Blues / Khakis segmented control: outline when inactive, top-bar navy when active. */
+.logbook-seg { display: flex; border: 1px solid var(--color-navy); border-radius: 6px; overflow: hidden; }
+.logbook-seg-btn {
+  flex: 1 1 0; min-height: 34px; padding: 0.25rem 0.5rem; border: 0; border-right: 1px solid var(--color-navy);
+  background: transparent; color: var(--color-navy); font: inherit; font-size: 0.84rem; cursor: pointer;
 }
-
-/* Logbook buttons (tabs, command rail, phone Map/Units chips):
-   inactive = transparent with an outline; active = top-bar navy fill, white text. */
-.logbook .logbook-tabs .nav-btn,
-.logbook .logbook-step,
-.logbook .logbook-phone-chips .nav-btn {
-  background: transparent;
-  color: var(--color-navy);
-  border: 1px solid var(--color-navy);
-  box-shadow: none;
-}
-.logbook .logbook-tabs .nav-btn.on,
-.logbook .logbook-step.on,
-.logbook .logbook-phone-chips .nav-btn.on {
-  background: var(--color-navy);
-  color: #fff;
-  border-color: var(--color-navy);
-}
-.logbook .logbook-tabs .nav-btn:hover,
-.logbook .logbook-step:hover,
-.logbook .logbook-phone-chips .nav-btn:hover {
-  border-color: var(--color-navy);
-  box-shadow: 0 0 0 2px var(--color-brass-bright);
-}
-.logbook .logbook-step.on .pin-num { box-shadow: 0 0 0 1.5px #fff; border-radius: 999px; }
-[data-theme="dark"] .logbook .logbook-tabs .nav-btn,
-[data-theme="dark"] .logbook .logbook-step,
-[data-theme="dark"] .logbook .logbook-phone-chips .nav-btn {
-  background: transparent;
-  color: var(--color-ivory);
-  border-color: color-mix(in srgb, var(--color-ivory) 55%, transparent);
-}
-[data-theme="dark"] .logbook .logbook-tabs .nav-btn.on,
-[data-theme="dark"] .logbook .logbook-step.on,
-[data-theme="dark"] .logbook .logbook-phone-chips .nav-btn.on {
-  background: var(--color-navy);
-  color: #fff;
-  border-color: var(--color-brass-bright);
-}
-[data-theme="dark"] .logbook .logbook-tab-count { background: var(--color-ivory); color: var(--color-navy); }
-@media (max-width: 900px) {
-  .logbook .logbook-phone-chips .nav-btn:not(.on) {
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-  }
-}
+.logbook-seg-btn:last-child { border-right: 0; }
+.logbook-seg-btn.on { background: var(--color-navy); color: #fff; }
+.logbook-seg-btn:not(.on):hover { background: color-mix(in srgb, var(--color-navy) 8%, transparent); }
+.logbook-seg-btn:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: -2px; }
+[data-theme="dark"] .logbook-seg { border-color: color-mix(in srgb, var(--color-ivory) 55%, transparent); }
+[data-theme="dark"] .logbook-seg-btn { color: var(--color-ivory); border-color: color-mix(in srgb, var(--color-ivory) 55%, transparent); }
+[data-theme="dark"] .logbook-seg-btn.on { background: var(--color-navy); color: #fff; box-shadow: inset 0 -2px 0 var(--color-brass-bright); }
+.logbook-mannequin-empty { min-height: 9rem; justify-content: center; align-items: center; text-align: center; }
+.logbook-seg { flex: none; }
+.logbook-phone-tabs .logbook-mannequin { min-height: 0; flex: none; }
+.logbook-phone-tabs .logbook-mannequin .logbook-plate-art { flex: none; }
+.logbook-phone-tabs .logbook-mannequin img { height: auto; max-height: 26dvh; width: auto; max-width: 100%; }

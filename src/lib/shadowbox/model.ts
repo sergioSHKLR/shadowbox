@@ -1993,3 +1993,84 @@ export function reflectionFor(kind: Kind, id: string): string | null {
   const text = found?.text?.trim();
   return text ? text : null;
 }
+
+/* ---------- Logbook side column: Uniforms / On Duty / Off Duty, all from src/data ---------- */
+
+const LOGBOOK_DUTY_GROUPS: EquipmentGroup[] = ["armor", "helmets", "weapons", "comms", "vehicles", "ships", "aircraft"];
+const LOGBOOK_OFF_GROUPS: EquipmentGroup[] = ["cars", "motorcycles", "residences", "cities"];
+/** C-5 and C-9 are off duty on the AS-40 tour (same rule as the On Duty / Off Duty pages). */
+const LOGBOOK_OFF_DUTY_AIRCRAFT = new Set(["c-5", "c-9"]);
+
+function equipmentForCommand(unitId: string): Equipment[] {
+  const ids = new Set(usedHere[unitId] ?? []);
+  return equipment
+    .filter((item) => (item as Equipment & { unitId?: string }).unitId === unitId || ids.has(item.id))
+    .sort((a, b) => {
+      const ga = EQUIPMENT_GROUPS.findIndex((g) => g.id === a.group);
+      const gb = EQUIPMENT_GROUPS.findIndex((g) => g.id === b.group);
+      return ga - gb || a.order - b.order;
+    });
+}
+
+export type LogbookGearGroup = { id: EquipmentGroup; label: string; items: Equipment[] };
+
+function groupGear(items: Equipment[]): LogbookGearGroup[] {
+  return EQUIPMENT_GROUPS.map((group) => ({ id: group.id, label: group.label, items: items.filter((item) => item.group === group.id) })).filter(
+    (group) => group.items.length,
+  );
+}
+
+/** Duty gear recorded for a command (equipment.json + used-here.json). */
+export function onDutyForCommand(unitId: string | null | undefined): LogbookGearGroup[] {
+  if (!unitId) return [];
+  return groupGear(
+    equipmentForCommand(unitId).filter((item) => LOGBOOK_DUTY_GROUPS.includes(item.group) && !LOGBOOK_OFF_DUTY_AIRCRAFT.has(item.id)),
+  );
+}
+
+/** Off-duty cars, motorcycles, residences, cities (and the AS-40 C-5/C-9 hops) recorded for a command. */
+export function offDutyForCommand(unitId: string | null | undefined): LogbookGearGroup[] {
+  if (!unitId) return [];
+  return groupGear(
+    equipmentForCommand(unitId).filter((item) => LOGBOOK_OFF_GROUPS.includes(item.group) || LOGBOOK_OFF_DUTY_AIRCRAFT.has(item.id)),
+  );
+}
+
+/** Ready uniform plates for a command (e.g. NCTS → 2a blues, 2b whites; NAVHOSP → 7b/7c/7k CPO). */
+export function uniformPlatesForCommand(unitId: string | null | undefined): UniformSlide[] {
+  if (!unitId) return [];
+  const codes = new Set(
+    UNIFORM_STEP_PLATES.filter((row) => row.unitId === unitId).map((row) => row.stem.replace(/[a-z]+$/i, "")),
+  );
+  return uniformSlides.filter((slide) => codes.has(slide.file.replace(/\.[^.]+$/, "").replace(/[a-z]+$/i, "")));
+}
+
+/** uniforms.json entries whose recorded context names this command. */
+export function uniformsNamingCommand(unitId: string | null | undefined) {
+  const unit = unitId ? units.find((row) => row.id === unitId) : undefined;
+  if (!unit) return [];
+  return uniforms.filter((uniform) => (uniform.context ?? "").includes(unit.name));
+}
+
+/** Logbook Admin tab: NECs held and schools completed as of the end of a command (from necs.json / schools.json). */
+export function logbookAdminAsOf(beat: LogbookBeat): {
+  necsHeld: { nec: Nec; isNew: boolean }[];
+  schoolsThisTour: School[];
+  schoolsEarlier: School[];
+} {
+  const unit = beat.stop.commandId ? unitById(beat.stop.commandId) : undefined;
+  const endRaw = unit?.end ? (unit.end.length === 4 ? `${unit.end}-12-31` : unit.end) : beat.when;
+  const cutoff = dateKey(endRaw) || "9999-12-31";
+  const tourNecIds = new Set(beat.admin.filter((fact) => fact.kind === "nec").map((fact) => fact.id));
+  const tourSchoolIds = new Set(beat.admin.filter((fact) => fact.kind === "school").map((fact) => fact.id));
+  const necsHeld = necs
+    .filter((nec) => nec.awarded && dateKey(nec.awarded) <= cutoff)
+    .sort((a, b) => dateKey(a.awarded).localeCompare(dateKey(b.awarded)))
+    .map((nec) => ({ nec, isNew: tourNecIds.has(nec.id) }));
+  const byDate = (a: School, b: School) => dateKey(a.start).localeCompare(dateKey(b.start));
+  const schoolsThisTour = schools.filter((school) => tourSchoolIds.has(school.id)).sort(byDate);
+  const schoolsEarlier = schools
+    .filter((school) => !tourSchoolIds.has(school.id) && school.start && dateKey(school.end || school.start) <= cutoff)
+    .sort(byDate);
+  return { necsHeld, schoolsThisTour, schoolsEarlier };
+}
