@@ -111,20 +111,110 @@
 }
 
 .logbook-beat-head {
+  cursor: pointer;
   display: flex;
   gap: 0.7rem;
   align-items: flex-start;
 }
 .logbook-beat-head h3 { margin: 0; font-size: 1.15rem; }
 .logbook-beat-head p { margin: 0.2rem 0 0; }
-.logbook-beat-body { margin: 0.55rem 0 0 2.1rem; }
-.logbook-beat-body p { margin: 0.2rem 0; font-size: 0.98rem; }
 
-.logbook-admin {
-  margin: 0.75rem 0 0 2.1rem;
-  padding-top: 0.55rem;
-  border-top: 1px solid var(--color-line);
+/* Numbered command rail above the beats. */
+.logbook-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0 0 0.65rem;
 }
+.logbook-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 36px;
+  padding: 0.2rem 0.65rem 0.2rem 0.25rem;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.logbook-step:hover { border-color: var(--color-brass-bright, var(--color-brass)); }
+.logbook-step.on {
+  border-color: #daa520;
+  background: color-mix(in srgb, #daa520 22%, transparent);
+  font-weight: 600;
+}
+.logbook-step:focus-visible { outline: 2px solid var(--color-navy); outline-offset: 2px; }
+[data-theme="dark"] .logbook-step:focus-visible { outline-color: #daa520; }
+
+/* Tabs inside each beat: navy chips, gold when selected. */
+.logbook-tabbed { margin: 0.6rem 0 0 2.1rem; }
+.logbook-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--color-line);
+}
+.logbook-tabs .nav-btn {
+  min-height: 36px;
+  padding: 0.25rem 0.85rem;
+  font-size: 0.86rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.logbook-tab-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.3rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: color-mix(in srgb, var(--color-ivory) 85%, transparent);
+  color: var(--color-navy);
+}
+.logbook-tabs .nav-btn.on .logbook-tab-count { background: var(--color-navy); color: #daa520; }
+.logbook-panel { padding-top: 0.6rem; }
+.logbook-beat:not(.is-active) .logbook-tabbed { opacity: 0.62; }
+.logbook-panel-body > :first-child { margin-top: 0; }
+.logbook-facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.3rem 0.9rem;
+  margin: 0;
+  font-size: 0.95rem;
+}
+.logbook-facts dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-quiet);
+  padding-top: 0.15rem;
+}
+.logbook-facts dd { margin: 0; }
+.logbook-plain { margin: 0.6rem 0 0; font-size: 0.95rem; line-height: 1.45; }
+.logbook-command-name { margin: 0 0 0.45rem; font-size: 1.02rem; font-weight: 600; }
+.logbook-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-color: var(--color-brass);
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+.logbook-link:hover { text-decoration-thickness: 2px; }
+
+.logbook-admin-groups { display: flex; flex-direction: column; gap: 0.6rem; }
+.logbook-admin-group .logbook-kicker { margin-bottom: 0.3rem; }
 .logbook-admin-list {
   list-style: none;
   margin: 0;
@@ -138,24 +228,24 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.1rem;
-  max-width: 16rem;
-  padding: 0.35rem 0.5rem;
+  max-width: 18rem;
+  padding: 0.35rem 0.55rem;
   border: 1px solid var(--color-line);
   border-radius: 4px;
   background: transparent;
   color: inherit;
+  font: inherit;
   text-align: left;
   cursor: pointer;
 }
-.logbook-admin-list small {
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-quiet);
-}
+.logbook-admin-list button:hover,
+.logbook-admin-list button:focus-visible { border-color: var(--color-brass); }
 .logbook-admin-list strong { font-size: 0.9rem; }
 .logbook-admin-list span { font-size: 0.8rem; color: var(--color-quiet); }
 .logbook-admin-empty { margin: 0; font-size: 0.88rem; }
+
+/* Room after the last beat so it can reach the reading line (desktop panel scroll). */
+.logbook-beats-end { height: calc(min(68vh, 42rem) * 0.62); }
 
 .logbook-insets {
   display: grid;
@@ -279,8 +369,10 @@
     background: #1a2130;
     border-color: #2a3344;
   }
-  .logbook-beat-body,
-  .logbook-admin { margin-left: 0; }
+  .logbook-tabbed { margin-left: 0; }
+  .logbook-beats-end { height: 45vh; }
+  .logbook-step-label { display: none; }
+  .logbook-step { padding: 0.2rem; }
 }
 
 @media (max-width: 520px) {
