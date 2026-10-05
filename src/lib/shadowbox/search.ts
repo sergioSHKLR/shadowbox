@@ -31,6 +31,8 @@ const PAGES: Hit[] = [
   { title: "Admin", kindLabel: "Page", snippet: "Schools, in the order recorded", open: { view: "admin" } },
   { title: "Timeline", kindLabel: "Page", snippet: "Rank, assignments, and deployments", open: { view: "timeline" } },
   { title: "Linha do tempo", kindLabel: "Página", snippet: "Posto, funções e deslocamentos", open: { view: "timeline" } },
+  { title: "Logbook", kindLabel: "Page", snippet: "Uniform, rack, map, and units synced to each place stop", open: { view: "logbook" } },
+  { title: "Diário de bordo", kindLabel: "Página", snippet: "Uniforme, rack, mapa e unidades por parada", open: { view: "logbook" } },
   { title: "Uniforms", kindLabel: "Page", snippet: "Uniforms worn across the career", open: { view: "uniforms" } },
   { title: "Uniformes", kindLabel: "Página", snippet: "Uniformes usados na carreira", open: { view: "uniforms" } },
   { title: "Commands", kindLabel: "Page", snippet: "Command rows: crest, rating badges, loose ribbons and medals", open: { view: "commands" } },

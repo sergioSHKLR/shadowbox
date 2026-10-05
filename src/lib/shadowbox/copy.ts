@@ -8,6 +8,7 @@ const en = {
   menu: "Menu",
   noMatch: "No match in the record.",
   timeline: "Timeline",
+  logbook: "Logbook",
   admin: "Admin",
   commands: "Commands",
   uniforms: "Uniforms",
@@ -46,6 +47,7 @@ const en = {
   schoolsLead: "Courses in the order they were recorded. Open a row for the explanation, the place, and what the course was for.",
   commandsLead: "The six commands. Each row is the crest, the rating badge on the way in, loose ribbons, and the rating badge on the way out. Slide left for in-theater commands, sponsors, partners, customers, and exercises.",
   necsLead: "Navy Enlisted Classifications in the order awarded. A code that later changed shows the current code. Open a row for the criteria.",
+  logbookLead: "Scroll the place sequence. The uniform plate, ribbon rack, map pin, supporting units, and admin facts follow each stop. Labels and dates come from the record — blank beats a guess.",
 };
 
 const pt: typeof en = {
@@ -56,6 +58,7 @@ const pt: typeof en = {
   menu: "Menu",
   noMatch: "Nada encontrado no registro.",
   timeline: "Linha do tempo",
+  logbook: "Diário de bordo",
   admin: "Admin",
   commands: "Comandos",
   uniforms: "Uniformes",
@@ -94,6 +97,7 @@ const pt: typeof en = {
   schoolsLead: "Cursos na ordem em que foram registrados. Abra uma linha para a explicação, o lugar e para que servia o curso.",
   commandsLead: "Os seis comandos. Cada fileira é o distintivo, o distintivo de posto na entrada, fitas soltas, e o distintivo de posto na saída. Deslize para o comando no teatro, patrocinadores, parceiros, clientes e exercícios.",
   necsLead: "Classificações de praça (NEC) na ordem em que foram concedidas. Código que mudou mostra o código atual. Abra a linha para o critério.",
+  logbookLead: "Role a sequência de lugares. O uniforme, o rack, o pino no mapa, as unidades e o admin acompanham cada parada. Rótulos e datas vêm do registro — em branco vale mais que um palpite.",
 };
 
 export type Chrome = typeof en;

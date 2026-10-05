@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Anchor, BookOpen, Car, ChartGantt, ClipboardList, Flag, House, Library, Map, MessageCircle, Radio, Shirt } from "lucide-react";
+import { Anchor, BookOpen, Car, ChartGantt, ClipboardList, Flag, House, Library, Map, MessageCircle, NotebookText, Radio, Shirt } from "lucide-react";
 import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
 import { chrome } from "@/lib/shadowbox/copy";
@@ -16,12 +16,13 @@ import { Contact, Guestbook } from "@/components/shadowbox/footer-pages";
 import { Memories } from "@/components/shadowbox/memories-view";
 import { Schools } from "@/components/shadowbox/schools-view";
 import { Commands } from "@/components/shadowbox/commands-view";
+import { Logbook } from "@/components/shadowbox/logbook-view";
 
-type View = "home" | "uniforms" | "decorations" | "onduty" | "offduty" | "ops" | "map" | "timeline" | "admin" | "commands" | "sources" | "contact" | "guestbook" | "memories";
+type View = "home" | "uniforms" | "decorations" | "onduty" | "offduty" | "ops" | "map" | "timeline" | "logbook" | "admin" | "commands" | "sources" | "contact" | "guestbook" | "memories";
 
-const NAV = ["commands", "timeline", "ops", "map", "uniforms", "onduty", "admin", "offduty"] as const;
+const NAV = ["commands", "timeline", "logbook", "ops", "map", "uniforms", "onduty", "admin", "offduty"] as const;
 type PageId = "home" | (typeof NAV)[number];
-const NAV_ICON = { commands: Anchor, uniforms: Shirt, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, admin: ClipboardList };
+const NAV_ICON = { commands: Anchor, uniforms: Shirt, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, logbook: NotebookText, admin: ClipboardList };
 const PAGE_ICON: Record<PageId, typeof House> = { home: House, ...NAV_ICON };
 const FOOTER = ["guestbook", "contact", "sources"] as const;
 const FOOTER_ICON = { sources: Library, contact: MessageCircle, guestbook: BookOpen };
@@ -238,6 +239,9 @@ export function ShadowboxApp() {
         <div className={pane("map")}><Stations stops={stops} onOpen={open} /></div>
         <div className={pane("timeline")}>
           <Timeline bars={bars} stops={stops} onOpen={open} title={t.pathTitle} lead={t.pathLead} eventsNote={t.eventsNote} />
+        </div>
+        <div className={pane("logbook")}>
+          <Logbook onOpen={open} title={t.logbook} lead={t.logbookLead} />
         </div>
         <div className={pane("admin")}>
           <Schools onOpen={open} title={t.schools} lead={t.schoolsLead} necTitle={t.necs} necLead={t.necsLead} dateNeeded={t.dateNeeded} />

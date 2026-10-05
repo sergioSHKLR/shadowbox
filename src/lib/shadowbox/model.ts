@@ -181,6 +181,7 @@ export type School = {
   name: string;
   abbreviation: string;
   start: string;
+  end?: string | null;
   length: string | null;
   placeId: string | null;
   placeConfidence: string;
@@ -1154,6 +1155,258 @@ export function careerStops(): Stop[] {
   }
   return stops;
 }
+
+/** Date key YYYY-MM-DD for ordering (month/day default to 01). */
+function dateKey(value: string | null | undefined): string {
+  if (!value) return "";
+  const [y, m, d] = value.split("-");
+  if (!y) return "";
+  return `${y}-${(m ?? "01").padStart(2, "0")}-${(d ?? "01").padStart(2, "0")}`;
+}
+
+function monthKey(value: string | null | undefined): number | null {
+  const key = dateKey(value);
+  if (!key) return null;
+  const y = Number(key.slice(0, 4));
+  const m = Number(key.slice(5, 7));
+  if (!Number.isFinite(y) || !Number.isFinite(m)) return null;
+  return y * 12 + (m - 1);
+}
+
+/** Assigned-command plates in career order (Commands page). */
+const PLATE_UNIT_IDS = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"] as const;
+
+/** Customers/partners kept off the Map inset (still OK as unit chips from structured data). */
+const MAP_EXCLUDED_UNIT_IDS = new Set(["52nd-ordnance", "3rd-sfg", "75th-ranger"]);
+
+export type LogbookUnitChip = {
+  id: string;
+  name: string;
+  abbreviation: string;
+  image: string | null;
+  designator: string | null;
+};
+
+export type LogbookAdminFact = {
+  kind: "school" | "nec" | "rank" | "milestone";
+  id: string;
+  label: string;
+  detail: string;
+};
+
+export type LogbookBeat = {
+  index: number;
+  stop: Stop;
+  /** Carried-forward when the sequence row has no date. */
+  when: string;
+  month: number | null;
+  rank: Rank | null;
+  uniform: UniformSlide | null;
+  plate: CommandPlate | null;
+  rack: Award[];
+  pinsAbove: string[];
+  pinsBelow: string[];
+  /** Crest/units shown in the Units inset (may include assisting partners). */
+  units: LogbookUnitChip[];
+  /** Schools, NECs, ranks, milestones tied to this beat — no invented prose. */
+  admin: LogbookAdminFact[];
+  /** Structured lines only (label, place, command, duty window). Never reminiscence. */
+  lines: string[];
+};
+
+function unitChip(unit: Unit): LogbookUnitChip {
+  return {
+    id: unit.id,
+    name: unit.name,
+    abbreviation: unit.abbreviation,
+    image: unit.image ?? null,
+    designator: unit.designator ?? null,
+  };
+}
+
+function plateForStop(stop: Stop, when: string): CommandPlate | null {
+  if (stop.commandId) {
+    const direct = commandPlates.find((row) => row.unitId === stop.commandId);
+    if (direct) return direct;
+  }
+  const key = dateKey(when);
+  let best: CommandPlate | null = null;
+  let bestStart = "";
+  for (const unitId of PLATE_UNIT_IDS) {
+    const unit = unitById(unitId);
+    const plate = commandPlates.find((row) => row.unitId === unitId);
+    if (!unit || !plate || !unit.start) continue;
+    const start = dateKey(unit.start);
+    // Year-only ends count through Dec 31 of that year.
+    const endRaw = unit.end ? (unit.end.length === 4 ? `${unit.end}-12-31` : unit.end) : "9999-12-31";
+    const end = dateKey(endRaw);
+    if (!start) continue;
+    if (key && (start > key || end < key)) continue;
+    if (!key || start >= bestStart) {
+      best = plate;
+      bestStart = start;
+    }
+  }
+  return best;
+}
+
+function rankAt(when: string): Rank | null {
+  const key = dateKey(when);
+  if (!key) return ranks[0] ?? null;
+  let best: Rank | null = null;
+  for (const rank of ranks) {
+    if (!rank.date) continue;
+    if (dateKey(rank.date) <= key) best = rank;
+  }
+  return best;
+}
+
+function lookForRank(rank: Rank | null): UniformLook {
+  return rank?.grade === "E-7" ? "khaki" : "blue";
+}
+
+function schoolsForBeat(stop: Stop, when: string): School[] {
+  const placeIds = new Set([stop.place.id, stop.cityId, stop.baseId].filter(Boolean) as string[]);
+  const key = dateKey(when);
+  const year = key.slice(0, 4);
+  return schools.filter((school) => {
+    if (!school.start) {
+      return Boolean(school.placeId && placeIds.has(school.placeId));
+    }
+    const start = dateKey(school.start);
+    const end = dateKey(school.end ?? school.start);
+    const overlaps = Boolean(key && start && end && start <= key && key <= end);
+    const sameYear = Boolean(year && school.start.startsWith(year));
+    const samePlace = Boolean(school.placeId && placeIds.has(school.placeId));
+    // Same place alone is not enough — later Great Lakes courses must not ride on RTC.
+    if (samePlace) return overlaps || sameYear;
+    return overlaps || sameYear;
+  });
+}
+
+function necsForBeat(when: string): Nec[] {
+  const key = dateKey(when);
+  if (!key) return [];
+  const year = key.slice(0, 4);
+  return necs.filter((nec) => {
+    if (!nec.awarded) return false;
+    const awarded = dateKey(nec.awarded);
+    if (awarded === key) return true;
+    return awarded.startsWith(year) && Math.abs(Number(awarded.slice(0, 4)) - Number(year)) === 0;
+  });
+}
+
+function milestonesForBeat(when: string): Milestone[] {
+  const key = dateKey(when);
+  if (!key) return [];
+  return milestones.filter((row) => dateKey(row.date) === key || (key.length >= 7 && dateKey(row.date).startsWith(key.slice(0, 7))));
+}
+
+function unitsForBeat(stop: Stop, plate: CommandPlate | null, when: string): LogbookUnitChip[] {
+  const out: LogbookUnitChip[] = [];
+  const seen = new Set<string>();
+  const add = (unit: Unit | undefined) => {
+    if (!unit || seen.has(unit.id)) return;
+    seen.add(unit.id);
+    out.push(unitChip(unit));
+  };
+  if (stop.commandId) add(unitById(stop.commandId));
+  if (plate) add(unitById(plate.unitId));
+  if (plate?.extras) {
+    for (const extra of plate.extras) {
+      if (extra.kind !== "unit") continue;
+      add(unitById(extra.id));
+    }
+  }
+  const key = dateKey(when);
+  const placeIds = new Set([stop.place.id, stop.cityId, stop.baseId].filter(Boolean) as string[]);
+  for (const unit of units) {
+    if (seen.has(unit.id)) continue;
+    if (unit.placeId && placeIds.has(unit.placeId)) {
+      const start = dateKey(unit.start);
+      const end = dateKey(unit.end ?? unit.start);
+      if (!key || !start || (start <= key && (!end || key <= end || unit.end?.length === 4))) {
+        add(unit);
+      }
+    }
+  }
+  return out;
+}
+
+/** One scroll beat per place-sequence stop. Facts only — blank beats invented prose. */
+export function logbookBeats(): LogbookBeat[] {
+  const stops = careerStops();
+  let carried = profile.serviceStart ?? "1997-06-30";
+  return stops.map((stop, index) => {
+    const when = stop.when || carried;
+    if (stop.when) carried = stop.when;
+    const month = monthKey(when);
+    const rank = rankAt(when);
+    const look = lookForRank(rank);
+    const uniform = month != null ? uniformSlideAt(month, look) ?? uniformSlideAt(month, "blue") : firstUniformSlide(look) ?? firstUniformSlide("blue");
+    const plate = plateForStop(stop, when);
+    const rack = plate ? plateAwards(plate.rack) : [];
+    const schoolRows = schoolsForBeat(stop, when);
+    const necRows = necsForBeat(when);
+    const mileRows = milestonesForBeat(when);
+    const admin: LogbookAdminFact[] = [
+      ...schoolRows.map((school) => ({
+        kind: "school" as const,
+        id: school.id,
+        label: school.abbreviation || school.name,
+        detail: [school.name, school.start ? formatSpan(school.start, school.end ?? null) : ""].filter(Boolean).join(" · "),
+      })),
+      ...necRows.map((nec) => ({
+        kind: "nec" as const,
+        id: nec.id,
+        label: `NEC ${nec.code}`,
+        detail: [nec.name, nec.awarded ? formatWhen(nec.awarded) : ""].filter(Boolean).join(" · "),
+      })),
+      ...mileRows.map((row) => ({
+        kind: "milestone" as const,
+        id: row.id,
+        label: row.short || row.title,
+        detail: row.title,
+      })),
+    ];
+    if (rank?.date && dateKey(rank.date) === dateKey(when)) {
+      admin.unshift({
+        kind: "rank",
+        id: rank.id,
+        label: rank.abbreviation,
+        detail: rank.name,
+      });
+    }
+    const command = stop.commandId ? unitById(stop.commandId) : undefined;
+    const lines = [
+      stop.labels[0],
+      [stop.place.name, stop.when ? (stop.when.length === 4 ? stop.when : formatWhen(stop.when)) : null].filter(Boolean).join(" · "),
+      command ? `${command.abbreviation}${command.designator ? ` · ${command.designator}` : ""}` : null,
+      rank ? `${rank.abbreviation} · ${rank.name}` : null,
+    ].filter((line): line is string => Boolean(line && line.trim()));
+    return {
+      index,
+      stop,
+      when,
+      month,
+      rank,
+      uniform,
+      plate,
+      rack,
+      pinsAbove: plate?.pinsAbove ?? [],
+      pinsBelow: plate?.pinsBelow ?? [],
+      units: unitsForBeat(stop, plate, when),
+      admin,
+      lines,
+    };
+  });
+}
+
+/** True when a unit crest must stay off the Logbook map inset. */
+export function isMapExcludedUnit(unitId: string): boolean {
+  return MAP_EXCLUDED_UNIT_IDS.has(unitId);
+}
+
 
 let pinNumbers: Map<string, number[]> | undefined;
 /** The map-pin number(s) of a place, matching the Map tab's pins and list. Empty if the place is not a stop. */
