@@ -27,6 +27,7 @@ import worldEventsJson from "@/data/world-events.json";
 import certificatesJson from "@/data/certificates.json";
 import commandPlatesJson from "@/data/command-plates.json";
 import deploymentGearJson from "@/data/deployment-gear.json";
+import commandDutiesJson from "@/data/command-duties.json";
 
 /** Public files are served from the base URL: the site root in dev and on https://mil.shklr.org. */
 export function publicUrl(path: string): string {
@@ -2264,4 +2265,13 @@ export function deploymentsForCommand(unitId: string | null | undefined): Logboo
       helmetsKnown: deploymentGear.helmets,
     }];
   });
+}
+
+/* ---------- Logbook Admin: collateral duties and watch stations (command-duties.json) ---------- */
+export type CommandDuty = { label: string; abbreviation?: string };
+export type CommandDuties = { collateralDuties: CommandDuty[]; watches: CommandDuty[] };
+export function commandDutiesFor(unitId: string | null | undefined): CommandDuties {
+  const row = unitId ? (commandDutiesJson as unknown as Record<string, Partial<CommandDuties> | string>)[unitId] : undefined;
+  if (!row || typeof row === "string") return { collateralDuties: [], watches: [] };
+  return { collateralDuties: row.collateralDuties ?? [], watches: row.watches ?? [] };
 }

@@ -413,3 +413,9 @@
 @media (max-width: 900px) { .logbook-gear-list { --lb-tile-w: 6.6rem; } }
 /* Deployment cards (On Duty): one width (full column) and equal heights. */
 .logbook-deploys { display: grid; grid-auto-rows: 1fr; }
+/* Admin: collateral duties / watch stations as labeled rows (command-duties.json). */
+.logbook-duties { margin: 0; display: grid; gap: 0.35rem; }
+.logbook-duty-row { display: grid; grid-template-columns: minmax(7.5rem, max-content) 1fr; gap: 0.6rem; align-items: baseline; padding: 0.35rem 0.55rem; border: 1px solid var(--lb-border); border-radius: 4px; }
+.logbook-duty-row dt { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-quiet); }
+.logbook-duty-row dd { margin: 0; display: flex; flex-wrap: wrap; gap: 0.25rem 0.9rem; font-size: 0.88rem; }
+@media (max-width: 900px) { .logbook-duty-row { grid-template-columns: 1fr; gap: 0.15rem; } }
