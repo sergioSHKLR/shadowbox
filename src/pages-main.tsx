@@ -17,3 +17,14 @@ createRoot(root).render(
     <ShadowboxApp />
   </StrictMode>,
 );
+
+// A returning visitor first gets the precached (previous) build; when the new service worker from a fresh deploy
+// takes control (skipWaiting + clientsClaim), reload once so the new build shows without a manual hard refresh.
+if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
+  let reloaded = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (reloaded) return;
+    reloaded = true;
+    window.location.reload();
+  });
+}

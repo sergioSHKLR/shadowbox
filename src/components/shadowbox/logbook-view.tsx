@@ -407,9 +407,6 @@ function UniformsPanel({
           <button type="button" className="logbook-plate-art" onClick={() => beat.rank && onOpen("rank", beat.rank.id)} aria-label={plate.caption}>
             <img key={plate.file} src={publicUrl(plate.src)} alt="" />
           </button>
-          <figcaption>
-            {beat.rank ? <strong>{beat.rank.abbreviation}</strong> : null}
-          </figcaption>
         </figure>
       ) : (
         <div className="logbook-soon logbook-mannequin-empty">
@@ -669,7 +666,7 @@ export function Logbook({
     },
     [beats.length],
   );
-  const stepperRef = useRef<HTMLDivElement>(null);
+  const stepperRef = useRef<HTMLElement>(null);
   const step = useCallback(
     (delta: number) => {
       goTo(activeRef.current + delta);
@@ -734,37 +731,6 @@ export function Logbook({
   const atEnd = beat.index >= beats.length - 1;
   const main = (
     <section className="logbook-main" aria-label="Commands" onKeyDown={onMainKey}>
-      <div className="logbook-stepper" ref={stepperRef} role="group" aria-label="Step through the commands">
-        <button
-          type="button"
-          className="logbook-step-btn"
-          aria-label="Previous command"
-          title={atStart ? "First command" : `Previous: ${beatTitle(beats[beat.index - 1])}`}
-          onClick={() => step(-1)}
-          disabled={atStart}
-        >
-          <ChevronLeft size={20} strokeWidth={2} aria-hidden="true" />
-        </button>
-        <p className="logbook-step-label" aria-live="polite" aria-atomic="true">
-          <strong>
-            Command {beat.index + 1} of {beats.length}
-          </strong>
-          <span className="quiet">
-            {beatTitle(beat)}
-            {beat.when ? ` · ${beat.when.length === 4 ? beat.when : formatWhen(beat.when)}` : ""}
-          </span>
-        </p>
-        <button
-          type="button"
-          className="logbook-step-btn"
-          aria-label="Next command"
-          title={atEnd ? "Last command" : `Next: ${beatTitle(beats[beat.index + 1])}`}
-          onClick={() => step(1)}
-          disabled={atEnd}
-        >
-          <ChevronRight size={20} strokeWidth={2} aria-hidden="true" />
-        </button>
-      </div>
       <Tabbed
         idBase="logbook-main"
         label="Rank and awards, or admin, for this command"
@@ -787,14 +753,35 @@ export function Logbook({
             className="logbook-beat is-active"
             aria-current="step"
           >
-            <header className="logbook-beat-head">
-              <span className={`pin-num ${beat.stop.kind} ${beat.stop.place.accuracy}`} aria-hidden="true">
-                {beat.stop.n}
-              </span>
-              <div>
+            {/* Prev / next live in the card's title row: "‹ NH Jacksonville ›". */}
+            <header className="logbook-beat-head logbook-stepper" ref={stepperRef} role="group" aria-label="Step through the commands">
+              <button
+                type="button"
+                className="logbook-step-btn"
+                aria-label="Previous command"
+                title={atStart ? "First command" : `Previous: ${beatTitle(beats[beat.index - 1])}`}
+                onClick={() => step(-1)}
+                disabled={atStart}
+              >
+                <ChevronLeft size={20} strokeWidth={2} aria-hidden="true" />
+              </button>
+              <div className="logbook-beat-title">
                 <h3 title={unit?.name}>{unit?.name.startsWith("USS ") ? unit.name : beatTitle(beat)}</h3>
                 <p className="quiet">{beat.lines[1] ?? "Command"}</p>
+                <p className="sr-only" aria-live="polite" aria-atomic="true">
+                  Command {beat.index + 1} of {beats.length}: {beatTitle(beat)}
+                </p>
               </div>
+              <button
+                type="button"
+                className="logbook-step-btn"
+                aria-label="Next command"
+                title={atEnd ? "Last command" : `Next: ${beatTitle(beats[beat.index + 1])}`}
+                onClick={() => step(1)}
+                disabled={atEnd}
+              >
+                <ChevronRight size={20} strokeWidth={2} aria-hidden="true" />
+              </button>
             </header>
             <div className="logbook-beat-body">
               {mainTab === "rank" ? <RankAwards beat={beat} beats={beats} onOpen={onOpen} /> : <AdminAsOf beat={beat} onOpen={onOpen} />}
