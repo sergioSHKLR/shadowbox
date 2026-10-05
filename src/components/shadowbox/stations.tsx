@@ -180,7 +180,8 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
           extra={[]}
           tall
           focusId={here?.place.id ?? null}
-          revealedIds={cursor == null ? null : stops.slice(0, cursor + 1).map((stop) => stop.place.id)}
+          focusIndex={cursor}
+          revealedCount={cursor == null ? null : cursor + 1}
           onSelect={(id) => onOpen("place", id)}
         />
       ) : null}

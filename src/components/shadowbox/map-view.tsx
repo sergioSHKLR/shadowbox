@@ -25,10 +25,29 @@ type Runtime = {
 
 type PlayState = {
   focusId: string | null;
-  revealedIds: string[] | null;
+  /** Stop index in `stops` to highlight; preferred over focusId when set. */
+  focusIndex: number | null;
+  /** Show only stops[0..revealedCount). null = show all (full map). */
+  revealedCount: number | null;
   stops: Stop[];
   extra: Place[];
 };
+
+/** Great-circle distance in km between [lat, lng] points (lng may be unwrapped). */
+function kmBetween(a: [number, number], b: [number, number]) {
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const dLat = toRad(b[0] - a[0]);
+  const dLng = toRad(b[1] - a[1]);
+  const lat1 = toRad(a[0]);
+  const lat2 = toRad(b[0]);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) ** 2;
+  return 2 * 6371 * Math.asin(Math.min(1, Math.sqrt(h)));
+}
+
+/** Nearby pins within this range share a tighter play framing. */
+const CLUSTER_KM = 220;
+const CLUSTER_MAX_ZOOM = 11;
+const SOLO_ZOOM = 6.5;
 
 type LeafletApi = typeof import("leaflet");
 
@@ -70,37 +89,91 @@ function flyUnwrapped(map: import("leaflet").Map, target: [number, number], zoom
 }
 
 function applyPlay(handle: Runtime, play: PlayState) {
-  const allowed = play.revealedIds ? new Set(play.revealedIds) : null;
+  const revealedCount = play.revealedCount;
+  const focusIndex =
+    play.focusIndex != null && play.focusIndex >= 0 && play.focusIndex < play.stops.length
+      ? play.focusIndex
+      : play.focusId
+        ? play.stops.findIndex((stop) => stop.place.id === play.focusId)
+        : -1;
+
   play.stops.forEach((stop, i) => {
     const marker = handle.markers[i];
     if (!marker) return;
-    const show = !allowed || allowed.has(stop.place.id);
+    const show = revealedCount == null || i < revealedCount;
     const el = marker.getElement();
     if (el) el.style.display = show ? "" : "none";
     marker.setOpacity(show ? 1 : 0);
+    const isNow = focusIndex === i;
     const badge = el?.querySelector(".map-num, .map-dot");
-    badge?.classList.toggle("now", Boolean(play.focusId && stop.place.id === play.focusId));
-    marker.setZIndexOffset(stop.place.id === play.focusId ? 4000 : (stop.n ?? 0) * 10);
+    badge?.classList.toggle("now", isNow);
+    marker.setZIndexOffset(isNow ? 4000 : (stop.n ?? 0) * 10);
   });
-  play.extra.forEach((place, i) => {
+  play.extra.forEach((_place, i) => {
     const marker = handle.extras[i];
     if (!marker) return;
-    const show = !allowed || allowed.has(place.id);
+    // Extras stay hidden during progressive play; full map shows them.
+    const show = revealedCount == null;
     const el = marker.getElement();
     if (el) el.style.display = show ? "" : "none";
     marker.setOpacity(show ? 1 : 0);
   });
 
-  const focus = play.focusId ? play.stops.find((stop) => stop.place.id === play.focusId) : undefined;
+  const focus = focusIndex >= 0 ? play.stops[focusIndex] : undefined;
   if (focus && focus.place.lat != null && focus.place.lng != null) {
     if (!sized(handle.map)) return;
     const target = toward(handle.map, handle.at(focus.place));
     const reduce = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const zoom = Math.min(6.5, Math.max(handle.map.getZoom() || 0, 4));
-    flyUnwrapped(handle.map, target, zoom, reduce);
-  } else if (!allowed) {
+    const limit = revealedCount == null ? play.stops.length : Math.min(revealedCount, play.stops.length);
+    const neighbors: [number, number][] = [];
+    for (let i = 0; i < limit; i++) {
+      const stop = play.stops[i];
+      if (stop.place.lat == null || stop.place.lng == null) continue;
+      const pt = toward(handle.map, handle.at(stop.place));
+      if (kmBetween(target, pt) <= CLUSTER_KM) neighbors.push(pt);
+    }
+
+    if (neighbors.length >= 2) {
+      let minLat = Infinity;
+      let maxLat = -Infinity;
+      let minLng = Infinity;
+      let maxLng = -Infinity;
+      for (const [lat, lng] of neighbors) {
+        minLat = Math.min(minLat, lat);
+        maxLat = Math.max(maxLat, lat);
+        minLng = Math.min(minLng, lng);
+        maxLng = Math.max(maxLng, lng);
+      }
+      // Identical / nearly identical coords still need a box so maxZoom can bite.
+      if (maxLat - minLat < 0.04) {
+        minLat -= 0.06;
+        maxLat += 0.06;
+      }
+      if (maxLng - minLng < 0.04) {
+        minLng -= 0.06;
+        maxLng += 0.06;
+      }
+      try {
+        const bounds: [[number, number], [number, number]] = [
+          [minLat, minLng],
+          [maxLat, maxLng],
+        ];
+        const opts = { padding: [52, 52] as [number, number], maxZoom: CLUSTER_MAX_ZOOM };
+        if (reduce) handle.map.fitBounds(bounds, { ...opts, animate: false });
+        else handle.map.flyToBounds(bounds, { ...opts, duration: 0.9 });
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "";
+        if (message.includes("infinite number of tiles")) return;
+        throw error;
+      }
+    } else {
+      flyUnwrapped(handle.map, target, SOLO_ZOOM, reduce);
+    }
+  } else if (revealedCount == null) {
     handle.fit();
   }
+
+  handle.spread();
 }
 
 export function MapView({
@@ -109,23 +182,26 @@ export function MapView({
   tall = false,
   onSelect,
   focusId = null,
-  revealedIds = null,
+  focusIndex = null,
+  revealedCount = null,
 }: {
   stops: Stop[];
   extra?: Place[];
   tall?: boolean;
   onSelect: (placeId: string) => void;
   focusId?: string | null;
-  revealedIds?: string[] | null;
+  focusIndex?: number | null;
+  /** Progressive play: only indices [0, revealedCount) are visible. null = full map. */
+  revealedCount?: number | null;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const selectRef = useRef(onSelect);
   selectRef.current = onSelect;
   const runtime = useRef<Runtime | null>(null);
-  const playRef = useRef({ focusId, revealedIds, stops, extra });
-  playRef.current = { focusId, revealedIds, stops, extra };
+  const playRef = useRef({ focusId, focusIndex, revealedCount, stops, extra });
+  playRef.current = { focusId, focusIndex, revealedCount, stops, extra };
   const signature = [...stops.map((stop) => `${stop.place.id}:${stop.n ?? ""}`), ...extra.map((place) => place.id)].join("|");
-  const revealKey = revealedIds ? revealedIds.join("|") : "";
+  const revealKey = revealedCount == null ? "all" : String(revealedCount);
 
   useEffect(() => {
     const el = ref.current;
@@ -189,11 +265,13 @@ export function MapView({
             ? L.divIcon({ className: "map-pin", html: pinHtml(stop, dx, dy), iconSize: [PIN_PX, PIN_PX], iconAnchor: [PIN_PX / 2, PIN_PX / 2] })
             : L.divIcon({ className: "map-pin", html: `<span class="map-dot ${stop.kind ? `${stop.kind} ` : stop.place.type === "base" ? "base " : ""}${stop.place.pin ? `${stop.place.pin} ` : ""}${stop.place.accuracy}"></span>`, iconSize: [16, 16], iconAnchor: [8, 8] });
 
-        const markers = stops.map((stop) => {
+        const bootReveal = playRef.current.revealedCount;
+        const markers = stops.map((stop, index) => {
           const marker = L.marker(at(stop.place), {
             icon: iconFor(stop),
             title: stop.n ? `${stop.n}. ${stop.place.name}` : stop.place.name,
             zIndexOffset: (stop.n ?? 0) * 10,
+            opacity: bootReveal == null || index < bootReveal ? 1 : 0,
           });
           marker.on("click", () => selectRef.current(stop.place.id));
           marker.bindTooltip(stop.n ? `${stop.n} \u00b7 ${stop.place.name}` : stop.place.name, { direction: "top", offset: [0, -12] });
@@ -210,14 +288,18 @@ export function MapView({
 
         const spread = () => {
           if (!map) return;
+          const limit =
+            playRef.current.revealedCount == null
+              ? stops.length
+              : Math.min(playRef.current.revealedCount, stops.length);
           const truePts = stops.map((stop) => map!.latLngToContainerPoint(at(stop.place)));
           const pos = truePts.map((pt) => ({ x: pt.x, y: pt.y }));
           const gap = PIN_PX + 2;
           for (let iter = 0; iter < 80; iter++) {
             let moved = false;
-            for (let i = 0; i < stops.length; i++) {
+            for (let i = 0; i < limit; i++) {
               if (!stops[i].n) continue;
-              for (let j = i + 1; j < stops.length; j++) {
+              for (let j = i + 1; j < limit; j++) {
                 if (!stops[j].n) continue;
                 let dx = pos[j].x - pos[i].x;
                 let dy = pos[j].y - pos[i].y;
@@ -239,7 +321,9 @@ export function MapView({
             }
             if (!moved) break;
           }
-          stops.forEach((stop, i) => markers[i].setIcon(iconFor(stop, Math.round(pos[i].x - truePts[i].x), Math.round(pos[i].y - truePts[i].y))));
+          for (let i = 0; i < limit; i++) {
+            markers[i].setIcon(iconFor(stops[i], Math.round(pos[i].x - truePts[i].x), Math.round(pos[i].y - truePts[i].y)));
+          }
         };
 
         const fit = () => {
@@ -304,7 +388,7 @@ export function MapView({
 
   useEffect(() => {
     if (runtime.current) applyPlay(runtime.current, playRef.current);
-  }, [focusId, revealKey, signature]);
+  }, [focusId, focusIndex, revealKey, signature]);
 
   if (!stops.length && !extra.length) {
     return <p className="quiet">No map location has been entered for this yet.</p>;

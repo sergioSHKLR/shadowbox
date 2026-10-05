@@ -146,10 +146,6 @@ function MapInset({
   // Full sequence keeps Leaflet stable; only focus/reveal change per beat.
   // Excluded customer units never become map pins here (their places are not added as extras).
   void isMapExcludedUnit;
-  const revealedIds = useMemo(
-    () => stops.slice(0, beat.index + 1).map((stop) => stop.place.id),
-    [stops, beat.index],
-  );
   return (
     <div className="logbook-map-frame">
       <MapView
@@ -157,7 +153,8 @@ function MapInset({
         extra={[]}
         tall={false}
         focusId={beat.stop.place.id}
-        revealedIds={revealedIds}
+        focusIndex={beat.index}
+        revealedCount={beat.index + 1}
         onSelect={(id) => onOpen("place", id)}
       />
     </div>
