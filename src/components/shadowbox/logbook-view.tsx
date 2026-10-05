@@ -175,16 +175,17 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
         <Kicker>NECs</Kicker>
         {necsHeld.length ? (
           <ul className="logbook-admin-list">
-            {necsHeld.map(({ nec, isNew }) => (
+            {necsHeld.map(({ nec, isNew, gained }) => (
               <li key={nec.id} className={isNew ? "is-billet" : undefined}>
                 <button
                   type="button"
                   onClick={() => onOpen("nec", nec.id)}
-                  aria-label={`NEC ${necCode(nec)}, ${isNew && nec.billetLabel ? nec.billetLabel : nec.name}${isNew ? ", this tour's billet NEC" : ""}`}
+                  aria-label={`NEC ${necCode(nec)}, ${isNew && nec.billetLabel ? nec.billetLabel : nec.name}${isNew ? ", this tour's billet NEC" : ""}${gained ? ", gained this tour" : ""}`}
                 >
                   <strong>
                     NEC {necCode(nec)}
-                    {isNew ? <em className="logbook-new">this tour</em> : <em className="logbook-gained">gained</em>}
+                    {isNew ? <em className="logbook-new">this tour</em> : null}
+                    {gained ? <em className="logbook-gained">gained</em> : null}
                   </strong>
                   <span>
                     {isNew && nec.billetLabel

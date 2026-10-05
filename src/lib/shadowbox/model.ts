@@ -203,8 +203,9 @@ export type Nec = {
   role: string;
   explanation: string;
   criteria: string;
-  /** Command whose tour this NEC belongs to, when stated outright (overrides date matching). */
-  commandId?: string;
+  /** Where the NEC was GAINED, as stated by Sergio: a units.json command id, or "pipeline" (before any Logbook command). Overrides date matching. */
+  gainedAt?: string;
+  gainedNote?: string;
   /** Where its school was taken (places.json). Admin only; NECs are never Map pins. */
   placeId?: string;
   commandNote?: string;
@@ -390,8 +391,10 @@ export const schools = schoolsJson as School[];
  */
 export function schoolCommandId(school: School): string | null {
   if (school.commandId) return school.commandId;
-  const nec = (necsJson as { schoolIds?: string[]; commandId?: string }[]).find((row) => row.commandId && row.schoolIds?.includes(school.id));
-  return nec?.commandId ?? null;
+  const nec = (necsJson as { schoolIds?: string[]; gainedAt?: string }[]).find(
+    (row) => row.gainedAt && row.gainedAt !== "pipeline" && row.schoolIds?.includes(school.id),
+  );
+  return nec?.gainedAt ?? null;
 }
 export const necs = necsJson as Nec[];
 /** Numbered v12 mannequins. Cover cards stay these files; personal *-wear.jpg shots live in photos.json. */
@@ -1413,8 +1416,8 @@ function schoolsForCommand(stop: Stop, unit: Unit | undefined, when: string): Sc
 }
 
 function necsForCommand(unit: Unit | undefined, when: string): Nec[] {
-  if (!unit?.start) return necsForBeat(when).filter((nec) => !nec.commandId);
-  return necs.filter((nec) => (nec.commandId ? nec.commandId === unit.id : Boolean(nec.awarded && inTour(nec.awarded, unit.start, unit.end))));
+  if (!unit?.start) return necsForBeat(when).filter((nec) => !nec.gainedAt);
+  return necs.filter((nec) => (nec.gainedAt ? nec.gainedAt === unit.id : Boolean(nec.awarded && inTour(nec.awarded, unit.start, unit.end))));
 }
 
 function milestonesForCommand(unit: Unit | undefined, when: string): Milestone[] {
@@ -2188,28 +2191,30 @@ export function logbookRankPath(beats: LogbookBeat[], index: number): { arrival:
 
 /** Logbook Admin tab: NECs held and schools completed as of the end of a command (from necs.json / schools.json). */
 export function logbookAdminAsOf(beat: LogbookBeat): {
-  necsHeld: { nec: Nec; isNew: boolean }[];
+  necsHeld: { nec: Nec; isNew: boolean; gained: boolean }[];
   schoolsThisTour: School[];
 } {
   const unit = beat.stop.commandId ? unitById(beat.stop.commandId) : undefined;
   const tourNecIds = new Set(beat.admin.filter((fact) => fact.kind === "nec").map((fact) => fact.id));
   const tourSchoolIds = new Set(beat.admin.filter((fact) => fact.kind === "school").map((fact) => fact.id));
   // Not cumulative (Sergio): the billet NEC line (units.json necId) plus the NECs GAINED during this command.
-  // A date that fits two year-precision tours counts at the first Logbook command whose tour holds it.
+  // gainedAt in necs.json pins the command outright; otherwise a date that fits two year-precision tours
+  // counts at the first Logbook command whose tour holds it.
   const billetId = unit?.necId ?? null;
   const order = PLATE_UNIT_IDS as readonly string[];
   const here = order.indexOf(beat.stop.commandId ?? "");
   const earlier = order.slice(0, Math.max(0, here)).map((id) => unitById(id)).filter(Boolean) as Unit[];
   const gainedEarlier = (nec: Nec) =>
-    !nec.commandId && Boolean(nec.awarded) && earlier.some((row) => row.start && inTour(nec.awarded!, row.start, row.end));
+    !nec.gainedAt && Boolean(nec.awarded) && earlier.some((row) => row.start && inTour(nec.awarded!, row.start, row.end));
   const gained = necs.filter((nec) => tourNecIds.has(nec.id) && nec.id !== "nec-0000" && !gainedEarlier(nec));
   const billet = billetId ? necById(billetId) : undefined;
+  // The billet line comes first; when the billet NEC was also gained here (EODMU 5's 1460) it carries both marks.
   const necsHeld = [
-    ...(billet ? [{ nec: billet, isNew: true }] : []),
+    ...(billet ? [{ nec: billet, isNew: true, gained: gained.some((nec) => nec.id === billet.id) }] : []),
     ...gained
       .filter((nec) => nec.id !== billetId)
       .sort((x, y) => dateKey(x.awarded).localeCompare(dateKey(y.awarded)))
-      .map((nec) => ({ nec, isNew: false })),
+      .map((nec) => ({ nec, isNew: false, gained: true })),
   ];
   const byDate = (a: School, b: School) => dateKey(a.start).localeCompare(dateKey(b.start));
   // Dedupe: a school that awarded an NEC shown here is listed under that NEC, not again as a school.
