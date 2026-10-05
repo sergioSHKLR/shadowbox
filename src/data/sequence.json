@@ -288,16 +288,25 @@
     "when": null
   },
   {
-    "order": 32,
+    "label": "Seattle, WA",
+    "cityId": "city-seattle",
+    "baseId": null,
+    "commandId": null,
+    "kind": "port",
+    "when": "2006",
+    "order": 32
+  },
+  {
+    "order": 33,
     "label": "NAS Whidbey Island, Oak Harbor, WA",
     "cityId": "city-oak-harbor",
     "baseId": "whidbey",
     "commandId": null,
-    "kind": "port",
+    "kind": "base",
     "when": "2006"
   },
   {
-    "order": 33,
+    "order": 34,
     "label": "FOB Sykes, Tal Afar, IRQ",
     "cityId": null,
     "baseId": "fob-sykes",
@@ -306,7 +315,7 @@
     "when": "2006"
   },
   {
-    "order": 34,
+    "order": 35,
     "label": "FOB Tal Afar, Tal Afar, IRQ",
     "cityId": null,
     "baseId": "fob-tal-afar",
@@ -315,7 +324,7 @@
     "when": "2006"
   },
   {
-    "order": 35,
+    "order": 36,
     "label": "FOB Sykes, Tal Afar, IRQ",
     "cityId": null,
     "baseId": "fob-sykes",
@@ -324,7 +333,7 @@
     "when": "2006"
   },
   {
-    "order": 36,
+    "order": 37,
     "label": "Mosul, IRQ",
     "cityId": "mosul",
     "baseId": null,
@@ -333,7 +342,7 @@
     "when": "2006"
   },
   {
-    "order": 37,
+    "order": 38,
     "label": "Naval Base Guam, Apra Harbor, GU",
     "cityId": "city-agana",
     "baseId": "guam",
@@ -342,7 +351,7 @@
     "when": null
   },
   {
-    "order": 38,
+    "order": 39,
     "label": "Cobra Gold, U-Tapao, THA",
     "cityId": null,
     "baseId": "u-tapao",
@@ -351,7 +360,7 @@
     "when": null
   },
   {
-    "order": 39,
+    "order": 40,
     "label": "Naval Base Guam, Apra Harbor, GU",
     "cityId": "city-agana",
     "baseId": "guam",
@@ -360,7 +369,7 @@
     "when": null
   },
   {
-    "order": 40,
+    "order": 41,
     "label": "Shoalwater Bay, AUS (Talisman Saber)",
     "cityId": null,
     "baseId": "shoalwater-bay",
@@ -369,7 +378,7 @@
     "when": "2007"
   },
   {
-    "order": 41,
+    "order": 42,
     "label": "NAS Jacksonville, Jacksonville, FL",
     "cityId": "city-jacksonville",
     "baseId": "nas-jax",
@@ -378,7 +387,7 @@
     "when": "2007"
   },
   {
-    "order": 42,
+    "order": 43,
     "label": "SERCC",
     "cityId": "city-jacksonville",
     "baseId": "nas-jax",
@@ -387,7 +396,7 @@
     "when": "2007"
   },
   {
-    "order": 43,
+    "order": 44,
     "label": "San Diego, CA",
     "cityId": "city-san-diego",
     "baseId": null,
@@ -399,7 +408,7 @@
     ]
   },
   {
-    "order": 44,
+    "order": 45,
     "label": "Fort Bliss, El Paso, TX",
     "cityId": "city-el-paso",
     "baseId": "fort-bliss",
@@ -408,7 +417,7 @@
     "when": "2008-10"
   },
   {
-    "order": 45,
+    "order": 46,
     "label": "Baltimore, MD",
     "cityId": "city-baltimore",
     "baseId": null,
@@ -417,7 +426,7 @@
     "when": null
   },
   {
-    "order": 46,
+    "order": 47,
     "label": "Leipzig, DEU",
     "cityId": "city-leipzig",
     "baseId": "leipzig",
@@ -426,7 +435,7 @@
     "when": "2009"
   },
   {
-    "order": 47,
+    "order": 48,
     "label": "Camp Arifjan, KWT",
     "cityId": null,
     "baseId": "camp-arifjan",
@@ -435,7 +444,7 @@
     "when": "2009"
   },
   {
-    "order": 48,
+    "order": 49,
     "label": "JB Balad, Balad, IRQ",
     "cityId": null,
     "baseId": "jb-balad",
@@ -444,7 +453,7 @@
     "when": "2008-10"
   },
   {
-    "order": 49,
+    "order": 50,
     "label": "Camp Arifjan, KWT",
     "cityId": null,
     "baseId": "camp-arifjan",
@@ -453,7 +462,7 @@
     "when": "2009"
   },
   {
-    "order": 50,
+    "order": 51,
     "label": "Baltimore, MD",
     "cityId": "city-baltimore",
     "baseId": null,
@@ -462,7 +471,7 @@
     "when": null
   },
   {
-    "order": 51,
+    "order": 52,
     "label": "SERCC",
     "cityId": "city-jacksonville",
     "baseId": "nas-jax",
@@ -471,7 +480,7 @@
     "when": "2007"
   },
   {
-    "order": 52,
+    "order": 53,
     "label": "Tampa, FL",
     "cityId": "city-tampa",
     "baseId": null,
@@ -480,7 +489,7 @@
     "when": null
   },
   {
-    "order": 53,
+    "order": 54,
     "label": "MacDill AFB, Tampa, FL",
     "cityId": "city-tampa",
     "baseId": "macdill",
@@ -489,7 +498,7 @@
     "when": "2009"
   },
   {
-    "order": 54,
+    "order": 55,
     "label": "JCSE",
     "cityId": "city-tampa",
     "baseId": "macdill",
@@ -498,7 +507,7 @@
     "when": "2009"
   },
   {
-    "order": 55,
+    "order": 56,
     "label": "Camp Blanding, Starke, FL",
     "cityId": null,
     "baseId": "camp-blanding",
@@ -507,7 +516,7 @@
     "when": null
   },
   {
-    "order": 56,
+    "order": 57,
     "label": "Leipzig, DEU",
     "cityId": "city-leipzig",
     "baseId": "leipzig",
@@ -516,7 +525,7 @@
     "when": null
   },
   {
-    "order": 57,
+    "order": 58,
     "label": "Al Udeid Air Base, Al Udeid, QAT",
     "cityId": null,
     "baseId": "al-udeid",
@@ -525,7 +534,7 @@
     "when": "2010"
   },
   {
-    "order": 58,
+    "order": 59,
     "label": "Bagram Airfield, Bagram, AFG",
     "cityId": null,
     "baseId": "bagram",
@@ -534,7 +543,7 @@
     "when": "2010"
   },
   {
-    "order": 59,
+    "order": 60,
     "label": "Camp Bastion, Helmand, AFG",
     "cityId": null,
     "baseId": "camp-bastion",
@@ -543,7 +552,7 @@
     "when": null
   },
   {
-    "order": 60,
+    "order": 61,
     "label": "FOB Delaram, Delaram, AFG",
     "cityId": null,
     "baseId": "fob-delaram",
@@ -552,7 +561,7 @@
     "when": "2010"
   },
   {
-    "order": 61,
+    "order": 62,
     "label": "Camp Bastion, Helmand, AFG",
     "cityId": null,
     "baseId": "camp-bastion",
@@ -561,7 +570,7 @@
     "when": null
   },
   {
-    "order": 62,
+    "order": 63,
     "label": "Bagram Airfield, Bagram, AFG",
     "cityId": null,
     "baseId": "bagram",
@@ -570,7 +579,7 @@
     "when": "2010"
   },
   {
-    "order": 63,
+    "order": 64,
     "label": "Al Udeid Air Base, Al Udeid, QAT",
     "cityId": null,
     "baseId": "al-udeid",
@@ -579,7 +588,7 @@
     "when": "2010"
   },
   {
-    "order": 64,
+    "order": 65,
     "label": "Leipzig, DEU",
     "cityId": "city-leipzig",
     "baseId": "leipzig",
@@ -588,7 +597,7 @@
     "when": null
   },
   {
-    "order": 65,
+    "order": 66,
     "label": "MacDill AFB, Tampa, FL",
     "cityId": "city-tampa",
     "baseId": "macdill",
@@ -597,7 +606,7 @@
     "when": "2009"
   },
   {
-    "order": 66,
+    "order": 67,
     "label": "Camp Blanding, Starke, FL",
     "cityId": null,
     "baseId": "camp-blanding",
@@ -606,7 +615,7 @@
     "when": null
   },
   {
-    "order": 67,
+    "order": 68,
     "label": "Gryphon Group, Maxton, NC",
     "cityId": "city-fayetteville",
     "baseId": null,
@@ -615,7 +624,7 @@
     "when": null
   },
   {
-    "order": 68,
+    "order": 69,
     "label": "Leipzig, DEU",
     "cityId": "city-leipzig",
     "baseId": "leipzig",
@@ -624,7 +633,7 @@
     "when": null
   },
   {
-    "order": 69,
+    "order": 70,
     "label": "Al Udeid Air Base, Al Udeid, QAT",
     "cityId": null,
     "baseId": "al-udeid",
@@ -633,7 +642,7 @@
     "when": null
   },
   {
-    "order": 70,
+    "order": 71,
     "label": "Bagram Airfield, Bagram, AFG",
     "cityId": null,
     "baseId": "bagram",
@@ -642,7 +651,7 @@
     "when": null
   },
   {
-    "order": 71,
+    "order": 72,
     "label": "FOB Sharana, Sharana, AFG",
     "cityId": null,
     "baseId": "fob-sharana",
@@ -651,7 +660,7 @@
     "when": null
   },
   {
-    "order": 72,
+    "order": 73,
     "label": "FOB Orgun-E, Orgun, AFG",
     "cityId": null,
     "baseId": "fob-orgun-e",
@@ -660,7 +669,7 @@
     "when": "2012"
   },
   {
-    "order": 73,
+    "order": 74,
     "label": "FOB Sharana, Sharana, AFG",
     "cityId": null,
     "baseId": "fob-sharana",
@@ -669,7 +678,7 @@
     "when": null
   },
   {
-    "order": 74,
+    "order": 75,
     "label": "Bagram Airfield, Bagram, AFG",
     "cityId": null,
     "baseId": "bagram",
@@ -678,7 +687,7 @@
     "when": null
   },
   {
-    "order": 75,
+    "order": 76,
     "label": "Al Udeid Air Base, Al Udeid, QAT",
     "cityId": null,
     "baseId": "al-udeid",
@@ -687,7 +696,7 @@
     "when": null
   },
   {
-    "order": 76,
+    "order": 77,
     "label": "Leipzig, DEU",
     "cityId": "city-leipzig",
     "baseId": "leipzig",
@@ -696,7 +705,7 @@
     "when": null
   },
   {
-    "order": 77,
+    "order": 78,
     "label": "MacDill AFB, Tampa, FL",
     "cityId": "city-tampa",
     "baseId": "macdill",
@@ -705,7 +714,7 @@
     "when": "2009"
   },
   {
-    "order": 78,
+    "order": 79,
     "label": "Fort Bragg, Fayetteville, NC",
     "cityId": "city-fayetteville",
     "baseId": "fort-bragg",
@@ -714,7 +723,7 @@
     "when": null
   },
   {
-    "order": 79,
+    "order": 80,
     "label": "FOB Patriot, Fayetteville, NC",
     "cityId": "city-fayetteville",
     "baseId": "fob-patriot",
@@ -723,7 +732,7 @@
     "when": null
   },
   {
-    "order": 80,
+    "order": 81,
     "label": "NAS Jacksonville, Jacksonville, FL",
     "cityId": "city-jacksonville",
     "baseId": "nas-jax",
@@ -732,7 +741,7 @@
     "when": null
   },
   {
-    "order": 81,
+    "order": 82,
     "label": "NH Jacksonville",
     "cityId": "city-jacksonville",
     "baseId": "nh-jax",
