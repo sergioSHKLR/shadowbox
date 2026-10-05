@@ -155,12 +155,14 @@ function bioInline(text: string) {
 
 export function Timeline({
   bars,
+  stops,
   onOpen,
   title,
   lead,
   eventsNote,
 }: {
   bars: ReturnType<typeof timeline>;
+  stops: { n: number; labels: string[]; when: string; place: { id: string; name: string; accuracy: string }; layers: string[]; cityId: string | null; baseId: string | null; commandId: string | null }[];
   onOpen: (k: Kind, id: string) => void;
   title: string;
   lead: string;
@@ -180,6 +182,24 @@ export function Timeline({
         </div>
       </ChartScroll>
       <p className="quiet">{eventsNote}</p>
+      <section className="places-track" aria-label="Places">
+        <h3>Places</h3>
+        <p className="quiet">The same order as the Map. Numbers do not change.</p>
+        <ol className="stop-list">
+          {stops.map((stop) => {
+            const layer = stop.commandId ? "command" : stop.baseId ? "base" : "city";
+            return (
+              <li key={stop.n}>
+                <button type="button" onClick={() => onOpen("place", stop.place.id)}>
+                  <span className={`pin-num ${layer} ${stop.place.accuracy}`} aria-label={`Stop ${stop.n}`}>{stop.n}</span>
+                  <strong>{stop.labels[0]}</strong>
+                  <span>{stop.place.name}{stop.when ? ` · ${stop.when}` : ""}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
     </main>
   );
 }

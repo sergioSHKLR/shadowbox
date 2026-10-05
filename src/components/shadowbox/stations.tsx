@@ -1,33 +1,56 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Maximize2, Pause, Play } from "lucide-react";
 import {
-  bases,
   careerStops,
   caseCopy,
   formatWhen,
+  stopPlaceForLayers,
   type Kind,
+  type Stop,
+  type StopLayer,
 } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
 
-type PinGroup = "duty" | "base" | "visit";
-const PIN_GROUPS: { id: PinGroup; label: string; legend: string }[] = [
-  { id: "duty", label: "Commands", legend: "Commands and assignments" },
-  { id: "base", label: "Deployments", legend: "Deployment bases" },
-  { id: "visit", label: "Visits", legend: "Visits, exercises, schools & transit" },
+const PIN_GROUPS: { id: StopLayer; label: string; legend: string; cls: string }[] = [
+  { id: "city", label: "Cities", legend: "Cities and towns", cls: "city" },
+  { id: "base", label: "Bases", legend: "Bases, FOBs, camps and airfields", cls: "base" },
+  { id: "command", label: "Commands", legend: "Commands, ships and schools", cls: "command" },
 ];
-const pinGroupOf = (place: { type?: string | null }): PinGroup => (place.type === "base" ? "base" : place.type === "visit" ? "visit" : "duty");
+
+function stopVisible(stop: Stop, shown: StopLayer[] | null) {
+  if (!shown) return true;
+  return stop.layers.some((layer) => shown.includes(layer));
+}
+
+function pinClass(stop: Stop, shown: StopLayer[] | null) {
+  const on = (layer: StopLayer) => !shown || shown.includes(layer);
+  if (on("command") && stop.commandId) return "command";
+  if (on("base") && stop.baseId) return "base";
+  if (on("city") && stop.cityId) return "city";
+  if (stop.commandId) return "command";
+  if (stop.baseId) return "base";
+  return "city";
+}
 
 export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof careerStops>; onOpen: (k: Kind, id: string) => void }) {
-  const [shown, setShown] = useState<PinGroup[] | null>(null);
-  const isOn = (g: PinGroup) => !shown || shown.includes(g);
-  const toggle = (g: PinGroup) =>
+  const [shown, setShown] = useState<StopLayer[] | null>(null);
+  const toggle = (g: StopLayer) =>
     setShown((cur) => {
       if (!cur) return [g];
       const next = cur.includes(g) ? cur.filter((x) => x !== g) : [...cur, g];
       return next.length === 0 || next.length === PIN_GROUPS.length ? null : next;
     });
-  const stops = allStops.filter((stop) => isOn(pinGroupOf(stop.place)));
-  const extraBases = isOn("base") ? bases.filter((place) => !allStops.some((stop) => stop.place.id === place.id)) : [];
+
+  const stops = useMemo(
+    () =>
+      allStops.filter((stop) => stopVisible(stop, shown)).map((stop) => {
+        const place = stopPlaceForLayers(stop, shown);
+        const layer = pinClass(stop, shown);
+        const type = layer === "command" ? undefined : layer === "base" ? "base" : layer === "city" ? "city" : place.type;
+        return { ...stop, place: { ...place, type, pin: layer === "command" ? undefined : place.pin } };
+      }),
+    [allStops, shown],
+  );
 
   const [cursor, setCursor] = useState<number | null>(null);
   const [playing, setPlaying] = useState(false);
@@ -89,15 +112,19 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
   const here = cursor == null ? null : stops[cursor];
   const whenLabel = here?.when ? (here.when.length === 4 ? here.when : formatWhen(here.when)) : null;
 
+  const openStop = (stop: Stop) => {
+    onOpen("place", stop.place.id);
+  };
+
   return (
     <main className="sheet">
       <h2>Where the career went</h2>
       <p>{caseCopy.mapLead}</p>
-      <div className="map-filter" role="group" aria-label="Show pins">
+      <div className="map-filter" role="group" aria-label="Show pin layers">
         <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>All</button>
         {PIN_GROUPS.map((g) => (
           <button key={g.id} type="button" className={`nav-btn${shown?.includes(g.id) ? " on" : ""}`} aria-pressed={!!shown?.includes(g.id)} onClick={() => toggle(g.id)}>
-            <span className={`pin-num ${g.id === "duty" ? "" : g.id}`} aria-hidden="true" />
+            <span className={`pin-num ${g.cls}`} aria-hidden="true" />
             {g.label}
           </button>
         ))}
@@ -118,8 +145,8 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
         </button>
         <p className="map-play-status" aria-live="polite">
           {here
-            ? `${here.n ?? cursor! + 1} of ${stops.length}${whenLabel ? ` · ${whenLabel}` : ""} · ${here.place.name}`
-            : `Full map · ${stops.length} stops`}
+            ? `${here.n}${whenLabel ? ` · ${whenLabel}` : ""} · ${here.labels[0]}`
+            : `Full map · ${stops.length} of ${allStops.length} stops`}
         </p>
         {stops.length ? (
           <label className="map-play-scrub">
@@ -137,10 +164,10 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
           </label>
         ) : null}
       </div>
-      {stops.length || extraBases.length ? (
+      {stops.length ? (
         <MapView
           stops={stops}
-          extra={cursor == null ? extraBases : []}
+          extra={[]}
           tall
           focusId={here?.place.id ?? null}
           revealedIds={cursor == null ? null : stops.slice(0, cursor + 1).map((stop) => stop.place.id)}
@@ -150,17 +177,17 @@ export function Stations({ stops: allStops, onOpen }: { stops: ReturnType<typeof
       </div>
       <ul className="map-legend" aria-label="Pin colours">
         {PIN_GROUPS.map((g) => (
-          <li key={g.id}><span className={`pin-num ${g.id === "duty" ? "" : g.id}`}>1</span> {g.legend}</li>
+          <li key={g.id}><span className={`pin-num ${g.cls}`}>1</span> {g.legend}</li>
         ))}
         <li><span className="pin-num approximate">1</span> Approximate location</li>
       </ul>
       <ol className="stop-list">
         {stops.map((stop, index) => (
-          <li key={`${stop.place.id}-${index}`} data-stop={index} className={cursor == null ? undefined : index === cursor ? "now" : index > cursor ? "later" : "reached"}>
-            <button type="button" onClick={() => { setPlaying(false); setCursor(index); onOpen("place", stop.place.id); }}>
-              <span className={`pin-num ${stop.place.type ? `${stop.place.type} ` : ""}${stop.place.pin ? `${stop.place.pin} ` : ""}${stop.place.accuracy}`} aria-label={`Pin ${stop.n}`}>{stop.n}</span>
-              <strong>{stop.place.name}</strong>
-              <span>{stop.labels.join(" · ")}</span>
+          <li key={`${stop.n}-${stop.place.id}`} data-stop={index} className={cursor == null ? undefined : index === cursor ? "now" : index > cursor ? "later" : "reached"}>
+            <button type="button" onClick={() => { setPlaying(false); setCursor(index); openStop(stop); }}>
+              <span className={`pin-num ${pinClass(stop, shown)} ${stop.place.accuracy}`} aria-label={`Pin ${stop.n}`}>{stop.n}</span>
+              <strong>{stop.labels[0]}</strong>
+              <span>{stop.place.name}{stop.when ? ` · ${stop.when.length === 4 ? stop.when : formatWhen(stop.when)}` : ""}</span>
             </button>
           </li>
         ))}

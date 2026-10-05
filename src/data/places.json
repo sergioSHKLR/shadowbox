@@ -6,7 +6,8 @@
     "lat": 42.3068,
     "lng": -87.8468,
     "accuracy": "public-site",
-    "note": "Public location of the Navy's recruit training command. Not a home address."
+    "note": "Public location of the Navy's recruit training command. Not a home address.",
+    "type": "base"
   },
   {
     "id": "san-diego",
@@ -16,7 +17,7 @@
     "lng": -117.129,
     "accuracy": "public-site",
     "note": "Naval Base San Diego on 32nd Street, where the NEC 1460 (COMSEC maintenance) school was taken. Until this update the NCTS tour was pinned here; NCTS itself was at FISC San Diego downtown and later at NAS North Island.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "guam",
@@ -25,7 +26,8 @@
     "lat": 13.444,
     "lng": 144.654,
     "accuracy": "public-site",
-    "note": "Public location of the home port used by USS Frank Cable and by EOD Mobile Unit Five in these years. Frank Cable berthed at Polaris Point, on this base. That pier is not the Polaris off-road vehicle."
+    "note": "Public location of the home port used by USS Frank Cable and by EOD Mobile Unit Five in these years. Frank Cable berthed at Polaris Point, on this base. That pier is not the Polaris off-road vehicle.",
+    "type": "base"
   },
   {
     "id": "polaris-point",
@@ -35,7 +37,7 @@
     "lng": 144.667285,
     "accuracy": "public-site",
     "note": "The AS-40 berth on Naval Base Guam, Inner Apra Harbor. A place, not the Polaris off-road vehicle.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "nas-jax",
@@ -44,7 +46,8 @@
     "lat": 30.235,
     "lng": -81.681,
     "accuracy": "public-site",
-    "note": "Public location of the air station. SERCC was on this base."
+    "note": "Public location of the air station. SERCC was on this base.",
+    "type": "base"
   },
   {
     "id": "nh-jax",
@@ -53,7 +56,8 @@
     "lat": 30.208937,
     "lng": -81.683563,
     "accuracy": "public-site",
-    "note": "Public site at plus code 862W6858+HH (6858+HH, Southwest, Jacksonville, Florida)."
+    "note": "Public site at plus code 862W6858+HH (6858+HH, Southwest, Jacksonville, Florida).",
+    "type": "base"
   },
   {
     "id": "macdill",
@@ -62,11 +66,12 @@
     "lat": 27.85,
     "lng": -82.521,
     "accuracy": "public-site",
-    "note": "Public location of MacDill, where Joint Communications Support Element is based."
+    "note": "Public location of MacDill, where Joint Communications Support Element is based.",
+    "type": "base"
   },
   {
     "id": "mosul",
-    "type": "base",
+    "type": "city",
     "name": "Mosul",
     "locality": "Mosul, Nineveh, Iraq",
     "lat": 36.335,
@@ -131,7 +136,8 @@
     "lat": 32.7157,
     "lng": -117.1726,
     "accuracy": "public-site",
-    "note": "Fleet and Industrial Supply Center San Diego on the downtown waterfront (Broadway Complex). NCTS San Diego was here before it moved to NAS North Island."
+    "note": "Fleet and Industrial Supply Center San Diego on the downtown waterfront (Broadway Complex). NCTS San Diego was here before it moved to NAS North Island.",
+    "type": "base"
   },
   {
     "id": "nas-north-island",
@@ -140,7 +146,8 @@
     "lat": 32.6992,
     "lng": -117.2153,
     "accuracy": "public-site",
-    "note": "Naval Air Station North Island, Coronado. NCTS San Diego's later location."
+    "note": "Naval Air Station North Island, Coronado. NCTS San Diego's later location.",
+    "type": "base"
   },
   {
     "id": "imperial-beach",
@@ -150,7 +157,7 @@
     "lng": -117.129078,
     "accuracy": "public-site",
     "note": "The Imperial Beach annex, the elephant cage, at plus code 8544HVVC+99M (HVVC+99M, Coronado, California). The NEC 9613 (NSW Communications Technician) school was taken at this annex.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "keesler",
@@ -160,7 +167,7 @@
     "lng": -88.9245,
     "accuracy": "public-site",
     "note": "Keesler AFB, Biloxi. Where the FECL calibration school (NEC 1589) was taken.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "little-creek",
@@ -170,7 +177,7 @@
     "lng": -76.1745,
     "accuracy": "public-site",
     "note": "NAB Little Creek (now Joint Expeditionary Base Little Creek–Fort Story), homeport of USS Tortuga (LSD-46). TAD to the ship.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "saipan",
@@ -220,7 +227,7 @@
     "lng": 101.005,
     "accuracy": "public-site",
     "note": "Exercise Cobra Gold at U-Tapao, Thailand, with EODMU 5.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "shoalwater-bay",
@@ -230,7 +237,7 @@
     "lng": 150.33652,
     "accuracy": "public-site",
     "note": "Camp Growl in the Shoalwater Bay Training Area, north of Rockhampton. Exercise Talisman Saber, twice, with EODMU 5.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "whidbey",
@@ -260,7 +267,7 @@
     "lng": -79.006,
     "accuracy": "public-site",
     "note": "Fort Bragg, North Carolina. Training with JCSE.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "camp-blanding",
@@ -270,7 +277,7 @@
     "lng": -81.979,
     "accuracy": "public-site",
     "note": "Camp Blanding Joint Training Center, Florida. Training with JCSE.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "fob-patriot",
@@ -280,7 +287,7 @@
     "lng": -79.103333,
     "accuracy": "public-site",
     "note": "A training FOB at Fort Bragg, 35°8'33\"N 79°6'12\"W. Training with JCSE.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "camp-arifjan",
@@ -290,7 +297,7 @@
     "lng": 48.0947,
     "accuracy": "public-site",
     "note": "The Navy's Warrior Transition Program (NAVCENT Forward) at Camp Arifjan, where returning individual augmentees turned in gear, cleaned weapons and went through reintegration workshops before flying home. Out-processing here in 2009 at the end of the IA C-RAM deployment.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "al-udeid",
@@ -300,7 +307,7 @@
     "lng": 51.315,
     "accuracy": "public-site",
     "note": "Al Udeid Air Base, Qatar. The transit hub in and out of both Afghanistan deployments: Qatar then Bagram going in, the reverse coming out.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "bagram",
@@ -310,7 +317,7 @@
     "lng": 69.265,
     "accuracy": "public-site",
     "note": "Bagram Airfield, Afghanistan. The in-theater transit stop on both Afghanistan deployments, after Qatar going in and before it coming out.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "leipzig",
@@ -320,7 +327,7 @@
     "lng": 12.2364,
     "accuracy": "public-site",
     "note": "Leipzig/Halle Airport, Germany. A stopover on the 2009 Iraq trip and on both Afghanistan deployments.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "bitburg",
@@ -360,7 +367,7 @@
     "lng": -79.3647,
     "accuracy": "public-site",
     "note": "Laurinburg–Maxton Airport, where Gryphon Group's school sits. The pin is the airfield, not a street address.",
-    "type": "visit"
+    "type": "base"
   },
   {
     "id": "fort-bliss",
@@ -370,6 +377,206 @@
     "lng": -106.4214,
     "accuracy": "public-site",
     "note": "Fort Bliss, El Paso. Five months of training from October 2008 with HHB, 3rd Battalion, 3rd Air Defense Artillery. The rest of the IA was at Joint Base Balad.",
-    "type": "visit"
+    "type": "base"
+  },
+  {
+    "id": "city-great-lakes",
+    "name": "Great Lakes",
+    "locality": "Great Lakes, Illinois",
+    "lat": 42.3068,
+    "lng": -87.8468,
+    "accuracy": "approximate",
+    "note": "City-level pin for the Great Lakes / North Chicago area around Naval Station Great Lakes.",
+    "type": "city"
+  },
+  {
+    "id": "city-virginia-beach",
+    "name": "Virginia Beach",
+    "locality": "Virginia Beach, Virginia",
+    "lat": 36.8529,
+    "lng": -75.978,
+    "accuracy": "approximate",
+    "note": "City-level pin for Virginia Beach, home of NAS Little Creek.",
+    "type": "city"
+  },
+  {
+    "id": "city-biloxi",
+    "name": "Biloxi",
+    "locality": "Biloxi, Mississippi",
+    "lat": 30.396,
+    "lng": -88.8853,
+    "accuracy": "approximate",
+    "note": "City-level pin for Biloxi, near Keesler AFB.",
+    "type": "city"
+  },
+  {
+    "id": "city-san-diego",
+    "name": "San Diego",
+    "locality": "San Diego, California",
+    "lat": 32.7157,
+    "lng": -117.1611,
+    "accuracy": "approximate",
+    "note": "City-level pin for San Diego.",
+    "type": "city"
+  },
+  {
+    "id": "city-san-francisco",
+    "name": "San Francisco",
+    "locality": "San Francisco, California",
+    "lat": 37.7749,
+    "lng": -122.4194,
+    "accuracy": "approximate",
+    "note": "City-level pin for San Francisco (port visit).",
+    "type": "city"
+  },
+  {
+    "id": "city-agana",
+    "name": "Hagåtña (Agana)",
+    "locality": "Hagåtña, Guam",
+    "lat": 13.475,
+    "lng": 144.75,
+    "accuracy": "approximate",
+    "note": "City-level pin for Hagåtña, formerly Agana, the capital of Guam.",
+    "type": "city"
+  },
+  {
+    "id": "city-pattaya",
+    "name": "Pattaya",
+    "locality": "Pattaya, Thailand",
+    "lat": 12.9236,
+    "lng": 100.8825,
+    "accuracy": "approximate",
+    "note": "City-level pin for Pattaya, Thailand.",
+    "type": "city"
+  },
+  {
+    "id": "city-seattle",
+    "name": "Seattle",
+    "locality": "Seattle, Washington",
+    "lat": 47.6062,
+    "lng": -122.3321,
+    "accuracy": "approximate",
+    "note": "City-level pin for Seattle. Sequence stop for the EODMU 11 link-up en route to Iraq.",
+    "type": "city"
+  },
+  {
+    "id": "city-jacksonville",
+    "name": "Jacksonville",
+    "locality": "Jacksonville, Florida",
+    "lat": 30.3322,
+    "lng": -81.6557,
+    "accuracy": "approximate",
+    "note": "City-level pin for Jacksonville, Florida.",
+    "type": "city"
+  },
+  {
+    "id": "city-el-paso",
+    "name": "El Paso",
+    "locality": "El Paso, Texas",
+    "lat": 31.7619,
+    "lng": -106.485,
+    "accuracy": "approximate",
+    "note": "City-level pin for El Paso, near Fort Bliss.",
+    "type": "city"
+  },
+  {
+    "id": "city-baltimore",
+    "name": "Baltimore",
+    "locality": "Baltimore, Maryland",
+    "lat": 39.2904,
+    "lng": -76.6122,
+    "accuracy": "approximate",
+    "note": "City-level pin for Baltimore (transit).",
+    "type": "city"
+  },
+  {
+    "id": "city-tampa",
+    "name": "Tampa",
+    "locality": "Tampa, Florida",
+    "lat": 27.9506,
+    "lng": -82.4572,
+    "accuracy": "approximate",
+    "note": "City-level pin for Tampa, near MacDill AFB.",
+    "type": "city"
+  },
+  {
+    "id": "city-leipzig",
+    "name": "Leipzig",
+    "locality": "Leipzig, Saxony, Germany",
+    "lat": 51.3397,
+    "lng": 12.3731,
+    "accuracy": "approximate",
+    "note": "City-level pin for Leipzig. Transit stopovers used the airport (see leipzig place).",
+    "type": "city"
+  },
+  {
+    "id": "city-maxton",
+    "name": "Maxton",
+    "locality": "Maxton, North Carolina",
+    "lat": 34.7352,
+    "lng": -79.3489,
+    "accuracy": "approximate",
+    "note": "City-level pin for Maxton, NC, near the Gryphon Group school at Laurinburg–Maxton Airport.",
+    "type": "city"
+  },
+  {
+    "id": "city-yokosuka",
+    "name": "Yokosuka",
+    "locality": "Yokosuka, Japan",
+    "lat": 35.2812,
+    "lng": 139.6721,
+    "accuracy": "approximate",
+    "note": "City-level pin for Yokosuka (port visit).",
+    "type": "city"
+  },
+  {
+    "id": "city-sasebo",
+    "name": "Sasebo",
+    "locality": "Sasebo, Japan",
+    "lat": 33.1592,
+    "lng": 129.723,
+    "accuracy": "approximate",
+    "note": "City-level pin for Sasebo (port visit).",
+    "type": "city"
+  },
+  {
+    "id": "city-hong-kong",
+    "name": "Hong Kong",
+    "locality": "Hong Kong",
+    "lat": 22.3193,
+    "lng": 114.1694,
+    "accuracy": "approximate",
+    "note": "City-level pin for Hong Kong (port visit).",
+    "type": "city"
+  },
+  {
+    "id": "city-saipan",
+    "name": "Saipan",
+    "locality": "Saipan, Northern Mariana Islands",
+    "lat": 15.1778,
+    "lng": 145.7508,
+    "accuracy": "approximate",
+    "note": "City-level pin for Saipan (port visit).",
+    "type": "city"
+  },
+  {
+    "id": "camp-bastion",
+    "name": "Camp Bastion",
+    "locality": "Helmand Province, Afghanistan",
+    "lat": 31.87,
+    "lng": 64.2,
+    "accuracy": "approximate",
+    "note": "Camp Bastion (later Camp Shorabak), Helmand. APPROXIMATE: public directory coordinates for the airfield complex.",
+    "type": "base"
+  },
+  {
+    "id": "fob-sharana",
+    "name": "FOB Sharana",
+    "locality": "Sharana, Paktika, Afghanistan",
+    "lat": 33.1256,
+    "lng": 68.8383,
+    "accuracy": "approximate",
+    "note": "Forward Operating Base Sharana / Sharana Airfield, Paktika. APPROXIMATE: public airfield coordinates.",
+    "type": "base"
   }
 ]

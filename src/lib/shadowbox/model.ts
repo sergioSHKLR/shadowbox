@@ -19,6 +19,7 @@ import caseJson from "@/data/case.json";
 import equipmentJson from "@/data/equipment.json";
 import usedHereJson from "@/data/used-here.json";
 import visitsJson from "@/data/visits.json";
+import sequenceJson from "@/data/sequence.json";
 import medalsJson from "@/data/medals.json";
 import ranksJson from "@/data/ranks.json";
 import supplementJson from "@/data/supplement.json";
@@ -258,8 +259,8 @@ export type Place = {
   lng: number | null;
   accuracy: "public-site" | "approximate" | "placeholder";
   note: string;
-  /** "base" marks a deployment base (FOB, air base); "visit" a port visit, exercise, school or other stop. Both get their own pin colour. */
-  type?: "base" | "visit";
+  /** "city" is a city-level pin; "base" a base, FOB, camp or airfield; "visit" a legacy visit pin. Sequence layers drive Map filters. */
+  type?: "city" | "base" | "visit";
   /** Optional pin colour override. Duty pins are blue, deployments green, visits yellow. */
   pin?: "red";
 };
@@ -1073,40 +1074,107 @@ export function supplementFacts(kind: string, id: string): { label: string; valu
       })),
     );
 }
-function unitSortKeys(): { unit: Unit; sort: string }[] {
-  let last = "";
-  return units.map((unit) => {
-    if (unit.start) last = unit.start;
-    return { unit, sort: unit.start ?? last };
-  });
+
+/** One row of Sergio's ordered place sequence. */
+export type SequenceEntry = {
+  order: number;
+  label: string;
+  cityId: string | null;
+  baseId: string | null;
+  commandId: string | null;
+  kind: string;
+  when: string | null;
+};
+
+export type StopLayer = "city" | "base" | "command";
+
+/** n: fixed sequence order (1-based). Never renumbered when layers are filtered. */
+export type Stop = {
+  place: Place;
+  labels: string[];
+  when: string;
+  n: number;
+  cityId: string | null;
+  baseId: string | null;
+  commandId: string | null;
+  kind: string;
+  layers: StopLayer[];
+};
+
+export const sequence = sequenceJson as SequenceEntry[];
+
+function schoolById(id: string | null | undefined) {
+  if (!id) return undefined;
+  return schools.find((school) => school.id === id);
 }
 
-/** n: the stop's number on the map pins and in the lists (chronological, 1-based). */
-export type Stop = { place: Place; labels: string[]; when: string; n?: number };
+/** Pin place for a sequence row: base, else city, else the command's recorded place. */
+export function sequencePinPlace(entry: Pick<SequenceEntry, "cityId" | "baseId" | "commandId">): Place | undefined {
+  if (entry.baseId) return placeById(entry.baseId);
+  if (entry.cityId) return placeById(entry.cityId);
+  if (entry.commandId) {
+    const unit = unitById(entry.commandId);
+    if (unit?.placeId) return placeById(unit.placeId);
+    const school = schoolById(entry.commandId);
+    if (school?.placeId) return placeById(school.placeId);
+  }
+  return undefined;
+}
+
+/** Resolve which place to pin given the active Map layers. */
+export function stopPlaceForLayers(stop: Stop, shown: StopLayer[] | null): Place {
+  const on = (layer: StopLayer) => !shown || shown.includes(layer);
+  if (on("base") && stop.baseId) {
+    const place = placeById(stop.baseId);
+    if (place) return place;
+  }
+  if (on("city") && stop.cityId) {
+    const place = placeById(stop.cityId);
+    if (place) return place;
+  }
+  if (on("command") && stop.commandId) {
+    const unit = unitById(stop.commandId);
+    if (unit?.placeId) {
+      const place = placeById(unit.placeId);
+      if (place) return place;
+    }
+    const school = schoolById(stop.commandId);
+    if (school?.placeId) {
+      const place = placeById(school.placeId);
+      if (place) return place;
+    }
+    if (stop.baseId) {
+      const place = placeById(stop.baseId);
+      if (place) return place;
+    }
+    if (stop.cityId) {
+      const place = placeById(stop.cityId);
+      if (place) return place;
+    }
+  }
+  return stop.place;
+}
 
 export function careerStops(): Stop[] {
-  const events = [
-    ...unitSortKeys().filter(({ unit: u }) => u.placeId).map(({ unit: u, sort }) => ({ sort, prio: 0, tie: "", placeId: u.placeId as string, label: `${formatSpan(u.start, u.end)} · ${u.abbreviation}` })),
-    // An operation that belongs to a tour begun in an earlier year sorts just ahead of a unit starting in its year
-    // (Iraq Sovereignty, 2009, closes the 2008 IA tour before JCSE starts in 2009).
-    // Every base a deployment used gets its own numbered stop (CJTF Troy: FOB Sykes, then FOB Tal Afar).
-    ...operations
-      .filter((o) => o.baseIds?.length || o.placeId)
-      .flatMap((o) => (o.baseIds?.length ? o.baseIds : [o.placeId as string]).map((placeId) => ({ sort: o.start, prio: unitById(o.unitId ?? "")?.start?.slice(0, 4) === o.start.slice(0, 4) ? 0 : -0.5, tie: "", placeId, label: `${formatSpan(o.start, o.end)} · ${o.phase}` }))),
-    // Port visits, exercises, schools and other stops, in the order given in visits.json within the same year and prio.
-    ...visits.map((visit, index) => ({ sort: visit.sort, prio: visit.prio, tie: String(index).padStart(3, "0"), placeId: visit.placeId, label: `${visit.when} · ${visit.title}` })),
-  ].sort((a, b) => a.sort.localeCompare(b.sort) || a.prio - b.prio || a.tie.localeCompare(b.tie) || a.label.localeCompare(b.label));
-
   const stops: Stop[] = [];
-  for (const event of events) {
-    const place = placeById(event.placeId);
+  for (const entry of [...sequence].sort((a, b) => a.order - b.order)) {
+    const place = sequencePinPlace(entry);
     if (!place) continue;
-    const last = stops[stops.length - 1];
-    if (last && last.place.id === place.id) {
-      last.labels.push(event.label);
-      continue;
-    }
-    stops.push({ place, labels: [event.label], when: event.sort, n: stops.length + 1 });
+    const layers: StopLayer[] = [];
+    if (entry.cityId) layers.push("city");
+    if (entry.baseId) layers.push("base");
+    if (entry.commandId) layers.push("command");
+    stops.push({
+      place,
+      labels: [entry.label],
+      when: entry.when ?? "",
+      n: entry.order,
+      cityId: entry.cityId,
+      baseId: entry.baseId,
+      commandId: entry.commandId,
+      kind: entry.kind,
+      layers,
+    });
   }
   return stops;
 }
@@ -1116,7 +1184,11 @@ let pinNumbers: Map<string, number[]> | undefined;
 export function pinNumbersFor(placeId: string): number[] {
   if (!pinNumbers) {
     pinNumbers = new Map();
-    for (const stop of careerStops()) pinNumbers.set(stop.place.id, [...(pinNumbers.get(stop.place.id) ?? []), stop.n!]);
+    for (const stop of careerStops()) {
+      for (const id of [stop.place.id, stop.cityId, stop.baseId].filter(Boolean) as string[]) {
+        pinNumbers.set(id, [...(pinNumbers.get(id) ?? []), stop.n]);
+      }
+    }
   }
   return pinNumbers.get(placeId) ?? [];
 }
@@ -1557,11 +1629,13 @@ export function toSubject(sel: Selection): SubjectView | null {
     return {
       kind: "place",
       id: place.id,
-      kicker: (pinNumbersFor(place.id).length ? `Map pin ${pinNumbersFor(place.id).join(", ")} · ` : "") + (place.type === "visit"
+      kicker: (pinNumbersFor(place.id).length ? `Map pin ${pinNumbersFor(place.id).join(", ")} · ` : "") + (place.type === "city"
+        ? (place.accuracy === "approximate" ? "City · approximate location" : "City")
+        : place.type === "visit"
         ? (visits.some((visit) => visit.placeId === place.id) && visits.filter((visit) => visit.placeId === place.id).every((visit) => visit.kind === "transit") ? "Transit / stopover" : "Visit, exercise or school") +
           (place.accuracy === "approximate" ? " · approximate location" : "")
         : place.type === "base"
-        ? place.accuracy === "approximate" ? "Deployment base · approximate location" : "Deployment base"
+        ? place.accuracy === "approximate" ? "Base or field site · approximate location" : "Base or field site"
         : place.accuracy === "placeholder" ? "Placeholder location" : place.accuracy === "approximate" ? "Approximate location" : "Duty station"),
       title: place.name,
       explanation: place.note,

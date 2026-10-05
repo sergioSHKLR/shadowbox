@@ -17,7 +17,9 @@ Dates are `YYYY`, `YYYY-MM`, or `YYYY-MM-DD`. A missing end date means the item 
 | `schools.json` | Courses. `placeConfidence` is `recorded`, `inferred`, or `unknown` |
 | `necs.json` | Navy Enlisted Classifications and time in each |
 | `uniforms.json` | The uniforms. `group` is one of `pt`, `organizational`, `work`, `dress`, `battle`; `order` is wear order within the page. `image` is the numbered v12 figurine in `public/uniforms/v12` (`01-`…`24-`). Personal `*-wear.jpg` shots belong in `photos.json`, not on the cover |
-| `places.json` | Map points. `accuracy` is `public-site`, `approximate`, or `placeholder` |
+| `places.json` | Map points. `type` is `city`, `base`, or `visit`. `accuracy` is `public-site`, `approximate`, or `placeholder` |
+| `sequence.json` | Ordered career places for the Map and the Timeline Places list. Each row is `{ order, label, cityId, baseId, commandId, kind, when }`. `cityId` / `baseId` are place ids (or null). `commandId` is a unit or school id (or null). `when` is blank unless already recorded. Numbers stay fixed when Map layers are filtered. No collapsing of return visits. |
+| `visits.json` | Legacy visit records still used for place detail sidebars. Map order comes from `sequence.json`, not from visit sort keys |
 | `warfare.json` / `insignia.json` | Pins and chief insignia |
 | `milestones.json` | Enlistment, chief, retirement |
 | `photos.json` | `{ id, src, alt, caption, subjects: [{ kind, id }] }`. One still can list several On Duty, Off Duty, command, operation, or uniform records. Empty subjects show the blank line |

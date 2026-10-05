@@ -859,6 +859,9 @@ a { color: var(--color-navy); }
 .map-num, .pin-num { background: #1d4e89; color: #ffffff; border-color: #0c2748; }
 .map-num.base, .pin-num.base { background: #1f8a3c; color: #ffffff; border-color: #0d4a1f; }
 .map-num.visit, .pin-num.visit { background: #ffd21a; color: #1a1400; border-color: #8a6400; }
+.map-num.city, .pin-num.city { background: #ffd21a; color: #1a1400; border-color: #8a6400; }
+.map-num.command, .pin-num.command { background: #1d4e89; color: #ffffff; border-color: #0c2748; }
+
 .map-num.approximate, .pin-num.approximate { border-style: dashed; }
 .map-legend { list-style: none; display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; margin: 0 0 0.7rem; padding: 0; font-size: 0.85rem; color: var(--color-quiet); }
 .map-legend li { display: inline-flex; align-items: center; gap: 0.4rem; }
@@ -1149,3 +1152,9 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   color: var(--color-quiet);
   font-size: 0.88rem;
 }
+
+.places-track { margin: 1.2rem 0 0; }
+.places-track h3 { margin: 0 0 0.4rem; }
+.places-track .stop-list { margin-top: 0.4rem; }
+.places-track .stop-list button { cursor: pointer; }
+.bar.bar--place { background: #2a3d55; color: #fff; min-width: 0; flex: 1 1 0; padding: 0.35rem 0.2rem; font-size: 0.65rem; }
