@@ -384,3 +384,4 @@
   .logbook-rank-path .logbook-rank small { display: none; }
   .logbook-rank-path .logbook-rank-patch { height: 2.2rem; }
 }
+.logbook-crest[data-static] { cursor: default; }

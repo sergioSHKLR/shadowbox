@@ -434,7 +434,8 @@ function OnDutyPanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
 /** Crests of the active and already-visited commands' units; the active command's units are highlighted. */
 /** Crests for the active command only (its assigned unit plus its own deployed / assisting / parent units). Swaps fully per beat; not cumulative. */
 function CrestStrip({ beat, onOpen }: { beat: LogbookBeat | undefined; onOpen: Open }) {
-  const list = (beat?.units ?? []).filter((unit) => !isMapExcludedUnit(unit.id));
+  // Map-excluded partners reach this list only when the plate gives them a role (crests only, never the Map).
+  const list = beat?.units ?? [];
   if (!beat || !list.length) return <ComingSoon what="unit crests" />;
   return (
     <ul className="logbook-crests" key={beat.index} aria-label={`Unit crests: ${beatTitle(beat)}`}>
@@ -446,7 +447,8 @@ function CrestStrip({ beat, onOpen }: { beat: LogbookBeat | undefined; onOpen: O
               type="button"
               className={lead ? "logbook-crest on" : "logbook-crest"}
               aria-current={lead ? "true" : undefined}
-              onClick={() => onOpen("unit", unit.id)}
+              onClick={unit.plateOnly ? undefined : () => onOpen("unit", unit.id)}
+              data-static={unit.plateOnly ? "" : undefined}
               aria-label={`${unit.name}${unit.designator ? ` (${unit.designator})` : ""}`}
               title={unit.name}
             >
