@@ -21,17 +21,22 @@ import { Boundary } from "@/components/shadowbox/boundary";
 
 type View = "home" | "uniforms" | "decorations" | "onduty" | "offduty" | "ops" | "map" | "timeline" | "logbook" | "admin" | "commands" | "sources" | "contact" | "guestbook" | "memories";
 
-const NAV = ["commands", "timeline", "logbook", "ops", "map", "uniforms", "onduty", "admin", "offduty"] as const;
-type PageId = "home" | (typeof NAV)[number];
+const ALL_NAV = ["commands", "timeline", "logbook", "ops", "map", "uniforms", "onduty", "admin", "offduty"] as const;
+// Sergio: only Home and Logbook are public for now. The other pages keep their code and data but are unlinked
+// (menu, pager, footer, search) and unreachable: any other view resolves to Home. Add ids back here to re-publish.
+const NAV = ["logbook"] as const satisfies readonly (typeof ALL_NAV)[number][];
+type PageId = "home" | (typeof ALL_NAV)[number];
 const NAV_ICON = { commands: Anchor, uniforms: Shirt, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, logbook: NotebookText, admin: ClipboardList };
 const PAGE_ICON: Record<PageId, typeof House> = { home: House, ...NAV_ICON };
-const FOOTER = ["guestbook", "contact", "sources"] as const;
+const ALL_FOOTER = ["guestbook", "contact", "sources"] as const;
+const FOOTER: readonly (typeof ALL_FOOTER)[number][] = []; // hidden with the other pages (Sergio); re-add ids to show them
+void ALL_FOOTER;
 const FOOTER_ICON = { sources: Library, contact: MessageCircle, guestbook: BookOpen };
 const ALIAS: Record<string, View> = { case: "home", schools: "admin", equipment: "onduty" };
 
 function asView(value: string): View {
   if (value in ALIAS) return ALIAS[value];
-  const known: View[] = [...NAV, "sources", "contact", "guestbook", "memories"];
+  const known: View[] = [...NAV, ...FOOTER];
   return known.includes(value as View) ? (value as View) : "home";
 }
 
@@ -60,10 +65,11 @@ export function ShadowboxApp() {
   const t = chrome(locale);
   const bars = useMemo(() => timeline(), []);
   const stops = useMemo(() => careerStops(), []);
-  const hits = useMemo(() => searchRecord(query), [query]);
+  // Page hits for hidden pages are dropped so search can't reach them either.
+  const hits = useMemo(() => searchRecord(query).filter((hit) => !("view" in hit.open) || asView(hit.open.view) !== "home" || hit.open.view === "home"), [query]);
   const pane = (id: View) => (view === id ? "view-pane" : "view-pane screen-off");
   const go = (next: View) => {
-    setView(next);
+    setView(asView(next));
     setMenu(false);
     setSearchOpen(false);
     setQuery("");
@@ -219,8 +225,8 @@ export function ShadowboxApp() {
         </div>
         {menu ? (
           <ul className="app-menu" ref={menuRef}>
-            {NAV.map((id) => {
-              const Icon = NAV_ICON[id];
+            {(["home", ...NAV] as const).map((id) => {
+              const Icon = PAGE_ICON[id];
               return (
                 <li key={id}>
                   <button type="button" className={view === id ? "on" : undefined} onClick={() => go(id)}>
@@ -283,7 +289,7 @@ export function ShadowboxApp() {
       </div>
       <footer className="site-footer">
         <span className="footer-credit">{t.made}</span>
-        <nav className="footer-nav" aria-label={t.footerNav}>
+        {FOOTER.length ? <nav className="footer-nav" aria-label={t.footerNav}>
           {FOOTER.map((id) => {
             const Icon = FOOTER_ICON[id];
             return (
@@ -293,7 +299,7 @@ export function ShadowboxApp() {
               </button>
             );
           })}
-        </nav>
+        </nav> : null}
       </footer>
       <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setSelection(null); setTrail([]); }} />
     </div>

@@ -69,6 +69,7 @@ h1, h2, h3, .detail-title {
   padding: 0.35rem 0.7rem;
   background: var(--color-navy);
   color: var(--color-ivory);
+  border-bottom: 2px solid var(--color-goldenrod);
 }
 .app-home {
   display: flex;
