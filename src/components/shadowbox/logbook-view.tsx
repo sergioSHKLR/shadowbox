@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import {
+  deploymentsForCommand,
   formatSpan,
   formatWhen,
   isMapExcludedUnit,
@@ -293,6 +294,49 @@ function UniformsPanel({
           </ul>
         </section>
       ) : null}
+    </div>
+  );
+}
+
+/** On Duty: deployment body armor + helmets (deployment-gear.json), then the command's other duty gear
+ *  (equipment.json + used-here.json). Armor and helmets come only from deployment-gear.json. */
+function OnDutyPanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
+  const deployments = deploymentsForCommand(beat.stop.commandId);
+  const groups = onDutyForCommand(beat.stop.commandId).filter((group) => group.id !== "armor" && group.id !== "helmets");
+  if (!deployments.length && !groups.length) return <ComingSoon what="duty gear" />;
+  return (
+    <div className="logbook-gear">
+      {deployments.length ? (
+        <section aria-label="Deployments">
+          <Kicker>Deployments</Kicker>
+          <ul className="logbook-deploys">
+            {deployments.map((dep) => (
+              <li key={dep.unitId} className="logbook-deploy">
+                <button type="button" className="logbook-link" onClick={() => onOpen("unit", dep.unitId)}>
+                  <strong>{dep.label}</strong> · {dep.unitAbbreviation}
+                </button>
+                <span className="quiet">{[dep.theater, dep.span].filter(Boolean).join(" · ")}</span>
+                <dl className="logbook-facts">
+                  <dt>Body armor</dt>
+                  <dd>{dep.bodyArmor ? <><b>{dep.bodyArmor.short}</b> <span className="quiet">{dep.bodyArmor.name}</span></> : <span className="quiet">Not recorded</span>}</dd>
+                  <dt>Helmet</dt>
+                  <dd>
+                    {dep.helmet ? (
+                      <><b>{dep.helmet.short}</b> <span className="quiet">{dep.helmet.name}</span></>
+                    ) : (
+                      <>
+                        <b>{dep.helmetsKnown.map((h) => h.short).join(" / ")}</b>{" "}
+                        <span className="quiet">{dep.helmetsKnown.map((h) => h.name).join(" or ")}; which one on this deployment is not recorded</span>
+                      </>
+                    )}
+                  </dd>
+                </dl>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+      {groups.length ? <GearPanel groups={groups} what="duty gear" onOpen={onOpen} /> : null}
     </div>
   );
 }
@@ -597,7 +641,7 @@ export function Logbook({
     name === "uniforms" ? (
       <UniformsPanel beat={beat} look={look} onLook={setLook} onOpen={onOpen} />
     ) : name === "onduty" ? (
-      <GearPanel groups={onDutyForCommand(beat.stop.commandId)} what="duty gear" onOpen={onOpen} />
+      <OnDutyPanel beat={beat} onOpen={onOpen} />
     ) : (
       <GearPanel groups={offDutyForCommand(beat.stop.commandId)} what="off-duty life" onOpen={onOpen} />
     );
