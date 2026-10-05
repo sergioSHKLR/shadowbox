@@ -501,24 +501,31 @@ const UNIFORM_LOOK: Record<string, UniformLook> = {
   khakis: "khaki",
 };
 
-/** incoming/plates/1a.svg … 7k.svg */
+/** incoming/plates/e3-blues.svg … e7-khakis.svg (Sergio's set, Oct 2026). Grade, then the E-6 tour index (1 USS Frank Cable … 4 JCSE), then the look. */
 const PLATE_FILE: Record<string, { look: UniformLook; y: number; m: number; caption: string }> = {
-  "1a": { look: "blue", y: 1997, m: 6, caption: "SN · dress blues" },
-  "1b": { look: "white", y: 1997, m: 6, caption: "SN · dress whites" },
-  "2a": { look: "blue", y: 2001, m: 1, caption: "NCTS · dress blues" },
-  "2b": { look: "white", y: 2001, m: 1, caption: "NCTS · dress whites" },
-  "3a": { look: "blue", y: 2004, m: 1, caption: "USS Frank Cable · dress blues" },
-  "3b": { look: "white", y: 2004, m: 1, caption: "USS Frank Cable · dress whites" },
-  "4a": { look: "blue", y: 2007, m: 1, caption: "EOD · dress blues" },
-  "4b": { look: "white", y: 2007, m: 1, caption: "EOD · dress whites" },
-  "5a": { look: "blue", y: 2009, m: 6, caption: "SERCC · dress blues" },
-  "5b": { look: "white", y: 2009, m: 6, caption: "SERCC · dress whites" },
-  "6a": { look: "blue", y: 2014, m: 1, caption: "JCSE · dress blues" },
-  "6b": { look: "white", y: 2014, m: 1, caption: "JCSE · dress whites" },
-  "7b": { look: "blue", y: 2014, m: 9, caption: "CPO · dress blues" },
-  "7c": { look: "white", y: 2014, m: 9, caption: "CPO · dress whites" },
-  "7k": { look: "khaki", y: 2014, m: 9, caption: "CPO · service khaki" },
+  "e3-blues": { look: "blue", y: 1997, m: 6, caption: "SN · dress blues" },
+  "e3-whites": { look: "white", y: 1997, m: 6, caption: "SN · dress whites" },
+  "e4-blues": { look: "blue", y: 1998, m: 12, caption: "ET3 · dress blues" },
+  "e4-whites": { look: "white", y: 1998, m: 12, caption: "ET3 · dress whites" },
+  "e5-blues": { look: "blue", y: 2001, m: 1, caption: "ET2 · dress blues" },
+  "e5-whites": { look: "white", y: 2001, m: 1, caption: "ET2 · dress whites" },
+  "e6-1-blues": { look: "blue", y: 2004, m: 1, caption: "ET1 · dress blues" },
+  "e6-1-whites": { look: "white", y: 2004, m: 1, caption: "ET1 · dress whites" },
+  "e6-2-blues": { look: "blue", y: 2007, m: 1, caption: "ET1 · dress blues" },
+  "e6-2-whites": { look: "white", y: 2007, m: 1, caption: "ET1 · dress whites" },
+  "e6-3-blues": { look: "blue", y: 2009, m: 6, caption: "ET1 · dress blues" },
+  "e6-3-whites": { look: "white", y: 2009, m: 6, caption: "ET1 · dress whites" },
+  "e6-4-blues": { look: "blue", y: 2014, m: 1, caption: "ET1 · dress blues" },
+  "e6-4-whites": { look: "white", y: 2014, m: 1, caption: "ET1 · dress whites" },
+  "e7-blues": { look: "blue", y: 2014, m: 9, caption: "ETC · dress blues" },
+  "e7-whites": { look: "white", y: 2014, m: 9, caption: "ETC · dress whites" },
+  "e7-khakis": { look: "khaki", y: 2014, m: 9, caption: "ETC · khakis" },
 };
+
+/** Plate set a file belongs to: "e6-2-blues.svg" → "e6-2" (blues / whites / khakis of one snapshot). */
+export function plateGroup(file: string | null | undefined): string {
+  return (file ?? "").replace(/\.[^.]+$/, "").toLowerCase().replace(/-(blues?|whites?|khakis?)$/, "");
+}
 
 function uniformFromPath(path: string, src: string): UniformSlide {
   const file = path.split("/").pop() ?? path;
@@ -563,15 +570,28 @@ export function firstUniformSlide(look: UniformLook): UniformSlide | null {
 
 /** Command walk on Timeline. SN/RTC opens; CPO plates are JCSE last year, then NAVHOSP. */
 const UNIFORM_STEP_PLATES: { unitId: string; stem: string; id?: string; label?: string; span?: string }[] = [
-  { unitId: "rtc", stem: "1a" },
-  { unitId: "ncts", stem: "2a" },
-  { unitId: "frank-cable", stem: "3a" },
-  { unitId: "eodmu5", stem: "4a" },
-  { unitId: "sercc", stem: "5a" },
-  { unitId: "jcse", stem: "6a" },
-  { unitId: "jcse", stem: "7b", id: "jcse-cpo", label: "CPO", span: "2014" },
-  { unitId: "navhosp", stem: "7b" },
+  { unitId: "rtc", stem: "e3-blues" },
+  { unitId: "ncts", stem: "e5-blues" },
+  { unitId: "frank-cable", stem: "e6-1-blues" },
+  { unitId: "eodmu5", stem: "e6-2-blues" },
+  { unitId: "sercc", stem: "e6-3-blues" },
+  { unitId: "jcse", stem: "e6-4-blues" },
+  { unitId: "jcse", stem: "e7-blues", id: "jcse-cpo", label: "CPO", span: "2014" },
+  { unitId: "navhosp", stem: "e7-blues" },
 ];
+
+/** Logbook plate sets per command (end-of-tour snapshot). Tortuga (Seaman TAD) wears the SN set; NTC ends as ET3. */
+const LOGBOOK_PLATE_SETS: Record<string, string[]> = {
+  rtc: ["e3"],
+  tortuga: ["e3"],
+  "ntc-great-lakes": ["e4"],
+  ncts: ["e5"],
+  "frank-cable": ["e6-1"],
+  eodmu5: ["e6-2"],
+  sercc: ["e6-3"],
+  jcse: ["e6-4", "e7"],
+  navhosp: ["e7"],
+};
 
 export type UniformStep = {
   id: string;
@@ -1388,6 +1408,12 @@ function unitsForBeat(stop: Stop, plate: CommandPlate | null, when: string): Log
 
 /** Uniform slide tied to a command plate stem (Commands / Timeline walk). */
 function uniformForPlateUnit(unitId: string, look: UniformLook): UniformSlide | null {
+  const set = LOGBOOK_PLATE_SETS[unitId]?.[0];
+  if (set) {
+    const own = uniformSlides.filter((slide) => plateGroup(slide.file) === set);
+    const hit = own.find((slide) => slide.look === look) ?? own.find((slide) => slide.look === "blue") ?? own[0];
+    if (hit) return hit;
+  }
   const step =
     UNIFORM_STEP_PLATES.find((row) => row.unitId === unitId && !row.id) ??
     UNIFORM_STEP_PLATES.find((row) => row.unitId === unitId);
@@ -2124,17 +2150,30 @@ export function offDutyForCommand(unitId: string | null | undefined): LogbookGea
   );
 }
 
-/** Ready uniform plates for a command (e.g. NCTS → 2a blues, 2b whites; NAVHOSP → 7b/7c/7k CPO). */
-/** Logbook-only plate reuse: the Tortuga TAD (Seaman, between RTC and NTC) wears the RTC Seaman plates 1a / 1b. */
-const LOGBOOK_PLATE_REUSE: Record<string, string> = { tortuga: "rtc" };
-
+/** Ready uniform plates for a command (e.g. NCTS → e5 blues / whites; JCSE → e6-4 plus the e7 CPO set; NAVHOSP → e7). */
 export function uniformPlatesForCommand(unitId: string | null | undefined): UniformSlide[] {
   if (!unitId) return [];
-  const source = LOGBOOK_PLATE_REUSE[unitId] ?? unitId;
-  const codes = new Set(
-    UNIFORM_STEP_PLATES.filter((row) => row.unitId === source).map((row) => row.stem.replace(/[a-z]+$/i, "")),
+  const sets = LOGBOOK_PLATE_SETS[unitId];
+  if (!sets) return [];
+  return uniformSlides.filter((slide) => sets.includes(plateGroup(slide.file)));
+}
+
+/** Wardrobe uniforms that are the same uniform as a ready plate: shown with the command's own plate instead of the generic mannequin. */
+const WARDROBE_PLATE_LOOK: Record<string, { look: UniformLook; chief: boolean }> = {
+  "dress-blues": { look: "blue", chief: false },
+  "dress-whites": { look: "white", chief: false },
+  "cpo-sdb": { look: "blue", chief: true },
+  "cpo-sdw": { look: "white", chief: true },
+};
+
+export function wardrobePlateFor(unitId: string | null | undefined, uniformId: string): UniformSlide | null {
+  const want = WARDROBE_PLATE_LOOK[uniformId];
+  if (!want) return null;
+  return (
+    uniformPlatesForCommand(unitId).find(
+      (slide) => slide.look === want.look && plateGroup(slide.file).startsWith("e7") === want.chief,
+    ) ?? null
   );
-  return uniformSlides.filter((slide) => codes.has(slide.file.replace(/\.[^.]+$/, "").replace(/[a-z]+$/i, "")));
 }
 
 export type WardrobeItem = { uniform: Uniform; via: string[] };

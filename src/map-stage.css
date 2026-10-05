@@ -347,3 +347,8 @@ html.map-cover-lock, html.map-cover-lock body { overflow: hidden; }
   line-height: 1.45;
 }
 [data-theme="dark"] .map-about > p { color: #c4b8a6; }
+
+/* Tabs / chips / player (Oct 2026): ACTIVE = goldenrod + navy text; INACTIVE = navy + light text (was outline / map blue). */
+.nav-btn, .map-play .nav-btn.icon-btn, [data-theme="dark"] .map-play .nav-btn.icon-btn { background: var(--color-navy); color: var(--color-ivory, #f4efe4); border-color: var(--color-navy); }
+.nav-btn.on, .map-play .nav-btn.icon-btn.on, .map-play .nav-btn.icon-btn.on:hover:not(:disabled),
+[data-theme="dark"] .map-play .nav-btn.icon-btn.on, [data-theme="dark"] .map-play .nav-btn.icon-btn.on:hover:not(:disabled) { background: var(--color-goldenrod); color: var(--color-navy); border-color: var(--color-goldenrod); }
