@@ -66,8 +66,23 @@ function sized(map: import("leaflet").Map) {
   return size.x >= 1 && size.y >= 1;
 }
 
+/** Leaflet throws "Set map center and zoom first" from flyTo/getCenter until a view exists. */
+function loaded(map: import("leaflet").Map) {
+  return (map as unknown as { _loaded?: boolean })._loaded === true;
+}
+
+/** Map errors must never escape into React effects: an uncaught throw there unmounts the whole app. */
+function safeApply(handle: Runtime | null, play: PlayState) {
+  if (!handle) return;
+  try {
+    applyPlay(handle, play);
+  } catch (error) {
+    console.warn("[map] play step skipped:", error instanceof Error ? error.message : error);
+  }
+}
+
 function toward(map: import("leaflet").Map, at: [number, number]): [number, number] {
-  if (!Number.isFinite(map.getZoom())) return at;
+  if (!loaded(map) || !Number.isFinite(map.getZoom())) return at;
   const center = map.getCenter().lng;
   if (!Number.isFinite(center)) return at;
   let lng = at[1];
@@ -84,7 +99,7 @@ function flyUnwrapped(map: import("leaflet").Map, target: [number, number], zoom
   if (!sized(map)) return;
   if (!Number.isFinite(target[0]) || !Number.isFinite(target[1]) || !Number.isFinite(zoom)) return;
   try {
-    if (instant) map.setView(target, zoom, { animate: false });
+    if (instant || !loaded(map)) map.setView(target, zoom, { animate: false });
     else map.flyTo(target, zoom, { duration: 0.9 });
   } catch (error) {
     const message = error instanceof Error ? error.message : "";
@@ -150,7 +165,10 @@ function applyPlay(handle: Runtime, play: PlayState) {
   if (focus && focus.place.lat != null && focus.place.lng != null) {
     if (!sized(handle.map)) return;
     const target = toward(handle.map, handle.at(focus.place));
-    const reduce = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Before the first view exists, animated moves throw; jump instead.
+    const reduce =
+      !loaded(handle.map) ||
+      (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     const limit = revealedCount == null ? play.stops.length : Math.min(revealedCount, play.stops.length);
     const neighbors: [number, number][] = [];
     for (let i = 0; i < limit; i++) {
@@ -166,12 +184,16 @@ function applyPlay(handle: Runtime, play: PlayState) {
       const marker = handle.markers[focusIndex];
       if (!marker || !handle.cluster.hasLayer(marker)) return;
       // Expand the cluster that holds the current pin so the "now" ring is visible.
-      handle.cluster.zoomToShowLayer(marker, () => {
-        if (handle.playGen !== gen) return;
-        const el = marker.getElement();
-        el?.querySelector(".map-num, .map-dot")?.classList.add("now");
-        handle.spread();
-      });
+      try {
+        handle.cluster.zoomToShowLayer(marker, () => {
+          if (handle.playGen !== gen) return;
+          const el = marker.getElement();
+          el?.querySelector(".map-num, .map-dot")?.classList.add("now");
+          handle.spread();
+        });
+      } catch (error) {
+        console.warn("[map] cluster expand skipped:", error instanceof Error ? error.message : error);
+      }
     };
 
     if (neighbors.length >= 2) {
@@ -287,6 +309,9 @@ export function MapView({
         const PIN_PX = ref.current.clientWidth < 520 ? 18 : 22;
         const view = L.map(ref.current, { crs, scrollWheelZoom: false, zoomControl: true, zoomSnap: 0.25, zoomDelta: 0.5 });
         map = view;
+        // Give Leaflet a view up front. Focused maps (Logbook) skip fit(), and
+        // flyTo/flyToBounds/getCenter throw until a center and zoom exist.
+        view.setView([20, 0], 2, { animate: false });
         const spec = BASEMAPS.topo;
         const tiles = L.tileLayer(spec.url, {
           attribution: spec.attribution,
@@ -422,14 +447,14 @@ export function MapView({
             fit();
             spread();
           }
-          if (runtime.current) applyPlay(runtime.current, playRef.current);
+          safeApply(runtime.current, playRef.current);
         }, 180);
 
         map.on("zoomend", spread);
         map.on("animationend", spread);
 
         runtime.current = { map, tiles, markers, extras: baseMarkers, cluster, playGen: 0, at, fit, spread };
-        applyPlay(runtime.current, playRef.current);
+        safeApply(runtime.current, playRef.current);
       });
     };
 
@@ -449,7 +474,7 @@ export function MapView({
             runtime.current.fit();
             runtime.current.spread();
           }
-          applyPlay(runtime.current, playRef.current);
+          safeApply(runtime.current, playRef.current);
         }
       });
       observer.observe(el);
@@ -468,7 +493,7 @@ export function MapView({
   }, [signature]);
 
   useEffect(() => {
-    if (runtime.current) applyPlay(runtime.current, playRef.current);
+    safeApply(runtime.current, playRef.current);
   }, [focusId, focusIndex, revealKey, signature]);
 
   if (!stops.length && !extra.length) {

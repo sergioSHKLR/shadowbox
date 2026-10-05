@@ -157,3 +157,28 @@
 [data-theme="dark"] .map-cluster.marker-cluster div {
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
 }
+
+/* Fullscreen map stage: Fullscreen API (:fullscreen) or CSS viewport cover (.is-full). */
+.map-stage.is-full {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: max(0.6rem, env(safe-area-inset-top)) max(0.75rem, env(safe-area-inset-right)) max(0.6rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left));
+  background: var(--color-ivory);
+  box-shadow: none;
+}
+[data-theme="dark"] .map-stage.is-full { background: #14181f; }
+.map-stage.is-full .map-play { flex: 0 0 auto; margin-bottom: 0.5rem; }
+.map-stage.is-full .map-play-scrub { flex-basis: 100%; }
+.map-stage.is-full .map-frame,
+.map-stage.is-full .map-frame.tall,
+.map-stage.is-full.is-playing .map-frame.tall {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+}
+html.map-cover-lock, html.map-cover-lock body { overflow: hidden; }
+.map-filter + .map-legend, .map-stage + .map-filter { margin-top: 0.8rem; }
