@@ -38,7 +38,6 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.logbook-count { margin: 0; font-size: 0.88rem; white-space: nowrap; }
 .logbook-kicker {
   margin: 0 0 0.4rem;
   font-size: 0.72rem;
@@ -88,12 +87,12 @@
   min-height: 0;
   overflow: auto;
   overscroll-behavior: contain;
-  padding: 0.6rem 0.6rem 0;
+  padding: 0.6rem;
   outline: none;
 }
 .logbook-beats:focus-visible { box-shadow: inset 0 0 0 2px var(--color-brass-bright); }
 .logbook-beat {
-  margin: 0 0 0.75rem;
+  margin: 0;
   padding: 0.75rem 0.8rem;
   border: 1px solid var(--lb-border);
   border-radius: 6px;
@@ -103,14 +102,27 @@
   border-color: var(--color-brass);
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-brass) 45%, transparent);
 }
-.logbook-beat:not(.is-active) .logbook-beat-body { opacity: 0.6; }
+/* Prev / next stepper: outline when idle, top-bar navy while pressed, disabled at the ends (Map player shape). */
+.logbook-stepper { flex: none; display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.5rem; }
+.logbook-step-btn {
+  flex: none; width: 44px; height: 44px; display: grid; place-items: center; padding: 0;
+  border: 1px solid var(--color-navy); border-radius: 999px; background: transparent; color: var(--color-navy);
+  cursor: pointer; font: inherit;
+}
+.logbook-step-btn:not(:disabled):hover { background: color-mix(in srgb, var(--color-navy) 8%, transparent); }
+.logbook-step-btn:not(:disabled):active { background: var(--color-navy); color: #fff; }
+.logbook-step-btn:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 2px; }
+.logbook-step-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+[data-theme="dark"] .logbook-step-btn { border-color: color-mix(in srgb, var(--color-ivory) 60%, transparent); color: var(--color-ivory); }
+[data-theme="dark"] .logbook-step-btn:not(:disabled):active { background: var(--color-navy); color: #fff; }
+.logbook-step-label { flex: 1; min-width: 0; margin: 0; display: flex; flex-direction: column; align-items: center; text-align: center; line-height: 1.2; }
+.logbook-step-label strong { font-size: 0.98rem; }
+.logbook-step-label span { font-size: 0.82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
 .logbook-beat-head { display: flex; gap: 0.7rem; align-items: flex-start; }
 .logbook-beat-head h3 { margin: 0; font-size: 1.12rem; }
 .logbook-beat-head p { margin: 0.15rem 0 0; font-size: 0.9rem; }
 .logbook-beat-body { margin: 0.55rem 0 0 2.1rem; }
 /* Room after the last beat so it can reach the sync band; the sentinel marks the end of the column. */
-.logbook-beats-end { position: relative; height: 40%; }
-.logbook-beats-sentinel { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; }
 
 /* Real tabs: bar attached to its panel. Inactive = outline, active = top-bar navy, white text. */
 .lb-tabbed { display: flex; flex-direction: column; min-height: 0; }
@@ -252,6 +264,15 @@
 .logbook-pin { display: inline-flex; border: 0; background: transparent; padding: 0; cursor: pointer; }
 .logbook-pin img { display: block; height: 1.7rem; width: auto; }
 .logbook-ribbons { width: max-content; max-width: 100%; }
+/* Unmounted ribbons: individual ribbons side by side, one row that wraps, senior first. */
+.logbook-ribbons-sec { flex: 1 1 100%; min-width: 0; }
+.logbook-ribbons-flat { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.45rem 0.4rem; align-items: center; }
+.logbook-ribbons-flat li { display: block; }
+.logbook-ribbon-btn { display: block; padding: 0; border: 0; background: none; cursor: pointer; line-height: 0; }
+.logbook-ribbon-btn .ribbon { width: calc(var(--in) * 2); box-shadow: 0 1px 2px rgb(0 0 0 / 0.25); }
+@media (min-width: 900px) { .logbook-ribbon-btn .ribbon { width: calc(var(--in) * 2.6); } }
+.logbook-ribbon-btn:hover .ribbon { transform: translateY(-1px); }
+.logbook-ribbon-btn:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 2px; }
 .logbook-ribbons .ribbon { width: calc(var(--in) * 1.375); }
 .logbook-medals { max-width: 100%; overflow-x: auto; }
 .logbook-new { margin-left: 0.4rem; padding: 0 0.3rem; border-radius: 3px; font-size: 0.66rem; font-style: normal; font-weight: 600; background: var(--color-navy); color: #fff; vertical-align: middle; }
@@ -282,7 +303,6 @@
 @media (max-width: 900px) {
   .logbook-head { grid-template-columns: auto minmax(0, 1fr); margin-bottom: 0.45rem; }
   .logbook-lead { display: none; }
-  .logbook-count { justify-self: end; }
   .logbook-beat { padding: 0.6rem 0.65rem; }
   .logbook-beat-body { margin-left: 0; }
   .app-main:has(> .view-pane:not(.screen-off) .logbook) .page-pager { margin-top: 0.35rem; padding-top: 0.3rem; }
@@ -322,3 +342,20 @@
 .logbook-deploy > .quiet { font-size: 0.76rem; }
 .logbook-same-model { font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-quiet); }
 .logbook-gear-item img { width: 100%; height: 3.4rem; object-fit: contain; border-radius: 3px; }
+
+/* Wardrobe: every uniform for the active command as a grid of mannequin plates. */
+.logbook-wardrobe { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(6.4rem, 1fr)); gap: 0.5rem; }
+.logbook-wardrobe-item {
+  width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; gap: 0.2rem; padding: 0.35rem 0.3rem 0.45rem;
+  border: 1px solid var(--lb-border); border-radius: 6px; background: var(--lb-panel); color: inherit; font: inherit; cursor: pointer; text-align: center;
+}
+.logbook-wardrobe-item:hover { border-color: var(--color-brass); }
+.logbook-wardrobe-item:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 1px; }
+.logbook-wardrobe-item img { width: 100%; aspect-ratio: 9 / 16; object-fit: contain; background: #fff; border-radius: 4px; }
+.logbook-wardrobe-item strong { font-size: 0.78rem; line-height: 1.15; }
+.logbook-wardrobe-item small { font-size: 0.68rem; line-height: 1.15; color: var(--color-muted, #6b6457); }
+/* Phone: six tabs (Uniforms, Wardrobe, On Duty, Off Duty, Crests, Map) share one row. */
+@media (max-width: 900px) {
+  .logbook-phone-tabs > .lb-tablist { gap: 2px; }
+  .logbook-phone-tabs > .lb-tablist > .lb-tab { flex: 1 1 auto; justify-content: center; padding: 0.25rem 0.28rem; font-size: 0.74rem; letter-spacing: -0.01em; }
+}

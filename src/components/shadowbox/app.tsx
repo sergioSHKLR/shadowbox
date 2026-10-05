@@ -149,6 +149,8 @@ export function ShadowboxApp() {
     if (!showPager) return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      // A view that handled the arrow itself (e.g. the Logbook command stepper) keeps it.
+      if (event.defaultPrevented) return;
       if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
       if (menu || searchOpen || selection) return;
       const target = event.target;
@@ -243,7 +245,7 @@ export function ShadowboxApp() {
         </div>
         <div className={pane("logbook")}>
           <Boundary label="logbook" resetKey={view}>
-            <Logbook onOpen={open} title={t.logbook} lead={t.logbookLead} />
+            <Logbook onOpen={open} title={t.logbook} lead={t.logbookLead} wardrobeLabel={t.wardrobe} />
           </Boundary>
         </div>
         <div className={pane("admin")}>
