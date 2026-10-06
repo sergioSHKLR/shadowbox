@@ -590,7 +590,6 @@
       "Gear": [
         "GEA-01: IOTV",
         "GEA-02: SPCS",
-        "GEA-03: PASGT",
         "GEA-04: ACH/MICH"
       ],
       "Equipment": [
@@ -661,7 +660,6 @@
       "Gear": [
         "GEA-01: IOTV",
         "GEA-02: SPCS",
-        "GEA-03: PASGT",
         "GEA-04: ACH/MICH"
       ],
       "Vehicles": [
@@ -783,7 +781,6 @@
       "Gear": [
         "GEA-01: IOTV",
         "GEA-02: SPCS",
-        "GEA-03: PASGT",
         "GEA-04: ACH/MICH"
       ],
       "Vehicles": [
@@ -869,7 +866,6 @@
       "Gear": [
         "GEA-01: IOTV",
         "GEA-02: SPCS",
-        "GEA-03: PASGT",
         "GEA-04: ACH/MICH"
       ],
       "Vehicles": [
