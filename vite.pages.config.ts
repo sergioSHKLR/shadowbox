@@ -5,6 +5,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
+// @ts-expect-error JS plugin alongside the TS vite config
+import { incomingStaticPlugin } from "./scripts/incoming-static-plugin.mjs";
 
 const DARK = "#0c0c0d";
 
@@ -27,6 +29,7 @@ export default defineConfig({
   base: "/",
   publicDir: "public",
   plugins: [
+    incomingStaticPlugin(),
     react(),
     tailwindcss(),
     // Installable PWA: manifest + Workbox service worker at the site root (scope "/").

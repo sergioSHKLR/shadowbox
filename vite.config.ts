@@ -15,6 +15,8 @@ import { photoRemarksPlugin } from "./scripts/photo-remarks-plugin.mjs";
 // @ts-expect-error JS plugin alongside the TS vite config
 import { awardInstancePlugin } from "./scripts/award-instance-plugin.mjs";
 import { isMigrationFile } from "./scripts/migration-plan.mjs";
+// @ts-expect-error JS plugin alongside the TS vite config
+import { incomingStaticPlugin } from "./scripts/incoming-static-plugin.mjs";
 
 /** The files `src/lib/db.ts` globs — same directory, same non-recursive scope. */
 function hasGlobbedMigrations(root: string): boolean {
@@ -167,6 +169,8 @@ export default defineConfig(({ command, isPreview }) => ({
     authPopupPlugin(),
     photoRemarksPlugin(),
     awardInstancePlugin(),
+    // Serve incoming/ at /incoming/ in dev (the public/incoming duplicates are gone).
+    incomingStaticPlugin(),
     // Dev-only /__app-env, read by scripts/check-auth-invariant.mjs.
     appEnvPlugin(),
     // PWA head + ?install=1 tutorial page; runs before Start/Nitro.

@@ -68,7 +68,7 @@
     "cityId": "city-biloxi",
     "baseId": "keesler",
     "commandId": null,
-    "kind": "base",
+    "kind": "instruction",
     "when": "1999"
   },
   {

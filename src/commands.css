@@ -98,8 +98,7 @@
   align-items: flex-start;
   gap: 0.85rem;
 }
-.command-loose-ribbons,
-.command-loose-medals {
+.command-loose-ribbons {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -108,19 +107,6 @@
 .command-loose-ribbons { gap: 0.28rem; }
 .command-loose-ribbons .ribbon { width: calc(var(--in) * 1.375); }
 .command-loose-ribbons .ribbon .ribbon { width: 100%; }
-.command-loose-medals { gap: 0.4rem; }
-.command-medal {
-  position: relative;
-  width: calc(var(--mi) * 1.375);
-  height: calc(var(--mi) * 3.25);
-  padding: 0;
-  margin: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  flex: none;
-}
-.command-medal:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }
 .command-pin {
   border: 0;
   background: transparent;

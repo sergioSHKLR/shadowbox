@@ -7,12 +7,12 @@ const DEPLOYMENTS: { id: string; campaign: string; name: string; phase: string; 
     campaign: "OIF I",
     name: "CJTF Troy",
     phase: "National Resolution",
-    image: "/incoming/troy.png",
+    image: "/incoming/troy.webp",
     when: "2006",
     marks: [
-      { src: "/incoming/52nd-eod.png", alt: "Sponsor \u00b7 52nd EOD" },
-      { src: "/incoming/16th-en.png", alt: "Sponsor \u00b7 16th EN" },
-      { src: "/incoming/eodmu11.png", alt: "Partner \u00b7 EODMU 11" },
+      { src: "/incoming/52nd-eod.webp", alt: "Sponsor \u00b7 52nd EOD" },
+      { src: "/incoming/16th-en.webp", alt: "Sponsor \u00b7 16th EN" },
+      { src: "/incoming/eodmu11.webp", alt: "Partner \u00b7 EODMU 11" },
     ],
   },
   {
@@ -20,12 +20,12 @@ const DEPLOYMENTS: { id: string; campaign: string; name: string; phase: string; 
     campaign: "OIF II",
     name: "Task Force Iron Shield",
     phase: "Iraq Sovereignty",
-    image: "/incoming/cram.png",
+    image: "/incoming/cram.webp",
     when: "Oct 2008\u20132009",
     marks: [
-      { src: "/incoming/11th-ada.png", alt: "Admin \u00b7 11th ADA" },
-      { src: "/incoming/3-3ada.png", alt: "Partner \u00b7 3-3 ADA" },
-      { src: "/incoming/332nd-aew.png", alt: "Customer \u00b7 332nd AEW" },
+      { src: "/incoming/11th-ada.webp", alt: "Admin \u00b7 11th ADA" },
+      { src: "/incoming/3-3ada.webp", alt: "Partner \u00b7 3-3 ADA" },
+      { src: "/incoming/332nd-aew.webp", alt: "Customer \u00b7 332nd AEW" },
     ],
   },
   {
@@ -33,19 +33,19 @@ const DEPLOYMENTS: { id: string; campaign: string; name: string; phase: string; 
     campaign: "OEF I",
     name: "CJSOTF-A",
     phase: "Afghanistan, 2010\u20132011",
-    image: "/incoming/cjsotf-a.png",
+    image: "/incoming/cjsotf-a.webp",
     when: "2010\u20132011",
-    marks: [{ src: "/incoming/3rd-sfg.png", alt: "Customer \u00b7 3rd SFG" }],
+    marks: [{ src: "/incoming/3rd-sfg.webp", alt: "Customer \u00b7 3rd SFG" }],
   },
   {
     id: "sojtf",
     campaign: "OEF II",
     name: "SOJTF-A",
     phase: "Afghanistan, 2012\u20132013",
-    image: "/incoming/sojtf-a.png",
+    image: "/incoming/sojtf-a.webp",
     when: "2012\u20132013",
     marks: [
-      { src: "/incoming/290jcss.png", alt: "Partner \u00b7 290th JCSS" },
+      { src: "/incoming/290jcss.webp", alt: "Partner \u00b7 290th JCSS" },
       { src: "/incoming/75th-rgr.svg", alt: "Customer \u00b7 75th Rangers" },
     ],
   },
@@ -53,14 +53,14 @@ const DEPLOYMENTS: { id: string; campaign: string; name: string; phase: string; 
 
 const EXERCISE_CRESTS: Record<string, { image: string; host: string; marks: Mark[] }> = {
   "cobra-gold": {
-    image: "/incoming/cobra-gold.png",
+    image: "/incoming/cobra-gold.webp",
     host: "Host \u00b7 Royal Thai Navy \u00b7 2004 and 2005",
-    marks: [{ src: "/incoming/rtn.png", alt: "Royal Thai Navy" }],
+    marks: [{ src: "/incoming/rtn.webp", alt: "Royal Thai Navy" }],
   },
   "talisman-saber": {
-    image: "/incoming/talisman-saber.png",
+    image: "/incoming/talisman-saber.webp",
     host: "Host \u00b7 Australian CDT \u00b7 2005 and 2007",
-    marks: [{ src: "/incoming/auscdt-1.png", alt: "Australian CDT" }],
+    marks: [{ src: "/incoming/auscdt-1.webp", alt: "Australian CDT" }],
   },
 };
 

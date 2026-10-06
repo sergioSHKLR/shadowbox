@@ -261,10 +261,12 @@ const CAREER_STOPS: Stop[] = careerStops();
  *  1. a row naming a Logbook command belongs to it;
  *  2. rows just before a command row, at (or within ~80 km of) that command's pin, are its lead-in;
  *  3. anything else belongs to the latest command before it (the first command also takes rows before it: Miami);
- *  4. Keesler AFB / Biloxi (the 1999 school between NTC and NCTS) has no Logbook command, so it is on no mini map;
+ *  4. Keesler AFB / Biloxi (the 1999 Instruction stop between NTC and NCTS) shows on the NCTS map: NCTS paid for that
+ *     training (Sergio, Oct 2026). Category stays Instruction; dates unchanged;
  *  5. NTC also shows the USS Tortuga TAD pins (Little Creek, VA), as Sergio marked on the NTC map.
  */
-const NO_BEAT_PLACES = new Set(["keesler", "city-biloxi"]);
+/** Rows owned by a command regardless of position (place id → Logbook command id). */
+const PLACE_OWNER: Record<string, string> = { keesler: "ncts", "city-biloxi": "ncts" };
 const ALSO_SHOW: Record<string, string[]> = { "ntc-great-lakes": ["tortuga"] };
 
 function km(a: Stop, b: Stop): number {
@@ -285,7 +287,7 @@ function stopBeatOwners(beats: LogbookBeat[]): (string | null)[] {
   CAREER_STOPS.forEach((stop, i) => {
     if (!stop.commandId || !ids.has(stop.commandId)) return;
     for (let j = i - 1; j >= 0; j--) {
-      if (owner[j] || NO_BEAT_PLACES.has(CAREER_STOPS[j].place.id)) break;
+      if (owner[j] || PLACE_OWNER[CAREER_STOPS[j].place.id]) break;
       if (km(CAREER_STOPS[j], stop) > 80) break;
       owner[j] = stop.commandId;
     }
@@ -293,8 +295,9 @@ function stopBeatOwners(beats: LogbookBeat[]): (string | null)[] {
   let last: string | null = null;
   const first = CAREER_STOPS.find((stop) => stop.commandId && ids.has(stop.commandId))?.commandId ?? null;
   CAREER_STOPS.forEach((stop, i) => {
-    if (NO_BEAT_PLACES.has(stop.place.id)) {
-      owner[i] = null;
+    const fixed = PLACE_OWNER[stop.place.id];
+    if (fixed) {
+      owner[i] = ids.has(fixed) ? fixed : null;
       return;
     }
     if (owner[i]) {
