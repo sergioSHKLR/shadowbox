@@ -450,7 +450,7 @@ export function ShadowboxApp() {
         </div>
         <div className={`${pane("sources")} no-book`}><Sources /></div>
         <div className={`${pane("contact")} no-book`}><Contact locale={locale} /></div>
-        <div className={`${pane("guestbook")} no-book`}><Guestbook locale={locale} /></div>
+        <div className={`${pane("guestbook")} no-book`}><Guestbook locale={locale} onContact={() => go("contact")} /></div>
         <div className={`${pane("memories")} no-book`}><Memories /></div>
         {showPager && FOOTER_PAGER_ENABLED ? (
           <nav className="page-pager" aria-label={t.pageNav}>
