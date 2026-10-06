@@ -1204,21 +1204,27 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 [data-theme="dark"] .gb-privacy-link { color: var(--color-goldenrod, #daa520); }
 
 
-/* Home only (Sergio, Oct 2026): faint folded-flag watermark (desaturated, low opacity) behind the bio sheet,
-   never under the small portrait caption; gold-embossed Navy seal under the portrait (emboss.svg → home-navy-seal-gold.*).
-   Joint-flags assets remain in incoming/joint-flags.* / service-flags/ but are not shown pending Sergio's graphic.
+/* Home only (Sergio, Oct 2026): folded-flag watermark — fixed in the viewport (does not scroll away), larger than
+   before; stays behind the bio sheet and portrait. Gold-embossed Navy seal under the portrait (emboss.svg →
+   home-navy-seal-gold.*). Joint-flags assets remain in incoming/ but are not shown pending approval.
    Watermark from incoming/folded-flag.svg → home-folded-flag.*. */
 .home-scroll .home-read::before {
   content: "";
-  position: absolute;
-  inset: 8% 4% 12% 4%;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(48rem, 92vw);
+  height: min(34rem, 72vh);
   background: url("/incoming/home-folded-flag.webp") center / contain no-repeat;
-  opacity: 0.07;
+  opacity: 0.08;
   pointer-events: none;
   z-index: 0;
   filter: grayscale(0.35) contrast(0.9);
 }
-[data-theme="dark"] .home-scroll .home-read::before { opacity: 0.09; filter: grayscale(0.2) brightness(1.15); }
+[data-theme="dark"] .home-scroll .home-read::before { opacity: 0.11; filter: grayscale(0.2) brightness(1.15); }
+/* Keep portrait + bio above the fixed watermark. */
+.home-scroll .home-pins,
 .home-scroll .home-sheet { position: relative; z-index: 1; }
 .home-navy-seal {
   display: block;
