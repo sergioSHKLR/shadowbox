@@ -53,8 +53,16 @@ function kmBetween(a: [number, number], b: [number, number]) {
 
 /** Nearby pins within this range share a tighter play framing. */
 const CLUSTER_KM = 220;
-const CLUSTER_MAX_ZOOM = 11;
-const SOLO_ZOOM = 6.5;
+// Calmer camera (Sergio, Oct 2026): play / fly-to zooms sit lower (were 11 and 6.5) so fewer tiles load, the motion is
+// gentler and the route around each stop stays readable. The full map opens a half step wider than a tight fit.
+const CLUSTER_MAX_ZOOM = 8;
+const SOLO_ZOOM = 5;
+const FULL_MAP_ZOOM_OUT = 0.5;
+const FLY_SECONDS = 0.7;
+
+function prefersReducedMotion() {
+  return typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
 
 type LeafletApi = typeof import("leaflet");
 
@@ -102,7 +110,7 @@ function flyUnwrapped(map: import("leaflet").Map, target: [number, number], zoom
   if (!Number.isFinite(target[0]) || !Number.isFinite(target[1]) || !Number.isFinite(zoom)) return;
   try {
     if (instant || !loaded(map)) map.setView(target, zoom, { animate: false });
-    else map.flyTo(target, zoom, { duration: 0.9 });
+    else map.flyTo(target, zoom, { duration: FLY_SECONDS });
   } catch (error) {
     const message = error instanceof Error ? error.message : "";
     if (message.includes("infinite number of tiles")) return;
@@ -168,9 +176,7 @@ function applyPlay(handle: Runtime, play: PlayState) {
     if (!sized(handle.map)) return;
     const target = toward(handle.map, handle.at(focus.place));
     // Before the first view exists, animated moves throw; jump instead.
-    const reduce =
-      !loaded(handle.map) ||
-      (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const reduce = !loaded(handle.map) || prefersReducedMotion();
     const limit = revealedCount == null ? play.stops.length : Math.min(revealedCount, play.stops.length);
     const neighbors: [number, number][] = [];
     for (let i = 0; i < limit; i++) {
@@ -186,17 +192,39 @@ function applyPlay(handle: Runtime, play: PlayState) {
       if (handle.playGen !== gen) return;
       const marker = handle.markers[focusIndex];
       if (!marker || !handle.cluster.hasLayer(marker)) return;
-      // Expand the cluster that holds the current pin so the "now" ring is visible.
-      try {
-        handle.cluster.zoomToShowLayer(marker, () => {
-          if (handle.playGen !== gen) return;
-          const el = marker.getElement();
-          el?.querySelector(".map-num, .map-dot")?.classList.add("now");
-          handle.spread();
-        });
-      } catch (error) {
-        console.warn("[map] cluster expand skipped:", error instanceof Error ? error.message : error);
-      }
+      const ring = () => {
+        if (handle.playGen !== gen) return;
+        // spread() rebuilds pin icons, so ring the current pin after it.
+        handle.spread();
+        marker.getElement()?.querySelector(".map-num, .map-dot")?.classList.add("now");
+      };
+      // Show the current pin without zooming in: if it sits inside a cluster bubble, fan that bubble out (spiderfy) at
+      // the current zoom. zoomToShowLayer used to dive to street level (zoom 13-16) for pins that share a base.
+      // Wait for the cluster layer to finish re-clustering after the move (spiderfy is ignored mid-animation), or the
+      // fan-out never happens.
+      let tries = 0;
+      const expand = () => {
+        if (handle.playGen !== gen || !handle.cluster.hasLayer(marker)) return;
+        const group = handle.cluster as unknown as MarkerClusterGroup & { _inZoomAnimation?: number };
+        if (group._inZoomAnimation && tries++ < 6) {
+          window.setTimeout(expand, 120);
+          return;
+        }
+        try {
+          const parent = handle.cluster.getVisibleParent(marker) as unknown as (import("leaflet").Marker & { spiderfy?: () => void }) | null;
+          if (!parent || parent === marker) {
+            ring();
+          } else if (typeof parent.spiderfy === "function") {
+            parent.spiderfy();
+            window.setTimeout(ring, prefersReducedMotion() ? 0 : 320);
+          } else {
+            handle.cluster.zoomToShowLayer(marker, ring);
+          }
+        } catch (error) {
+          console.warn("[map] cluster expand skipped:", error instanceof Error ? error.message : error);
+        }
+      };
+      window.setTimeout(expand, prefersReducedMotion() ? 0 : 200);
     };
 
     if (neighbors.length >= 2) {
@@ -224,13 +252,13 @@ function applyPlay(handle: Runtime, play: PlayState) {
           [minLat, minLng],
           [maxLat, maxLng],
         ];
-        const opts = { padding: [52, 52] as [number, number], maxZoom: CLUSTER_MAX_ZOOM };
+        const opts = { padding: [64, 64] as [number, number], maxZoom: CLUSTER_MAX_ZOOM };
         if (reduce) {
           handle.map.fitBounds(bounds, { ...opts, animate: false });
           afterFrame();
         } else {
           handle.map.once("moveend", afterFrame);
-          handle.map.flyToBounds(bounds, { ...opts, duration: 0.9 });
+          handle.map.flyToBounds(bounds, { ...opts, duration: FLY_SECONDS });
         }
       } catch (error) {
         const message = error instanceof Error ? error.message : "";
@@ -323,7 +351,9 @@ export function MapView({
         }
         const crs = { ...L.CRS.EPSG3857, wrapLng: [-180, 180] as [number, number], infinite: true };
         const PIN_PX = ref.current.clientWidth < 520 ? 18 : 22;
-        const view = L.map(ref.current, { crs, scrollWheelZoom: false, zoomControl: true, zoomSnap: 0.25, zoomDelta: 0.5 });
+        const still = prefersReducedMotion();
+        // Reduced motion: no zoom / fade / marker animations anywhere on the map; every camera move is a jump.
+        const view = L.map(ref.current, { crs, scrollWheelZoom: false, zoomControl: true, zoomSnap: 0.25, zoomDelta: 0.5, zoomAnimation: !still, fadeAnimation: !still, markerZoomAnimation: !still });
         map = view;
         // Give Leaflet a view up front. Focused maps (Logbook) skip fit(), and
         // flyTo/flyToBounds/getCenter throw until a center and zoom exist.
@@ -384,8 +414,8 @@ export function MapView({
           showCoverageOnHover: false,
           zoomToBoundsOnClick: true,
           spiderfyOnMaxZoom: true,
-          animate: true,
-          animateAddingMarkers: true,
+          animate: !still,
+          animateAddingMarkers: !still,
           maxClusterRadius: 56,
           iconCreateFunction: (group) => {
             const count = group.getChildCount();
@@ -411,6 +441,8 @@ export function MapView({
             if (!marker || !cluster.hasLayer(marker)) continue;
             // Only nudge pins that are drawn on their own (not inside a cluster bubble).
             if (cluster.getVisibleParent(marker) !== marker) continue;
+            // Pins fanned out of a bubble (spiderfied) already sit apart on their legs.
+            if ((marker as unknown as { _spiderLeg?: unknown })._spiderLeg) continue;
             if (!stops[i].n) continue;
             visible.push(i);
           }
@@ -452,8 +484,19 @@ export function MapView({
           if (!map || !sized(map)) return;
           const bounds = cluster.getBounds();
           if (!bounds.isValid()) return;
-          if (tall) map.fitBounds(bounds, { padding: [PIN_PX * 1.6, PIN_PX * 1.6] });
-          else map.fitBounds(bounds.pad(0.35), fitMaxZoom != null ? { maxZoom: fitMaxZoom } : undefined);
+          if (tall) {
+            // Half a step wider than the tightest fit, so the whole route reads at a glance and fewer tiles load.
+            const pad = L.point(PIN_PX * 1.6, PIN_PX * 1.6);
+            const tight = map.getBoundsZoom(bounds, false, pad);
+            // Never so far out that the world is shorter than the frame (grey bands above and below on phones).
+            const fill = Math.ceil(Math.log2(Math.max(1, map.getSize().y) / 256) * 4) / 4;
+            const zoom = Math.max(map.getMinZoom(), fill, tight - FULL_MAP_ZOOM_OUT);
+            // The full map is a reset, so it jumps (no fly) and keeps the world's top and bottom edges outside the frame.
+            map.setView(bounds.getCenter(), zoom, { animate: false });
+            map.panInsideBounds(L.latLngBounds([-85.05, -1e5], [85.05, 1e5]), { animate: false });
+          } else {
+            map.fitBounds(bounds.pad(0.35), { ...(fitMaxZoom != null ? { maxZoom: fitMaxZoom } : {}), animate: !prefersReducedMotion() });
+          }
         };
 
         timer = window.setTimeout(() => {
