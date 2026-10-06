@@ -253,17 +253,58 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
 const CAREER_STOPS: Stop[] = careerStops();
 
 /**
- * Sequence index where each Logbook beat's command starts. Pipeline commands (RTC, Tortuga, NTC) use their last
- * non-"command" row (as logbookBeats picks them); assigned commands use their first "command" row.
+ * Which Logbook command each sequence row belongs to (Oct 2026, from Sergio's marked RTC / NTC / NCTS screenshots).
+ * The first version sliced the sequence between command rows, which pulled each command's lead-in rows (the city, port or
+ * base listed just before the command row: NAB Little Creek before USS Tortuga, San Diego before NCTS, Hagåtña and
+ * Polaris Point before USS Frank Cable) into the previous command, and the early duplicate NTC row into RTC.
+ * Now:
+ *  1. a row naming a Logbook command belongs to it;
+ *  2. rows just before a command row, at (or within ~80 km of) that command's pin, are its lead-in;
+ *  3. anything else belongs to the latest command before it (the first command also takes rows before it: Miami);
+ *  4. Keesler AFB / Biloxi (the 1999 school between NTC and NCTS) has no Logbook command, so it is on no mini map;
+ *  5. NTC also shows the USS Tortuga TAD pins (Little Creek, VA), as Sergio marked on the NTC map.
  */
-function beatStarts(beats: LogbookBeat[]): number[] {
-  return beats.map((beat) => {
-    const id = beat.stop.commandId;
-    if (!id) return -1;
-    if (beat.stop.kind === "command") return CAREER_STOPS.findIndex((stop) => stop.commandId === id && stop.kind === "command");
-    for (let i = CAREER_STOPS.length - 1; i >= 0; i--) if (CAREER_STOPS[i].commandId === id && CAREER_STOPS[i].kind !== "command") return i;
-    return -1;
+const NO_BEAT_PLACES = new Set(["keesler", "city-biloxi"]);
+const ALSO_SHOW: Record<string, string[]> = { "ntc-great-lakes": ["tortuga"] };
+
+function km(a: Stop, b: Stop): number {
+  const { lat: la1, lng: lo1 } = a.place;
+  const { lat: la2, lng: lo2 } = b.place;
+  if (la1 == null || lo1 == null || la2 == null || lo2 == null) return Infinity;
+  const rad = Math.PI / 180;
+  const dLat = (la2 - la1) * rad;
+  const dLng = (lo2 - lo1) * rad;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(la1 * rad) * Math.cos(la2 * rad) * Math.sin(dLng / 2) ** 2;
+  return 2 * 6371 * Math.asin(Math.min(1, Math.sqrt(h)));
+}
+
+function stopBeatOwners(beats: LogbookBeat[]): (string | null)[] {
+  const ids = new Set(beats.map((beat) => beat.stop.commandId).filter((id): id is string => !!id));
+  const owner: (string | null)[] = CAREER_STOPS.map((stop) => (stop.commandId && ids.has(stop.commandId) ? stop.commandId : null));
+  // Lead-ins: walk back from each command row while the rows have no command of their own and sit at that command's pin.
+  CAREER_STOPS.forEach((stop, i) => {
+    if (!stop.commandId || !ids.has(stop.commandId)) return;
+    for (let j = i - 1; j >= 0; j--) {
+      if (owner[j] || NO_BEAT_PLACES.has(CAREER_STOPS[j].place.id)) break;
+      if (km(CAREER_STOPS[j], stop) > 80) break;
+      owner[j] = stop.commandId;
+    }
   });
+  let last: string | null = null;
+  const first = CAREER_STOPS.find((stop) => stop.commandId && ids.has(stop.commandId))?.commandId ?? null;
+  CAREER_STOPS.forEach((stop, i) => {
+    if (NO_BEAT_PLACES.has(stop.place.id)) {
+      owner[i] = null;
+      return;
+    }
+    if (owner[i]) {
+      // A row that only repeats an earlier command (the early NTC row) does not move "latest command" backwards in time.
+      last = owner[i];
+      return;
+    }
+    owner[i] = last ?? first;
+  });
+  return owner;
 }
 
 function MapInset({
@@ -277,17 +318,15 @@ function MapInset({
 }) {
   // Excluded customer units never become map pins here (their places are not added as extras).
   void isMapExcludedUnit;
-  // Each command's mini map shows its own pin plus every sequence stop up to (not including) the next command
-  // (schools, bases, deployments, ports, flights), and fits to them (Sergio, Oct 2026). The first command also
-  // carries the stops before it (Miami). Markers stay built for the whole sequence; only `hidden` changes per beat.
-  const starts = useMemo(() => beatStarts(beats), [beats]);
-  const from = beat.index === 0 ? 0 : starts[beat.index];
-  const nextStart = starts.slice(beat.index + 1).find((value) => value > from);
-  const to = nextStart ?? CAREER_STOPS.length;
-  const hiddenStops = useMemo(
-    () => (from < 0 ? [] : CAREER_STOPS.flatMap((_stop, i) => (i >= from && i < to ? [] : [i]))),
-    [from, to],
-  );
+  // Each command's mini map shows the sequence rows that belong to it (see stopBeatOwners) and fits to them.
+  // Markers stay built for the whole sequence; only `hidden` changes per beat.
+  const owners = useMemo(() => stopBeatOwners(beats), [beats]);
+  const id = beat.stop.commandId;
+  const hiddenStops = useMemo(() => {
+    if (!id) return [];
+    const show = new Set([id, ...(ALSO_SHOW[id] ?? [])]);
+    return CAREER_STOPS.flatMap((_stop, i) => (owners[i] && show.has(owners[i] as string) ? [] : [i]));
+  }, [owners, id]);
   return (
     <div className="logbook-map-frame">
       <Boundary label="logbook map" fallback={<p className="quiet">Map unavailable right now.</p>}>
