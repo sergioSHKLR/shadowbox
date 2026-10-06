@@ -123,7 +123,23 @@ function MarkerLine({ seed, tilt, grow = 1 }: { seed: number; tilt: number; grow
 
 function BioBlock({ text }: { text: string }) {
   if (text.startsWith("{{quote}}")) {
-    return <blockquote className="bio-quote">{text.slice("{{quote}}".length)}</blockquote>;
+    const [quote, cite] = text.slice("{{quote}}".length).split("{{cite}}");
+    return (
+      <blockquote className="bio-quote">
+        <p>{quote}</p>
+        {cite ? <footer className="bio-cite">— {cite}</footer> : null}
+      </blockquote>
+    );
+  }
+  // Placeholder bio sections: {{h}}Heading{{/h}}body
+  const head = /^\{\{h\}\}([\s\S]*?)\{\{\/h\}\}([\s\S]*)$/.exec(text);
+  if (head) {
+    return (
+      <section className="bio-section">
+        <h3 className="bio-head">{head[1]}</h3>
+        <p className="bio">{bioInline(head[2])}</p>
+      </section>
+    );
   }
   return <p className="bio">{bioInline(text)}</p>;
 }

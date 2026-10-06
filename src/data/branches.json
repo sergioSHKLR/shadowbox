@@ -6,5 +6,8 @@
   "navy": "U.S. Navy",
   "army": "U.S. Army",
   "joint": "Joint",
-  "foreign": "Foreign award"
+  "foreign": "Foreign award",
+  "FOREIGN": "Foreign Partner",
+  "GEO": "Georgian Armed Forces · Foreign Partner",
+  "USMC": "U.S. Marine Corps"
 }

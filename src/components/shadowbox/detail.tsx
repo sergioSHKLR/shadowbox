@@ -1,12 +1,21 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { InstanceEntry, useInstanceEdits } from "@/components/shadowbox/instance-form";
 import { PhotoRemarks } from "@/components/shadowbox/photo-remarks";
+import { MyWords } from "@/components/shadowbox/my-words";
 import supplementJson from "@/data/supplement.json";
 import {
   photosFor,
   awards,
+  commandDutiesFor,
+  commandProfileFor,
+  DEPLOYMENT_GEAR_IDS,
+  logbookAdminAsOf,
+  logbookBeats,
+  mapPlaceLabel,
+  schoolCommandId,
+  schools,
   formatSpan,
   medalFor,
   necById,
@@ -240,7 +249,18 @@ function OperationMarks({ id }: { id: string }) {
   );
 }
 
-function UnitDossier({ id, hideUniforms = false }: { id: string; hideUniforms?: boolean }) {
+/** Normalised name for "is this already a card?" checks (Used here vs. the supplement's text lists). */
+const norm = (value: string) => value.toLowerCase().replace(/\([^)]*\)/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+function shownAsCard(name: string, cardNames: string[]): boolean {
+  const n = norm(name);
+  if (n.length < 2) return false;
+  return cardNames.some((card) => {
+    const c = norm(card);
+    return c === n || (n.length >= 3 && c.includes(n)) || (c.length >= 3 && n.includes(c));
+  });
+}
+
+function UnitDossier({ id, part, hideUniforms = false, cardNames = [] }: { id: string; part: "cards" | "admin"; hideUniforms?: boolean; cardNames?: string[] }) {
   const unit = units.find((item) => item.id === id);
   if (!unit) return null;
   const nec = necById(unit.necId);
@@ -277,29 +297,61 @@ function UnitDossier({ id, hideUniforms = false }: { id: string; hideUniforms?: 
   const tadShots: Shot[] = list(id, "TAD").map((name) => ({ name, src: crestFor(name) }));
   const ia = id === "ia-army" || id === "sercc" ? ["Task Force Iron Shield"] : [];
   const countries = list(id, "Countries");
+  // Logbook data (same source as the Logbook Admin tab) for schools; command-duties.json for title / dept / division / duties.
+  const beat = logbookBeats().find((row) => row.stop.commandId === id);
+  const tourSchools = beat
+    ? logbookAdminAsOf(beat).schoolsThisTour
+    : schools.filter((school) => schoolCommandId(school) === id);
+  const duties = commandDutiesFor(id);
+  const dutyText = (rows: { label: string; abbreviation?: string }[]) => rows.map((row) => row.abbreviation ? `${row.label} (${row.abbreviation})` : row.label);
+  const profile = commandProfileFor(id);
+  const place = unit.placeId ? mapPlaceLabel(unit.placeId) : "";
+  // Partner / in-theater / placeholder units: only rows with something entered (Sergio's own commands keep every row).
+  const ownCommand = Boolean(beat);
   const rows: { label: string; value: string }[] = [
     { label: "Status", value: unit.designator || "Not entered" },
     { label: "Timeframe", value: unit.start ? formatSpan(unit.start, unit.end) : "Not entered" },
+    { label: "Location", value: place || "Not entered" },
     { label: "Billet NEC", value: nec ? `${nec.code} \u00b7 ${nec.name}` : "Not entered" },
     { label: "Gained NECs", value: joined(gained) },
-    { label: "Title", value: joined(list(id, "Title")) },
-    { label: "Department", value: joined(department) },
-    { label: "Division", value: joined(division) },
+    { label: "Schools", value: joined(tourSchools.map((school) => school.abbreviation && school.abbreviation !== school.name ? `${school.abbreviation} (${school.name})` : school.name)) },
+    { label: "Title", value: joined(duties.titles.length ? dutyText(duties.titles) : list(id, "Title")) },
+    { label: "Department", value: joined(duties.departments.length ? dutyText(duties.departments) : department) },
+    { label: "Division", value: joined(duties.divisions.length ? dutyText(duties.divisions) : division) },
+    ...(duties.collateralDuties.length ? [{ label: "Collateral Duty", value: joined(dutyText(duties.collateralDuties)) }] : []),
+    ...(duties.watches.length ? [{ label: "Watch", value: joined(dutyText(duties.watches)) }] : []),
     { label: "Workcenter", value: unit.workcenter || "Not entered" },
-    { label: "Temporary Additional Duty", value: joined(list(id, "TAD")) },
+    // Shown as crest cards in the Overview tab when present; the text row only stands in when there are no cards.
+    ...(tadShots.length ? [] : [{ label: "Temporary Additional Duty", value: joined(list(id, "TAD")) }]),
     { label: "Individual Augmentee", value: joined(ia) },
-    { label: "Customers", value: joined(customers) },
+    ...(customerShots.length ? [] : [{ label: "Customers", value: joined(customers) }]),
     { label: "Promotion", value: joined(list(id, "Rank")) },
-  ];
+  ].filter((row) => ownCommand || row.value !== "Not entered");
+  if (part === "cards") {
+    return (
+      <section className="dossier dossier-cards">
+        {hideUniforms ? null : <ThumbRow label="Uniforms" items={uniformShots} />}
+        <ThumbRow label="Exercises" items={exerciseShots} />
+        <ThumbRow label="Partners" items={partnerShots} />
+        <ThumbRow label="Sponsors" items={sponsorShots} />
+        <ThumbRow label="Customers" items={customerShots} />
+        <ThumbRow label="Temporary duty" items={tadShots} />
+        <ThumbRow label="Awards" items={awardShots} />
+      </section>
+    );
+  }
+  // Admin: text only. Anything already a card (Used here gear / uniforms, crest rows) is left out of these lists.
+  const textList = (names: string[]) => {
+    const left = names.filter((name) => !shownAsCard(name, cardNames));
+    return { left, hadAny: names.length > 0 };
+  };
+  const dutyLine = (label: string, names: string[]) => {
+    const { left, hadAny } = textList(names);
+    if (hadAny && !left.length) return null;
+    return <p key={label}><strong>{label}.</strong> {joined(left)}</p>;
+  };
   return (
-    <section className="dossier">
-      {hideUniforms ? null : <ThumbRow label="Uniforms" items={uniformShots} />}
-      <ThumbRow label="Exercises" items={exerciseShots} />
-      <ThumbRow label="Partners" items={partnerShots} />
-      <ThumbRow label="Sponsors" items={sponsorShots} />
-      <ThumbRow label="Customers" items={customerShots} />
-      <ThumbRow label="Temporary duty" items={tadShots} />
-      <ThumbRow label="Awards" items={awardShots} />
+    <section className="dossier dossier-admin">
       <dl className="facts">
         {rows.map((row) => (
           <div key={row.label}>
@@ -310,14 +362,26 @@ function UnitDossier({ id, hideUniforms = false }: { id: string; hideUniforms?: 
       </dl>
       <h3>On Duty</h3>
       <p><strong>Countries.</strong> {joined(countries)}</p>
-      {ON_DUTY.map(([label, field]) => (
-        <p key={field}><strong>{label}.</strong> {joined(list(id, field))}</p>
-      ))}
+      {ON_DUTY.map(([label, field]) => dutyLine(label, list(id, field)))}
       <h3>Off duty</h3>
       <p><strong>Countries.</strong> {joined(countries)}</p>
-      {OFF_DUTY.map(([label, field]) => (
-        <p key={field}><strong>{label}.</strong> {joined(field === "POV" || field === "Motorcycles" ? unique(list(id, field).map(povLabel)) : list(id, field))}</p>
-      ))}
+      {OFF_DUTY.map(([label, field]) => dutyLine(label, field === "POV" || field === "Motorcycles" ? unique(list(id, field).map(povLabel)) : list(id, field)))}
+      {profile && unit.explanation ? (
+        <section>
+          <h3>Tour note</h3>
+          <p>{unit.explanation}</p>
+        </section>
+      ) : null}
+      {profile?.sources.length ? (
+        <section>
+          <h3>{profile.sources.length > 1 ? "Sources" : "Source"}</h3>
+          <ul className="detail-sources">
+            {profile.sources.map((src) => (
+              <li key={src.url}><a href={src.url} target="_blank" rel="noreferrer">{src.label}</a></li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
     </section>
   );
 }
@@ -369,6 +433,24 @@ export function DetailPanel({
       });
   }, [subject]);
 
+  // Tabs: Overview (graphic, description, cards, photos, inputs, map) | Admin (text facts). Reset to Overview per subject.
+  const [tab, setTab] = useState<"overview" | "admin">("overview");
+  const selKey = selection ? `${selection.kind}:${selection.id}` : "";
+  useEffect(() => { setTab("overview"); }, [selKey]);
+  const profile = selection?.kind === "unit" ? commandProfileFor(selection.id) : undefined;
+  const usedIds = new Set((subject?.usedHere ?? []).map((item) => `${item.kind}:${item.id}`));
+  const relatedText = related.filter((item) => !usedIds.has(`${item.kind}:${item.id}`));
+  const editableInstances = Boolean(subject?.instances && subject.instances.length > 1);
+  const hasAdmin = Boolean(
+    subject &&
+      (selection?.kind === "unit" ||
+        (subject.facts.length > 0) ||
+        subject.criteria ||
+        (subject.instances && !editableInstances) ||
+        relatedText.length),
+  );
+  const showAdmin = hasAdmin && tab === "admin";
+  const cardNames = (subject?.usedHere ?? []).map((item) => item.name);
   const frame = typeof document === "undefined" ? null : document.querySelector(".app-shell");
   const [more, setMore] = useState(false);
   const noteScroll = (el: HTMLElement) => setMore(el.scrollHeight - el.scrollTop - el.clientHeight > 24);
@@ -403,6 +485,19 @@ export function DetailPanel({
                 </Dialog.Close>
               </div>
               <div className="detail-scroll" onScroll={(event) => noteScroll(event.currentTarget)} ref={(node) => { if (node) noteScroll(node); }}>
+              {hasAdmin ? (
+                <div className="lb-tablist detail-tabs" role="tablist" aria-label="Sidebar sections">
+                  {(["overview", "admin"] as const).map((id) => (
+                    <button key={id} type="button" role="tab" id={`detail-tab-${id}`} aria-controls="detail-tabpanel" aria-selected={tab === id} className={tab === id ? "lb-tab on" : "lb-tab"} onClick={() => setTab(id)}>
+                      {id === "overview" ? "Overview" : "Admin"}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+              <div id="detail-tabpanel" role={hasAdmin ? "tabpanel" : undefined} aria-labelledby={hasAdmin ? `detail-tab-${tab}` : undefined}>
+              {!showAdmin ? (
+              <>
+              {/* (a) full-width graphic */}
               {selection?.medal && selection.kind === "award" && medalFor(selection.id) ? (
                 <MedalHero key={selection.id} awardId={selection.id} />
               ) : subject.hero ? (
@@ -419,8 +514,19 @@ export function DetailPanel({
                 ) : null}
                 </>
               ) : null}
+              {/* (b) description: command-profiles.json purpose / history for commands, otherwise the record's explanation */}
+              <div className="detail-body detail-desc">
+                {profile ? (
+                  <>
+                    <p className="lede">{profile.purpose}</p>
+                    {profile.history ? <p>{profile.history}</p> : null}
+                  </>
+                ) : (
+                  <p className="lede">{subject.explanation}</p>
+                )}
+              </div>
+              {/* (c) cards, photos and inputs */}
               {showUsage ? <Photographs photos={gallery} onSelect={onSelect} prominent /> : null}
-              {/* Used here first (uniforms live only here); the map sits at the bottom of the sidebar. */}
                 {subject.usedHere?.length ? (
                   <section className="used-here used-here-top">
                     <h3>Used here</h3>
@@ -436,22 +542,52 @@ export function DetailPanel({
                     </ul>
                   </section>
                 ) : null}
+              <div className="detail-body">
+                {selection?.kind === "unit" ? <UnitDossier id={selection.id} part="cards" hideUniforms={Boolean(subject.usedHere?.some((item) => item.kind === "uniform"))} /> : null}
+                {selection?.kind === "operation" ? <OperationMarks id={selection.id} /> : null}
+                {editableInstances ? (
+                  <section>
+                    <h3>Each award</h3>
+                    <ul className="instance-list" data-edits={instanceEditTick}>
+                      {(subject.instances ?? []).map((row) => (
+                        <li key={row.id}>
+                          {subject.instances && subject.instances.length > 1 ? (
+                            <InstanceEntry row={row} />
+                          ) : (
+                            <>
+                              <strong>{row.title}</strong>
+                              <span>{row.detail}</span>
+                            </>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ) : null}
+                {selection?.kind === "photo" || catalog ? null : <Photographs photos={photos} onSelect={onSelect} />}
+              </div>
               {subject.extraImages?.filter((extra) => extra.src).map((extra) => (
                 <figure key={extra.src} className="detail-hero hero-extra">
                   <img src={publicUrl(extra.src)} alt={extra.alt} />
                   <figcaption>{extra.caption}</figcaption>
                 </figure>
               ))}
-              <div className="detail-body">
-                {selection?.kind === "unit" ? <UnitDossier id={selection.id} hideUniforms={Boolean(subject.usedHere?.some((item) => item.kind === "uniform"))} /> : null}
-                {selection?.kind === "operation" ? <OperationMarks id={selection.id} /> : null}
-                <p className="lede">{subject.explanation}</p>
-                {subject.criteria ? (
-                  <section>
-                    <h3>What it takes</h3>
-                    <p>{subject.criteria}</p>
-                  </section>
-                ) : null}
+              {/* Written notes on every sidebar, after the cards and photos (localStorage, see my-words.tsx). */}
+              {selection ? <div className="detail-body"><MyWords noteId={`${selection.kind}:${selection.id}`} seed={words} usedWhere={selection.kind === "equipment" && DEPLOYMENT_GEAR_IDS.has(selection.id)} /></div> : null}
+              {/* (d) map at the bottom */}
+              {selection?.kind === "uniform" ? null : (
+              <section className="sidebar-map">
+                {stops.length ? (
+                  <MapView stops={stops} onSelect={(id) => onSelect({ kind: "place", id })} />
+                ) : (
+                  <p className="quiet">No map location has been entered for this yet.</p>
+                )}
+              </section>
+              )}
+              </>
+              ) : (
+              <div className="detail-body detail-admin">
+                {selection?.kind === "unit" ? <UnitDossier id={selection.id} part="admin" cardNames={cardNames} /> : null}
                 {selection?.kind !== "unit" && subject.facts.length ? (
                   <dl className="facts">
                     {subject.facts.map((fact) => (
@@ -462,7 +598,13 @@ export function DetailPanel({
                     ))}
                   </dl>
                 ) : null}
-                {subject.instances ? (
+                {subject.criteria ? (
+                  <section>
+                    <h3>What it takes</h3>
+                    <p>{subject.criteria}</p>
+                  </section>
+                ) : null}
+                {subject.instances && !editableInstances ? (
                   <section>
                     <h3>Each award</h3>
                     <ul className="instance-list" data-edits={instanceEditTick}>
@@ -481,16 +623,11 @@ export function DetailPanel({
                     </ul>
                   </section>
                 ) : null}
-                {selection?.kind === "photo" || catalog ? null : <Photographs photos={photos} onSelect={onSelect} />}
-                <section>
-                  <h3>In my words</h3>
-                  {words ? <p className="words">{words}</p> : <p className="quiet">Nothing written here yet.</p>}
-                </section>
-                {related.length ? (
+                {relatedText.length ? (
                   <section>
                     <h3>Connected in this record</h3>
                     <ul className="related">
-                      {related.map((item) => (
+                      {relatedText.map((item) => (
                         <li key={item.kind + item.id + item.label}>
                           <button type="button" onClick={() => onSelect({ kind: item.kind, id: item.id })}>
                             {item.marks?.length ? (
@@ -508,15 +645,8 @@ export function DetailPanel({
                   </section>
                 ) : null}
               </div>
-              {selection?.kind === "uniform" ? null : (
-              <section className="sidebar-map">
-                {stops.length ? (
-                  <MapView stops={stops} onSelect={(id) => onSelect({ kind: "place", id })} />
-                ) : (
-                  <p className="quiet">No map location has been entered for this yet.</p>
-                )}
-              </section>
               )}
+              </div>
               {more ? <span className="detail-more" aria-hidden="true" /> : null}
               </div>
             </>

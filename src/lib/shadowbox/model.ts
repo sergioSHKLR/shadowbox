@@ -259,6 +259,8 @@ export type Equipment = {
   group: EquipmentGroup;
   order: number;
   name: string;
+  /** Sidebar title when the card label is a short code (e.g. "OTV" → "Outer Tactical Vest (OTV)"). */
+  fullName?: string;
   caption?: string;
   note: string;
   image: string;
@@ -1953,7 +1955,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       kind: "equipment",
       id: item.id,
       kicker: group?.label ?? "Equipment",
-      title: displayEquipmentName(item),
+      title: item.fullName ?? displayEquipmentName(item),
       explanation: item.note,
       facts: [
         ...(item.caption ? [{ label: "Shown", value: item.caption }] : []),
@@ -2278,12 +2280,27 @@ export function logbookAdminAsOf(beat: LogbookBeat): {
 }
 
 /* ---------- Logbook On Duty: deployment body armor + helmets (deployment-gear.json) ---------- */
-type GearName = { short: string; name: string };
+/** equipmentId: the On Duty card (equipment.json) for this armor / helmet. */
+type GearName = { short: string; name: string; equipmentId?: string };
 type DeploymentGearFile = {
   helmets: GearName[];
   deployments: { unitId: string; label: string; bodyArmor: GearName | null; helmet: GearName | null }[];
 };
 const deploymentGear = deploymentGearJson as DeploymentGearFile;
+
+export type GearCard = { id: string; label: string; name: string; image: string | null };
+/** equipment.json card for a deployment-gear.json entry (short label on the card, full name in the sidebar). */
+export function gearCard(gear: GearName | null | undefined): GearCard | null {
+  if (!gear) return null;
+  const item = gear.equipmentId ? equipment.find((row) => row.id === gear.equipmentId) : undefined;
+  if (!item) return null;
+  return { id: item.id, label: gear.short, name: item.fullName ?? gear.name, image: item.image || null };
+}
+/** Helmets recorded for the deployments as a set (ACH, ECH); never assigned to a single deployment. */
+export function unassignedHelmetCards(): GearCard[] {
+  return deploymentGear.helmets.map((h) => gearCard(h)).filter((card): card is GearCard => Boolean(card));
+}
+export const DEPLOYMENT_GEAR_IDS = new Set(["deploy-otv", "deploy-iotv", "deploy-ach", "deploy-ech"]);
 
 export type LogbookDeployment = {
   unitId: string;

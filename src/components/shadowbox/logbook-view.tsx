@@ -1,7 +1,9 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import {
   deploymentsForCommand,
+  gearCard,
+  unassignedHelmetCards,
   formatSpan,
   formatWhen,
   isMapExcludedUnit,
@@ -380,31 +382,25 @@ function UniformsPanel({
   onLook: (look: Look) => void;
   onOpen: Open;
 }) {
+  const radioName = `logbook-look-${useId()}`;
   const chief = isChiefBeat(beat);
   const look: Look = chosen === "khaki" && !chief ? fallback : chosen;
   const plate = plateFor(beat, look);
   return (
-    <div className="logbook-gear">
-      <div className="logbook-seg" role="radiogroup" aria-label="Uniform">
+    <div className="logbook-gear logbook-plates">
+      {/* Native radios stacked beside the plate (Sergio, Oct 2026), so the plate gets the full panel height. */}
+      <fieldset className="logbook-looks">
+        <legend className="sr-only">Uniform</legend>
         {LOOKS.map((row) => {
           const off = row.id === "khaki" && !chief;
           return (
-            <button
-              key={row.id}
-              type="button"
-              role="radio"
-              aria-checked={look === row.id}
-              aria-disabled={off || undefined}
-              disabled={off}
-              title={off ? `${KHAKI_NOTE} (${beatTitle(beat)}: ${beat.rank?.abbreviation ?? "before Chief"})` : undefined}
-              className={["logbook-seg-btn", look === row.id ? "on" : "", off ? "is-off" : ""].filter(Boolean).join(" ")}
-              onClick={off ? undefined : () => onLook(row.id)}
-            >
-              {row.label}
-            </button>
+            <label key={row.id} className={off ? "logbook-look is-off" : "logbook-look"} title={off ? `${KHAKI_NOTE} (${beatTitle(beat)}: ${beat.rank?.abbreviation ?? "before Chief"})` : undefined}>
+              <input type="radio" name={radioName} value={row.id} checked={look === row.id} disabled={off} onChange={() => onLook(row.id)} />
+              <span>{row.label}</span>
+            </label>
           );
         })}
-      </div>
+      </fieldset>
       {plate ? (
         <figure className="logbook-mannequin">
           <button type="button" className="logbook-plate-art" onClick={() => beat.rank && onOpen("rank", beat.rank.id)} aria-label={plate.caption}>
@@ -425,6 +421,7 @@ function UniformsPanel({
  *  (equipment.json + used-here.json). Armor and helmets come only from deployment-gear.json. */
 function OnDutyPanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
   const deployments = deploymentsForCommand(beat.stop.commandId);
+  const helmets = unassignedHelmetCards();
   const groups = onDutyForCommand(beat.stop.commandId).filter((group) => group.id !== "armor" && group.id !== "helmets");
   if (!deployments.length && !groups.length) return <ComingSoon what="duty gear" />;
   return (
@@ -439,21 +436,35 @@ function OnDutyPanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
                   <strong>{dep.label}</strong> · {dep.unitAbbreviation}
                 </button>
                 <span className="quiet">{[dep.theater, dep.span].filter(Boolean).join(" · ")}</span>
-                <dl className="logbook-facts">
-                  <dt>Body armor</dt>
-                  <dd>{dep.bodyArmor ? <><b>{dep.bodyArmor.short}</b> <span className="quiet">{dep.bodyArmor.name}</span></> : <span className="quiet">Not recorded</span>}</dd>
-                  <dt>Helmet</dt>
-                  <dd>
-                    {dep.helmet ? (
-                      <><b>{dep.helmet.short}</b> <span className="quiet">{dep.helmet.name}</span></>
-                    ) : (
-                      <>
-                        <b>{dep.helmetsKnown.map((h) => h.short).join(" / ")}</b>{" "}
-                        <span className="quiet">{dep.helmetsKnown.map((h) => h.name).join(" or ")}; which one on this deployment is not recorded</span>
-                      </>
-                    )}
-                  </dd>
-                </dl>
+                {(() => {
+                  // Only what deployment-gear.json ties to this deployment: its body armor. Helmets are not assigned.
+                  const armor = gearCard(dep.bodyArmor);
+                  return armor ? (
+                    <ul className="logbook-gear-list logbook-deploy-gear" aria-label={`Gear recorded for ${dep.label}`}>
+                      <li>
+                        <button type="button" className="logbook-gear-item" onClick={() => onOpen("equipment", armor.id)} aria-label={armor.name} title={armor.name}>
+                          {armor.image ? <img src={publicUrl(armor.image)} alt="" loading="lazy" decoding="async" /> : <span className="logbook-gear-blank" aria-hidden="true" />}
+                          <span>{armor.label}</span>
+                        </button>
+                      </li>
+                    </ul>
+                  ) : <span className="quiet">Body armor not recorded</span>;
+                })()}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+      {deployments.length && helmets.length ? (
+        <section aria-label="Helmets, not assigned to a deployment">
+          <Kicker>Helmets · not assigned to a deployment</Kicker>
+          <ul className="logbook-gear-list">
+            {helmets.map((card) => (
+              <li key={card.id}>
+                <button type="button" className="logbook-gear-item" onClick={() => onOpen("equipment", card.id)} aria-label={card.name} title={card.name}>
+                  {card.image ? <img src={publicUrl(card.image)} alt="" loading="lazy" decoding="async" /> : <span className="logbook-gear-blank" aria-hidden="true" />}
+                  <span>{card.label}</span>
+                </button>
               </li>
             ))}
           </ul>
@@ -587,12 +598,16 @@ type PhoneTab = AsideTab | "crests" | "map";
 export function Logbook({
   onOpen,
   title,
-  wardrobeLabel = "Wardrobe",
+  platesLabel = "Decorations",
+  wardrobeLabel = "Uniforms",
 }: {
   onOpen: (k: Kind, id: string) => void;
   title: string;
   /** Intro copy; not shown on the Logbook for now (Sergio). */
   lead?: string;
+  /** Tab label for the plate panel (Whites / Blues / Khakis plates). Renamed "Uniforms" → "Decorations" (Sergio, Oct 2026). */
+  platesLabel?: string;
+  /** Tab label for the mannequin panel. Renamed "Wardrobe" → "Uniforms" (Sergio, Oct 2026). Internal ids stay uniforms / wardrobe. */
   wardrobeLabel?: string;
 }) {
   const beats = useMemo(() => logbookBeats(), []);
@@ -710,7 +725,7 @@ export function Logbook({
   }
 
   const asideTabs: TabDef<AsideTab>[] = [
-    { id: "uniforms", label: "Uniforms" },
+    { id: "uniforms", label: platesLabel },
     { id: "wardrobe", label: wardrobeLabel },
     { id: "onduty", label: "On Duty" },
     { id: "offduty", label: "Off Duty" },
@@ -829,7 +844,7 @@ export function Logbook({
           {main}
           <Tabbed
             idBase="logbook-phone"
-            label="Uniforms, wardrobe, duty, crests and map"
+            label={`Crests, ${platesLabel}, ${wardrobeLabel}, On Duty, Off Duty, Map`}
             tabs={[{ id: "crests", label: "Crests" }, ...asideTabs, { id: "map", label: "Map" }]}
             value={phoneTab}
             onChange={setPhoneTab}
@@ -843,8 +858,8 @@ export function Logbook({
       ) : (
         <div className="logbook-grid">
           {main}
-          <aside className="logbook-aside" aria-label="Uniforms, wardrobe, on duty, off duty for this command">
-            <Tabbed idBase="logbook-aside" label="Uniforms, Wardrobe, On Duty, Off Duty" tabs={asideTabs} value={asideTab} onChange={setAsideTab} className="logbook-aside-tabs">
+          <aside className="logbook-aside" aria-label={`${platesLabel}, ${wardrobeLabel}, On Duty, Off Duty for this command`}>
+            <Tabbed idBase="logbook-aside" label={`${platesLabel}, ${wardrobeLabel}, On Duty, Off Duty`} tabs={asideTabs} value={asideTab} onChange={setAsideTab} className="logbook-aside-tabs">
               {asideContent(asideTab)}
             </Tabbed>
           </aside>

@@ -24,10 +24,13 @@
       (function () {
         try {
           var raw = JSON.parse(localStorage.getItem("shadowbox-prefs") || "{}");
-          var THEME_SWITCH_ENABLED = false; // matches app.tsx: while the switch is hidden, everyone follows the device
-          var pick = THEME_SWITCH_ENABLED && (raw.theme === "light" || raw.theme === "dark") ? raw.theme : "system";
+          var THEME_HONORED = true; // matches app.tsx THEME_SETTING_ENABLED: the Settings page choice (system / light / dark) is honored
+          var pick = THEME_HONORED && (raw.theme === "light" || raw.theme === "dark") ? raw.theme : "system";
           var dark = pick === "dark" || (pick === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
           document.documentElement.dataset.theme = dark ? "dark" : "light";
+          // Text size from the Settings modal (prefs.ts FONT_SCALE), applied before first paint.
+          var scale = { small: 87.5, large: 112.5, xlarge: 125 }[raw.fontSize];
+          if (scale) { document.documentElement.style.fontSize = scale + "%"; document.documentElement.dataset.fontSize = raw.fontSize; }
         } catch (e) {}
       })();
     </script>

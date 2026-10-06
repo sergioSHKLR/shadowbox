@@ -1,13 +1,57 @@
 {
-  "_note": "Deployment body armor and helmets, as stated by Sergio (Oct 5, 2026). Helmets were not assigned per deployment, so each deployment's helmet stays null and the Logbook shows the pair (ACH / ECH).",
+  "_note": "Deployment body armor and helmets, as stated by Sergio (Oct 5, 2026). Helmets were not assigned per deployment, so each deployment's helmet stays null and the Logbook shows the pair (ACH / ECH). Oct 6, 2026: each recorded body armor links to its own card (equipmentId). Helmets stay unassigned: ACH and ECH show as separate cards under 'not assigned to a deployment'.",
   "helmets": [
-    { "short": "ACH", "name": "Advanced Combat Helmet" },
-    { "short": "ECH", "name": "Enhanced Combat Helmet" }
+    {
+      "short": "ACH",
+      "name": "Advanced Combat Helmet",
+      "equipmentId": "deploy-ach"
+    },
+    {
+      "short": "ECH",
+      "name": "Enhanced Combat Helmet",
+      "equipmentId": "deploy-ech"
+    }
   ],
   "deployments": [
-    { "unitId": "troy", "label": "OIF I", "bodyArmor": { "short": "IOTV", "name": "Improved Outer Tactical Vest" }, "helmet": null },
-    { "unitId": "ia-army", "label": "OIF II", "bodyArmor": { "short": "OTV", "name": "Outer Tactical Vest" }, "helmet": null },
-    { "unitId": "cjsotf", "label": "OEF I", "bodyArmor": { "short": "IOTV", "name": "Improved Outer Tactical Vest" }, "helmet": null },
-    { "unitId": "sojtf", "label": "OEF II", "bodyArmor": { "short": "IOTV", "name": "Improved Outer Tactical Vest" }, "helmet": null }
+    {
+      "unitId": "troy",
+      "label": "OIF I",
+      "bodyArmor": {
+        "short": "IOTV",
+        "name": "Improved Outer Tactical Vest",
+        "equipmentId": "deploy-iotv"
+      },
+      "helmet": null
+    },
+    {
+      "unitId": "ia-army",
+      "label": "OIF II",
+      "bodyArmor": {
+        "short": "OTV",
+        "name": "Outer Tactical Vest",
+        "equipmentId": "deploy-otv"
+      },
+      "helmet": null
+    },
+    {
+      "unitId": "cjsotf",
+      "label": "OEF I",
+      "bodyArmor": {
+        "short": "IOTV",
+        "name": "Improved Outer Tactical Vest",
+        "equipmentId": "deploy-iotv"
+      },
+      "helmet": null
+    },
+    {
+      "unitId": "sojtf",
+      "label": "OEF II",
+      "bodyArmor": {
+        "short": "IOTV",
+        "name": "Improved Outer Tactical Vest",
+        "equipmentId": "deploy-iotv"
+      },
+      "helmet": null
+    }
   ]
 }
