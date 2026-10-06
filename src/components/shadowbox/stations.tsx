@@ -77,7 +77,7 @@ function filterStops(all: Stop[], shown: StopLayer[] | null): Stop[] {
   return out;
 }
 
-export function Stations({ stops: allStops, onOpen, aboutLabel }: { stops: ReturnType<typeof careerStops>; onOpen: (k: Kind, id: string) => void; aboutLabel: string }) {
+export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel Book" }: { stops: ReturnType<typeof careerStops>; onOpen: (k: Kind, id: string) => void; aboutLabel: string; title?: string }) {
   const [shown, setShown] = useState<StopLayer[] | null>(["command"]);
   const toggle = (g: StopLayer) =>
     setShown((cur) => {
@@ -172,11 +172,23 @@ export function Stations({ stops: allStops, onOpen, aboutLabel }: { stops: Retur
     // Never scroll while fullscreen — scrollIntoView can exit the Fullscreen API
     // or fight the CSS cover lock, which stops the tour looking like it "isn't playing".
     if (full || stage.dataset.cover === "1" || document.fullscreenElement) return;
-    const top = stage.getBoundingClientRect().top;
-    if (top < 8 || top > 120) {
+    // Land the stage just under the sticky top bar (not behind it), so the player status and the map both show; the
+    // current stop's caption is docked on the map itself (map-now-card), so it can't fall below the fold.
+    const bar = document.querySelector<HTMLElement>(".app-bar");
+    const barH = bar ? Math.round(bar.getBoundingClientRect().bottom) : 0;
+    stage.style.setProperty("--bar-h", `${barH}px`);
+    stage.style.scrollMarginTop = `${barH + 6}px`;
+    const box = stage.getBoundingClientRect();
+    const fits = box.top >= barH - 2 && box.top <= barH + 120 && box.bottom <= window.innerHeight + 2;
+    if (!fits) {
       stage.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     }
   };
+  // Keep the map + caption in view as the tour advances (e.g. after the user scrolled away mid-tour).
+  useEffect(() => {
+    if (playing && cursor != null) keepMapInView();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playing, cursor]);
 
   const startPlay = () => {
     setCursor((cur) => (cur == null || cur >= last ? 0 : cur));
@@ -204,7 +216,8 @@ export function Stations({ stops: allStops, onOpen, aboutLabel }: { stops: Retur
 
   return (
     <main className="sheet">
-      <h2>Where the career went</h2>
+      {/* Travel Book (Sergio, Oct 2026): no visible page title; the heading stays for screen readers, like the Logbook. */}
+      <h1 className="sr-only">{title}</h1>
       <details className="map-about">
         <summary>{aboutLabel}</summary>
         <p>{caseCopy.mapLead}</p>
@@ -260,6 +273,15 @@ export function Stations({ stops: allStops, onOpen, aboutLabel }: { stops: Retur
           layoutEpoch={full ? "full" : "inline"}
           onSelect={(id) => onOpen("place", id)}
         />
+      ) : null}
+      {here ? (
+        <div className="map-now-card" aria-hidden="true">
+          <span className={`pin-num ${here.kind} ${here.place.accuracy}`}>{here.n}</span>
+          <span className="map-now-text">
+            <strong>{here.labels[0]}</strong>
+            <span>{here.place.name}{whenLabel ? ` · ${whenLabel}` : ""}</span>
+          </span>
+        </div>
       ) : null}
       </div>
       <div className="map-filter" role="group" aria-label="Show pin categories">
