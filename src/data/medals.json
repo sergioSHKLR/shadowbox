@@ -1,7 +1,7 @@
 [
   {
     "id": "jscm",
-    "front": "/incoming/medals/JSCM.png",
+    "front": "/incoming/medals/JSCM.webp",
     "back": null,
     "w": 1.492,
     "h": 1.738,
@@ -9,7 +9,7 @@
   },
   {
     "id": "ncm",
-    "front": "/incoming/medals/NC.png",
+    "front": "/incoming/medals/NC.webp",
     "back": null,
     "w": 1.322,
     "h": 1.554,
@@ -17,7 +17,7 @@
   },
   {
     "id": "arcom",
-    "front": "/incoming/medals/AC.png",
+    "front": "/incoming/medals/AC.webp",
     "back": null,
     "w": 1.467,
     "h": 1.793,
@@ -25,7 +25,7 @@
   },
   {
     "id": "jsam",
-    "front": "/incoming/medals/JSAM.png",
+    "front": "/incoming/medals/JSAM.webp",
     "back": null,
     "w": 1.334,
     "h": 1.443,
@@ -33,7 +33,7 @@
   },
   {
     "id": "nam",
-    "front": "/incoming/medals/NAM.png",
+    "front": "/incoming/medals/NAM.webp",
     "back": null,
     "w": 1.248,
     "h": 1.488,
@@ -41,7 +41,7 @@
   },
   {
     "id": "aam",
-    "front": "/incoming/medals/AAM.png",
+    "front": "/incoming/medals/AAM.webp",
     "back": null,
     "w": 1.5,
     "h": 1.74,
@@ -49,7 +49,7 @@
   },
   {
     "id": "ngcm",
-    "front": "/incoming/medals/GCM.png",
+    "front": "/incoming/medals/GCM.webp",
     "back": null,
     "w": 1.352,
     "h": 1.435,
@@ -57,7 +57,7 @@
   },
   {
     "id": "ndsm",
-    "front": "/incoming/medals/NDSM.png",
+    "front": "/incoming/medals/NDSM.webp",
     "back": null,
     "w": 1.204,
     "h": 1.388,
@@ -65,7 +65,7 @@
   },
   {
     "id": "acm",
-    "front": "/incoming/medals/ACM.png",
+    "front": "/incoming/medals/ACM.webp",
     "back": null,
     "w": 1.379,
     "h": 1.661,
@@ -73,7 +73,7 @@
   },
   {
     "id": "icm",
-    "front": "/incoming/medals/ICM.png",
+    "front": "/incoming/medals/ICM.webp",
     "back": null,
     "w": 1.39,
     "h": 1.697,
@@ -81,7 +81,7 @@
   },
   {
     "id": "gwotsm",
-    "front": "/incoming/medals/GWOT-SM.png",
+    "front": "/incoming/medals/GWOT-SM.webp",
     "back": null,
     "w": 1.391,
     "h": 1.396,
@@ -89,7 +89,7 @@
   },
   {
     "id": "hsm",
-    "front": "/incoming/medals/HSM.png",
+    "front": "/incoming/medals/HSM.webp",
     "back": null,
     "w": 1.227,
     "h": 1.445,
@@ -106,7 +106,7 @@
   },
   {
     "id": "pistol",
-    "front": "/incoming/medals/PISTOL.png",
+    "front": "/incoming/medals/PISTOL.webp",
     "back": null,
     "w": 1.25,
     "h": 1.45,
@@ -114,7 +114,7 @@
   },
   {
     "id": "rifle",
-    "front": "/incoming/medals/RIFLE.png",
+    "front": "/incoming/medals/RIFLE.webp",
     "back": null,
     "w": 1.25,
     "h": 1.45,

@@ -36,9 +36,9 @@ export function Home({ bio }: { onOpen?: (k: Kind, id: string) => void; bio: str
                 block. The PNGs are ink masks; CSS colours them per theme. */}
             <RedactionSample />
             <div className="bio-stamps">
-              <span className="bio-stamp bio-stamp-round bio-stamp-security" role="img" aria-label="Security Manager, redaction: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-security.png")}")` }} />
-              <span className="bio-stamp bio-stamp-round bio-stamp-pao" role="img" aria-label="Public Affairs Officer, wide release: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-pao.png")}")` }} />
-              <span className="bio-stamp bio-stamp-rect bio-stamp-unclas" role="img" aria-label="Unclassified (UNCLAS)" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-unclas.png")}")` }} />
+              <span className="bio-stamp bio-stamp-round bio-stamp-security" role="img" aria-label="Security Manager, redaction: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-security.webp")}")` }} />
+              <span className="bio-stamp bio-stamp-round bio-stamp-pao" role="img" aria-label="Public Affairs Officer, wide release: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-pao.webp")}")` }} />
+              <span className="bio-stamp bio-stamp-rect bio-stamp-unclas" role="img" aria-label="Unclassified (UNCLAS)" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-unclas.webp")}")` }} />
             </div>
           </div>
           </div>

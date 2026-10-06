@@ -7,7 +7,7 @@
     "branch": "USN",
     "context": "Boot camp, Great Lakes",
     "note": "The old Navy PT uniform, the blue sweats issued at recruit training. Sailors called it the smurfs. This is the first uniform in the record.",
-    "image": "/uniforms/v12/01-smurfs-boot-camp.jpg"
+    "image": "/uniforms/v12/01-smurfs-boot-camp.webp"
   },
   {
     "id": "navy-ptu",
@@ -17,7 +17,7 @@
     "branch": "USN",
     "context": "Physical training",
     "note": "The newer Navy physical training uniform.",
-    "image": "/uniforms/v12/02-navy-ptu.jpg"
+    "image": "/uniforms/v12/02-navy-ptu.webp"
   },
   {
     "id": "eodmu5-pt-2",
@@ -27,7 +27,7 @@
     "branch": "USN",
     "context": "Command PT gear, EOD Mobile Unit Five",
     "note": "Command physical training gear from EOD Mobile Unit Five.",
-    "image": "/uniforms/v12/03-eodmu-5-pt-2-b.jpg"
+    "image": "/uniforms/v12/03-eodmu-5-pt-2-b.webp"
   },
   {
     "id": "jcse-pt",
@@ -37,7 +37,7 @@
     "branch": "JOINT",
     "context": "Command PT gear, Joint Communications Support Element",
     "note": "Command physical training gear from the Joint Communications Support Element.",
-    "image": "/uniforms/v12/04-jcse-pt.jpg"
+    "image": "/uniforms/v12/04-jcse-pt.webp"
   },
   {
     "id": "eodmu5-pt-1",
@@ -47,7 +47,7 @@
     "branch": "USN",
     "context": "Organizational clothing, EOD Mobile Unit Five",
     "note": "EOD Mobile Unit Five organizational clothing: the tan shirt worn with olive cargo diver shorts.",
-    "image": "/uniforms/v12/05-eodmu-5-pt-1.jpg"
+    "image": "/uniforms/v12/05-eodmu-5-pt-1.webp"
   },
   {
     "id": "jcse-afg",
@@ -57,7 +57,7 @@
     "branch": "JOINT",
     "context": "Civilian attire, Afghanistan, Joint Communications Support Element",
     "note": "Civilian attire worn in Afghanistan with JCSE: a red polo, 5.11 cargo pants, and tan boots.",
-    "image": "/uniforms/v12/24-afg-civilian-attire-c.jpg"
+    "image": "/uniforms/v12/24-afg-civilian-attire-c.webp"
   },
   {
     "id": "dungarees",
@@ -67,7 +67,7 @@
     "branch": "USN",
     "context": "Working uniform after boot camp",
     "note": "Blue denim trousers and a chambray shirt, the ordinary working uniform before the blue digital camouflage.",
-    "image": "/uniforms/v12/06-dungarees.jpg"
+    "image": "/uniforms/v12/06-dungarees.webp"
   },
   {
     "id": "utilities",
@@ -77,7 +77,7 @@
     "branch": "USN",
     "context": "Working uniform",
     "note": "Listed in the record as its own uniform, separate from dungarees and from the later camouflage. Which utility pattern is not further described.",
-    "image": "/uniforms/v12/07-utilities.jpg"
+    "image": "/uniforms/v12/07-utilities.webp"
   },
   {
     "id": "coveralls",
@@ -87,7 +87,7 @@
     "branch": "USN",
     "context": "Shipboard work",
     "note": "One-piece shipboard coveralls, the practical uniform for work in a machinery space or on deck. Associated with sea duty.",
-    "image": "/uniforms/v12/08-coveralls.jpg"
+    "image": "/uniforms/v12/08-coveralls.webp"
   },
   {
     "id": "working-whites",
@@ -97,7 +97,7 @@
     "branch": "USN",
     "context": "Warm-weather working uniform",
     "note": "A white working uniform for hot climates, simpler than dress whites.",
-    "image": "/uniforms/v12/13-summer-white.jpg"
+    "image": "/uniforms/v12/13-summer-white.webp"
   },
   {
     "id": "johnny",
@@ -107,7 +107,7 @@
     "branch": "USN",
     "context": "Black working uniform",
     "note": "The black winter working uniform, nicknamed the Johnny Cash because it was black shirt and black trousers.",
-    "image": "/uniforms/v12/12-winter-blue.jpg"
+    "image": "/uniforms/v12/12-winter-blue.webp"
   },
   {
     "id": "nwu",
@@ -117,7 +117,7 @@
     "branch": "USN",
     "context": "Navy Working Uniform Type I",
     "note": "The Navy's blue digital working uniform, the Type I, often called blueberries.",
-    "image": "/uniforms/v12/09-nwu-type-i.jpg"
+    "image": "/uniforms/v12/09-nwu-type-i.webp"
   },
   {
     "id": "nwu-type-iii",
@@ -127,7 +127,7 @@
     "branch": "USN",
     "context": "Navy Working Uniform Type III",
     "note": "The Navy’s green digital working uniform, the Type III.",
-    "image": "/uniforms/v12/23-nwu-type-iii.jpg"
+    "image": "/uniforms/v12/23-nwu-type-iii.webp"
   },
   {
     "id": "peanut-butters",
@@ -137,7 +137,7 @@
     "branch": "USN",
     "context": "Navy Service Uniform, E-6 and below",
     "note": "The Navy Service Uniform that replaced the winter blues (the Johnny Cash) and the summer whites. Sailors called it peanut butters for the khaki shirt. Black trousers and a black garrison cap went with it. Worn until he made chief. A chief's khaki has khaki trousers, not these black ones.",
-    "image": "/uniforms/v12/10-nsu-peanut-butter.jpg"
+    "image": "/uniforms/v12/10-nsu-peanut-butter.webp"
   },
   {
     "id": "cpo-summer-white",
@@ -147,7 +147,7 @@
     "branch": "USN",
     "context": "Chief petty officer uniform",
     "note": "The chief’s summer white uniform.",
-    "image": "/uniforms/v12/14-cpo-summer-white.jpg"
+    "image": "/uniforms/v12/14-cpo-summer-white.webp"
   },
   {
     "id": "cpo-khaki",
@@ -157,7 +157,7 @@
     "branch": "USN",
     "context": "After promotion, except dinner dress",
     "note": "Making chief replaces the jumper uniforms with chief's uniforms: service khaki, dress blue, and dress white among them. The record says nearly all of them were worn, and dinner dress was not.",
-    "image": "/uniforms/v12/11-cpo-working-khaki.jpg"
+    "image": "/uniforms/v12/11-cpo-working-khaki.webp"
   },
   {
     "id": "dress-whites",
@@ -167,7 +167,7 @@
     "branch": "USN",
     "context": "Dress uniform",
     "note": "The white jumper, the crackerjack, worn for inspections and ceremonies in summer whites season. The chief's version is a different coat.",
-    "image": "/uniforms/v12/16-sdw-crackerjack.jpg"
+    "image": "/uniforms/v12/16-sdw-crackerjack.webp"
   },
   {
     "id": "dress-blues",
@@ -177,7 +177,7 @@
     "branch": "USN",
     "context": "Dress uniform",
     "note": "The Navy dress blue jumper, the crackerjack, with the broad collar and white piping, for sailors below chief. The chief's dress blue is a coat, not this jumper.",
-    "image": "/uniforms/v12/15-sdb-crackerjack.jpg"
+    "image": "/uniforms/v12/15-sdb-crackerjack.webp"
   },
   {
     "id": "cpo-sdw",
@@ -187,7 +187,7 @@
     "branch": "USN",
     "context": "Chief petty officer uniform",
     "note": "The chief’s dress white uniform.",
-    "image": "/uniforms/v12/18-cpo-sdw.jpg"
+    "image": "/uniforms/v12/18-cpo-sdw.webp"
   },
   {
     "id": "cpo-sdb",
@@ -197,7 +197,7 @@
     "branch": "USN",
     "context": "Chief petty officer uniform",
     "note": "The chief’s dress blue coat. The photograph in this case is this uniform.",
-    "image": "/uniforms/v12/17-cpo-sdb.jpg"
+    "image": "/uniforms/v12/17-cpo-sdb.webp"
   },
   {
     "id": "green-camo",
@@ -207,7 +207,7 @@
     "branch": "USN",
     "context": "Battle Dress Uniform, woodland pattern",
     "note": "The woodland-pattern Battle Dress Uniform. The Navy Working Uniform Type III, the other green pattern, is shown with the work uniforms.",
-    "image": "/uniforms/v12/19-woodland-bdu.jpg"
+    "image": "/uniforms/v12/19-woodland-bdu.webp"
   },
   {
     "id": "desert",
@@ -217,7 +217,7 @@
     "branch": "USN",
     "context": "Iraq deployments",
     "note": "Desert camouflage worn with the Iraq tours. The exact pattern, often the three-color desert uniform in that era, is not confirmed.",
-    "image": "/uniforms/v12/20-desert-dcu.jpg"
+    "image": "/uniforms/v12/20-desert-dcu.webp"
   },
   {
     "id": "awu",
@@ -227,7 +227,7 @@
     "branch": "USA",
     "context": "Individual augmentee",
     "note": "The Army Combat Uniform in the gray-green digital pattern, worn for the individual-augmentee tour. The record called it the Army AWU.",
-    "image": "/uniforms/v12/21-army-acu.jpg"
+    "image": "/uniforms/v12/21-army-acu.webp"
   },
   {
     "id": "multicam",
@@ -237,6 +237,6 @@
     "branch": "JOINT",
     "context": "Afghanistan deployments, Operational Camouflage Pattern",
     "note": "The Army's Multicam (Operational Camouflage Pattern) uniform, worn with the joint communications deployments to Afghanistan.",
-    "image": "/uniforms/v12/22-army-ocp.jpg"
+    "image": "/uniforms/v12/22-army-ocp.webp"
   }
 ]

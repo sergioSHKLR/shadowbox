@@ -16,7 +16,7 @@
     "pinsBelow": [],
     "rack": [],
     "extras": [
-      { "src": "/incoming/acu-4.png", "title": "Partner", "unit": "ACU 4", "date": "1997–1998", "kind": "unit", "id": "acu4", "role": "Partner", "unitId": "acu4" }
+      { "src": "/incoming/acu-4.webp", "title": "Partner", "unit": "ACU 4", "date": "1997–1998", "kind": "unit", "id": "acu4", "role": "Partner", "unitId": "acu4" }
     ]
   },
   {
@@ -41,7 +41,7 @@
       { "id": "pistol", "count": 1 }
     ],
     "extras": [
-      { "src": "/incoming/lhd-2.png", "title": "TAD", "unit": "USS Essex (LHD-2)", "date": "", "kind": "unit", "id": "essex", "role": "TAD" }
+      { "src": "/incoming/lhd-2.webp", "title": "TAD", "unit": "USS Essex (LHD-2)", "date": "", "kind": "unit", "id": "essex", "role": "TAD" }
     ]
   },
   {
@@ -87,14 +87,14 @@
     ],
     "note": "Added on this tour: NAM 2005, NAM 2006, AAM 2006, ICM 2006 with one campaign star (National Resolution; each phase is a star, no bare ribbon), GWOTSM 2005, GCM 2006. JMUA awards sit on the JCSE plate.",
     "extras": [
-      { "src": "/incoming/troy.png", "title": "In theater", "unit": "CJTF Troy", "date": "2006", "kind": "unit", "id": "troy" },
-      { "src": "/incoming/52nd-eod.png", "title": "Sponsor", "unit": "52nd EOD", "date": "2006", "kind": "unit", "id": "52nd-ordnance", "role": "Partner · OIF I" },
-      { "src": "/incoming/16th-en.png", "title": "Sponsor", "unit": "16th EN", "date": "2006", "kind": "unit", "id": "16th-engineer", "role": "Partner · OIF I" },
-      { "src": "/incoming/eodmu11.png", "title": "Partner", "unit": "EODMU 11", "date": "2006", "kind": "unit", "id": "troy", "role": "Partner · OIF I", "unitId": "eodmu11" },
-      { "src": "/incoming/cobra-gold.png", "title": "Exercise", "unit": "Cobra Gold", "date": "2004 and 2005", "kind": "place", "id": "u-tapao" },
-      { "src": "/incoming/rtn.png", "title": "Foreign Partner", "unit": "Royal Thai Navy", "date": "2004 and 2005", "kind": "place", "id": "u-tapao", "role": "Foreign Partner", "unitId": "rtn" },
-      { "src": "/incoming/talisman-saber.png", "title": "Exercise", "unit": "Talisman Saber", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay" },
-      { "src": "/incoming/auscdt-1.png", "title": "Foreign Partner", "unit": "Australian CDT", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay", "role": "Foreign Partner", "unitId": "auscdt" }
+      { "src": "/incoming/troy.webp", "title": "In theater", "unit": "CJTF Troy", "date": "2006", "kind": "unit", "id": "troy" },
+      { "src": "/incoming/52nd-eod.webp", "title": "Sponsor", "unit": "52nd EOD", "date": "2006", "kind": "unit", "id": "52nd-ordnance", "role": "Partner · OIF I" },
+      { "src": "/incoming/16th-en.webp", "title": "Sponsor", "unit": "16th EN", "date": "2006", "kind": "unit", "id": "16th-engineer", "role": "Partner · OIF I" },
+      { "src": "/incoming/eodmu11.webp", "title": "Partner", "unit": "EODMU 11", "date": "2006", "kind": "unit", "id": "troy", "role": "Partner · OIF I", "unitId": "eodmu11" },
+      { "src": "/incoming/cobra-gold.webp", "title": "Exercise", "unit": "Cobra Gold", "date": "2004 and 2005", "kind": "place", "id": "u-tapao" },
+      { "src": "/incoming/rtn.webp", "title": "Foreign Partner", "unit": "Royal Thai Navy", "date": "2004 and 2005", "kind": "place", "id": "u-tapao", "role": "Foreign Partner", "unitId": "rtn" },
+      { "src": "/incoming/talisman-saber.webp", "title": "Exercise", "unit": "Talisman Saber", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay" },
+      { "src": "/incoming/auscdt-1.webp", "title": "Foreign Partner", "unit": "Australian CDT", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay", "role": "Foreign Partner", "unitId": "auscdt" }
     ]
   },
   {
@@ -121,10 +121,10 @@
     ],
     "note": "Added: ARCOM 2009, NAM 2009, GCM 2009. Second ICM campaign star (Iraq Sovereignty) on this plate. The IA is not a command plate.",
     "extras": [
-      { "src": "/incoming/cram.png", "title": "In theater", "unit": "Task Force Iron Shield", "date": "Oct 2008–2009", "kind": "unit", "id": "ia-army" },
-      { "src": "/incoming/11th-ada.png", "title": "Admin", "unit": "11th ADA", "date": "Oct 2008–2009", "kind": "unit", "id": "11th-ada" },
-      { "src": "/incoming/3-3ada.png", "title": "Partner", "unit": "3-3 ADA", "date": "Oct 2008–2009", "kind": "unit", "id": "3-3-ada" },
-      { "src": "/incoming/332nd-aew.png", "title": "Customer", "unit": "332nd AEW", "date": "2009", "kind": "unit", "id": "332nd-aew", "role": "Host" }
+      { "src": "/incoming/cram.webp", "title": "In theater", "unit": "Task Force Iron Shield", "date": "Oct 2008–2009", "kind": "unit", "id": "ia-army" },
+      { "src": "/incoming/11th-ada.webp", "title": "Admin", "unit": "11th ADA", "date": "Oct 2008–2009", "kind": "unit", "id": "11th-ada" },
+      { "src": "/incoming/3-3ada.webp", "title": "Partner", "unit": "3-3 ADA", "date": "Oct 2008–2009", "kind": "unit", "id": "3-3-ada" },
+      { "src": "/incoming/332nd-aew.webp", "title": "Customer", "unit": "332nd AEW", "date": "2009", "kind": "unit", "id": "332nd-aew", "role": "Host" }
     ]
   },
   {
@@ -156,15 +156,15 @@
     ],
     "note": "EXW, 2014, year only. Made Chief in the last year at JCSE; date of rank is 16 September 2014. ACM wears two campaign stars (each OEF phase is a star, no bare ribbon). All three JMUA sit on this plate; 2009 is the dated one. Added: JSCM 2013, JSCM December 2014, ARCOM 2011, JSAM 2013, ACM 2011, NATO 2013, GCM 2012.",
     "extras": [
-      { "src": "/incoming/jcse-3rd-sqd.png", "title": "Squadron", "unit": "3rd Squadron", "date": "2009–2014", "kind": "unit", "id": "jcse" },
-      { "src": "/incoming/cjsotf-a.png", "title": "In theater", "unit": "CJSOTF-A", "date": "2010–2011", "kind": "unit", "id": "cjsotf" },
-      { "src": "/incoming/3rd-sfg.png", "title": "Customer", "unit": "3rd SFG", "date": "2010–2011", "kind": "unit", "id": "3rd-sfg", "role": "Customer · OEF I" },
+      { "src": "/incoming/jcse-3rd-sqd.webp", "title": "Squadron", "unit": "3rd Squadron", "date": "2009–2014", "kind": "unit", "id": "jcse" },
+      { "src": "/incoming/cjsotf-a.webp", "title": "In theater", "unit": "CJSOTF-A", "date": "2010–2011", "kind": "unit", "id": "cjsotf" },
+      { "src": "/incoming/3rd-sfg.webp", "title": "Customer", "unit": "3rd SFG", "date": "2010–2011", "kind": "unit", "id": "3rd-sfg", "role": "Customer · OEF I" },
       { "src": "/incoming/placeholder-crest.svg", "title": "Foreign Partner", "unit": "ANA", "date": "", "kind": "unit", "id": "ana", "role": "Foreign Partner" },
-      { "src": "/incoming/2nd-marines.png", "title": "Partner", "unit": "RCT-2", "date": "", "kind": "unit", "id": "rct-2", "role": "Partner" },
-      { "src": "/incoming/geo-3rd-inf-bde.png", "title": "Foreign Partner", "unit": "32nd Bn (GEO)", "date": "", "kind": "unit", "id": "geo-32nd-bn", "role": "Foreign Partner" },
+      { "src": "/incoming/2nd-marines.webp", "title": "Partner", "unit": "RCT-2", "date": "", "kind": "unit", "id": "rct-2", "role": "Partner" },
+      { "src": "/incoming/geo-3rd-inf-bde.webp", "title": "Foreign Partner", "unit": "32nd Bn (GEO)", "date": "", "kind": "unit", "id": "geo-32nd-bn", "role": "Foreign Partner" },
       { "src": "/incoming/placeholder-crest.svg", "title": "Local Hires", "unit": "Local Hires", "date": "", "kind": "unit", "id": "local-hires", "role": "Local Hires" },
-      { "src": "/incoming/sojtf-a.png", "title": "In theater", "unit": "SOJTF-A", "date": "2012–2013", "kind": "unit", "id": "sojtf" },
-      { "src": "/incoming/290jcss.png", "title": "Partner", "unit": "290th JCSS", "date": "2012–2013", "kind": "unit", "id": "290th-jcss", "role": "Partner · OEF II" },
+      { "src": "/incoming/sojtf-a.webp", "title": "In theater", "unit": "SOJTF-A", "date": "2012–2013", "kind": "unit", "id": "sojtf" },
+      { "src": "/incoming/290jcss.webp", "title": "Partner", "unit": "290th JCSS", "date": "2012–2013", "kind": "unit", "id": "290th-jcss", "role": "Partner · OEF II" },
       { "src": "/incoming/75th-rgr.svg", "title": "Customer", "unit": "75th Rangers", "date": "2012–2013", "kind": "unit", "id": "75th-ranger", "role": "Customer · OEF II" }
     ]
   },

@@ -677,7 +677,7 @@
   {
     "id": "equipment-apc-usage",
     "title": "APC (M113, Iraq)",
-    "file": "/equipment/apc.jpg",
+    "file": "/equipment/apc-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -695,7 +695,7 @@
   {
     "id": "equipment-mk14-usage",
     "title": "Mk 14 (Two Mk 14s, Iraq, 18 March 2006)",
-    "file": "/equipment/mk14.jpg",
+    "file": "/equipment/mk14-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -713,7 +713,7 @@
   {
     "id": "equipment-m60-usage",
     "title": "M60 (On the range, Guam)",
-    "file": "/equipment/m60.jpg",
+    "file": "/equipment/m60-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -731,7 +731,7 @@
   {
     "id": "equipment-c-17-usage",
     "title": "C-17 (0106, 437th Airlift Wing, 22 February 2006)",
-    "file": "/equipment/c-17.jpg",
+    "file": "/equipment/c-17-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -749,7 +749,7 @@
   {
     "id": "equipment-nissan-sentra-silver-usage",
     "title": "Nissan Sentra, grey, 2007 (Grey Sentra, Guam, 23 December 2006)",
-    "file": "/equipment/nissan-sentra-silver.jpg",
+    "file": "/equipment/nissan-sentra-silver-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -767,7 +767,7 @@
   {
     "id": "equipment-chevy-spark-yellow-usage",
     "title": "Chevy Spark, yellow (Yellow Spark, Tampa)",
-    "file": "/equipment/chevy-spark-yellow.jpg",
+    "file": "/equipment/chevy-spark-yellow-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -785,7 +785,7 @@
   {
     "id": "equipment-buell-500-usage",
     "title": "Buell 500, black (Black Blast, 11 August 2007)",
-    "file": "/equipment/buell-500.jpg",
+    "file": "/equipment/buell-500-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -803,7 +803,7 @@
   {
     "id": "equipment-sportster-1200-usage",
     "title": "Sportster 1200 (Black Sportster 1200)",
-    "file": "/equipment/sportster-1200.jpg",
+    "file": "/equipment/sportster-1200-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -875,7 +875,7 @@
   {
     "id": "crest-sojtf-a",
     "title": "Special Operations Joint Task Force \u2014 Afghanistan seal",
-    "file": "/incoming/sojtf-a.png",
+    "file": "/incoming/sojtf-a.webp",
     "sourceUrl": null,
     "creator": "Graphic supplied for this shadowbox",
     "license": "United States military insignia, a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
@@ -884,7 +884,7 @@
   {
     "id": "crest-332nd-aew",
     "title": "332nd Air Expeditionary Wing emblem",
-    "file": "/incoming/332nd-aew.png",
+    "file": "/incoming/332nd-aew.webp",
     "sourceUrl": null,
     "creator": "Graphic supplied for this shadowbox",
     "license": "United States Air Force emblem, a work of the U.S. federal government. Use of military insignia is restricted by law independently of copyright.",
@@ -911,11 +911,11 @@
   {
     "id": "medal-jscm-front",
     "title": "Joint Service Commendation Medal, obverse (front)",
-    "file": "/incoming/medals/jscm.png",
+    "file": "/incoming/medals/JSCM.webp",
     "sourceUrl": null,
     "creator": "Illustration to be placed",
     "license": "Pending the illustration in incoming/medals.",
-    "notes": "Obverse illustration. File: incoming/medals/jscm.png."
+    "notes": "Obverse illustration. File: incoming/medals/JSCM.webp."
   },
   {
     "id": "medal-ncm-front",
@@ -938,29 +938,29 @@
   {
     "id": "medal-jsam-front",
     "title": "Joint Service Achievement Medal, obverse (front)",
-    "file": "/incoming/medals/jsam.png",
+    "file": "/incoming/medals/JSAM.webp",
     "sourceUrl": null,
     "creator": "Illustration to be placed",
     "license": "Pending the illustration in incoming/medals.",
-    "notes": "Obverse illustration. File: incoming/medals/jsam.png."
+    "notes": "Obverse illustration. File: incoming/medals/JSAM.webp."
   },
   {
     "id": "medal-nam-front",
     "title": "Navy and Marine Corps Achievement Medal, obverse (front)",
-    "file": "/incoming/medals/nam.png",
+    "file": "/incoming/medals/NAM.webp",
     "sourceUrl": null,
     "creator": "Illustration to be placed",
     "license": "Pending the illustration in incoming/medals.",
-    "notes": "Obverse illustration. File: incoming/medals/nam.png."
+    "notes": "Obverse illustration. File: incoming/medals/NAM.webp."
   },
   {
     "id": "medal-aam-front",
     "title": "Army Achievement Medal, obverse (front)",
-    "file": "/incoming/medals/aam.png",
+    "file": "/incoming/medals/AAM.webp",
     "sourceUrl": null,
     "creator": "Illustration to be placed",
     "license": "Pending the illustration in incoming/medals.",
-    "notes": "Obverse illustration. File: incoming/medals/aam.png."
+    "notes": "Obverse illustration. File: incoming/medals/AAM.webp."
   },
   {
     "id": "medal-ngcm-front",
@@ -974,29 +974,29 @@
   {
     "id": "medal-ndsm-front",
     "title": "National Defense Service Medal, obverse (front)",
-    "file": "/incoming/medals/ndsm.png",
+    "file": "/incoming/medals/NDSM.webp",
     "sourceUrl": null,
     "creator": "Illustration to be placed",
     "license": "Pending the illustration in incoming/medals.",
-    "notes": "Obverse illustration. File: incoming/medals/ndsm.png."
+    "notes": "Obverse illustration. File: incoming/medals/NDSM.webp."
   },
   {
     "id": "medal-acm-front",
     "title": "Afghanistan Campaign Medal, obverse (front)",
-    "file": "/incoming/medals/acm.png",
+    "file": "/incoming/medals/ACM.webp",
     "sourceUrl": null,
     "creator": "Illustration to be placed",
     "license": "Pending the illustration in incoming/medals.",
-    "notes": "Obverse illustration. File: incoming/medals/acm.png."
+    "notes": "Obverse illustration. File: incoming/medals/ACM.webp."
   },
   {
     "id": "medal-icm-front",
     "title": "Iraq Campaign Medal, obverse (front)",
-    "file": "/incoming/medals/icm.png",
+    "file": "/incoming/medals/ICM.webp",
     "sourceUrl": null,
     "creator": "Illustration to be placed",
     "license": "Pending the illustration in incoming/medals.",
-    "notes": "Obverse illustration. File: incoming/medals/icm.png."
+    "notes": "Obverse illustration. File: incoming/medals/ICM.webp."
   },
   {
     "id": "medal-gwotsm-front",
@@ -1010,11 +1010,11 @@
   {
     "id": "medal-hsm-front",
     "title": "Humanitarian Service Medal, obverse (front)",
-    "file": "/incoming/medals/hsm.png",
+    "file": "/incoming/medals/HSM.webp",
     "sourceUrl": null,
     "creator": "Illustration to be placed",
     "license": "Pending the illustration in incoming/medals.",
-    "notes": "Obverse illustration. File: incoming/medals/hsm.png."
+    "notes": "Obverse illustration. File: incoming/medals/HSM.webp."
   },
   {
     "id": "medal-nato-front",
@@ -1028,7 +1028,7 @@
   {
     "id": "equipment-m16a1-usage",
     "title": "M16A1 rifle (Stacked M16A1s, desert training)",
-    "file": "/equipment/m16a1.jpg",
+    "file": "/equipment/m16a1.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1037,7 +1037,7 @@
   {
     "id": "equipment-m4-carbine-usage",
     "title": "M4 carbine (His rifle, Iraq, March 2006)",
-    "file": "/equipment/m4-carbine.jpg",
+    "file": "/equipment/m4-carbine-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1046,7 +1046,7 @@
   {
     "id": "equipment-centurion-c-ram-usage",
     "title": "Centurion C-RAM (Trailer-mounted, with its generator (Iraq))",
-    "file": "/equipment/centurion-c-ram.jpg",
+    "file": "/equipment/centurion-c-ram.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1055,7 +1055,7 @@
   {
     "id": "equipment-hmmwv-up-armored-usage",
     "title": "Up-armored HMMWV with turtleback (M1114 shown, with the armored gunner\u2019s turret)",
-    "file": "/equipment/hmmwv-up-armored.jpg",
+    "file": "/equipment/hmmwv-up-armored-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1064,7 +1064,7 @@
   {
     "id": "equipment-hilux-usage",
     "title": "Toyota Hilux pickup (Double cab, Afghanistan)",
-    "file": "/equipment/toyota-hilux.jpg",
+    "file": "/equipment/toyota-hilux.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1073,7 +1073,7 @@
   {
     "id": "equipment-pasgt-helmet-desert-usage",
     "title": "PASGT helmet, desert cover (3-color desert (DCU) cover)",
-    "file": "/equipment/pasgt-helmet-desert.jpg",
+    "file": "/equipment/pasgt-helmet-desert.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1082,7 +1082,7 @@
   {
     "id": "equipment-ach-tan-usage",
     "title": "ACH / MICH, bare tan (Tan shell, no cover)",
-    "file": "/equipment/ach-helmet-tan.jpg",
+    "file": "/equipment/ach-helmet-tan.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1091,7 +1091,7 @@
   {
     "id": "equipment-ach-acu-cover-usage",
     "title": "ACH / MICH, ACU cover (UCP cover and night-vision mount)",
-    "file": "/equipment/ach-helmet-acu-cover.jpg",
+    "file": "/equipment/ach-helmet-acu-cover.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1100,7 +1100,7 @@
   {
     "id": "equipment-jerrv-6x6-usage",
     "title": "JERRV (Cougar 6x6)",
-    "file": "/equipment/jerrv-cougar-6x6.jpg",
+    "file": "/equipment/jerrv-cougar-6x6-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1109,7 +1109,7 @@
   {
     "id": "equipment-m-gator-usage",
     "title": "John Deere M-Gator (6x4 military utility vehicle)",
-    "file": "/equipment/m-gator.jpg",
+    "file": "/equipment/m-gator-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1118,7 +1118,7 @@
   {
     "id": "equipment-polaris-sportsman-usage",
     "title": "Polaris Sportsman ATV (Military all-terrain vehicle)",
-    "file": "/equipment/polaris-sportsman-atv.jpg",
+    "file": "/equipment/polaris-sportsman-atv-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1127,7 +1127,7 @@
   {
     "id": "equipment-polaris-ranger-usage",
     "title": "Polaris Ranger UTV (Side-by-side utility vehicle)",
-    "file": "/equipment/polaris-ranger-utv.jpg",
+    "file": "/equipment/polaris-ranger-utv-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1136,7 +1136,7 @@
   {
     "id": "equipment-bobcat-usage",
     "title": "Bobcat skid-steer loader (Compact loader (bucket or forks))",
-    "file": "/equipment/bobcat-skid-steer.jpg",
+    "file": "/equipment/bobcat-skid-steer-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1145,7 +1145,7 @@
   {
     "id": "equipment-swe-dish-usage",
     "title": "SWE-DISH flyaway terminal (Portable satellite terminal)",
-    "file": "/equipment/swe-dish-flyaway.jpg",
+    "file": "/equipment/swe-dish-flyaway-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1154,7 +1154,7 @@
   {
     "id": "equipment-iotv-ucp-usage",
     "title": "Interceptor / IOTV, ACU (UCP) (IOTV in UCP shown, with deltoid protectors)",
-    "file": "/equipment/iotv-ucp.jpg",
+    "file": "/equipment/iotv-ucp-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1163,7 +1163,7 @@
   {
     "id": "equipment-plate-carrier-multicam-usage",
     "title": "Plate carrier, MultiCam (Soldier Plate Carrier System (SPCS) shown)",
-    "file": "/equipment/plate-carrier-multicam.jpg",
+    "file": "/equipment/plate-carrier-multicam-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
@@ -1172,7 +1172,7 @@
   {
     "id": "crest-geo-3rd-infantry-brigade",
     "title": "Georgian Land Forces 3rd Infantry Brigade shoulder badge (stands in for the 32nd Light Infantry Battalion)",
-    "file": "/incoming/geo-3rd-inf-bde.png",
+    "file": "/incoming/geo-3rd-inf-bde.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:3rd_Infantry_Brigade1.jpg",
     "creator": "TheMightyGeneral (en.wikipedia), own work",
     "license": "Public domain (as tagged on Wikimedia Commons)",
@@ -1181,7 +1181,7 @@
   {
     "id": "crest-2nd-marine-regiment",
     "title": "2nd Marine Regiment insignia (card for RCT-2)",
-    "file": "/incoming/2nd-marines.png",
+    "file": "/incoming/2nd-marines.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:USMC_-_2ND_MARINE_REG.png",
     "creator": "United States Marine Corps",
     "license": "Public domain (work of the U.S. federal government)",

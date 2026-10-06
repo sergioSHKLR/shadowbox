@@ -19,7 +19,7 @@
   },
   {
     "id": "m4-rack-2006-03-18",
-    "src": "/equipment/m4-carbine.jpg",
+    "src": "/equipment/m4-carbine-photo.webp",
     "alt": "M4 carbine labeled SCHICKLER on an armory rack, Beretta on the right, overlay stamp MAR 18 2006",
     "caption": "M4 rack, 18 March 2006, OIF I",
     "subjects": [
@@ -32,7 +32,7 @@
   },
   {
     "id": "m4-kit-2006-03-03",
-    "src": "/equipment/m4-carbine-2.jpg",
+    "src": "/equipment/m4-carbine-2.webp",
     "alt": "M4 carbine slung on desert camouflage kit, PASGT helmet with desert cover, overlay stamp MAR 3 2006",
     "caption": "M4 carbine in kit, 3 March 2006, OIF I",
     "subjects": [
@@ -47,7 +47,7 @@
   },
   {
     "id": "m4-eodmu5-flag",
-    "src": "/equipment/m4-carbine-3.jpg",
+    "src": "/equipment/m4-carbine-3.webp",
     "alt": "M4 carbine held at chest, PASGT helmet with desert cover, EODMU 5 flag behind Hesco barriers",
     "caption": "M4 carbine, EODMU 5 flag",
     "subjects": [
@@ -59,7 +59,7 @@
   },
   {
     "id": "m4-range",
-    "src": "/equipment/m4-carbine-4.jpg",
+    "src": "/equipment/m4-carbine-4.webp",
     "alt": "M4 carbine fired from a kneeling position on a gravel range, target 25",
     "caption": "M4 carbine on the range",
     "subjects": [
@@ -68,7 +68,7 @@
   },
   {
     "id": "m4-plate-carrier-silhouette",
-    "src": "/equipment/m4-carbine-5.jpg",
+    "src": "/equipment/m4-carbine-5.webp",
     "alt": "Silhouette holding an M4 carbine in a MultiCam plate carrier on a rooftop",
     "caption": "M4 and plate carrier, Afghanistan",
     "subjects": [
@@ -79,7 +79,7 @@
   },
   {
     "id": "m16a1-sandbags",
-    "src": "/equipment/m16a1-2.jpg",
+    "src": "/equipment/m16a1-2.webp",
     "alt": "M16A1 held behind green sandbags, ACH with ACU cover",
     "caption": "M16A1 behind sandbags",
     "subjects": [
@@ -91,7 +91,7 @@
   },
   {
     "id": "m16a1-iotv-2009-01-12",
-    "src": "/equipment/m16a1-3.jpg",
+    "src": "/equipment/m16a1-3.webp",
     "alt": "M16A1 with IOTV in UCP and ACH with ACU cover, overlay stamp 01/12/09 06:04",
     "caption": "M16A1, IOTV and ACH, 12 January 2009, OIF II",
     "subjects": [
@@ -105,7 +105,7 @@
   },
   {
     "id": "m16a1-hmmwv-rack",
-    "src": "/equipment/m16a1-4.jpg",
+    "src": "/equipment/m16a1-4.webp",
     "alt": "M16 in a HMMWV door rack labeled M16 RIFLE, desert camouflage",
     "caption": "M16 in a HMMWV rack",
     "subjects": [
@@ -114,7 +114,7 @@
   },
   {
     "id": "m16a1-stacks-ach",
-    "src": "/equipment/m16a1.jpg",
+    "src": "/equipment/m16a1.webp",
     "alt": "Stacked M16A1 rifles in desert training, ACH with ACU cover on the ground",
     "caption": "Stacked M16A1s, ACH with ACU cover",
     "subjects": [
@@ -124,7 +124,7 @@
   },
   {
     "id": "mk14-pair-2006-03-18",
-    "src": "/equipment/mk14.jpg",
+    "src": "/equipment/mk14-photo.webp",
     "alt": "Two Mk 14 rifles on a floor, overlay stamp MAR 18 2006",
     "caption": "Two Mk 14s, 18 March 2006, OIF I",
     "subjects": [
@@ -135,7 +135,7 @@
   },
   {
     "id": "mk14-2006-03-29",
-    "src": "/equipment/mk14-2.jpg",
+    "src": "/equipment/mk14-2.webp",
     "alt": "Mk 14 held in an armory with M4s and a Beretta M9 on the rack, overlay stamp MAR 29 2006",
     "caption": "Mk 14, 29 March 2006, OIF I",
     "subjects": [
@@ -148,7 +148,7 @@
   },
   {
     "id": "m60-cucv-guam",
-    "src": "/equipment/m60.jpg",
+    "src": "/equipment/m60-photo.webp",
     "alt": "M60 machine gun on a grassy range in Guam, CUCV pickup behind, Beretta in a holster",
     "caption": "M60 on the range, Guam, CUCV behind",
     "subjects": [
@@ -160,7 +160,7 @@
   },
   {
     "id": "centurion-c-ram-night",
-    "src": "/equipment/centurion-c-ram-2.jpg",
+    "src": "/equipment/centurion-c-ram-2.webp",
     "alt": "Centurion C-RAM radome and gun house under a starry sky",
     "caption": "Centurion C-RAM at night",
     "subjects": [
@@ -170,7 +170,7 @@
   },
   {
     "id": "centurion-c-ram-tracers",
-    "src": "/equipment/centurion-c-ram-3.jpg",
+    "src": "/equipment/centurion-c-ram-3.webp",
     "alt": "Long-exposure fan of red C-RAM tracer rounds against a night sky",
     "caption": "C-RAM tracer fan at night",
     "subjects": [
@@ -180,7 +180,7 @@
   },
   {
     "id": "centurion-c-ram-day",
-    "src": "/equipment/centurion-c-ram-4.jpg",
+    "src": "/equipment/centurion-c-ram-4.webp",
     "alt": "Centurion C-RAM gun and white radome against a clear blue sky",
     "caption": "Centurion C-RAM in daylight",
     "subjects": [
@@ -190,7 +190,7 @@
   },
   {
     "id": "centurion-c-ram-sunset",
-    "src": "/equipment/centurion-c-ram-5.jpg",
+    "src": "/equipment/centurion-c-ram-5.webp",
     "alt": "Trailer-mounted Centurion C-RAM at sunset with a pirate flag on the generator shelter",
     "caption": "Centurion C-RAM on its trailer at sunset",
     "subjects": [
@@ -200,7 +200,7 @@
   },
   {
     "id": "ach-acu-c-ram",
-    "src": "/equipment/ach-helmet-acu-cover.jpg",
+    "src": "/equipment/ach-helmet-acu-cover.webp",
     "alt": "ACH with ACU cover, Centurion C-RAM radome behind",
     "caption": "ACH with ACU cover, C-RAM behind",
     "subjects": [
@@ -212,7 +212,7 @@
   },
   {
     "id": "iotv-ach-rifle",
-    "src": "/equipment/iotv-ucp.jpg",
+    "src": "/equipment/iotv-ucp-photo.webp",
     "alt": "IOTV in UCP, ACH with ACU cover, and an M16A1 on a desert training trail",
     "caption": "IOTV, ACH and M16A1, desert training",
     "subjects": [
@@ -224,7 +224,7 @@
   },
   {
     "id": "iotv-2008-12-29",
-    "src": "/equipment/iotv-ucp-2.jpg",
+    "src": "/equipment/iotv-ucp-2.webp",
     "alt": "IOTV in UCP, overlay stamp 12/29/08 08:21",
     "caption": "IOTV, 29 December 2008, OIF II",
     "subjects": [
@@ -236,7 +236,7 @@
   },
   {
     "id": "plate-carrier-ranger",
-    "src": "/equipment/plate-carrier-multicam.jpg",
+    "src": "/equipment/plate-carrier-multicam-photo.webp",
     "alt": "MultiCam plate carrier worn while driving a Polaris Ranger UTV",
     "caption": "Plate carrier on a Polaris Ranger",
     "subjects": [
@@ -247,7 +247,7 @@
   },
   {
     "id": "pasgt-jerrv",
-    "src": "/equipment/pasgt-helmet-desert.jpg",
+    "src": "/equipment/pasgt-helmet-desert.webp",
     "alt": "PASGT helmet with desert cover, JERRV Cougar 6x6 behind",
     "caption": "PASGT helmet, JERRV behind",
     "subjects": [
@@ -257,7 +257,7 @@
   },
   {
     "id": "pasgt-2006-03-03",
-    "src": "/equipment/pasgt-helmet-desert-2.jpg",
+    "src": "/equipment/pasgt-helmet-desert-2.webp",
     "alt": "PASGT helmet with desert cover, overlay stamp MAR 3 2006",
     "caption": "PASGT helmet, 3 March 2006, OIF I",
     "subjects": [
@@ -268,7 +268,7 @@
   },
   {
     "id": "ach-tan-2006-08-13",
-    "src": "/equipment/ach-helmet-tan.jpg",
+    "src": "/equipment/ach-helmet-tan.webp",
     "alt": "Bare tan ACH, overlay stamp 13-Aug-06 07:03",
     "caption": "Tan ACH, 13 August 2006, OIF I",
     "subjects": [
@@ -279,7 +279,7 @@
   },
   {
     "id": "ach-tan-jerrv",
-    "src": "/equipment/ach-tan-2.jpg",
+    "src": "/equipment/ach-tan-2.webp",
     "alt": "Tan ACH and M4 carbine inside a vehicle in desert camouflage",
     "caption": "Tan ACH and M4 in a vehicle",
     "subjects": [
@@ -289,7 +289,7 @@
   },
   {
     "id": "ach-tan-m4-vehicle",
-    "src": "/equipment/ach-tan-3.jpg",
+    "src": "/equipment/ach-tan-3.webp",
     "alt": "Tan ACH and M4 carbine inside a vehicle, SCHICKLER tape on the rifle",
     "caption": "Tan ACH and M4 in a vehicle",
     "subjects": [
@@ -299,7 +299,7 @@
   },
   {
     "id": "hmmwv-pasgt",
-    "src": "/equipment/hmmwv-up-armored.jpg",
+    "src": "/equipment/hmmwv-up-armored-photo.webp",
     "alt": "Up-armored HMMWV with PASGT helmet and desert kit at the door",
     "caption": "Up-armored HMMWV, PASGT helmet",
     "subjects": [
@@ -309,7 +309,7 @@
   },
   {
     "id": "jerrv-side-my01k7",
-    "src": "/equipment/jerrv-6x6-2.jpg",
+    "src": "/equipment/jerrv-6x6-2.webp",
     "alt": "Tan JERRV Cougar 6x6 in side view, bumper US MY01K7",
     "caption": "JERRV 6x6, US MY01K7",
     "subjects": [
@@ -318,7 +318,7 @@
   },
   {
     "id": "jerrv-front",
-    "src": "/equipment/jerrv-6x6-3.jpg",
+    "src": "/equipment/jerrv-6x6-3.webp",
     "alt": "Front of a tan JERRV Cougar 6x6 with a roof-mounted American flag",
     "caption": "JERRV 6x6, front",
     "subjects": [
@@ -327,7 +327,7 @@
   },
   {
     "id": "jerrv-door",
-    "src": "/equipment/jerrv-6x6-4.jpg",
+    "src": "/equipment/jerrv-6x6-4.webp",
     "alt": "Crew door and wheel of a tan JERRV Cougar 6x6",
     "caption": "JERRV 6x6",
     "subjects": [
@@ -336,7 +336,7 @@
   },
   {
     "id": "jerrv-interior",
-    "src": "/equipment/jerrv-6x6-5.jpg",
+    "src": "/equipment/jerrv-6x6-5.webp",
     "alt": "JERRV interior with turret ring and vehicle radios",
     "caption": "JERRV interior radios",
     "subjects": [
@@ -345,7 +345,7 @@
   },
   {
     "id": "jerrv-turret-ach",
-    "src": "/equipment/jerrv-6x6-6.jpg",
+    "src": "/equipment/jerrv-6x6-6.webp",
     "alt": "JERRV turret ring and radios, tan ACH",
     "caption": "JERRV interior, tan ACH",
     "subjects": [
@@ -355,7 +355,7 @@
   },
   {
     "id": "jerrv-radio-ach",
-    "src": "/equipment/jerrv-6x6-7.jpg",
+    "src": "/equipment/jerrv-6x6-7.webp",
     "alt": "JERRV interior radios, tan ACH with desert camouflage",
     "caption": "JERRV radios, tan ACH",
     "subjects": [
@@ -365,7 +365,7 @@
   },
   {
     "id": "jerrv-bumper-pair",
-    "src": "/equipment/jerrv-6x6-8.jpg",
+    "src": "/equipment/jerrv-6x6-8.webp",
     "alt": "Two sailors in desert camouflage at a tan JERRV bumper, US NAVY on the hull",
     "caption": "JERRV 6x6 bumper",
     "subjects": [
@@ -375,7 +375,7 @@
   },
   {
     "id": "m-gator-c-17-2006-02-21",
-    "src": "/equipment/m-gator.jpg",
+    "src": "/equipment/m-gator-photo.webp",
     "alt": "John Deere M-Gator and HMMWV cargo on a C-17 deck, overlay stamp 21-Feb-06 15:44",
     "caption": "M-Gator on a C-17, 21 February 2006, OIF I",
     "subjects": [
@@ -387,7 +387,7 @@
   },
   {
     "id": "c-17-0106-2006-02-22",
-    "src": "/equipment/c-17.jpg",
+    "src": "/equipment/c-17-photo.webp",
     "alt": "C-17 0106, 437th Airlift Wing, overlay stamp 22-Feb-06 04:07",
     "caption": "0106, 437th Airlift Wing, 22 February 2006, OIF I",
     "subjects": [
@@ -398,7 +398,7 @@
   },
   {
     "id": "c-17-hmmwv-cargo-2006-08-21",
-    "src": "/equipment/c-17-2.jpg",
+    "src": "/equipment/c-17-2.webp",
     "alt": "Tan HMMWV chained on a C-17 cargo deck, overlay stamp 21-Aug-06 12:13",
     "caption": "HMMWV cargo on a C-17, 21 August 2006, OIF I",
     "subjects": [
@@ -409,7 +409,7 @@
   },
   {
     "id": "c-17-cargo-deck-2006-02-21",
-    "src": "/equipment/c-17-3.jpg",
+    "src": "/equipment/c-17-3.webp",
     "alt": "C-17 cargo deck with a tan HMMWV and sleeping pallets, overlay stamp 21-Feb-06 16:35",
     "caption": "C-17 cargo deck, 21 February 2006, OIF I",
     "subjects": [
@@ -420,7 +420,7 @@
   },
   {
     "id": "c-17-mcm-02-2006-08-21",
-    "src": "/equipment/c-17-4.jpg",
+    "src": "/equipment/c-17-4.webp",
     "alt": "Tan MCM-02 container on a C-17 cargo deck, overlay stamp 21-Aug-06 12:14",
     "caption": "C-17 cargo, MCM-02 container, 21 August 2006, OIF I",
     "subjects": [
@@ -431,7 +431,7 @@
   },
   {
     "id": "c-17-fmtv-cargo",
-    "src": "/equipment/c-17-5.jpg",
+    "src": "/equipment/c-17-5.webp",
     "alt": "Rear of a tan FMTV chained on a C-17 cargo deck with passengers along the sidewall",
     "caption": "FMTV cargo on a C-17",
     "subjects": [
@@ -440,7 +440,7 @@
   },
   {
     "id": "c-17-fmtv-cargo-2",
-    "src": "/equipment/c-17-6.jpg",
+    "src": "/equipment/c-17-6.webp",
     "alt": "Tan U.S. Army FMTV on a C-17 cargo deck, bumper 14720, passengers along the sidewall",
     "caption": "FMTV cargo on a C-17",
     "subjects": [
@@ -449,7 +449,7 @@
   },
   {
     "id": "c-17-m4-seat",
-    "src": "/equipment/c-17-7.jpg",
+    "src": "/equipment/c-17-7.webp",
     "alt": "M4 carbine across the lap on C-17 sidewall seats with red cargo nets",
     "caption": "M4 on a C-17 seat",
     "subjects": [
@@ -461,7 +461,7 @@
   },
   {
     "id": "c-17-seats-2006-03-03",
-    "src": "/equipment/c-17-8.jpg",
+    "src": "/equipment/c-17-8.webp",
     "alt": "C-17 sidewall seats with red cargo nets, overlay stamp MAR 3 2006",
     "caption": "C-17 seats, 3 March 2006, OIF I",
     "subjects": [
@@ -472,7 +472,7 @@
   },
   {
     "id": "sentra-grey-2007-02-01",
-    "src": "/equipment/nissan-sentra-silver-2.jpg",
+    "src": "/equipment/nissan-sentra-silver-2.webp",
     "alt": "Grey Nissan Sentra beside a sailor in summer whites, overlay stamp FEB 1 2007",
     "caption": "Grey Sentra, 1 February 2007, EODMU 5",
     "subjects": [
@@ -483,7 +483,7 @@
   },
   {
     "id": "spark-nwu",
-    "src": "/equipment/chevy-spark-yellow.jpg",
+    "src": "/equipment/chevy-spark-yellow-photo.webp",
     "alt": "Yellow Chevy Spark beside a sailor in NWU Type III",
     "caption": "Yellow Spark, NWU Type III",
     "subjects": [
@@ -493,7 +493,7 @@
   },
   {
     "id": "sportster-1200-street",
-    "src": "/equipment/sportster-1200-2.jpg",
+    "src": "/equipment/sportster-1200-2.webp",
     "alt": "Black Harley-Davidson Sportster 1200 on a wet residential street",
     "caption": "Sportster 1200",
     "subjects": [
@@ -502,7 +502,7 @@
   },
   {
     "id": "sportster-1200-camp",
-    "src": "/equipment/sportster-1200-3.jpg",
+    "src": "/equipment/sportster-1200-3.webp",
     "alt": "Black Sportster 1200 parked beside a tent on a grassy campground",
     "caption": "Sportster 1200 at camp",
     "subjects": [
@@ -511,7 +511,7 @@
   },
   {
     "id": "eodmu5-flag-2006-03-18",
-    "src": "/photos/eodmu5-flag.jpg",
+    "src": "/photos/eodmu5-flag.webp",
     "alt": "Yellow Explosive Ordnance Disposal Mobile Unit Five flag, overlay stamp MAR 18 2006",
     "caption": "EODMU 5 flag, 18 March 2006, OIF I",
     "subjects": [
@@ -522,7 +522,7 @@
   },
   {
     "id": "navy-ptu-wear",
-    "src": "/uniforms/v12/navy-ptu-wear.jpg",
+    "src": "/uniforms/v12/navy-ptu-wear.webp",
     "alt": "Sergio Schickler in the Navy physical training uniform",
     "caption": "New PTU",
     "subjects": [
@@ -531,7 +531,7 @@
   },
   {
     "id": "afg-civilian-wear",
-    "src": "/uniforms/v12/afg-civilian-wear.jpg",
+    "src": "/uniforms/v12/afg-civilian-wear.webp",
     "alt": "Sergio Schickler in a red polo, cargo pants and tan boots",
     "caption": "JCSE civilian attire, Afghanistan",
     "subjects": [
@@ -540,7 +540,7 @@
   },
   {
     "id": "coveralls-wear",
-    "src": "/uniforms/v12/coveralls-wear.jpg",
+    "src": "/uniforms/v12/coveralls-wear.webp",
     "alt": "Sergio Schickler in shipboard coveralls",
     "caption": "Coveralls",
     "subjects": [
@@ -549,7 +549,7 @@
   },
   {
     "id": "summer-white-wear",
-    "src": "/uniforms/v12/summer-white-wear.jpg",
+    "src": "/uniforms/v12/summer-white-wear.webp",
     "alt": "Sergio Schickler in summer whites",
     "caption": "Summer whites",
     "subjects": [
@@ -558,7 +558,7 @@
   },
   {
     "id": "winter-blue-wear",
-    "src": "/uniforms/v12/winter-blue-wear.jpg",
+    "src": "/uniforms/v12/winter-blue-wear.webp",
     "alt": "Sergio Schickler in winter blues",
     "caption": "Winter blues",
     "subjects": [
@@ -567,7 +567,7 @@
   },
   {
     "id": "nwu-type-i-wear",
-    "src": "/uniforms/v12/nwu-type-i-wear.jpg",
+    "src": "/uniforms/v12/nwu-type-i-wear.webp",
     "alt": "Sergio Schickler in NWU Type I",
     "caption": "NWU Type I",
     "subjects": [
@@ -576,7 +576,7 @@
   },
   {
     "id": "nsu-peanut-butter-wear",
-    "src": "/uniforms/v12/nsu-peanut-butter-wear.jpg",
+    "src": "/uniforms/v12/nsu-peanut-butter-wear.webp",
     "alt": "Sergio Schickler in the Navy Service Uniform",
     "caption": "Peanut butters",
     "subjects": [
@@ -585,7 +585,7 @@
   },
   {
     "id": "cpo-khaki-wear",
-    "src": "/uniforms/v12/cpo-working-khaki-wear.jpg",
+    "src": "/uniforms/v12/cpo-working-khaki-wear.webp",
     "alt": "Sergio Schickler in chief khaki",
     "caption": "Chief khaki",
     "subjects": [
@@ -594,7 +594,7 @@
   },
   {
     "id": "sdw-crackerjack-wear",
-    "src": "/uniforms/v12/sdw-crackerjack-wear.jpg",
+    "src": "/uniforms/v12/sdw-crackerjack-wear.webp",
     "alt": "Sergio Schickler in dress whites",
     "caption": "Dress whites",
     "subjects": [
@@ -603,7 +603,7 @@
   },
   {
     "id": "sdb-crackerjack-wear",
-    "src": "/uniforms/v12/sdb-crackerjack-wear.jpg",
+    "src": "/uniforms/v12/sdb-crackerjack-wear.webp",
     "alt": "Sergio Schickler in dress blues",
     "caption": "Dress blues",
     "subjects": [
@@ -612,7 +612,7 @@
   },
   {
     "id": "cpo-sdw-wear",
-    "src": "/uniforms/v12/cpo-sdw-wear.jpg",
+    "src": "/uniforms/v12/cpo-sdw-wear.webp",
     "alt": "Sergio Schickler in chief dress whites",
     "caption": "Chief dress whites",
     "subjects": [
@@ -621,7 +621,7 @@
   },
   {
     "id": "desert-dcu-wear",
-    "src": "/uniforms/v12/desert-dcu-wear.jpg",
+    "src": "/uniforms/v12/desert-dcu-wear.webp",
     "alt": "Sergio Schickler in desert camouflage",
     "caption": "Desert DCU",
     "subjects": [
@@ -630,7 +630,7 @@
   },
   {
     "id": "army-acu-wear",
-    "src": "/uniforms/v12/army-acu-wear.jpg",
+    "src": "/uniforms/v12/army-acu-wear.webp",
     "alt": "Sergio Schickler in the Army Combat Uniform",
     "caption": "ACU",
     "subjects": [
@@ -639,7 +639,7 @@
   },
   {
     "id": "army-ocp-wear",
-    "src": "/uniforms/v12/army-ocp-wear.jpg",
+    "src": "/uniforms/v12/army-ocp-wear.webp",
     "alt": "Sergio Schickler in Multicam",
     "caption": "Multicam",
     "subjects": [
@@ -648,7 +648,7 @@
   },
   {
     "id": "centurion-c-ram",
-    "src": "/equipment/centurion-c-ram.jpg",
+    "src": "/equipment/centurion-c-ram.webp",
     "alt": "Centurion C-RAM. Trailer-mounted, with its generator (Iraq)",
     "caption": "Trailer-mounted, with its generator (Iraq)",
     "subjects": [
@@ -657,7 +657,7 @@
   },
   {
     "id": "toyota-hilux",
-    "src": "/equipment/toyota-hilux.jpg",
+    "src": "/equipment/toyota-hilux.webp",
     "alt": "Toyota Hilux pickup. Double cab, Afghanistan",
     "caption": "Double cab, Afghanistan",
     "subjects": [
@@ -666,7 +666,7 @@
   },
   {
     "id": "jerrv-cougar-6x6",
-    "src": "/equipment/jerrv-cougar-6x6.jpg",
+    "src": "/equipment/jerrv-cougar-6x6-photo.webp",
     "alt": "JERRV (Cougar 6x6). Joint EOD Rapid Response Vehicle, desert tan",
     "caption": "Joint EOD Rapid Response Vehicle, desert tan",
     "subjects": [
@@ -675,7 +675,7 @@
   },
   {
     "id": "polaris-sportsman-atv",
-    "src": "/equipment/polaris-sportsman-atv.jpg",
+    "src": "/equipment/polaris-sportsman-atv-photo.webp",
     "alt": "Polaris Sportsman ATV. Military all-terrain vehicle",
     "caption": "Military all-terrain vehicle",
     "subjects": [
@@ -684,7 +684,7 @@
   },
   {
     "id": "polaris-ranger-utv",
-    "src": "/equipment/polaris-ranger-utv.jpg",
+    "src": "/equipment/polaris-ranger-utv-photo.webp",
     "alt": "Polaris Ranger utility vehicle",
     "caption": "Polaris Ranger",
     "subjects": [
@@ -693,7 +693,7 @@
   },
   {
     "id": "bobcat-skid-steer",
-    "src": "/equipment/bobcat-skid-steer.jpg",
+    "src": "/equipment/bobcat-skid-steer-photo.webp",
     "alt": "Bobcat skid-steer loader. Compact loader (bucket or forks)",
     "caption": "Compact loader (bucket or forks)",
     "subjects": [
@@ -702,7 +702,7 @@
   },
   {
     "id": "swe-dish-flyaway",
-    "src": "/equipment/swe-dish-flyaway.jpg",
+    "src": "/equipment/swe-dish-flyaway-photo.webp",
     "alt": "SWE-DISH flyaway terminal. Labeled SWE-DISH under shelter, Afghanistan",
     "caption": "Labeled SWE-DISH under shelter, Afghanistan",
     "subjects": [
@@ -711,7 +711,7 @@
   },
   {
     "id": "apc",
-    "src": "/equipment/apc.jpg",
+    "src": "/equipment/apc-photo.webp",
     "alt": "APC. M113, Iraq",
     "caption": "M113, Iraq",
     "subjects": [
@@ -720,7 +720,7 @@
   },
   {
     "id": "nissan-sentra-silver",
-    "src": "/equipment/nissan-sentra-silver.jpg",
+    "src": "/equipment/nissan-sentra-silver-photo.webp",
     "alt": "Nissan Sentra, grey, 2007. Grey Sentra, Guam, 23 December 2006",
     "caption": "Grey Sentra, Guam, 23 December 2006",
     "subjects": [
@@ -729,7 +729,7 @@
   },
   {
     "id": "buell-500",
-    "src": "/equipment/buell-500.jpg",
+    "src": "/equipment/buell-500-photo.webp",
     "alt": "Buell 500, black. Black Blast, 11 August 2007",
     "caption": "Black Blast, 11 August 2007",
     "subjects": [
@@ -738,7 +738,7 @@
   },
   {
     "id": "sportster-1200",
-    "src": "/equipment/sportster-1200.jpg",
+    "src": "/equipment/sportster-1200-photo.webp",
     "alt": "Sportster 1200. Black Sportster 1200",
     "caption": "Black Sportster 1200",
     "subjects": [

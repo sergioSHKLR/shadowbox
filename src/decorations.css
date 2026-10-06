@@ -1,30 +1,4 @@
 .decorations { --in: 4.07rem; }
-.decoration-slide {
-  margin: 1rem auto;
-  max-width: min(36rem, 100%);
-  text-align: center;
-}
-.decoration-slide img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
-}
-.decoration-slide figcaption {
-  margin-top: 0.45rem;
-  color: var(--color-quiet);
-  font-size: 0.88rem;
-}
-.decorations .uprog-scrub {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  flex: 1 1 14rem;
-  min-width: 0;
-}
-.decorations .uprog-scrub .uprog-date { flex: none; text-align: right; }
-.decorations .uprog-scrub .uprog-slider { flex: 1 1 auto; }
-.uniform-timeline-parked { display: none; }
 .site-footer {
   display: flex;
   flex-wrap: wrap;
@@ -40,7 +14,6 @@
   color: #5b5345;
   font-size: 0.88rem;
 }
-.footer-credit { margin-right: auto; }
 .footer-nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.2rem 0.9rem; }
 .footer-link {
   display: inline-flex;
@@ -56,15 +29,6 @@
   min-height: 44px;
 }
 .footer-link svg { flex: none; }
-.guest-frame {
-  display: block;
-  width: 100%;
-  max-width: 40rem;
-  height: 38rem;
-  margin: 1rem 0;
-  border: 1px solid var(--color-line);
-  background: #fff;
-}
 .guest-form { display: grid; gap: 0.6rem; max-width: 28rem; margin: 1rem 0; }
 .guest-form label { display: grid; gap: 0.25rem; font-weight: 600; }
 .guest-form input, .guest-form textarea {

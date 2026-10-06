@@ -92,27 +92,6 @@ h1, h2, h3, .detail-title {
   line-height: 1;
 }
 .app-end { margin-left: auto; display: flex; align-items: center; }
-.app-flags { display: flex; align-items: center; gap: 0.05rem; }
-.app-flag {
-  display: grid;
-  place-items: center;
-  min-width: 2.2rem;
-  min-height: 44px;
-  padding: 0 0.1rem;
-  border: 0;
-  outline: none;
-  background: transparent;
-  box-shadow: none;
-  cursor: pointer;
-  font-size: 1.15rem;
-  line-height: 1;
-}
-.app-flag:focus,
-.app-flag:focus-visible {
-  outline: none;
-  box-shadow: none;
-}
-.app-flag:not(.is-on) { filter: grayscale(1) contrast(1.25); opacity: 0.72; }
 .app-search { position: relative; display: flex; align-items: center; }
 .app-search input {
   width: min(16rem, 34vw);
@@ -291,14 +270,7 @@ h1, h2, h3, .detail-title {
 }
 .app-search .search-hits small { letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brass); }
 .search-empty { padding: 0.6rem; }
-.choice-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.4rem 0 1rem; }
 .intro { margin-bottom: 2rem; }
-.intro-pair {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.35rem;
-}
 /* Identical frames, letter proportion. Wood runs brown at the top-left to black-brown at the bottom-right. */
 .wood-frame {
   --frame: min(28rem, calc(100vw - 4rem));
@@ -338,51 +310,6 @@ h1, h2, h3, .detail-title {
   border-color: #d4cfc4 #ffffff #ffffff #e7e2d8;
   box-shadow: inset 0 0 0 1px rgba(70, 48, 22, 0.28);
 }
-.intro-portrait {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  display: block;
-}
-.intro-portrait img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 18%;
-  display: block;
-}
-.intro-marks {
-  --in: min(calc((var(--frame) - 5.4rem) / 4.125), calc((var(--frame) * 11 / 8.5 - 5.8rem) / 7.16));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: calc(var(--in) * 0.25);
-  min-width: 0;
-  max-width: 100%;
-  max-height: 100%;
-}
-.intro-rack { align-items: center; }
-.intro-device {
-  border: 0;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-  padding: 0;
-  display: block;
-}
-.intro-device img {
-  width: calc(var(--in) * 2.75);
-  height: auto;
-  display: block;
-  object-fit: contain;
-}
-.intro-anchor img { width: auto; height: calc(var(--in) * 1.9); }
-.intro-ribbon { cursor: pointer; width: calc(var(--in) * 1.375); padding: 0; }
-.intro-ribbon .ribbon { width: 100%; }
 .intro-copy { max-width: 40rem; margin: 1.35rem auto 0; text-align: center; }
 .intro-copy h2 { margin: 0 0 0.3rem; }
 .intro-copy p { margin: 0.2rem 0; }
@@ -455,17 +382,6 @@ h1, h2, h3, .detail-title {
   height: 1.55em;
   display: block;
 }
-.bio-pao {
-  display: block;
-  width: 8.75rem;
-  height: auto;
-  margin: 0.15rem 0.35rem 0.4rem auto;
-  transform: rotate(-7deg);
-}
-
-@media (min-width: 960px) {
-  .intro-pair { flex-direction: row; align-items: flex-start; justify-content: center; }
-}
 @media (max-width: 720px) {
   .app-title { letter-spacing: 0; font-size: 1.2rem; }
   .app-search .app-icon { display: grid; }
@@ -504,7 +420,6 @@ h1, h2, h3, .detail-title {
 [data-theme="dark"] .detail-hero,
 [data-theme="dark"] .used-here button,
 [data-theme="dark"] .stop-list button,
-[data-theme="dark"] .place-list button,
 [data-theme="dark"] .related button,
 [data-theme="dark"] input,
 [data-theme="dark"] select,
@@ -527,19 +442,8 @@ a { color: var(--color-navy); }
 .archive { max-width: 72rem; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
 
 /* Header: the brand is centred, with the nav chips centred on the row underneath. */
-.mast { display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; margin-bottom: 1.25rem; }
 .kicker { margin: 0 0 0.25rem; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brass); }
-.mast-brand { display: flex; align-items: center; justify-content: center; gap: 0.9rem; text-align: left; }
-.mast-icon { width: 3.5rem; height: 3.5rem; flex: none; display: block; }
-.wordmark { margin: 0; font-size: clamp(2rem, 5vw, 3rem); line-height: 1; letter-spacing: 0.18em; }
-.mast-tagline { margin: 0.35rem 0 0; color: var(--color-quiet); font-style: italic; font-size: 1.02rem; }
-@media (max-width: 640px) {
-  .mast-icon { width: 2.75rem; height: 2.75rem; }
-  .wordmark { letter-spacing: 0.12em; }
-  .mast-tagline { font-size: 0.95rem; }
-}
-.mast-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; }
-.nav-btn, .row-btn, .patch, .mark, .uniform-card, .stop-list button, .related button, .place-list button, .icon-btn {
+.nav-btn, .row-btn, .patch, .mark, .uniform-card, .stop-list button, .related button, .icon-btn {
   font: inherit;
   color: inherit;
   cursor: pointer;
@@ -569,27 +473,9 @@ a { color: var(--color-navy); }
   box-shadow: none;
   border-color: inherit;
 }
-
-.case-frame {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.04), transparent 30%),
-    var(--color-felt);
-  color: var(--color-ivory);
-  /* Wood frame, 18px (about 1.8x the old 10px), with the thin light bevel 4px inside the wood. */
-  border: 18px solid #8d7040;
-  outline: 1px solid #e8d7a8;
-  outline-offset: -22px;
-  padding: 1.5rem 1.1rem 1.75rem;
-  box-shadow: 0 18px 40px rgba(20, 18, 12, 0.25);
-}
-.nameplate { display: grid; grid-template-columns: 9.5rem 1fr; gap: 1rem; align-items: center; }
 /* The portrait is square (cap through the clasped hands), so the thumbnail is square too and nothing is cropped. */
 .portrait { width: 9.5rem; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; border: 1px solid var(--color-brass-bright); }
-.nameplate h2 { color: var(--color-ivory); font-size: clamp(2rem, 4vw, 3rem); }
-.nameplate p { margin: 0.15rem 0; }
 .quiet { color: var(--color-quiet); }
-.case-frame .quiet { color: #c9c0b0; }
-.insignia-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.1rem 0; }
 .mark {
   min-width: 5.5rem;
   min-height: 44px;
@@ -603,63 +489,26 @@ a { color: var(--color-navy); }
   gap: 0.15rem;
 }
 .mark span { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
-.mark-word { font-size: 1rem; padding: 0.7rem 0.2rem; }
 .insignia-img { height: 3.2rem; width: auto; max-width: 5.5rem; object-fit: contain; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
 .pin-img { width: 5.4rem; height: 3.2rem; object-fit: contain; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
 /* The case is laid out at true relative size: --in is one inch on the rack (a ribbon is 1 3/8 in wide).
    Pins and the JCSE badge are sized in the same inches, with the standard 1/4 in gaps. */
 /* Everything in the case is 1.5x its old size (--in was 3.35rem on phones, 4.07rem on desktop), capped so the widest item,
    the 3-across rack (4.125 in), always fits the frame's inner width (viewport minus page padding, wood and felt padding). */
-.case-display { --in: min(5.025rem, calc((100vw - 108px) / 4.125)); display: flex; justify-content: center; margin: 0.4rem 0 1.75rem; }
 /* A single centred column at every width (the sleeve column is gone), laid out for a 375 px phone first. */
-.case-column { display: flex; flex-direction: column; align-items: center; gap: calc(var(--in) / 3); max-width: 100%; }
 .worn { background: transparent; border: 0; padding: 0; cursor: pointer; display: block; line-height: 0; }
 .worn img { display: block; height: auto; max-width: 100%; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.6)); }
-.worn-pin img { width: calc(var(--in) * 2.75); }
-.worn-badge img { width: auto; height: calc(var(--in) * 2); }
 /* ET specialty mark alone (vector, oxidized silver like the pins). */
-.worn-et img { width: calc(var(--in) * 1.5); }
 /* Chief's fouled anchor with USN, as on the combination cap. */
-.worn-anchor img { width: auto; height: calc(var(--in) * 1.9); }
-.case-portrait { margin: 0; display: flex; flex-direction: column; align-items: center; gap: calc(var(--in) / 6); }
-.case-portrait:first-child { margin-bottom: calc(var(--in) / 6); }
-.case-portrait:last-child { margin-top: calc(var(--in) / 6); }
 /* Portrait frame, outside in: gold line, the white core of a 45-degree mat bevel, gold line, photo. */
-.case-photo { padding: 0; background: #111; border: 1px solid #c9a55a; box-shadow: 0 2px 6px rgba(0,0,0,0.6); cursor: pointer; line-height: 0; }
 /* The bevel is the image's 5px border: CSS borders meet in mitred 45-degree joints, so each corner shows a fine diagonal seam.
    The light falls from the top left, so the top and left faces (tilted away from it) are a touch greyer than the bottom and
    right. The 1px padding over a gold background is the inner gold line. The photo keeps its old size (width + 10px). */
-.case-photo img {
-  --bevel: calc(var(--in) * 0.077);
-  display: block; box-sizing: border-box; width: calc(var(--in) * 3 + 2 * var(--bevel) + 2px); max-width: 100%; height: auto;
-  padding: 1px; background: #c9a55a;
-  border-style: solid; border-width: var(--bevel);
-  border-color: #e4e2dc #f7f6f2 #ffffff #eceae5;
-}
 /* Service totals: a quiet centred caption under the chief's plaque, muted gold on the felt (not a second plaque). */
-.service-totals { margin: calc(var(--in) / -8) 0 0; font-family: var(--font-sans); font-size: max(0.78rem, calc(var(--in) * 0.21)); line-height: 1.45; letter-spacing: 0.02em; color: #cdb98a; text-align: center; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6); }
-.service-totals div { margin: 0; }
-.service-totals dt, .service-totals dd { display: inline; margin: 0; }
-.service-totals dt { color: #a8946a; }
 /* Small engraved brass plate under each portrait. */
-.plaque {
-  display: flex; flex-direction: column; align-items: center; gap: 0.05rem;
-  padding: 0.4em 1.05em 0.42em;
-  background: var(--brass-plate);
-  border: 1px solid #6e531c; border-radius: 2px;
-  /* A plate: soft bevel (dim top light, dark lower edge), no polished shine. */
-  box-shadow: inset 0 1px 0 rgba(255, 236, 180, 0.35), inset 0 -1px 0 rgba(70, 50, 14, 0.55), inset 0 0 0 1px rgba(90, 66, 20, 0.25), 0 2px 4px rgba(0, 0, 0, 0.65);
-  /* Black-filled engraving on brass, with only a faint 1px highlight under the letters. */
-  color: #000000; text-shadow: 0 1px 0 rgba(255, 236, 180, 0.28);
-  font-family: var(--font-card); font-weight: 600; font-size: max(0.72rem, calc(var(--in) * 0.2)); line-height: 1.25; letter-spacing: 0.06em; text-align: center;
-  max-width: 100%;
-}
-.plaque span:first-child { text-transform: uppercase; }
-.case-photo:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 3px; }
 .worn:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 3px; }
 /* Navy racks are worn with no spacing: ribbons touch edge to edge and rows touch top to bottom; the short top row is centred. */
 .rack { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 0; }
-.rack-row { display: flex; gap: 0; }
 .ribbon {
   position: relative;
   width: calc(var(--in, 4.07rem) * 1.375);
@@ -683,40 +532,24 @@ a { color: var(--color-navy); }
 /* The stripes run 2/1100 under the frame on every side so no dark seam shows at the opening edge. */
 .ribbon.framed { background: #ce9c29; }
 .ribbon.framed > img:first-child { width: calc(100% * 990 / 1100); height: calc(100% * 220 / 300); aspect-ratio: auto; }
-.ribbon > img.ribbon-frame { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; max-width: none; pointer-events: none; }
 /* Devices are sized against the ribbon width (100cqw = 1 3/8 in).
    Stars come in two sizes only: bronze and silver 3/16 in, gold at the full ribbon height (tip-circle diameter).
    The star SVGs are cropped to that circle, so width = star size. Stars sit 1/32 in apart,
    measured between the visible points (a star is 0.951 of its tip circle wide). */
 .devices { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: calc(100cqw / 44); pointer-events: none; }
 .devices img.glyph { width: auto; height: 1rem; max-width: 1.1rem; object-fit: contain; filter: drop-shadow(0 0 1px rgba(0,0,0,0.6)); }
-.devices img.glyph-star { --star: calc(100cqw * 3 / 22); width: var(--star); height: var(--star); max-width: none; margin-inline: calc(var(--star) * -0.0245); filter: drop-shadow(0.4px 0.6px 0.6px rgba(0,0,0,0.55)); }
 /* Gold stars: Sergio's display choice, not regulation. Doubling the 5/16 in star (5/8 in) would be taller than the
    3/8 in ribbon, so gold is capped at the ribbon height (6/22 of the width), centred. */
-.devices img.glyph-star.metal-gold { --star: calc(100cqw * 6 / 22); }
 /* Four gold stars at ribbon height are wider than the ribbon, so they overlap slightly: no gap and 0.072-star
    negative margins spread the visible stars over 96% of the ribbon; neighbouring points overlap by about a tenth
    of a star (the same layout as the printable case items). */
-.devices:has(> img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold) { gap: 0; }
-.devices:has(> img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold ~ img.glyph-star.metal-gold) > img.glyph-star.metal-gold { margin-inline: calc(var(--star) * -0.072); }
 /* E and oak leaf art is drawn at 800 ppi against a 1100 px (1 3/8 in) ribbon, with 16 px of padding for the
    drop shadow, so a size in art pixels is that fraction of the ribbon width. Two different E devices:
    Expert E (marksmanship) = 1/4 in tall slab serif (200 px, canvas 232); Battle E (Navy E Ribbon) = 3/16 in tall
    block letter (150 px, canvas 182). Oak leaf cluster = 13/32 in long, tilted about 25 degrees as worn (canvas 332 x 226).
    The padding is taken back with negative margins so the 1/32 in gap is measured between devices. */
-.devices img.glyph-letter { height: calc(100cqw * 232 / 1100); width: auto; max-width: none; margin-inline: calc(100cqw * -16 / 1100); filter: none; }
-.devices img.glyph-letter.glyph-e-battle { height: calc(100cqw * 182 / 1100); }
-.devices img.glyph-oak { width: calc(100cqw * 332 / 1100); height: auto; max-width: none; margin-inline: calc(100cqw * -16 / 1100); filter: none; }
-.metal-gold { color: #d4a62a; }
-.metal-bronze { color: #a0703a; }
-.metal-silver { color: #c9c9c9; }
-.rack-note { max-width: 40rem; margin: 0 auto 1rem; text-align: center; color: #d9d0c2; font-size: 0.95rem; }
 /* Command crests in a grid of equal cards: 4 across on desktop (16 cards = 4 even rows), 2 across on tablets and phones. */
-.patch-row { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 9.5rem)); gap: 0.6rem; padding: 0; margin: 0; justify-content: center; }
-.patch-row li { display: flex; }
 /* Crests line up across a row: content starts at the top of every card. */
-.patch-row .patch { justify-content: flex-start; }
-@media (min-width: 800px) { .patch-row { grid-template-columns: repeat(4, minmax(0, 9.5rem)); } }
 .patch {
   width: 100%;
   min-height: 5.4rem;
@@ -731,22 +564,16 @@ a { color: var(--color-navy); }
   gap: 0.2rem;
   padding: 0.4rem;
 }
-.patch-mark { font-family: var(--font-card); font-weight: 600; font-size: 0.95rem; line-height: 1.1; text-align: center; }
 .designator { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass); border: 1px solid currentColor; border-radius: 2px; padding: 0.05rem 0.3rem; line-height: 1.3; white-space: nowrap; }
 /* Every crest sits in the same square box, centred, on a transparent background, with one shared soft shadow. */
 /* The crest fills ~88% of the card width in a square box, no inner padding (aspect ratio kept by object-fit). */
-.patch-crest { width: 88%; height: auto; aspect-ratio: 1 / 1; padding: 0; box-sizing: border-box; object-fit: contain; object-position: center; filter: var(--crest-shadow); }
-.patch.has-crest .patch-mark { font-size: 0.8rem; }
 .patch span:last-child { font-family: var(--font-sans); }
-.patch-row:has(.has-crest) .patch { min-height: 7.9rem; }
 .patch span:last-child { font-size: 0.75rem; color: var(--color-quiet); }
 
-.ledger, .split { display: grid; gap: 1.5rem; margin-top: 1.75rem; }
+.split { display: grid; gap: 1.5rem; margin-top: 1.75rem; }
 @media (min-width: 800px) {
-  .ledger, .split { grid-template-columns: 1fr 1fr; }
-  .nameplate { grid-template-columns: 11rem 1fr; }
+  .split { grid-template-columns: 1fr 1fr; }
   .portrait { width: 11rem; }
-  .case-display { --in: min(6.105rem, calc((100vw - 108px) / 4.125)); }
 }
 .plain { margin: 0; padding-left: 1.1rem; }
 .plain li { margin: 0.25rem 0; }
@@ -764,11 +591,8 @@ a { color: var(--color-navy); }
   border: 1px solid var(--color-ivory-dim);
 }
 .row-btn em, .row-btn span, .row-btn.static span { font-style: normal; }
-.row-main { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.55rem; }
 .row-btn em { color: var(--color-quiet); font-size: 0.85rem; }
 .sheet { margin-top: 0.5rem; }
-.ruler { position: relative; height: 1.4rem; margin: 1rem 0 0.2rem; border-bottom: 1px solid var(--color-line); min-width: 52rem; }
-.ruler span { position: absolute; transform: translateX(-50%); font-size: 0.75rem; color: var(--color-quiet); }
 .chart-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
 .chart-stack { display: grid; width: max-content; min-width: 100%; justify-items: stretch; }
 .track { margin: 0.8rem 0 1.2rem; width: 100%; }
@@ -883,8 +707,8 @@ a { color: var(--color-navy); }
 .used-here button:hover, .used-here button:focus-visible { border-color: var(--color-brass); }
 .used-here img { width: 100%; height: 4.25rem; object-fit: contain; }
 .used-here span { font-size: 0.72rem; line-height: 1.15; text-align: center; }
-.stop-list, .place-list, .related, .credits, .instance-list, .gallery { list-style: none; margin: 0.8rem 0 0; padding: 0; }
-.stop-list button, .place-list button, .related button {
+.stop-list, .related, .credits, .instance-list, .gallery { list-style: none; margin: 0.8rem 0 0; padding: 0; }
+.stop-list button, .related button {
   width: 100%;
   min-height: 44px;
   text-align: left;
@@ -899,11 +723,6 @@ a { color: var(--color-navy); }
 .related button { align-items: center; }
 .related-marks, .card-marks { display: inline-flex; flex-wrap: wrap; gap: 0.3rem; align-items: center; }
 .related-marks img, .card-marks img { width: 2.5rem; height: 2.5rem; object-fit: contain; background: #fff; }
-.pip { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--color-brass); border: 2px solid var(--color-navy); display: inline-block; }
-.pip.placeholder { border-radius: 2px; background: transparent; }
-.pip.approximate { background: transparent; }
-.pip.base { border-radius: 1px; transform: rotate(45deg); background: #1f8a3c; border-color: #0d4a1f; }
-.pip.base.approximate { background: var(--color-ivory); }
 /* Long source URLs and notes wrap inside the column instead of widening the page. */
 .credits li, .instance-list li, .gallery li { min-width: 0; overflow-wrap: anywhere; }
 .credits li, .instance-list li, .gallery li { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.7rem 0; border-bottom: 1px solid var(--color-ivory-dim); }
@@ -1030,7 +849,6 @@ a { color: var(--color-navy); }
 .hero-ribbon,
 [data-theme="dark"] .detail-hero.hero-ribbon { background: #fff; padding: 1.6rem 1rem; }
 .detail-hero .ribbon.ribbon-hero { width: min(22rem, 90%); height: auto; min-height: 0; border: 0; background: transparent; }
-.portrait-btn { padding: 0; border: 0; background: none; cursor: zoom-in; display: block; }
 .lede { font-size: 1.12rem; }
 .facts { display: grid; gap: 0.6rem; margin: 0.8rem 0 0; }
 .facts div { display: grid; gap: 0.1rem; }
@@ -1038,7 +856,6 @@ a { color: var(--color-navy); }
 .facts dd { margin: 0; }
 .words { font-family: var(--font-display); font-size: 1.35rem; }
 @media (max-width: 640px) {
-  .nameplate { grid-template-columns: 7rem 1fr; align-items: start; }
   .portrait { width: 7rem; }
   .row-btn { grid-template-columns: 1fr; }
 }
@@ -1049,15 +866,8 @@ a { color: var(--color-navy); }
 
 /* ---------- Ribbons / Medals toggle and the full-dress view ---------- */
 .rack-toggle { display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; }
-.full-dress { --mi: var(--in); display: flex; flex-direction: column; align-items: center; gap: calc(var(--in) * 0.35); max-width: 100%; }
-.dress-group { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
-.dress-group figcaption { color: #c9c0b0; font-size: 0.85rem; letter-spacing: 0.04em; text-align: center; line-height: 1.3; min-height: 1.3em; }
 /* Worn view on wide screens: the right breast is on the viewer's left. The ribbon-only group is centred at the height of
    the holding bar of the lowest row of medals (art. 5313.1): its bottom sits level with that bar. */
-@media (min-width: 960px) {
-  .full-dress { flex-direction: row-reverse; align-items: flex-start; justify-content: center; gap: calc(var(--in) * 0.6); }
-  .dress-ribbons .ribbon-only { margin-top: calc(var(--mi) * (3.2 - 1.125)); }
-}
 .medal-block { position: relative; max-width: none; }
 .medal { position: absolute; width: calc(var(--mi) * 1.375); height: calc(var(--mi) * 3.25); padding: 0; margin: 0; border: 0; background: none; cursor: pointer; }
 .medal:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 2px; z-index: 100 !important; }
@@ -1074,9 +884,6 @@ a { color: var(--color-navy); }
 .medal-devices { position: absolute; top: 18%; height: 58%; }
 .medal-devices .devices { gap: calc(var(--mi) / 32) !important; align-items: flex-start; padding-top: calc(var(--mi) * 0.12); }
 .medal-devices.vertical .devices { flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 0; }
-.medal-devices .devices img.glyph-star { --star: calc(var(--mi) * 3 / 16); margin: 0 !important; }
-.medal-devices .devices img.glyph-star.metal-gold { --star: calc(var(--mi) * 5 / 16); }
-.medal-devices .devices img.glyph-oak { width: calc(var(--mi) * 0.58); margin-inline: calc(var(--mi) * -0.03); }
 /* A bronze bar clasp (the ISAF clasp on the NATO Medal), worn below the other attachments (art. 5318.1). */
 .medal-clasp { position: absolute; left: 6%; right: 6%; bottom: 22%; height: calc(var(--mi) * 0.19); display: grid; place-items: center;
   background: linear-gradient(180deg, #8c6a3a, #6b4f2a 55%, #52391c); border: 1px solid #3b2912; border-radius: 1px;
@@ -1106,14 +913,6 @@ a { color: var(--color-navy); }
 button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(--color-brass); }
 
 /* Pay grades worn before chief (E-3 group rate mark, then ET3/ET2/ET1 rating badges), rating badges on one scale (100 SVG units = 0.24 in) so the row fits the 4-1/8 in column. */
-.grade-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: calc(var(--in) * 0.12); max-width: 100%; }
-.worn-grade img { width: auto; max-width: none; }
-.worn-grade--sn img { height: calc(var(--in) * 0.9); }
-.worn-grade--et3 img { height: calc(var(--in) * 1.46); }
-.worn-grade--et2 img { height: calc(var(--in) * 1.63); }
-.worn-grade--et1 img { height: calc(var(--in) * 1.8); }
-.worn-grade--etc img { height: calc(var(--in) * 2.05); }
-.worn-grade .mark-word { color: var(--color-ivory, #f4efe4); font-weight: 700; font-size: 0.85rem; }
 
 /* Map filter chips: one per pin group (no All); wrap on phones. Default null = show every category. */
 .map-filter { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 0.6rem; }
@@ -1130,8 +929,6 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .map-num.now, .map-dot.now { box-shadow: 0 0 0 3px var(--color-ivory), 0 0 0 5px var(--color-navy); }
 .stop-list li.later { opacity: 0.38; }
 .stop-list li.now button { border-color: var(--color-navy); box-shadow: inset 3px 0 0 var(--color-navy); background: #fff8e6; }
-.cheat-sheet-link { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.8rem; }
-.cheat-sheet-link .nav-btn { display: inline-flex; align-items: center; text-decoration: none; }
 
 /* Uniform progression (Timeline). Ready slides from incoming/uniforms/. */
 .uprog { margin: 0.4rem 0 1.8rem; }
@@ -1328,7 +1125,6 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .contact-whatsapp { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0.3rem 1rem; text-decoration: none; }
 .contact-thanks { margin: 0 0 0.7rem; font-size: 1rem; }
 .guest-card { padding: 0; overflow: hidden; }
-.guest-card .guest-frame { margin: 0; max-width: none; border: 0; height: min(38rem, calc(100dvh - 14rem)); min-height: 26rem; }
 .guest-alt { margin: 0; font-size: 0.85rem; }
 .guest-alt a { color: var(--color-navy); }
 [data-theme="dark"] .guest-alt a { color: var(--color-goldenrod, #daa520); }

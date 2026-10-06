@@ -14,7 +14,7 @@
     "explanation": "Enlisted boot camp for the Navy, at Naval Station Great Lakes, Illinois. Started 30 June 1997 and ended nine weeks later. The JST school window is 1 July 1997 to 5 September 1997.",
     "civilian": "This is where a new sailor learns to live in the Navy before going on to a technical school.",
     "onCase": false,
-    "image": "/incoming/rtc.png"
+    "image": "/incoming/rtc.webp"
   },
   {
     "id": "tortuga",
@@ -31,7 +31,7 @@
     "explanation": "A Whidbey Island-class dock landing ship. It carries Marines with their vehicles and landing craft, and launches the craft from a well deck that floods. Assault Craft Unit 4 (ACU 4) was the exercise partner on this TAD. Late 1997, after RTC, into early 1998.",
     "civilian": "A ship that carries Marines and their boats and vehicles to a beach. ACU 4 was the exercise partner that ran the landing craft.",
     "onCase": false,
-    "image": "/incoming/lsd-46.png"
+    "image": "/incoming/lsd-46.webp"
   },
   {
     "id": "essex",
@@ -47,7 +47,7 @@
     "explanation": "A Wasp-class amphibious assault ship. Stop recorded at San Francisco, CA. Homeported at Naval Station San Diego (32nd Street) in that period. Dates for this stop have not been entered.",
     "civilian": "A big amphibious assault ship with a flight deck and a well deck for landing craft.",
     "onCase": false,
-    "image": "/incoming/lhd-2.png",
+    "image": "/incoming/lhd-2.webp",
     "open": "USS Essex (LHD-2): San Francisco stop; dates not entered."
   },
   {
@@ -65,7 +65,7 @@
     "explanation": "The Navy's training center at Great Lakes, Illinois. Started after the USS Tortuga (LSD-46) TAD, in the first quarter of 1998, and ran through December 1998. The emblem shown is the seal of Naval Station Great Lakes, the installation's current name.",
     "civilian": "The Navy's big training base north of Chicago.",
     "onCase": false,
-    "image": "/incoming/ntc.png"
+    "image": "/incoming/ntc.webp"
   },
   {
     "id": "ncts",
@@ -82,7 +82,7 @@
     "placeId": "fisc-san-diego",
     "explanation": "A shore command that ran Navy computer and telecommunications services in San Diego. The shadowbox lists the NEC for this tour as 1589, calibration.",
     "civilian": "A land-based communications station, not a ship.",
-    "image": "/incoming/ncts.png"
+    "image": "/incoming/ncts.webp"
   },
   {
     "id": "frank-cable",
@@ -99,7 +99,7 @@
     "placeId": "guam",
     "explanation": "A submarine tender: a ship that repairs, supplies, and houses the crews of submarines. In these years her home port was Guam. The NEC on the shadowbox for this tour is 1589. The three Navy E awards dated 2001, 2002, and 2003 fall in this tour.",
     "civilian": "A repair ship for submarines, not a submarine itself.",
-    "image": "/incoming/as-40.png"
+    "image": "/incoming/as-40.webp"
   },
   {
     "id": "eodmu5",
@@ -115,7 +115,7 @@
     "placeId": "guam",
     "explanation": "Explosive Ordnance Disposal Mobile Unit Five, a Navy bomb-disposal unit then based in Guam. Assignment to the unit is not the same as being a bomb-disposal technician. The shadowbox lists the NEC as 9613, a communications specialty. The Royal Thai Navy hosted Cobra Gold in 2004 and 2005. An Australian CDT was the partner on Talisman Saber in 2005 and 2007.",
     "civilian": "The command's job was disposing of explosives. His recorded specialty there was communications.",
-    "image": "/incoming/eodmu5.png"
+    "image": "/incoming/eodmu5.webp"
   },
   {
     "id": "troy",
@@ -133,20 +133,20 @@
     "civilian": "A temporary headquarters in Iraq, drawn from more than one country and more than one branch.",
     "months": 6,
     "onCase": false,
-    "image": "/incoming/troy.png",
+    "image": "/incoming/troy.webp",
     "extraImages": [
       {
-        "src": "/incoming/eodmu11.png",
+        "src": "/incoming/eodmu11.webp",
         "alt": "EOD Mobile Unit 11 crest",
         "caption": "Partner · EODMU 11"
       },
       {
-        "src": "/incoming/52nd-eod.png",
+        "src": "/incoming/52nd-eod.webp",
         "alt": "52nd Ordnance Group crest",
         "caption": "Sponsor · 52nd EOD"
       },
       {
-        "src": "/incoming/16th-en.png",
+        "src": "/incoming/16th-en.webp",
         "alt": "16th Engineer Brigade crest",
         "caption": "Sponsor · 16th EN"
       }
@@ -167,7 +167,7 @@
     "explanation": "A U.S. Army explosive ordnance disposal group. Sponsor of the CJTF Troy deployment. Linked up in OIF I, January to June 2006, at Mosul.",
     "civilian": "An Army bomb-disposal headquarters.",
     "onCase": false,
-    "image": "/incoming/52nd-eod.png"
+    "image": "/incoming/52nd-eod.webp"
   },
   {
     "id": "16th-engineer",
@@ -184,7 +184,7 @@
     "explanation": "A U.S. Army engineer brigade. Sponsor of the CJTF Troy deployment. Linked up in OIF I at FOB Sykes.",
     "civilian": "An Army engineer headquarters.",
     "onCase": false,
-    "image": "/incoming/16th-en.png"
+    "image": "/incoming/16th-en.webp"
   },
   {
     "id": "3rd-sfg",
@@ -201,7 +201,7 @@
     "explanation": "A U.S. Army Special Forces group. Customer on OEF I, at FOB Delaram, while the in-theater command was CJSOTF-A.",
     "civilian": "An Army Special Forces unit.",
     "onCase": false,
-    "image": "/incoming/3rd-sfg.png"
+    "image": "/incoming/3rd-sfg.webp"
   },
   {
     "id": "75th-ranger",
@@ -234,7 +234,7 @@
     "placeId": "nas-jax",
     "explanation": "The Navy's Southeast Regional Calibration Center, at Naval Air Station Jacksonville. A calibration center checks the test equipment other commands use. The NEC on this tour is 1589, which matches that work.",
     "civilian": "A laboratory that keeps measuring tools honest.",
-    "image": "/incoming/sercc.png"
+    "image": "/incoming/sercc.webp"
   },
   {
     "id": "ia-army",
@@ -251,20 +251,20 @@
     "explanation": "Individual-augmentee tour that started in October 2008, after SERCC. Five months at Fort Bliss with HHB 3-3 ADA, then the rest in country at Joint Base Balad. Task Force Iron Shield was the in-theater command. The 11th Air Defense Artillery Brigade was the over-arching parent (admin). HHB 3-3 ADA was the partner. The 332nd Air Expeditionary Wing at Joint Base Balad was the customer. The campaign phase named for this tour is Iraq Sovereignty.",
     "civilian": "He was still a sailor, working inside an Army deployment.",
     "onCase": false,
-    "image": "/incoming/cram.png",
+    "image": "/incoming/cram.webp",
     "extraImages": [
       {
-        "src": "/incoming/11th-ada.png",
+        "src": "/incoming/11th-ada.webp",
         "alt": "11th Air Defense Artillery Brigade SSI",
         "caption": "Admin · 11th ADA"
       },
       {
-        "src": "/incoming/3-3ada.png",
+        "src": "/incoming/3-3ada.webp",
         "alt": "3-3 ADA distinctive unit insignia",
         "caption": "Partner · 3-3 ADA"
       },
       {
-        "src": "/incoming/332nd-aew.png",
+        "src": "/incoming/332nd-aew.webp",
         "alt": "332nd Air Expeditionary Wing emblem",
         "caption": "Customer · 332nd AEW"
       }
@@ -285,7 +285,7 @@
     "explanation": "U.S. Army air-defense brigade at Fort Bliss. Over-arching parent (admin) for the OIF II individual-augmentee tour. HHB 3-3 ADA, of 3rd Battalion, 3rd Air Defense Artillery Regiment, fell under this brigade.",
     "civilian": "The Army brigade that owned the C-RAM deployment on paper.",
     "onCase": false,
-    "image": "/incoming/11th-ada.png"
+    "image": "/incoming/11th-ada.webp"
   },
   {
     "id": "3-3-ada",
@@ -302,7 +302,7 @@
     "explanation": "Headquarters and Headquarters Battery, 3rd Battalion, 3rd Air Defense Artillery Regiment. Partner on the OIF II individual-augmentee tour: five months of training at Fort Bliss from October 2008, then the rest of the tour in country at Joint Base Balad under Task Force Iron Shield. Fell under 11th ADA.",
     "civilian": "The Army air-defense battery that trained with him at Fort Bliss and partnered on the C-RAM tour.",
     "onCase": false,
-    "image": "/incoming/3-3ada.png"
+    "image": "/incoming/3-3ada.webp"
   },
   {
     "id": "332nd-aew",
@@ -319,7 +319,7 @@
     "explanation": "U.S. Air Force wing at Joint Base Balad. Customer (endpoint) of the OIF II C-RAM tour.",
     "civilian": "The Air Force wing the C-RAM mission protected.",
     "onCase": false,
-    "image": "/incoming/332nd-aew.png"
+    "image": "/incoming/332nd-aew.webp"
   },
   {
     "id": "jcse",
@@ -339,7 +339,7 @@
     "image": "/incoming/jcse-device.svg",
     "extraImages": [
       {
-        "src": "/incoming/jcse-3rd-sqd.png",
+        "src": "/incoming/jcse-3rd-sqd.webp",
         "alt": "JCSE 3rd Squadron SSI",
         "caption": "3rd Squadron"
       }
@@ -361,10 +361,10 @@
     "civilian": "The headquarters he supported. Being the communicator for that headquarters is not the same job as the operators it commanded.",
     "months": 7,
     "onCase": false,
-    "image": "/incoming/cjsotf-a.png",
+    "image": "/incoming/cjsotf-a.webp",
     "extraImages": [
       {
-        "src": "/incoming/3rd-sfg.png",
+        "src": "/incoming/3rd-sfg.webp",
         "alt": "3rd Special Forces Group beret flash",
         "caption": "Customer · 3rd SFG"
       }
@@ -386,10 +386,10 @@
     "civilian": "The later Afghanistan headquarters he supported.",
     "months": 7,
     "onCase": false,
-    "image": "/incoming/sojtf-a.png",
+    "image": "/incoming/sojtf-a.webp",
     "extraImages": [
       {
-        "src": "/incoming/290jcss.png",
+        "src": "/incoming/290jcss.webp",
         "alt": "290th Joint Communications Support Squadron patch",
         "caption": "Partner · 290th JCSS"
       },
@@ -415,7 +415,7 @@
     "explanation": "Air National Guard communications squadron. Partner (mission enabler) on OEF II only, under SOJTF-A.",
     "civilian": "An Air Guard communications unit that worked the same mission.",
     "onCase": false,
-    "image": "/incoming/290jcss.png"
+    "image": "/incoming/290jcss.webp"
   },
   {
     "id": "navhosp",
@@ -431,7 +431,7 @@
     "placeId": "nh-jax",
     "explanation": "The Navy hospital at Jacksonville, Florida, and the last active-duty command. JCSE ended in 2014. He reported in 2015. Last duty assignment was Naval Hospital Jacksonville, with separation processing at the personnel support detachment on Naval Air Station Jacksonville.",
     "civilian": "A hospital, not a ship. An electronics technician there maintains medical and other electronic equipment. The day-to-day job is not further described.",
-    "image": "/incoming/nhjax.png"
+    "image": "/incoming/nhjax.webp"
   },
   {
     "id": "eodmu11",
@@ -447,7 +447,7 @@
     "explanation": "Partner unit of the CJTF Troy deployment in OIF I, 2006, during the EODMU 5 tour.",
     "civilian": "",
     "onCase": false,
-    "image": "/incoming/eodmu11.png",
+    "image": "/incoming/eodmu11.webp",
     "open": "Minimal record built from command-plates.json and units.json (CJTF Troy). Dates and place not entered."
   },
   {
@@ -464,7 +464,7 @@
     "explanation": "Exercise partner on the USS Tortuga (LSD-46) TAD, late 1997 into early 1998. It ran the landing craft launched from the ship's well deck.",
     "civilian": "",
     "onCase": false,
-    "image": "/incoming/acu-4.png",
+    "image": "/incoming/acu-4.webp",
     "open": "Minimal record built from units.json (USS Tortuga) and supplement.json (PAR-04: ACU 4). Dates and place not entered on the unit."
   },
   {
@@ -482,7 +482,7 @@
     "explanation": "Host and partner during Exercise Cobra Gold, 2004 and 2005, at U-Tapao Air Base, Rayong, THA, during the EODMU 5 tour.",
     "civilian": "",
     "onCase": false,
-    "image": "/incoming/rtn.png",
+    "image": "/incoming/rtn.webp",
     "open": "Minimal record built from command-plates.json. Dates and place not entered on the unit."
   },
   {
@@ -500,7 +500,7 @@
     "explanation": "Host and partner during Exercise Talisman Saber, 2005 and 2007, at Camp Growl, Shoalwater Bay, AUS, during the EODMU 5 tour.",
     "civilian": "",
     "onCase": false,
-    "image": "/incoming/auscdt-1.png",
+    "image": "/incoming/auscdt-1.webp",
     "open": "Minimal record built from command-plates.json. Full name, dates and place not entered on the unit."
   },
   {
@@ -536,7 +536,7 @@
     "explanation": "Foreign partner on the JCSE OEF I deployment at FOB Delaram (CJSOTF-A, 2010–2011).",
     "civilian": "",
     "onCase": false,
-    "image": "/incoming/geo-3rd-inf-bde.png",
+    "image": "/incoming/geo-3rd-inf-bde.webp",
     "open": "Crest: no 32nd Battalion insignia was found in a public source; the card shows the 3rd Infantry Brigade shoulder badge (Wikimedia Commons, public domain). Dates blank on the card; no map place. Not on the Map."
   },
   {
@@ -554,7 +554,7 @@
     "explanation": "Partner on the JCSE OEF I deployment at FOB Delaram (CJSOTF-A, 2010–2011).",
     "civilian": "",
     "onCase": false,
-    "image": "/incoming/2nd-marines.png",
+    "image": "/incoming/2nd-marines.webp",
     "open": "Crest: 2nd Marine Regiment insignia (Wikimedia Commons, public domain, USMC). Dates blank on the card; no map place. Not on the Map."
   },
   {

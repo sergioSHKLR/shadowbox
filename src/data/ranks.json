@@ -21,7 +21,7 @@
     "grade": "E-4",
     "abbreviation": "ET3",
     "image": "/incoming/patch-e4-red.svg",
-    "collar": "/incoming/collar-po3.jpg",
+    "collar": "/incoming/collar-po3.webp",
     "name": "Electronics Technician Third Class",
     "date": "1998-12",
     "explanation": "First petty officer grade. The rating badge is an eagle over the Electronics Technician mark over one chevron."
@@ -31,7 +31,7 @@
     "grade": "E-5",
     "abbreviation": "ET2",
     "image": "/incoming/patch-e5-red.svg",
-    "collar": "/incoming/collar-po2.jpg",
+    "collar": "/incoming/collar-po2.webp",
     "name": "Electronics Technician Second Class",
     "date": "1999-05",
     "explanation": "Second class petty officer. The rating badge has two chevrons under the eagle and the Electronics Technician mark."
@@ -41,7 +41,7 @@
     "grade": "E-6",
     "abbreviation": "ET1",
     "image": "/incoming/patch-e6-red.svg",
-    "collar": "/incoming/collar-po1.jpg",
+    "collar": "/incoming/collar-po1.webp",
     "name": "Electronics Technician First Class",
     "date": "2003-06",
     "explanation": "First class petty officer. The rating badge has three chevrons under the eagle and the Electronics Technician mark. Chevrons and service stripes go gold in 2009; this promotion badge is red."
@@ -51,7 +51,7 @@
     "grade": "E-7",
     "abbreviation": "ETC",
     "image": "/incoming/patch-e7-gold.svg",
-    "collar": "/incoming/collar-cpo.jpg",
+    "collar": "/incoming/collar-cpo.webp",
     "name": "Chief Electronics Technician",
     "date": "2014-09-16",
     "explanation": "Chief petty officer. Date of rank 16 September 2014, last year at JCSE. The rating badge gains a rocker over three chevrons, and the uniform changes to khakis with the fouled-anchor collar device. Held until retirement."
