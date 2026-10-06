@@ -783,12 +783,12 @@
     "caption": "Off duty · AS-40",
     "cutout": false,
     "note": "C-5 Galaxy. Off duty during the AS-40 tour.",
-    "image": "/equipment/c-5.webp",
+    "image": "/equipment/c-5-own.webp",
     "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:C-5_Galaxy.jpg",
-      "file": "https://commons.wikimedia.org/wiki/File:C-5_Galaxy.jpg",
-      "creator": "U.S. Air Force",
-      "license": "Public domain (U.S. federal government work)"
+      "sourceUrl": "",
+      "file": "",
+      "creator": "Sergio Schickler",
+      "license": "Supplied photograph"
     }
   },
   {
@@ -798,12 +798,12 @@
     "name": "C-130",
     "cutout": false,
     "note": "C-130 Hercules.",
-    "image": "/equipment/c-130.webp",
+    "image": "/equipment/c-130-own.webp",
     "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:C-130_Hercules.jpg",
-      "file": "https://commons.wikimedia.org/wiki/File:C-130_Hercules.jpg",
-      "creator": "U.S. Air Force",
-      "license": "Public domain (U.S. federal government work)"
+      "sourceUrl": "",
+      "file": "",
+      "creator": "Sergio Schickler",
+      "license": "Supplied photograph"
     }
   },
   {
@@ -814,12 +814,12 @@
     "caption": "Off duty · AS-40",
     "cutout": false,
     "note": "Navy C-9B Skytrain II, the C-9 the fleet flew. Off duty during the AS-40 tour.",
-    "image": "/equipment/c-9.webp",
+    "image": "/equipment/c-9-own.webp",
     "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:United_States_Navy_C-9B_Skytrain_II_(2677753909).jpg",
-      "file": "https://commons.wikimedia.org/wiki/File:United_States_Navy_C-9B_Skytrain_II_(2677753909).jpg",
-      "creator": "Flickr photographer, via Wikimedia Commons",
-      "license": "CC BY-SA 2.0"
+      "sourceUrl": "",
+      "file": "",
+      "creator": "Sergio Schickler",
+      "license": "Supplied photograph"
     }
   },
   {
@@ -859,12 +859,12 @@
     "name": "C-17",
     "cutout": false,
     "note": "C-17 Globemaster III.",
-    "image": "/equipment/c-17.webp",
+    "image": "/equipment/c-17-own.webp",
     "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:C-17_Globemaster_III.jpg",
-      "file": "https://commons.wikimedia.org/wiki/File:C-17_Globemaster_III.jpg",
-      "creator": "U.S. Air Force",
-      "license": "Public domain (U.S. federal government work)"
+      "sourceUrl": "",
+      "file": "",
+      "creator": "Sergio Schickler",
+      "license": "Supplied photograph"
     }
   },
   {
@@ -903,13 +903,13 @@
     "order": 52,
     "name": "Nissan Sentra, grey, 2007",
     "cutout": false,
-    "note": "POV-03. A 2007, grey. Guam. The card is a stock photograph of the model. His Sentra is in the photographs.",
-    "image": "/equipment/nissan-sentra-silver.webp",
+    "note": "POV-03. A 2007, grey. Guam. The card photo was supplied by Sergio. His Sentra is also in the photographs.",
+    "image": "/equipment/nissan-sentra-silver-own.webp",
     "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ANissan_Sentra_VII_Taiwanese_facelift_001.jpg",
-      "file": "https://commons.wikimedia.org/wiki/File%3ANissan_Sentra_VII_Taiwanese_facelift_001.jpg",
-      "creator": "Wikimedia Commons",
-      "license": "CC0"
+      "sourceUrl": "",
+      "file": "",
+      "creator": "Sergio Schickler",
+      "license": "Supplied photograph"
     }
   },
   {
@@ -1025,13 +1025,13 @@
     "order": 62,
     "name": "Sportster 1200",
     "cutout": false,
-    "note": "Sportster 1200. The card is a stock photograph of another Sportster. His bike is in the photographs.",
-    "image": "/equipment/sportster-1200.webp",
+    "note": "Sportster 1200. The card photo was supplied by Sergio. His bike is also in the photographs.",
+    "image": "/equipment/sportster-1200-own.webp",
     "credit": {
-      "sourceUrl": "https://www.vikingbags.com/blogs/news/harleydavidson-sportster-1200-custom-detailed-specs-background-performance-and-more",
-      "file": "https://www.vikingbags.com/blogs/news/harleydavidson-sportster-1200-custom-detailed-specs-background-performance-and-more",
-      "creator": "Motorcyclecruiser, via Viking Bags",
-      "license": "See source page"
+      "sourceUrl": "",
+      "file": "",
+      "creator": "Sergio Schickler",
+      "license": "Supplied photograph"
     }
   },
   {

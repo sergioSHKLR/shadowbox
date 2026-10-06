@@ -203,7 +203,7 @@
     "file": null,
     "sourceUrl": "https://www.openstreetmap.org/copyright",
     "creator": "OpenStreetMap contributors",
-    "license": "Open Database License (tiles \u00a9 OpenStreetMap contributors).",
+    "license": "Open Database License (tiles © OpenStreetMap contributors).",
     "notes": "Tiles are requested when a map is opened. They are not packaged in the project."
   },
   {
@@ -244,7 +244,7 @@
   },
   {
     "id": "equipment-hmmwv-up-armored",
-    "title": "Up-armored HMMWV with turtleback (M1114 shown, with the armored gunner\u2019s turret)",
+    "title": "Up-armored HMMWV with turtleback (M1114 shown, with the armored gunner’s turret)",
     "file": "/equipment/hmmwv-up-armored.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Marine_vehicles_roll_out_for_Marine_Week_Cleveland_120611-M-QZ986-385.jpg",
     "creator": "Sgt. Shannon Yount, U.S. Marine Corps",
@@ -406,7 +406,7 @@
   },
   {
     "id": "equipment-pasgt-helmet-desert",
-    "title": "PASGT helmet, desert cover (6-color desert (\u201cchocolate chip\u201d) cover marked NAVY)",
+    "title": "PASGT helmet, desert cover (6-color desert (“chocolate chip”) cover marked NAVY)",
     "file": "/equipment/pasgt-helmet-desert-c.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:PASGT_KPot.jpg",
     "creator": "Pelz Der Untoten (Wikimedia Commons)",
@@ -720,13 +720,40 @@
     "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
   },
   {
+    "id": "equipment-c-5",
+    "title": "C-5",
+    "file": "/equipment/c-5-own.webp",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Supplied photograph",
+    "notes": "Supplied by Sergio (Oct 2026) and used as the card. Replaces the earlier stock photograph."
+  },
+  {
+    "id": "equipment-c-130",
+    "title": "C-130",
+    "file": "/equipment/c-130-own.webp",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Supplied photograph",
+    "notes": "Supplied by Sergio (Oct 2026) and used as the card. Replaces the earlier stock photograph."
+  },
+  {
+    "id": "equipment-c-9",
+    "title": "C-9",
+    "file": "/equipment/c-9-own.webp",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Supplied photograph",
+    "notes": "Supplied by Sergio (Oct 2026) and used as the card. Replaces the earlier stock photograph."
+  },
+  {
     "id": "equipment-c-17",
     "title": "C-17",
-    "file": "/equipment/c-17.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:C-17_Globemaster_III.jpg",
-    "creator": "U.S. Air Force",
-    "license": "Public domain (U.S. federal government work)",
-    "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked."
+    "file": "/equipment/c-17-own.webp",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Supplied photograph",
+    "notes": "Supplied by Sergio (Oct 2026) and used as the card. Replaces the earlier stock photograph."
   },
   {
     "id": "equipment-c-17-usage",
@@ -740,11 +767,11 @@
   {
     "id": "equipment-nissan-sentra-silver",
     "title": "Nissan Sentra, grey, 2007",
-    "file": "/equipment/nissan-sentra-silver.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ANissan_Sentra_VII_Taiwanese_facelift_001.jpg",
-    "creator": "Wikimedia Commons",
-    "license": "CC0",
-    "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked."
+    "file": "/equipment/nissan-sentra-silver-own.webp",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Supplied photograph",
+    "notes": "Supplied by Sergio (Oct 2026) and used as the card. Replaces the earlier stock photograph."
   },
   {
     "id": "equipment-nissan-sentra-silver-usage",
@@ -794,11 +821,11 @@
   {
     "id": "equipment-sportster-1200",
     "title": "Sportster 1200",
-    "file": "/equipment/sportster-1200.webp",
-    "sourceUrl": "https://www.vikingbags.com/blogs/news/harleydavidson-sportster-1200-custom-detailed-specs-background-performance-and-more",
-    "creator": "Motorcyclecruiser, via Viking Bags",
-    "license": "See source page",
-    "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked."
+    "file": "/equipment/sportster-1200-own.webp",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Supplied photograph",
+    "notes": "Supplied by Sergio (Oct 2026) and used as the card. Replaces the earlier stock photograph."
   },
   {
     "id": "equipment-sportster-1200-usage",
@@ -874,7 +901,7 @@
   },
   {
     "id": "crest-sojtf-a",
-    "title": "Special Operations Joint Task Force \u2014 Afghanistan seal",
+    "title": "Special Operations Joint Task Force — Afghanistan seal",
     "file": "/incoming/sojtf-a.webp",
     "sourceUrl": null,
     "creator": "Graphic supplied for this shadowbox",
@@ -1054,7 +1081,7 @@
   },
   {
     "id": "equipment-hmmwv-up-armored-usage",
-    "title": "Up-armored HMMWV with turtleback (M1114 shown, with the armored gunner\u2019s turret)",
+    "title": "Up-armored HMMWV with turtleback (M1114 shown, with the armored gunner’s turret)",
     "file": "/equipment/hmmwv-up-armored-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
@@ -1176,7 +1203,7 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:3rd_Infantry_Brigade1.jpg",
     "creator": "TheMightyGeneral (en.wikipedia), own work",
     "license": "Public domain (as tagged on Wikimedia Commons)",
-    "notes": "White background made transparent and resized. The Commons description reads \"Greek 3rd Infantry brigade shoulder badge\", but the badge text is Georgian (\u10e5\u10d5\u10d4\u10d8\u10d7\u10d8 \u10d1\u10e0\u10d8\u10d2\u10d0\u10d3\u10d0, \"infantry brigade\") and the file illustrates the en.wikipedia article 3rd Infantry Brigade (Georgia). No 32nd Battalion insignia was found in a public source."
+    "notes": "White background made transparent and resized. The Commons description reads \"Greek 3rd Infantry brigade shoulder badge\", but the badge text is Georgian (ქვეითი ბრიგადა, \"infantry brigade\") and the file illustrates the en.wikipedia article 3rd Infantry Brigade (Georgia). No 32nd Battalion insignia was found in a public source."
   },
   {
     "id": "crest-2nd-marine-regiment",
