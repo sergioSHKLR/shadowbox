@@ -31,7 +31,13 @@ export function Home({ bio }: { onOpen?: (k: Kind, id: string) => void; bio: str
             {paragraphs.map((paragraph) => (
               <BioBlock key={paragraph.slice(0, 24)} text={paragraph} />
             ))}
-            <img className="bio-pao" src={publicUrl("/incoming/pao.png")} alt="Approved for release. Unclassified. Unit PAO." />
+            {/* Three stamps (Oct 2026): Security Manager (maroon) and PAO (navy) round stamps, plus a separate black UNCLAS
+                block. The PNGs are ink masks; CSS colours them per theme. */}
+            <div className="bio-stamps">
+              <span className="bio-stamp bio-stamp-round bio-stamp-security" role="img" aria-label="Security Manager, redaction: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-security.png")}")` }} />
+              <span className="bio-stamp bio-stamp-round bio-stamp-pao" role="img" aria-label="Public Affairs Officer, wide release: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-pao.png")}")` }} />
+              <span className="bio-stamp bio-stamp-rect bio-stamp-unclas" role="img" aria-label="Unclassified (UNCLAS)" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-unclas.png")}")` }} />
+            </div>
           </div>
           </div>
         </div>

@@ -601,3 +601,36 @@
   .logbook-rank-path > li { flex-wrap: wrap; }
 }
 .logbook-deploy-gear { margin-top: 0.35rem; }
+
+/* Prev / next command chevrons: no fill, just the chevron (Sergio, Oct 2026). Hit area and focus ring stay. */
+.logbook-step-btn,
+.logbook-step-btn:not(:disabled),
+[data-theme="dark"] .logbook-step-btn,
+[data-theme="dark"] .logbook-step-btn:not(:disabled) { background: transparent; border-color: transparent; box-shadow: none; color: var(--color-navy); }
+[data-theme="dark"] .logbook-step-btn,
+[data-theme="dark"] .logbook-step-btn:not(:disabled) { color: var(--color-ivory); }
+.logbook-step-btn:not(:disabled):hover,
+[data-theme="dark"] .logbook-step-btn:not(:disabled):hover { background: color-mix(in srgb, currentColor 10%, transparent); }
+.logbook-step-btn:not(:disabled):active,
+[data-theme="dark"] .logbook-step-btn:not(:disabled):active { background: color-mix(in srgb, currentColor 18%, transparent); border-color: transparent; }
+.logbook-step-btn:not(:disabled):active { color: var(--color-navy); }
+[data-theme="dark"] .logbook-step-btn:not(:disabled):active { color: var(--color-ivory); }
+.logbook-step-btn:disabled,
+[data-theme="dark"] .logbook-step-btn:disabled { background: transparent; border-color: transparent; color: currentColor; opacity: 0.3; }
+.logbook-step-btn:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 2px; }
+.logbook-step-btn svg { width: 1.6rem; height: 1.6rem; stroke-width: 2.4; }
+
+/* Phone (Oct 2026): the card and the lower tab panel never shrink below a fixed floor. They split the viewport
+   evenly when there is room; on a short screen the page scrolls instead of squishing the card (RANK stays visible
+   under About), and an empty tab ("No other units recorded") keeps the same panel height, so nothing jumps between commands. */
+@media (max-width: 900px) {
+  .logbook.is-narrow { --lb-main-min: 20rem; --lb-tabs-min: 17rem; min-height: calc(var(--lb-main-min) + var(--lb-tabs-min) + 0.55rem); overflow: visible; }
+  .logbook.is-narrow .logbook-phone { flex: 1 0 auto; }
+  .logbook-phone .logbook-main { flex: 1 0 0; min-height: var(--lb-main-min); }
+  .logbook-phone-tabs { flex: 1 0 0; min-height: var(--lb-tabs-min); }
+  /* JCSE (Oct 2026): 20px moves from the lower tab panel to the card so the second ribbon row clears the tab bar.
+     Basis 40px on the card only: card = half + 20px, panel = half - 20px. The floors move by the same 20px. */
+  .logbook.is-narrow { --lb-main-min: calc(20rem + 20px); --lb-tabs-min: calc(17rem - 20px); }
+  .logbook-phone .logbook-main { flex-basis: 40px; }
+  .logbook-phone-tabs > .lb-tabpanel { flex: 1 1 0; min-height: 0; }
+}

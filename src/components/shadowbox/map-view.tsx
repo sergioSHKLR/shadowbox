@@ -265,6 +265,7 @@ export function MapView({
   revealedCount = null,
   hidden = NO_HIDDEN,
   layoutEpoch = "inline",
+  fitMaxZoom,
 }: {
   stops: Stop[];
   extra?: Place[];
@@ -278,6 +279,8 @@ export function MapView({
   hidden?: number[];
   /** Bumps when the map chrome resizes (e.g. fullscreen) so Leaflet reflows and play continues. */
   layoutEpoch?: string | number;
+  /** Cap for the fit-to-pins zoom (small maps with one pin otherwise zoom to street level). */
+  fitMaxZoom?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const selectRef = useRef(onSelect);
@@ -450,7 +453,7 @@ export function MapView({
           const bounds = cluster.getBounds();
           if (!bounds.isValid()) return;
           if (tall) map.fitBounds(bounds, { padding: [PIN_PX * 1.6, PIN_PX * 1.6] });
-          else map.fitBounds(bounds.pad(0.35));
+          else map.fitBounds(bounds.pad(0.35), fitMaxZoom != null ? { maxZoom: fitMaxZoom } : undefined);
         };
 
         timer = window.setTimeout(() => {
@@ -461,6 +464,18 @@ export function MapView({
             spread();
           }
           safeApply(runtime.current, playRef.current);
+          // Markers added before the first real view (e.g. a map built inside a just-shown tab) can stay
+          // undrawn until the next move; re-add the shown ones once the view exists.
+          try {
+            const shown = markers.filter((marker) => cluster.hasLayer(marker));
+            if (shown.length) {
+              cluster.removeLayers(shown);
+              cluster.addLayers(shown);
+              spread();
+            }
+          } catch (error) {
+            console.warn("[map] marker refresh skipped:", error instanceof Error ? error.message : error);
+          }
         }, 180);
 
         map.on("zoomend", spread);

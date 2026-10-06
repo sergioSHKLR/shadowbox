@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import {
+  careerStops,
   deploymentsForCommand,
   gearCard,
   unassignedHelmetCards,
@@ -248,30 +249,53 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
   );
 }
 
+/** Full place sequence (sequence.json), the same pins and numbers as the main Map with every category on. */
+const CAREER_STOPS: Stop[] = careerStops();
+
+/**
+ * Sequence index where each Logbook beat's command starts. Pipeline commands (RTC, Tortuga, NTC) use their last
+ * non-"command" row (as logbookBeats picks them); assigned commands use their first "command" row.
+ */
+function beatStarts(beats: LogbookBeat[]): number[] {
+  return beats.map((beat) => {
+    const id = beat.stop.commandId;
+    if (!id) return -1;
+    if (beat.stop.kind === "command") return CAREER_STOPS.findIndex((stop) => stop.commandId === id && stop.kind === "command");
+    for (let i = CAREER_STOPS.length - 1; i >= 0; i--) if (CAREER_STOPS[i].commandId === id && CAREER_STOPS[i].kind !== "command") return i;
+    return -1;
+  });
+}
+
 function MapInset({
-  stops,
+  beats,
   beat,
   onOpen,
 }: {
-  stops: Stop[];
+  beats: LogbookBeat[];
   beat: LogbookBeat;
   onOpen: (k: Kind, id: string) => void;
 }) {
-  // One pin per Logbook command; only the focus changes per beat (shrinking the reveal mid-flight trips markercluster).
   // Excluded customer units never become map pins here (their places are not added as extras).
   void isMapExcludedUnit;
-  // Each command's mini map shows only its own pin (Sergio); the main Map keeps every pin.
-  const hiddenStops = stops.flatMap((_stop, i) => (i === beat.index ? [] : [i]));
+  // Each command's mini map shows its own pin plus every sequence stop up to (not including) the next command
+  // (schools, bases, deployments, ports, flights), and fits to them (Sergio, Oct 2026). The first command also
+  // carries the stops before it (Miami). Markers stay built for the whole sequence; only `hidden` changes per beat.
+  const starts = useMemo(() => beatStarts(beats), [beats]);
+  const from = beat.index === 0 ? 0 : starts[beat.index];
+  const nextStart = starts.slice(beat.index + 1).find((value) => value > from);
+  const to = nextStart ?? CAREER_STOPS.length;
+  const hiddenStops = useMemo(
+    () => (from < 0 ? [] : CAREER_STOPS.flatMap((_stop, i) => (i >= from && i < to ? [] : [i]))),
+    [from, to],
+  );
   return (
     <div className="logbook-map-frame">
       <Boundary label="logbook map" fallback={<p className="quiet">Map unavailable right now.</p>}>
       <MapView
-        stops={stops}
+        stops={CAREER_STOPS}
         extra={[]}
         tall={false}
-        focusId={beat.stop.place.id}
-        focusIndex={beat.index}
-        revealedCount={stops.length}
+        fitMaxZoom={11}
         hidden={hiddenStops}
         onSelect={(id) => onOpen("place", id)}
       />
@@ -614,7 +638,6 @@ export function Logbook({
   wardrobeLabel?: string;
 }) {
   const beats = useMemo(() => logbookBeats(), []);
-  const stops = useMemo(() => beats.map((row) => row.stop), [beats]);
   const narrow = useNarrow();
   const [active, setActive] = useState(0);
   const [mainTab, setMainTab] = useState<MainTab>("rank");
@@ -745,7 +768,7 @@ export function Logbook({
     );
   const mapRegion = (hidden: boolean) => (
     <div className="logbook-map-tab" hidden={hidden} role="group" aria-label={`Map: ${mapBeat.stop.labels[0]}`}>
-      <MapInset stops={stops} beat={mapBeat} onOpen={onOpen} />
+      <MapInset beats={beats} beat={mapBeat} onOpen={onOpen} />
     </div>
   );
 

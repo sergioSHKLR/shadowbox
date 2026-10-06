@@ -1279,3 +1279,56 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   .home-pin-chief { isolation: isolate; }
   .home-pin-chief::before { content: ""; position: absolute; z-index: -1; left: -50vw; right: -50vw; bottom: 0; height: calc(100% + 60vh); background: var(--home-surface); }
 }
+/* Footer: Settings at the far left, page text links at the far right (Sergio, Oct 2026). */
+.site-footer { justify-content: space-between; }
+.site-footer .footer-nav { margin-left: 0; margin-right: auto; }
+.site-footer .footer-pager { margin-left: auto; }
+
+/* Bio stamps (Oct 2026): the old PAO stamp split into three. Same ink texture, font and stroke (one generator); the PNGs
+   are alpha masks so each theme sets its own ink. Round stamps share one size; UNCLAS is a separate black block. */
+.bio-stamps { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 0.35rem 0.9rem; margin: 0.4rem 0.35rem 0.5rem auto; }
+.bio-stamp {
+  display: block; flex: none; background: var(--ink);
+  -webkit-mask: var(--stamp) center / contain no-repeat; mask: var(--stamp) center / contain no-repeat;
+  opacity: 0.92;
+}
+.bio-stamp-round { width: 8.75rem; aspect-ratio: 1; }
+.bio-stamp-rect { width: 7.25rem; aspect-ratio: 470 / 170; }
+.bio-stamp-security { --ink: #7a1c28; transform: rotate(-7deg); }
+.bio-stamp-pao { --ink: #1f3a6e; transform: rotate(5deg); }
+.bio-stamp-unclas { --ink: #161616; transform: rotate(-4deg); }
+[data-theme="dark"] .bio-stamp-security { --ink: #e07a86; }
+[data-theme="dark"] .bio-stamp-pao { --ink: #93b2ea; }
+[data-theme="dark"] .bio-stamp-unclas { --ink: #e6e0d4; }
+@media (max-width: 520px) {
+  .bio-stamps { justify-content: center; gap: 0.3rem 0.6rem; margin-inline: 0; }
+  .bio-stamp-round { width: 6.6rem; }
+  .bio-stamp-rect { width: 5.6rem; }
+}
+
+/* Guestbook / Contact (Oct 2026): Logbook card language. Panel surface + light border + 6px radius; inputs like the
+   "In my own words" fields; goldenrod primary button (nav-btn on). No visible page headers (sr-only h1). */
+.site-page { --site-panel: color-mix(in srgb, var(--color-ivory) 88%, #fff); --site-border: var(--color-line); display: grid; gap: 0.9rem; max-width: 40rem; }
+[data-theme="dark"] .site-page { --site-panel: #1a2130; --site-border: #2a3344; }
+.site-card { margin: 0; padding: 0.9rem 1rem; border: 1px solid var(--site-border); border-radius: 6px; background: var(--site-panel); }
+.site-form { display: grid; gap: 0.75rem; }
+.site-field { display: grid; gap: 0.25rem; font-size: 0.85rem; color: var(--color-quiet); }
+[data-theme="dark"] .site-field { color: #c4b8a6; }
+.site-field input, .site-field textarea {
+  width: 100%; box-sizing: border-box; padding: 0.5rem 0.6rem; border: 1px solid var(--color-line); border-radius: 6px;
+  background: #fff; color: var(--color-ink, inherit); font: inherit; font-size: 0.95rem; line-height: 1.4;
+}
+.site-field textarea { resize: vertical; min-height: 7.5rem; }
+.site-field input:focus-visible, .site-field textarea:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 1px; border-color: var(--color-navy); }
+[data-theme="dark"] .site-field input, [data-theme="dark"] .site-field textarea { background: #10141b; color: var(--color-ivory); border-color: color-mix(in srgb, var(--color-ivory) 30%, transparent); }
+.site-form-bar { display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; }
+.site-form-bar .nav-btn { min-height: 44px; padding: 0.25rem 1.1rem; }
+.site-form-status { font-size: 0.85rem; }
+.contact-whatsapp-row { display: flex; }
+.contact-whatsapp { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0.3rem 1rem; text-decoration: none; }
+.contact-thanks { margin: 0 0 0.7rem; font-size: 1rem; }
+.guest-card { padding: 0; overflow: hidden; }
+.guest-card .guest-frame { margin: 0; max-width: none; border: 0; height: min(38rem, calc(100dvh - 14rem)); min-height: 26rem; }
+.guest-alt { margin: 0; font-size: 0.85rem; }
+.guest-alt a { color: var(--color-navy); }
+[data-theme="dark"] .guest-alt a { color: var(--color-goldenrod, #daa520); }
