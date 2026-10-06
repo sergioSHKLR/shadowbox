@@ -602,6 +602,11 @@ const LOGBOOK_PLATE_SETS: Record<string, string[]> = {
   navhosp: ["e7-nh"],
 };
 
+/** Plate sets a command's Logbook shows, oldest first (JCSE: ET1 e6-4, then the CPO e7-jcse set). */
+export function logbookPlateSets(unitId: string | null | undefined): string[] {
+  return unitId ? [...(LOGBOOK_PLATE_SETS[unitId] ?? [])] : [];
+}
+
 export type UniformStep = {
   id: string;
   unitId: string;
