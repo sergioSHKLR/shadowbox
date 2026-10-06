@@ -1,6 +1,8 @@
 name: Pages
 
 on:
+  # Manual rebuild (Actions tab, or: gh workflow run Pages --ref main).
+  workflow_dispatch:
   push:
     branches: [main]
     paths-ignore:
