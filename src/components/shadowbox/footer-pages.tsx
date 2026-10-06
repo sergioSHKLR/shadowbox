@@ -5,21 +5,25 @@ const WHATSAPP = "https://wa.me/5547988695995";
 const WHATSAPP_LABEL = "WhatsApp"; // Sergio: no spelled-out number on the page (EN and PT)
 const GUESTBOOK = "https://forms.gle/1nprDDo1dLpZnRmn9";
 
+const CONTACT_LINK = "https://forms.gle/2Qnmg5FN7sitW24N9";
+
 /**
- * Contact form → Sergio's Google Form (formResponse, no-cors).
- * CONFIG PLACEHOLDERS: fill these in from the form Sergio provides. Do not guess.
- *   formId: the long id in https://docs.google.com/forms/d/e/<FORM_ID>/viewform
- *   fields: the entry ids for each question, e.g. "entry.123456789"
- * Until formId and all three entry ids are set, the form shows but does not post (it points people to WhatsApp).
+ * Contact form → Sergio's "Signum Contact" Google Form (formResponse, no-cors), feeding his Sheet (Oct 2026).
+ * Ids read from the form's public page (FB_PUBLIC_LOAD_DATA_); all three questions are required there too:
+ *   Name/Nome         → entry.575537492  (short answer)
+ *   Email             → entry.2078104732 (short answer)
+ *   Message/Mensagem  → entry.701316181  (paragraph)
+ * The form does not collect Google account emails and needs no sign-in.
  */
 export const CONTACT_FORM = {
-  formId: "", // TODO(Sergio): Google Form id (the 1FAIpQL... string)
+  formId: "1FAIpQLSeX8qdQdu8q8gP7T9iV0Sduh4tX0eavZcshCzaAeosR_Ro5Og",
   fields: {
-    name: "", // TODO(Sergio): entry.<id> for Name
-    email: "", // TODO(Sergio): entry.<id> for Email
-    message: "", // TODO(Sergio): entry.<id> for Message
+    name: "entry.575537492",
+    email: "entry.2078104732",
+    message: "entry.701316181",
   },
 };
+export const contactPostUrl = () => `https://docs.google.com/forms/d/e/${CONTACT_FORM.formId}/formResponse`;
 const contactReady = () => !!CONTACT_FORM.formId && Object.values(CONTACT_FORM.fields).every((id) => /^entry\.\d+$/.test(id));
 
 type Lang = "en" | "pt";
@@ -34,8 +38,9 @@ const COPY = {
     thanks: "Thank you. Your message was sent.",
     another: "Send another",
     notReady: "The contact form isn't connected yet. Please use WhatsApp for now.",
-    failed: "That didn't go through. Please try again or use WhatsApp.",
+    failed: "That didn't go through. Please try again, use the Google Forms link below, or WhatsApp.",
     formLabel: "Contact form",
+    alt: "Open in Google Forms",
   },
   pt: {
     title: "Contato",
@@ -47,8 +52,9 @@ const COPY = {
     thanks: "Obrigado. Sua mensagem foi enviada.",
     another: "Enviar outra",
     notReady: "O formulário de contato ainda não está conectado. Por enquanto, use o WhatsApp.",
-    failed: "Não foi possível enviar. Tente de novo ou use o WhatsApp.",
+    failed: "Não foi possível enviar. Tente de novo, use o link do Google Forms abaixo ou o WhatsApp.",
     formLabel: "Formulário de contato",
+    alt: "Abrir no Google Forms",
   },
 } as const;
 
@@ -79,7 +85,7 @@ function ContactForm({ lang }: { lang: Lang }) {
     body.set(CONTACT_FORM.fields.message, values.message.trim());
     try {
       // no-cors: Google Forms doesn't send CORS headers, so the response is opaque; a network error is all we can detect.
-      await fetch(`https://docs.google.com/forms/d/e/${CONTACT_FORM.formId}/formResponse`, { method: "POST", mode: "no-cors", body });
+      await fetch(contactPostUrl(), { method: "POST", mode: "no-cors", body });
       setStatus("sent");
       setValues({ name: "", email: "", message: "" });
     } catch {
@@ -87,15 +93,25 @@ function ContactForm({ lang }: { lang: Lang }) {
     }
   };
 
+  // Fallback (Oct 2026): the Google Form itself, in a new tab.
+  const alt = (
+    <p className="guest-alt contact-alt quiet">
+      <a href={CONTACT_LINK} target="_blank" rel="noreferrer">{c.alt}</a>
+    </p>
+  );
   if (status === "sent") {
     return (
-      <section className="site-card contact-card" aria-label={c.formLabel}>
-        <p className="contact-thanks" role="status">{c.thanks}</p>
-        <button type="button" className="nav-btn" onClick={() => setStatus("idle")}>{c.another}</button>
-      </section>
+      <>
+        <section className="site-card contact-card" aria-label={c.formLabel}>
+          <p className="contact-thanks" role="status">{c.thanks}</p>
+          <button type="button" className="nav-btn" onClick={() => setStatus("idle")}>{c.another}</button>
+        </section>
+        {alt}
+      </>
     );
   }
   return (
+    <>
     <section className="site-card contact-card" aria-label={c.formLabel}>
       <form className="site-form" onSubmit={submit}>
         <label className="site-field">
@@ -118,6 +134,8 @@ function ContactForm({ lang }: { lang: Lang }) {
         </div>
       </form>
     </section>
+    {alt}
+    </>
   );
 }
 
