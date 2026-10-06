@@ -11,7 +11,7 @@ import {
 import { MapView } from "@/components/shadowbox/map-view";
 
 const PIN_GROUPS: { id: StopLayer; label: string; legend: string; cls: string }[] = [
-  { id: "command", label: "Commands", legend: "Assigned commands; San Diego also as command host", cls: "command" },
+  { id: "command", label: "Commands", legend: "Career path: Miami (place of entry), the training pipeline, then assigned commands", cls: "command" },
   { id: "instruction", label: "Instruction", legend: "Schools and instruction sites", cls: "instruction" },
   { id: "base", label: "Bases", legend: "Home bases, NAS, NS, annexes, and ship TADs", cls: "base" },
   { id: "field", label: "Field", legend: "FOBs, camps, theater sites, and exercises", cls: "field" },
@@ -36,7 +36,34 @@ function uniqueKey(stop: Stop, shown: StopLayer[] | null): string {
   return `place:${stop.place.id}`;
 }
 
+/**
+ * Commands filter on its own (the default view): the career path numbered 1..n (Sergio, Oct 2026).
+ * #1 Miami (place of entry), #2 RTC, #3 USS Tortuga, #4 NTC Great Lakes, #5 Keesler AFB, then the assigned
+ * commands (kind "command") in sequence order. Other filter combinations keep the fixed sequence numbers.
+ */
+function commandPath(all: Stop[]): Stop[] {
+  const sorted = [...all].sort((a, b) => (a.n ?? 0) - (b.n ?? 0));
+  const lastWhere = (test: (stop: Stop) => boolean) => [...sorted].reverse().find(test);
+  const firstWhere = (test: (stop: Stop) => boolean) => sorted.find(test);
+  const lead = [
+    firstWhere((stop) => stop.place.id === "city-miami" || stop.labels[0]?.startsWith("Miami")),
+    firstWhere((stop) => stop.commandId === "rtc"),
+    firstWhere((stop) => stop.commandId === "tortuga"),
+    // NTC is in sequence.json twice (before and after the Tortuga TAD); the later row is the school tour.
+    lastWhere((stop) => stop.commandId === "ntc-great-lakes"),
+    firstWhere((stop) => stop.place.id === "keesler" && !!stop.labels[0]?.startsWith("Keesler")) ?? firstWhere((stop) => stop.place.id === "keesler"),
+  ].filter((stop): stop is Stop => Boolean(stop));
+  const seen = new Set<string>();
+  const assigned = sorted.filter((stop) => {
+    if (stop.kind !== "command" || !stop.commandId || seen.has(stop.commandId)) return false;
+    seen.add(stop.commandId);
+    return true;
+  });
+  return [...lead, ...assigned].map((stop, index) => ({ ...stop, n: index + 1, kind: "command" as StopLayer }));
+}
+
 function filterStops(all: Stop[], shown: StopLayer[] | null): Stop[] {
+  if (shown && shown.length === 1 && shown[0] === "command") return commandPath(all);
   const matched = all.filter((stop) => stopMatchesFilter(stop, shown));
   if (!shown) return matched;
   const seen = new Set<string>();

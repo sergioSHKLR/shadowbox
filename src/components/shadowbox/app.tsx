@@ -49,7 +49,7 @@ type PageId = "home" | (typeof ALL_NAV)[number];
 const NAV_ICON = { commands: Anchor, uniforms: Shirt, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, logbook: NotebookText, admin: ClipboardList };
 const PAGE_ICON: Record<PageId, typeof House> = { home: House, ...NAV_ICON };
 /** Top-bar menu (Sergio, Oct 2026): Home, Logbook, then Guestbook, Contact and Map. The pager (NAV) still steps Home ⇄ Logbook only. */
-const MENU = ["home", ...NAV, "guestbook", "contact", "map"] as const;
+const MENU = ["home", ...NAV, "map", "guestbook", "contact"] as const; // Sergio, Oct 2026: Home, Logbook, Map, Guestbook, Contact
 const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: House, logbook: NotebookText, guestbook: BookOpen, contact: MessageCircle, map: Map };
 const ALL_FOOTER = ["guestbook", "contact", "sources"] as const;
 const FOOTER: readonly (typeof ALL_FOOTER)[number][] = []; // guestbook / contact live in the top-bar menu now (Sergio)
@@ -63,6 +63,20 @@ function asView(value: string): View {
   if (value in ALIAS) return ALIAS[value];
   const known: View[] = [...MENU, ...FOOTER];
   return known.includes(value as View) ? (value as View) : "home";
+}
+
+function RadioGroup<V extends string>({ name, legend, value, onChange, options }: { name: string; legend: string; value: V; onChange: (value: V) => void; options: { value: V; label: string }[] }) {
+  return (
+    <fieldset className="settings-radios">
+      <legend>{legend}</legend>
+      {options.map((option) => (
+        <label key={option.value} className="settings-radio">
+          <input type="radio" name={name} value={option.value} checked={value === option.value} onChange={() => onChange(option.value)} />
+          <span>{option.label}</span>
+        </label>
+      ))}
+    </fieldset>
+  );
 }
 
 function SettingsDialog({
@@ -101,29 +115,18 @@ function SettingsDialog({
             </Dialog.Close>
           </header>
           <p id="settings-lead">{t.settingsLead}</p>
-          <h3>{t.language}</h3>
-          <div className="choice-row" role="group" aria-label={t.language}>
-            <button type="button" className={locale === "en" ? "nav-btn on" : "nav-btn"} aria-pressed={locale === "en"} onClick={() => setLocale("en")}>{t.english}</button>
-            <button type="button" className={locale === "pt" ? "nav-btn on" : "nav-btn"} aria-pressed={locale === "pt"} onClick={() => setLocale("pt")}>{t.portuguese}</button>
-          </div>
+          {/* Plain radio groups (Sergio, Oct 2026), the same look as the Logbook Decorations radios. */}
+          <RadioGroup name="settings-language" legend={t.language} value={locale} onChange={setLocale} options={[{ value: "en", label: t.english }, { value: "pt", label: t.portuguese }]} />
           {showTheme ? (
-            <>
-              <h3>{t.theme}</h3>
-              <div className="choice-row" role="group" aria-label={t.theme}>
-                <button type="button" className={theme === "system" ? "nav-btn on" : "nav-btn"} aria-pressed={theme === "system"} onClick={() => setTheme("system")}>{t.system}</button>
-                <button type="button" className={theme === "light" ? "nav-btn on" : "nav-btn"} aria-pressed={theme === "light"} onClick={() => setTheme("light")}>{t.light}</button>
-                <button type="button" className={theme === "dark" ? "nav-btn on" : "nav-btn"} aria-pressed={theme === "dark"} onClick={() => setTheme("dark")}>{t.dark}</button>
-              </div>
-            </>
+            <RadioGroup name="settings-theme" legend={t.theme} value={theme} onChange={setTheme} options={[{ value: "system", label: t.system }, { value: "light", label: t.light }, { value: "dark", label: t.dark }]} />
           ) : null}
-          <h3>{t.fontSize}</h3>
-          <div className="choice-row" role="group" aria-label={t.fontSize}>
-            {FONT_SIZES.map((size) => (
-              <button key={size} type="button" className={fontSize === size ? "nav-btn on" : "nav-btn"} aria-pressed={fontSize === size} onClick={() => setFontSize(size)}>
-                {size === "small" ? t.fontSmall : size === "large" ? t.fontLarge : size === "xlarge" ? t.fontXLarge : t.fontDefault}
-              </button>
-            ))}
-          </div>
+          <RadioGroup
+            name="settings-font-size"
+            legend={t.fontSize}
+            value={fontSize}
+            onChange={setFontSize}
+            options={FONT_SIZES.map((size) => ({ value: size, label: size === "small" ? t.fontSmall : size === "large" ? t.fontLarge : size === "xlarge" ? t.fontXLarge : t.fontDefault }))}
+          />
           <p className="settings-credit quiet">{t.made}</p>
         </Dialog.Content>
       </Dialog.Portal>
@@ -173,6 +176,10 @@ export function ShadowboxApp() {
   const prevView: PageId | null = navAt > 0 ? NAV[navAt - 1] : navAt === 0 ? "home" : null;
   const nextView: PageId | null = navAt >= 0 && navAt < NAV.length - 1 ? NAV[navAt + 1] : view === "home" ? NAV[0] : null;
   const showPager = navAt >= 0 || view === "home";
+  // Footer prev / next steps through the top-bar menu in menu order (Sergio, Oct 2026).
+  const menuAt = MENU.indexOf(view as (typeof MENU)[number]);
+  const menuPrev = menuAt > 0 ? MENU[menuAt - 1] : null;
+  const menuNext = menuAt >= 0 && menuAt < MENU.length - 1 ? MENU[menuAt + 1] : null;
   const PrevIcon = prevView ? PAGE_ICON[prevView] : null;
   const NextIcon = nextView ? PAGE_ICON[nextView] : null;
   const open = (kind: Kind, id: string) => {
@@ -418,6 +425,16 @@ export function ShadowboxApp() {
             </button>
           ) : null}
         </nav> : null}
+        {menuAt >= 0 ? (
+          <nav className="footer-pager" aria-label={t.pageNav}>
+            <button type="button" className="nav-btn icon-btn" disabled={!menuPrev} aria-label={menuPrev ? `${t.prevPage}: ${t[menuPrev]}` : t.prevPage} title={menuPrev ? `${t.prevPage}: ${t[menuPrev]}` : undefined} onClick={() => menuPrev && go(menuPrev)}>
+              <ChevronLeft size={20} strokeWidth={2} aria-hidden="true" />
+            </button>
+            <button type="button" className="nav-btn icon-btn" disabled={!menuNext} aria-label={menuNext ? `${t.nextPage}: ${t[menuNext]}` : t.nextPage} title={menuNext ? `${t.nextPage}: ${t[menuNext]}` : undefined} onClick={() => menuNext && go(menuNext)}>
+              <ChevronRight size={20} strokeWidth={2} aria-hidden="true" />
+            </button>
+          </nav>
+        ) : null}
       </footer>
       <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} locale={locale} theme={theme} setLocale={setLocale} setTheme={setTheme} showTheme={THEME_HONORED} fontSize={fontSize} setFontSize={setFontSize} t={t} />
       <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setSelection(null); setTrail([]); }} />

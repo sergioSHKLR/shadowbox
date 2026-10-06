@@ -235,12 +235,12 @@
   },
   {
     "id": "equipment-centurion-c-ram",
-    "title": "Centurion C-RAM (Trailer-mounted, with its generator (Iraq))",
-    "file": "/equipment/centurion-c-ram.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_Battery_Phalanx_in_Iraq.jpg",
-    "creator": "Alpha Battery, 1st Battalion, 194th Field Artillery (U.S. Army National Guard)",
-    "license": "Public domain, as marked on Wikimedia Commons (photograph by a U.S. Army unit, a work of the U.S. federal government).",
-    "notes": "Cropped and resized for this project, saved as WebP. The unit's guidon at the right was cropped out. Original file: https://upload.wikimedia.org/wikipedia/commons/f/f1/A_Battery_Phalanx_in_Iraq.jpg . Not hotlinked."
+    "title": "Centurion C-RAM (Land-based Phalanx weapon mount shown)",
+    "file": "/equipment/centurion-c-ram-c.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Phalanx_LPWS_-_140301-A-ZA744-121.jpg",
+    "creator": "Staff Sgt. Jarred Woods, U.S. Army",
+    "license": "Public domain (U.S. federal government work)",
+    "notes": "Background removed (rembg, isnet-general-use) and placed on white, resized, saved as WebP. Replaces the earlier in-theater photo with a busy background (stock photo rule, Oct 2026). Original file: https://upload.wikimedia.org/wikipedia/commons/a/a7/Phalanx_LPWS_-_140301-A-ZA744-121.jpg . Not hotlinked."
   },
   {
     "id": "equipment-hmmwv-up-armored",
@@ -253,12 +253,12 @@
   },
   {
     "id": "equipment-cucv",
-    "title": "CUCV (CUCV pickup shown)",
-    "file": "/equipment/cucv-pickup.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:DF-ST-84-09181.jpg",
-    "creator": "TSgt. Rob Marshall, U.S. Air Force",
-    "license": "Public domain. Photograph by a member of the U.S. armed forces in the course of official duties, a work of the U.S. federal government.",
-    "notes": "Cut out onto a white background and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/4/4b/DF-ST-84-09181.jpg . Not hotlinked."
+    "title": "CUCV (M1009 Blazer shown)",
+    "file": "/equipment/cucv-m1009-c.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chevrolet_M1009_Blazer_(1984)_owned_by_E._Philippi.JPG",
+    "creator": "AlfvanBeem (Wikimedia Commons)",
+    "license": "CC0 1.0 (public domain dedication)",
+    "notes": "Background removed (rembg, BiRefNet) and placed on white, resized, saved as WebP. Replaces the earlier pickup photo that showed troops in the bed (stock photo rule, Oct 2026). Original file: https://upload.wikimedia.org/wikipedia/commons/d/d1/Chevrolet_M1009_Blazer_%281984%29_owned_by_E._Philippi.JPG . Not hotlinked."
   },
   {
     "id": "equipment-zodiac",
@@ -406,12 +406,12 @@
   },
   {
     "id": "equipment-pasgt-helmet-desert",
-    "title": "PASGT helmet, desert cover (3-color desert (DCU) cover)",
-    "file": "/equipment/pasgt-helmet-desert-cover-b.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:DCU-cover-for-PASGT-vest,_July-1,_1991.jpg",
-    "creator": "U.S. Army Natick Research, Development and Engineering Center, 1991",
-    "license": "Public domain. Photograph by a member of the U.S. armed forces or a Department of Defense employee in the course of official duties, a work of the U.S. federal government.",
-    "notes": "Cropped tightly to the helmet (no face) and resized for this project, saved as WebP. The model is wearing the PASGT vest and helmet with desert covers (Natick photo, 1991). Original file: https://upload.wikimedia.org/wikipedia/commons/4/4a/DCU-cover-for-PASGT-vest%2C_July-1%2C_1991.jpg . Not hotlinked."
+    "title": "PASGT helmet, desert cover (6-color desert (\u201cchocolate chip\u201d) cover marked NAVY)",
+    "file": "/equipment/pasgt-helmet-desert-c.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:PASGT_KPot.jpg",
+    "creator": "Pelz Der Untoten (Wikimedia Commons)",
+    "license": "CC BY 4.0",
+    "notes": "Background removed (rembg, isnet-general-use) and placed on white, resized, saved as WebP (modified from the original, as CC BY 4.0 allows). Replaces the earlier tight crop of a 1991 Natick photo of a model (stock photo rule, Oct 2026). Original file: https://upload.wikimedia.org/wikipedia/commons/c/c6/PASGT_KPot.jpg . Not hotlinked."
   },
   {
     "id": "equipment-ach-tan",
@@ -425,11 +425,11 @@
   {
     "id": "equipment-ach-acu-cover",
     "title": "ACH / MICH, ACU cover (UCP cover and night-vision mount)",
-    "file": "/equipment/ach-helmet-acu-cover-b.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:ACH_005.jpg",
-    "creator": "PEO Soldier (U.S. Army), 2005",
-    "license": "Public domain. Photograph by a member of the U.S. armed forces or a Department of Defense employee in the course of official duties, a work of the U.S. federal government.",
-    "notes": "Cropped tightly to the helmet (no face) and resized for this project, saved as WebP. PEO Soldier product photo, archived from peosoldier.army.mil. Original file: https://upload.wikimedia.org/wikipedia/commons/0/0e/ACH_005.jpg . Not hotlinked."
+    "file": "/equipment/ach-helmet-acu-cover-c.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:ACH_side_view.jpg",
+    "creator": "MSA09 (Wikimedia Commons)",
+    "license": "CC BY-SA 4.0",
+    "notes": "Background removed (rembg, isnet-general-use) and placed on white, resized, saved as WebP. This derivative is shared under CC BY-SA 4.0 like the original. Replaces the earlier crop of a PEO Soldier photo of a soldier wearing the helmet (stock photo rule, Oct 2026). Original file: https://upload.wikimedia.org/wikipedia/commons/2/2a/ACH_side_view.jpg . Not hotlinked."
   },
   {
     "id": "equipment-jerrv-6x6",
@@ -1169,49 +1169,49 @@
     "license": "Personal photograph",
     "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
   },
- {
-  "id": "crest-geo-3rd-infantry-brigade",
-  "title": "Georgian Land Forces 3rd Infantry Brigade shoulder badge (stands in for the 32nd Light Infantry Battalion)",
-  "file": "/incoming/geo-3rd-inf-bde.png",
-  "sourceUrl": "https://commons.wikimedia.org/wiki/File:3rd_Infantry_Brigade1.jpg",
-  "creator": "TheMightyGeneral (en.wikipedia), own work",
-  "license": "Public domain (as tagged on Wikimedia Commons)",
-  "notes": "White background made transparent and resized. The Commons description reads \"Greek 3rd Infantry brigade shoulder badge\", but the badge text is Georgian (ქვეითი ბრიგადა, \"infantry brigade\") and the file illustrates the en.wikipedia article 3rd Infantry Brigade (Georgia). No 32nd Battalion insignia was found in a public source."
- },
- {
-  "id": "crest-2nd-marine-regiment",
-  "title": "2nd Marine Regiment insignia (card for RCT-2)",
-  "file": "/incoming/2nd-marines.png",
-  "sourceUrl": "https://commons.wikimedia.org/wiki/File:USMC_-_2ND_MARINE_REG.png",
-  "creator": "United States Marine Corps",
-  "license": "Public domain (work of the U.S. federal government)",
-  "notes": "Trimmed and resized."
- },
- {
-  "id": "equipment-deploy-otv",
-  "title": "Outer Tactical Vest (OTV)",
-  "file": "/equipment/otv-ucp.webp",
-  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Interceptor_Body_Armor_vests.png",
-  "creator": "MilitariaBelgium/CollectorOfInsignia (cropped to the UCP vest)",
-  "license": "CC BY-SA 3.0",
-  "notes": "Card for the On Duty deployment gear (Oct 2026). Plain background, no people."
- },
- {
-  "id": "equipment-deploy-ach",
-  "title": "Advanced Combat Helmet (ACH)",
-  "file": "/equipment/ach-pam-600-5.webp",
-  "sourceUrl": "https://commons.wikimedia.org/wiki/File:ACH_helmet_FD_PAM_600-5_-_Standards_-014.png",
-  "creator": "U.S. Army",
-  "license": "Public domain (U.S. federal government work)",
-  "notes": "Card for the On Duty deployment gear (Oct 2026). Plain background, no people."
- },
- {
-  "id": "equipment-deploy-ech",
-  "title": "Enhanced Combat Helmet (ECH)",
-  "file": "/equipment/ech-peo.webp",
-  "sourceUrl": "https://commons.wikimedia.org/wiki/File:PEO_Soldier_Enhanced_Combat_Helmet_profile.jpg",
-  "creator": "PEO Soldier (U.S. Army)",
-  "license": "Public domain (U.S. federal government work)",
-  "notes": "Card for the On Duty deployment gear (Oct 2026). Plain background, no people."
- }
+  {
+    "id": "crest-geo-3rd-infantry-brigade",
+    "title": "Georgian Land Forces 3rd Infantry Brigade shoulder badge (stands in for the 32nd Light Infantry Battalion)",
+    "file": "/incoming/geo-3rd-inf-bde.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:3rd_Infantry_Brigade1.jpg",
+    "creator": "TheMightyGeneral (en.wikipedia), own work",
+    "license": "Public domain (as tagged on Wikimedia Commons)",
+    "notes": "White background made transparent and resized. The Commons description reads \"Greek 3rd Infantry brigade shoulder badge\", but the badge text is Georgian (\u10e5\u10d5\u10d4\u10d8\u10d7\u10d8 \u10d1\u10e0\u10d8\u10d2\u10d0\u10d3\u10d0, \"infantry brigade\") and the file illustrates the en.wikipedia article 3rd Infantry Brigade (Georgia). No 32nd Battalion insignia was found in a public source."
+  },
+  {
+    "id": "crest-2nd-marine-regiment",
+    "title": "2nd Marine Regiment insignia (card for RCT-2)",
+    "file": "/incoming/2nd-marines.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:USMC_-_2ND_MARINE_REG.png",
+    "creator": "United States Marine Corps",
+    "license": "Public domain (work of the U.S. federal government)",
+    "notes": "Trimmed and resized."
+  },
+  {
+    "id": "equipment-deploy-otv",
+    "title": "Outer Tactical Vest (OTV)",
+    "file": "/equipment/otv-ucp.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Interceptor_Body_Armor_vests.png",
+    "creator": "MilitariaBelgium/CollectorOfInsignia (cropped to the UCP vest)",
+    "license": "CC BY-SA 3.0",
+    "notes": "Card for the On Duty deployment gear (Oct 2026). Plain background, no people."
+  },
+  {
+    "id": "equipment-deploy-ach",
+    "title": "Advanced Combat Helmet (ACH)",
+    "file": "/equipment/ach-pam-600-5.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:ACH_helmet_FD_PAM_600-5_-_Standards_-014.png",
+    "creator": "U.S. Army",
+    "license": "Public domain (U.S. federal government work)",
+    "notes": "Card for the On Duty deployment gear (Oct 2026). Plain background, no people."
+  },
+  {
+    "id": "equipment-deploy-ech",
+    "title": "Enhanced Combat Helmet (ECH)",
+    "file": "/equipment/ech-peo.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:PEO_Soldier_Enhanced_Combat_Helmet_profile.jpg",
+    "creator": "PEO Soldier (U.S. Army)",
+    "license": "Public domain (U.S. federal government work)",
+    "notes": "Card for the On Duty deployment gear (Oct 2026). Plain background, no people."
+  }
 ]

@@ -955,7 +955,7 @@ a { color: var(--color-navy); }
   top: 50%;
   transform: translate(-50%, -50%);
   width: min(26rem, calc(100vw - 2rem));
-  max-height: min(80vh, 36rem);
+  max-height: min(92dvh, 46rem);
   overflow: auto;
   z-index: 1201;
   background: var(--color-ivory);
@@ -1207,3 +1207,68 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .bio-wrap + .intro-solo { margin-top: 2rem; }
 .intro-solo figcaption { font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; }
 .intro-portrait-img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; display: block; }
+/* Settings modal: plain stacked radio groups, matching the Logbook Decorations radios. */
+.settings-radios { display: flex; flex-direction: column; gap: 0.2rem; margin: 0 0 0.8rem; padding: 0; border: 0; min-width: 0; }
+.settings-radios legend { padding: 0; margin: 0 0 0.4rem; font-family: var(--font-display); font-weight: 600; letter-spacing: 0.01em; line-height: 1.1; font-size: 1.25rem; }
+.settings-radio { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; min-height: 1.6rem; }
+.settings-radio input { margin: 0; width: 1.05rem; height: 1.05rem; accent-color: var(--color-navy); cursor: pointer; }
+[data-theme="dark"] .settings-radio input { accent-color: var(--color-goldenrod); }
+
+/* ---- Home scroll: pinned Boot Camp portrait, End of Career slides over it (Sergio, Oct 2026) ----
+   Default (and prefers-reduced-motion): plain flow, Boot Camp on top, bio, End of Career at the bottom. */
+.home-scroll { display: flex; flex-direction: column; }
+.home-pins { display: contents; }
+.home-pin-boot { order: 1; }
+.home-read { order: 2; }
+.home-pin-chief { order: 3; margin-top: 2rem; }
+.home-pin-gap, .home-pin-tail { display: none; }
+.home-scroll .intro-solo + .intro-copy { margin-top: 1rem; }
+.home-pin { background: var(--color-ivory); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-scroll { --pin-top: 4.25rem; display: grid; }
+  .home-pins { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 0; }
+  .home-pins > * { order: 0; }
+  .home-pin { position: sticky; top: var(--pin-top); margin: 0; padding-bottom: 0.4rem; }
+  .home-pin-boot { z-index: 1; }
+  .home-pin-chief { z-index: 2; margin-top: 0; box-shadow: 0 -18px 30px -18px rgba(0, 0, 0, 0.35); }
+  .home-pin-gap { display: block; flex: 1 1 auto; min-height: 2rem; }
+  .home-pin-tail { display: block; flex: none; height: 32vh; }
+  .home-read { position: relative; z-index: 1; min-width: 0; }
+
+  /* Desktop: portraits pinned in the left column, bio alongside on the right. */
+  @media (min-width: 960px) {
+    .home-scroll { grid-template-columns: auto minmax(0, 1fr); column-gap: 2.75rem; align-items: stretch; }
+    .home-scroll .wood-frame { --frame: min(21rem, 34vw, calc((100dvh - 9rem) * 8.5 / 11)); }
+    .home-read .intro-copy { margin-top: 0; text-align: left; }
+    .home-read .bio-wrap { max-width: none; }
+    /* Keep the End of Career portrait below the fold until the reader nears the end. */
+    .home-pin-gap { min-height: calc(100dvh - var(--pin-top) - 3rem); }
+  }
+
+  /* Phone / narrow: one column. The portrait pins under the bar and the bio card scrolls over it;
+     the End of Career portrait arrives after the bio text and covers the Boot Camp portrait. */
+  @media (max-width: 959.98px) {
+    .home-scroll { --pin-h: calc(var(--frame-n) * 11 / 8.5 + 2.4rem); grid-template-columns: minmax(0, 1fr); }
+    .home-scroll .wood-frame { --frame: var(--frame-n); }
+    .home-scroll { --frame-n: min(19rem, calc(100vw - 4rem), calc((100dvh - 8rem) * 8.5 / 11)); }
+    .home-pins, .home-read { grid-area: 1 / 1; }
+    .home-read { padding: var(--pin-h) 0 calc(var(--pin-h) + 32vh); pointer-events: none; }
+    .home-read > * { pointer-events: auto; background: var(--color-ivory); position: relative; }
+    .home-read .intro-copy { margin: 0; padding: 1rem 0 0.4rem; border-radius: 14px 14px 0 0; box-shadow: 0 -14px 24px -16px rgba(0, 0, 0, 0.35); }
+    .home-read .bio-wrap { padding-bottom: 1.5rem; }
+    .home-pin-gap { min-height: 0; }
+  }
+}
+/* Footer: Settings link, then round prev / next page buttons (same look as the Map player). */
+.site-footer { display: flex; align-items: center; justify-content: flex-end; gap: 0.75rem; flex-wrap: wrap; }
+.site-footer .footer-nav { margin-left: auto; }
+.footer-pager { display: flex; gap: 0.45rem; }
+.footer-pager .nav-btn:disabled { opacity: 0.4; cursor: default; }
+/* Home scroll surfaces follow the page background in each theme. */
+.home-scroll { --home-surface: var(--color-ivory); }
+[data-theme="dark"] .home-scroll { --home-surface: #14181f; }
+.home-pin { background: var(--home-surface); }
+@media (prefers-reduced-motion: no-preference) and (max-width: 959.98px) {
+  .home-read > * { background: var(--home-surface); }
+}
