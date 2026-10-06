@@ -141,8 +141,8 @@ function FadePortrait({ first, last }: { first: Shot; last: Shot }) {
         <span className="home-fade-cap-first">{first.caption}</span>
         <span className="home-fade-cap-last">{last.caption}</span>
       </figcaption>
-      {/* Gold-embossed Navy seal under the portrait (Sergio, Oct 2026). Placeholder asset — replace freely. */}
-      <img className="home-navy-seal" src={publicUrl("/incoming/home-navy-seal-gold.webp")} alt="" width={88} height={88} decoding="async" />
+      {/* Gold-embossed Navy seal under the portrait (from incoming/emboss.svg; Sergio, Oct 2026). */}
+      <img className="home-navy-seal" src={publicUrl("/incoming/home-navy-seal-gold.svg")} alt="" width={88} height={88} decoding="async" />
     </figure>
   );
 }
