@@ -1074,6 +1074,9 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .site-footer { justify-content: space-between; }
 .site-footer .footer-nav { margin-left: 0; margin-right: auto; }
 .site-footer .footer-pager { margin-left: auto; }
+/* Muted pipe between the prev and next links (only rendered when both exist), in the footer divider's colour. */
+.footer-pager { align-items: center; gap: 0.5rem; }
+.footer-pager-sep { color: var(--color-line); margin: 0 0.15rem; line-height: 1; user-select: none; }
 
 /* Bio stamps (Oct 2026): the old PAO stamp split into three. Same ink texture, font and stroke (one generator); the PNGs
    are alpha masks so each theme sets its own ink. Round stamps share one size; UNCLAS is a separate black block. */

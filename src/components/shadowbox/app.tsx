@@ -453,6 +453,7 @@ export function ShadowboxApp() {
                 {t[menuPrev]}
               </button>
             ) : null}
+            {menuPrev && menuNext ? <span className="footer-pager-sep" aria-hidden="true">|</span> : null}
             {menuNext ? (
               <button type="button" className="footer-link" aria-label={`${t.nextPage}: ${t[menuNext]}`} title={`${t.nextPage}: ${t[menuNext]}`} onClick={() => go(menuNext)}>
                 <PagerIcon id={menuNext} />
