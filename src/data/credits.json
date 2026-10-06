@@ -933,7 +933,7 @@
     "sourceUrl": "https://lucide.dev/icons/shield-user",
     "creator": "Lucide contributors (lucide.dev)",
     "license": "ISC License. Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2022 as part of Feather (MIT). All other copyright (c) for Lucide are held by Lucide Contributors 2022.",
-    "notes": "The official shield-user path data from the lucide-react package. The header mark is goldenrod (#DAA520). The installed-app icons are the same mark in black on a light ground and white on a dark ground."
+    "notes": "The official shield-user path data from the lucide-react package. The header mark is goldenrod (#DAA520). The browser-tab favicon is the mark in black, or white in dark mode. The installed-app icons (manifest and Apple touch icons) are the goldenrod mark on the top-bar navy (#14233A), the same in light and dark."
   },
   {
     "id": "medal-jscm-front",
