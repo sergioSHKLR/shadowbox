@@ -24,7 +24,8 @@
       (function () {
         try {
           var raw = JSON.parse(localStorage.getItem("shadowbox-prefs") || "{}");
-          var pick = raw.theme === "light" || raw.theme === "dark" ? raw.theme : "system";
+          var THEME_SWITCH_ENABLED = false; // matches app.tsx: while the switch is hidden, everyone follows the device
+          var pick = THEME_SWITCH_ENABLED && (raw.theme === "light" || raw.theme === "dark") ? raw.theme : "system";
           var dark = pick === "dark" || (pick === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
           document.documentElement.dataset.theme = dark ? "dark" : "light";
         } catch (e) {}
@@ -37,8 +38,8 @@
     <meta name="apple-mobile-web-app-title" content="SHADOWBOX" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-    <script type="module" crossorigin src="/assets/index-DOJZXSZD.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DSvM2lGR.css">
+    <script type="module" crossorigin src="/assets/index-BmZLBs_x.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CfNmTK4o.css">
   <link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:inline-sw">if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/sw.js', { scope: '/' })})}</script></head>
   <body>
     <div id="root"></div>
