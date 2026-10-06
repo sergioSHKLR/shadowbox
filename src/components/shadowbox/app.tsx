@@ -124,6 +124,7 @@ function SettingsDialog({
               </button>
             ))}
           </div>
+          <p className="settings-credit quiet">{t.made}</p>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
@@ -407,7 +408,6 @@ export function ShadowboxApp() {
         ) : null}
       </div>
       <footer className="site-footer">
-        <span className="footer-credit">{t.made}</span>
         {FOOTER.length || SETTINGS_LINK_ENABLED ? <nav className="footer-nav" aria-label={t.footerNav}>
           {FOOTER.map((id) => {
             const Icon = FOOTER_ICON[id];

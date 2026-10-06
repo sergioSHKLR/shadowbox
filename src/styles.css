@@ -1198,3 +1198,6 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .my-words-where { display: grid; gap: 0.2rem; font-size: 0.85rem; }
 .my-words-where input { box-sizing: border-box; width: 100%; padding: 0.4rem 0.55rem; border: 1px solid var(--color-line); border-radius: 6px; background: #fff; color: inherit; font: inherit; font-size: 0.95rem; }
 [data-theme="dark"] .my-words-where input { background: #10141b; border-color: color-mix(in srgb, var(--color-ivory) 30%, transparent); }
+/* Footer keeps only the Settings link (credit moved into the Settings modal). */
+.site-footer .footer-nav { margin-left: auto; }
+.settings-credit { margin: 1.1rem 0 0; padding-top: 0.7rem; border-top: 1px solid var(--color-line); font-size: 0.82rem; text-align: center; }
