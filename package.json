@@ -1,6 +1,6 @@
 {
   "name": "app-builder-workspace",
-  "homepage": "https://mil.shklr.org",
+  "homepage": "https://signum.shklr.org",
   "private": true,
   "sideEffects": false,
   "type": "module",
