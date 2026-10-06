@@ -1049,7 +1049,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 /* Phone / narrow: one column. The frame pins under the bar, the bio card scrolls over it, and the frame shows again
    in the space after the stamps, by then (nearly) all End of Career. */
 @media (max-width: 959.98px) {
-  .home-scroll { --frame-n: min(19rem, calc(100vw - 4rem), calc((100dvh - 8rem) * 8.5 / 11)); --pin-h: calc(var(--frame-n) * 11 / 8.5 + 8.2rem); grid-template-columns: minmax(0, 1fr); }
+  .home-scroll { --frame-n: min(19rem, calc(100vw - 4rem), calc((100dvh - 8rem) * 8.5 / 11)); --pin-h: calc(var(--frame-n) * 11 / 8.5 + 5.2rem); grid-template-columns: minmax(0, 1fr); }
   .home-scroll .wood-frame { --frame: var(--frame-n); }
   .home-pins, .home-read { grid-area: 1 / 1; }
   .home-read { padding: var(--pin-h) 0 var(--pin-h); pointer-events: none; }
@@ -1205,8 +1205,8 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 
 
 /* Home only (Sergio, Oct 2026): faint folded-flag watermark (desaturated, low opacity) behind the bio sheet,
-   never under the small portrait caption; gold-embossed Navy seal under the portrait (from incoming/emboss.svg →
-   home-navy-seal-gold.*). Watermark from incoming/folded-flag.svg → home-folded-flag.*. */
+   never under the small portrait caption; temporary joint-flags strip under the portrait (incoming/joint-flags.* —
+   official Wikimedia Army/AF/USMC/Navy equal strip, no USCG; replace freely). Watermark from incoming/folded-flag.svg → home-folded-flag.*. */
 .home-scroll .home-read::before {
   content: "";
   position: absolute;
@@ -1219,16 +1219,15 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 }
 [data-theme="dark"] .home-scroll .home-read::before { opacity: 0.09; filter: grayscale(0.2) brightness(1.15); }
 .home-scroll .home-sheet { position: relative; z-index: 1; }
-.home-navy-seal {
+.home-joint-flags {
   display: block;
-  width: min(5.5rem, 28%);
+  width: min(13rem, 90%);
   height: auto;
   margin: 0.15rem auto 0.1rem;
-  opacity: 0.92;
-  filter: drop-shadow(0 1px 0 rgba(20, 35, 58, 0.25));
+  opacity: 0.95;
   pointer-events: none;
 }
-[data-theme="dark"] .home-navy-seal {
-  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.45)) brightness(1.08);
+[data-theme="dark"] .home-joint-flags {
+  filter: brightness(1.06);
 }
-/* Keep the seal clear of the bio watermark; caption stays above it (never under small text for the flag). */
+/* Keep the joint-flags strip clear of the bio watermark; caption stays above it. */
