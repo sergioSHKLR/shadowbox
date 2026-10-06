@@ -31,15 +31,12 @@
   ],
   "ia-army": [
     "centurion-c-ram",
-    "iotv-ucp",
     "awu",
     "hmmwv-up-armored",
     "lmtv",
     "m16a1",
-    "plate-carrier-multicam",
-    "pasgt-helmet-desert",
-    "ach-tan",
-    "ach-acu-cover"
+    "deploy-otv",
+    "deploy-ach"
   ],
   "eodmu5": [
     "rhib-eodmu5",
@@ -102,24 +99,17 @@
     "swe-dish",
     "an-pyq-10",
     "jcse-eep",
-    "iotv-ucp",
-    "plate-carrier-multicam",
-    "pasgt-helmet-desert",
-    "ach-tan",
-    "ach-acu-cover",
     "c-130",
     "black-hawk",
     "mi-17",
     "c-17",
     "cpo-summer-white",
     "chevy-spark-yellow",
-    "chevy-spark-white",
     "mitsubishi-outlander",
     "sportster-1200",
     "city-south-tampa"
   ],
   "oef-2010": [
-    "plate-carrier-multicam",
     "multicam",
     "jcse-pt",
     "jcse-afg",
@@ -127,17 +117,14 @@
     "m4-carbine",
     "beretta-m9",
     "jcse-eep",
-    "iotv-ucp",
-    "pasgt-helmet-desert",
-    "ach-tan",
-    "ach-acu-cover",
+    "deploy-iotv",
+    "deploy-ech",
     "black-hawk",
     "mi-17",
     "c-17",
     "city-south-tampa"
   ],
   "oef-2012": [
-    "plate-carrier-multicam",
     "multicam",
     "jcse-pt",
     "jcse-afg",
@@ -150,10 +137,8 @@
     "m4-carbine",
     "beretta-m9",
     "jcse-eep",
-    "iotv-ucp",
-    "pasgt-helmet-desert",
-    "ach-tan",
-    "ach-acu-cover",
+    "deploy-iotv",
+    "deploy-ech",
     "black-hawk",
     "mi-17",
     "c-17",
@@ -214,7 +199,8 @@
     "m60",
     "iridium-9505",
     "an-cyz-10",
-    "iotv-ucp",
+    "deploy-iotv",
+    "deploy-ech",
     "c-130",
     "c-17"
   ],
@@ -239,7 +225,6 @@
     "cpo-summer-white",
     "chevy-spark-white",
     "mitsubishi-outlander",
-    "sportster-1200",
     "city-orange-park"
   ]
 }

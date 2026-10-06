@@ -948,7 +948,7 @@
     "order": 55,
     "name": "Chevy Spark, white",
     "cutout": false,
-    "note": "POV-06. Tampa and Orange Park. Model card.",
+    "note": "POV-06. Orange Park, during the NH Jacksonville tour. Model card.",
     "image": "/equipment/offduty-chevy-spark-white.webp",
     "credit": {
       "sourceUrl": "",
@@ -1177,7 +1177,7 @@
     "fullName": "Outer Tactical Vest (OTV)",
     "caption": "Interceptor OTV in UCP shown",
     "cutout": true,
-    "note": "The Outer Tactical Vest (OTV) of the Interceptor Body Armor system: soft armor that carries front and back ballistic plates. The Improved Outer Tactical Vest (IOTV) replaced it from 2007. Recorded for the OIF II deployment (deployment-gear.json). Card photo: an Interceptor OTV in UCP on a plain background.",
+    "note": "The Outer Tactical Vest (OTV) of the Interceptor Body Armor system: soft armor that carries front and back ballistic plates. The Improved Outer Tactical Vest (IOTV) replaced it from 2007. Worn on OIF II (SERCC individual augmentee, attached to 11th ADA and 3-3 ADA) in ACU (UCP), with the ACH (deployment-gear.json). Card photo: an Interceptor OTV in UCP on a plain background.",
     "image": "/equipment/otv-ucp.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Interceptor_Body_Armor_vests.png",
@@ -1194,7 +1194,7 @@
     "fullName": "Improved Outer Tactical Vest (IOTV)",
     "caption": "IOTV in UCP shown",
     "cutout": true,
-    "note": "The Improved Outer Tactical Vest (IOTV), fielded from 2007, replaced the Interceptor Outer Tactical Vest. It carries front, back and side ballistic plates over soft armor. Recorded for the OIF I, OEF I and OEF II deployments (deployment-gear.json). Card photo: an Army IOTV in UCP, 2008.",
+    "note": "The Improved Outer Tactical Vest (IOTV) carries front, back and side ballistic plates over soft armor. Worn on OIF I with EODMU 5 in DCU, and on OEF I and OEF II with JCSE in MultiCam, each time with the ECH (deployment-gear.json). Card photo: an Army IOTV in UCP, 2008, not the pattern he wore.",
     "image": "/equipment/iotv-ucp.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Specialist_Kachinski%27s_IOTV_vest_in_UCP_camo.jpg",
@@ -1211,7 +1211,7 @@
     "fullName": "Advanced Combat Helmet (ACH)",
     "caption": "ACH with OCP cover and night-vision mount shown",
     "cutout": false,
-    "note": "The Advanced Combat Helmet (ACH), developed from the Special Operations MICH; PEO Soldier says it has been in use since 2002 and replaced the PASGT. Which deployments it was worn on is not recorded per deployment; use the notes below. Card photo: U.S. Army, DA PAM 600-5 standards.",
+    "note": "The Advanced Combat Helmet (ACH), developed from the Special Operations MICH; PEO Soldier says it has been in use since 2002 and replaced the PASGT. Worn on OIF II (SERCC individual augmentee, attached to 11th ADA and 3-3 ADA) with an ACU (UCP) cover and the OTV (deployment-gear.json). Card photo: U.S. Army, DA PAM 600-5 standards, with an OCP cover.",
     "image": "/equipment/ach-pam-600-5.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:ACH_helmet_FD_PAM_600-5_-_Standards_-014.png",
@@ -1228,7 +1228,7 @@
     "fullName": "Enhanced Combat Helmet (ECH)",
     "caption": "PEO Soldier product photo",
     "cutout": true,
-    "note": "The Enhanced Combat Helmet (ECH), a thermoplastic combat helmet (PEO Soldier). Which deployments it was worn on is not recorded per deployment; use the notes below.",
+    "note": "The Enhanced Combat Helmet (ECH), a thermoplastic combat helmet (PEO Soldier). Worn on OIF I with EODMU 5 (DCU) and on OEF I and OEF II with JCSE (MultiCam), each time with the IOTV (deployment-gear.json).",
     "image": "/equipment/ech-peo.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:PEO_Soldier_Enhanced_Combat_Helmet_profile.jpg",

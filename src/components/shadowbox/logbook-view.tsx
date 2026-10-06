@@ -4,7 +4,6 @@ import {
   careerStops,
   deploymentsForCommand,
   gearCard,
-  unassignedHelmetCards,
   formatSpan,
   formatWhen,
   isMapExcludedUnit,
@@ -490,7 +489,6 @@ function UniformsPanel({
  *  (equipment.json + used-here.json). Armor and helmets come only from deployment-gear.json. */
 function OnDutyPanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
   const deployments = deploymentsForCommand(beat.stop.commandId);
-  const helmets = unassignedHelmetCards();
   const groups = onDutyForCommand(beat.stop.commandId).filter((group) => group.id !== "armor" && group.id !== "helmets");
   if (!deployments.length && !groups.length) return <ComingSoon what="duty gear" />;
   return (
@@ -505,35 +503,28 @@ function OnDutyPanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
                   <strong>{dep.label}</strong> · {dep.unitAbbreviation}
                 </button>
                 <span className="quiet">{[dep.theater, dep.span].filter(Boolean).join(" · ")}</span>
+                {dep.pattern || dep.attachedTo.length || dep.note ? (
+                  <span className="quiet logbook-deploy-meta">
+                    {[dep.note, dep.attachedTo.length ? `attached to ${dep.attachedTo.join(" and ")}` : null].filter(Boolean).join(", ")}
+                    {dep.pattern ? <>{dep.note || dep.attachedTo.length ? " · " : null}Pattern: <b>{dep.pattern}</b></> : null}
+                  </span>
+                ) : null}
                 {(() => {
-                  // Only what deployment-gear.json ties to this deployment: its body armor. Helmets are not assigned.
-                  const armor = gearCard(dep.bodyArmor);
-                  return armor ? (
+                  // What deployment-gear.json ties to this deployment: body armor and helmet, in the pattern above.
+                  const cards = [gearCard(dep.bodyArmor), gearCard(dep.helmet)].filter((card): card is NonNullable<typeof card> => Boolean(card));
+                  return cards.length ? (
                     <ul className="logbook-gear-list logbook-deploy-gear" aria-label={`Gear recorded for ${dep.label}`}>
-                      <li>
-                        <button type="button" className="logbook-gear-item" onClick={() => onOpen("equipment", armor.id)} aria-label={armor.name} title={armor.name}>
-                          {armor.image ? <img src={publicUrl(armor.image)} alt="" loading="lazy" decoding="async" /> : <span className="logbook-gear-blank" aria-hidden="true" />}
-                          <span>{armor.label}</span>
-                        </button>
-                      </li>
+                      {cards.map((card) => (
+                        <li key={card.id}>
+                          <button type="button" className="logbook-gear-item" onClick={() => onOpen("equipment", card.id)} aria-label={`${card.name}${dep.pattern ? `, ${dep.pattern}` : ""}`} title={`${card.name}${dep.pattern ? ` (${dep.pattern})` : ""}`}>
+                            {card.image ? <img src={publicUrl(card.image)} alt="" loading="lazy" decoding="async" /> : <span className="logbook-gear-blank" aria-hidden="true" />}
+                            <span>{card.label}</span>
+                          </button>
+                        </li>
+                      ))}
                     </ul>
-                  ) : <span className="quiet">Body armor not recorded</span>;
+                  ) : <span className="quiet">Body armor and helmet not recorded</span>;
                 })()}
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
-      {deployments.length && helmets.length ? (
-        <section aria-label="Helmets, not assigned to a deployment">
-          <Kicker>Helmets · not assigned to a deployment</Kicker>
-          <ul className="logbook-gear-list">
-            {helmets.map((card) => (
-              <li key={card.id}>
-                <button type="button" className="logbook-gear-item" onClick={() => onOpen("equipment", card.id)} aria-label={card.name} title={card.name}>
-                  {card.image ? <img src={publicUrl(card.image)} alt="" loading="lazy" decoding="async" /> : <span className="logbook-gear-blank" aria-hidden="true" />}
-                  <span>{card.label}</span>
-                </button>
               </li>
             ))}
           </ul>

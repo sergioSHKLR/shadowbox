@@ -1,17 +1,5 @@
 {
-  "_note": "Deployment body armor and helmets, as stated by Sergio (Oct 5, 2026). Helmets were not assigned per deployment, so each deployment's helmet stays null and the Logbook shows the pair (ACH / ECH). Oct 6, 2026: each recorded body armor links to its own card (equipmentId). Helmets stay unassigned: ACH and ECH show as separate cards under 'not assigned to a deployment'.",
-  "helmets": [
-    {
-      "short": "ACH",
-      "name": "Advanced Combat Helmet",
-      "equipmentId": "deploy-ach"
-    },
-    {
-      "short": "ECH",
-      "name": "Enhanced Combat Helmet",
-      "equipmentId": "deploy-ech"
-    }
-  ],
+  "_note": "Deployment body armor, helmet and camouflage pattern per campaign, as stated by Sergio (Oct 6, 2026; replaces the Oct 5 list, where helmets were not assigned). OIF I with EODMU 5: IOTV + ECH, DCU. OIF II under SERCC as an individual augmentee (IA) attached to 11th ADA and 3-3 ADA: OTV + ACH, ACU (UCP). OEF I and OEF II with JCSE: IOTV + ECH, MultiCam (he wrote 'Multicam UCP'). Each item links to its On Duty card (equipmentId).",
   "deployments": [
     {
       "unitId": "troy",
@@ -21,7 +9,12 @@
         "name": "Improved Outer Tactical Vest",
         "equipmentId": "deploy-iotv"
       },
-      "helmet": null
+      "helmet": {
+        "short": "ECH",
+        "name": "Enhanced Combat Helmet",
+        "equipmentId": "deploy-ech"
+      },
+      "pattern": "DCU"
     },
     {
       "unitId": "ia-army",
@@ -31,7 +24,17 @@
         "name": "Outer Tactical Vest",
         "equipmentId": "deploy-otv"
       },
-      "helmet": null
+      "helmet": {
+        "short": "ACH",
+        "name": "Advanced Combat Helmet",
+        "equipmentId": "deploy-ach"
+      },
+      "pattern": "ACU (UCP)",
+      "attachedTo": [
+        "11th-ada",
+        "3-3-ada"
+      ],
+      "note": "Individual augmentee (IA) from SERCC"
     },
     {
       "unitId": "cjsotf",
@@ -41,7 +44,12 @@
         "name": "Improved Outer Tactical Vest",
         "equipmentId": "deploy-iotv"
       },
-      "helmet": null
+      "helmet": {
+        "short": "ECH",
+        "name": "Enhanced Combat Helmet",
+        "equipmentId": "deploy-ech"
+      },
+      "pattern": "MultiCam"
     },
     {
       "unitId": "sojtf",
@@ -51,7 +59,12 @@
         "name": "Improved Outer Tactical Vest",
         "equipmentId": "deploy-iotv"
       },
-      "helmet": null
+      "helmet": {
+        "short": "ECH",
+        "name": "Enhanced Combat Helmet",
+        "equipmentId": "deploy-ech"
+      },
+      "pattern": "MultiCam"
     }
   ]
 }

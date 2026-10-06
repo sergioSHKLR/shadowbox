@@ -2283,8 +2283,7 @@ export function logbookAdminAsOf(beat: LogbookBeat): {
 /** equipmentId: the On Duty card (equipment.json) for this armor / helmet. */
 type GearName = { short: string; name: string; equipmentId?: string };
 type DeploymentGearFile = {
-  helmets: GearName[];
-  deployments: { unitId: string; label: string; bodyArmor: GearName | null; helmet: GearName | null }[];
+  deployments: { unitId: string; label: string; bodyArmor: GearName | null; helmet: GearName | null; pattern?: string; attachedTo?: string[]; note?: string }[];
 };
 const deploymentGear = deploymentGearJson as DeploymentGearFile;
 
@@ -2296,10 +2295,6 @@ export function gearCard(gear: GearName | null | undefined): GearCard | null {
   if (!item) return null;
   return { id: item.id, label: gear.short, name: item.fullName ?? gear.name, image: item.image || null };
 }
-/** Helmets recorded for the deployments as a set (ACH, ECH); never assigned to a single deployment. */
-export function unassignedHelmetCards(): GearCard[] {
-  return deploymentGear.helmets.map((h) => gearCard(h)).filter((card): card is GearCard => Boolean(card));
-}
 export const DEPLOYMENT_GEAR_IDS = new Set(["deploy-otv", "deploy-iotv", "deploy-ach", "deploy-ech"]);
 
 export type LogbookDeployment = {
@@ -2310,9 +2305,13 @@ export type LogbookDeployment = {
   span: string;
   theater: string | null;
   bodyArmor: GearName | null;
-  /** Recorded helmet for this deployment; null when only the pair (ACH / ECH) is known. */
+  /** Helmet worn on this deployment (Sergio, Oct 6, 2026). */
   helmet: GearName | null;
-  helmetsKnown: GearName[];
+  /** Camouflage pattern of the armor / helmet cover on this deployment (DCU, ACU (UCP), MultiCam). */
+  pattern: string | null;
+  /** Units the deployment was attached to (OIF II: 11th ADA, 3-3 ADA), as abbreviations. */
+  attachedTo: string[];
+  note: string | null;
 };
 
 /** Deployments that fall inside a command's tour (by the deployment unit's dates), with their recorded armor and helmets. */
@@ -2332,7 +2331,9 @@ export function deploymentsForCommand(unitId: string | null | undefined): Logboo
       theater: (op as { theater?: string } | undefined)?.theater ?? null,
       bodyArmor: row.bodyArmor,
       helmet: row.helmet,
-      helmetsKnown: deploymentGear.helmets,
+      pattern: row.pattern ?? null,
+      attachedTo: (row.attachedTo ?? []).map((id) => units.find((u) => u.id === id)?.abbreviation ?? id),
+      note: row.note ?? null,
     }];
   });
 }
