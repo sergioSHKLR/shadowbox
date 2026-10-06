@@ -1332,3 +1332,43 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .guest-alt { margin: 0; font-size: 0.85rem; }
 .guest-alt a { color: var(--color-navy); }
 [data-theme="dark"] .guest-alt a { color: var(--color-goldenrod, #daa520); }
+/* Native guestbook form (Oct 2026): the card has padding again (it framed the iframe edge to edge before). */
+.guest-card { padding: 0.9rem 1rem; overflow: visible; }
+.site-field-opt { font-style: normal; opacity: 0.8; }
+.site-field textarea[aria-invalid="true"] { border-color: #b3261e; }
+[data-theme="dark"] .site-field textarea[aria-invalid="true"] { border-color: #f2b8b5; }
+
+/* Travel Book active stop row (Oct 2026): light = cream with forced navy text; dark = navy surface, goldenrod left bar
+   and outline, ivory text (the cream row had near-white dark-mode text on it). */
+.stop-list li.now button { background: #fff8e6; color: var(--color-navy); border-color: var(--color-navy); box-shadow: inset 4px 0 0 var(--color-navy); }
+.stop-list li.now button strong { color: var(--color-navy); }
+.stop-list li.now button span:not(.pin-num) { color: #3a4556; }
+[data-theme="dark"] .stop-list li.now button { background: #22314d; color: var(--color-ivory); border-color: var(--color-goldenrod, #daa520); box-shadow: inset 4px 0 0 var(--color-goldenrod, #daa520); }
+[data-theme="dark"] .stop-list li.now button strong { color: var(--color-ivory); }
+[data-theme="dark"] .stop-list li.now button span:not(.pin-num) { color: #d9d1c2; }
+/* Contact WhatsApp button (Oct 2026): Lucide chat bubble in WhatsApp green #25D366; green outline + light green tint; the
+   label stays navy (light) / ivory (dark) so it reads on both. */
+.contact-whatsapp {
+  display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0.3rem 1.1rem 0.3rem 0.9rem;
+  border: 2px solid #25d366; border-radius: 999px; background: color-mix(in srgb, #25d366 10%, transparent);
+  color: var(--color-navy); font-weight: 600; text-decoration: none;
+}
+.contact-whatsapp-icon { color: #25d366; flex: none; }
+.contact-whatsapp:hover { background: color-mix(in srgb, #25d366 18%, transparent); }
+.contact-whatsapp:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 2px; }
+[data-theme="dark"] .contact-whatsapp { color: var(--color-ivory); background: color-mix(in srgb, #25d366 14%, transparent); }
+
+/* Sample redacted paragraph (Oct 2026): placeholder text, words blacked out by hand-drawn marker strokes (see
+   redaction-sample.tsx). Light: near-black marker on the page. Dark: near-black marker on a slightly lighter paper strip. */
+.redact-sample { margin: 1.1rem 0 0.4rem; }
+.redact-para { margin: 0; }
+.redact-word { position: relative; display: inline-block; white-space: nowrap; }
+.redact-text { color: transparent; user-select: none; }
+.redact-ink {
+  position: absolute; left: -0.12em; right: -0.32em; top: -0.08em; bottom: -0.1em; width: calc(100% + 0.44em); height: calc(100% + 0.18em);
+  overflow: visible; filter: url(#marker-ink); fill: #121212; pointer-events: none;
+}
+[data-theme="dark"] .redact-sample { padding: 0.55rem 0.75rem; border-radius: 4px; background: #2f3642; box-shadow: inset 0 0 0 1px #3a4352; }
+[data-theme="dark"] .redact-ink { fill: #070708; }
+.settings-version { margin: 0.3rem 0 0; font-size: 0.74rem; text-align: center; opacity: 0.85; font-variant-numeric: tabular-nums; }
+.settings-version a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
