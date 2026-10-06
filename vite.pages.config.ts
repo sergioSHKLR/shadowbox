@@ -24,7 +24,7 @@ function buildVersion() {
 }
 const BUILD = buildVersion();
 
-/** Static build published at https://mil.shklr.org/ (GitHub Pages custom domain, served from the root) */
+/** Static build published at https://signum.shklr.org/ (GitHub Pages custom domain, served from the root) */
 export default defineConfig({
   base: "/",
   publicDir: "public",
