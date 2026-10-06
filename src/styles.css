@@ -1263,8 +1263,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 /* Footer: Settings link, then round prev / next page buttons (same look as the Map player). */
 .site-footer { display: flex; align-items: center; justify-content: flex-end; gap: 0.75rem; flex-wrap: wrap; }
 .site-footer .footer-nav { margin-left: auto; }
-.footer-pager { display: flex; gap: 0.45rem; }
-.footer-pager .nav-btn:disabled { opacity: 0.4; cursor: default; }
+.footer-pager { display: flex; gap: 1rem; }
 /* Home scroll surfaces follow the page background in each theme. */
 .home-scroll { --home-surface: var(--color-ivory); }
 [data-theme="dark"] .home-scroll { --home-surface: #14181f; }
