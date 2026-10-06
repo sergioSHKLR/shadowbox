@@ -424,6 +424,13 @@
 .logbook-beat-head.logbook-stepper { min-height: 3.1rem; margin-bottom: 0.65rem; }
 .logbook-about { margin-top: 0; }
 @media (max-width: 900px) { .logbook-beat-head.logbook-stepper { min-height: 2.5rem; } }
+/* Header block (Sergio, Oct 2026): one thin brass box, with the card's colour and radius, around the title row and the
+   About row; About itself has no border and the box grows when it opens. Rank & Awards stays below, outside. */
+.logbook-head-box { margin: 0 0 0.75rem; padding: 0.5rem 0.6rem; border: 1px solid var(--color-brass); border-radius: 6px; }
+.logbook-head-box > .logbook-beat-head.logbook-stepper { margin-bottom: 0.4rem; }
+.logbook-head-box > .logbook-beat-head.logbook-stepper:last-child { margin-bottom: 0; }
+.logbook-head-box > .logbook-about { margin: 0; padding: 0.1rem 0.15rem 0; border: 0; border-radius: 0; }
+@media (max-width: 900px) { .logbook-head-box { padding: 0.4rem 0.45rem; } }
 
 /* Tabs / switches (Oct 2026): ACTIVE = goldenrod fill + navy text; INACTIVE = navy fill + light text. Disabled stays a muted grey (not navy). */
 .lb-tab, [data-theme="dark"] .lb-tab { background: var(--color-navy); color: var(--color-ivory, #f4efe4); border-color: var(--color-navy); }

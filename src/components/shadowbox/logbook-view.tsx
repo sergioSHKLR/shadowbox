@@ -842,6 +842,8 @@ export function Logbook({
             className="logbook-beat is-active"
             aria-current="step"
           >
+            {/* One bordered header block (Sergio, Oct 2026): ‹ crest, name, place/dates › and the About row; grows with About. */}
+            <div className="logbook-head-box">
             {/* Prev / next live in the card's title row: "‹ NH Jacksonville ›". */}
             <header className="logbook-beat-head logbook-stepper" ref={stepperRef} role="group" aria-label="Step through the commands">
               <button
@@ -893,6 +895,7 @@ export function Logbook({
                 </p>
               </details>
             ) : null}
+            </div>
             <div className="logbook-beat-body">
               {mainTab === "rank" ? <RankAwards beat={beat} beats={beats} onOpen={onOpen} /> : <AdminAsOf beat={beat} onOpen={onOpen} />}
             </div>
