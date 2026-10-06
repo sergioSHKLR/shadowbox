@@ -428,18 +428,18 @@ export function ShadowboxApp() {
         ) : null}
       </header>
       <div className="app-main">
-        <div className={pane("home")}><Home onOpen={open} bio={BIO_PLACEHOLDER ? t.bioPlaceholder : t.bio} /></div>
+        <div className={pane("home")}><Home onOpen={open} locale={locale} bio={BIO_PLACEHOLDER ? t.bioPlaceholder : t.bio} /></div>
         <div className={pane("uniforms")}><Uniforms onOpen={open} /></div>
         <div className={pane("onduty")}><OnDuty onOpen={open} title={t.onduty} /></div>
         <div className={pane("offduty")}><OffDuty onOpen={open} title={t.offduty} /></div>
         <div className={pane("ops")}><Ops onOpen={open} title={t.ops} /></div>
-        <div className={pane("map")}><Boundary label="map" resetKey={view}><Stations stops={stops} onOpen={open} aboutLabel={t.mapAbout} title={t.map} /></Boundary></div>
+        <div className={pane("map")}><Boundary label="map" resetKey={view}><Stations stops={stops} onOpen={open} aboutLabel={t.mapAbout} title={t.map} locale={locale} t={t} /></Boundary></div>
         <div className={pane("timeline")}>
           <Timeline bars={bars} stops={stops} onOpen={open} title={t.pathTitle} lead={t.pathLead} eventsNote={t.eventsNote} />
         </div>
         <div className={pane("logbook")}>
           <Boundary label="logbook" resetKey={view}>
-            <Logbook onOpen={open} title={t.logbook} lead={t.logbookLead} platesLabel={t.decorations} wardrobeLabel={t.uniforms} />
+            <Logbook onOpen={open} title={t.logbook} lead={t.logbookLead} platesLabel={t.decorations} wardrobeLabel={t.uniforms} t={t} />
           </Boundary>
         </div>
         <div className={pane("admin")}>

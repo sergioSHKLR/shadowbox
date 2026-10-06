@@ -36,6 +36,7 @@ import { MapView } from "@/components/shadowbox/map-view";
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { Boundary } from "@/components/shadowbox/boundary";
 import { EnlargeButton, EnlargeDialog, PlateViewer } from "@/components/shadowbox/enlarge";
+import type { Chrome } from "@/lib/shadowbox/copy";
 
 type Open = (k: Kind, id: string) => void;
 type MainTab = "rank" | "admin";
@@ -113,7 +114,7 @@ function RankPath({ beat, beats, onOpen }: { beat: LogbookBeat; beats: LogbookBe
   );
 }
 
-function RankAwards({ beat, beats, onOpen }: { beat: LogbookBeat; beats: LogbookBeat[]; onOpen: Open }) {
+function RankAwards({ beat, beats, onOpen, t }: { beat: LogbookBeat; beats: LogbookBeat[]; onOpen: Open; t: Chrome }) {
   const ribbons = unmountedRibbons(beat.rack);
   const pins = [...beat.pinsAbove, ...beat.pinsBelow];
   return (
@@ -148,7 +149,7 @@ function RankAwards({ beat, beats, onOpen }: { beat: LogbookBeat; beats: Logbook
             })}
           </ol>
         ) : (
-          <p className="quiet">No ribbons on this command plate.</p>
+          <p className="quiet">{t.noRibbons}</p>
         )}
       </section>
     </div>
@@ -169,7 +170,7 @@ function necSchoolLine(nec: { schoolIds?: string[]; placeId?: string }): string 
 }
 
 /** Admin as of the end of this command: NECs held and schools (necs.json / schools.json). */
-function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
+function AdminAsOf({ beat, onOpen, t }: { beat: LogbookBeat; onOpen: Open; t: Chrome }) {
   const { necsHeld, schoolsThisTour } = logbookAdminAsOf(beat);
   const duties = commandDutiesFor(beat.stop.commandId);
   const dutyRows = [
@@ -189,7 +190,7 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
   );
   return (
     <div className="logbook-admin-groups">
-      <section aria-label="NECs this tour">
+      <section aria-label={`NECs ${t.thisTour}`}>
         <Kicker>NECs</Kicker>
         {necsHeld.length ? (
           <ul className="logbook-admin-list logbook-nec-grid">
@@ -208,10 +209,10 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
                 >
                   <strong>
                     NEC {necCode(nec)}
-                    {isNew ? <em className="logbook-new">this tour</em> : null}
-                    {gained ? <em className="logbook-gained">gained</em> : null}
+                    {isNew ? <em className="logbook-new">{t.thisTour}</em> : null}
+                    {gained ? <em className="logbook-gained">{t.gained}</em> : null}
                   </strong>
-                  <span className="logbook-nec-name">{isNew && nec.billetLabel ? nec.billetLabel : nec.name}</span>
+                  <span className="logbook-nec-name">{isNew && nec.billetLabel ? (nec.billetLabel === "No NEC billet" ? t.noNecBillet : nec.billetLabel) : nec.name}</span>
                   {!(isNew && nec.billetLabel) && nec.awarded ? <span className="logbook-nec-date">{formatWhen(nec.awarded)}</span> : null}
                   {!(isNew && nec.billetLabel) && necSchoolLine(nec) ? <small className="logbook-nec-place">{necSchoolLine(nec)}</small> : null}
                 </button>
@@ -219,12 +220,12 @@ function AdminAsOf({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
             ))}
           </ul>
         ) : (
-          <p className="quiet">No NEC recorded for this command.</p>
+          <p className="quiet">{t.noNec}</p>
         )}
       </section>
-      <section aria-label="Schools this tour">
-        <Kicker>Schools this tour</Kicker>
-        {schoolsThisTour.length ? <ul className="logbook-admin-list">{schoolsThisTour.map(schoolBtn)}</ul> : <p className="quiet">No schools recorded during this command.</p>}
+      <section aria-label={t.schoolsThisTour}>
+        <Kicker>{t.schoolsThisTour}</Kicker>
+        {schoolsThisTour.length ? <ul className="logbook-admin-list">{schoolsThisTour.map(schoolBtn)}</ul> : <p className="quiet">{t.noSchools}</p>}
       </section>
       {dutyRows.length ? (
         <section aria-label="Duties this tour">
@@ -368,21 +369,21 @@ function MapInset({
   );
 }
 
-function ComingSoon({ what }: { what: string }) {
+function ComingSoon({ what, message }: { what: string; message?: string }) {
   return (
     <div className="logbook-soon">
       <strong>Coming soon</strong>
-      <span className="quiet">No {what} recorded for this command yet.</span>
+      <span className="quiet">{message ?? `No ${what} recorded for this command yet.`}</span>
     </div>
   );
 }
 
 
-/** Off Duty vehicles show Make + Model only; color and year stay in equipment.json ("Nissan Frontier, silver, 1997" → "Nissan Frontier"). */
+/** Off Duty vehicles show Make + Model + color; year stays in equipment.json ("Nissan Sentra, red, 1991" → "Nissan Sentra, red"). */
 const gearLabel = displayEquipmentName;
 
-function GearPanel({ groups, what, onOpen }: { groups: LogbookGearGroup[]; what: string; onOpen: Open }) {
-  if (!groups.length) return <ComingSoon what={what} />;
+function GearPanel({ groups, what, onOpen, empty }: { groups: LogbookGearGroup[]; what: string; onOpen: Open; empty?: string }) {
+  if (!groups.length) return <ComingSoon what={what} message={empty} />;
   return (
     <div className="logbook-gear">
       {groups.map((group) => (
@@ -578,10 +579,10 @@ function UniformsPanel({
 
 /** On Duty: deployment body armor + helmets (deployment-gear.json), then the command's other duty gear
  *  (equipment.json + used-here.json). Armor and helmets come only from deployment-gear.json. */
-function OnDutyPanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
+function OnDutyPanel({ beat, onOpen, empty }: { beat: LogbookBeat; onOpen: Open; empty?: string }) {
   const deployments = deploymentsForCommand(beat.stop.commandId);
   const groups = onDutyForCommand(beat.stop.commandId).filter((group) => group.id !== "armor" && group.id !== "helmets");
-  if (!deployments.length && !groups.length) return <ComingSoon what="duty gear" />;
+  if (!deployments.length && !groups.length) return <ComingSoon what="duty gear" message={empty} />;
   return (
     <div className="logbook-gear">
       {deployments.length ? (
@@ -628,12 +629,12 @@ function OnDutyPanel({ beat, onOpen }: { beat: LogbookBeat; onOpen: Open }) {
 
 /** Crests of the active and already-visited commands' units; the active command's units are highlighted. */
 /** Crests for the active command only (its assigned unit plus its own deployed / assisting / parent units). Swaps fully per beat; not cumulative. */
-function CrestStrip({ beat, onOpen }: { beat: LogbookBeat | undefined; onOpen: Open }) {
+function CrestStrip({ beat, onOpen, t }: { beat: LogbookBeat | undefined; onOpen: Open; t: Chrome }) {
   // Map-excluded partners reach this list only when the plate gives them a role (crests only, never the Map).
   // The command's own crest sits in the command card; the footer lists only the other units (TAD, deployed, host, partner, customer).
   const list = (beat?.units ?? []).filter((unit) => unit.id !== beat?.stop.commandId);
   if (!beat) return <ComingSoon what="unit crests" />;
-  if (!list.length) return <p className="logbook-crests-none quiet">No other units recorded for this command.</p>;
+  if (!list.length) return <p className="logbook-crests-none quiet">{t.noOtherUnits}</p>;
   return (
     <ul className="logbook-crests" key={beat.index} aria-label={`Unit crests: ${beatTitle(beat)}`}>
       {list.map((unit, i) => {
@@ -751,6 +752,7 @@ export function Logbook({
   title,
   platesLabel = "Decorations",
   wardrobeLabel = "Uniforms",
+  t,
 }: {
   onOpen: (k: Kind, id: string) => void;
   title: string;
@@ -760,6 +762,7 @@ export function Logbook({
   platesLabel?: string;
   /** Tab label for the mannequin panel. Renamed "Wardrobe" → "Uniforms" (Sergio, Oct 2026). Internal ids stay uniforms / wardrobe. */
   wardrobeLabel?: string;
+  t: Chrome;
 }) {
   const beats = useMemo(() => logbookBeats(), []);
   const narrow = useNarrow();
@@ -877,8 +880,8 @@ export function Logbook({
   const asideTabs: TabDef<AsideTab>[] = [
     { id: "uniforms", label: platesLabel },
     { id: "wardrobe", label: wardrobeLabel },
-    { id: "onduty", label: "On Duty" },
-    { id: "offduty", label: "Off Duty" },
+    { id: "onduty", label: t.onduty },
+    { id: "offduty", label: t.offduty },
   ];
   const asideContent = (name: AsideTab) =>
     name === "uniforms" ? (
@@ -886,9 +889,9 @@ export function Logbook({
     ) : name === "wardrobe" ? (
       <WardrobePanel beat={beat} onOpen={onOpen} />
     ) : name === "onduty" ? (
-      <OnDutyPanel beat={beat} onOpen={onOpen} />
+      <OnDutyPanel beat={beat} onOpen={onOpen} empty={t.noDutyGear} />
     ) : (
-      <GearPanel groups={offDutyForCommand(beat.stop.commandId)} what="off-duty life" onOpen={onOpen} />
+      <GearPanel groups={offDutyForCommand(beat.stop.commandId)} what="off-duty life" onOpen={onOpen} empty={t.noDutyGear} />
     );
   const mapRegion = (hidden: boolean) => (
     <div className="logbook-map-tab" hidden={hidden} role="group" aria-label={`Map: ${mapBeat.stop.labels[0]}`}>
@@ -906,8 +909,8 @@ export function Logbook({
         idBase="logbook-main"
         label="Rank and awards, or admin, for this command"
         tabs={[
-          { id: "rank", label: "Rank & Awards" },
-          { id: "admin", label: "Admin" },
+          { id: "rank", label: t.rankAwards },
+          { id: "admin", label: t.admin },
         ]}
         value={mainTab}
         onChange={setMainTab}
@@ -947,7 +950,7 @@ export function Logbook({
                 <h3 title={profile?.officialName ?? unit?.name}>{profile?.officialName ?? (unit?.name.startsWith("USS ") ? unit.name : beatTitle(beat))}</h3>
                 <p className="quiet">{beat.lines[1] ?? "Command"}</p>
                 <p className="sr-only" aria-live="polite" aria-atomic="true">
-                  Command {beat.index + 1} of {beats.length}: {beatTitle(beat)}
+                  {t.commandOf} {beat.index + 1} {t.ofWord} {beats.length}: {beatTitle(beat)}
                 </p>
               </div>
               <button
@@ -979,7 +982,7 @@ export function Logbook({
             ) : null}
             </div>
             <div className="logbook-beat-body">
-              {mainTab === "rank" ? <RankAwards beat={beat} beats={beats} onOpen={onOpen} /> : <AdminAsOf beat={beat} onOpen={onOpen} />}
+              {mainTab === "rank" ? <RankAwards beat={beat} beats={beats} onOpen={onOpen} t={t} /> : <AdminAsOf beat={beat} onOpen={onOpen} t={t} />}
             </div>
           </article>
         </div>
@@ -997,33 +1000,33 @@ export function Logbook({
           {main}
           <Tabbed
             idBase="logbook-phone"
-            label={`Crests, ${platesLabel}, ${wardrobeLabel}, On Duty, Off Duty, Map`}
-            tabs={[{ id: "crests", label: "Crests" }, ...asideTabs, { id: "map", label: "Map" }]}
+            label={`${t.crests}, ${platesLabel}, ${wardrobeLabel}, ${t.onduty}, ${t.offduty}, ${t.mapShort}`}
+            tabs={[{ id: "crests", label: t.crests }, ...asideTabs, { id: "map", label: t.mapShort }]}
             value={phoneTab}
             onChange={setPhoneTab}
             className="logbook-phone-tabs"
           >
             {phoneTab === "uniforms" || phoneTab === "wardrobe" || phoneTab === "onduty" || phoneTab === "offduty" ? asideContent(phoneTab) : null}
-            {phoneTab === "crests" ? <CrestStrip beat={beats[active]} onOpen={onOpen} /> : null}
+            {phoneTab === "crests" ? <CrestStrip beat={beats[active]} onOpen={onOpen} t={t} /> : null}
             {mapRegion(phoneTab !== "map")}
           </Tabbed>
         </div>
       ) : (
         <div className="logbook-grid">
           {main}
-          <aside className="logbook-aside" aria-label={`${platesLabel}, ${wardrobeLabel}, On Duty, Off Duty for this command`}>
-            <Tabbed idBase="logbook-aside" label={`${platesLabel}, ${wardrobeLabel}, On Duty, Off Duty`} tabs={asideTabs} value={asideTab} onChange={setAsideTab} className="logbook-aside-tabs">
+          <aside className="logbook-aside" aria-label={`${platesLabel}, ${wardrobeLabel}, ${t.onduty}, ${t.offduty}`}>
+            <Tabbed idBase="logbook-aside" label={`${platesLabel}, ${wardrobeLabel}, ${t.onduty}, ${t.offduty}`} tabs={asideTabs} value={asideTab} onChange={setAsideTab} className="logbook-aside-tabs">
               {asideContent(asideTab)}
             </Tabbed>
           </aside>
           <footer className="logbook-foot">
-            <section className="logbook-foot-half logbook-foot-crests" aria-label="Unit crests">
-              <Kicker>Unit crests</Kicker>
+            <section className="logbook-foot-half logbook-foot-crests" aria-label={t.unitCrests}>
+              <Kicker>{t.unitCrests}</Kicker>
               <div className="logbook-foot-scroll">
-                <CrestStrip beat={beats[active]} onOpen={onOpen} />
+                <CrestStrip beat={beats[active]} onOpen={onOpen} t={t} />
               </div>
             </section>
-            <section className="logbook-foot-half logbook-foot-map" aria-label="Map">
+            <section className="logbook-foot-half logbook-foot-map" aria-label={t.mapShort}>
               {mapRegion(false)}
             </section>
           </footer>

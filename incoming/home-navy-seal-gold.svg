@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Gold-embossed Navy seal placeholder (Signum navy/goldenrod). Replace with Sergio's asset. -->
+  <circle cx="100" cy="100" r="92" stroke="#daa520" stroke-width="3"/>
+  <circle cx="100" cy="100" r="84" stroke="#b8923a" stroke-width="1.5" stroke-dasharray="2 3"/>
+  <circle cx="100" cy="100" r="58" stroke="#e4c77a" stroke-width="1.2"/>
+  <!-- Simplified fouled anchor -->
+  <g stroke="#daa520" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M100 42 v78"/>
+    <path d="M82 52 h36"/>
+    <circle cx="100" cy="38" r="7"/>
+    <path d="M68 130 a36 28 0 0 0 64 0"/>
+    <path d="M68 130 l-8 -12 M132 130 l8 -12"/>
+  </g>
+  <g fill="#e4c77a">
+    <circle cx="100" cy="22" r="2"/><circle cx="140" cy="40" r="2"/><circle cx="160" cy="80" r="2"/>
+    <circle cx="140" cy="130" r="2"/><circle cx="100" cy="155" r="2"/><circle cx="60" cy="130" r="2"/>
+    <circle cx="40" cy="80" r="2"/><circle cx="60" cy="40" r="2"/>
+  </g>
+</svg>

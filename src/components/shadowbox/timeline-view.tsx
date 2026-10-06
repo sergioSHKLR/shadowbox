@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import { photos, profile, publicUrl, timeline, type Kind } from "@/lib/shadowbox/model";
+import { chrome } from "@/lib/shadowbox/copy";
+import type { Locale } from "@/lib/shadowbox/prefs";
 import { UniformProgression } from "@/components/shadowbox/uniform-progression";
 import { RedactionSample } from "@/components/shadowbox/redaction-sample";
 
@@ -73,7 +75,8 @@ function useHomeFade(ref: RefObject<HTMLElement | null>) {
   }, [ref]);
 }
 
-export function Home({ bio }: { onOpen?: (k: Kind, id: string) => void; bio: string }) {
+export function Home({ bio, locale = "en" }: { onOpen?: (k: Kind, id: string) => void; bio: string; locale?: Locale }) {
+  const t = chrome(locale);
   const paragraphs = bio.split("\n\n");
   const scrollRef = useRef<HTMLElement>(null);
   useHomeFade(scrollRef);
@@ -84,17 +87,17 @@ export function Home({ bio }: { onOpen?: (k: Kind, id: string) => void; bio: str
       <header className="intro home-scroll" ref={scrollRef}>
         <div className="home-pins">
           <FadePortrait
-            first={{ src: SN_PORTRAIT?.src ?? profile.portrait, alt: SN_PORTRAIT?.alt ?? "Seaman Recruit Sergio Schickler, boot camp portrait, 1997", caption: "Boot Camp, 1997" }}
-            last={{ src: CHIEF_PORTRAIT?.src ?? profile.portrait, alt: CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018", caption: "End of Career, 2018" }}
+            first={{ src: SN_PORTRAIT?.src ?? profile.portrait, alt: SN_PORTRAIT?.alt ?? "Seaman Recruit Sergio Schickler, boot camp portrait, 1997", caption: t.bootCampCap }}
+            last={{ src: CHIEF_PORTRAIT?.src ?? profile.portrait, alt: CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018", caption: t.endCareerCap }}
           />
         </div>
         <div className="home-read">
           {/* One opaque sheet for the name block and the bio, so the pinned portrait never shows between them. */}
           <div className="home-sheet">
           <div className="intro-copy">
-            <p className="kicker">{profile.headerLines[1]}</p>
+            <p className="kicker">{t.navyRetired}</p>
             <h2>{profile.headerLines[0]}</h2>
-            <p className="quiet">{profile.headerLines[2]} · {profile.serviceLength}</p>
+            <p className="quiet">{profile.headerLines[2]} · {t.serviceLength}</p>
           </div>
           <div className="bio-wrap">
             {paragraphs.map((paragraph) => (
@@ -134,6 +137,8 @@ function FadePortrait({ first, last }: { first: Shot; last: Shot }) {
         <span className="home-fade-cap-first">{first.caption}</span>
         <span className="home-fade-cap-last">{last.caption}</span>
       </figcaption>
+      {/* Gold-embossed Navy seal under the portrait (Sergio, Oct 2026). Placeholder asset — replace freely. */}
+      <img className="home-navy-seal" src={publicUrl("/incoming/home-navy-seal-gold.webp")} alt="" width={88} height={88} decoding="async" />
     </figure>
   );
 }

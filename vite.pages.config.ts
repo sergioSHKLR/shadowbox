@@ -42,7 +42,7 @@ export default defineConfig({
         id: "/",
         name: "SIGNUM",
         short_name: "SIGNUM",
-        description: "Not for gawking but for learning!",
+        description: "Zero gawking, All instructing",
         start_url: "/",
         scope: "/",
         display: "standalone",

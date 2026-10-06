@@ -2388,14 +2388,12 @@ export function timeInRate(from: string | null | undefined, to: string | null | 
   return exact ? text : `~${text}`;
 }
 
-/* ---------- POV labels: Make + Model only (color and year stay in the data) ---------- */
+/* ---------- POV labels: Make + Model + color; year stays in the data only (Sergio, Oct 2026: Sentras need Red/Grey). ---------- */
 const POV_GROUPS = new Set(["cars", "motorcycles"]);
-const POV_TRAILING = /\s+(?:yellow|white|red|grey|gray|silver|green|black|blue|pearl|(?:19|20)\d{2}(?:\s+or\s+(?:19|20)\d{2})?)$/i;
-/** "Nissan Frontier, silver, 1997" → "Nissan Frontier"; "Chevy Spark Yellow" → "Chevy Spark". */
+const POV_YEAR = /,\s*(?:19|20)\d{2}(?:\s+or\s+(?:19|20)\d{2})?$/i;
+/** "Nissan Sentra, red, 1991" → "Nissan Sentra, red"; "Chevy Spark, white" → "Chevy Spark, white". */
 export function povLabel(name: string): string {
-  let out = name.split(",")[0].trim();
-  while (POV_TRAILING.test(out)) out = out.replace(POV_TRAILING, "").trim();
-  return out || name;
+  return name.replace(POV_YEAR, "").trim() || name;
 }
 export const isPovGroup = (group: string) => POV_GROUPS.has(group);
 export const displayEquipmentName = (item: { group: string; name: string }) => (isPovGroup(item.group) ? povLabel(item.name) : item.name);

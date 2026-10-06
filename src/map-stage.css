@@ -8,6 +8,13 @@
 [data-theme="dark"] .leaflet-tile-pane {
   filter: invert(0.9) hue-rotate(180deg) saturate(0.45) brightness(0.85);
 }
+/* Filter on the pane made 1px seams between tiles read as a faint horizontal line; nudge tiles to cover the gap. */
+[data-theme="dark"] .leaflet-tile-pane .leaflet-tile {
+  outline: 1px solid transparent;
+  margin: -0.5px;
+  width: calc(256px + 1px) !important;
+  height: calc(256px + 1px) !important;
+}
 @media (max-width: 720px) {
   .map-stage.is-playing {
     position: sticky;

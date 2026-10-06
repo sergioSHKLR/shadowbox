@@ -5,18 +5,30 @@
     "purpose": "The Navy's boot camp and its only recruit training command. About eight weeks of drill, physical training, seamanship, swim survival and firefighting turn recruits into Sailors, ending with the final evaluation called Battle Stations.",
     "history": "President Theodore Roosevelt authorized a naval training station at Great Lakes on 24 November 1904, and it opened on 1 July 1911; President Taft attended its October 1911 dedication and the graduation of the first company of recruits. More than one million men and women trained at Great Lakes during World War II. By 1966 Recruit Training Command had 13 barracks for more than 18,000 recruits, and in 2003 a recapitalization began replacing them with 14 new barracks called \"ships.\"",
     "sources": [
-      { "label": "RTC Great Lakes, About (official site, archived 2004)", "url": "https://web.archive.org/web/2004/http://www.nsgreatlakes.navy.mil/aboutrtc.html" },
-      { "label": "Naval Station Great Lakes history (CNIC)", "url": "https://cnrma.cnic.navy.mil/Installations/NAVSTA-Great-Lakes/About/History/" }
+      {
+        "label": "RTC Great Lakes, About (official site, archived 2004)",
+        "url": "https://web.archive.org/web/2004/http://www.nsgreatlakes.navy.mil/aboutrtc.html"
+      },
+      {
+        "label": "Naval Station Great Lakes history (CNIC)",
+        "url": "https://cnrma.cnic.navy.mil/Installations/NAVSTA-Great-Lakes/About/History/"
+      }
     ]
   },
   {
     "unitId": "tortuga",
-    "officialName": "USS Tortuga (LSD 46)",
+    "officialName": "USS Tortuga (LSD-46)",
     "purpose": "A Whidbey Island-class dock landing ship. She carries a Marine detachment and its landing craft (up to five LCAC air-cushion craft) for amphibious operations.",
     "history": "Built by Avondale Shipyards in New Orleans, she was launched early, on 15 September 1988, because of the threat of Hurricane Gilbert, and was commissioned on 17 November 1990. She is the second Navy ship named for the Dry Tortugas, west of Key West, Florida, and was homeported at Little Creek, Virginia.",
     "sources": [
-      { "label": "NavSource: USS Tortuga (LSD-46)", "url": "https://www.navsource.org/archives/10/12/1246.htm" },
-      { "label": "Wikipedia (cross-check)", "url": "https://en.wikipedia.org/wiki/USS_Tortuga_(LSD-46)" }
+      {
+        "label": "NavSource: USS Tortuga (LSD-46)",
+        "url": "https://www.navsource.org/archives/10/12/1246.htm"
+      },
+      {
+        "label": "Wikipedia (cross-check)",
+        "url": "https://en.wikipedia.org/wiki/USS_Tortuga_(LSD-46)"
+      }
     ],
     "sourceNote": "No official Navy history page could be retrieved (the DANFS address returned 404 and the ship's SURFLANT page refused automated access); facts are those NavSource and Wikipedia agree on."
   },
@@ -26,8 +38,14 @@
     "purpose": "The Navy's training center at Great Lakes, Illinois. After World War II it remained the Navy's primary training center, with enlisted technical (\"A\") schools after boot camp.",
     "history": "Naval Training Station Great Lakes opened on 1 July 1911. During World War I it became the largest training station in the United States, graduating 126,000 men, and more than one million men and women trained there in World War II. In 1994 the Base Realignment and Closure Commission recommended consolidating all enlisted Navy training at Great Lakes, and between 1996 and 1999 commands from Orlando and San Diego moved there.",
     "sources": [
-      { "label": "Naval Station Great Lakes history (CNIC)", "url": "https://cnrma.cnic.navy.mil/Installations/NAVSTA-Great-Lakes/About/History/" },
-      { "label": "RTC Great Lakes, About (official site, archived 2004)", "url": "https://web.archive.org/web/2004/http://www.nsgreatlakes.navy.mil/aboutrtc.html" }
+      {
+        "label": "Naval Station Great Lakes history (CNIC)",
+        "url": "https://cnrma.cnic.navy.mil/Installations/NAVSTA-Great-Lakes/About/History/"
+      },
+      {
+        "label": "RTC Great Lakes, About (official site, archived 2004)",
+        "url": "https://web.archive.org/web/2004/http://www.nsgreatlakes.navy.mil/aboutrtc.html"
+      }
     ]
   },
   {
@@ -36,16 +54,22 @@
     "purpose": "Provides integrated tactical and non-tactical telecommunications (voice, video and data) to Navy customers afloat and ashore in the San Diego region.",
     "history": "It began on 12 May 1906 as Navy Radio Station, San Diego, sending ship-to-shore wireless telegraph traffic: 3,000 messages in its first year. Renamed Naval Communications Station, San Diego, in 1953, it established the Automated Digital Network (AUTODIN) in 1966. The present command was formed when the communications station merged with the Navy Regional Data Automation Center, and in 1998 it set up the San Diego Metropolitan Area Network, the first of its kind.",
     "sources": [
-      { "label": "NCTS San Diego history (Naval Information Forces)", "url": "https://www.navifor.usff.navy.mil/Organization/Operational-Support/NCTAMS-PAC/Organization/NCTS-San-Diego/About-Us/History/" }
+      {
+        "label": "NCTS San Diego history (Naval Information Forces)",
+        "url": "https://www.navifor.usff.navy.mil/Organization/Operational-Support/NCTAMS-PAC/Organization/NCTS-San-Diego/About-Us/History/"
+      }
     ]
   },
   {
     "unitId": "frank-cable",
-    "officialName": "USS Frank Cable (AS 40)",
+    "officialName": "USS Frank Cable (AS-40)",
     "purpose": "A submarine tender designed to tend nuclear-powered Los Angeles-class attack submarines. From Guam she serves as Commander, Seventh Fleet's mobile repair and support platform in the Western Pacific.",
     "history": "Built by Lockheed Shipbuilding and Construction Company in Seattle, she was christened on 14 January 1978 and commissioned on 20 October 1979. From 1980 to 1996 she was the repair ship for Submarine Squadrons Four and Eighteen in Charleston, South Carolina. She began decommissioning in 1996 but was reactivated and refitted to replace USS Holland (AS 32) in the Western Pacific, and she received the Humanitarian Service Medal for recovery work on Guam after Super Typhoon Pongsona in 2002.",
     "sources": [
-      { "label": "About USS Frank Cable (COMSUBPAC)", "url": "https://www.csp.navy.mil/frankcable/About/" }
+      {
+        "label": "About USS Frank Cable (COMSUBPAC)",
+        "url": "https://www.csp.navy.mil/frankcable/About/"
+      }
     ]
   },
   {
@@ -54,8 +78,14 @@
     "purpose": "A forward-deployed mobile command providing explosive ordnance disposal detachments and a fly-away recompression chamber detachment throughout the Seventh Fleet area. Its primary mission was enabling access for carrier and expeditionary strike groups, mine countermeasures operations and special operations forces.",
     "history": "Its 2004 mission statement listed two regional EOD shore detachments under it, Det Japan and Det Marianas, and secondary missions supporting the U.S. Secret Service and the testing of new acquisition programs. It is a component of Explosive Ordnance Disposal Group One, assigned to Commander, Task Force 75 in the Seventh Fleet area.",
     "sources": [
-      { "label": "EODMU 5 mission statement (official site, archived 2004)", "url": "https://web.archive.org/web/2004/http://www.eodmu5.navy.mil/pages/main.htm" },
-      { "label": "EODMU 5 change of command (DVIDS, 2024)", "url": "https://www.dvidshub.net/news/479269/eodmu-5-changes-command" }
+      {
+        "label": "EODMU 5 mission statement (official site, archived 2004)",
+        "url": "https://web.archive.org/web/2004/http://www.eodmu5.navy.mil/pages/main.htm"
+      },
+      {
+        "label": "EODMU 5 change of command (DVIDS, 2024)",
+        "url": "https://www.dvidshub.net/news/479269/eodmu-5-changes-command"
+      }
     ],
     "sourceNote": "The unit's founding date and early history were not found in an official source, so they are left out."
   },
@@ -65,7 +95,10 @@
     "purpose": "A Navy calibration, maintenance and repair center at NAS Jacksonville, providing electrical, electronic and physical/dimensional calibration services for the Eastern United States, the Atlantic Fleet and the Caribbean.",
     "history": "",
     "sources": [
-      { "label": "Southeast Regional Calibration Center (AIRLANT)", "url": "https://www.airlant.usff.navy.mil/sercc/" }
+      {
+        "label": "Southeast Regional Calibration Center (AIRLANT)",
+        "url": "https://www.airlant.usff.navy.mil/sercc/"
+      }
     ],
     "sourceNote": "No official history of the center was found, so the history is left blank."
   },
@@ -75,8 +108,14 @@
     "purpose": "A joint, airborne-deployable communications unit. On order it deploys within hours to provide early-entry, scalable command, control, communications and computer (C4) support to the combatant commands, Special Operations Command and other agencies.",
     "history": "It was established at MacDill Air Force Base in 1961 as the Communications Support Element under U.S. Strike Command, a quick-response communications unit of just over 400 Air Force and Army personnel. The Navy and Marine Corps joined in 1972, and it was redesignated JCSE. Its members deployed within weeks of 9/11, and from March 2002 it provided continuous communications to joint and special operations forces in Afghanistan and elsewhere; in 2008 it became a subordinate command of the new Joint Enabling Capabilities Command.",
     "sources": [
-      { "label": "JCSE: A history (MacDill AFB)", "url": "https://www.macdill.af.mil/News/Article-Display/Article/765260/jcse-a-history/" },
-      { "label": "JCSE mission (JECC)", "url": "https://www.jecc.ustranscom.mil/Subordinate-Commands/JCSE/" }
+      {
+        "label": "JCSE: A history (MacDill AFB)",
+        "url": "https://www.macdill.af.mil/News/Article-Display/Article/765260/jcse-a-history/"
+      },
+      {
+        "label": "JCSE mission (JECC)",
+        "url": "https://www.jecc.ustranscom.mil/Subordinate-Commands/JCSE/"
+      }
     ]
   },
   {
@@ -85,10 +124,46 @@
     "purpose": "The Navy hospital at Naval Air Station Jacksonville. With its branch health clinics in Florida and Georgia it provides health care to active duty members, their families and retirees, and keeps service members medically ready to deploy.",
     "history": "It was commissioned on 1 July 1941 with 41 inpatients and expanded to 1,000 beds during World War II. Ground was broken for a new $7 million hospital in 1966. It was the first Navy hospital to transition to the Defense Health Agency.",
     "sources": [
-      { "label": "NH Jacksonville history (official site)", "url": "https://jacksonville.tricare.mil/About-Us/Our-History/" },
-      { "label": "NH Jacksonville celebrates 80 years (2021)", "url": "https://jacksonville.tricare.mil/News-Gallery/Articles/Article/2678891/naval-hospital-jacksonville-celebrates-80-years-of-health-and-readiness/" }
+      {
+        "label": "NH Jacksonville history (official site)",
+        "url": "https://jacksonville.tricare.mil/About-Us/Our-History/"
+      },
+      {
+        "label": "NH Jacksonville celebrates 80 years (2021)",
+        "url": "https://jacksonville.tricare.mil/News-Gallery/Articles/Article/2678891/naval-hospital-jacksonville-celebrates-80-years-of-health-and-readiness/"
+      }
     ]
   },
-  {"unitId": "geo-32nd-bn", "officialName": "32nd Light Infantry Battalion, 3rd Infantry Brigade, Georgian Armed Forces", "purpose": "A Georgian Armed Forces light infantry battalion of the 3rd Infantry Brigade. It deployed to Afghanistan under the Georgia Deployment Program and served alongside U.S. Marines of Regimental Combat Team 2 (RCT-2) in Helmand and Nimruz provinces.", "history": "Deployed from November 2010 to about April 2011, with about 749 troops. On 10 November 2010, at FOB Delaram II, it took over the mission from Georgia's 31st Battalion. It was relieved by the 33rd Battalion in April 2011.", "sources": [{"label": "Georgian soldiers hand over mission, help secure Afghanistan (US Marine Corps News, RCT-2, 12 Nov 2010, via GlobalSecurity.org)", "url": "http://www.globalsecurity.org/military/library/news/2010/11/mil-101112-mcn01.htm"}, {"label": "Peacekeeping mission (Ministry of Defence of Georgia)", "url": "https://mod.gov.ge/en/news/read/770/peacekeeping-mission"}, {"label": "Georgia Mulls Sending More Troops to Afghanistan (Civil Georgia, 3 Jun 2011)", "url": "https://civil.ge/archives/121162"}]},
-  {"unitId": "rct-2", "officialName": "Regimental Combat Team 2 (RCT-2), U.S. Marine Corps", "purpose": "A U.S. Marine Corps regimental combat team built around the 2nd Marine Regiment.", "history": "In 2010 it operated in Helmand and Nimruz provinces, Afghanistan, with the Georgian 31st and 32nd battalions at FOB Delaram II; the 31st handed the mission to the 32nd there on 10 November 2010.", "sources": [{"label": "Georgian soldiers hand over mission, help secure Afghanistan (US Marine Corps News, RCT-2, 12 Nov 2010, via GlobalSecurity.org)", "url": "http://www.globalsecurity.org/military/library/news/2010/11/mil-101112-mcn01.htm"}]}
+  {
+    "unitId": "geo-32nd-bn",
+    "officialName": "32nd Light Infantry Battalion, 3rd Infantry Brigade, Georgian Armed Forces",
+    "purpose": "A Georgian Armed Forces light infantry battalion of the 3rd Infantry Brigade. It deployed to Afghanistan under the Georgia Deployment Program and served alongside U.S. Marines of Regimental Combat Team 2 (RCT-2) in Helmand and Nimruz provinces.",
+    "history": "Deployed from November 2010 to about April 2011, with about 749 troops. On 10 November 2010, at FOB Delaram II, it took over the mission from Georgia's 31st Battalion. It was relieved by the 33rd Battalion in April 2011.",
+    "sources": [
+      {
+        "label": "Georgian soldiers hand over mission, help secure Afghanistan (US Marine Corps News, RCT-2, 12 Nov 2010, via GlobalSecurity.org)",
+        "url": "http://www.globalsecurity.org/military/library/news/2010/11/mil-101112-mcn01.htm"
+      },
+      {
+        "label": "Peacekeeping mission (Ministry of Defence of Georgia)",
+        "url": "https://mod.gov.ge/en/news/read/770/peacekeeping-mission"
+      },
+      {
+        "label": "Georgia Mulls Sending More Troops to Afghanistan (Civil Georgia, 3 Jun 2011)",
+        "url": "https://civil.ge/archives/121162"
+      }
+    ]
+  },
+  {
+    "unitId": "rct-2",
+    "officialName": "Regimental Combat Team 2 (RCT-2), U.S. Marine Corps",
+    "purpose": "A U.S. Marine Corps regimental combat team built around the 2nd Marine Regiment.",
+    "history": "In 2010 it operated in Helmand and Nimruz provinces, Afghanistan, with the Georgian 31st and 32nd battalions at FOB Delaram II; the 31st handed the mission to the 32nd there on 10 November 2010.",
+    "sources": [
+      {
+        "label": "Georgian soldiers hand over mission, help secure Afghanistan (US Marine Corps News, RCT-2, 12 Nov 2010, via GlobalSecurity.org)",
+        "url": "http://www.globalsecurity.org/military/library/news/2010/11/mil-101112-mcn01.htm"
+      }
+    ]
+  }
 ]

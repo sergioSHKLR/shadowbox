@@ -6,6 +6,6 @@
   "timelineLead": "Rank, assignments and deployments share one axis. Below them, Places follows the same ordered sequence as the Map. A bar opens the explanation.",
   "uniformsLead": "Grouped by type, in the order worn within each group.",
   "mapLead": "Opens on Commands (blue): the six assigned commands, so Play is a short tour ending at NH Jacksonville. Turn on other chips below the map for Instruction, Bases, Field, Port visits, Layovers, and Stopovers — any mix. Clear the last chip to show the full numbered sequence. Each stop has one primary category; San Diego is the sole dual case (Instruction and Command host for NCTS). USS Tortuga and USS Essex sit under Bases, not Port visits. When a filter is on, each place or assigned command appears once (first visit keeps the number). Play walks the visible stops in order; expand opens the map fullscreen. A dashed ring means the location is approximate.",
-  "sourcesLead": "Years, units, and campaign phases come from the shadowbox worksheet. Award counts, schools, and specialties come from the service record.",
+  "sourcesLead": "Years, units, and campaign phases come from the Signum worksheet. Award counts, schools, and specialties come from the service record.",
   "equipmentLead": "Body armor, helmets, weapons, comms and crypto gear, vehicles, and ships and boats, grouped by type. The cards are stock photographs of that kind of gear. A photograph from his collection, when there is one, is in the sidebar. Credits are on the Sources page."
 }
