@@ -158,11 +158,11 @@
     "extras": [
       { "src": "/incoming/jcse-3rd-sqd.webp", "title": "Squadron", "unit": "3rd Squadron", "date": "2009–2014", "kind": "unit", "id": "jcse" },
       { "src": "/incoming/cjsotf-a.webp", "title": "In theater", "unit": "CJSOTF-A", "date": "2010–2011", "kind": "unit", "id": "cjsotf" },
-      { "src": "/incoming/3rd-sfg.webp", "title": "Customer", "unit": "3rd SFG", "date": "2010–2011", "kind": "unit", "id": "3rd-sfg", "role": "Customer · OEF I" },
       { "src": "/incoming/placeholder-crest.svg", "title": "Foreign Partner", "unit": "ANA", "date": "", "kind": "unit", "id": "ana", "role": "Foreign Partner" },
-      { "src": "/incoming/2nd-marines.webp", "title": "Partner", "unit": "RCT-2", "date": "", "kind": "unit", "id": "rct-2", "role": "Partner" },
       { "src": "/incoming/geo-3rd-inf-bde.webp", "title": "Foreign Partner", "unit": "32nd Bn (GEO)", "date": "", "kind": "unit", "id": "geo-32nd-bn", "role": "Foreign Partner" },
+      { "src": "/incoming/2nd-marines.webp", "title": "Partner", "unit": "RCT-2", "date": "", "kind": "unit", "id": "rct-2", "role": "Partner" },
       { "src": "/incoming/placeholder-crest.svg", "title": "Local Hires", "unit": "Local Hires", "date": "", "kind": "unit", "id": "local-hires", "role": "Local Hires" },
+      { "src": "/incoming/3rd-sfg.webp", "title": "Customer", "unit": "3rd SFG", "date": "2010–2011", "kind": "unit", "id": "3rd-sfg", "role": "Customer · OEF I" },
       { "src": "/incoming/sojtf-a.webp", "title": "In theater", "unit": "SOJTF-A", "date": "2012–2013", "kind": "unit", "id": "sojtf" },
       { "src": "/incoming/290jcss.webp", "title": "Partner", "unit": "290th JCSS", "date": "2012–2013", "kind": "unit", "id": "290th-jcss", "role": "Partner · OEF II" },
       { "src": "/incoming/75th-rgr.svg", "title": "Customer", "unit": "75th Rangers", "date": "2012–2013", "kind": "unit", "id": "75th-ranger", "role": "Customer · OEF II" }
