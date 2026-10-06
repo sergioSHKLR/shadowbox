@@ -1187,3 +1187,12 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 }
 .app-toast.is-on { opacity: 1; transform: translate(-50%, 0); }
 @media (prefers-reduced-motion: reduce) { .app-toast { transition: none; } }
+
+/* Guestbook privacy note (Oct 2026): small muted helper text above Sign; the Contact link matches .guest-alt a. */
+.gb-privacy { margin: 0; font-size: 0.8rem; line-height: 1.45; }
+.gb-privacy-link {
+  display: inline; padding: 0; border: 0; background: none; font: inherit; color: var(--color-navy);
+  text-decoration: underline; text-underline-offset: 2px; cursor: pointer;
+}
+.gb-privacy-link:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 2px; border-radius: 2px; }
+[data-theme="dark"] .gb-privacy-link { color: var(--color-goldenrod, #daa520); }

@@ -165,6 +165,9 @@ const GB_COPY = {
     noteMissing: "Please write a note before signing.",
     failed: "That didn't go through. Please try again, or use the Google Forms link below.",
     alt: "Open in Google Forms",
+    notePre: "Signatures may be shown publicly after review. For a private message, use the ",
+    noteLink: "Contact form",
+    notePost: ".",
   },
   pt: {
     title: "Livro de visitas",
@@ -179,10 +182,14 @@ const GB_COPY = {
     noteMissing: "Escreva uma nota antes de assinar.",
     failed: "Não foi possível enviar. Tente de novo ou use o link do Google Forms abaixo.",
     alt: "Abrir no Google Forms",
+    notePre: "As assinaturas podem ser exibidas publicamente após revisão. Para uma mensagem privada, use o ",
+    noteLink: "formulário de Contato",
+    notePost: ".",
   },
 } as const;
 
-export function Guestbook({ locale = "en" }: { locale?: string }) {
+/** onContact opens the Contact page (the app has no per-page URLs, so the note's link is an in-app button styled as a link). */
+export function Guestbook({ locale = "en", onContact }: { locale?: string; onContact?: () => void }) {
   const lang: Lang = locale === "pt" ? "pt" : "en";
   const c = GB_COPY[lang];
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "noteMissing" | "failed">("idle");
@@ -242,8 +249,13 @@ export function Guestbook({ locale = "en" }: { locale?: string }) {
                 onChange={(e) => { setNote(e.target.value); if (status === "noteMissing" || status === "failed") setStatus("idle"); }}
               />
             </label>
+            <p className="gb-privacy quiet" id="guestbook-privacy">
+              {c.notePre}
+              <button type="button" className="gb-privacy-link" onClick={onContact}>{c.noteLink}</button>
+              {c.notePost}
+            </p>
             <div className="site-form-bar">
-              <button type="submit" className="nav-btn on" disabled={status === "sending"}>{status === "sending" ? c.sending : c.send}</button>
+              <button type="submit" className="nav-btn on" aria-describedby="guestbook-privacy" disabled={status === "sending"}>{status === "sending" ? c.sending : c.send}</button>
               <span className="site-form-status quiet" role="status" aria-live="polite">
                 {status === "noteMissing" ? c.noteMissing : status === "failed" ? c.failed : ""}
               </span>
