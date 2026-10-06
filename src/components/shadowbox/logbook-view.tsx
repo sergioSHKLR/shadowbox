@@ -34,6 +34,7 @@ import {
 import { MapView } from "@/components/shadowbox/map-view";
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { Boundary } from "@/components/shadowbox/boundary";
+import { EnlargeButton, EnlargeDialog, PlateViewer } from "@/components/shadowbox/enlarge";
 
 type Open = (k: Kind, id: string) => void;
 type MainTab = "rank" | "admin";
@@ -329,6 +330,8 @@ function MapInset({
     const show = new Set([id, ...(ALSO_SHOW[id] ?? [])]);
     return CAREER_STOPS.flatMap((_stop, i) => (owners[i] && show.has(owners[i] as string) ? [] : [i]));
   }, [owners, id]);
+  const [big, setBig] = useState(false);
+  const bigButton = useRef<HTMLButtonElement>(null);
   return (
     <div className="logbook-map-frame">
       <Boundary label="logbook map" fallback={<p className="quiet">Map unavailable right now.</p>}>
@@ -341,6 +344,25 @@ function MapInset({
         onSelect={(id) => onOpen("place", id)}
       />
       </Boundary>
+      <EnlargeButton ref={bigButton} open={big} label={`Enlarge map: ${beat.stop.labels[0]}`} onClick={() => setBig(true)} />
+      <EnlargeDialog open={big} onOpenChange={setBig} title={beat.stop.labels[0]} subtitle="Map" className="enlarge-map" returnFocus={bigButton}>
+        {big ? (
+          <Boundary label="logbook map (large)" fallback={<p className="quiet">Map unavailable right now.</p>}>
+            {/* Same stops and hidden set as the inset, so the command's pins stay fitted at the larger size. */}
+            <MapView
+              stops={CAREER_STOPS}
+              extra={[]}
+              tall={false}
+              fitMaxZoom={9}
+              hidden={hiddenStops}
+              onSelect={(id) => {
+                setBig(false);
+                onOpen("place", id);
+              }}
+            />
+          </Boundary>
+        ) : null}
+      </EnlargeDialog>
     </div>
   );
 }
@@ -454,6 +476,20 @@ function UniformsPanel({
   const chief = isChiefBeat(beat);
   const look: Look = chosen === "khaki" && !chief ? fallback : chosen;
   const plate = plateFor(beat, look);
+  // Enlarge: every plate this command has (khakis only on a Chief beat), current one first in view.
+  const allPlates = useMemo(
+    () =>
+      LOOKS.filter((row) => row.id !== "khaki" || chief).flatMap((row) =>
+        uniformPlatesForCommand(beat.stop.commandId).filter((slide) => slide.look === row.id),
+      ),
+    [beat.stop.commandId, chief],
+  );
+  const [bigIndex, setBigIndex] = useState<number | null>(null);
+  const bigButton = useRef<HTMLButtonElement>(null);
+  const openBig = () => {
+    const at = plate ? allPlates.findIndex((slide) => slide.file === plate.file) : 0;
+    setBigIndex(Math.max(0, at));
+  };
   return (
     <div className="logbook-gear logbook-plates">
       {/* Native radios stacked beside the plate (Sergio, Oct 2026), so the plate gets the full panel height. */}
@@ -471,9 +507,27 @@ function UniformsPanel({
       </fieldset>
       {plate ? (
         <figure className="logbook-mannequin">
-          <button type="button" className="logbook-plate-art" onClick={() => beat.rank && onOpen("rank", beat.rank.id)} aria-label={plate.caption}>
+          {/* Tapping the plate enlarges it (Sergio, Oct 2026); the rank cards still open the rank. */}
+          <button type="button" className="logbook-plate-art" onClick={openBig} aria-label={`Enlarge plate: ${plate.caption}`} aria-haspopup="dialog">
             <img key={plate.file} src={publicUrl(plate.src)} alt="" />
           </button>
+          <EnlargeButton ref={bigButton} open={bigIndex != null} label={`Enlarge plate: ${plate.caption}`} onClick={openBig} />
+          <EnlargeDialog
+            open={bigIndex != null}
+            onOpenChange={(next) => { if (!next) setBigIndex(null); }}
+            title={beatTitle(beat)}
+            subtitle="Uniform plates"
+            className="enlarge-plate"
+            returnFocus={bigButton}
+          >
+            {bigIndex != null ? (
+              <PlateViewer
+                plates={allPlates.map((slide) => ({ src: publicUrl(slide.src), caption: slide.caption, file: slide.file }))}
+                index={bigIndex}
+                onIndex={setBigIndex}
+              />
+            ) : null}
+          </EnlargeDialog>
         </figure>
       ) : (
         <div className="logbook-soon logbook-mannequin-empty">

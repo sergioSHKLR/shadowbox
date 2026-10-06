@@ -503,7 +503,8 @@ const UNIFORM_LOOK: Record<string, UniformLook> = {
   khakis: "khaki",
 };
 
-/** incoming/plates/e1-blues.svg … e7-khakis.svg (Sergio's set, Oct 2026). Grade, then the E-6 tour index (1 USS Frank Cable … 4 JCSE), then the look. */
+/** incoming/plates/e1-blues.svg … e7-nh-khakis.svg (Sergio's set, Oct 2026). Grade, then the E-6 tour index (1 USS Frank Cable … 4 JCSE)
+ * or the E-7 command (jcse = CPO at JCSE, with the JCSE badge; nh = Naval Hospital Jacksonville), then the look. */
 const PLATE_FILE: Record<string, { look: UniformLook; y: number; m: number; caption: string }> = {
   "e1-blues": { look: "blue", y: 1997, m: 6, caption: "SR · dress blues" },
   "e1-whites": { look: "white", y: 1997, m: 6, caption: "SR · dress whites" },
@@ -521,9 +522,13 @@ const PLATE_FILE: Record<string, { look: UniformLook; y: number; m: number; capt
   "e6-3-whites": { look: "white", y: 2009, m: 6, caption: "ET1 · dress whites" },
   "e6-4-blues": { look: "blue", y: 2014, m: 1, caption: "ET1 · dress blues" },
   "e6-4-whites": { look: "white", y: 2014, m: 1, caption: "ET1 · dress whites" },
-  "e7-blues": { look: "blue", y: 2014, m: 9, caption: "ETC · dress blues" },
-  "e7-whites": { look: "white", y: 2014, m: 9, caption: "ETC · dress whites" },
-  "e7-khakis": { look: "khaki", y: 2014, m: 9, caption: "ETC · khakis" },
+  "e7-jcse-blues": { look: "blue", y: 2014, m: 9, caption: "ETC · dress blues" },
+  "e7-jcse-whites": { look: "white", y: 2014, m: 9, caption: "ETC · dress whites" },
+  "e7-jcse-khakis": { look: "khaki", y: 2014, m: 9, caption: "ETC · khakis" },
+  // NAVHOSP's start is year-only (2015); m: 1 is only a sort key so these follow the JCSE CPO set. Not shown as a date.
+  "e7-nh-blues": { look: "blue", y: 2015, m: 1, caption: "ETC · dress blues" },
+  "e7-nh-whites": { look: "white", y: 2015, m: 1, caption: "ETC · dress whites" },
+  "e7-nh-khakis": { look: "khaki", y: 2015, m: 1, caption: "ETC · khakis" },
 };
 
 /** Plate set a file belongs to: "e6-2-blues.svg" → "e6-2" (blues / whites / khakis of one snapshot). */
@@ -580,8 +585,8 @@ const UNIFORM_STEP_PLATES: { unitId: string; stem: string; id?: string; label?: 
   { unitId: "eodmu5", stem: "e6-2-blues" },
   { unitId: "sercc", stem: "e6-3-blues" },
   { unitId: "jcse", stem: "e6-4-blues" },
-  { unitId: "jcse", stem: "e7-blues", id: "jcse-cpo", label: "CPO", span: "2014" },
-  { unitId: "navhosp", stem: "e7-blues" },
+  { unitId: "jcse", stem: "e7-jcse-blues", id: "jcse-cpo", label: "CPO", span: "2014" },
+  { unitId: "navhosp", stem: "e7-nh-blues" },
 ];
 
 /** Logbook plate sets per command (end-of-tour snapshot). RTC is Seaman Recruit (E-1); Tortuga (Seaman TAD) wears the SN set; NTC ends as ET3. */
@@ -593,8 +598,8 @@ const LOGBOOK_PLATE_SETS: Record<string, string[]> = {
   "frank-cable": ["e6-1"],
   eodmu5: ["e6-2"],
   sercc: ["e6-3"],
-  jcse: ["e6-4", "e7"],
-  navhosp: ["e7"],
+  jcse: ["e6-4", "e7-jcse"],
+  navhosp: ["e7-nh"],
 };
 
 export type UniformStep = {
@@ -2119,14 +2124,25 @@ const LOGBOOK_OFF_GROUPS: EquipmentGroup[] = ["cars", "motorcycles", "residences
 /** C-5 and C-9 are off duty on the AS-40 tour (same rule as the On Duty / Off Duty pages). */
 const LOGBOOK_OFF_DUTY_AIRCRAFT = new Set(["c-5", "c-9"]);
 
+/** Per-command card order (Sergio): these ids lead their group, in this order; everything else keeps its usual order after them. */
+const COMMAND_GEAR_FIRST: Record<string, string[]> = {
+  navhosp: ["mitsubishi-outlander", "chevy-spark-white"],
+  eodmu5: ["nissan-sentra-red"],
+};
+
 function equipmentForCommand(unitId: string): Equipment[] {
   const ids = new Set(usedHere[unitId] ?? []);
+  const first = COMMAND_GEAR_FIRST[unitId] ?? [];
+  const lead = (item: Equipment) => {
+    const at = first.indexOf(item.id);
+    return at < 0 ? first.length : at;
+  };
   return equipment
     .filter((item) => (item as Equipment & { unitId?: string }).unitId === unitId || ids.has(item.id))
     .sort((a, b) => {
       const ga = EQUIPMENT_GROUPS.findIndex((g) => g.id === a.group);
       const gb = EQUIPMENT_GROUPS.findIndex((g) => g.id === b.group);
-      return ga - gb || a.order - b.order;
+      return ga - gb || lead(a) - lead(b) || a.order - b.order;
     });
 }
 
@@ -2154,7 +2170,7 @@ export function offDutyForCommand(unitId: string | null | undefined): LogbookGea
   );
 }
 
-/** Ready uniform plates for a command (e.g. NCTS → e5 blues / whites; JCSE → e6-4 plus the e7 CPO set; NAVHOSP → e7). */
+/** Ready uniform plates for a command (e.g. NCTS → e5 blues / whites; JCSE → e6-4 plus the e7-jcse CPO set; NAVHOSP → e7-nh). */
 export function uniformPlatesForCommand(unitId: string | null | undefined): UniformSlide[] {
   if (!unitId) return [];
   const sets = LOGBOOK_PLATE_SETS[unitId];

@@ -396,3 +396,17 @@ html.map-cover-lock, html.map-cover-lock body { overflow: hidden; }
 .map-play .nav-btn.icon-btn.on:hover:not(:disabled), [data-theme="dark"] .map-play .nav-btn.icon-btn.on:hover:not(:disabled) {
   background: var(--color-goldenrod); color: var(--color-navy); border-color: var(--color-goldenrod);
 }
+
+/* Dark mode (Sergio, Oct 2026): nothing white or ivory around the maps. Frames take the muted panel goldenrod (--color-line, the panel
+   border brass at 45%), Leaflet's zoom buttons and attribution go dark with the same border, and the scrubber uses goldenrod on a
+   dark track. Applies to the Travel Book map, the Logbook mini map and the enlarged map. Light mode is unchanged. */
+[data-theme="dark"] .map-frame,
+[data-theme="dark"] .logbook-foot-half.logbook-foot-map { border-color: var(--color-line); }
+[data-theme="dark"] .leaflet-bar { border: 1px solid var(--color-line); box-shadow: none; }
+[data-theme="dark"] .leaflet-bar a,
+[data-theme="dark"] .leaflet-bar a:hover,
+[data-theme="dark"] .leaflet-bar a:focus { background: #1c2330; color: var(--color-ivory); border-bottom-color: var(--color-line); }
+[data-theme="dark"] .leaflet-bar a.leaflet-disabled { background: #161c27; color: #6b7280; }
+[data-theme="dark"] .leaflet-control-attribution { background: rgba(20, 24, 31, 0.82); color: #c4b8a6; }
+[data-theme="dark"] .leaflet-control-attribution a { color: var(--color-brass-bright); }
+[data-theme="dark"] .map-play-scrub input { accent-color: var(--color-goldenrod); color-scheme: dark; }
