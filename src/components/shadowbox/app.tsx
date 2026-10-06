@@ -425,14 +425,21 @@ export function ShadowboxApp() {
             </button>
           ) : null}
         </nav> : null}
-        {menuAt >= 0 ? (
+        {menuAt >= 0 && (menuPrev || menuNext) ? (
           <nav className="footer-pager" aria-label={t.pageNav}>
-            <button type="button" className="nav-btn icon-btn" disabled={!menuPrev} aria-label={menuPrev ? `${t.prevPage}: ${t[menuPrev]}` : t.prevPage} title={menuPrev ? `${t.prevPage}: ${t[menuPrev]}` : undefined} onClick={() => menuPrev && go(menuPrev)}>
-              <ChevronLeft size={20} strokeWidth={2} aria-hidden="true" />
-            </button>
-            <button type="button" className="nav-btn icon-btn" disabled={!menuNext} aria-label={menuNext ? `${t.nextPage}: ${t[menuNext]}` : t.nextPage} title={menuNext ? `${t.nextPage}: ${t[menuNext]}` : undefined} onClick={() => menuNext && go(menuNext)}>
-              <ChevronRight size={20} strokeWidth={2} aria-hidden="true" />
-            </button>
+            {/* Spelled-out text links like the Settings link (Sergio, Oct 2026); the end without a target is hidden. */}
+            {menuPrev ? (
+              <button type="button" className="footer-link" aria-label={`${t.prevPage}: ${t[menuPrev]}`} title={`${t.prevPage}: ${t[menuPrev]}`} onClick={() => go(menuPrev)}>
+                <ChevronLeft size={16} strokeWidth={1.75} aria-hidden="true" />
+                {t[menuPrev]}
+              </button>
+            ) : null}
+            {menuNext ? (
+              <button type="button" className="footer-link" aria-label={`${t.nextPage}: ${t[menuNext]}`} title={`${t.nextPage}: ${t[menuNext]}`} onClick={() => go(menuNext)}>
+                {t[menuNext]}
+                <ChevronRight size={16} strokeWidth={1.75} aria-hidden="true" />
+              </button>
+            ) : null}
           </nav>
         ) : null}
       </footer>
