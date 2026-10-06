@@ -210,6 +210,16 @@
     "type": "visit"
   },
   {
+    "id": "chinhae",
+    "name": "CFA Chinhae, Changwon, KOR",
+    "locality": "CFA Chinhae, Changwon, KOR",
+    "lat": 35.1481,
+    "lng": 128.6338,
+    "accuracy": "public-site",
+    "note": "Port visit to Commander Fleet Activities Chinhae (Jinhae Naval Base, Jinhae district of Changwon, South Korea) with USS Frank Cable.",
+    "type": "visit"
+  },
+  {
     "id": "hong-kong",
     "name": "Hong Kong, HKG",
     "locality": "Hong Kong, HKG",
@@ -567,6 +577,16 @@
     "lng": 129.723,
     "accuracy": "approximate",
     "note": "City-level pin for Sasebo (port visit).",
+    "type": "city"
+  },
+  {
+    "id": "city-chinhae",
+    "name": "Chinhae, KOR",
+    "locality": "Chinhae, KOR",
+    "lat": 35.1466,
+    "lng": 128.6556,
+    "accuracy": "approximate",
+    "note": "City-level pin for Chinhae (Jinhae district of Changwon, South Korea; port visit).",
     "type": "city"
   },
   {
