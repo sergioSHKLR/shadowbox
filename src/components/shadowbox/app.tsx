@@ -291,14 +291,7 @@ export function ShadowboxApp() {
           <span className="app-title">{t.title}</span>
         </button>
         <div className="app-end">
-        <div className="app-flags">
-          <button type="button" className={locale === "en" ? "app-flag is-on" : "app-flag"} aria-label={t.english} aria-pressed={locale === "en"} onClick={() => setLocale("en")}>
-            <span aria-hidden="true">🇺🇸</span>
-          </button>
-          <button type="button" className={locale === "pt" ? "app-flag is-on" : "app-flag"} aria-label={t.portuguese} aria-pressed={locale === "pt"} onClick={() => setLocale("pt")}>
-            <span aria-hidden="true">🇧🇷</span>
-          </button>
-        </div>
+        {/* Top-bar US/BR flags removed (Sergio, Oct 2026): language is chosen only in the Settings modal. */}
         {THEME_SWITCH_ENABLED ? (
         <div className="app-themes" role="group" aria-label={t.theme}>
           {THEMES.map(({ id, Icon }) => (

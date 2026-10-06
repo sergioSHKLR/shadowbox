@@ -1201,3 +1201,9 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 /* Footer keeps only the Settings link (credit moved into the Settings modal). */
 .site-footer .footer-nav { margin-left: auto; }
 .settings-credit { margin: 1.1rem 0 0; padding-top: 0.7rem; border-top: 1px solid var(--color-line); font-size: 0.82rem; text-align: center; }
+/* Home: one portrait per spot, each alone in its own frame (Boot Camp top, End of Career bottom). */
+.intro-solo { display: flex; flex-direction: column; align-items: center; gap: 0.45rem; margin: 0 auto; }
+.intro-solo + .intro-copy { margin-top: 1rem; }
+.bio-wrap + .intro-solo { margin-top: 2rem; }
+.intro-solo figcaption { font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.intro-portrait-img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; display: block; }

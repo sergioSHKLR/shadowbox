@@ -1,69 +1,17 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { awards, insignia, photos, profile, publicUrl, ribbonRows, timeline, warfare, type Kind } from "@/lib/shadowbox/model";
-import { RibbonArt } from "@/components/shadowbox/marks";
+import { photos, profile, publicUrl, timeline, type Kind } from "@/lib/shadowbox/model";
 import { UniformProgression } from "@/components/shadowbox/uniform-progression";
 
-const CHIEF = insignia.find((pin) => pin.id === "collar");
-const EXW = warfare.find((pin) => pin.id === "exw");
-const SW = warfare.find((pin) => pin.id === "esws");
 const CHIEF_PORTRAIT = photos.find((photo) => photo.src === profile.portrait);
 const SN_PORTRAIT = photos.find((photo) => photo.id === "recruit-portrait-1997");
 
-export function Home({ onOpen, bio }: { onOpen: (k: Kind, id: string) => void; bio: string }) {
-  const rows = ribbonRows(awards);
-  const [snPortrait, setSnPortrait] = useState(false);
-  const portrait = snPortrait && SN_PORTRAIT ? SN_PORTRAIT : CHIEF_PORTRAIT;
+export function Home({ bio }: { onOpen?: (k: Kind, id: string) => void; bio: string }) {
   const paragraphs = bio.split("\n\n");
   return (
     <main className="sheet">
       <header className="intro">
-        <div className="intro-pair">
-          <figure className="wood-frame">
-            <div className="wood-mat">
-              <div className="mat-opening">
-                <button type="button" className="intro-portrait" onClick={() => { if (SN_PORTRAIT) setSnPortrait((on) => !on); }} aria-label={portrait?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"}>
-                  <img src={publicUrl(portrait?.src ?? profile.portrait)} alt="" />
-                </button>
-              </div>
-            </div>
-          </figure>
-          <div className="wood-frame">
-            <div className="wood-mat">
-              <div className="mat-opening">
-                {snPortrait ? null : (
-                <div className="intro-marks">
-                  {CHIEF?.image ? (
-                    <button type="button" className="intro-device intro-anchor" onClick={() => onOpen("insignia", CHIEF.id)} aria-label={CHIEF.name}>
-                      <img src={publicUrl(CHIEF.image)} alt="" />
-                    </button>
-                  ) : null}
-                  {SW?.image ? (
-                    <button type="button" className="intro-device" onClick={() => onOpen("warfare", SW.id)} aria-label={SW.name}>
-                      <img src={publicUrl(SW.image)} alt="" />
-                    </button>
-                  ) : null}
-                  <div className="rack intro-rack" aria-label="Ribbon rack">
-                    {rows.map((row) => (
-                      <div key={row.map((award) => award.id).join("-")} className="rack-row">
-                        {row.map((award) => (
-                          <button key={award.id} type="button" className="ribbon intro-ribbon" onClick={() => onOpen("award", award.id)} aria-label={award.name}>
-                            <RibbonArt award={award} />
-                          </button>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                  {EXW?.image ? (
-                    <button type="button" className="intro-device" onClick={() => onOpen("warfare", EXW.id)} aria-label={EXW.name}>
-                      <img src={publicUrl(EXW.image)} alt="" />
-                    </button>
-                  ) : null}
-                </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Split portraits (Sergio, Oct 2026): Boot Camp alone at the top, End of Career alone after the bio. No second frame. */}
+        {SN_PORTRAIT ? <Portrait src={SN_PORTRAIT.src} alt={SN_PORTRAIT.alt} caption="Boot Camp, 1997" /> : null}
         <div className="intro-copy">
           <p className="kicker">{profile.headerLines[1]}</p>
           <h2>{profile.headerLines[0]}</h2>
@@ -75,8 +23,24 @@ export function Home({ onOpen, bio }: { onOpen: (k: Kind, id: string) => void; b
           ))}
           <img className="bio-pao" src={publicUrl("/incoming/pao.png")} alt="Approved for release. Unclassified. Unit PAO." />
         </div>
+        <Portrait src={CHIEF_PORTRAIT?.src ?? profile.portrait} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} caption="End of Career, 2018" />
       </header>
     </main>
+  );
+}
+
+function Portrait({ src, alt, caption }: { src: string; alt: string; caption: string }) {
+  return (
+    <figure className="intro-solo">
+      <div className="wood-frame">
+        <div className="wood-mat">
+          <div className="mat-opening">
+            <img className="intro-portrait-img" src={publicUrl(src)} alt={alt} />
+          </div>
+        </div>
+      </div>
+      <figcaption className="quiet">{caption}</figcaption>
+    </figure>
   );
 }
 
