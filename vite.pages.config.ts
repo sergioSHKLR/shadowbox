@@ -8,8 +8,6 @@ import { VitePWA } from "vite-plugin-pwa";
 // @ts-expect-error JS plugin alongside the TS vite config
 import { incomingStaticPlugin } from "./scripts/incoming-static-plugin.mjs";
 
-const DARK = "#0c0c0d";
-
 /** CalVer (Sergio, Oct 2026): YYYY.MM.DD of the built commit's date in America/Sao_Paulo, plus its short hash. */
 function buildVersion() {
   const git = (cmd: string) => execSync(`git ${cmd}`, { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
@@ -49,9 +47,9 @@ export default defineConfig({
         scope: "/",
         display: "standalone",
         orientation: "any",
-        theme_color: DARK,
-        // Splash behind the light icon. The mark itself is black on a light ground and white on a dark one.
-        background_color: "#ffffff",
+        // Top-bar navy (src/styles.css --color-navy): the app icon is the goldenrod shield on this navy, in light and dark alike.
+        theme_color: "#14233a",
+        background_color: "#14233a",
         icons: [
           { src: "/icons/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
           { src: "/icons/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
