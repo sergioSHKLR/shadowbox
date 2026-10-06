@@ -33,11 +33,10 @@
   {
     "id": "m4-kit-2006-03-03",
     "src": "/equipment/m4-carbine-2.webp",
-    "alt": "M4 carbine slung on desert camouflage kit, PASGT helmet with desert cover, overlay stamp MAR 3 2006",
+    "alt": "M4 carbine slung on desert camouflage kit, helmet with desert cover, overlay stamp MAR 3 2006",
     "caption": "M4 carbine in kit, 3 March 2006, OIF I",
     "subjects": [
       { "kind": "equipment", "id": "m4-carbine" },
-      { "kind": "equipment", "id": "pasgt-helmet-desert" },
       { "kind": "equipment", "id": "beretta-m9" },
       { "kind": "uniform", "id": "desert" },
       { "kind": "unit", "id": "troy" },
@@ -48,11 +47,10 @@
   {
     "id": "m4-eodmu5-flag",
     "src": "/equipment/m4-carbine-3.webp",
-    "alt": "M4 carbine held at chest, PASGT helmet with desert cover, EODMU 5 flag behind Hesco barriers",
+    "alt": "M4 carbine held at chest, helmet with desert cover, EODMU 5 flag behind Hesco barriers",
     "caption": "M4 carbine, EODMU 5 flag",
     "subjects": [
       { "kind": "equipment", "id": "m4-carbine" },
-      { "kind": "equipment", "id": "pasgt-helmet-desert" },
       { "kind": "uniform", "id": "desert" },
       { "kind": "unit", "id": "eodmu5" }
     ]
@@ -246,22 +244,20 @@
     ]
   },
   {
-    "id": "pasgt-jerrv",
-    "src": "/equipment/pasgt-helmet-desert.webp",
-    "alt": "PASGT helmet with desert cover, JERRV Cougar 6x6 behind",
-    "caption": "PASGT helmet, JERRV behind",
+    "id": "helmet-jerrv",
+    "src": "/equipment/helmet-desert-cover.webp",
+    "alt": "Helmet with desert cover, JERRV Cougar 6x6 behind",
+    "caption": "Helmet, JERRV behind",
     "subjects": [
-      { "kind": "equipment", "id": "jerrv-6x6" },
-      { "kind": "equipment", "id": "pasgt-helmet-desert" }
+      { "kind": "equipment", "id": "jerrv-6x6" }
     ]
   },
   {
-    "id": "pasgt-2006-03-03",
-    "src": "/equipment/pasgt-helmet-desert-2.webp",
-    "alt": "PASGT helmet with desert cover, overlay stamp MAR 3 2006",
-    "caption": "PASGT helmet, 3 March 2006, OIF I",
+    "id": "helmet-2006-03-03",
+    "src": "/equipment/helmet-desert-cover-2.webp",
+    "alt": "Helmet with desert cover, overlay stamp MAR 3 2006",
+    "caption": "Helmet, 3 March 2006, OIF I",
     "subjects": [
-      { "kind": "equipment", "id": "pasgt-helmet-desert" },
       { "kind": "unit", "id": "troy" },
       { "kind": "operation", "id": "oif-2006" }
     ]
@@ -298,12 +294,11 @@
     ]
   },
   {
-    "id": "hmmwv-pasgt",
+    "id": "hmmwv-helmet",
     "src": "/equipment/hmmwv-up-armored-photo.webp",
-    "alt": "Up-armored HMMWV with PASGT helmet and desert kit at the door",
-    "caption": "Up-armored HMMWV, PASGT helmet",
+    "alt": "Up-armored HMMWV with a helmet and desert kit at the door",
+    "caption": "Up-armored HMMWV, helmet",
     "subjects": [
-      { "kind": "equipment", "id": "pasgt-helmet-desert" },
       { "kind": "equipment", "id": "hmmwv-up-armored" }
     ]
   },
@@ -455,7 +450,6 @@
     "subjects": [
       { "kind": "equipment", "id": "c-17" },
       { "kind": "equipment", "id": "m4-carbine" },
-      { "kind": "equipment", "id": "pasgt-helmet-desert" },
       { "kind": "uniform", "id": "desert" }
     ]
   },

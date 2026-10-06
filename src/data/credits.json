@@ -405,15 +405,6 @@
     "notes": "The veteran's own reference image, trimmed and saved as WebP."
   },
   {
-    "id": "equipment-pasgt-helmet-desert",
-    "title": "PASGT helmet, desert cover (6-color desert (“chocolate chip”) cover marked NAVY)",
-    "file": "/equipment/pasgt-helmet-desert-c.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:PASGT_KPot.jpg",
-    "creator": "Pelz Der Untoten (Wikimedia Commons)",
-    "license": "CC BY 4.0",
-    "notes": "Background removed (rembg, isnet-general-use) and placed on white, resized, saved as WebP (modified from the original, as CC BY 4.0 allows). Replaces the earlier tight crop of a 1991 Natick photo of a model (stock photo rule, Oct 2026). Original file: https://upload.wikimedia.org/wikipedia/commons/c/c6/PASGT_KPot.jpg . Not hotlinked."
-  },
-  {
     "id": "equipment-ach-tan",
     "title": "ACH / MICH, bare tan (Tan shell, no cover)",
     "file": "/equipment/ach-helmet-tan-b.webp",
@@ -1098,9 +1089,9 @@
     "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
   },
   {
-    "id": "equipment-pasgt-helmet-desert-usage",
-    "title": "PASGT helmet, desert cover (3-color desert (DCU) cover)",
-    "file": "/equipment/pasgt-helmet-desert.webp",
+    "id": "photo-helmet-desert-cover",
+    "title": "Helmet with desert cover (his photograph; helmet model not identified)",
+    "file": "/equipment/helmet-desert-cover.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",

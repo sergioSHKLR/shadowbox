@@ -208,22 +208,6 @@
     "unitId": "essex"
   },
   {
-    "id": "pasgt-helmet-desert",
-    "group": "helmets",
-    "order": 1,
-    "name": "PASGT helmet, desert cover",
-    "caption": "6-color desert (“chocolate chip”) cover marked NAVY",
-    "cutout": true,
-    "note": "Personnel Armor System for Ground Troops (PASGT) helmet, the Kevlar “K-pot” the U.S. Army and Marine Corps fielded in the early 1980s. It protects the head, temples, ears and neck against fragments. Shown in a 6-color desert (“chocolate chip”) cover marked NAVY; the 3-color DCU cover followed in the 1990s. During the 2000s the Army replaced it with the Advanced Combat Helmet.",
-    "image": "/equipment/pasgt-helmet-desert-c.webp",
-    "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:PASGT_KPot.jpg",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/c/c6/PASGT_KPot.jpg",
-      "creator": "Pelz Der Untoten (Wikimedia Commons)",
-      "license": "CC BY 4.0"
-    }
-  },
-  {
     "id": "ach-tan",
     "group": "helmets",
     "order": 2,
