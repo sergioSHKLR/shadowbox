@@ -148,11 +148,8 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
   }, [shown]);
 
   useEffect(() => {
+    // Reduced motion still plays: the map jumps stop to stop instead of flying (map-view.tsx).
     if (!playing || stops.length === 0) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setPlaying(false);
-      return;
-    }
     const count = stops.length;
     const id = window.setInterval(() => {
       const cur = cursorRef.current;
@@ -285,6 +282,8 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
       ) : null}
       </div>
       <div className="map-filter" role="group" aria-label="Show pin categories">
+        {/* All (restored, Sergio, Oct 2026): first chip; shows every category (shown = null), as before 2f61e08. */}
+        <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>All</button>
         {PIN_GROUPS.map((g) => (
           <button key={g.id} type="button" className={`nav-btn${shown?.includes(g.id) ? " on" : ""}`} aria-pressed={!!shown?.includes(g.id)} onClick={() => toggle(g.id)}>
             <span className={`pin-num ${g.cls}`} aria-hidden="true" />

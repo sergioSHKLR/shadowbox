@@ -336,7 +336,7 @@ function MapInset({
         stops={CAREER_STOPS}
         extra={[]}
         tall={false}
-        fitMaxZoom={11}
+        fitMaxZoom={9}
         hidden={hiddenStops}
         onSelect={(id) => onOpen("place", id)}
       />
