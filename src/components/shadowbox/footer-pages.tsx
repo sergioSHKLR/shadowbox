@@ -23,7 +23,7 @@ export function Guestbook() {
           Sign
         </a>
       </p>
-      <iframe className="guest-frame" title="Shadowbox Guestbook" src={GUESTBOOK_EMBED} loading="lazy" />
+      <iframe className="guest-frame" title="Signum Guestbook" src={GUESTBOOK_EMBED} loading="lazy" />
     </main>
   );
 }
