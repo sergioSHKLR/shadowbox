@@ -48,7 +48,11 @@ function useHomeFade(ref: RefObject<HTMLElement | null>) {
         short = sheet.offsetHeight < frameEl.offsetHeight;
         if (!short) {
           const pinTop = parseFloat(getComputedStyle(frameEl).top) || 0;
-          glued = sheet.getBoundingClientRect().top <= pinTop;
+          // Relocate only once the opaque sheet has fully covered the pinned frame (it should move unseen).
+          // Using sheet.top <= pinTop alone fired as soon as covering began, so the portrait jumped to the
+          // bottom mid-fade on phone and left a blank band while the user was still reading.
+          const frameH = frameEl.getBoundingClientRect().height;
+          glued = sheet.getBoundingClientRect().top <= pinTop - frameH + 1;
         }
       }
       root.classList.toggle("is-short", short);
