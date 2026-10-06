@@ -1,3 +1,4 @@
+import { execSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
@@ -6,6 +7,20 @@ import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
 
 const DARK = "#0c0c0d";
+
+/** CalVer (Sergio, Oct 2026): YYYY.MM.DD of the built commit's date in America/Sao_Paulo, plus its short hash. */
+function buildVersion() {
+  const git = (cmd: string) => execSync(`git ${cmd}`, { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
+  try {
+    const [iso, hash, full] = git("log -1 --format=%cI%n%h%n%H").split("\n");
+    const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date(iso));
+    const get = (type: string) => parts.find((part) => part.type === type)?.value ?? "00";
+    return { version: `${get("year")}.${get("month")}.${get("day")}`, hash: hash.slice(0, 7), full };
+  } catch {
+    return { version: "", hash: "", full: "" };
+  }
+}
+const BUILD = buildVersion();
 
 /** Static build published at https://mil.shklr.org/ (GitHub Pages custom domain, served from the root) */
 export default defineConfig({
@@ -89,6 +104,11 @@ export default defineConfig({
       },
     }),
   ],
+  define: {
+    __APP_VERSION__: JSON.stringify(BUILD.version),
+    __APP_COMMIT__: JSON.stringify(BUILD.hash),
+    __APP_COMMIT_FULL__: JSON.stringify(BUILD.full),
+  },
   resolve: { tsconfigPaths: true },
   build: {
     outDir: "dist/pages",

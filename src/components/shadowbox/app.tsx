@@ -33,6 +33,7 @@ import { OffDuty, Ops } from "@/components/shadowbox/ops-view";
 import { Stations } from "@/components/shadowbox/stations";
 import { Sources } from "@/components/shadowbox/sources-view";
 import { Contact, Guestbook } from "@/components/shadowbox/footer-pages";
+import { BUILD_COMMIT, BUILD_VERSION, COMMIT_URL } from "@/lib/build-info";
 import { Memories } from "@/components/shadowbox/memories-view";
 import { Schools } from "@/components/shadowbox/schools-view";
 import { Commands } from "@/components/shadowbox/commands-view";
@@ -128,6 +129,17 @@ function SettingsDialog({
             options={FONT_SIZES.map((size) => ({ value: size, label: size === "small" ? t.fontSmall : size === "large" ? t.fontLarge : size === "xlarge" ? t.fontXLarge : t.fontDefault }))}
           />
           <p className="settings-credit quiet">{t.made}</p>
+          {BUILD_VERSION ? (
+            <p className="settings-version quiet">
+              {locale === "pt" ? "Versão" : "Version"} {BUILD_VERSION}
+              {BUILD_COMMIT ? (
+                <>
+                  {" · "}
+                  {COMMIT_URL ? <a href={COMMIT_URL} target="_blank" rel="noreferrer" title={locale === "pt" ? "Ver o commit no GitHub" : "View the commit on GitHub"}>{BUILD_COMMIT}</a> : BUILD_COMMIT}
+                </>
+              ) : null}
+            </p>
+          ) : null}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
@@ -382,7 +394,7 @@ export function ShadowboxApp() {
         </div>
         <div className={`${pane("sources")} no-book`}><Sources /></div>
         <div className={`${pane("contact")} no-book`}><Contact locale={locale} /></div>
-        <div className={`${pane("guestbook")} no-book`}><Guestbook /></div>
+        <div className={`${pane("guestbook")} no-book`}><Guestbook locale={locale} /></div>
         <div className={`${pane("memories")} no-book`}><Memories /></div>
         {showPager && FOOTER_PAGER_ENABLED ? (
           <nav className="page-pager" aria-label={t.pageNav}>

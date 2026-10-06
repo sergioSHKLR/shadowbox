@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { photos, profile, publicUrl, timeline, type Kind } from "@/lib/shadowbox/model";
 import { UniformProgression } from "@/components/shadowbox/uniform-progression";
+import { RedactionSample } from "@/components/shadowbox/redaction-sample";
 
 const CHIEF_PORTRAIT = photos.find((photo) => photo.src === profile.portrait);
 const SN_PORTRAIT = photos.find((photo) => photo.id === "recruit-portrait-1997");
@@ -33,6 +34,7 @@ export function Home({ bio }: { onOpen?: (k: Kind, id: string) => void; bio: str
             ))}
             {/* Three stamps (Oct 2026): Security Manager (maroon) and PAO (navy) round stamps, plus a separate black UNCLAS
                 block. The PNGs are ink masks; CSS colours them per theme. */}
+            <RedactionSample />
             <div className="bio-stamps">
               <span className="bio-stamp bio-stamp-round bio-stamp-security" role="img" aria-label="Security Manager, redaction: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-security.png")}")` }} />
               <span className="bio-stamp bio-stamp-round bio-stamp-pao" role="img" aria-label="Public Affairs Officer, wide release: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-pao.png")}")` }} />
