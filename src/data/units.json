@@ -515,11 +515,11 @@
     "end": null,
     "precision": "",
     "placeId": null,
-    "explanation": "Foreign partner on the JCSE OEF I deployment at FOB Delaram (CJSOTF-A, 2010–2011). Placeholder card: graphic, dates and details not entered.",
+    "explanation": "Foreign partner on the JCSE OEF I deployment at FOB Delaram (CJSOTF-A, 2010–2011). Dates and details not entered.",
     "civilian": "",
     "onCase": false,
-    "image": "/incoming/placeholder-crest.svg",
-    "open": "Placeholder (Sergio, Oct 2026): generic graphic, blank dates, no map place. Not on the Map."
+    "image": "/incoming/ana.svg",
+    "open": "Graphic supplied by Sergio (Oct 2026). Blank dates, no map place. Not on the Map."
   },
   {
     "id": "geo-32nd-bn",

@@ -33,8 +33,8 @@
   {
     "id": "m4-kit-2006-03-03",
     "src": "/equipment/m4-carbine-2.webp",
-    "alt": "M4 carbine slung on desert camouflage kit, helmet with desert cover, overlay stamp MAR 3 2006",
-    "caption": "M4 carbine in kit, 3 March 2006, OIF I",
+    "alt": "M4 carbine slung on desert camouflage kit, his personal-issue helmet with desert cover, overlay stamp MAR 3 2006",
+    "caption": "M4 carbine in kit, personal-issue helmet, 3 March 2006, OIF I",
     "subjects": [
       { "kind": "equipment", "id": "m4-carbine" },
       { "kind": "equipment", "id": "beretta-m9" },
@@ -47,8 +47,8 @@
   {
     "id": "m4-eodmu5-flag",
     "src": "/equipment/m4-carbine-3.webp",
-    "alt": "M4 carbine held at chest, helmet with desert cover, EODMU 5 flag behind Hesco barriers",
-    "caption": "M4 carbine, EODMU 5 flag",
+    "alt": "M4 carbine held at chest, bare tan community-use helmet shared for riding on Gators, EODMU 5 flag behind Hesco barriers",
+    "caption": "M4 carbine, EODMU 5 flag; shared helmet for riding Gators",
     "subjects": [
       { "kind": "equipment", "id": "m4-carbine" },
       { "kind": "uniform", "id": "desert" },
@@ -245,18 +245,18 @@
   },
   {
     "id": "helmet-jerrv",
-    "src": "/equipment/helmet-desert-cover.webp",
-    "alt": "Helmet with desert cover, JERRV Cougar 6x6 behind",
-    "caption": "Helmet, JERRV behind",
+    "src": "/equipment/helmet-jerrv.webp",
+    "alt": "Bare tan community-use helmet shared for riding on Gators, JERRV Cougar 6x6 behind",
+    "caption": "Shared helmet for riding Gators, JERRV behind",
     "subjects": [
       { "kind": "equipment", "id": "jerrv-6x6" }
     ]
   },
   {
     "id": "helmet-2006-03-03",
-    "src": "/equipment/helmet-desert-cover-2.webp",
-    "alt": "Helmet with desert cover, overlay stamp MAR 3 2006",
-    "caption": "Helmet, 3 March 2006, OIF I",
+    "src": "/equipment/helmet-2006-03-03.webp",
+    "alt": "His personal-issue helmet with desert cover, overlay stamp MAR 3 2006",
+    "caption": "Personal-issue helmet, 3 March 2006, OIF I",
     "subjects": [
       { "kind": "unit", "id": "troy" },
       { "kind": "operation", "id": "oif-2006" }
