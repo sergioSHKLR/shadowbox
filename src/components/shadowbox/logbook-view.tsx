@@ -70,12 +70,15 @@ function ribbonLabel(award: LogbookBeat["rack"][number]): string {
   return bits.join(" · ");
 }
 
+/** Metal collar device beside the rating badge on rank cards: off (Sergio, Oct 2026), rating badge only. Flip to bring it back. */
+const RANK_COLLAR_ON_CARDS = false;
+
 /** Rank & Awards as of the end of this command: rank insignia, warfare pins, ribbons (command-plates.json). Medals: later. */
 function RankChip({ rank, tag, onOpen }: { rank: NonNullable<LogbookBeat["rank"]>; tag?: string; onOpen: Open }) {
   return (
     <button type="button" className="logbook-rank" onClick={() => onOpen("rank", rank.id)} aria-label={`${tag ? `${tag}: ` : ""}${rank.abbreviation}, ${rank.name}`}>
       {rank.image ? <img className="logbook-rank-patch" src={publicUrl(rank.image)} alt="" /> : null}
-      {rank.collar ? <img className="logbook-rank-collar" src={publicUrl(rank.collar)} alt="" /> : null}
+      {RANK_COLLAR_ON_CARDS && rank.collar ? <img className="logbook-rank-collar" src={publicUrl(rank.collar)} alt="" /> : null}
       <span>
         {tag ? <em className="logbook-rank-tag">{tag}</em> : null}
         <strong>{rank.abbreviation}</strong>

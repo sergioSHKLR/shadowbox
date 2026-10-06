@@ -20,6 +20,8 @@ export function Home({ bio }: { onOpen?: (k: Kind, id: string) => void; bio: str
           <div className="home-pin-tail" aria-hidden="true" />
         </div>
         <div className="home-read">
+          {/* One opaque sheet for the name block and the bio, so the pinned portrait never shows between them. */}
+          <div className="home-sheet">
           <div className="intro-copy">
             <p className="kicker">{profile.headerLines[1]}</p>
             <h2>{profile.headerLines[0]}</h2>
@@ -30,6 +32,7 @@ export function Home({ bio }: { onOpen?: (k: Kind, id: string) => void; bio: str
               <BioBlock key={paragraph.slice(0, 24)} text={paragraph} />
             ))}
             <img className="bio-pao" src={publicUrl("/incoming/pao.png")} alt="Approved for release. Unclassified. Unit PAO." />
+          </div>
           </div>
         </div>
       </header>
