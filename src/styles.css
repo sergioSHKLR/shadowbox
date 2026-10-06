@@ -1021,6 +1021,9 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .home-pin-gap, .home-pin-tail { display: none; }
 .home-scroll .intro-solo + .intro-copy { margin-top: 1rem; }
 .home-pin { background: var(--color-ivory); }
+/* Page ends ~2rem after the End of Career caption: cancel the pin's bottom padding instead of adding the intro margin. */
+.home-scroll.intro { margin-bottom: 0; }
+@media (prefers-reduced-motion: no-preference) { .home-scroll.intro { margin-bottom: -0.4rem; } }
 
 @media (prefers-reduced-motion: no-preference) {
   .home-scroll { --pin-top: 4.25rem; display: grid; }
@@ -1030,7 +1033,8 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   .home-pin-boot { z-index: 1; }
   .home-pin-chief { z-index: 2; margin-top: 0; }
   .home-pin-gap { display: block; flex: 1 1 auto; min-height: 2rem; }
-  .home-pin-tail { display: block; flex: none; height: 32vh; }
+  /* No tail spacer (Sergio, Oct 2026): the page ends after the End of Career caption. The sticky Boot Camp portrait
+     cannot pass the end of .home-pins, so at the bottom it lines up exactly behind the End of Career frame. */
   .home-read { position: relative; z-index: 1; min-width: 0; }
 
   /* Desktop: portraits pinned in the left column, bio alongside on the right. */
@@ -1050,7 +1054,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
     .home-scroll .wood-frame { --frame: var(--frame-n); }
     .home-scroll { --frame-n: min(19rem, calc(100vw - 4rem), calc((100dvh - 8rem) * 8.5 / 11)); }
     .home-pins, .home-read { grid-area: 1 / 1; }
-    .home-read { padding: var(--pin-h) 0 calc(var(--pin-h) + 32vh); pointer-events: none; }
+    .home-read { padding: var(--pin-h) 0 var(--pin-h); pointer-events: none; }
     .home-read > * { pointer-events: auto; position: relative; }
     .home-read .intro-copy { margin: 0; padding: 1rem 0 0.4rem; }
     .home-read .bio-wrap { padding-bottom: 1.5rem; }

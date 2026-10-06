@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import { photos, profile, publicUrl, timeline, type Kind } from "@/lib/shadowbox/model";
 import { UniformProgression } from "@/components/shadowbox/uniform-progression";
 import { RedactionSample } from "@/components/shadowbox/redaction-sample";
@@ -6,14 +6,61 @@ import { RedactionSample } from "@/components/shadowbox/redaction-sample";
 const CHIEF_PORTRAIT = photos.find((photo) => photo.src === profile.portrait);
 const SN_PORTRAIT = photos.find((photo) => photo.id === "recruit-portrait-1997");
 
+/**
+ * Home scroll end (Sergio, Oct 2026): the page ends right after the End of Career caption, so on most screens the End of
+ * Career portrait can no longer scroll all the way up to the pinned Boot Camp portrait. Over the last stretch of the page
+ * the Boot Camp portrait eases down (its sticky `top` grows) so the two meet exactly at the bottom, and End of Career
+ * still slides over and fully covers it. Skipped when the pins aren't sticky (prefers-reduced-motion).
+ */
+function useHomePinMeet(ref: RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const root = ref.current;
+    const boot = root?.querySelector<HTMLElement>(".home-pin-boot");
+    const chief = root?.querySelector<HTMLElement>(".home-pin-chief");
+    if (!root || !boot || !chief) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      boot.style.removeProperty("top");
+      if (getComputedStyle(boot).position !== "sticky") return;
+      const pinTop = parseFloat(getComputedStyle(boot).top) || 0;
+      const doc = document.documentElement;
+      const remaining = Math.max(0, doc.scrollHeight - innerHeight - scrollY);
+      const chiefTop = chief.getBoundingClientRect().top;
+      // Where End of Career will sit at the very bottom of the page (it is still travelling up 1:1 with the scroll).
+      const finalTop = chiefTop - remaining;
+      const shortfall = finalTop - pinTop;
+      if (shortfall <= 0.5) return;
+      const range = Math.max(innerHeight * 0.6, shortfall * 1.5);
+      const t = Math.min(1, Math.max(0, 1 - remaining / range));
+      if (t > 0) boot.style.top = `${pinTop + shortfall * t}px`;
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    update();
+    addEventListener("scroll", schedule, { passive: true });
+    addEventListener("resize", schedule);
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(schedule) : null;
+    ro?.observe(root);
+    return () => {
+      cancelAnimationFrame(frame);
+      removeEventListener("scroll", schedule);
+      removeEventListener("resize", schedule);
+      ro?.disconnect();
+      boot.style.removeProperty("top");
+    };
+  }, [ref]);
+}
+
 export function Home({ bio }: { onOpen?: (k: Kind, id: string) => void; bio: string }) {
   const paragraphs = bio.split("\n\n");
+  const scrollRef = useRef<HTMLElement>(null);
+  useHomePinMeet(scrollRef);
   return (
     <main className="sheet">
       {/* Home scroll (Sergio, Oct 2026): the Boot Camp portrait is pinned while the bio scrolls; at the end the End of
           Career portrait slides up and covers it in the same spot. Pure CSS (position: sticky + z-index). With
           prefers-reduced-motion the two portraits fall back to plain top / bottom placement. */}
-      <header className="intro home-scroll">
+      <header className="intro home-scroll" ref={scrollRef}>
         <div className="home-pins">
           {SN_PORTRAIT ? <Portrait className="home-pin home-pin-boot" src={SN_PORTRAIT.src} alt={SN_PORTRAIT.alt} caption="Boot Camp, 1997" /> : null}
           <div className="home-pin-gap" aria-hidden="true" />
