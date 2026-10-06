@@ -141,9 +141,9 @@ function FadePortrait({ first, last }: { first: Shot; last: Shot }) {
         <span className="home-fade-cap-first">{first.caption}</span>
         <span className="home-fade-cap-last">{last.caption}</span>
       </figcaption>
-      {/* TEMPORARY (Sergio, Oct 2026): joint flags under the portrait — replace incoming/joint-flags.* freely.
-          Pyramid: US national (apex, larger) over Army · Air Force · Navy · USMC. No USCG. Folded-flag watermark unchanged. */}
-      <img className="home-joint-flags" src={publicUrl("/incoming/joint-flags.webp")} alt="" width={210} height={58} decoding="async" />
+      {/* Gold-embossed Navy seal under the portrait (from incoming/emboss.svg → home-navy-seal-gold.svg; Sergio, Oct 2026).
+          Joint-flags mock kept in incoming/joint-flags.* for Sergio to replace later — not shown here. */}
+      <img className="home-navy-seal" src={publicUrl("/incoming/home-navy-seal-gold.svg")} alt="" width={88} height={88} decoding="async" />
     </figure>
   );
 }
