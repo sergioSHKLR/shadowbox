@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Anchor, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, MessageCircle, Monitor, Moon, NotebookText, PenLine, Radio, Settings, Shirt, Sun, X } from "lucide-react";
+import { Anchor, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, MessageCircle, Monitor, Moon, NotebookText, PenLine, Radio, Settings, Share2, Shirt, Sun, X } from "lucide-react";
 import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
 import { BIO_PLACEHOLDER, chrome, type Chrome } from "@/lib/shadowbox/copy";
@@ -149,6 +149,55 @@ function SettingsDialog({
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
+  );
+}
+
+/**
+ * Share (Sergio, Oct 2026): the system share sheet where there is one (phones), otherwise copy the link and show a short toast.
+ * Pages and commands have no URL of their own yet, so this shares location.href (the site root); every link gets the same preview card.
+ */
+function ShareButton({ t }: { t: Chrome }) {
+  const [toast, setToast] = useState<string | null>(null);
+  useEffect(() => {
+    if (!toast) return;
+    const id = window.setTimeout(() => setToast(null), 2200);
+    return () => window.clearTimeout(id);
+  }, [toast]);
+  const share = async () => {
+    const url = window.location.href;
+    const title = document.title || "SIGNUM";
+    const nav = navigator as Navigator & { share?: (data: ShareData) => Promise<void>; canShare?: (data: ShareData) => boolean };
+    if (typeof nav.share === "function" && (!nav.canShare || nav.canShare({ title, url }))) {
+      try {
+        await nav.share({ title, url });
+        return;
+      } catch (error) {
+        // The user closed the sheet: nothing to do. Any other failure falls through to copying.
+        if (error instanceof DOMException && error.name === "AbortError") return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      const field = document.createElement("textarea");
+      field.value = url;
+      field.setAttribute("readonly", "");
+      field.style.position = "fixed";
+      field.style.opacity = "0";
+      document.body.appendChild(field);
+      field.select();
+      try { document.execCommand("copy"); } catch { /* nothing else to try */ }
+      field.remove();
+    }
+    setToast(t.linkCopied);
+  };
+  return (
+    <>
+      <button type="button" className="app-icon app-share" aria-label={t.share} title={t.share} onClick={() => void share()}>
+        <Share2 size={20} strokeWidth={2} aria-hidden="true" />
+      </button>
+      <div className={toast ? "app-toast is-on" : "app-toast"} role="status" aria-live="polite">{toast ?? ""}</div>
+    </>
   );
 }
 
@@ -357,6 +406,7 @@ export function ShadowboxApp() {
             </button>
           </nav>
         ) : null}
+        <ShareButton t={t} />
         <button ref={menuButtonRef} type="button" className="app-icon" aria-label={t.menu} aria-expanded={menu} onClick={() => { setMenu((open) => !open); setSearchOpen(false); }}>
           &#9776;
         </button>

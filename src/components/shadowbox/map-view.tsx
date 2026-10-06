@@ -495,7 +495,14 @@ export function MapView({
             map.setView(bounds.getCenter(), zoom, { animate: false });
             map.panInsideBounds(L.latLngBounds([-85.05, -1e5], [85.05, 1e5]), { animate: false });
           } else {
-            map.fitBounds(bounds.pad(0.35), { ...(fitMaxZoom != null ? { maxZoom: fitMaxZoom } : {}), animate: !prefersReducedMotion() });
+            // Fit the padded pins, but never so far out that the world is shorter than the frame (grey "no data" bands on tall
+            // frames such as the enlarged phone map) as long as the pins themselves still fit at that zoom.
+            const padded = bounds.pad(0.35);
+            let zoom = Math.min(map.getBoundsZoom(padded, false), fitMaxZoom ?? Infinity);
+            const fill = Math.ceil(Math.log2(Math.max(1, map.getSize().y) / 256) * 4) / 4;
+            if (zoom < fill && map.getBoundsZoom(bounds, false) >= fill) zoom = fill;
+            map.setView(padded.getCenter(), Math.max(map.getMinZoom(), zoom), { animate: !prefersReducedMotion() });
+            if (zoom <= fill) map.panInsideBounds(L.latLngBounds([-85.05, -1e5], [85.05, 1e5]), { animate: false });
           }
         };
 

@@ -426,7 +426,8 @@
 @media (max-width: 900px) { .logbook-beat-head.logbook-stepper { min-height: 2.5rem; } }
 /* Header block (Sergio, Oct 2026): one thin brass box, with the card's colour and radius, around the title row and the
    About row; About itself has no border and the box grows when it opens. Rank & Awards stays below, outside. */
-.logbook-head-box { margin: 0 0 0.75rem; padding: 0.5rem 0.6rem; border: 1px solid var(--color-brass); border-radius: 6px; }
+/* Head box border = the shared panel border (--lb-border), like every other Logbook panel, in light and dark (Sergio, Oct 2026). */
+.logbook-head-box { margin: 0 0 0.75rem; padding: 0.5rem 0.6rem; border: 1px solid var(--lb-border); border-radius: 6px; }
 .logbook-head-box > .logbook-beat-head.logbook-stepper { margin-bottom: 0.4rem; }
 .logbook-head-box > .logbook-beat-head.logbook-stepper:last-child { margin-bottom: 0; }
 .logbook-head-box > .logbook-about { margin: 0; padding: 0.1rem 0.15rem 0; border: 0; border-radius: 0; }
@@ -565,3 +566,44 @@
 .lb-tab.on .lb-tab-count, [data-theme="dark"] .lb-tab.on .lb-tab-count { background: var(--color-navy); color: var(--color-ivory, #f4efe4); }
 .lb-tab:focus-visible { outline: 2px solid var(--color-navy); outline-offset: 2px; }
 [data-theme="dark"] .lb-tab:focus-visible { outline-color: var(--color-ivory, #f4efe4); }
+
+/* Enlarge (Sergio, Oct 2026): corner button on the mini map and the uniform plate only. Outline when idle, filled goldenrod while
+   open (the Travel Book button language); a soft backing keeps it readable over map tiles and plates. */
+.logbook-map-frame, .logbook-mannequin { position: relative; }
+.nav-btn.icon-btn.logbook-enlarge {
+  position: absolute; top: 0.4rem; right: 0.4rem; z-index: 1000;
+  min-width: 34px; min-height: 34px; width: 34px; height: 34px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center; border-radius: 6px;
+  background: color-mix(in srgb, var(--color-ivory) 88%, transparent); color: var(--color-navy);
+  border: 1px solid var(--color-brass); box-shadow: none;
+}
+.nav-btn.icon-btn.logbook-enlarge:hover { background: var(--color-ivory); }
+.nav-btn.icon-btn.logbook-enlarge.on { background: var(--color-goldenrod); color: var(--color-navy); border-color: var(--color-goldenrod); }
+[data-theme="dark"] .nav-btn.icon-btn.logbook-enlarge { background: color-mix(in srgb, #14181f 85%, transparent); color: var(--color-ivory); border-color: var(--color-brass); }
+[data-theme="dark"] .nav-btn.icon-btn.logbook-enlarge.on { background: var(--color-goldenrod); color: var(--color-navy); border-color: var(--color-goldenrod); }
+.nav-btn.icon-btn.logbook-enlarge:focus-visible { outline: 2px solid var(--color-goldenrod); outline-offset: 2px; }
+
+.enlarge-overlay { position: fixed; inset: 0; z-index: 1250; background: rgba(12, 16, 24, 0.6); }
+.enlarge-modal {
+  position: fixed; inset: max(0.75rem, env(safe-area-inset-top)) 0.75rem 0.75rem; z-index: 1251;
+  margin: 0 auto; max-width: 72rem; display: flex; flex-direction: column;
+  background: var(--color-ivory); color: var(--color-ink); border: 1px solid var(--color-brass); border-radius: 10px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35); padding: 0.6rem 0.75rem 0.75rem; overflow: hidden;
+}
+[data-theme="dark"] .enlarge-modal { background: #14181f; color: var(--color-ivory); }
+.enlarge-head { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.5rem; }
+.enlarge-head h2 { margin: 0; font-size: 1.2rem; line-height: 1.2; }
+.enlarge-sub { margin: 0.1rem 0 0; font-size: 0.85rem; color: var(--color-quiet); }
+[data-theme="dark"] .enlarge-sub { color: #c4b8a6; }
+.nav-btn.icon-btn.enlarge-close, .plate-viewer-nav .nav-btn.icon-btn {
+  min-width: 44px; min-height: 44px; padding: 0; display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; color: var(--color-navy); border: 1px solid var(--color-brass); box-shadow: none;
+}
+[data-theme="dark"] .nav-btn.icon-btn.enlarge-close, [data-theme="dark"] .plate-viewer-nav .nav-btn.icon-btn { background: transparent; color: var(--color-ivory); border-color: var(--color-brass); }
+.enlarge-body { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.enlarge-map .enlarge-body .map-frame { flex: 1; height: 100%; min-height: 0; border-radius: 6px; }
+.plate-viewer { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 0.5rem; touch-action: pan-y; }
+.plate-viewer-figure { flex: 1; min-height: 0; margin: 0; display: flex; justify-content: center; align-items: center; background: #fff; border-radius: 6px; }
+.plate-viewer-figure img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+.plate-viewer-nav { display: flex; align-items: center; justify-content: center; gap: 0.75rem; }
+.plate-viewer-nav p, .plate-viewer-caption { margin: 0; font-size: 0.95rem; text-align: center; }
