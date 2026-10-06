@@ -24,7 +24,8 @@
       (function () {
         try {
           var raw = JSON.parse(localStorage.getItem("shadowbox-prefs") || "{}");
-          var pick = raw.theme === "light" || raw.theme === "dark" ? raw.theme : "system";
+          var THEME_SWITCH_ENABLED = false; // matches app.tsx: while the switch is hidden, everyone follows the device
+          var pick = THEME_SWITCH_ENABLED && (raw.theme === "light" || raw.theme === "dark") ? raw.theme : "system";
           var dark = pick === "dark" || (pick === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
           document.documentElement.dataset.theme = dark ? "dark" : "light";
         } catch (e) {}
