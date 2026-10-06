@@ -587,12 +587,12 @@ type PhoneTab = AsideTab | "crests" | "map";
 export function Logbook({
   onOpen,
   title,
-  lead,
   wardrobeLabel = "Wardrobe",
 }: {
   onOpen: (k: Kind, id: string) => void;
   title: string;
-  lead: string;
+  /** Intro copy; not shown on the Logbook for now (Sergio). */
+  lead?: string;
   wardrobeLabel?: string;
 }) {
   const beats = useMemo(() => logbookBeats(), []);
@@ -601,7 +601,7 @@ export function Logbook({
   const [active, setActive] = useState(0);
   const [mainTab, setMainTab] = useState<MainTab>("rank");
   const [asideTab, setAsideTab] = useState<AsideTab>("uniforms");
-  const [phoneTab, setPhoneTab] = useState<PhoneTab>("uniforms");
+  const [phoneTab, setPhoneTab] = useState<PhoneTab>("crests");
   /** Uniform chosen in the Uniforms tab; kept as the beat changes. */
   const [look, setLookState] = useState<Look>("blue");
   /** Last non-Khaki pick: what a pre-Chief beat shows while Khakis stay chosen. */
@@ -821,10 +821,8 @@ export function Logbook({
 
   return (
     <main className={`sheet logbook${narrow ? " is-narrow" : ""}`} ref={rootRef}>
-      <header className="logbook-head">
-        <h2>{title}</h2>
-        <p className="logbook-lead">{lead}</p>
-      </header>
+      {/* Sergio: no visible page title or intro on the Logbook; the heading stays for screen readers. The lead copy stays in copy.ts. */}
+      <h1 className="sr-only">{title}</h1>
 
       {narrow ? (
         <div className="logbook-phone">
@@ -832,7 +830,7 @@ export function Logbook({
           <Tabbed
             idBase="logbook-phone"
             label="Uniforms, wardrobe, duty, crests and map"
-            tabs={[...asideTabs, { id: "crests", label: "Crests" }, { id: "map", label: "Map" }]}
+            tabs={[{ id: "crests", label: "Crests" }, ...asideTabs, { id: "map", label: "Map" }]}
             value={phoneTab}
             onChange={setPhoneTab}
             className="logbook-phone-tabs"

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Anchor, BookOpen, Car, ChartGantt, ClipboardList, Flag, House, Library, Map, MessageCircle, Monitor, Moon, NotebookText, Radio, Shirt, Sun } from "lucide-react";
+import { Anchor, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, MessageCircle, Monitor, Moon, NotebookText, Radio, Shirt, Sun } from "lucide-react";
 import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
 import { chrome } from "@/lib/shadowbox/copy";
@@ -8,6 +8,11 @@ import { loadPrefs, resolveTheme, savePrefs, type Locale, type ThemeName } from 
 
 /** Site search is off for now (Sergio). Flip to true to bring back the top-bar search box; the code stays wired. */
 const SEARCH_ENABLED = false;
+/** Theme switch hidden (Sergio): everyone follows the device (prefers-color-scheme); a saved light/dark choice is ignored and
+ *  overwritten with "system". Flip to true to bring the Sun / Monitor / Moon switch back (pages/index.html has a matching flag). */
+const THEME_SWITCH_ENABLED = false;
+/** Footer Previous / Next pager and its arrow-key shortcut are off; page stepping lives in the top bar (chevrons). */
+const FOOTER_PAGER_ENABLED = false;
 const THEMES: { id: ThemeName; Icon: typeof Sun }[] = [
   { id: "light", Icon: Sun },
   { id: "system", Icon: Monitor },
@@ -124,7 +129,7 @@ export function ShadowboxApp() {
     if (!prefsReady) return;
     const apply = () => {
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const resolved = resolveTheme(theme, prefersDark);
+      const resolved = resolveTheme(THEME_SWITCH_ENABLED ? theme : "system", prefersDark);
       document.documentElement.lang = locale === "pt" ? "pt-BR" : "en";
       document.documentElement.dataset.theme = resolved;
       const base = import.meta.env.BASE_URL || "/";
@@ -136,7 +141,7 @@ export function ShadowboxApp() {
       if (tint) tint.content = resolved === "dark" ? "#14181f" : "#f6f1e7";
     };
     apply();
-    savePrefs({ locale, theme });
+    savePrefs({ locale, theme: THEME_SWITCH_ENABLED ? theme : "system" });
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     media.addEventListener("change", apply);
     return () => media.removeEventListener("change", apply);
@@ -164,7 +169,7 @@ export function ShadowboxApp() {
     return () => document.removeEventListener("pointerdown", close);
   }, [query]);
   useEffect(() => {
-    if (!showPager) return;
+    if (!showPager || !FOOTER_PAGER_ENABLED) return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
       // A view that handled the arrow itself (e.g. the Logbook command stepper) keeps it.
@@ -204,7 +209,7 @@ export function ShadowboxApp() {
           <span className="app-title">{t.title}</span>
         </button>
         <div className="app-end">
-        <div className="app-flags" role="group" aria-label={t.language}>
+        <div className="app-flags">
           <button type="button" className={locale === "en" ? "app-flag is-on" : "app-flag"} aria-label={t.english} aria-pressed={locale === "en"} onClick={() => setLocale("en")}>
             <span aria-hidden="true">🇺🇸</span>
           </button>
@@ -212,6 +217,7 @@ export function ShadowboxApp() {
             <span aria-hidden="true">🇧🇷</span>
           </button>
         </div>
+        {THEME_SWITCH_ENABLED ? (
         <div className="app-themes" role="group" aria-label={t.theme}>
           {THEMES.map(({ id, Icon }) => (
             <button key={id} type="button" className={theme === id ? "app-theme is-on" : "app-theme"} aria-label={t[id]} title={t[id]} aria-pressed={theme === id} onClick={() => setTheme(id)}>
@@ -219,6 +225,7 @@ export function ShadowboxApp() {
             </button>
           ))}
         </div>
+        ) : null}
         {SEARCH_ENABLED ? (
         <div className={searchOpen ? "app-search is-open" : "app-search"} ref={searchRef}>
           <button type="button" className="app-icon" aria-label={t.search} aria-expanded={searchOpen} onClick={() => { setSearchOpen((open) => !open); setMenu(false); }}>
@@ -239,6 +246,16 @@ export function ShadowboxApp() {
             </ul>
           ) : null}
         </div>
+        ) : null}
+        {showPager ? (
+          <nav className="app-pagenav" aria-label={t.pageNav}>
+            <button type="button" className="app-pagebtn" disabled={!prevView} aria-label={prevView ? `${t.prevPage}: ${t[prevView]}` : t.prevPage} title={prevView ? `${t.prevPage}: ${t[prevView]}` : undefined} onClick={() => prevView && go(prevView)}>
+              <ChevronLeft size={18} strokeWidth={2.25} aria-hidden="true" />
+            </button>
+            <button type="button" className="app-pagebtn" disabled={!nextView} aria-label={nextView ? `${t.nextPage}: ${t[nextView]}` : t.nextPage} title={nextView ? `${t.nextPage}: ${t[nextView]}` : undefined} onClick={() => nextView && go(nextView)}>
+              <ChevronRight size={18} strokeWidth={2.25} aria-hidden="true" />
+            </button>
+          </nav>
         ) : null}
         <button ref={menuButtonRef} type="button" className="app-icon" aria-label={t.menu} aria-expanded={menu} onClick={() => { setMenu((open) => !open); setSearchOpen(false); }}>
           &#9776;
@@ -285,7 +302,7 @@ export function ShadowboxApp() {
         <div className={`${pane("contact")} no-book`}><Contact /></div>
         <div className={`${pane("guestbook")} no-book`}><Guestbook /></div>
         <div className={`${pane("memories")} no-book`}><Memories /></div>
-        {showPager ? (
+        {showPager && FOOTER_PAGER_ENABLED ? (
           <nav className="page-pager" aria-label={t.pageNav}>
             {prevView && PrevIcon ? (
               <button type="button" className="page-pager-link is-prev" aria-label={`${t.prevPage}: ${t[prevView]}`} onClick={() => go(prevView)}>

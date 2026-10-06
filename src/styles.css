@@ -1174,13 +1174,11 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .app-theme:focus-visible { outline: 2px solid var(--color-goldenrod); outline-offset: 2px; }
 @media (max-width: 420px) { .app-themes { margin-right: 0.15rem; } .app-theme { width: 28px; height: 28px; } }
 
-/* Language switch = the theme switch's segmented pill: one outlined group, selected flag on goldenrod, the other muted. */
-.app-flags, .app-themes { gap: 2px; padding: 2px; border: 1px solid rgba(244, 239, 228, 0.22); border-radius: 999px; background: rgba(255, 255, 255, 0.06); }
-.app-flags { margin-right: 0.35rem; }
-.app-flag { min-width: 0; min-height: 0; width: 34px; height: 30px; padding: 0; border-radius: 999px; font-size: 1.05rem; transition: background-color 0.15s; }
-.app-flag:hover { background: rgba(255, 255, 255, 0.1); }
-.app-flag.is-on, .app-flag.is-on:hover { background: var(--color-goldenrod); color: var(--color-navy); filter: none; opacity: 1; }
-.app-flag:not(.is-on) { filter: grayscale(1) contrast(1.15); opacity: 0.6; }
-.app-flag:not(.is-on):hover { opacity: 0.85; }
-.app-flag:focus-visible { outline: 2px solid var(--color-goldenrod); outline-offset: 2px; }
-@media (max-width: 420px) { .app-flags { margin-right: 0.15rem; } .app-flag { width: 30px; height: 28px; font-size: 0.95rem; } }
+/* Top-bar page stepper (Home <-> Logbook): outlined round chevrons; the disabled end is muted. */
+.app-pagenav { display: flex; align-items: center; gap: 0.3rem; margin: 0 0.35rem 0 0.4rem; }
+.app-pagebtn { display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 1px solid rgba(244, 239, 228, 0.55); border-radius: 999px; background: transparent; color: var(--color-ivory, #f4efe4); cursor: pointer; }
+.app-pagebtn:not(:disabled):hover { background: rgba(255, 255, 255, 0.1); border-color: var(--color-ivory, #f4efe4); }
+.app-pagebtn:not(:disabled):active { background: var(--color-goldenrod); border-color: var(--color-goldenrod); color: var(--color-navy); }
+.app-pagebtn:focus-visible { outline: 2px solid var(--color-goldenrod); outline-offset: 2px; }
+.app-pagebtn:disabled { opacity: 0.32; cursor: default; }
+@media (max-width: 420px) { .app-pagenav { gap: 0.2rem; margin: 0 0.2rem 0 0.25rem; } .app-pagebtn { width: 30px; height: 30px; } }
