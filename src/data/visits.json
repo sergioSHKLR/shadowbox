@@ -50,17 +50,6 @@
     "unitId": "ncts"
   },
   {
-    "id": "saipan-visit",
-    "placeId": "saipan",
-    "kind": "port-visit",
-    "title": "Port visit with USS Frank Cable",
-    "when": "2001–2004 (year not recorded)",
-    "sort": "2001",
-    "prio": 1,
-    "approximate": true,
-    "unitId": "frank-cable"
-  },
-  {
     "id": "yokosuka-visit",
     "placeId": "yokosuka",
     "kind": "port-visit",
@@ -96,6 +85,17 @@
   {
     "id": "hong-kong-visit",
     "placeId": "hong-kong",
+    "kind": "port-visit",
+    "title": "Port visit with USS Frank Cable",
+    "when": "2001–2004 (year not recorded)",
+    "sort": "2001",
+    "prio": 1,
+    "approximate": true,
+    "unitId": "frank-cable"
+  },
+  {
+    "id": "saipan-visit",
+    "placeId": "saipan",
     "kind": "port-visit",
     "title": "Port visit with USS Frank Cable",
     "when": "2001–2004 (year not recorded)",
