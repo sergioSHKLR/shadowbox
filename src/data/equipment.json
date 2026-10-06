@@ -50,15 +50,15 @@
     "group": "weapons",
     "order": 4,
     "name": "Centurion C-RAM",
-    "caption": "Trailer-mounted, with its generator (Iraq)",
-    "cutout": false,
+    "caption": "Land-based Phalanx weapon mount shown",
+    "cutout": true,
     "note": "Counter-Rocket, Artillery, Mortar (C-RAM) weapon: the Navy's Phalanx close-in weapon system, a radar-guided 20 mm Gatling gun, mounted on a trailer for use ashore. It is built to shoot down incoming rockets, artillery and mortar rounds over a base.",
-    "image": "/equipment/centurion-c-ram.webp",
+    "image": "/equipment/centurion-c-ram-c.webp",
     "unitId": "ia-army",
     "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_Battery_Phalanx_in_Iraq.jpg",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/f/f1/A_Battery_Phalanx_in_Iraq.jpg",
-      "creator": "Alpha Battery, 1st Battalion, 194th Field Artillery (U.S. Army National Guard)",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Phalanx_LPWS_-_140301-A-ZA744-121.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Phalanx_LPWS_-_140301-A-ZA744-121.jpg",
+      "creator": "Staff Sgt. Jarred Woods, U.S. Army",
       "license": "Public domain (U.S. federal government work)"
     }
   },
@@ -83,15 +83,15 @@
     "group": "vehicles",
     "order": 7,
     "name": "CUCV",
-    "caption": "CUCV pickup shown",
+    "caption": "M1009 Blazer shown",
     "cutout": true,
     "note": "Commercial Utility Cargo Vehicle: militarized Chevrolet diesel trucks (M1008 pickup, M1009 Blazer and variants) used as light utility vehicles.",
-    "image": "/equipment/cucv-pickup.webp",
+    "image": "/equipment/cucv-m1009-c.webp",
     "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:DF-ST-84-09181.jpg",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/4/4b/DF-ST-84-09181.jpg",
-      "creator": "TSgt. Rob Marshall, U.S. Air Force",
-      "license": "Public domain (U.S. federal government work)"
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chevrolet_M1009_Blazer_(1984)_owned_by_E._Philippi.JPG",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Chevrolet_M1009_Blazer_%281984%29_owned_by_E._Philippi.JPG",
+      "creator": "AlfvanBeem (Wikimedia Commons)",
+      "license": "CC0 1.0 (public domain dedication)"
     }
   },
   {
@@ -212,15 +212,15 @@
     "group": "helmets",
     "order": 1,
     "name": "PASGT helmet, desert cover",
-    "caption": "3-color desert (DCU) cover",
-    "cutout": false,
-    "note": "Personnel Armor System for Ground Troops (PASGT) helmet, the Kevlar “K-pot” the U.S. Army and Marine Corps fielded in the early 1980s. It protects the head, temples, ears and neck against fragments. Shown in the 3-color desert (DCU) cover worn with desert uniforms. During the 2000s the Army replaced it with the Advanced Combat Helmet.",
-    "image": "/equipment/pasgt-helmet-desert-cover-b.webp",
+    "caption": "6-color desert (“chocolate chip”) cover marked NAVY",
+    "cutout": true,
+    "note": "Personnel Armor System for Ground Troops (PASGT) helmet, the Kevlar “K-pot” the U.S. Army and Marine Corps fielded in the early 1980s. It protects the head, temples, ears and neck against fragments. Shown in a 6-color desert (“chocolate chip”) cover marked NAVY; the 3-color DCU cover followed in the 1990s. During the 2000s the Army replaced it with the Advanced Combat Helmet.",
+    "image": "/equipment/pasgt-helmet-desert-c.webp",
     "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:DCU-cover-for-PASGT-vest,_July-1,_1991.jpg",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/4/4a/DCU-cover-for-PASGT-vest%2C_July-1%2C_1991.jpg",
-      "creator": "U.S. Army Natick Research, Development and Engineering Center, 1991",
-      "license": "Public domain (U.S. federal government work)"
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:PASGT_KPot.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/c/c6/PASGT_KPot.jpg",
+      "creator": "Pelz Der Untoten (Wikimedia Commons)",
+      "license": "CC BY 4.0"
     }
   },
   {
@@ -245,14 +245,14 @@
     "order": 3,
     "name": "ACH / MICH, ACU cover",
     "caption": "UCP cover and night-vision mount",
-    "cutout": false,
+    "cutout": true,
     "note": "The Advanced Combat Helmet in the Universal Camouflage Pattern (UCP) cover of the Army Combat Uniform, with a night-vision mount bracket on the front. This was the standard Army helmet look of the ACU years, from the mid-2000s. Worn on OIF I, OIF II, OEF I, and OEF II.",
-    "image": "/equipment/ach-helmet-acu-cover-b.webp",
+    "image": "/equipment/ach-helmet-acu-cover-c.webp",
     "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:ACH_005.jpg",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/0/0e/ACH_005.jpg",
-      "creator": "PEO Soldier (U.S. Army), 2005",
-      "license": "Public domain (U.S. federal government work)"
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:ACH_side_view.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/2/2a/ACH_side_view.jpg",
+      "creator": "MSA09 (Wikimedia Commons)",
+      "license": "CC BY-SA 4.0"
     }
   },
   {

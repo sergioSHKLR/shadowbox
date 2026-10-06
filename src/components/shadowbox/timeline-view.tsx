@@ -9,29 +9,37 @@ export function Home({ bio }: { onOpen?: (k: Kind, id: string) => void; bio: str
   const paragraphs = bio.split("\n\n");
   return (
     <main className="sheet">
-      <header className="intro">
-        {/* Split portraits (Sergio, Oct 2026): Boot Camp alone at the top, End of Career alone after the bio. No second frame. */}
-        {SN_PORTRAIT ? <Portrait src={SN_PORTRAIT.src} alt={SN_PORTRAIT.alt} caption="Boot Camp, 1997" /> : null}
-        <div className="intro-copy">
-          <p className="kicker">{profile.headerLines[1]}</p>
-          <h2>{profile.headerLines[0]}</h2>
-          <p className="quiet">{profile.headerLines[2]} · {profile.serviceLength}</p>
+      {/* Home scroll (Sergio, Oct 2026): the Boot Camp portrait is pinned while the bio scrolls; at the end the End of
+          Career portrait slides up and covers it in the same spot. Pure CSS (position: sticky + z-index). With
+          prefers-reduced-motion the two portraits fall back to plain top / bottom placement. */}
+      <header className="intro home-scroll">
+        <div className="home-pins">
+          {SN_PORTRAIT ? <Portrait className="home-pin home-pin-boot" src={SN_PORTRAIT.src} alt={SN_PORTRAIT.alt} caption="Boot Camp, 1997" /> : null}
+          <div className="home-pin-gap" aria-hidden="true" />
+          <Portrait className="home-pin home-pin-chief" src={CHIEF_PORTRAIT?.src ?? profile.portrait} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} caption="End of Career, 2018" />
+          <div className="home-pin-tail" aria-hidden="true" />
         </div>
-        <div className="bio-wrap">
-          {paragraphs.map((paragraph) => (
-            <BioBlock key={paragraph.slice(0, 24)} text={paragraph} />
-          ))}
-          <img className="bio-pao" src={publicUrl("/incoming/pao.png")} alt="Approved for release. Unclassified. Unit PAO." />
+        <div className="home-read">
+          <div className="intro-copy">
+            <p className="kicker">{profile.headerLines[1]}</p>
+            <h2>{profile.headerLines[0]}</h2>
+            <p className="quiet">{profile.headerLines[2]} · {profile.serviceLength}</p>
+          </div>
+          <div className="bio-wrap">
+            {paragraphs.map((paragraph) => (
+              <BioBlock key={paragraph.slice(0, 24)} text={paragraph} />
+            ))}
+            <img className="bio-pao" src={publicUrl("/incoming/pao.png")} alt="Approved for release. Unclassified. Unit PAO." />
+          </div>
         </div>
-        <Portrait src={CHIEF_PORTRAIT?.src ?? profile.portrait} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} caption="End of Career, 2018" />
       </header>
     </main>
   );
 }
 
-function Portrait({ src, alt, caption }: { src: string; alt: string; caption: string }) {
+function Portrait({ src, alt, caption, className = "" }: { src: string; alt: string; caption: string; className?: string }) {
   return (
-    <figure className="intro-solo">
+    <figure className={`intro-solo ${className}`.trim()}>
       <div className="wood-frame">
         <div className="wood-mat">
           <div className="mat-opening">
