@@ -20,6 +20,15 @@ function useHomeFade(ref: RefObject<HTMLElement | null>) {
     const narrow = typeof matchMedia === "function" ? matchMedia("(max-width: 959.98px)") : null;
     const sheet = root.querySelector<HTMLElement>(".home-sheet");
     const frameEl = root.querySelector<HTMLElement>(".home-fade");
+    const pins = root.querySelector<HTMLElement>(".home-pins");
+    // Zero movement while pinned: the sticky offset must equal the frame's own resting position (top bar + page
+    // padding, a fractional height), so the frame never travels before it pins. Measured on load and resize only.
+    let pinPx = "";
+    const measurePin = () => {
+      if (!pins) return;
+      const next = `${pins.getBoundingClientRect().top + scrollY}px`;
+      if (next !== pinPx) { pinPx = next; root.style.setProperty("--pin-top", next); }
+    };
     let frame = 0;
     const update = () => {
       frame = 0;
@@ -44,19 +53,21 @@ function useHomeFade(ref: RefObject<HTMLElement | null>) {
       root.classList.toggle("is-glued", glued);
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    const relayout = () => { measurePin(); schedule(); };
+    measurePin();
     update();
     addEventListener("scroll", schedule, { passive: true });
-    addEventListener("resize", schedule);
+    addEventListener("resize", relayout);
     reduce?.addEventListener?.("change", schedule);
-    narrow?.addEventListener?.("change", schedule);
-    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(schedule) : null;
+    narrow?.addEventListener?.("change", relayout);
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(relayout) : null;
     ro?.observe(document.body);
     return () => {
       cancelAnimationFrame(frame);
       removeEventListener("scroll", schedule);
-      removeEventListener("resize", schedule);
+      removeEventListener("resize", relayout);
       reduce?.removeEventListener?.("change", schedule);
-      narrow?.removeEventListener?.("change", schedule);
+      narrow?.removeEventListener?.("change", relayout);
       ro?.disconnect();
     };
   }, [ref]);
@@ -90,8 +101,8 @@ export function Home({ bio }: { onOpen?: (k: Kind, id: string) => void; bio: str
               <BioBlock key={paragraph.slice(0, 24)} text={paragraph} />
             ))}
             {/* Three stamps (Oct 2026): Security Manager (maroon) and PAO (navy) round stamps, plus a separate black UNCLAS
-                block. The PNGs are ink masks; CSS colours them per theme. */}
-            <RedactionSample />
+                block. The PNGs are ink masks; CSS colours them per theme. The sample redacted paragraph is placed by the
+                {{redaction-sample}} marker in the bio text (between Fourth and Fifth Command). */}
             <div className="bio-stamps">
               <span className="bio-stamp bio-stamp-round bio-stamp-security" role="img" aria-label="Security Manager, redaction: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-security.webp")}")` }} />
               <span className="bio-stamp bio-stamp-round bio-stamp-pao" role="img" aria-label="Public Affairs Officer, wide release: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-pao.webp")}")` }} />
@@ -169,6 +180,7 @@ function MarkerLine({ seed, tilt, grow = 1 }: { seed: number; tilt: number; grow
 }
 
 function BioBlock({ text }: { text: string }) {
+  if (text.trim() === "{{redaction-sample}}") return <RedactionSample />;
   if (text.startsWith("{{quote}}")) {
     const [quote, cite] = text.slice("{{quote}}".length).split("{{cite}}");
     return (

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Anchor, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, MessageCircle, Monitor, Moon, NotebookText, Radio, Settings, Shirt, Sun, X } from "lucide-react";
+import { Anchor, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, MessageCircle, Monitor, Moon, NotebookText, PenLine, Radio, Settings, Shirt, Sun, X } from "lucide-react";
 import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
 import { BIO_PLACEHOLDER, chrome, type Chrome } from "@/lib/shadowbox/copy";
@@ -51,7 +51,13 @@ const NAV_ICON = { commands: Anchor, uniforms: Shirt, onduty: Radio, offduty: Ca
 const PAGE_ICON: Record<PageId, typeof House> = { home: House, ...NAV_ICON };
 /** Top-bar menu (Sergio, Oct 2026): Home, Logbook, then Guestbook, Contact and Map. The pager (NAV) still steps Home ⇄ Logbook only. */
 const MENU = ["home", ...NAV, "map", "guestbook", "contact"] as const; // Sergio, Oct 2026: Home, Logbook, Map, Guestbook, Contact
-const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: House, logbook: NotebookText, guestbook: BookOpen, contact: MessageCircle, map: Map };
+/** Menu and footer-pager icons (Sergio, Oct 2026): Home Anchor, Logbook BookOpen, Travel Book Map, Guestbook PenLine, Contact MessageCircle. */
+const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: Anchor, logbook: BookOpen, guestbook: PenLine, contact: MessageCircle, map: Map };
+/** Footer pager icon, same size and stroke as the Settings gear. */
+function PagerIcon({ id }: { id: string }) {
+  const Icon = (MENU_ICON as Record<string, typeof House>)[id];
+  return Icon ? <Icon size={16} strokeWidth={1.75} aria-hidden="true" /> : null;
+}
 const ALL_FOOTER = ["guestbook", "contact", "sources"] as const;
 const FOOTER: readonly (typeof ALL_FOOTER)[number][] = []; // guestbook / contact live in the top-bar menu now (Sergio)
 void ALL_FOOTER;
@@ -443,11 +449,13 @@ export function ShadowboxApp() {
             {menuPrev ? (
               <button type="button" className="footer-link" aria-label={`${t.prevPage}: ${t[menuPrev]}`} title={`${t.prevPage}: ${t[menuPrev]}`} onClick={() => go(menuPrev)}>
                 <ChevronLeft size={16} strokeWidth={1.75} aria-hidden="true" />
+                <PagerIcon id={menuPrev} />
                 {t[menuPrev]}
               </button>
             ) : null}
             {menuNext ? (
               <button type="button" className="footer-link" aria-label={`${t.nextPage}: ${t[menuNext]}`} title={`${t.nextPage}: ${t[menuNext]}`} onClick={() => go(menuNext)}>
+                <PagerIcon id={menuNext} />
                 {t[menuNext]}
                 <ChevronRight size={16} strokeWidth={1.75} aria-hidden="true" />
               </button>
