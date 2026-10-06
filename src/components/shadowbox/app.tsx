@@ -1,16 +1,23 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Anchor, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, MessageCircle, Monitor, Moon, NotebookText, Radio, Shirt, Sun } from "lucide-react";
+import * as Dialog from "@radix-ui/react-dialog";
+import { Anchor, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, MessageCircle, Monitor, Moon, NotebookText, Radio, Settings, Shirt, Sun, X } from "lucide-react";
 import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
-import { chrome } from "@/lib/shadowbox/copy";
+import { BIO_PLACEHOLDER, chrome, type Chrome } from "@/lib/shadowbox/copy";
 import { loadRemoteFonts } from "@/lib/shadowbox/fonts";
-import { loadPrefs, resolveTheme, savePrefs, type Locale, type ThemeName } from "@/lib/shadowbox/prefs";
+import { applyFontSize, FONT_SIZES, loadPrefs, resolveTheme, savePrefs, type FontSize, type Locale, type ThemeName } from "@/lib/shadowbox/prefs";
 
 /** Site search is off for now (Sergio). Flip to true to bring back the top-bar search box; the code stays wired. */
 const SEARCH_ENABLED = false;
 /** Theme switch hidden (Sergio): everyone follows the device (prefers-color-scheme); a saved light/dark choice is ignored and
  *  overwritten with "system". Flip to true to bring the Sun / Monitor / Moon switch back (pages/index.html has a matching flag). */
 const THEME_SWITCH_ENABLED = false;
+/** The Settings page (footer link) carries the System / Light / Dark choice while the top-bar switch is hidden, so a saved
+ *  light / dark choice is honored again. Set false (and the matching flag in pages/index.html) to force "system" for everyone. */
+const THEME_SETTING_ENABLED = true;
+const THEME_HONORED = THEME_SWITCH_ENABLED || THEME_SETTING_ENABLED;
+/** Top-bar Previous / Next page chevrons hidden (Sergio, Oct 2026). Flip to true to bring them back. */
+const TOPBAR_PAGER_ENABLED = false;
 /** Footer Previous / Next pager and its arrow-key shortcut are off; page stepping lives in the top bar (chevrons). */
 const FOOTER_PAGER_ENABLED = false;
 const THEMES: { id: ThemeName; Icon: typeof Sun }[] = [
@@ -41,16 +48,86 @@ const NAV = ["logbook"] as const satisfies readonly (typeof ALL_NAV)[number][];
 type PageId = "home" | (typeof ALL_NAV)[number];
 const NAV_ICON = { commands: Anchor, uniforms: Shirt, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, logbook: NotebookText, admin: ClipboardList };
 const PAGE_ICON: Record<PageId, typeof House> = { home: House, ...NAV_ICON };
+/** Top-bar menu (Sergio, Oct 2026): Home, Logbook, then Guestbook, Contact and Map. The pager (NAV) still steps Home ⇄ Logbook only. */
+const MENU = ["home", ...NAV, "guestbook", "contact", "map"] as const;
+const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: House, logbook: NotebookText, guestbook: BookOpen, contact: MessageCircle, map: Map };
 const ALL_FOOTER = ["guestbook", "contact", "sources"] as const;
-const FOOTER: readonly (typeof ALL_FOOTER)[number][] = []; // hidden with the other pages (Sergio); re-add ids to show them
+const FOOTER: readonly (typeof ALL_FOOTER)[number][] = []; // guestbook / contact live in the top-bar menu now (Sergio)
 void ALL_FOOTER;
 const FOOTER_ICON = { sources: Library, contact: MessageCircle, guestbook: BookOpen };
+/** Footer "Settings" link opens the Settings modal (restored from before c7c06fc): language + theme. Not a page or route. */
+const SETTINGS_LINK_ENABLED = true;
 const ALIAS: Record<string, View> = { case: "home", schools: "admin", equipment: "onduty" };
 
 function asView(value: string): View {
   if (value in ALIAS) return ALIAS[value];
-  const known: View[] = [...NAV, ...FOOTER];
+  const known: View[] = [...MENU, ...FOOTER];
   return known.includes(value as View) ? (value as View) : "home";
+}
+
+function SettingsDialog({
+  open,
+  onClose,
+  locale,
+  theme,
+  setLocale,
+  setTheme,
+  showTheme,
+  fontSize,
+  setFontSize,
+  t,
+}: {
+  open: boolean;
+  onClose: () => void;
+  locale: Locale;
+  theme: ThemeName;
+  setLocale: (locale: Locale) => void;
+  setTheme: (theme: ThemeName) => void;
+  showTheme: boolean;
+  fontSize: FontSize;
+  setFontSize: (size: FontSize) => void;
+  t: Chrome;
+}) {
+  const frame = typeof document === "undefined" ? null : document.querySelector(".app-shell");
+  return (
+    <Dialog.Root open={open} onOpenChange={(next) => { if (!next) onClose(); }}>
+      <Dialog.Portal container={typeof HTMLElement !== "undefined" && frame instanceof HTMLElement ? frame : undefined}>
+        <Dialog.Overlay className="settings-overlay" />
+        <Dialog.Content className="settings-modal" aria-describedby="settings-lead">
+          <header>
+            <Dialog.Title>{t.settingsTitle}</Dialog.Title>
+            <Dialog.Close className="icon-btn" aria-label={t.close}>
+              <X />
+            </Dialog.Close>
+          </header>
+          <p id="settings-lead">{t.settingsLead}</p>
+          <h3>{t.language}</h3>
+          <div className="choice-row" role="group" aria-label={t.language}>
+            <button type="button" className={locale === "en" ? "nav-btn on" : "nav-btn"} aria-pressed={locale === "en"} onClick={() => setLocale("en")}>{t.english}</button>
+            <button type="button" className={locale === "pt" ? "nav-btn on" : "nav-btn"} aria-pressed={locale === "pt"} onClick={() => setLocale("pt")}>{t.portuguese}</button>
+          </div>
+          {showTheme ? (
+            <>
+              <h3>{t.theme}</h3>
+              <div className="choice-row" role="group" aria-label={t.theme}>
+                <button type="button" className={theme === "system" ? "nav-btn on" : "nav-btn"} aria-pressed={theme === "system"} onClick={() => setTheme("system")}>{t.system}</button>
+                <button type="button" className={theme === "light" ? "nav-btn on" : "nav-btn"} aria-pressed={theme === "light"} onClick={() => setTheme("light")}>{t.light}</button>
+                <button type="button" className={theme === "dark" ? "nav-btn on" : "nav-btn"} aria-pressed={theme === "dark"} onClick={() => setTheme("dark")}>{t.dark}</button>
+              </div>
+            </>
+          ) : null}
+          <h3>{t.fontSize}</h3>
+          <div className="choice-row" role="group" aria-label={t.fontSize}>
+            {FONT_SIZES.map((size) => (
+              <button key={size} type="button" className={fontSize === size ? "nav-btn on" : "nav-btn"} aria-pressed={fontSize === size} onClick={() => setFontSize(size)}>
+                {size === "small" ? t.fontSmall : size === "large" ? t.fontLarge : size === "xlarge" ? t.fontXLarge : t.fontDefault}
+              </button>
+            ))}
+          </div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
 }
 
 function Mark() {
@@ -72,7 +149,9 @@ export function ShadowboxApp() {
   const [trail, setTrail] = useState<Selection[]>([]);
   const [locale, setLocale] = useState<Locale>("en");
   const [theme, setTheme] = useState<ThemeName>("system");
+  const [fontSize, setFontSize] = useState<FontSize>("default");
   const [prefsReady, setPrefsReady] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const menuRef = useRef<HTMLUListElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -119,6 +198,7 @@ export function ShadowboxApp() {
     const saved = loadPrefs();
     setLocale(saved.locale);
     setTheme(saved.theme);
+    setFontSize(saved.fontSize);
     setPrefsReady(true);
     loadRemoteFonts();
   }, []);
@@ -129,9 +209,10 @@ export function ShadowboxApp() {
     if (!prefsReady) return;
     const apply = () => {
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const resolved = resolveTheme(THEME_SWITCH_ENABLED ? theme : "system", prefersDark);
+      const resolved = resolveTheme(THEME_HONORED ? theme : "system", prefersDark);
       document.documentElement.lang = locale === "pt" ? "pt-BR" : "en";
       document.documentElement.dataset.theme = resolved;
+      applyFontSize(fontSize);
       const base = import.meta.env.BASE_URL || "/";
       const icon = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
       if (icon) icon.href = `${base}icons/icon-${resolved}.svg`;
@@ -141,11 +222,11 @@ export function ShadowboxApp() {
       if (tint) tint.content = resolved === "dark" ? "#14181f" : "#f6f1e7";
     };
     apply();
-    savePrefs({ locale, theme: THEME_SWITCH_ENABLED ? theme : "system" });
+    savePrefs({ locale, theme: THEME_HONORED ? theme : "system", fontSize });
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     media.addEventListener("change", apply);
     return () => media.removeEventListener("change", apply);
-  }, [prefsReady, locale, theme]);
+  }, [prefsReady, locale, theme, fontSize]);
   useEffect(() => {
     if (!menu) return;
     const close = (event: PointerEvent) => {
@@ -247,7 +328,7 @@ export function ShadowboxApp() {
           ) : null}
         </div>
         ) : null}
-        {showPager ? (
+        {showPager && TOPBAR_PAGER_ENABLED ? (
           <nav className="app-pagenav" aria-label={t.pageNav}>
             <button type="button" className="app-pagebtn" disabled={!prevView} aria-label={prevView ? `${t.prevPage}: ${t[prevView]}` : t.prevPage} title={prevView ? `${t.prevPage}: ${t[prevView]}` : undefined} onClick={() => prevView && go(prevView)}>
               <ChevronLeft size={18} strokeWidth={2.25} aria-hidden="true" />
@@ -263,8 +344,8 @@ export function ShadowboxApp() {
         </div>
         {menu ? (
           <ul className="app-menu" ref={menuRef}>
-            {(["home", ...NAV] as const).map((id) => {
-              const Icon = PAGE_ICON[id];
+            {MENU.map((id) => {
+              const Icon = MENU_ICON[id];
               return (
                 <li key={id}>
                   <button type="button" className={view === id ? "on" : undefined} onClick={() => go(id)}>
@@ -278,7 +359,7 @@ export function ShadowboxApp() {
         ) : null}
       </header>
       <div className="app-main">
-        <div className={pane("home")}><Home onOpen={open} bio={t.bio} /></div>
+        <div className={pane("home")}><Home onOpen={open} bio={BIO_PLACEHOLDER ? t.bioPlaceholder : t.bio} /></div>
         <div className={pane("uniforms")}><Uniforms onOpen={open} /></div>
         <div className={pane("onduty")}><OnDuty onOpen={open} title={t.onduty} /></div>
         <div className={pane("offduty")}><OffDuty onOpen={open} title={t.offduty} /></div>
@@ -289,7 +370,7 @@ export function ShadowboxApp() {
         </div>
         <div className={pane("logbook")}>
           <Boundary label="logbook" resetKey={view}>
-            <Logbook onOpen={open} title={t.logbook} lead={t.logbookLead} wardrobeLabel={t.wardrobe} />
+            <Logbook onOpen={open} title={t.logbook} lead={t.logbookLead} platesLabel={t.decorations} wardrobeLabel={t.uniforms} />
           </Boundary>
         </div>
         <div className={pane("admin")}>
@@ -327,7 +408,7 @@ export function ShadowboxApp() {
       </div>
       <footer className="site-footer">
         <span className="footer-credit">{t.made}</span>
-        {FOOTER.length ? <nav className="footer-nav" aria-label={t.footerNav}>
+        {FOOTER.length || SETTINGS_LINK_ENABLED ? <nav className="footer-nav" aria-label={t.footerNav}>
           {FOOTER.map((id) => {
             const Icon = FOOTER_ICON[id];
             return (
@@ -337,8 +418,15 @@ export function ShadowboxApp() {
               </button>
             );
           })}
+          {SETTINGS_LINK_ENABLED ? (
+            <button type="button" className="footer-link" aria-haspopup="dialog" aria-expanded={settingsOpen} onClick={() => setSettingsOpen(true)}>
+              <Settings size={16} strokeWidth={1.75} aria-hidden="true" />
+              {t.settings}
+            </button>
+          ) : null}
         </nav> : null}
       </footer>
+      <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} locale={locale} theme={theme} setLocale={setLocale} setTheme={setTheme} showTheme={THEME_HONORED} fontSize={fontSize} setFontSize={setFontSize} t={t} />
       <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setSelection(null); setTrail([]); }} />
     </div>
   );

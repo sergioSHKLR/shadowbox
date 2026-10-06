@@ -92,9 +92,9 @@
       { "src": "/incoming/16th-en.png", "title": "Sponsor", "unit": "16th EN", "date": "2006", "kind": "unit", "id": "16th-engineer", "role": "Partner · OIF I" },
       { "src": "/incoming/eodmu11.png", "title": "Partner", "unit": "EODMU 11", "date": "2006", "kind": "unit", "id": "troy", "role": "Partner · OIF I", "unitId": "eodmu11" },
       { "src": "/incoming/cobra-gold.png", "title": "Exercise", "unit": "Cobra Gold", "date": "2004 and 2005", "kind": "place", "id": "u-tapao" },
-      { "src": "/incoming/rtn.png", "title": "Host", "unit": "Royal Thai Navy", "date": "2004 and 2005", "kind": "place", "id": "u-tapao", "role": "Partner · Cobra Gold", "unitId": "rtn" },
+      { "src": "/incoming/rtn.png", "title": "Foreign Partner", "unit": "Royal Thai Navy", "date": "2004 and 2005", "kind": "place", "id": "u-tapao", "role": "Foreign Partner", "unitId": "rtn" },
       { "src": "/incoming/talisman-saber.png", "title": "Exercise", "unit": "Talisman Saber", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay" },
-      { "src": "/incoming/auscdt-1.png", "title": "Host", "unit": "Australian CDT", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay", "role": "Partner · Talisman Saber", "unitId": "auscdt" }
+      { "src": "/incoming/auscdt-1.png", "title": "Foreign Partner", "unit": "Australian CDT", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay", "role": "Foreign Partner", "unitId": "auscdt" }
     ]
   },
   {
@@ -159,6 +159,10 @@
       { "src": "/incoming/jcse-3rd-sqd.png", "title": "Squadron", "unit": "3rd Squadron", "date": "2009–2014", "kind": "unit", "id": "jcse" },
       { "src": "/incoming/cjsotf-a.png", "title": "In theater", "unit": "CJSOTF-A", "date": "2010–2011", "kind": "unit", "id": "cjsotf" },
       { "src": "/incoming/3rd-sfg.png", "title": "Customer", "unit": "3rd SFG", "date": "2010–2011", "kind": "unit", "id": "3rd-sfg", "role": "Customer · OEF I" },
+      { "src": "/incoming/placeholder-crest.svg", "title": "Foreign Partner", "unit": "ANA", "date": "", "kind": "unit", "id": "ana", "role": "Foreign Partner" },
+      { "src": "/incoming/2nd-marines.png", "title": "Partner", "unit": "RCT-2", "date": "", "kind": "unit", "id": "rct-2", "role": "Partner" },
+      { "src": "/incoming/geo-3rd-inf-bde.png", "title": "Foreign Partner", "unit": "32nd Bn (GEO)", "date": "", "kind": "unit", "id": "geo-32nd-bn", "role": "Foreign Partner" },
+      { "src": "/incoming/placeholder-crest.svg", "title": "Local Hires", "unit": "Local Hires", "date": "", "kind": "unit", "id": "local-hires", "role": "Local Hires" },
       { "src": "/incoming/sojtf-a.png", "title": "In theater", "unit": "SOJTF-A", "date": "2012–2013", "kind": "unit", "id": "sojtf" },
       { "src": "/incoming/290jcss.png", "title": "Partner", "unit": "290th JCSS", "date": "2012–2013", "kind": "unit", "id": "290th-jcss", "role": "Partner · OEF II" },
       { "src": "/incoming/75th-rgr.svg", "title": "Customer", "unit": "75th Rangers", "date": "2012–2013", "kind": "unit", "id": "75th-ranger", "role": "Customer · OEF II" }

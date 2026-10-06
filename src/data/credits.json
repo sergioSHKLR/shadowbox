@@ -1168,5 +1168,50 @@
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
     "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
-  }
+  },
+ {
+  "id": "crest-geo-3rd-infantry-brigade",
+  "title": "Georgian Land Forces 3rd Infantry Brigade shoulder badge (stands in for the 32nd Light Infantry Battalion)",
+  "file": "/incoming/geo-3rd-inf-bde.png",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:3rd_Infantry_Brigade1.jpg",
+  "creator": "TheMightyGeneral (en.wikipedia), own work",
+  "license": "Public domain (as tagged on Wikimedia Commons)",
+  "notes": "White background made transparent and resized. The Commons description reads \"Greek 3rd Infantry brigade shoulder badge\", but the badge text is Georgian (ქვეითი ბრიგადა, \"infantry brigade\") and the file illustrates the en.wikipedia article 3rd Infantry Brigade (Georgia). No 32nd Battalion insignia was found in a public source."
+ },
+ {
+  "id": "crest-2nd-marine-regiment",
+  "title": "2nd Marine Regiment insignia (card for RCT-2)",
+  "file": "/incoming/2nd-marines.png",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:USMC_-_2ND_MARINE_REG.png",
+  "creator": "United States Marine Corps",
+  "license": "Public domain (work of the U.S. federal government)",
+  "notes": "Trimmed and resized."
+ },
+ {
+  "id": "equipment-deploy-otv",
+  "title": "Outer Tactical Vest (OTV)",
+  "file": "/equipment/otv-ucp.webp",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Interceptor_Body_Armor_vests.png",
+  "creator": "MilitariaBelgium/CollectorOfInsignia (cropped to the UCP vest)",
+  "license": "CC BY-SA 3.0",
+  "notes": "Card for the On Duty deployment gear (Oct 2026). Plain background, no people."
+ },
+ {
+  "id": "equipment-deploy-ach",
+  "title": "Advanced Combat Helmet (ACH)",
+  "file": "/equipment/ach-pam-600-5.webp",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:ACH_helmet_FD_PAM_600-5_-_Standards_-014.png",
+  "creator": "U.S. Army",
+  "license": "Public domain (U.S. federal government work)",
+  "notes": "Card for the On Duty deployment gear (Oct 2026). Plain background, no people."
+ },
+ {
+  "id": "equipment-deploy-ech",
+  "title": "Enhanced Combat Helmet (ECH)",
+  "file": "/equipment/ech-peo.webp",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:PEO_Soldier_Enhanced_Combat_Helmet_profile.jpg",
+  "creator": "PEO Soldier (U.S. Army)",
+  "license": "Public domain (U.S. federal government work)",
+  "notes": "Card for the On Duty deployment gear (Oct 2026). Plain background, no people."
+ }
 ]

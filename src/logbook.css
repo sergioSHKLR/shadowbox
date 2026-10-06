@@ -552,3 +552,52 @@
 [data-theme="dark"] .logbook-step-btn:not(:disabled):active { background: var(--color-goldenrod); color: var(--color-navy); border-color: var(--color-goldenrod); }
 [data-theme="dark"] .logbook-seg { border-color: #3d5680; }
 [data-theme="dark"] .logbook-rank-arrow { color: #f4efe4; }
+
+/* Rank cards (Oct 2026, Sergio): one standard size everywhere (single rank, Arrived / Promoted / Transferred path, desktop and
+   phone), taken from the NH Jacksonville ETC card: 251 × 66 px. Image boxes are fixed so text lines up; the grade line clamps to 2. */
+.logbook-rank, .logbook-rank-path .logbook-rank {
+  box-sizing: border-box;
+  flex: none;
+  width: 15.7rem;
+  max-width: 100%;
+  height: 4.125rem;
+  padding: 0.25rem 0.5rem;
+  gap: 0.6rem;
+  overflow: hidden;
+}
+.logbook-rank .logbook-rank-patch, .logbook-rank-path .logbook-rank .logbook-rank-patch { flex: none; height: 3.4rem; width: 2.8rem; object-fit: contain; }
+.logbook-rank .logbook-rank-collar, .logbook-rank-path .logbook-rank .logbook-rank-collar { display: block; flex: none; height: 2.2rem; width: 2.2rem; object-fit: contain; }
+.logbook-rank > span { min-width: 0; line-height: 1.15; }
+.logbook-rank strong { font-size: 1rem; }
+.logbook-rank-tag { font-size: 0.62rem; }
+.logbook-rank small, .logbook-rank-path .logbook-rank small {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: 0.72rem;
+}
+@media (max-width: 900px) {
+  .logbook-rank-path .logbook-rank small { display: -webkit-box; }
+  .logbook-rank-path .logbook-rank .logbook-rank-patch { height: 3.4rem; }
+}
+
+/* Decorations tab (Oct 2026): native radios (Whites / Blues / Khakis) stacked in a narrow column beside the plate; the
+   plate takes the full panel height. Khakis stays disabled before ETC. */
+.logbook-gear.logbook-plates { flex-direction: row; align-items: stretch; gap: 0.75rem; }
+.logbook-looks { flex: none; display: flex; flex-direction: column; gap: 0.45rem; margin: 0; padding: 0.15rem 0 0; border: 0; min-width: 0; }
+.logbook-look { display: flex; align-items: center; gap: 0.4rem; font-size: 0.88rem; cursor: pointer; min-height: 1.75rem; }
+.logbook-look input { margin: 0; width: 1rem; height: 1rem; accent-color: var(--color-navy); cursor: pointer; }
+.logbook-look.is-off { color: var(--color-quiet); cursor: not-allowed; opacity: 0.6; }
+.logbook-look.is-off input { cursor: not-allowed; }
+[data-theme="dark"] .logbook-look input { accent-color: var(--color-goldenrod); }
+.logbook-plates > .logbook-mannequin, .logbook-plates > .logbook-mannequin-empty { flex: 1 1 auto; min-width: 0; min-height: 0; }
+.logbook-phone-tabs > .lb-tabpanel > .logbook-gear.logbook-plates { height: 100%; min-height: 0; }
+.logbook-phone-tabs .logbook-plates .logbook-mannequin { flex: 1 1 auto; min-height: 0; }
+.logbook-phone-tabs .logbook-plates .logbook-mannequin .logbook-plate-art { flex: 1; min-height: 0; }
+.logbook-phone-tabs .logbook-plates .logbook-mannequin img { height: 100%; max-height: none; width: 100%; object-fit: contain; }
+/* Phone: the fixed-size rank card can't share a row with the arrow + date, so it wraps below them. */
+@media (max-width: 900px) {
+  .logbook-rank-path > li { flex-wrap: wrap; }
+}
+.logbook-deploy-gear { margin-top: 0.35rem; }

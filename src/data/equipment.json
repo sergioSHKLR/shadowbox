@@ -1168,5 +1168,73 @@
       "creator": "Wikimedia Commons",
       "license": "Public domain"
     }
+  },
+  {
+    "id": "deploy-otv",
+    "group": "armor",
+    "order": 10,
+    "name": "OTV",
+    "fullName": "Outer Tactical Vest (OTV)",
+    "caption": "Interceptor OTV in UCP shown",
+    "cutout": true,
+    "note": "The Outer Tactical Vest (OTV) of the Interceptor Body Armor system: soft armor that carries front and back ballistic plates. The Improved Outer Tactical Vest (IOTV) replaced it from 2007. Recorded for the OIF II deployment (deployment-gear.json). Card photo: an Interceptor OTV in UCP on a plain background.",
+    "image": "/equipment/otv-ucp.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Interceptor_Body_Armor_vests.png",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/3/33/Interceptor_Body_Armor_vests.png",
+      "creator": "MilitariaBelgium/CollectorOfInsignia (cropped to the UCP vest)",
+      "license": "CC BY-SA 3.0"
+    }
+  },
+  {
+    "id": "deploy-iotv",
+    "group": "armor",
+    "order": 11,
+    "name": "IOTV",
+    "fullName": "Improved Outer Tactical Vest (IOTV)",
+    "caption": "IOTV in UCP shown",
+    "cutout": true,
+    "note": "The Improved Outer Tactical Vest (IOTV), fielded from 2007, replaced the Interceptor Outer Tactical Vest. It carries front, back and side ballistic plates over soft armor. Recorded for the OIF I, OEF I and OEF II deployments (deployment-gear.json). Card photo: an Army IOTV in UCP, 2008.",
+    "image": "/equipment/iotv-ucp.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Specialist_Kachinski%27s_IOTV_vest_in_UCP_camo.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Specialist_Kachinski%27s_IOTV_vest_in_UCP_camo.jpg",
+      "creator": "U.S. Army (2008)",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "deploy-ach",
+    "group": "helmets",
+    "order": 10,
+    "name": "ACH",
+    "fullName": "Advanced Combat Helmet (ACH)",
+    "caption": "ACH with OCP cover and night-vision mount shown",
+    "cutout": false,
+    "note": "The Advanced Combat Helmet (ACH), developed from the Special Operations MICH; PEO Soldier says it has been in use since 2002 and replaced the PASGT. Which deployments it was worn on is not recorded per deployment; use the notes below. Card photo: U.S. Army, DA PAM 600-5 standards.",
+    "image": "/equipment/ach-pam-600-5.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:ACH_helmet_FD_PAM_600-5_-_Standards_-014.png",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/2/21/ACH_helmet_FD_PAM_600-5_-_Standards_-014.png",
+      "creator": "U.S. Army",
+      "license": "Public domain (U.S. federal government work)"
+    }
+  },
+  {
+    "id": "deploy-ech",
+    "group": "helmets",
+    "order": 11,
+    "name": "ECH",
+    "fullName": "Enhanced Combat Helmet (ECH)",
+    "caption": "PEO Soldier product photo",
+    "cutout": true,
+    "note": "The Enhanced Combat Helmet (ECH), a thermoplastic combat helmet (PEO Soldier). Which deployments it was worn on is not recorded per deployment; use the notes below.",
+    "image": "/equipment/ech-peo.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:PEO_Soldier_Enhanced_Combat_Helmet_profile.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/a/a3/PEO_Soldier_Enhanced_Combat_Helmet_profile.jpg",
+      "creator": "PEO Soldier (U.S. Army)",
+      "license": "Public domain (U.S. federal government work)"
+    }
   }
 ]

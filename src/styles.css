@@ -1182,3 +1182,19 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .app-pagebtn:focus-visible { outline: 2px solid var(--color-goldenrod); outline-offset: 2px; }
 .app-pagebtn:disabled { opacity: 0.32; cursor: default; }
 @media (max-width: 420px) { .app-pagenav { gap: 0.2rem; margin: 0 0.2rem 0 0.25rem; } .app-pagebtn { width: 30px; height: 30px; } }
+
+/* "In my own words" notes box (every sidebar). */
+.my-words-form { display: grid; gap: 0.45rem; }
+.my-words-form textarea { width: 100%; box-sizing: border-box; resize: vertical; min-height: 5.5rem; padding: 0.5rem 0.6rem; border: 1px solid var(--color-line); border-radius: 6px; background: #fff; color: inherit; font: inherit; font-size: 0.95rem; line-height: 1.4; }
+.my-words-bar { display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; }
+.my-words-status { font-size: 0.8rem; }
+[data-theme="dark"] .my-words-form textarea { background: #10141b; border-color: color-mix(in srgb, var(--color-ivory) 30%, transparent); }
+
+/* Placeholder bio (Oct 2026): short headed sections + closing quote with its source. */
+.bio-section + .bio-section, .bio + .bio-section, .bio-section + .bio { margin-top: 1.1rem; }
+.bio-head { margin: 0 0 0.25rem; font-size: 1.15rem; line-height: 1.2; text-align: left; }
+.bio-quote p { margin: 0; }
+.bio-cite { margin-top: 0.4rem; font-size: 0.9rem; font-style: normal; text-align: right; color: var(--color-quiet); }
+.my-words-where { display: grid; gap: 0.2rem; font-size: 0.85rem; }
+.my-words-where input { box-sizing: border-box; width: 100%; padding: 0.4rem 0.55rem; border: 1px solid var(--color-line); border-radius: 6px; background: #fff; color: inherit; font: inherit; font-size: 0.95rem; }
+[data-theme="dark"] .my-words-where input { background: #10141b; border-color: color-mix(in srgb, var(--color-ivory) 30%, transparent); }
