@@ -22,6 +22,7 @@ import {
   ranks,
   uniformPlatesForCommand,
   plateGroup,
+  logbookPlateSets,
   wardrobeForBeat,
   unitById,
   warfare,
@@ -475,14 +476,30 @@ function UniformsPanel({
   const radioName = `logbook-look-${useId()}`;
   const chief = isChiefBeat(beat);
   const look: Look = chosen === "khaki" && !chief ? fallback : chosen;
-  const plate = plateFor(beat, look);
-  // Enlarge: every plate this command has (khakis only on a Chief beat), current one first in view.
+  const commandId = beat.stop.commandId;
+  // Every plate the command has, set by set (oldest first), whites → blues → khakis within a set (Sergio, Oct 2026:
+  // JCSE lists ET1 whites, blues, then CPO whites, blues, khakis). The radios and the enlarge viewer share this order.
+  const options = useMemo(() => {
+    const plates = uniformPlatesForCommand(commandId);
+    return logbookPlateSets(commandId).flatMap((group) =>
+      LOOKS.flatMap((row) => {
+        const slide = plates.find((item) => plateGroup(item.file) === group && item.look === row.id);
+        return slide ? [{ group, look: row.id, label: row.label, plate: slide }] : [];
+      }),
+    );
+  }, [commandId]);
+  const groups = useMemo(() => [...new Set(options.map((option) => option.group))], [options]);
+  const multi = groups.length > 1;
+  const [pickedGroup, setPickedGroup] = useState<string | null>(null);
+  useEffect(() => setPickedGroup(null), [commandId]);
+  const group = pickedGroup ?? plateGroup(beat.uniform?.file);
+  const plate = multi
+    ? (options.find((option) => option.group === group && option.look === look)?.plate ?? plateFor(beat, look))
+    : plateFor(beat, look);
+  const shownGroup = plate ? plateGroup(plate.file) : null;
   const allPlates = useMemo(
-    () =>
-      LOOKS.filter((row) => row.id !== "khaki" || chief).flatMap((row) =>
-        uniformPlatesForCommand(beat.stop.commandId).filter((slide) => slide.look === row.id),
-      ),
-    [beat.stop.commandId, chief],
+    () => options.filter((option) => option.look !== "khaki" || chief).map((option) => option.plate),
+    [options, chief],
   );
   const [bigIndex, setBigIndex] = useState<number | null>(null);
   const bigButton = useRef<HTMLButtonElement>(null);
@@ -490,20 +507,40 @@ function UniformsPanel({
     const at = plate ? allPlates.findIndex((slide) => slide.file === plate.file) : 0;
     setBigIndex(Math.max(0, at));
   };
+  const lookRadio = (row: { id: Look; label: string }, setId: string | null, head?: string) => {
+    const off = row.id === "khaki" && !chief;
+    const checked = setId == null ? look === row.id : plate?.file != null && shownGroup === setId && plate.look === row.id;
+    return (
+      <label key={`${setId ?? ""}-${row.id}`} className={off ? "logbook-look is-off" : "logbook-look"} title={off ? `${KHAKI_NOTE} (${beatTitle(beat)}: ${beat.rank?.abbreviation ?? "before Chief"})` : undefined}>
+        <input
+          type="radio"
+          name={radioName}
+          value={setId ? `${setId}-${row.id}` : row.id}
+          checked={checked}
+          disabled={off}
+          onChange={() => { if (setId) setPickedGroup(setId); onLook(row.id); }}
+        />
+        <span>{head ? <span className="sr-only">{head} </span> : null}{row.label}</span>
+      </label>
+    );
+  };
   return (
     <div className="logbook-gear logbook-plates">
       {/* Native radios stacked beside the plate (Sergio, Oct 2026), so the plate gets the full panel height. */}
       <fieldset className="logbook-looks">
         <legend className="sr-only">Uniform</legend>
-        {LOOKS.map((row) => {
-          const off = row.id === "khaki" && !chief;
-          return (
-            <label key={row.id} className={off ? "logbook-look is-off" : "logbook-look"} title={off ? `${KHAKI_NOTE} (${beatTitle(beat)}: ${beat.rank?.abbreviation ?? "before Chief"})` : undefined}>
-              <input type="radio" name={radioName} value={row.id} checked={look === row.id} disabled={off} onChange={() => onLook(row.id)} />
-              <span>{row.label}</span>
-            </label>
-          );
-        })}
+        {multi
+          ? groups.map((setId) => {
+              const rows = options.filter((option) => option.group === setId);
+              const head = rows[0]?.plate.caption.split(" · ")[0] ?? setId;
+              return (
+                <div key={setId} className="logbook-look-set" role="group" aria-label={head}>
+                  <span className="logbook-look-head" aria-hidden="true">{head}</span>
+                  {rows.map((option) => lookRadio({ id: option.look, label: option.label }, setId, head))}
+                </div>
+              );
+            })
+          : LOOKS.map((row) => lookRadio(row, null))}
       </fieldset>
       {plate ? (
         <figure className="logbook-mannequin">
