@@ -141,8 +141,9 @@ function FadePortrait({ first, last }: { first: Shot; last: Shot }) {
         <span className="home-fade-cap-first">{first.caption}</span>
         <span className="home-fade-cap-last">{last.caption}</span>
       </figcaption>
-      {/* Gold-embossed Navy seal under the portrait (from incoming/emboss.svg; Sergio, Oct 2026). */}
-      <img className="home-navy-seal" src={publicUrl("/incoming/home-navy-seal-gold.svg")} alt="" width={88} height={88} decoding="async" />
+      {/* TEMPORARY (Sergio, Oct 2026): joint service flags under the portrait — replace incoming/joint-flags.* freely.
+          Official Wikimedia flags (Army · Air Force · USMC · Navy; equal compact strip, no USCG). Folded-flag watermark unchanged. */}
+      <img className="home-joint-flags" src={publicUrl("/incoming/joint-flags.webp")} alt="" width={200} height={42} decoding="async" />
     </figure>
   );
 }

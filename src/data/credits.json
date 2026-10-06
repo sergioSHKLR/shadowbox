@@ -203,7 +203,7 @@
     "file": null,
     "sourceUrl": "https://www.openstreetmap.org/copyright",
     "creator": "OpenStreetMap contributors",
-    "license": "Open Database License (tiles © OpenStreetMap contributors).",
+    "license": "Open Database License (tiles \u00a9 OpenStreetMap contributors).",
     "notes": "Tiles are requested when a map is opened. They are not packaged in the project."
   },
   {
@@ -244,7 +244,7 @@
   },
   {
     "id": "equipment-hmmwv-up-armored",
-    "title": "Up-armored HMMWV with turtleback (M1114 shown, with the armored gunner’s turret)",
+    "title": "Up-armored HMMWV with turtleback (M1114 shown, with the armored gunner\u2019s turret)",
     "file": "/equipment/hmmwv-up-armored.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Marine_vehicles_roll_out_for_Marine_Week_Cleveland_120611-M-QZ986-385.jpg",
     "creator": "Sgt. Shannon Yount, U.S. Marine Corps",
@@ -901,7 +901,7 @@
   },
   {
     "id": "crest-sojtf-a",
-    "title": "Special Operations Joint Task Force — Afghanistan seal",
+    "title": "Special Operations Joint Task Force \u2014 Afghanistan seal",
     "file": "/incoming/sojtf-a.webp",
     "sourceUrl": null,
     "creator": "Graphic supplied for Signum",
@@ -1081,7 +1081,7 @@
   },
   {
     "id": "equipment-hmmwv-up-armored-usage",
-    "title": "Up-armored HMMWV with turtleback (M1114 shown, with the armored gunner’s turret)",
+    "title": "Up-armored HMMWV with turtleback (M1114 shown, with the armored gunner\u2019s turret)",
     "file": "/equipment/hmmwv-up-armored-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
@@ -1212,7 +1212,7 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:3rd_Infantry_Brigade1.jpg",
     "creator": "TheMightyGeneral (en.wikipedia), own work",
     "license": "Public domain (as tagged on Wikimedia Commons)",
-    "notes": "White background made transparent and resized. The Commons description reads \"Greek 3rd Infantry brigade shoulder badge\", but the badge text is Georgian (ქვეითი ბრიგადა, \"infantry brigade\") and the file illustrates the en.wikipedia article 3rd Infantry Brigade (Georgia). No 32nd Battalion insignia was found in a public source."
+    "notes": "White background made transparent and resized. The Commons description reads \"Greek 3rd Infantry brigade shoulder badge\", but the badge text is Georgian (\u10e5\u10d5\u10d4\u10d8\u10d7\u10d8 \u10d1\u10e0\u10d8\u10d2\u10d0\u10d3\u10d0, \"infantry brigade\") and the file illustrates the en.wikipedia article 3rd Infantry Brigade (Georgia). No 32nd Battalion insignia was found in a public source."
   },
   {
     "id": "crest-2nd-marine-regiment",
@@ -1249,5 +1249,14 @@
     "creator": "PEO Soldier (U.S. Army)",
     "license": "Public domain (U.S. federal government work)",
     "notes": "Card for the On Duty deployment gear (Oct 2026). Plain background, no people."
+  },
+  {
+    "id": "joint-flags-home",
+    "title": "Home joint service flags strip (Army, Air Force, Marine Corps, Navy)",
+    "file": "/incoming/joint-flags.webp",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Flags_of_the_United_States_Armed_Forces",
+    "creator": "U.S. government / Wikimedia Commons (Flag of the United States Army; Air Force; Marine Corps; Navy)",
+    "license": "Public domain. Works of the U.S. federal government; vector files from Wikimedia Commons.",
+    "notes": "Composed locally from Commons SVGs (copies in incoming/service-flags/). Equal compact strip under the Home portrait; no Coast Guard. Temporary \u2014 replace freely. Not hotlinked. Commons files: Flag_of_the_United_States_Army.svg, Flag_of_the_United_States_Air_Force.svg, Flag_of_the_United_States_Marine_Corps.svg, Flag_of_the_United_States_Navy.svg."
   }
 ]
