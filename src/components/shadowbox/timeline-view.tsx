@@ -7,46 +7,57 @@ const CHIEF_PORTRAIT = photos.find((photo) => photo.src === profile.portrait);
 const SN_PORTRAIT = photos.find((photo) => photo.id === "recruit-portrait-1997");
 
 /**
- * Home scroll end (Sergio, Oct 2026): the page ends right after the End of Career caption, so on most screens the End of
- * Career portrait can no longer scroll all the way up to the pinned Boot Camp portrait. Over the last stretch of the page
- * the Boot Camp portrait eases down (its sticky `top` grows) so the two meet exactly at the bottom, and End of Career
- * still slides over and fully covers it. Skipped when the pins aren't sticky (prefers-reduced-motion).
+ * Home portrait crossfade (Sergio, Oct 2026): one frame holds both portraits stacked (same size, opaque). As the reader
+ * scrolls through the bio, the End of Career portrait fades in over Boot Camp; the fade follows scroll progress and is
+ * complete at the bottom of the page (the end of the bio and stamps). A page too short to scroll shows End of Career.
+ * prefers-reduced-motion: no gradual fade, an instant swap at the halfway point.
  */
-function useHomePinMeet(ref: RefObject<HTMLElement | null>) {
+function useHomeFade(ref: RefObject<HTMLElement | null>) {
   useEffect(() => {
     const root = ref.current;
-    const boot = root?.querySelector<HTMLElement>(".home-pin-boot");
-    const chief = root?.querySelector<HTMLElement>(".home-pin-chief");
-    if (!root || !boot || !chief) return;
+    if (!root) return;
+    const reduce = typeof matchMedia === "function" ? matchMedia("(prefers-reduced-motion: reduce)") : null;
+    const narrow = typeof matchMedia === "function" ? matchMedia("(max-width: 959.98px)") : null;
+    const sheet = root.querySelector<HTMLElement>(".home-sheet");
+    const frameEl = root.querySelector<HTMLElement>(".home-fade");
     let frame = 0;
     const update = () => {
       frame = 0;
-      boot.style.removeProperty("top");
-      if (getComputedStyle(boot).position !== "sticky") return;
-      const pinTop = parseFloat(getComputedStyle(boot).top) || 0;
-      const doc = document.documentElement;
-      const remaining = Math.max(0, doc.scrollHeight - innerHeight - scrollY);
-      const chiefTop = chief.getBoundingClientRect().top;
-      // Where End of Career will sit at the very bottom of the page (it is still travelling up 1:1 with the scroll).
-      const finalTop = chiefTop - remaining;
-      const shortfall = finalTop - pinTop;
-      if (shortfall <= 0.5) return;
-      const range = Math.max(innerHeight * 0.6, shortfall * 1.5);
-      const t = Math.min(1, Math.max(0, 1 - remaining / range));
-      if (t > 0) boot.style.top = `${pinTop + shortfall * t}px`;
+      const max = document.documentElement.scrollHeight - innerHeight;
+      let p = max <= 1 ? 1 : Math.min(1, Math.max(0, scrollY / max));
+      if (reduce?.matches) p = p >= 0.5 ? 1 : 0;
+      root.style.setProperty("--fade", p.toFixed(4));
+      root.classList.toggle("is-late", p >= 0.5);
+      // Phone: the frame starts pinned under the bar. Once the bio card has slid fully over it, the frame moves (unseen)
+      // to its spot after the stamps, so it scrolls in there, all End of Career, with no empty band below it.
+      // A bio card shorter than the frame can't hide it, so a short page falls back to plain flow (frame, then bio).
+      let glued = false;
+      let short = false;
+      if (narrow?.matches && sheet && frameEl) {
+        short = sheet.offsetHeight < frameEl.offsetHeight;
+        if (!short) {
+          const pinTop = parseFloat(getComputedStyle(frameEl).top) || 0;
+          glued = sheet.getBoundingClientRect().top <= pinTop;
+        }
+      }
+      root.classList.toggle("is-short", short);
+      root.classList.toggle("is-glued", glued);
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
     update();
     addEventListener("scroll", schedule, { passive: true });
     addEventListener("resize", schedule);
+    reduce?.addEventListener?.("change", schedule);
+    narrow?.addEventListener?.("change", schedule);
     const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(schedule) : null;
-    ro?.observe(root);
+    ro?.observe(document.body);
     return () => {
       cancelAnimationFrame(frame);
       removeEventListener("scroll", schedule);
       removeEventListener("resize", schedule);
+      reduce?.removeEventListener?.("change", schedule);
+      narrow?.removeEventListener?.("change", schedule);
       ro?.disconnect();
-      boot.style.removeProperty("top");
     };
   }, [ref]);
 }
@@ -54,18 +65,17 @@ function useHomePinMeet(ref: RefObject<HTMLElement | null>) {
 export function Home({ bio }: { onOpen?: (k: Kind, id: string) => void; bio: string }) {
   const paragraphs = bio.split("\n\n");
   const scrollRef = useRef<HTMLElement>(null);
-  useHomePinMeet(scrollRef);
+  useHomeFade(scrollRef);
   return (
     <main className="sheet">
-      {/* Home scroll (Sergio, Oct 2026): the Boot Camp portrait is pinned while the bio scrolls; at the end the End of
-          Career portrait slides up and covers it in the same spot. Pure CSS (position: sticky + z-index). With
-          prefers-reduced-motion the two portraits fall back to plain top / bottom placement. */}
+      {/* Home (Sergio, Oct 2026): one portrait frame, pinned (left column on desktop, under the bar on phone, where the
+          bio card scrolls over it). Boot Camp crossfades to End of Career as the bio is read; see useHomeFade. */}
       <header className="intro home-scroll" ref={scrollRef}>
         <div className="home-pins">
-          {SN_PORTRAIT ? <Portrait className="home-pin home-pin-boot" src={SN_PORTRAIT.src} alt={SN_PORTRAIT.alt} caption="Boot Camp, 1997" /> : null}
-          <div className="home-pin-gap" aria-hidden="true" />
-          <Portrait className="home-pin home-pin-chief" src={CHIEF_PORTRAIT?.src ?? profile.portrait} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} caption="End of Career, 2018" />
-          <div className="home-pin-tail" aria-hidden="true" />
+          <FadePortrait
+            first={{ src: SN_PORTRAIT?.src ?? profile.portrait, alt: SN_PORTRAIT?.alt ?? "Seaman Recruit Sergio Schickler, boot camp portrait, 1997", caption: "Boot Camp, 1997" }}
+            last={{ src: CHIEF_PORTRAIT?.src ?? profile.portrait, alt: CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018", caption: "End of Career, 2018" }}
+          />
         </div>
         <div className="home-read">
           {/* One opaque sheet for the name block and the bio, so the pinned portrait never shows between them. */}
@@ -95,17 +105,24 @@ export function Home({ bio }: { onOpen?: (k: Kind, id: string) => void; bio: str
   );
 }
 
-function Portrait({ src, alt, caption, className = "" }: { src: string; alt: string; caption: string; className?: string }) {
+type Shot = { src: string; alt: string; caption: string };
+
+/** One frame, two stacked portraits; the second fades in with --fade (0..1) set on .home-scroll. */
+function FadePortrait({ first, last }: { first: Shot; last: Shot }) {
   return (
-    <figure className={`intro-solo ${className}`.trim()}>
+    <figure className="intro-solo home-pin home-fade">
       <div className="wood-frame">
         <div className="wood-mat">
-          <div className="mat-opening">
-            <img className="intro-portrait-img" src={publicUrl(src)} alt={alt} />
+          <div className="mat-opening home-fade-stack">
+            <img className="intro-portrait-img home-fade-first" src={publicUrl(first.src)} alt={first.alt} />
+            <img className="intro-portrait-img home-fade-last" src={publicUrl(last.src)} alt={last.alt} />
           </div>
         </div>
       </div>
-      <figcaption className="quiet">{caption}</figcaption>
+      <figcaption className="quiet home-fade-caps">
+        <span className="home-fade-cap-first">{first.caption}</span>
+        <span className="home-fade-cap-last">{last.caption}</span>
+      </figcaption>
     </figure>
   );
 }
