@@ -1154,13 +1154,14 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .contact-whatsapp:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 2px; }
 [data-theme="dark"] .contact-whatsapp { color: var(--color-ivory); background: color-mix(in srgb, #25d366 14%, transparent); }
 
-/* Sample redacted paragraph (Oct 2026), pure CSS per Sergio's spec (see redaction-sample.tsx). Each word is a tilted
-   near-black block with an uneven, hand-cut radius; neighbours overlap slightly through the negative margin. Permanently
-   redacted: transparent text, no hover reveal, not selectable. Dark: the blocks sit on a lighter paper strip. */
+/* Sample redacted paragraph (Oct 2026), pure CSS per Sergio's spec (see redaction-sample.tsx). One near-black stroke
+   per sentence or fragment, inline so it wraps; box-decoration-break: clone repeats the padding and the uneven radius on
+   every line segment. No rotation (transforms don't apply to inline boxes). Permanently redacted: transparent text, no
+   hover reveal, not selectable. Dark: the strokes sit on a lighter paper strip. */
 .redact-sample { margin: 1.1rem 0 0.4rem; }
-.redact-para { margin: 0; text-align: left; hyphens: none; }
-.redact-word {
-  display: inline-block;
+.redact-para { margin: 0; text-align: left; hyphens: none; line-height: 1.75; }
+.redact-mark {
+  display: inline;
   background: linear-gradient(104deg, rgba(0, 0, 0, 0.95) 0%, rgba(30, 30, 30, 0.9) 100%);
   color: transparent;
   padding: 0.1em 0.4em;
@@ -1168,15 +1169,12 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   border-radius: 0.8em 0.3em 0.7em 0.4em / 0.4em 0.7em 0.3em 0.6em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-  transform: rotate(-0.5deg);
   user-select: none;
   -webkit-user-select: none;
-  line-height: 1.15;
 }
-.redact-run > span:nth-child(3n + 2) .redact-word { border-radius: 0.5em 0.8em 0.4em 0.7em / 0.6em 0.3em 0.7em 0.4em; transform: rotate(0.4deg); }
-.redact-run > span:nth-child(3n + 3) .redact-word { border-radius: 0.7em 0.4em 0.8em 0.3em / 0.3em 0.6em 0.5em 0.7em; transform: rotate(-0.9deg) translateY(0.03em); }
-.redact-run > span:nth-child(4n + 4) .redact-word { border-radius: 0.4em 0.7em 0.5em 0.8em / 0.7em 0.4em 0.6em 0.3em; transform: rotate(0.7deg) translateY(-0.02em); }
-.redact-run > span:nth-child(5n + 5) .redact-word { border-radius: 0.9em 0.5em 0.6em 0.3em / 0.5em 0.3em 0.8em 0.5em; transform: rotate(-0.2deg); }
+.redact-v1 .redact-mark { border-radius: 0.5em 0.8em 0.4em 0.7em / 0.6em 0.3em 0.7em 0.4em; padding: 0.12em 0.45em 0.08em; }
+.redact-v2 .redact-mark { border-radius: 0.7em 0.4em 0.8em 0.3em / 0.3em 0.6em 0.5em 0.7em; padding: 0.08em 0.38em 0.12em; }
+.redact-v3 .redact-mark { border-radius: 0.4em 0.7em 0.5em 0.8em / 0.7em 0.4em 0.6em 0.3em; }
 [data-theme="dark"] .redact-sample { padding: 0.55rem 0.75rem; border-radius: 4px; background: #2f3642; box-shadow: inset 0 0 0 1px #3a4352; }
 .settings-version { margin: 0.3rem 0 0; font-size: 0.74rem; text-align: center; opacity: 0.85; font-variant-numeric: tabular-nums; }
 .settings-version a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
