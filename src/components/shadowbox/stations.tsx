@@ -9,16 +9,19 @@ import {
   type StopLayer,
 } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
+import type { Chrome } from "@/lib/shadowbox/copy";
 
-const PIN_GROUPS: { id: StopLayer; label: string; legend: string; cls: string }[] = [
-  { id: "command", label: "Commands", legend: "Career path: Miami (place of entry), the training pipeline, then assigned commands", cls: "command" },
-  { id: "instruction", label: "Instruction", legend: "Schools and instruction sites", cls: "instruction" },
-  { id: "base", label: "Bases", legend: "Home bases, NAS, NS, annexes, and ship TADs", cls: "base" },
-  { id: "field", label: "Field", legend: "FOBs, camps, theater sites, and exercises", cls: "field" },
-  { id: "port", label: "Port visits", legend: "City and ship port calls", cls: "port" },
-  { id: "layover", label: "Layovers", legend: "Transit hubs and flight legs", cls: "layover" },
-  { id: "stopover", label: "Stopovers", legend: "Theater air hubs in Kuwait and Qatar", cls: "stopover" },
-];
+function pinGroups(t: Chrome): { id: StopLayer; label: string; legend: string; cls: string }[] {
+  return [
+    { id: "command", label: t.pinCommands, legend: t.legendCommands, cls: "command" },
+    { id: "instruction", label: t.pinInstruction, legend: t.legendInstruction, cls: "instruction" },
+    { id: "base", label: t.pinBases, legend: t.legendBases, cls: "base" },
+    { id: "field", label: t.pinField, legend: t.legendField, cls: "field" },
+    { id: "port", label: t.pinPorts, legend: t.legendPorts, cls: "port" },
+    { id: "layover", label: t.pinLayovers, legend: t.legendLayovers, cls: "layover" },
+    { id: "stopover", label: t.pinStopovers, legend: t.legendStopovers, cls: "stopover" },
+  ];
+}
 
 function stopMatchesFilter(stop: Stop, shown: StopLayer[] | null) {
   if (!shown) return true;
@@ -77,7 +80,8 @@ function filterStops(all: Stop[], shown: StopLayer[] | null): Stop[] {
   return out;
 }
 
-export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel Book" }: { stops: ReturnType<typeof careerStops>; onOpen: (k: Kind, id: string) => void; aboutLabel: string; title?: string }) {
+export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel Book", t }: { stops: ReturnType<typeof careerStops>; onOpen: (k: Kind, id: string) => void; aboutLabel: string; title?: string; locale?: string; t: Chrome }) {
+  const PIN_GROUPS = pinGroups(t);
   const [shown, setShown] = useState<StopLayer[] | null>(["command"]);
   const toggle = (g: StopLayer) =>
     setShown((cur) => {
@@ -230,7 +234,7 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
         <button type="button" className="nav-btn icon-btn" aria-label="Next" title="Next" onClick={() => step(1)} disabled={!stops.length}>
           <ChevronRight size={20} strokeWidth={2} aria-hidden="true" />
         </button>
-        <button type="button" className={`nav-btn icon-btn${cursor == null ? " on" : ""}`} aria-label="Full map" title="Full map" onClick={resetPlay} disabled={cursor == null}>
+        <button type="button" className={`nav-btn icon-btn${cursor == null ? " on" : ""}`} aria-label={t.fullMap} title={t.fullMap} onClick={resetPlay} disabled={cursor == null}>
           <Maximize2 size={18} strokeWidth={2} aria-hidden="true" />
         </button>
         <button type="button" className={`nav-btn icon-btn map-full-btn${full ? " on" : ""}`} aria-pressed={full} aria-label={full ? "Exit fullscreen" : "Fullscreen"} title={full ? "Exit fullscreen (Esc)" : "Fullscreen"} onClick={() => (full ? exitFull() : enterFull())}>
@@ -240,12 +244,12 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
           {here
             ? `${here.n}${whenLabel ? ` · ${whenLabel}` : ""} · ${here.labels[0]}`
             : shown
-              ? `${stops.length} of ${allStops.length} stops`
-              : `Full map · ${allStops.length} stops`}
+              ? `${stops.length} ${t.ofStops} ${allStops.length} ${t.stopsWord}`
+              : `${t.fullMap} · ${allStops.length} ${t.stopsWord}`}
         </p>
         {stops.length ? (
           <label className="map-play-scrub">
-            <span className="sr-only">Stop in order</span>
+            <span className="sr-only">{t.stopInOrder}</span>
             <input
               type="range"
               min={0}
@@ -283,7 +287,7 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
       </div>
       <div className="map-filter" role="group" aria-label="Show pin categories">
         {/* All (restored, Sergio, Oct 2026): first chip; shows every category (shown = null), as before 2f61e08. */}
-        <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>All</button>
+        <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>{t.allChip}</button>
         {PIN_GROUPS.map((g) => (
           <button key={g.id} type="button" className={`nav-btn${shown?.includes(g.id) ? " on" : ""}`} aria-pressed={!!shown?.includes(g.id)} onClick={() => toggle(g.id)}>
             <span className={`pin-num ${g.cls}`} aria-hidden="true" />
@@ -295,7 +299,7 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
         {PIN_GROUPS.map((g) => (
           <li key={g.id}><span className={`pin-num ${g.cls}`}>#</span> {g.legend}</li>
         ))}
-        <li><span className="pin-num approximate">#</span> Approximate location</li>
+        <li><span className="pin-num approximate">#</span> {t.legendApprox}</li>
       </ul>
       <ol className="stop-list">
         {stops.map((stop, index) => (

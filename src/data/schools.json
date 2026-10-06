@@ -6,12 +6,12 @@
     "abbreviation": "RTC",
     "cin": "A-950-0001",
     "start": "1997-07-01",
-    "end": "1997-09-05",
+    "end": "1997-09-01",
     "length": "10 weeks",
     "placeId": "great-lakes",
     "placeConfidence": "recorded",
     "source": "jst",
-    "explanation": "Boot camp. JST dates: 1 July 1997 to 5 September 1997. Earlier site copy had September–November 1997; the JST window is the one used here."
+    "explanation": "Boot camp. Dates shown sitewide: 1 July 1997 to 1 September 1997 (aligned with the command end and SN promotion). The JST school window ran to 5 September 1997; held at 1 September pending confirmation."
   },
   {
     "id": "core",
@@ -161,7 +161,7 @@
   {
     "id": "instructor-school",
     "name": "Instructor Training Paperbased-Mobile Team Training",
-    "abbreviation": "Instructor",
+    "abbreviation": "Instructor MTT",
     "cin": "A-012-1011",
     "start": "2003-12-19",
     "end": "2003-12-19",

@@ -11,7 +11,7 @@
     "end": "1997-09-01",
     "precision": "day",
     "placeId": "great-lakes",
-    "explanation": "Enlisted boot camp for the Navy, at Naval Station Great Lakes, Illinois. Started 30 June 1997 and ended nine weeks later. The JST school window is 1 July 1997 to 5 September 1997.",
+    "explanation": "Enlisted boot camp for the Navy, at Naval Station Great Lakes, Illinois. Started 30 June 1997 and ended nine weeks later. Recruit training ran 1 July 1997 to 1 September 1997 (aligned with the command end and SN promotion; the JST window ran to 5 September).",
     "civilian": "This is where a new sailor learns to live in the Navy before going on to a technical school.",
     "onCase": false,
     "image": "/incoming/rtc.webp"
@@ -58,7 +58,7 @@
     "branch": "USN",
     "designator": "Instruction",
     "necId": "nec-0000",
-    "start": "1998",
+    "start": "1998-01",
     "end": "1998-12",
     "precision": "year",
     "placeId": "great-lakes",
@@ -80,7 +80,7 @@
     "end": "2001",
     "precision": "year",
     "placeId": "fisc-san-diego",
-    "explanation": "A shore command that ran Navy computer and telecommunications services in San Diego. The shadowbox lists the NEC for this tour as 1589, calibration.",
+    "explanation": "A shore command that ran Navy computer and telecommunications services in San Diego. Signum lists the NEC for this tour as 1589, calibration.",
     "civilian": "A land-based communications station, not a ship.",
     "image": "/incoming/ncts.webp"
   },
@@ -97,7 +97,7 @@
     "end": "2004",
     "precision": "year",
     "placeId": "guam",
-    "explanation": "A submarine tender: a ship that repairs, supplies, and houses the crews of submarines. In these years her home port was Guam. The NEC on the shadowbox for this tour is 1589. The three Navy E awards dated 2001, 2002, and 2003 fall in this tour.",
+    "explanation": "A submarine tender: a ship that repairs, supplies, and houses the crews of submarines. In these years her home port was Guam. The NEC on Signum for this tour is 1589. The three Navy E awards dated 2001, 2002, and 2003 fall in this tour.",
     "civilian": "A repair ship for submarines, not a submarine itself.",
     "image": "/incoming/as-40.webp"
   },
@@ -113,7 +113,7 @@
     "end": "2007",
     "precision": "year",
     "placeId": "guam",
-    "explanation": "Explosive Ordnance Disposal Mobile Unit Five, a Navy bomb-disposal unit then based in Guam. Assignment to the unit is not the same as being a bomb-disposal technician. The shadowbox lists the NEC as 9613, a communications specialty. The Royal Thai Navy hosted Cobra Gold in 2004 and 2005. An Australian CDT was the partner on Talisman Saber in 2005 and 2007.",
+    "explanation": "Explosive Ordnance Disposal Mobile Unit Five, a Navy bomb-disposal unit then based in Guam. Assignment to the unit is not the same as being a bomb-disposal technician. Signum lists the NEC as 9613, a communications specialty. The Royal Thai Navy hosted Cobra Gold in 2004 and 2005. An Australian CDT was the partner on Talisman Saber in 2005 and 2007.",
     "civilian": "The command's job was disposing of explosives. His recorded specialty there was communications.",
     "image": "/incoming/eodmu5.webp"
   },
