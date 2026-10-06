@@ -8,10 +8,10 @@
     "designator": "Instruction",
     "necId": null,
     "start": "1997-06-30",
-    "end": "1997-09-01",
+    "end": "1997-09-05",
     "precision": "day",
     "placeId": "great-lakes",
-    "explanation": "Enlisted boot camp for the Navy, at Naval Station Great Lakes, Illinois. Started 30 June 1997 and ended nine weeks later. Recruit training ran 1 July 1997 to 1 September 1997 (aligned with the command end and SN promotion; the JST window ran to 5 September).",
+    "explanation": "Enlisted boot camp for the Navy, at Naval Station Great Lakes, Illinois. Started 30 June 1997 and ended nine weeks later. The JST school window is 1 July 1997 to 5 September 1997.",
     "civilian": "This is where a new sailor learns to live in the Navy before going on to a technical school.",
     "onCase": false,
     "image": "/incoming/rtc.webp"

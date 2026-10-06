@@ -6,12 +6,12 @@
     "abbreviation": "RTC",
     "cin": "A-950-0001",
     "start": "1997-07-01",
-    "end": "1997-09-01",
+    "end": "1997-09-05",
     "length": "10 weeks",
     "placeId": "great-lakes",
     "placeConfidence": "recorded",
     "source": "jst",
-    "explanation": "Boot camp. Dates shown sitewide: 1 July 1997 to 1 September 1997 (aligned with the command end and SN promotion). The JST school window ran to 5 September 1997; held at 1 September pending confirmation."
+    "explanation": "Boot camp. JST dates: 1 July 1997 to 5 September 1997."
   },
   {
     "id": "core",
