@@ -87,14 +87,14 @@
     ],
     "note": "Added on this tour: NAM 2005, NAM 2006, AAM 2006, ICM 2006 with one campaign star (National Resolution; each phase is a star, no bare ribbon), GWOTSM 2005, GCM 2006. JMUA awards sit on the JCSE plate.",
     "extras": [
-      { "src": "/incoming/troy.webp", "title": "In theater", "unit": "CJTF Troy", "date": "2006", "kind": "unit", "id": "troy" },
-      { "src": "/incoming/52nd-eod.webp", "title": "Sponsor", "unit": "52nd EOD", "date": "2006", "kind": "unit", "id": "52nd-ordnance", "role": "Partner · OIF I" },
-      { "src": "/incoming/16th-en.webp", "title": "Sponsor", "unit": "16th EN", "date": "2006", "kind": "unit", "id": "16th-engineer", "role": "Partner · OIF I" },
-      { "src": "/incoming/eodmu11.webp", "title": "Partner", "unit": "EODMU 11", "date": "2006", "kind": "unit", "id": "troy", "role": "Partner · OIF I", "unitId": "eodmu11" },
+      { "src": "/incoming/talisman-saber.webp", "title": "Exercise", "unit": "Talisman Saber", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay" },
+      { "src": "/incoming/auscdt-1.webp", "title": "Foreign Partner", "unit": "Australian CDT", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay", "role": "Foreign Partner", "unitId": "auscdt" },
       { "src": "/incoming/cobra-gold.webp", "title": "Exercise", "unit": "Cobra Gold", "date": "2004 and 2005", "kind": "place", "id": "u-tapao" },
       { "src": "/incoming/rtn.webp", "title": "Foreign Partner", "unit": "Royal Thai Navy", "date": "2004 and 2005", "kind": "place", "id": "u-tapao", "role": "Foreign Partner", "unitId": "rtn" },
-      { "src": "/incoming/talisman-saber.webp", "title": "Exercise", "unit": "Talisman Saber", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay" },
-      { "src": "/incoming/auscdt-1.webp", "title": "Foreign Partner", "unit": "Australian CDT", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay", "role": "Foreign Partner", "unitId": "auscdt" }
+      { "src": "/incoming/troy.webp", "title": "In theater", "unit": "CJTF Troy", "date": "2006", "kind": "unit", "id": "troy" },
+      { "src": "/incoming/eodmu11.webp", "title": "Partner", "unit": "EODMU 11", "date": "2006", "kind": "unit", "id": "troy", "role": "Partner · OIF I", "unitId": "eodmu11" },
+      { "src": "/incoming/52nd-eod.webp", "title": "Sponsor", "unit": "52nd EOD", "date": "2006", "kind": "unit", "id": "52nd-ordnance", "role": "Partner · OIF I" },
+      { "src": "/incoming/16th-en.webp", "title": "Sponsor", "unit": "16th EN", "date": "2006", "kind": "unit", "id": "16th-engineer", "role": "Partner · OIF I" }
     ]
   },
   {
