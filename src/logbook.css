@@ -553,11 +553,11 @@
 }
 
 /* Tabs (Oct 2026, Sergio): every tab set (Logbook main, aside, phone, detail sidebar) uses the chip language.
-   ACTIVE = filled goldenrod + navy text. INACTIVE = outline only: thin navy border, navy text, transparent background;
-   dark theme = light ivory border and text. Border width, padding and weight are unchanged, so nothing shifts. */
-.lb-tab:not(.on), [data-theme="dark"] .lb-tab:not(.on) { background: transparent; color: var(--color-navy); border-color: var(--color-navy); }
+   ACTIVE = filled goldenrod + navy text. INACTIVE = outline only: thin goldenrod border (--color-brass, the panel border
+   hex), navy text, transparent background; dark theme = same goldenrod border, ivory text. Border width, padding and weight are unchanged, so nothing shifts. */
+.lb-tab:not(.on), [data-theme="dark"] .lb-tab:not(.on) { background: transparent; color: var(--color-navy); border-color: var(--color-brass); }
 .lb-tab:not(.on):hover { background: color-mix(in srgb, var(--color-navy) 8%, transparent); }
-[data-theme="dark"] .lb-tab:not(.on) { color: var(--color-ivory, #f4efe4); border-color: color-mix(in srgb, var(--color-ivory, #f4efe4) 80%, transparent); }
+[data-theme="dark"] .lb-tab:not(.on) { color: var(--color-ivory, #f4efe4); border-color: var(--color-brass); }
 [data-theme="dark"] .lb-tab:not(.on):hover { background: color-mix(in srgb, var(--color-ivory, #f4efe4) 10%, transparent); }
 .lb-tab.on, [data-theme="dark"] .lb-tab.on, .lb-tab.on:hover { background: var(--color-goldenrod); color: var(--color-navy); border-color: var(--color-goldenrod); }
 .lb-tab:not(.on) .lb-tab-count { background: var(--color-navy); color: var(--color-ivory, #f4efe4); }

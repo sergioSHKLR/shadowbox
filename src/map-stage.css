@@ -373,3 +373,26 @@ html.map-cover-lock, html.map-cover-lock body { overflow: hidden; }
 .map-now-text strong { font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .map-now-text span { font-size: 0.8rem; opacity: 0.85; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .map-stage.is-full .map-now-card { bottom: 1rem; left: 1rem; right: auto; max-width: min(28rem, calc(100% - 2rem)); }
+
+/* Travel Book filter chips + player buttons (Oct 2026, Sergio): same language as the tabs. ACTIVE = goldenrod fill + navy
+   text (the established active state here); INACTIVE = outline only: thin goldenrod border (--color-brass, the panel border
+   hex), navy text, transparent background; dark theme = same border, ivory text. Border width and padding are unchanged, so nothing shifts. */
+.map-filter .nav-btn:not(.on), .map-play .nav-btn:not(.on), .map-play .nav-btn.icon-btn:not(.on) {
+  background: transparent; color: var(--color-navy); border-color: var(--color-brass);
+}
+.map-filter .nav-btn:not(.on):hover:not(:disabled), .map-play .nav-btn:not(.on):hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-navy) 8%, transparent);
+}
+[data-theme="dark"] .map-filter .nav-btn:not(.on), [data-theme="dark"] .map-play .nav-btn:not(.on), [data-theme="dark"] .map-play .nav-btn.icon-btn:not(.on) {
+  background: transparent; color: var(--color-ivory, #f4efe4); border-color: var(--color-brass);
+}
+[data-theme="dark"] .map-filter .nav-btn:not(.on):hover:not(:disabled), [data-theme="dark"] .map-play .nav-btn:not(.on):hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-ivory, #f4efe4) 10%, transparent);
+}
+.map-filter .nav-btn.on, .map-play .nav-btn.on, .map-play .nav-btn.icon-btn.on,
+.map-stage + .map-filter .nav-btn.on, [data-theme="dark"] .map-stage + .map-filter .nav-btn.on,
+[data-theme="dark"] .map-filter .nav-btn.on, [data-theme="dark"] .map-play .nav-btn.on, [data-theme="dark"] .map-play .nav-btn.icon-btn.on,
+.map-stage + .map-filter .nav-btn.on:hover:not(:disabled), [data-theme="dark"] .map-stage + .map-filter .nav-btn.on:hover:not(:disabled),
+.map-play .nav-btn.icon-btn.on:hover:not(:disabled), [data-theme="dark"] .map-play .nav-btn.icon-btn.on:hover:not(:disabled) {
+  background: var(--color-goldenrod); color: var(--color-navy); border-color: var(--color-goldenrod);
+}
