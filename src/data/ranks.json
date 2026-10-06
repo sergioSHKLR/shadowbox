@@ -12,6 +12,7 @@
     "grade": "E-3",
     "abbreviation": "SN",
     "name": "Seaman",
+    "image": "/incoming/patch-e3-blue.svg",
     "date": "1997-09-01",
     "explanation": "Promoted to Seaman, E-3, on completing RTC; Seaman through the USS Tortuga TAD and NTC Great Lakes, until Electronics Technician Third Class in December 1998. The seaman group rate mark is three diagonal stripes; on dress blues they are white on navy.",
     "note": "Date of rate is the RTC completion date in the record (units.json: 1 September 1997)."
