@@ -9,7 +9,7 @@ const PLACEHOLDER_BIO_EN = "{{h}}Boot Camp{{/h}}[Placeholder] A few sentences ab
 const PLACEHOLDER_BIO_PT = "{{h}}Treinamento de recrutas{{/h}}[Espaço reservado] Algumas frases sobre o treinamento de recrutas: a chegada, as primeiras semanas e a formatura.\n\n{{h}}Escola A{{/h}}[Espaço reservado] Algumas frases sobre a Escola A: o treinamento e aonde ele levou.\n\n{{h}}Escola C{{/h}}[Espaço reservado] Algumas frases sobre a Escola C: o curso e por que ele importou.\n\n{{h}}Primeiro comando{{/h}}[Espaço reservado] Algumas frases sobre o primeiro comando: o trabalho, as pessoas e uma lembrança que vale guardar.\n\n{{h}}Segundo comando{{/h}}[Espaço reservado] Algumas frases sobre o segundo comando: o trabalho, as pessoas e uma lembrança que vale guardar.\n\n{{h}}Terceiro comando{{/h}}[Espaço reservado] Algumas frases sobre o terceiro comando: o trabalho, as pessoas e uma lembrança que vale guardar.\n\n{{h}}Quarto comando{{/h}}[Espaço reservado] Algumas frases sobre o quarto comando: o trabalho, as pessoas e uma lembrança que vale guardar.\n\n{{h}}Quinto comando{{/h}}[Espaço reservado] Algumas frases sobre o quinto comando: o trabalho, as pessoas e uma lembrança que vale guardar.\n\n{{h}}Eventos mundiais marcantes{{/h}}[Espaço reservado] Algumas frases sobre os acontecimentos mundiais desses anos e como tocaram o trabalho.\n\n{{h}}Presidentes sob os quais serviu{{/h}}Bill Clinton (1997–2001), George W. Bush (2001–2009), Barack Obama (2009–2017), Donald Trump (2017–2018). [Espaço reservado] Uma ou duas frases sobre servir sob cada um.\n\n{{quote}}Any man who may be asked in this century what he did to make his life worth while, I think can respond with a good deal of pride and satisfaction: “I served in the United States Navy.”{{cite}}Presidente John F. Kennedy, discurso na Academia Naval dos EUA, Annapolis, Maryland, 1º de agosto de 1963 (Biblioteca JFK; Public Papers of the Presidents, 1963)";
 
 const en = {
-  title: "Shadowbox",
+  title: "Signum",
   home: "Home",
   search: "Search",
   searchPlaceholder: "Search the record",
@@ -67,7 +67,7 @@ const en = {
 };
 
 const pt: typeof en = {
-  title: "Shadowbox",
+  title: "Signum",
   home: "Início",
   search: "Buscar",
   searchPlaceholder: "Buscar no registro",
