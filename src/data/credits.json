@@ -369,6 +369,15 @@
     "notes": "Gold-outline DUI vector from Wikimedia Commons. The black-outline coat of arms PNG was replaced."
   },
   {
+    "id": "crest-ana",
+    "title": "Afghan National Army (ANA): Afghanistan roundel",
+    "file": "/incoming/ana.svg",
+    "sourceUrl": null,
+    "creator": "Supplied by the veteran",
+    "license": "",
+    "notes": "Vector supplied by the veteran, October 2026. Optimized with svgo; editor metadata removed."
+  },
+  {
     "id": "crest-11th-ada",
     "title": "11th Air Defense Artillery Brigade shoulder sleeve insignia",
     "file": "/crests/11th-ada.webp",
@@ -1089,9 +1098,18 @@
     "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
   },
   {
-    "id": "photo-helmet-desert-cover",
-    "title": "Helmet with desert cover (his photograph; helmet model not identified)",
-    "file": "/equipment/helmet-desert-cover.webp",
+    "id": "photo-helmet-jerrv",
+    "title": "Community-use helmet for riding Gators, JERRV behind (his photograph; helmet model not identified)",
+    "file": "/equipment/helmet-jerrv.webp",
+    "sourceUrl": "",
+    "creator": "Sergio Schickler",
+    "license": "Personal photograph",
+    "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
+  },
+  {
+    "id": "photo-helmet-2006-03-03",
+    "title": "Personal-issue helmet with desert cover, 3 March 2006 (his photograph; helmet model not identified)",
+    "file": "/equipment/helmet-2006-03-03.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
