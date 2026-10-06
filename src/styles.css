@@ -1049,7 +1049,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 /* Phone / narrow: one column. The frame pins under the bar, the bio card scrolls over it, and the frame shows again
    in the space after the stamps, by then (nearly) all End of Career. */
 @media (max-width: 959.98px) {
-  .home-scroll { --frame-n: min(19rem, calc(100vw - 4rem), calc((100dvh - 8rem) * 8.5 / 11)); --pin-h: calc(var(--frame-n) * 11 / 8.5 + 5.2rem); grid-template-columns: minmax(0, 1fr); }
+  .home-scroll { --frame-n: min(19rem, calc(100vw - 4rem), calc((100dvh - 8rem) * 8.5 / 11)); --pin-h: calc(var(--frame-n) * 11 / 8.5 + 10.2rem); grid-template-columns: minmax(0, 1fr); }
   .home-scroll .wood-frame { --frame: var(--frame-n); }
   .home-pins, .home-read { grid-area: 1 / 1; }
   .home-read { padding: var(--pin-h) 0 var(--pin-h); pointer-events: none; }
@@ -1206,7 +1206,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 
 /* Home only (Sergio, Oct 2026): faint folded-flag watermark (desaturated, low opacity) behind the bio sheet,
    never under the small portrait caption; temporary joint-flags strip under the portrait (incoming/joint-flags.* —
-   official Wikimedia Army/AF/USMC/Navy equal strip, no USCG; replace freely). Watermark from incoming/folded-flag.svg → home-folded-flag.*. */
+   official Wikimedia pyramid: US national apex + Army/AF/Navy/USMC; no USCG; replace freely). Watermark from incoming/folded-flag.svg → home-folded-flag.*. */
 .home-scroll .home-read::before {
   content: "";
   position: absolute;
@@ -1221,7 +1221,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .home-scroll .home-sheet { position: relative; z-index: 1; }
 .home-joint-flags {
   display: block;
-  width: min(13rem, 90%);
+  width: min(13.5rem, 92%);
   height: auto;
   margin: 0.15rem auto 0.1rem;
   opacity: 0.95;

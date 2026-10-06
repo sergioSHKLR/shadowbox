@@ -1252,11 +1252,11 @@
   },
   {
     "id": "joint-flags-home",
-    "title": "Home joint service flags strip (Army, Air Force, Marine Corps, Navy)",
+    "title": "Home joint flags pyramid (U.S. national, Army, Air Force, Navy, Marine Corps)",
     "file": "/incoming/joint-flags.webp",
     "sourceUrl": "https://en.wikipedia.org/wiki/Flags_of_the_United_States_Armed_Forces",
-    "creator": "U.S. government / Wikimedia Commons (Flag of the United States Army; Air Force; Marine Corps; Navy)",
+    "creator": "U.S. government / Wikimedia Commons (Flag of the United States; Army; Air Force; Navy; Marine Corps)",
     "license": "Public domain. Works of the U.S. federal government; vector files from Wikimedia Commons.",
-    "notes": "Composed locally from Commons SVGs (copies in incoming/service-flags/). Equal compact strip under the Home portrait; no Coast Guard. Temporary \u2014 replace freely. Not hotlinked. Commons files: Flag_of_the_United_States_Army.svg, Flag_of_the_United_States_Air_Force.svg, Flag_of_the_United_States_Marine_Corps.svg, Flag_of_the_United_States_Navy.svg."
+    "notes": "Composed locally from Commons SVGs (copies in incoming/service-flags/). Compact pyramid under the Home portrait: national flag apex (larger) over Army \u00b7 Air Force \u00b7 Navy \u00b7 USMC. No Coast Guard. Temporary \u2014 replace freely. Not hotlinked. Also https://commons.wikimedia.org/wiki/File:Flag_of_the_United_States.svg"
   }
 ]

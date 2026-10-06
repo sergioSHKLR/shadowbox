@@ -141,9 +141,9 @@ function FadePortrait({ first, last }: { first: Shot; last: Shot }) {
         <span className="home-fade-cap-first">{first.caption}</span>
         <span className="home-fade-cap-last">{last.caption}</span>
       </figcaption>
-      {/* TEMPORARY (Sergio, Oct 2026): joint service flags under the portrait — replace incoming/joint-flags.* freely.
-          Official Wikimedia flags (Army · Air Force · USMC · Navy; equal compact strip, no USCG). Folded-flag watermark unchanged. */}
-      <img className="home-joint-flags" src={publicUrl("/incoming/joint-flags.webp")} alt="" width={200} height={42} decoding="async" />
+      {/* TEMPORARY (Sergio, Oct 2026): joint flags under the portrait — replace incoming/joint-flags.* freely.
+          Pyramid: US national (apex, larger) over Army · Air Force · Navy · USMC. No USCG. Folded-flag watermark unchanged. */}
+      <img className="home-joint-flags" src={publicUrl("/incoming/joint-flags.webp")} alt="" width={210} height={58} decoding="async" />
     </figure>
   );
 }
