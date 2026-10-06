@@ -1231,7 +1231,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   .home-pins > * { order: 0; }
   .home-pin { position: sticky; top: var(--pin-top); margin: 0; padding-bottom: 0.4rem; }
   .home-pin-boot { z-index: 1; }
-  .home-pin-chief { z-index: 2; margin-top: 0; box-shadow: 0 -18px 30px -18px rgba(0, 0, 0, 0.35); }
+  .home-pin-chief { z-index: 2; margin-top: 0; }
   .home-pin-gap { display: block; flex: 1 1 auto; min-height: 2rem; }
   .home-pin-tail { display: block; flex: none; height: 32vh; }
   .home-read { position: relative; z-index: 1; min-width: 0; }
@@ -1254,8 +1254,8 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
     .home-scroll { --frame-n: min(19rem, calc(100vw - 4rem), calc((100dvh - 8rem) * 8.5 / 11)); }
     .home-pins, .home-read { grid-area: 1 / 1; }
     .home-read { padding: var(--pin-h) 0 calc(var(--pin-h) + 32vh); pointer-events: none; }
-    .home-read > * { pointer-events: auto; background: var(--color-ivory); position: relative; }
-    .home-read .intro-copy { margin: 0; padding: 1rem 0 0.4rem; border-radius: 14px 14px 0 0; box-shadow: 0 -14px 24px -16px rgba(0, 0, 0, 0.35); }
+    .home-read > * { pointer-events: auto; position: relative; }
+    .home-read .intro-copy { margin: 0; padding: 1rem 0 0.4rem; }
     .home-read .bio-wrap { padding-bottom: 1.5rem; }
     .home-pin-gap { min-height: 0; }
   }
@@ -1269,6 +1269,14 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .home-scroll { --home-surface: var(--color-ivory); }
 [data-theme="dark"] .home-scroll { --home-surface: #14181f; }
 .home-pin { background: var(--home-surface); }
+/* Fully opaque layers (Sergio, Oct 2026): no see-through between the name block and the bio, and nothing peeks
+   above or around the End of Career frame. */
+.home-sheet { display: flow-root; }
+.home-pin, .home-pin .wood-frame { opacity: 1; }
 @media (prefers-reduced-motion: no-preference) and (max-width: 959.98px) {
-  .home-read > * { background: var(--home-surface); }
+  .home-sheet { background: var(--home-surface); margin-inline: -1rem; padding-inline: 1rem; }
+  /* The End of Career layer carries an opaque page-colour skirt above and to the sides of its frame, so the
+     Boot Camp portrait is hidden from the moment the bio card has passed until the frame covers it. */
+  .home-pin-chief { isolation: isolate; }
+  .home-pin-chief::before { content: ""; position: absolute; z-index: -1; left: -50vw; right: -50vw; bottom: 0; height: calc(100% + 60vh); background: var(--home-surface); }
 }
