@@ -217,7 +217,7 @@ function AdminAsOf({ beat, onOpen, t }: { beat: LogbookBeat; onOpen: Open; t: Ch
                   {!(isNew && nec.billetLabel) && necSchoolLine(nec) ? <small className="logbook-nec-place">{necSchoolLine(nec)}</small> : null}
                 </button>
               </li>
-            )); })()}
+            ))}
           </ul>
         ) : (
           <p className="quiet">{t.noNec}</p>
@@ -397,7 +397,7 @@ function GearPanel({ groups, what, onOpen, empty }: { groups: LogbookGearGroup[]
                   <span>{gearLabel(item)}</span>
                 </button>
               </li>
-            ))}
+            )); })()}
           </ul>
         </section>
       ))}
