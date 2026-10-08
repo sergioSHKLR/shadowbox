@@ -1351,6 +1351,9 @@ body[data-scroll-locked] .home-pin {
 }
 
 .case-tray-timeline { display: flex; flex-direction: column; }
-.case-tracks { display: flex; gap: 0.4rem; flex: 1; min-height: 18rem; }
-.case-track { flex: 1; display: flex; flex-direction: column; min-width: 0.4rem; }
-.case-track i { display: block; min-height: 3px; }
+.case-tracks { display: flex; gap: 0.45rem; flex: 1; min-height: 18rem; text-align: left; }
+.case-track { flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; position: relative; }
+.case-track::before { content: ""; position: absolute; left: 0.28rem; top: 0.35rem; bottom: 0.35rem; width: 1px; background: currentColor; }
+.case-stop { display: flex; align-items: center; gap: 0.3rem; position: relative; }
+.case-stop i { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: currentColor; flex: none; }
+.case-stop em { font-style: normal; font-size: 0.62rem; line-height: 1.1; color: #14233a; }
