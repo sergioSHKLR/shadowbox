@@ -110,6 +110,7 @@ export function Home({ bio, locale = "en" }: { onOpen?: (k: Kind, id: string) =>
             {/* Three stamps (Oct 2026): Security Manager (maroon) and PAO (navy) round stamps, plus a separate black UNCLAS
                 block. The PNGs are ink masks; CSS colours them per theme. The sample redacted paragraph is placed by the
                 {{redaction-sample}} marker in the bio text (between Fourth and Fifth Command). */}
+            <img className="home-bio-emboss" src={publicUrl("/incoming/navy-emboss.svg")} alt="" />
             <div className="bio-stamps">
               <span className="bio-stamp bio-stamp-round bio-stamp-security" role="img" aria-label="Security Manager, redaction: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-security.webp")}")` }} />
               <span className="bio-stamp bio-stamp-round bio-stamp-pao" role="img" aria-label="Public Affairs Officer, wide release: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-pao.webp")}")` }} />
@@ -141,9 +142,12 @@ function FadePortrait({ first, last }: { first: Shot; last: Shot }) {
         <span className="home-fade-cap-first">{first.caption}</span>
         <span className="home-fade-cap-last">{last.caption}</span>
       </figcaption>
-      {/* Gold-embossed Navy seal under the portrait (from incoming/emboss.svg → home-navy-seal-gold.svg; Sergio, Oct 2026).
-          Joint-flags mock kept in incoming/joint-flags.* for Sergio to replace later — not shown here. */}
-      <img className="home-navy-seal" src={publicUrl("/incoming/home-navy-seal-gold.svg")} alt="" width={88} height={88} decoding="async" />
+      <div className="home-branch-seals" aria-hidden="true">
+        <img src={publicUrl("/incoming/Emblem_of_the_United_States_Department_of_the_Army.svg")} alt="" />
+        <img src={publicUrl("/incoming/Emblem_of_the_United_States_Marine_Corps.svg")} alt="" />
+        <img src={publicUrl("/incoming/Seal_of_the_United_States_Department_of_the_Navy.svg")} alt="" />
+        <img src={publicUrl("/incoming/U.S._Air_Force_service_mark.svg")} alt="" />
+      </div>
     </figure>
   );
 }
