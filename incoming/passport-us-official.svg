@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 96">
+  <rect width="70" height="96" rx="4" fill="#6e1d2c"/>
+  <rect x="4" y="4" width="62" height="88" rx="2" fill="none" stroke="#e6d3a1" stroke-width="1.4"/>
+  <text x="35" y="28" text-anchor="middle" fill="#e6d3a1" font-size="9" font-family="Georgia, serif">USA</text>
+  <circle cx="35" cy="52" r="12" fill="none" stroke="#e6d3a1" stroke-width="1.2"/>
+  <text x="35" y="82" text-anchor="middle" fill="#e6d3a1" font-size="7" font-family="Georgia, serif">OFFICIAL</text>
+</svg>
