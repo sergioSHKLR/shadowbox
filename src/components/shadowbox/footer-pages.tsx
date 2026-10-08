@@ -149,10 +149,10 @@ export function Contact({ locale = "en" }: { locale?: string }) {
   );
   const form = <ContactForm lang={lang} key="form" />;
   return (
-    <main className="sheet site-page contact-page">
-      <h1 className="sr-only">{COPY[lang].title}</h1>
+    <div className="contact-page" id="contact-form">
+      <h2 className="sr-only">{COPY[lang].title}</h2>
       {lang === "pt" ? [whatsapp, form] : [form, whatsapp]}
-    </main>
+    </div>
   );
 }
 
@@ -269,7 +269,7 @@ export function Guestbook({ locale = "en", onContact }: { locale?: string; onCon
             </label>
             <p className="gb-privacy quiet" id="guestbook-privacy">
               {c.notePre}
-              <button type="button" className="gb-privacy-link" onClick={onContact}>{c.noteLink}</button>
+              <a className="gb-privacy-link" href="#contact-form">{c.noteLink}</a>
               {c.notePost}
             </p>
             <div className="site-form-bar">
@@ -284,6 +284,7 @@ export function Guestbook({ locale = "en", onContact }: { locale?: string; onCon
       <p className="guest-alt quiet">
         <a href={GUESTBOOK} target="_blank" rel="noreferrer">{c.alt}</a>
       </p>
+      <Contact locale={locale} />
     </main>
   );
 }
