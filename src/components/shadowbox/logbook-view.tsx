@@ -330,7 +330,7 @@ function MapInset({
   const hiddenStops = useMemo(() => {
     if (!id) return [];
     const show = new Set([id, ...(ALSO_SHOW[id] ?? [])]);
-    return CAREER_STOPS.flatMap((_stop, i) => (owners[i] && show.has(owners[i] as string) ? [] : [i]));
+    return CAREER_STOPS.flatMap((stop, i) => (owners[i] && show.has(owners[i] as string) && !(id === "ncts" && stop.n === 2) ? [] : [i]));
   }, [owners, id]);
   const [big, setBig] = useState(false);
   const bigButton = useRef<HTMLButtonElement>(null);
