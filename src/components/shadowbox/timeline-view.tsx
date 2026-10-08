@@ -157,7 +157,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             ))}
           </div>
           <div className="case-center">
-            <img className="case-flag" src={publicUrl("/incoming/home-folded-flag.webp")} alt="Folded flag" />
+            <img className="case-flag" src={publicUrl("/incoming/folded%20flag%20stripes.svg")} alt="Folded flag" />
             <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
             </button>
