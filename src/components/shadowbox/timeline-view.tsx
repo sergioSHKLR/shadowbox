@@ -351,6 +351,13 @@ function Track({
               <span className="sr-only">{item.detail}</span>
             </>
           );
+          if (item.href) {
+            return (
+              <a key={item.key} className={`bar bar--${item.group}`} style={{ flexGrow: item.days && item.days > 0 ? item.days : 1 }} title={item.detail} href={item.href} target="_blank" rel="noreferrer">
+                {body}
+              </a>
+            );
+          }
           if (!onOpen) {
             return (
               <div key={item.key} className={`bar bar--${item.group}`} style={{ flexGrow: item.days && item.days > 0 ? item.days : 1 }} title={item.detail}>
