@@ -4,19 +4,19 @@
     "placeId": "little-creek",
     "kind": "tad",
     "title": "TAD to USS Tortuga (LSD-46)",
-    "when": "Winter 1997 into Q1 1998",
-    "sort": "1997",
+    "when": "5 September 1997 to 21 January 1998",
+    "sort": "1997-09",
     "prio": 1,
-    "approximate": true,
+    "approximate": false,
     "unitId": "tortuga",
-    "note": "Soon after RTC. Year only; the season is winter 1997 into the first quarter of 1998."
+    "note": "Between the end of boot camp and the start of Tech Core."
   },
   {
     "id": "polaris-point",
     "placeId": "polaris-point",
     "kind": "duty-location",
     "title": "Polaris Point, home berth of USS Frank Cable (AS-40)",
-    "when": "2001–2004",
+    "when": "2001\u20132004",
     "sort": "2001",
     "prio": 0,
     "approximate": true,
@@ -28,7 +28,7 @@
     "placeId": "keesler",
     "kind": "school",
     "title": "FECL calibration school (NEC 1589)",
-    "when": "April–May 1999 (GPETE, FCAM)",
+    "when": "April\u2013May 1999 (GPETE, FCAM)",
     "sort": "1999",
     "prio": -1,
     "approximate": false,
@@ -43,7 +43,7 @@
     "placeId": "nas-north-island",
     "kind": "duty-location",
     "title": "NCTS (later location)",
-    "when": "1999–2001 (move year not recorded)",
+    "when": "1999\u20132001 (move year not recorded)",
     "sort": "1999",
     "prio": 1,
     "approximate": true,
@@ -54,7 +54,7 @@
     "placeId": "yokosuka",
     "kind": "port-visit",
     "title": "Port visit with USS Frank Cable",
-    "when": "2001–2004 (year not recorded)",
+    "when": "2001\u20132004 (year not recorded)",
     "sort": "2001",
     "prio": 1,
     "approximate": true,
@@ -65,7 +65,7 @@
     "placeId": "sasebo",
     "kind": "port-visit",
     "title": "Port visit with USS Frank Cable",
-    "when": "2001–2004 (year not recorded)",
+    "when": "2001\u20132004 (year not recorded)",
     "sort": "2001",
     "prio": 1,
     "approximate": true,
@@ -76,7 +76,7 @@
     "placeId": "chinhae",
     "kind": "port-visit",
     "title": "Port visit with USS Frank Cable",
-    "when": "2001–2004 (year not recorded)",
+    "when": "2001\u20132004 (year not recorded)",
     "sort": "2001",
     "prio": 1,
     "approximate": true,
@@ -87,7 +87,7 @@
     "placeId": "hong-kong",
     "kind": "port-visit",
     "title": "Port visit with USS Frank Cable",
-    "when": "2001–2004 (year not recorded)",
+    "when": "2001\u20132004 (year not recorded)",
     "sort": "2001",
     "prio": 1,
     "approximate": true,
@@ -98,7 +98,7 @@
     "placeId": "saipan",
     "kind": "port-visit",
     "title": "Port visit with USS Frank Cable",
-    "when": "2001–2004 (year not recorded)",
+    "when": "2001\u20132004 (year not recorded)",
     "sort": "2001",
     "prio": 1,
     "approximate": true,
@@ -140,7 +140,8 @@
     "trips": [
       "2004",
       "2005"
-    ]
+    ],
+    "note": "Cobra Gold 2004 is the exercise after COMSEC and after reporting to EODMU 5. A second trip in 2005."
   },
   {
     "id": "talisman-saber",
@@ -199,7 +200,7 @@
     "placeId": "fort-bragg",
     "kind": "exercise",
     "title": "Training with JCSE",
-    "when": "2009–2014 (year still to be researched)",
+    "when": "2009\u20132014 (year still to be researched)",
     "sort": "2009",
     "prio": 1,
     "approximate": true,
@@ -259,14 +260,14 @@
     "placeId": "leipzig",
     "kind": "transit",
     "title": "Stopover on the Iraq and Afghanistan trips",
-    "when": "2009 and 2010–2013",
+    "when": "2009 and 2010\u20132013",
     "sort": "2009",
     "prio": -0.2,
     "approximate": false,
     "trips": [
       "2009: the Iraq trip (IA C-RAM deployment)",
-      "2010–2011: the Afghanistan deployment",
-      "2012–2013: the Afghanistan deployment"
+      "2010\u20132011: the Afghanistan deployment",
+      "2012\u20132013: the Afghanistan deployment"
     ]
   },
   {
@@ -274,13 +275,13 @@
     "placeId": "al-udeid",
     "kind": "transit",
     "title": "Transit in and out of each Afghanistan deployment",
-    "when": "2010–2011 and 2012–2013",
+    "when": "2010\u20132011 and 2012\u20132013",
     "sort": "2010",
     "prio": -1,
     "approximate": false,
     "trips": [
-      "2010–2011: in (Qatar, then Bagram) and out (Bagram, then Qatar)",
-      "2012–2013: in (Qatar, then Bagram) and out (Bagram, then Qatar)"
+      "2010\u20132011: in (Qatar, then Bagram) and out (Bagram, then Qatar)",
+      "2012\u20132013: in (Qatar, then Bagram) and out (Bagram, then Qatar)"
     ]
   },
   {
@@ -288,13 +289,13 @@
     "placeId": "bagram",
     "kind": "transit",
     "title": "Transit in and out of each Afghanistan deployment",
-    "when": "2010–2011 and 2012–2013",
+    "when": "2010\u20132011 and 2012\u20132013",
     "sort": "2010",
     "prio": -1,
     "approximate": false,
     "trips": [
-      "2010–2011: in (after Qatar) and out (before Qatar)",
-      "2012–2013: in (after Qatar) and out (before Qatar)"
+      "2010\u20132011: in (after Qatar) and out (before Qatar)",
+      "2012\u20132013: in (after Qatar) and out (before Qatar)"
     ]
   }
 ]

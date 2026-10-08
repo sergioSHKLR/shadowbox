@@ -68,7 +68,7 @@
     "commandNote": "Keesler AFB pipeline, before reporting to NCTS (Sergio, Oct 5, 2026); not a Logbook command's school.",
     "placeConfidence": "recorded",
     "source": "jst",
-    "explanation": "Repair and calibration of general-purpose electronic test equipment. Technical Training Unit, Keesler AFB, Mississippi. 12 January 1999 to 28 April 1999."
+    "explanation": "Arrived at Keesler AFB in December 1998. The JST class window for general-purpose electronic test equipment repair and calibration is 12 January 1999 to 28 April 1999, Technical Training Unit, Keesler AFB, Mississippi."
   },
   {
     "id": "fcam",
@@ -182,7 +182,7 @@
     "placeId": "san-diego",
     "placeConfidence": "recorded",
     "source": "jst",
-    "explanation": "COMSEC maintenance technician course at Center for Surface Combat Systems, Learning Site San Diego. 5 April 2004 to 23 April 2004. Lines up with NEC 1460."
+    "explanation": "COMSEC maintenance technician course at Center for Surface Combat Systems, Learning Site San Diego, 5 April 2004 to 23 April 2004, before reporting to EODMU 5. Lines up with NEC 1460. Cobra Gold 2004 followed with EODMU 5."
   },
   {
     "id": "nsw-comms-school",
@@ -275,7 +275,7 @@
     "placeId": "gryphon-maxton",
     "placeConfidence": "recorded",
     "source": "recorded",
-    "explanation": "Gryphon Group's school at Laurinburg–Maxton Airport, Maxton, North Carolina. About a week long, before OEF II. The start date has not been entered.",
+    "explanation": "Gryphon Group's school at Laurinburg\u2013Maxton Airport, Maxton, North Carolina. About a week long, before OEF II. The start date has not been entered.",
     "open": "Gryphon School: start date not entered."
   },
   {

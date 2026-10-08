@@ -2,7 +2,7 @@
   {
     "id": "oif-2006",
     "name": "Operation Iraqi Freedom",
-    "phase": "National Resolution (2005–07)",
+    "phase": "National Resolution (2005\u201307)",
     "start": "2006",
     "end": "2006",
     "precision": "year",
@@ -19,7 +19,7 @@
   {
     "id": "oif-2009",
     "name": "Operation Iraqi Freedom",
-    "phase": "Iraq Sovereignty (2009–10)",
+    "phase": "Iraq Sovereignty (2009\u201310)",
     "start": "2008-10",
     "end": "2009",
     "precision": "month",
@@ -34,7 +34,7 @@
   {
     "id": "oef-2010",
     "name": "Operation Enduring Freedom",
-    "phase": "Afghanistan, 2010–2011",
+    "phase": "Afghanistan, 2010\u20132011",
     "start": "2010",
     "end": "2011",
     "precision": "year",
@@ -45,12 +45,12 @@
     "baseIds": [
       "fob-delaram"
     ],
-    "explanation": "Afghanistan deployment of about seven months. Assigned to JCSE. In theater: CJSOTF-A. Customer: 3rd Special Forces Group, at FOB Delaram. This phase is the first bronze star on the Afghanistan Campaign Medal (each phase is a star; no bare ribbon)."
+    "explanation": "Afghanistan deployment of about seven months. Assigned to JCSE. In theater: CJSOTF-A. Customer: ODA 3213, 3rd Special Forces Group, at FOB Delaram. This phase is the first bronze star on the Afghanistan Campaign Medal (each phase is a star; no bare ribbon)."
   },
   {
     "id": "oef-2012",
     "name": "Operation Enduring Freedom",
-    "phase": "Afghanistan, 2012–2013",
+    "phase": "Afghanistan, 2012\u20132013",
     "start": "2012",
     "end": "2013",
     "precision": "year",
@@ -61,6 +61,6 @@
     "baseIds": [
       "fob-orgun-e"
     ],
-    "explanation": "A second Afghanistan deployment of about seven months, from Joint Communications Support Element. In theater: SOJTF-A. Partner: 290th JCSS. Customer: 75th Rangers, at FOB Orgun-E. The NATO Medal for ISAF is dated 2013 on the worksheet. This phase is the second bronze star on the Afghanistan Campaign Medal."
+    "explanation": "A second Afghanistan deployment of about seven months, from Joint Communications Support Element. In theater: SOJTF-A. Partner: 290th JCSS. Customer: 75th Ranger Regiment, at FOB Orgun-E. The NATO Medal for ISAF is dated 2013 on the worksheet. This phase is the second bronze star on the Afghanistan Campaign Medal."
   }
 ]
