@@ -450,12 +450,7 @@ export function DetailPanel({
   const relatedText = related.filter((item) => !usedIds.has(`${item.kind}:${item.id}`));
   const editableInstances = Boolean(subject?.instances && subject.instances.length > 1);
   const hasAdmin = Boolean(
-    subject &&
-      (selection?.kind === "unit" ||
-        (subject.facts.length > 0) ||
-        subject.criteria ||
-        (subject.instances && !editableInstances) ||
-        relatedText.length),
+    selection?.kind === "unit" && logbookBeats().some((beat) => beat.stop.commandId === selection.id),
   );
   const showAdmin = hasAdmin && tab === "admin";
   const cardNames = (subject?.usedHere ?? []).map((item) => item.name);
