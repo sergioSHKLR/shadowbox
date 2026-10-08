@@ -1260,3 +1260,24 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 [data-theme="dark"] .bio .redact-mark {
   background: linear-gradient(104deg, rgba(215, 209, 197, 0.95) 0%, rgba(232, 226, 214, 0.9) 100%);
 }
+
+@media (max-width: 959.98px) {
+  .home-scroll .home-read::before { display: none; }
+  .home-sheet { position: relative; }
+  .home-sheet::before {
+    content: "";
+    position: absolute;
+    inset: 8% 6%;
+    background: url("/incoming/folded%20flag%20stripes.svg") center / contain no-repeat;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .home-sheet > * { position: relative; z-index: 1; }
+}
+.home-end-stamps {
+  display: none;
+  justify-content: center;
+  margin: 0.45rem auto 0.2rem;
+}
+.home-scroll.is-end .home-end-stamps { display: flex; }
