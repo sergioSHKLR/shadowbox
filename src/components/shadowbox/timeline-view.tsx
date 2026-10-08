@@ -125,7 +125,6 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
           {tray("timeline", t.timeline, <span className="case-line" aria-hidden="true"><i /><i /><i /><i /></span>)}
           <div className="case-plates">
             {tray("guestbook", t.guestbook, null)}
-            {tray("contact", t.contact, null)}
           </div>
         </div>
       </section>
