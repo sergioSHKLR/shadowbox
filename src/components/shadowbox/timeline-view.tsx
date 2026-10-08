@@ -39,6 +39,7 @@ function useHomeFade(ref: RefObject<HTMLElement | null>) {
       if (reduce?.matches) p = p >= 0.5 ? 1 : 0;
       root.style.setProperty("--fade", p.toFixed(4));
       root.classList.toggle("is-late", p >= 0.5);
+      root.classList.toggle("is-end", p >= 0.92);
       // Phone: the frame starts pinned under the bar. Once the bio card has slid fully over it, the frame moves (unseen)
       // to its spot after the stamps, so it scrolls in there, all End of Career, with no empty band below it.
       // A bio card shorter than the frame can't hide it, so a short page falls back to plain flow (frame, then bio).
@@ -110,11 +111,6 @@ export function Home({ bio, locale = "en" }: { onOpen?: (k: Kind, id: string) =>
             {/* Three stamps (Oct 2026): Security Manager (maroon) and PAO (navy) round stamps, plus a separate black UNCLAS
                 block. The PNGs are ink masks; CSS colours them per theme. The sample redacted paragraph is placed by the
                 {{redaction-sample}} marker in the bio text (between Fourth and Fifth Command). */}
-            <div className="bio-stamps">
-              <span className="bio-stamp bio-stamp-round bio-stamp-security" role="img" aria-label="Security Manager, redaction: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-security.webp")}")` }} />
-              <span className="bio-stamp bio-stamp-round bio-stamp-pao" role="img" aria-label="Public Affairs Officer, wide release: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-pao.webp")}")` }} />
-              <span className="bio-stamp bio-stamp-rect bio-stamp-unclas" role="img" aria-label="Unclassified (UNCLAS)" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-unclas.webp")}")` }} />
-            </div>
           </div>
           </div>
         </div>
@@ -146,6 +142,11 @@ function FadePortrait({ first, last }: { first: Shot; last: Shot }) {
         <img src={publicUrl("/incoming/Emblem_of_the_United_States_Marine_Corps.svg")} alt="" />
         <img src={publicUrl("/incoming/Seal_of_the_United_States_Department_of_the_Navy.svg")} alt="" />
         <img src={publicUrl("/incoming/U.S._Air_Force_service_mark.svg")} alt="" />
+      </div>
+      <div className="bio-stamps home-end-stamps">
+        <span className="bio-stamp bio-stamp-round bio-stamp-security" role="img" aria-label="Security Manager, redaction: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-security.webp")}")` }} />
+        <span className="bio-stamp bio-stamp-round bio-stamp-pao" role="img" aria-label="Public Affairs Officer, wide release: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-pao.webp")}")` }} />
+        <span className="bio-stamp bio-stamp-rect bio-stamp-unclas" role="img" aria-label="Unclassified (UNCLAS)" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-unclas.webp")}")` }} />
       </div>
     </figure>
   );
