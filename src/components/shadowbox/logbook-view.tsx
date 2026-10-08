@@ -217,7 +217,7 @@ function AdminAsOf({ beat, onOpen, t }: { beat: LogbookBeat; onOpen: Open; t: Ch
                   {!(isNew && nec.billetLabel) && necSchoolLine(nec) ? <small className="logbook-nec-place">{necSchoolLine(nec)}</small> : null}
                 </button>
               </li>
-            ))}
+            )); })()}
           </ul>
         ) : (
           <p className="quiet">{t.noNec}</p>
@@ -589,7 +589,7 @@ function OnDutyPanel({ beat, onOpen, empty }: { beat: LogbookBeat; onOpen: Open;
         <section aria-label="Deployments">
           <Kicker>Deployments</Kicker>
           <ul className="logbook-deploys">
-            {deployments.map((dep) => (
+            {(() => { const seen = new Set<string>(); return deployments.map((dep) => (
               <li key={dep.unitId} className="logbook-deploy">
                 <button type="button" className="logbook-link" onClick={() => onOpen("unit", dep.unitId)}>
                   <strong>{dep.label}</strong> · {dep.unitAbbreviation}
@@ -602,8 +602,9 @@ function OnDutyPanel({ beat, onOpen, empty }: { beat: LogbookBeat; onOpen: Open;
                   </span>
                 ) : null}
                 {(() => {
-                  // What deployment-gear.json ties to this deployment: body armor and helmet, in the pattern above.
-                  const cards = [gearCard(dep.bodyArmor), gearCard(dep.helmet)].filter((card): card is NonNullable<typeof card> => Boolean(card));
+                  // Same vest or helmet on a later tour of this command is not shown again.
+                  const cards = [gearCard(dep.bodyArmor), gearCard(dep.helmet)].filter((card): card is NonNullable<typeof card> => Boolean(card) && !seen.has(card.id));
+                  cards.forEach((card) => seen.add(card.id));
                   return cards.length ? (
                     <ul className="logbook-gear-list logbook-deploy-gear" aria-label={`Gear recorded for ${dep.label}`}>
                       {cards.map((card) => (
