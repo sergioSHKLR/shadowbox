@@ -427,7 +427,7 @@ export function ShadowboxApp() {
         ) : null}
       </header>
       <div className="app-main">
-        <div className={pane("home")}><Home onOpen={open} locale={locale} bio={BIO_PLACEHOLDER ? t.bioPlaceholder : t.bio} /></div>
+        <div className={pane("home")}><Home onOpen={open} onGo={go} locale={locale} bio={BIO_PLACEHOLDER ? t.bioPlaceholder : t.bio} /></div>
         <div className={pane("uniforms")}><Uniforms onOpen={open} /></div>
         <div className={pane("onduty")}><OnDuty onOpen={open} title={t.onduty} /></div>
         <div className={pane("offduty")}><OffDuty onOpen={open} title={t.offduty} /></div>
