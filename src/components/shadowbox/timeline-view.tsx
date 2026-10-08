@@ -110,7 +110,6 @@ export function Home({ bio, locale = "en" }: { onOpen?: (k: Kind, id: string) =>
             {/* Three stamps (Oct 2026): Security Manager (maroon) and PAO (navy) round stamps, plus a separate black UNCLAS
                 block. The PNGs are ink masks; CSS colours them per theme. The sample redacted paragraph is placed by the
                 {{redaction-sample}} marker in the bio text (between Fourth and Fifth Command). */}
-            <img className="home-bio-emboss" src={publicUrl("/incoming/navy-emboss.svg")} alt="" />
             <div className="bio-stamps">
               <span className="bio-stamp bio-stamp-round bio-stamp-security" role="img" aria-label="Security Manager, redaction: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-security.webp")}")` }} />
               <span className="bio-stamp bio-stamp-round bio-stamp-pao" role="img" aria-label="Public Affairs Officer, wide release: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-pao.webp")}")` }} />
