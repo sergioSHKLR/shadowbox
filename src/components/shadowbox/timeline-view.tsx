@@ -121,6 +121,8 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
   return (
     <main className="sheet case-home">
       <section className="case-frame" aria-label="Shadowbox">
+        <div className="case-board case-board-light">
+        <div className="case-board case-board-white">
         <div className="case-mat">
           <div className="case-side">
             {tray("logbook", t.logbook, (
@@ -164,6 +166,8 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             <span className="case-plaque">Electronics Technician Chief (SW/EXW)<br />Sergio Schickler</span>
           </div>
           {tray("timeline", t.timeline, <CaseTracks />)}
+        </div>
+        </div>
         </div>
       </section>
     </main>
