@@ -65,6 +65,8 @@ function commandPath(all: Stop[]): Stop[] {
 }
 
 const FIELD_ORDER = ["u-tapao", "shoalwater-bay", "mosul", "fob-sykes", "fob-tal-afar", "camp-blanding", "camp-bastion", "fob-delaram", "camp-blanding", "fob-sharana", "fob-orgun-e", "fob-patriot"];
+const INSTRUCTION_ORDER = ["rtc", "ntc-great-lakes", "keesler", "san-diego", "imperial-beach", "gryphon-school"];
+const BASE_ORDER = ["little-creek", "nas-north-island", "san-diego", "guam", "city-yokosuka", "city-sasebo", "city-chinhae", "polaris-point", "whidbey", "fort-bliss", "macdill", "mayport", "nas-jax"];
 function fieldPath(all: Stop[]): Stop[] {
   const sorted = [...all].sort((a, b) => (a.n ?? 0) - (b.n ?? 0));
   const used = new Set<number>();
@@ -77,9 +79,23 @@ function fieldPath(all: Stop[]): Stop[] {
   }
   return out.map((stop, index) => ({ ...stop, n: index + 1 }));
 }
+function orderedPath(all: Stop[], ids: string[], kind: StopLayer): Stop[] {
+  const sorted = [...all].sort((a, b) => (a.n ?? 0) - (b.n ?? 0));
+  const used = new Set<number>();
+  const out: Stop[] = [];
+  for (const id of ids) {
+    const stop = sorted.find((row) => !used.has(row.n) && (row.place.id === id || row.baseId === id || row.cityId === id || row.commandId === id));
+    if (!stop) continue;
+    used.add(stop.n);
+    out.push({ ...stop, kind });
+  }
+  return out.map((stop, index) => ({ ...stop, n: index + 1 }));
+}
 function filterStops(all: Stop[], shown: StopLayer[] | null): Stop[] {
   if (shown && shown.length === 1 && shown[0] === "command") return commandPath(all);
   if (shown && shown.length === 1 && shown[0] === "field") return fieldPath(all);
+  if (shown && shown.length === 1 && shown[0] === "instruction") return orderedPath(all, INSTRUCTION_ORDER, "instruction");
+  if (shown && shown.length === 1 && shown[0] === "base") return orderedPath(all, BASE_ORDER, "base");
   const matched = all.filter((stop) => stopMatchesFilter(stop, shown));
   if (!shown) return matched;
   const seen = new Set<string>();

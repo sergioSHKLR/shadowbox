@@ -641,12 +641,12 @@
   },
   {
     "id": "rota",
-    "name": "Rota, ESP",
-    "locality": "Rota, ESP",
+    "name": "Rota CNM",
+    "locality": "Rota CNM",
     "lat": 36.624,
     "lng": -6.35,
     "accuracy": "approximate",
-    "note": "Port visit. Added to the Travelbook ports list.",
+    "note": "Port visit. Naval Station Rota, not the town.",
     "type": "visit"
   },
   {
@@ -687,6 +687,16 @@
     "lng": -121.928,
     "accuracy": "approximate",
     "note": "Stopover.",
+    "type": "base"
+  },
+  {
+    "id": "mayport",
+    "name": "NS Mayport, Mayport, FL",
+    "locality": "Mayport, FL",
+    "lat": 30.391,
+    "lng": -81.409,
+    "accuracy": "approximate",
+    "note": "Base stop.",
     "type": "base"
   }
 ]

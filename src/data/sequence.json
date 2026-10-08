@@ -148,7 +148,7 @@
   },
   {
     "order": 17,
-    "label": "Yokosuka, JPN",
+    "label": "CFA Yokosuka, JPN",
     "cityId": "city-yokosuka",
     "baseId": null,
     "commandId": null,
@@ -157,7 +157,7 @@
   },
   {
     "order": 18,
-    "label": "Sasebo, JPN",
+    "label": "CFA Sasebo, JPN",
     "cityId": "city-sasebo",
     "baseId": null,
     "commandId": null,
@@ -166,7 +166,7 @@
   },
   {
     "order": 19,
-    "label": "Chinhae, KOR",
+    "label": "CFA Chinhae, KOR",
     "cityId": "city-chinhae",
     "baseId": null,
     "commandId": null,
@@ -392,7 +392,7 @@
     "cityId": null,
     "baseId": "shoalwater-bay",
     "commandId": null,
-    "kind": "base",
+    "kind": "field",
     "when": "2007"
   },
   {
@@ -778,7 +778,7 @@
   },
   {
     "order": 86,
-    "label": "Rota, ESP",
+    "label": "Rota CNM",
     "cityId": null,
     "baseId": "rota",
     "commandId": null,
@@ -828,6 +828,24 @@
     "baseId": "travis",
     "commandId": null,
     "kind": "stopover",
+    "when": ""
+  },
+  {
+    "order": 92,
+    "label": "Imperial Beach Annex, Imperial Beach, CA",
+    "cityId": null,
+    "baseId": "imperial-beach",
+    "commandId": null,
+    "kind": "instruction",
+    "when": ""
+  },
+  {
+    "order": 93,
+    "label": "NS Mayport, Mayport, FL",
+    "cityId": null,
+    "baseId": "mayport",
+    "commandId": null,
+    "kind": "base",
     "when": ""
   }
 ]
