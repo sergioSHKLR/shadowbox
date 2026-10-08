@@ -144,7 +144,6 @@ function FadePortrait({ first, last }: { first: Shot; last: Shot }) {
         <img src={publicUrl("/incoming/Seal_of_the_United_States_Department_of_the_Navy.svg")} alt="" />
         <img src={publicUrl("/incoming/U.S._Air_Force_service_mark.svg")} alt="" />
       </div>
-      </div>
     </figure>
   );
 }
