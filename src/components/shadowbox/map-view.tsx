@@ -384,9 +384,10 @@ export function MapView({
 
         const glyph = (name: string) => {
           const paths: Record<string, string> = {
-            anchor: "M12 2a3 3 0 0 0-1 5.83V9H8a1 1 0 0 0 0 2h3v1.1A5 5 0 0 0 7.1 16H6a1 1 0 0 0 0 2h1.1A5 5 0 0 0 12 21a5 5 0 0 0 4.9-3H18a1 1 0 0 0 0-2h-1.1A5 5 0 0 0 13 12.1V11h3a1 1 0 0 0 0-2h-3V7.83A3 3 0 0 0 12 2z",
+            shield: "M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z",
+            home: "M12 3 2 12h3v8h5v-6h4v6h5v-8h3L12 3z",
+            building: "M3 21V9l9-6 9 6v12H3zm4-2h3v-4H7v4zm5 0h3v-4h-3v4zM7 13h3v-3H7v3zm5 0h3v-3h-3v3z",
             school: "M12 3 2 8l10 5 8-4v6h2V8L12 3zm-6 9.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-3.5l-6 3-6-3z",
-            base: "M4 10.5 12 4l8 6.5V20h-6v-5H10v5H4v-9.5z",
             field: "M4 20l4-9 3 4 2-3 3 5 4-8 2 11H4z",
             port: "M3 17h18v2H3v-2zm1-2 1.2-6h13.6L20 15H4zm3.2-8h9.6l.6 2H6.6l.6-2z",
             flight: "M21 16v-2l-8-5V4a1 1 0 0 0-2 0v5L3 14v2l8-2.5V18l-2 1.5V21l3-1 3 1v-1.5L13 18v-4.5l8 2.5z",
@@ -396,9 +397,10 @@ export function MapView({
           return `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${paths[name]}"/></svg>`;
         };
         const pinGlyph = (stop: Stop) => {
+          if (stop.place.id === "city-miami" || stop.labels[0]?.startsWith("Miami")) return glyph("home");
           if (stop.place.accuracy === "approximate") return glyph("help");
-          const byKind: Record<string, string> = { command: "anchor", instruction: "school", base: "base", field: "field", port: "port", layover: "flight", stopover: "hub" };
-          return glyph(byKind[stop.kind] || "anchor");
+          const byKind: Record<string, string> = { command: "shield", instruction: "school", base: "building", field: "field", port: "port", layover: "flight", stopover: "hub" };
+          return glyph(byKind[stop.kind] || "shield");
         };
         const pinHtml = (stop: Stop, dx = 0, dy = 0) => {
           const kind = stop.kind ? `${stop.kind} ` : stop.place.type ? `${stop.place.type} ` : "";
