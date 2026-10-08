@@ -1249,8 +1249,8 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   width: min(16rem, 92%);
 }
 .home-branch-seals img {
-  width: 3.12rem;
-  height: 3.12rem;
+  width: 3.74rem;
+  height: 3.74rem;
   object-fit: contain;
 }
 
