@@ -11,6 +11,7 @@ const PLACEHOLDER_BIO_PT = "{{h}}Treinamento de recrutas{{/h}}[Espaço reservado
 const en = {
   title: "Signum",
   home: "Home",
+  bioTitle: "Bio",
   search: "Search",
   searchPlaceholder: "Search the record",
   menu: "Menu",
@@ -111,6 +112,7 @@ const en = {
 const pt: typeof en = {
   title: "Signum",
   home: "Início",
+  bioTitle: "Biografia",
   search: "Buscar",
   searchPlaceholder: "Buscar no registro",
   menu: "Menu",

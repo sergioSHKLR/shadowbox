@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Anchor, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, MessageCircle, Monitor, Moon, NotebookText, PenLine, Radio, Settings, Share2, Shirt, Sun, X } from "lucide-react";
+import { Anchor, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, MessageCircle, Monitor, Moon, NotebookText, PenLine, Radio, Settings, ScrollText, Share2, Shirt, Sun, X } from "lucide-react";
 import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
 import { BIO_PLACEHOLDER, chrome, type Chrome } from "@/lib/shadowbox/copy";
@@ -26,7 +26,7 @@ const THEMES: { id: ThemeName; Icon: typeof Sun }[] = [
   { id: "dark", Icon: Moon },
 ];
 import { DetailPanel } from "@/components/shadowbox/detail";
-import { Home, Timeline } from "@/components/shadowbox/timeline-view";
+import { BioPage, Home, Timeline } from "@/components/shadowbox/timeline-view";
 import { Uniforms } from "@/components/shadowbox/uniforms-view";
 import { OnDuty } from "@/components/shadowbox/equipment-view";
 import { OffDuty, Ops } from "@/components/shadowbox/ops-view";
@@ -40,7 +40,7 @@ import { Commands } from "@/components/shadowbox/commands-view";
 import { Logbook } from "@/components/shadowbox/logbook-view";
 import { Boundary } from "@/components/shadowbox/boundary";
 
-type View = "home" | "uniforms" | "decorations" | "onduty" | "offduty" | "ops" | "map" | "timeline" | "logbook" | "admin" | "commands" | "sources" | "contact" | "guestbook" | "memories";
+type View = "home" | "bio" | "uniforms" | "decorations" | "onduty" | "offduty" | "ops" | "map" | "timeline" | "logbook" | "admin" | "commands" | "sources" | "contact" | "guestbook" | "memories";
 
 const ALL_NAV = ["commands", "timeline", "logbook", "ops", "map", "uniforms", "onduty", "admin", "offduty"] as const;
 // Sergio: only Home and Logbook are public for now. The other pages keep their code and data but are unlinked
@@ -50,9 +50,9 @@ type PageId = "home" | (typeof ALL_NAV)[number];
 const NAV_ICON = { commands: Anchor, uniforms: Shirt, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, logbook: NotebookText, admin: ClipboardList };
 const PAGE_ICON: Record<PageId, typeof House> = { home: House, ...NAV_ICON };
 /** Top-bar menu: Home, Logbook, Travelbook, Timeline, then Guestbook and Contact. */
-const MENU = ["home", "logbook", "map", "timeline", "guestbook", "contact"] as const;
+const MENU = ["home", "bio", "logbook", "map", "timeline", "guestbook", "contact"] as const;
 /** Menu and footer-pager icons (Sergio, Oct 2026): Home Anchor, Logbook BookOpen, Travel Book Map, Guestbook PenLine, Contact MessageCircle. */
-const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: Anchor, timeline: ChartGantt, logbook: BookOpen, guestbook: PenLine, contact: MessageCircle, map: Map };
+const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: Anchor, bio: ScrollText, timeline: ChartGantt, logbook: BookOpen, guestbook: PenLine, contact: MessageCircle, map: Map };
 /** Footer pager icon, same size and stroke as the Settings gear. */
 function PagerIcon({ id }: { id: string }) {
   const Icon = (MENU_ICON as Record<string, typeof House>)[id];
@@ -66,6 +66,10 @@ const FOOTER_ICON = { sources: Library, contact: MessageCircle, guestbook: BookO
 const SETTINGS_LINK_ENABLED = true;
 const ALIAS: Record<string, View> = { case: "home", schools: "admin", equipment: "onduty" };
 
+function pageLabel(t: Chrome, id: string): string {
+  if (id === "bio") return t.bioTitle;
+  return t[id as keyof Chrome] as string;
+}
 function asView(value: string): View {
   if (value in ALIAS) return ALIAS[value];
   const known: View[] = [...MENU, ...FOOTER];
@@ -368,7 +372,7 @@ export function ShadowboxApp() {
         {THEME_SWITCH_ENABLED ? (
         <div className="app-themes" role="group" aria-label={t.theme}>
           {THEMES.map(({ id, Icon }) => (
-            <button key={id} type="button" className={theme === id ? "app-theme is-on" : "app-theme"} aria-label={t[id]} title={t[id]} aria-pressed={theme === id} onClick={() => setTheme(id)}>
+            <button key={id} type="button" className={theme === id ? "app-theme is-on" : "app-theme"} aria-label={pageLabel(t, id)} title={pageLabel(t, id)} aria-pressed={theme === id} onClick={() => setTheme(id)}>
               <Icon size={16} strokeWidth={2} aria-hidden="true" />
             </button>
           ))}
@@ -397,7 +401,7 @@ export function ShadowboxApp() {
         ) : null}
         {showPager && TOPBAR_PAGER_ENABLED ? (
           <nav className="app-pagenav" aria-label={t.pageNav}>
-            <button type="button" className="app-pagebtn" disabled={!prevView} aria-label={prevView ? `${t.prevPage}: ${t[prevView]}` : t.prevPage} title={prevView ? `${t.prevPage}: ${t[prevView]}` : undefined} onClick={() => prevView && go(prevView)}>
+            <button type="button" className="app-pagebtn" disabled={!prevView} aria-label={prevView ? `${t.prevPage}: ${pageLabel(t, prevView)}` : t.prevPage} title={prevView ? `${t.prevPage}: ${pageLabel(t, prevView)}` : undefined} onClick={() => prevView && go(prevView)}>
               <ChevronLeft size={18} strokeWidth={2.25} aria-hidden="true" />
             </button>
             <button type="button" className="app-pagebtn" disabled={!nextView} aria-label={nextView ? `${t.nextPage}: ${t[nextView]}` : t.nextPage} title={nextView ? `${t.nextPage}: ${t[nextView]}` : undefined} onClick={() => nextView && go(nextView)}>
@@ -418,7 +422,7 @@ export function ShadowboxApp() {
                 <li key={id}>
                   <button type="button" className={view === id ? "on" : undefined} onClick={() => go(id)}>
                     <Icon size={16} strokeWidth={1.75} aria-hidden="true" />
-                    {t[id]}
+                    {pageLabel(t, id)}
                   </button>
                 </li>
               );
@@ -428,6 +432,7 @@ export function ShadowboxApp() {
       </header>
       <div className="app-main">
         <div className={pane("home")}><Home onOpen={open} onGo={go} locale={locale} bio={BIO_PLACEHOLDER ? t.bioPlaceholder : t.bio} /></div>
+        <div className={pane("bio")}><BioPage locale={locale} bio={BIO_PLACEHOLDER ? t.bioPlaceholder : t.bio} /></div>
         <div className={pane("uniforms")}><Uniforms onOpen={open} /></div>
         <div className={pane("onduty")}><OnDuty onOpen={open} title={t.onduty} /></div>
         <div className={pane("offduty")}><OffDuty onOpen={open} title={t.offduty} /></div>
@@ -454,11 +459,11 @@ export function ShadowboxApp() {
         {showPager && FOOTER_PAGER_ENABLED ? (
           <nav className="page-pager" aria-label={t.pageNav}>
             {prevView && PrevIcon ? (
-              <button type="button" className="page-pager-link is-prev" aria-label={`${t.prevPage}: ${t[prevView]}`} onClick={() => go(prevView)}>
+              <button type="button" className="page-pager-link is-prev" aria-label={`${t.prevPage}: ${pageLabel(t, prevView)}`} onClick={() => go(prevView)}>
                 <PrevIcon size={18} strokeWidth={1.85} aria-hidden="true" />
                 <span className="page-pager-stack">
                   <span className="page-pager-dir">{t.prevPage}</span>
-                  <span className="page-pager-label">{t[prevView]}</span>
+                  <span className="page-pager-label">{pageLabel(t, prevView)}</span>
                 </span>
               </button>
             ) : <span className="page-pager-spacer" aria-hidden="true" />}
@@ -481,7 +486,7 @@ export function ShadowboxApp() {
             return (
               <button key={id} type="button" className="footer-link" onClick={() => go(id)}>
                 <Icon size={16} strokeWidth={1.75} aria-hidden="true" />
-                {t[id]}
+                {pageLabel(t, id)}
               </button>
             );
           })}
@@ -496,17 +501,17 @@ export function ShadowboxApp() {
           <nav className="footer-pager" aria-label={t.pageNav}>
             {/* Spelled-out text links like the Settings link (Sergio, Oct 2026); the end without a target is hidden. */}
             {menuPrev ? (
-              <button type="button" className="footer-link" aria-label={`${t.prevPage}: ${t[menuPrev]}`} title={`${t.prevPage}: ${t[menuPrev]}`} onClick={() => go(menuPrev)}>
+              <button type="button" className="footer-link" aria-label={`${t.prevPage}: ${pageLabel(t, menuPrev)}`} title={`${t.prevPage}: ${pageLabel(t, menuPrev)}`} onClick={() => go(menuPrev)}>
                 <ChevronLeft size={16} strokeWidth={1.75} aria-hidden="true" />
                 <PagerIcon id={menuPrev} />
-                {t[menuPrev]}
+                {pageLabel(t, menuPrev)}
               </button>
             ) : null}
             {menuPrev && menuNext ? <span className="footer-pager-sep" aria-hidden="true">|</span> : null}
             {menuNext ? (
-              <button type="button" className="footer-link" aria-label={`${t.nextPage}: ${t[menuNext]}`} title={`${t.nextPage}: ${t[menuNext]}`} onClick={() => go(menuNext)}>
+              <button type="button" className="footer-link" aria-label={`${t.nextPage}: ${pageLabel(t, menuNext)}`} title={`${t.nextPage}: ${pageLabel(t, menuNext)}`} onClick={() => go(menuNext)}>
                 <PagerIcon id={menuNext} />
-                {t[menuNext]}
+                {pageLabel(t, menuNext)}
                 <ChevronRight size={16} strokeWidth={1.75} aria-hidden="true" />
               </button>
             ) : null}
