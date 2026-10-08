@@ -50,9 +50,9 @@ type PageId = "home" | (typeof ALL_NAV)[number];
 const NAV_ICON = { commands: Anchor, uniforms: Shirt, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, logbook: NotebookText, admin: ClipboardList };
 const PAGE_ICON: Record<PageId, typeof House> = { home: House, ...NAV_ICON };
 /** Top-bar menu: Home, Logbook, Travelbook, Timeline, then Guestbook and Contact. */
-const MENU = ["home", "bio", "logbook", "map", "timeline", "guestbook"] as const;
+const MENU = ["home", "bio", "logbook", "map", "timeline", "uniforms", "guestbook", "contact"] as const;
 /** Menu and footer-pager icons (Sergio, Oct 2026): Home Anchor, Logbook BookOpen, Travel Book Map, Guestbook PenLine, Contact MessageCircle. */
-const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: Anchor, bio: ScrollText, timeline: ChartGantt, logbook: BookOpen, guestbook: PenLine, contact: MessageCircle, map: Map };
+const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: Anchor, bio: ScrollText, timeline: ChartGantt, logbook: BookOpen, uniforms: Shirt, guestbook: PenLine, contact: MessageCircle, map: Map };
 /** Footer pager icon, same size and stroke as the Settings gear. */
 function PagerIcon({ id }: { id: string }) {
   const Icon = (MENU_ICON as Record<string, typeof House>)[id];
@@ -64,7 +64,7 @@ void ALL_FOOTER;
 const FOOTER_ICON = { sources: Library, contact: MessageCircle, guestbook: BookOpen };
 /** Footer "Settings" link opens the Settings modal (restored from before c7c06fc): language + theme. Not a page or route. */
 const SETTINGS_LINK_ENABLED = true;
-const ALIAS: Record<string, View> = { case: "home", schools: "admin", equipment: "onduty", contact: "guestbook" };
+const ALIAS: Record<string, View> = { case: "home", schools: "admin", equipment: "onduty" };
 
 function pageLabel(t: Chrome, id: string): string {
   if (id === "bio") return t.bioTitle;
@@ -481,6 +481,7 @@ export function ShadowboxApp() {
         </div>
         <div className={`${pane("sources")} no-book`}><Sources /></div>
         <div className={`${pane("guestbook")} no-book`}><Guestbook locale={locale} onContact={() => go("contact")} /></div>
+        <div className={`${pane("contact")} no-book`}><Contact locale={locale} /></div>
         <div className={`${pane("memories")} no-book`}><Memories /></div>
         {showPager && FOOTER_PAGER_ENABLED ? (
           <nav className="page-pager" aria-label={t.pageNav}>
