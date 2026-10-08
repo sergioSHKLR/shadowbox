@@ -1,4 +1,6 @@
-import { useEffect, useRef } from "react";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { Building2, CircleHelp, GraduationCap, House, Plane, Route, Shield, Ship, Tent } from "lucide-react";
 import type { MarkerClusterGroup } from "leaflet";
 import type { Place, Stop } from "@/lib/shadowbox/model";
 import { allowRemoteAssets } from "@/lib/shadowbox/remote";
@@ -382,25 +384,13 @@ export function MapView({
         const wrapLng = (lng: number) => (lng > 100 ? lng - 360 : lng);
         const at = (place: Place): [number, number] => [place.lat ?? 0, wrapLng(place.lng ?? 0)];
 
-        const glyph = (name: string) => {
-          const paths: Record<string, string> = {
-            shield: "M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z",
-            home: "M12 3 2 12h3v8h5v-6h4v6h5v-8h3L12 3z",
-            building: "M3 21V9l9-6 9 6v12H3zm4-2h3v-4H7v4zm5 0h3v-4h-3v4zM7 13h3v-3H7v3zm5 0h3v-3h-3v3z",
-            school: "M12 3 2 8l10 5 8-4v6h2V8L12 3zm-6 9.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-3.5l-6 3-6-3z",
-            field: "M12 3 2 20h20L12 3zm-1 17v-5h2v5h-2z",
-            port: "M3 17h18v2H3v-2zm1-2 1.2-6h13.6L20 15H4zm3.2-8h9.6l.6 2H6.6l.6-2z",
-            flight: "M21 16v-2l-8-5V4a1 1 0 0 0-2 0v5L3 14v2l8-2.5V18l-2 1.5V21l3-1 3 1v-1.5L13 18v-4.5l8 2.5z",
-            hub: "M4 8h6l2-3 2 3h6v2h-6.2l-1.8 3 1.8 3H20v2h-6l-2 3-2-3H4v-2h6.2L12 13 10.2 10H4V8z",
-            help: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-2h2v2zm1.1-6.5-.9.9c-.7.7-1.2 1.3-1.2 2.6h-2v-.5c0-1.1.4-2.1 1.2-2.8l1.2-1.3a2 2 0 1 0-3.4-1.4H7a4 4 0 1 1 7.1 2.5z",
-          };
-          return `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${paths[name]}"/></svg>`;
-        };
+        const icons = { shield: Shield, home: House, building: Building2, school: GraduationCap, field: Tent, port: Ship, flight: Plane, hub: Route, help: CircleHelp };
+        const glyph = (name: keyof typeof icons) => renderToStaticMarkup(createElement(icons[name], { size: 16, strokeWidth: 2, "aria-hidden": true }));
         const pinGlyph = (stop: Stop) => {
           if (stop.place.id === "city-miami" || stop.labels[0]?.startsWith("Miami")) return glyph("home");
           if (stop.place.accuracy === "approximate") return glyph("help");
-          const byKind: Record<string, string> = { command: "shield", instruction: "school", base: "building", field: "field", port: "port", layover: "flight", stopover: "hub" };
-          return glyph(byKind[stop.kind] || "shield");
+          const byKind = { command: "shield", instruction: "school", base: "building", field: "field", port: "port", layover: "flight", stopover: "hub" } as const;
+          return glyph(byKind[stop.kind] ?? "shield");
         };
         const pinHtml = (stop: Stop, dx = 0, dy = 0) => {
           const kind = stop.kind ? `${stop.kind} ` : stop.place.type ? `${stop.place.type} ` : "";
