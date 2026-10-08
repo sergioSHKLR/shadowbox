@@ -955,6 +955,7 @@ export type Bar = {
   days: number | null;
   left: number;
   width: number;
+  href?: string;
 };
 
 /** Shared transfer time is split so two bars never cover the same stretch. */
@@ -1104,7 +1105,7 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]
       days: null,
     })),
   ));
-  const worldEvents = worldEventsJson as { id: string; date: string; title: string; detail: string }[];
+  const worldEvents = worldEventsJson as { id: string; date: string; title: string; detail: string; url?: string }[];
   const world = finish(pack(
     worldEvents.map((event, i) => ({
       key: `world-${event.id}`,
@@ -1117,6 +1118,7 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]
       group: "world" as const,
       point: false,
       days: null,
+      href: event.url,
     })),
   ));
   const first = serviceYear(profile.serviceStart);

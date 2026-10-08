@@ -264,8 +264,6 @@ export function Timeline({
 }) {
   return (
     <main className="sheet">
-      <h2>{title}</h2>
-      <p>{lead}</p>
       <UniformProgression />
       <ChartScroll>
         <div className="chart-stack">
