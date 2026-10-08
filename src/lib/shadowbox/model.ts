@@ -1065,11 +1065,8 @@ function assignmentBars(): Omit<Bar, "lane" | "left" | "width">[] {
 
 function opChipTitle(op: Operation): string {
   const phase = op.phase.split("(")[0].trim();
-  if (op.id === "oif-2006") return `OIF I (${phase})`;
-  if (op.id === "oif-2009") return "OIF II";
-  if (op.id === "oef-2010") return "OEF I";
-  if (op.id === "oef-2012") return "OEF II";
-  return op.theater;
+  const name = op.id === "oif-2006" ? "OIF I" : op.id === "oif-2009" ? "OIF II" : op.id === "oef-2010" ? "OEF I" : op.id === "oef-2012" ? "OEF II" : op.theater;
+  return phase ? `${name} (${phase})` : name;
 }
 
 export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]; world: Bar[]; years: number[] } {
