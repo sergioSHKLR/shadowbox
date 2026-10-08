@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
-import { photos, profile, publicUrl, timeline, type Kind } from "@/lib/shadowbox/model";
+import { awards, photos, profile, publicUrl, timeline, units, type Kind } from "@/lib/shadowbox/model";
+import { RibbonArt } from "@/components/shadowbox/marks";
 import { chrome } from "@/lib/shadowbox/copy";
 import type { Locale } from "@/lib/shadowbox/prefs";
 import { UniformProgression } from "@/components/shadowbox/uniform-progression";
 import { RedactionSample } from "@/components/shadowbox/redaction-sample";
 
+const ASSIGNED = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"];
+const PARTNERS = units.filter((unit) => unit.image && !ASSIGNED.includes(unit.id) && !["rtc", "tortuga", "ntc-great-lakes", "local-hires"].includes(unit.id));
 const CHIEF_PORTRAIT = photos.find((photo) => photo.src === profile.portrait);
 const SN_PORTRAIT = photos.find((photo) => photo.id === "recruit-portrait-1997");
 
@@ -96,8 +99,25 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
       <section className="case-frame" aria-label="Shadowbox">
         <div className="case-mat">
           <div className="case-side">
-            {tray("logbook", t.logbook, <span className="case-rack" aria-hidden="true">{["#c41e3a", "#1d4e89", "#f4c430", "#1f8a3c", "#7c3aed", "#0e7490"].map((color) => <i key={color} style={{ background: color }} />)}</span>)}
-            {tray("map", t.map, <span className="case-map" aria-hidden="true" />)}
+            {tray("logbook", t.logbook, (
+              <>
+                <span className="case-crests case-crests-assigned">
+                  {ASSIGNED.map((id) => {
+                    const unit = units.find((row) => row.id === id);
+                    return unit?.image ? <img key={id} src={publicUrl(unit.image)} alt="" /> : null;
+                  })}
+                </span>
+                <span className="case-crests case-crests-partner">
+                  {PARTNERS.map((unit) => unit.image ? <img key={unit.id} src={publicUrl(unit.image)} alt="" /> : null)}
+                </span>
+              </>
+            ))}
+            {tray("logbook", t.decorations, (
+              <span className="case-ribbons">
+                {awards.map((award, index) => <RibbonArt key={award.id} award={award} className={`case-ribbon tilt-${index % 5}`} />)}
+              </span>
+            ))}
+            {tray("map", t.map, <span className="case-map" aria-hidden="true"><VintageMap /></span>)}
           </div>
           <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
             <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
@@ -142,6 +162,17 @@ export function BioPage({ bio, locale = "en" }: { bio: string; locale?: Locale }
         </div>
       </div>
     </main>
+  );
+}
+
+function VintageMap() {
+  return (
+    <svg viewBox="0 0 240 120" role="img" aria-label="Vintage map">
+      <rect width="240" height="120" fill="#e7d7b1" />
+      <path d="M18 38c18-16 34-8 48 2 10 8 22-6 36-2 16 4 20 18 34 16 12-2 18 10 30 8 14-2 22 12 18 22-8 18-28 10-44 16-18 6-30-8-48-4-16 4-28-10-42-6-12 4-22-8-32-16 2-14 8-22 0-36z" fill="#c4b48a" />
+      <path d="M150 28c10 6 8 16 18 18 8 2 12-8 20-4 6 4 4 14-2 18-10 6-22-2-28-8-8-8-16-16-8-24z" fill="#c4b48a" />
+      <path d="M20 20h200M20 100h200M40 16v88M200 16v88" stroke="#8a6a3b" strokeWidth="0.6" opacity="0.45" />
+    </svg>
   );
 }
 
