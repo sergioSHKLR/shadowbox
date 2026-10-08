@@ -492,7 +492,7 @@ export function DetailPanel({
                   <X />
                 </Dialog.Close>
               </div>
-              <div className="detail-scroll" onScroll={(event) => noteScroll(event.currentTarget)} ref={(node) => { if (node) noteScroll(node); }}>
+              <div className={more ? "detail-scroll is-more" : "detail-scroll"} onScroll={(event) => noteScroll(event.currentTarget)} ref={(node) => { if (node) noteScroll(node); }}>
               {hasAdmin ? (
                 <div className="lb-tablist detail-tabs" role="tablist" aria-label="Sidebar sections">
                   {(["overview", "admin"] as const).map((id) => (
