@@ -380,10 +380,13 @@ function Track({
 
 function barLength(days: number | null): string {
   if (days == null) return "not entered";
-  const months = days / 30.44;
-  if (months >= 1 && months <= 18 && Math.abs(months - Math.round(months)) < 0.12) {
-    const n = Math.round(months);
-    return n === 1 ? "1 month" : `${n} months`;
-  }
-  return `${days.toLocaleString("en-US")} days`;
+  let left = Math.max(0, Math.round(days));
+  const years = Math.floor(left / 365);
+  left -= years * 365;
+  const months = Math.floor(left / 30);
+  left -= months * 30;
+  const weeks = Math.round(left / 7);
+  const part = (n: number, one: string, many: string) => (n ? (n === 1 ? `1 ${one}` : `${n} ${many}`) : "");
+  const parts = [part(years, "year", "years"), part(months, "month", "months"), part(weeks, "week", "weeks")].filter(Boolean);
+  return parts.join(", ") || "under a week";
 }
