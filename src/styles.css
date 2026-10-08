@@ -1216,7 +1216,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   transform: translate(-50%, -50%);
   width: min(48rem, 92vw);
   height: min(34rem, 72vh);
-  background: url("/incoming/home-folded-flag.webp") center / contain no-repeat;
+  background: url("/incoming/folded%20flag%20stripes.svg") center / contain no-repeat;
   opacity: 0.08;
   pointer-events: none;
   z-index: 0;
@@ -1239,3 +1239,24 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.45)) brightness(1.08);
 }
 /* Keep the seal clear of the bio watermark; caption stays above it. */
+
+.home-branch-seals {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0.35rem auto 0.1rem;
+  width: min(16rem, 92%);
+}
+.home-branch-seals img {
+  width: 2.4rem;
+  height: 2.4rem;
+  object-fit: contain;
+}
+.home-bio-emboss {
+  display: block;
+  width: min(7.5rem, 42%);
+  height: auto;
+  margin: 1.4rem auto 0.6rem;
+  opacity: 0.9;
+}
