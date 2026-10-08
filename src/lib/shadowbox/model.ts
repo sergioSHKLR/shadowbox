@@ -1770,9 +1770,10 @@ export function openRecord(): string[] {
 export function toSubject(sel: Selection): SubjectView | null {
 
   if (sel.kind === "branch") {
-    const branches: Record<string, { title: string; established: string; strength: string; history: string; recruit: string; recruitLabel: string }> = {
+    const branches: Record<string, { title: string; established: string; strength: string; history: string; recruit: string; recruitLabel: string; seal: string }> = {
       army: {
         title: "United States Army",
+        seal: "/incoming/Emblem_of_the_United_States_Department_of_the_Army.svg",
         established: "14 June 1775",
         strength: "454,000",
         history: "The land service. The Continental Congress established the Army on 14 June 1775. It is the senior service and the ground component of the joint force.",
@@ -1781,6 +1782,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       },
       marines: {
         title: "United States Marine Corps",
+        seal: "/incoming/Emblem_of_the_United_States_Marine_Corps.svg",
         established: "10 November 1775",
         strength: "172,300",
         history: "The naval expeditionary force. Established 10 November 1775. Marines serve as a separate service inside the Department of the Navy.",
@@ -1789,6 +1791,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       },
       navy: {
         title: "United States Navy",
+        seal: "/incoming/Seal_of_the_United_States_Department_of_the_Navy.svg",
         established: "13 October 1775",
         strength: "344,600",
         history: "The sea service. The Continental Congress established the Navy on 13 October 1775. Ships, submarines, and aircraft are its force.",
@@ -1797,6 +1800,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       },
       "air-force": {
         title: "United States Air Force",
+        seal: "/incoming/U.S._Air_Force_service_mark.svg",
         established: "18 September 1947",
         strength: "321,500",
         history: "The air service. It became a separate service on 18 September 1947, from the Army Air Forces. Air and space power were its charge until the Space Force stood up in 2019.",
@@ -1819,6 +1823,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       ],
       placeIds: [],
       related: [],
+      hero: { type: "image", src: branch.seal, alt: `${branch.title} seal`, shape: "square" },
     };
   }
 

@@ -463,7 +463,7 @@ export function DetailPanel({
   const [more, setMore] = useState(false);
   const noteScroll = (el: HTMLElement) => setMore(el.scrollHeight - el.scrollTop - el.clientHeight > 24);
   return (
-    <Dialog.Root open={Boolean(subject)} onOpenChange={(open) => { if (!open) onClose(); }}>
+    <Dialog.Root modal={false} open={Boolean(subject)} onOpenChange={(open) => { if (!open) onClose(); }}>
       <Dialog.Portal container={typeof HTMLElement !== "undefined" && frame instanceof HTMLElement ? frame : undefined}>
         <Dialog.Overlay className="detail-overlay" />
         <Dialog.Content className="detail-panel" aria-describedby={undefined}>
