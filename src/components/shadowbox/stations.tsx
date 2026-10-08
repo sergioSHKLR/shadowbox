@@ -55,25 +55,31 @@ function commandPath(all: Stop[]): Stop[] {
   const sorted = [...all].sort((a, b) => (a.n ?? 0) - (b.n ?? 0));
   const lastWhere = (test: (stop: Stop) => boolean) => [...sorted].reverse().find(test);
   const firstWhere = (test: (stop: Stop) => boolean) => sorted.find(test);
-  const lead = [
-    firstWhere((stop) => stop.place.id === "city-miami" || stop.labels[0]?.startsWith("Miami")),
-    firstWhere((stop) => stop.commandId === "rtc"),
-    firstWhere((stop) => stop.commandId === "tortuga"),
-    // NTC is in sequence.json twice (before and after the Tortuga TAD); the later row is the school tour.
-    lastWhere((stop) => stop.commandId === "ntc-great-lakes"),
-    firstWhere((stop) => stop.place.id === "keesler" && !!stop.labels[0]?.startsWith("Keesler")) ?? firstWhere((stop) => stop.place.id === "keesler"),
-  ].filter((stop): stop is Stop => Boolean(stop));
   const seen = new Set<string>();
   const assigned = sorted.filter((stop) => {
     if (stop.kind !== "command" || !stop.commandId || seen.has(stop.commandId)) return false;
     seen.add(stop.commandId);
     return true;
   });
-  return [...lead, ...assigned].map((stop, index) => ({ ...stop, n: index + 1, kind: "command" as StopLayer }));
+  return assigned.map((stop, index) => ({ ...stop, n: index + 1, kind: "command" as StopLayer }));
 }
 
+const FIELD_ORDER = ["u-tapao", "shoalwater-bay", "mosul", "fob-sykes", "fob-tal-afar", "camp-blanding", "camp-bastion", "fob-delaram", "camp-blanding", "fob-sharana", "fob-orgun-e", "fob-patriot"];
+function fieldPath(all: Stop[]): Stop[] {
+  const sorted = [...all].sort((a, b) => (a.n ?? 0) - (b.n ?? 0));
+  const used = new Set<number>();
+  const out: Stop[] = [];
+  for (const id of FIELD_ORDER) {
+    const stop = sorted.find((row) => !used.has(row.n) && (row.place.id === id || row.baseId === id || row.cityId === id));
+    if (!stop) continue;
+    used.add(stop.n);
+    out.push({ ...stop, kind: "field" });
+  }
+  return out.map((stop, index) => ({ ...stop, n: index + 1 }));
+}
 function filterStops(all: Stop[], shown: StopLayer[] | null): Stop[] {
   if (shown && shown.length === 1 && shown[0] === "command") return commandPath(all);
+  if (shown && shown.length === 1 && shown[0] === "field") return fieldPath(all);
   const matched = all.filter((stop) => stopMatchesFilter(stop, shown));
   if (!shown) return matched;
   const seen = new Set<string>();

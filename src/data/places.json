@@ -176,7 +176,7 @@
     "lat": 36.9163,
     "lng": -76.1745,
     "accuracy": "public-site",
-    "note": "NAB Little Creek (now Joint Expeditionary Base Little Creek–Fort Story), homeport of USS Tortuga (LSD-46). TAD to the ship.",
+    "note": "NAB Little Creek (now Joint Expeditionary Base Little Creek\u2013Fort Story), homeport of USS Tortuga (LSD-46). TAD to the ship.",
     "type": "base"
   },
   {
@@ -296,7 +296,7 @@
     "lat": 35.1425,
     "lng": -79.103333,
     "accuracy": "public-site",
-    "note": "A training FOB at Fort Bragg, 35°8'33\"N 79°6'12\"W. Training with JCSE.",
+    "note": "A training FOB at Fort Bragg, 35\u00b08'33\"N 79\u00b06'12\"W. Training with JCSE.",
     "type": "base"
   },
   {
@@ -346,7 +346,7 @@
     "lat": 49.94528,
     "lng": 6.565,
     "accuracy": "public-site",
-    "note": "Bitburg Airport (EDRB), the former Bitburg Air Base airfield, 49°56'43\"N 6°33'54\"E. A stopover on the way home from the 2006 EOD deployment.",
+    "note": "Bitburg Airport (EDRB), the former Bitburg Air Base airfield, 49\u00b056'43\"N 6\u00b033'54\"E. A stopover on the way home from the 2006 EOD deployment.",
     "type": "visit"
   },
   {
@@ -376,7 +376,7 @@
     "lat": 34.7898,
     "lng": -79.3647,
     "accuracy": "public-site",
-    "note": "Laurinburg–Maxton Airport, where Gryphon Group's school sits. The pin is the airfield, not a street address.",
+    "note": "Laurinburg\u2013Maxton Airport, where Gryphon Group's school sits. The pin is the airfield, not a street address.",
     "type": "base"
   },
   {
@@ -441,12 +441,12 @@
   },
   {
     "id": "city-agana",
-    "name": "Hagåtña (Agana), GU",
-    "locality": "Hagåtña (Agana), GU",
+    "name": "Hag\u00e5t\u00f1a (Agana), GU",
+    "locality": "Hag\u00e5t\u00f1a (Agana), GU",
     "lat": 13.475,
     "lng": 144.75,
     "accuracy": "approximate",
-    "note": "City-level pin for Hagåtña, formerly Agana, the capital of Guam.",
+    "note": "City-level pin for Hag\u00e5t\u00f1a, formerly Agana, the capital of Guam.",
     "type": "city"
   },
   {
@@ -546,7 +546,7 @@
     "lat": 34.7352,
     "lng": -79.3489,
     "accuracy": "approximate",
-    "note": "City-level pin for Maxton, NC, near the Gryphon Group school at Laurinburg–Maxton Airport.",
+    "note": "City-level pin for Maxton, NC, near the Gryphon Group school at Laurinburg\u2013Maxton Airport.",
     "type": "city"
   },
   {
@@ -627,6 +627,66 @@
     "lng": 68.8383,
     "accuracy": "approximate",
     "note": "Forward Operating Base Sharana / Sharana Airfield, Paktika. APPROXIMATE: public airfield coordinates.",
+    "type": "base"
+  },
+  {
+    "id": "nagasaki",
+    "name": "Nagasaki, JPN",
+    "locality": "Nagasaki, JPN",
+    "lat": 32.75,
+    "lng": 129.878,
+    "accuracy": "approximate",
+    "note": "Port visit. Added to the Travelbook ports list.",
+    "type": "visit"
+  },
+  {
+    "id": "rota",
+    "name": "Rota, ESP",
+    "locality": "Rota, ESP",
+    "lat": 36.624,
+    "lng": -6.35,
+    "accuracy": "approximate",
+    "note": "Port visit. Added to the Travelbook ports list.",
+    "type": "visit"
+  },
+  {
+    "id": "philippines",
+    "name": "Philippines",
+    "locality": "Philippines",
+    "lat": 14.794,
+    "lng": 120.282,
+    "accuracy": "approximate",
+    "note": "Port visit. Placed at Subic Bay until a berth is named.",
+    "type": "visit"
+  },
+  {
+    "id": "ramstein",
+    "name": "Ramstein Air Base, DEU",
+    "locality": "Ramstein, DEU",
+    "lat": 49.437,
+    "lng": 7.6,
+    "accuracy": "approximate",
+    "note": "Layover.",
+    "type": "visit"
+  },
+  {
+    "id": "hickam",
+    "name": "Hickam AFB, Honolulu, HI",
+    "locality": "Hickam, HI",
+    "lat": 21.319,
+    "lng": -157.923,
+    "accuracy": "approximate",
+    "note": "Stopover.",
+    "type": "base"
+  },
+  {
+    "id": "travis",
+    "name": "Travis AFB, Fairfield, CA",
+    "locality": "Travis, CA",
+    "lat": 38.263,
+    "lng": -121.928,
+    "accuracy": "approximate",
+    "note": "Stopover.",
     "type": "base"
   }
 ]
