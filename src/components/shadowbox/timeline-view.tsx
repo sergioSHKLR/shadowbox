@@ -164,9 +164,6 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             <span className="case-plaque">Electronics Technician Chief (SW/EXW)<br />Sergio Schickler</span>
           </div>
           {tray("timeline", t.timeline, <CaseTracks />)}
-          <div className="case-plates">
-            {tray("guestbook", t.guestbook, null)}
-          </div>
         </div>
       </section>
     </main>
