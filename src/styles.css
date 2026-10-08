@@ -936,6 +936,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .map-all { padding-left: 0.15rem; }
 .map-all .pin-num { background: #111; color: #fff; border: 0; }
 .map-play { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.55rem; margin: 0 0 0.7rem; }
+.map-full-btn { margin-left: auto; }
 .map-play .nav-btn { min-height: 44px; padding: 0.25rem 0.75rem; font-size: 0.9rem; }
 .map-play .nav-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 .map-play-status { flex: 1 1 12rem; margin: 0; font-size: 0.95rem; color: var(--color-quiet); }
