@@ -1315,12 +1315,13 @@ body[data-scroll-locked] .home-pin {
 .case-side { grid-area: side; display: grid; gap: 0.7rem; }
 .case-center { grid-area: portrait; display: flex; flex-direction: column; gap: 0.7rem; }
 .case-plaque { display: block; width: fit-content; margin: 0 auto; padding: 0.2rem 0.55rem; background: #c6a15b; color: #14233a; border: 1px solid #8a6a3b; letter-spacing: 0.04em; font-size: 0.72rem; font-weight: 600; text-align: center; line-height: 1.25; }
-.case-flag { display: block; width: 100%; height: auto; margin: 0 auto 0.4rem; }
+.case-flag-cut { display: block; width: 100%; margin: 0 auto 0.4rem; background: linear-gradient(135deg, #ffffff 0 46%, #d5d5d5 54% 100%); clip-path: polygon(0 0, 0 100%, 100% 50%); }
+.case-flag { display: block; width: 100%; height: auto; clip-path: polygon(1.5% 3%, 1.5% 97%, 96% 50%); }
 .case-portrait { margin: 0; background: #111; border: 0; padding: 0; cursor: pointer; display: block; }
 .case-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .case-tray-timeline { grid-area: timeline; }
 .case-plates { grid-area: plates; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; justify-items: center; }
-.case-tray, .case-portrait, .case-flag, .case-plaque { border: 10px solid #f4f4f4; border-top-color: #ffffff; border-left-color: #f7f7f7; border-right-color: #d5d5d5; border-bottom-color: #cfcfcf; }
+.case-tray, .case-portrait, .case-plaque { border: 10px solid #f4f4f4; border-top-color: #ffffff; border-left-color: #f7f7f7; border-right-color: #d5d5d5; border-bottom-color: #cfcfcf; }
 .case-tray { width: 100%; border: 0; background: #0e1c30; color: #f4efe4; text-align: center; padding: 0.8rem; cursor: pointer; font: inherit; }
 .case-plates .case-tray { width: min(16rem, 100%); background: #c6a15b; border-color: #8a6a3b; letter-spacing: 0.08em; }
 .case-kicker { display: block; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.55rem; color: #f4efe4; }
