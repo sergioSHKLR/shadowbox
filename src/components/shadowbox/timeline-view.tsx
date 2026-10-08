@@ -279,7 +279,8 @@ export function Timeline({
         <p className="quiet">The same order as the Map. Numbers do not change.</p>
         <ol className="stop-list">
           {stops.map((stop) => {
-            const layer = "kind" in stop && stop.kind ? String(stop.kind) : "base";
+            const placeType = "type" in stop.place ? String(stop.place.type) : "";
+            const layer = placeType === "city" || placeType === "visit" ? "port" : "base";
             return (
               <li key={stop.n}>
                 <button type="button" onClick={() => onOpen("place", stop.place.id)}>
