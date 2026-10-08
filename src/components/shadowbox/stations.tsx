@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Building2, ChevronLeft, ChevronRight, Expand, GraduationCap, Maximize2, Pause, Plane, Play, Route, Shield, Ship, Shrink, Tent } from "lucide-react";
+import { Building2, ChevronLeft, ChevronRight, Expand, GraduationCap, Layers, Maximize2, Pause, Plane, Play, Route, Shield, Ship, Shrink, Tent } from "lucide-react";
 import {
   careerStops,
   caseCopy,
@@ -294,7 +294,7 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
       <div className="map-filter" role="group" aria-label="Show pin categories">
         {/* All (restored, Sergio, Oct 2026): first chip; shows every category (shown = null), as before 2f61e08. */}
         <button type="button" className={`nav-btn map-all${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>
-          <span className="map-all-marks" aria-hidden="true">{PIN_GROUPS.map((g) => <span key={g.id} className={`pin-num ${g.cls}`}><PinGlyph name={g.id} /></span>)}</span>
+          <span className="pin-num command" aria-hidden="true"><Layers size={18} strokeWidth={2} /></span>
           {t.allChip}
         </button>
         {PIN_GROUPS.map((g) => (
