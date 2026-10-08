@@ -113,7 +113,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
   const paragraphs = bio.split("\n\n");
   const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
   const tray = (view: string, label: string, body: ReactNode) => (
-    <button type="button" className={`case-tray case-tray-${view}`} onClick={() => onGo?.(view)}>
+    <button type="button" className={`case-tray case-tray-${view} case-slot-${label === t.decorations ? "decorations" : view}`} onClick={() => onGo?.(view)}>
       <span className="case-kicker">{label}</span>
       {body}
     </button>
@@ -124,8 +124,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
         <div className="case-board case-board-light">
         <div className="case-board case-board-white">
         <div className="case-mat">
-          <div className="case-side">
-            {tray("logbook", t.logbook, (
+          {tray("logbook", t.logbook, (
               <>
                 <span className="case-crests case-crests-assigned">
                   {ASSIGNED.map((id) => {
@@ -149,6 +148,12 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
                 <img className="case-pin" src={publicUrl("/insignia/exw.svg")} alt="Enlisted Expeditionary Warfare Specialist" />
               </span>
             ))}
+            <span className="case-flag-cut"><img className="case-flag" src={publicUrl("/incoming/folded%20flag%20stripes.svg")} alt="Folded flag" /></span>
+            <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
+              <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
+            </button>
+            <span className="case-plaque">ETC (SW/EXW) Sergio Schickler<br />30 Jun 1997 – 28 Feb 2018</span>
+            {tray("timeline", t.timeline, <CaseTracks />)}
             {tray("map", t.map, (
               <span className="case-map-wrap">
                 <img className="case-map" src={publicUrl("/incoming/world-map.png")} alt="" />
@@ -157,15 +162,6 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
                 <img className="case-pass case-pass-official" src={publicUrl("/incoming/passport-us-official.png")} alt="United States official passport" />
               </span>
             ))}
-          </div>
-          <div className="case-center">
-            <span className="case-flag-cut"><img className="case-flag" src={publicUrl("/incoming/folded%20flag%20stripes.svg")} alt="Folded flag" /></span>
-            <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
-              <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
-            </button>
-            <span className="case-plaque">Electronics Technician Chief (SW/EXW)<br />Sergio Schickler</span>
-          </div>
-          {tray("timeline", t.timeline, <CaseTracks />)}
         </div>
         </div>
         </div>
