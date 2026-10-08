@@ -138,11 +138,13 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             ))}
             {tray("logbook", t.decorations, (
               <span className="case-ribbons">
-                {ribbonRows(awards, 3).map((row) => (
-                  <span key={row[0].id} className="case-ribbon-row">
+                <img className="case-pin" src={publicUrl("/insignia/esws.svg")} alt="Enlisted Surface Warfare Specialist" />
+                {ribbonRows(awards, 5).map((row) => (
+                  <span key={row[0].id} className={row.length < 5 ? "case-ribbon-row is-short" : "case-ribbon-row"}>
                     {row.map((award) => <RibbonArt key={award.id} award={award} className="case-ribbon" />)}
                   </span>
                 ))}
+                <img className="case-pin" src={publicUrl("/insignia/exw.svg")} alt="Enlisted Expeditionary Warfare Specialist" />
               </span>
             ))}
             {tray("map", t.map, (
