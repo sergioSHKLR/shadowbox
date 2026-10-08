@@ -388,7 +388,7 @@ export function MapView({
             home: "M12 3 2 12h3v8h5v-6h4v6h5v-8h3L12 3z",
             building: "M3 21V9l9-6 9 6v12H3zm4-2h3v-4H7v4zm5 0h3v-4h-3v4zM7 13h3v-3H7v3zm5 0h3v-3h-3v3z",
             school: "M12 3 2 8l10 5 8-4v6h2V8L12 3zm-6 9.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-3.5l-6 3-6-3z",
-            field: "M4 20l4-9 3 4 2-3 3 5 4-8 2 11H4z",
+            field: "M12 3 2 20h20L12 3zm-1 17v-5h2v5h-2z",
             port: "M3 17h18v2H3v-2zm1-2 1.2-6h13.6L20 15H4zm3.2-8h9.6l.6 2H6.6l.6-2z",
             flight: "M21 16v-2l-8-5V4a1 1 0 0 0-2 0v5L3 14v2l8-2.5V18l-2 1.5V21l3-1 3 1v-1.5L13 18v-4.5l8 2.5z",
             hub: "M4 8h6l2-3 2 3h6v2h-6.2l-1.8 3 1.8 3H20v2h-6l-2 3-2-3H4v-2h6.2L12 13 10.2 10H4V8z",
