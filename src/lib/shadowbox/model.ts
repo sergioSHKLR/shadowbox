@@ -1064,11 +1064,12 @@ function assignmentBars(): Omit<Bar, "lane" | "left" | "width">[] {
 }
 
 function opChipTitle(op: Operation): string {
-  const placeId = op.placeId || op.baseIds?.[0];
-  const place = placeId ? places.find((entry) => entry.id === placeId) : undefined;
-  if (!place) return op.theater;
-  if (place.id === "jb-balad") return "JB Balad";
-  return place.name;
+  const phase = op.phase.split("(")[0].trim();
+  if (op.id === "oif-2006") return `OIF I (${phase})`;
+  if (op.id === "oif-2009") return "OIF II";
+  if (op.id === "oef-2010") return "OEF I";
+  if (op.id === "oef-2012") return "OEF II";
+  return op.theater;
 }
 
 export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]; world: Bar[]; years: number[] } {
