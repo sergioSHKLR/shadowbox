@@ -1321,10 +1321,10 @@ body[data-scroll-locked] .home-pin {
 .case-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .case-tray-timeline { grid-area: timeline; }
 .case-plates { grid-area: plates; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; justify-items: center; }
-.case-tray, .case-portrait, .case-plaque { border: 10px solid #f4f4f4; border-top-color: #ffffff; border-left-color: #f7f7f7; border-right-color: #d5d5d5; border-bottom-color: #cfcfcf; }
-.case-tray { width: 100%; border: 0; background: #0e1c30; color: #f4efe4; text-align: center; padding: 0.8rem; cursor: pointer; font: inherit; }
+.case-tray, .case-portrait { border: 10px solid #f4f4f4; border-top-color: #ffffff; border-left-color: #f7f7f7; border-right-color: #d5d5d5; border-bottom-color: #cfcfcf; background: #fff; }
+.case-tray { width: 100%; color: #14233a; text-align: center; padding: 0.8rem; cursor: pointer; font: inherit; }
 .case-plates .case-tray { width: min(16rem, 100%); background: #c6a15b; border-color: #8a6a3b; letter-spacing: 0.08em; }
-.case-kicker { display: block; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.55rem; color: #f4efe4; }
+.case-kicker { display: block; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.55rem; color: #14233a; }
 .case-side { container-type: inline-size; }
 .case-crests { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem; }
 .case-crests-assigned { display: grid; grid-template-columns: repeat(3, 1fr); justify-items: center; }
@@ -1351,7 +1351,7 @@ body[data-scroll-locked] .home-pin {
 .case-bio { width: min(46rem, 100%); margin-top: 1.5rem; }
 @media (max-width: 720px) {
   .case-mat { grid-template-columns: 1fr; grid-template-areas: "portrait" "side" "timeline"; }
-  .case-portrait img { max-height: 24rem; object-fit: contain; background: #111; }
+  .case-portrait img { max-height: 24rem; object-fit: contain; background: #fff; }
 }
 
 .case-tray-timeline { display: flex; flex-direction: column; }
@@ -1360,4 +1360,4 @@ body[data-scroll-locked] .home-pin {
 .case-track::before { content: ""; position: absolute; left: 0.28rem; top: 0.35rem; bottom: 0.35rem; width: 1px; background: currentColor; }
 .case-stop { display: flex; align-items: center; gap: 0.3rem; position: relative; }
 .case-stop i { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: currentColor; flex: none; }
-.case-stop em { font-style: normal; font-size: 0.62rem; line-height: 1.1; color: #f4efe4; }
+.case-stop em { font-style: normal; font-size: 0.62rem; line-height: 1.1; color: #14233a; }
