@@ -35,8 +35,8 @@
     "devices": [],
     "deviceExplanation": "One award, so the ribbon is worn with no star.",
     "explanation": "The Navy and Marine Corps version of a commendation medal. It recognizes meritorious service or a specific achievement. On a rack it is worn just after the Joint Service Commendation Medal. Army commendations of the same level come after it.",
-    "criteria": "Meritorious service or achievement. A V device would mean valor in combat. This one has no V.",
-    "sourceNote": "One Navy and Marine Corps Commendation Medal, with no number after the name. Worksheet year: 2018.",
+    "criteria": "Meritorious service or achievement. No V device.",
+    "sourceNote": "One Navy and Marine Corps Commendation Medal (NC), no V. Worksheet year: 2018.",
     "commonsFile": "Navy_and_Marine_Corps_Commendation_Medal_ribbon.svg"
   },
   {
@@ -313,8 +313,8 @@
     "countStatus": "confirmed",
     "devices": [],
     "deviceExplanation": "One award. No star.",
-    "explanation": "For taking part in a military operation whose purpose was humanitarian: disaster relief, rescue, or a similar effort that the service has designated. The operation here is Typhoon Pongsona, Guam, December 2002. The worksheet dates the medal 2003.",
-    "criteria": "Direct participation in a designated humanitarian operation. Worksheet year: 2003. Operation: Typhoon Pongsona.",
+    "explanation": "For taking part in a military operation whose purpose was humanitarian. The storm was Typhoon Pongsona, Guam, December 2002. The worksheet dates the medal 2003.",
+    "criteria": "Direct participation in a designated humanitarian operation. Storm: Typhoon Pongsona, December 2002. Worksheet year: 2003.",
     "sourceNote": "Humanitarian Service Medal, one award. Typhoon Pongsona.",
     "commonsFile": "Humanitarian_Service_Medal_ribbon.svg"
   },

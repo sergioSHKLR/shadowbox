@@ -24,11 +24,11 @@
     "branch": "USN",
     "designator": "TAD",
     "necId": null,
-    "start": "1997",
-    "end": "1998",
-    "precision": "season",
+    "start": "1997-09-05",
+    "end": "1998-01-21",
+    "precision": "day",
     "placeId": "little-creek",
-    "explanation": "A Whidbey Island-class dock landing ship. It carries Marines with their vehicles and landing craft, and launches the craft from a well deck that floods. Assault Craft Unit 4 (ACU 4) was the exercise partner on this TAD. Late 1997, after RTC, into early 1998.",
+    "explanation": "A Whidbey Island-class dock landing ship. It carries Marines with their vehicles and landing craft, and launches the craft from a well deck that floods. Assault Craft Unit 4 (ACU 4) was the exercise partner on this TAD. Between the end of boot camp, 5 September 1997, and the start of Tech Core, 21 January 1998.",
     "civilian": "A ship that carries Marines and their boats and vehicles to a beach. ACU 4 was the exercise partner that ran the landing craft.",
     "onCase": false,
     "image": "/incoming/lsd-46.webp"
@@ -138,17 +138,17 @@
       {
         "src": "/incoming/eodmu11.webp",
         "alt": "EOD Mobile Unit 11 crest",
-        "caption": "Partner · EODMU 11"
+        "caption": "Partner \u00b7 EODMU 11"
       },
       {
         "src": "/incoming/52nd-eod.webp",
         "alt": "52nd Ordnance Group crest",
-        "caption": "Sponsor · 52nd EOD"
+        "caption": "Sponsor \u00b7 52nd EOD"
       },
       {
         "src": "/incoming/16th-en.webp",
         "alt": "16th Engineer Brigade crest",
-        "caption": "Sponsor · 16th EN"
+        "caption": "Sponsor \u00b7 16th EN"
       }
     ]
   },
@@ -256,17 +256,17 @@
       {
         "src": "/incoming/11th-ada.webp",
         "alt": "11th Air Defense Artillery Brigade SSI",
-        "caption": "Admin · 11th ADA"
+        "caption": "Admin \u00b7 11th ADA"
       },
       {
         "src": "/incoming/3-3ada.webp",
         "alt": "3-3 ADA distinctive unit insignia",
-        "caption": "Partner · 3-3 ADA"
+        "caption": "Partner \u00b7 3-3 ADA"
       },
       {
         "src": "/incoming/332nd-aew.webp",
         "alt": "332nd Air Expeditionary Wing emblem",
-        "caption": "Customer · 332nd AEW"
+        "caption": "Customer \u00b7 332nd AEW"
       }
     ]
   },
@@ -347,7 +347,7 @@
   },
   {
     "id": "cjsotf",
-    "name": "Combined Joint Special Operations Task Force — Afghanistan",
+    "name": "Combined Joint Special Operations Task Force \u2014 Afghanistan",
     "abbreviation": "CJSOTF-A",
     "patch": "CJSOTF-A",
     "branch": "JOINT",
@@ -357,7 +357,7 @@
     "end": "2011",
     "precision": "year",
     "placeId": "fob-delaram",
-    "explanation": "OEF I in-theater command, 2010–2011, at FOB Delaram, while assigned to JCSE. The customer was an ODA of 3rd Special Forces Group. The role in the record is communications, not service as a special operator. About seven months.",
+    "explanation": "OEF I in-theater command, 2010\u20132011, at FOB Delaram, while assigned to JCSE. The customer was an ODA of 3rd Special Forces Group. The role in the record is communications, not service as a special operator. About seven months.",
     "civilian": "The headquarters he supported. Being the communicator for that headquarters is not the same job as the operators it commanded.",
     "months": 7,
     "onCase": false,
@@ -366,13 +366,13 @@
       {
         "src": "/incoming/3rd-sfg.webp",
         "alt": "3rd Special Forces Group beret flash",
-        "caption": "Customer · 3rd SFG"
+        "caption": "Customer \u00b7 3rd SFG"
       }
     ]
   },
   {
     "id": "sojtf",
-    "name": "Special Operations Joint Task Force — Afghanistan",
+    "name": "Special Operations Joint Task Force \u2014 Afghanistan",
     "abbreviation": "SOJTF-A",
     "patch": "SOJTF-A",
     "branch": "JOINT",
@@ -382,7 +382,7 @@
     "end": "2013",
     "precision": "year",
     "placeId": "fob-orgun-e",
-    "explanation": "OEF II in-theater command, 2012–2013, at FOB Orgun-E, while assigned to JCSE. The partner was 290th JCSS. The customer was 75th Rangers. The role in the record is communications, not service as a special operator. About seven months.",
+    "explanation": "OEF II in-theater command, 2012\u20132013, at FOB Orgun-E, while assigned to JCSE. The partner was 290th JCSS. The customer was 75th Rangers. The role in the record is communications, not service as a special operator. About seven months.",
     "civilian": "The later Afghanistan headquarters he supported.",
     "months": 7,
     "onCase": false,
@@ -391,12 +391,12 @@
       {
         "src": "/incoming/290jcss.webp",
         "alt": "290th Joint Communications Support Squadron patch",
-        "caption": "Partner · 290th JCSS"
+        "caption": "Partner \u00b7 290th JCSS"
       },
       {
         "src": "/incoming/75th-rgr.svg",
         "alt": "75th Rangers distinctive unit insignia",
-        "caption": "Customer · 75th Rangers"
+        "caption": "Customer \u00b7 75th Rangers"
       }
     ]
   },
@@ -515,7 +515,7 @@
     "end": null,
     "precision": "",
     "placeId": null,
-    "explanation": "Foreign partner on the JCSE OEF I deployment at FOB Delaram (CJSOTF-A, 2010–2011). Dates and details not entered.",
+    "explanation": "Foreign partner on the JCSE OEF I deployment at FOB Delaram (CJSOTF-A, 2010\u20132011). Dates and details not entered.",
     "civilian": "",
     "onCase": false,
     "image": "/incoming/ana.svg",
@@ -533,7 +533,7 @@
     "end": null,
     "precision": "",
     "placeId": null,
-    "explanation": "Foreign partner on the JCSE OEF I deployment at FOB Delaram (CJSOTF-A, 2010–2011).",
+    "explanation": "Foreign partner on the JCSE OEF I deployment at FOB Delaram (CJSOTF-A, 2010\u20132011).",
     "civilian": "",
     "onCase": false,
     "image": "/incoming/geo-3rd-inf-bde.webp",
@@ -551,7 +551,7 @@
     "end": null,
     "precision": "",
     "placeId": null,
-    "explanation": "Partner on the JCSE OEF I deployment at FOB Delaram (CJSOTF-A, 2010–2011).",
+    "explanation": "Partner on the JCSE OEF I deployment at FOB Delaram (CJSOTF-A, 2010\u20132011).",
     "civilian": "",
     "onCase": false,
     "image": "/incoming/2nd-marines.webp",
@@ -569,7 +569,7 @@
     "end": null,
     "precision": "",
     "placeId": null,
-    "explanation": "Local hires on the JCSE OEF I deployment at FOB Delaram (CJSOTF-A, 2010–2011). Placeholder card: graphic, dates and details not entered.",
+    "explanation": "Local hires on the JCSE OEF I deployment at FOB Delaram (CJSOTF-A, 2010\u20132011). Placeholder card: graphic, dates and details not entered.",
     "civilian": "",
     "onCase": false,
     "image": "/incoming/placeholder-crest.svg",
