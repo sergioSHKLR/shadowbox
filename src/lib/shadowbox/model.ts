@@ -615,6 +615,7 @@ export type UniformStep = {
   span: string;
   from: string;
   month: number;
+  crest?: string;
 };
 
 function spanForUnit(unit: Unit): string {
@@ -633,6 +634,7 @@ export const uniformSteps: UniformStep[] = UNIFORM_STEP_PLATES.flatMap(({ unitId
     id: id ?? unitId,
     unitId,
     label: label ?? unit.abbreviation,
+    crest: unit.image,
     span: span ?? spanForUnit(unit),
     from: `${plate.y}-${String(plate.m).padStart(2, "0")}`,
     month: plate.y * 12 + (plate.m - 1),
