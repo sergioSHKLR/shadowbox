@@ -52,7 +52,7 @@ const PAGE_ICON: Record<PageId, typeof House> = { home: House, ...NAV_ICON };
 /** Top-bar menu: Home, Timeline, Logbook, Map, Guestbook, Contact. */
 const MENU = ["home", ...NAV, "map", "guestbook", "contact"] as const;
 /** Menu and footer-pager icons (Sergio, Oct 2026): Home Anchor, Logbook BookOpen, Travel Book Map, Guestbook PenLine, Contact MessageCircle. */
-const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: Anchor, logbook: BookOpen, guestbook: PenLine, contact: MessageCircle, map: Map };
+const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: Anchor, timeline: ChartGantt, logbook: BookOpen, guestbook: PenLine, contact: MessageCircle, map: Map };
 /** Footer pager icon, same size and stroke as the Settings gear. */
 function PagerIcon({ id }: { id: string }) {
   const Icon = (MENU_ICON as Record<string, typeof House>)[id];
@@ -115,8 +115,8 @@ function SettingsDialog({
       <Dialog.Portal container={typeof HTMLElement !== "undefined" && frame instanceof HTMLElement ? frame : undefined}>
         <Dialog.Overlay className="settings-overlay" />
         <Dialog.Content className="settings-modal" aria-describedby="settings-lead">
-          <header>
-            <Dialog.Title>{t.settingsTitle}</Dialog.Title>
+          <header className="settings-head">
+            <Dialog.Title className="sr-only">{t.settingsTitle}</Dialog.Title>
             <Dialog.Close className="icon-btn" aria-label={t.close}>
               <X />
             </Dialog.Close>
