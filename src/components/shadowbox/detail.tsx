@@ -530,10 +530,12 @@ export function DetailPanel({
                     {profile.history ? <p>{profile.history}</p> : null}
                   </>
                 ) : (
-                  <p className="lede">{subject.explanation}</p>
-                  {selection?.kind === "branch" && BRANCH_RECRUIT[selection.id] ? (
-                    <p className="detail-recruit"><a href={BRANCH_RECRUIT[selection.id].href} target="_blank" rel="noreferrer">Recruiting · {BRANCH_RECRUIT[selection.id].label}</a></p>
-                  ) : null}
+                  <>
+                    <p className="lede">{subject.explanation}</p>
+                    {selection?.kind === "branch" && BRANCH_RECRUIT[selection.id] ? (
+                      <p className="detail-recruit"><a href={BRANCH_RECRUIT[selection.id].href} target="_blank" rel="noreferrer">Recruiting · {BRANCH_RECRUIT[selection.id].label}</a></p>
+                    ) : null}
+                  </>
                 )}
               </div>
               {/* (c) cards, photos and inputs */}
