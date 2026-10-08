@@ -1333,7 +1333,7 @@ body[data-scroll-locked] .home-pin {
 .case-ribbons { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
 .case-ribbon-row { display: flex; flex-direction: row-reverse; justify-content: center; gap: 0.35rem; }
 .case-ribbon { width: 3.2rem; }
-.case-pin { display: block; width: 3.2rem; height: auto; margin: 0.15rem auto; }
+.case-pin { display: block; width: calc(3.2rem * 2 + 0.35rem); height: auto; margin: 0.15rem auto; }
 .case-ribbon img { width: 100%; height: auto; display: block; }
 .case-map-wrap { position: relative; display: block; min-height: 8rem; }
 .case-map { display: block; width: 100%; height: 8rem; object-fit: cover; object-position: center; }
