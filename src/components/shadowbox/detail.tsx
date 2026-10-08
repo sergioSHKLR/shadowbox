@@ -326,7 +326,7 @@ function UnitDossier({ id, part, hideUniforms = false, cardNames = [] }: { id: s
     { label: "Individual Augmentee", value: joined(ia) },
     ...(customerShots.length ? [] : [{ label: "Customers", value: joined(customers) }]),
     { label: "Promotion", value: joined(list(id, "Rank")) },
-  ].filter((row) => ownCommand || row.value !== "Not entered");
+  ].filter((row) => row.value !== "Not entered");
   if (part === "cards") {
     return (
       <section className="dossier dossier-cards">
@@ -348,6 +348,7 @@ function UnitDossier({ id, part, hideUniforms = false, cardNames = [] }: { id: s
   const dutyLine = (label: string, names: string[]) => {
     const { left, hadAny } = textList(names);
     if (hadAny && !left.length) return null;
+    if (!left.length) return null;
     return <p key={label}><strong>{label}.</strong> {joined(left)}</p>;
   };
   return (
@@ -590,7 +591,7 @@ export function DetailPanel({
                 {selection?.kind === "unit" ? <UnitDossier id={selection.id} part="admin" cardNames={cardNames} /> : null}
                 {selection?.kind !== "unit" && subject.facts.length ? (
                   <dl className="facts">
-                    {subject.facts.map((fact) => (
+                    {subject.facts.filter((fact) => fact.value !== "Not entered").map((fact) => (
                       <div key={fact.label}>
                         <dt>{fact.label}</dt>
                         <dd>{fact.value}</dd>
