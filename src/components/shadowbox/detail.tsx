@@ -179,7 +179,6 @@ const ON_DUTY = [
   ["Aircraft", "Aircraft"],
 ] as const;
 const OFF_DUTY = [
-  ["Cities", "Cities"],
   ["Residences", "Residences"],
   ["Cars", "POV"],
   ["Motorcycles", "Motorcycles"],
