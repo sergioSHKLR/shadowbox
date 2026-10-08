@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Building2, ChevronLeft, ChevronRight, Expand, GraduationCap, Layers, Maximize2, Pause, Plane, Play, Route, Shield, Ship, Shrink, Tent } from "lucide-react";
+import { Building2, ChevronLeft, ChevronRight, Expand, GraduationCap, Layers, Pause, Plane, Play, Route, Shield, Ship, Shrink, Tent } from "lucide-react";
 import {
   careerStops,
   caseCopy,
@@ -271,9 +271,6 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
         </button>
         <button type="button" className="nav-btn icon-btn" aria-label="Next" title="Next" onClick={() => step(1)} disabled={!stops.length}>
           <ChevronRight size={20} strokeWidth={2} aria-hidden="true" />
-        </button>
-        <button type="button" className={`nav-btn icon-btn${cursor == null ? " on" : ""}`} aria-label={t.fullMap} title={t.fullMap} onClick={resetPlay} disabled={cursor == null}>
-          <Maximize2 size={18} strokeWidth={2} aria-hidden="true" />
         </button>
         <button type="button" className={`nav-btn icon-btn map-full-btn${full ? " on" : ""}`} aria-pressed={full} aria-label={full ? "Exit fullscreen" : "Fullscreen"} title={full ? "Exit fullscreen (Esc)" : "Fullscreen"} onClick={() => (full ? exitFull() : enterFull())}>
           {full ? <Shrink size={18} strokeWidth={2} aria-hidden="true" /> : <Expand size={18} strokeWidth={2} aria-hidden="true" />}
