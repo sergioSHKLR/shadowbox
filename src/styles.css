@@ -1369,5 +1369,7 @@ body[data-scroll-locked] .home-pin {
 .case-track { flex: 0 1 4.5rem; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; position: relative; }
 .case-track::before { content: ""; position: absolute; left: 0.28rem; top: 0.35rem; bottom: 0.35rem; width: 1px; background: currentColor; }
 .case-stop { display: flex; align-items: center; gap: 0.3rem; position: relative; }
+.case-stop.is-start { align-items: flex-start; }
+.case-stop.is-end { align-items: flex-end; }
 .case-stop i { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: currentColor; flex: none; }
 .case-stop em { font-style: normal; font-size: 0.62rem; line-height: 1.1; color: #14233a; }

@@ -121,8 +121,8 @@ function CaseTracks() {
     <span className="case-tracks" aria-hidden="true">
       {tracks.map(([id, items, color]) => (
         <span key={id} className="case-track" style={{ color }}>
-          {items.map((item) => (
-            <span key={item.key} className="case-stop">
+          {items.map((item, index) => (
+            <span key={item.key} className={`case-stop${id === "ops" && index === 0 ? " is-start" : ""}${id === "ops" && index === items.length - 1 ? " is-end" : ""}`}>
               <i />
               <em>{item.title}</em>
             </span>
