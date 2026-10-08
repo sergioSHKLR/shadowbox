@@ -45,12 +45,12 @@ type View = "home" | "uniforms" | "decorations" | "onduty" | "offduty" | "ops" |
 const ALL_NAV = ["commands", "timeline", "logbook", "ops", "map", "uniforms", "onduty", "admin", "offduty"] as const;
 // Sergio: only Home and Logbook are public for now. The other pages keep their code and data but are unlinked
 // (menu, pager, footer, search) and unreachable: any other view resolves to Home. Add ids back here to re-publish.
-const NAV = ["logbook"] as const satisfies readonly (typeof ALL_NAV)[number][];
+const NAV = ["timeline", "logbook"] as const satisfies readonly (typeof ALL_NAV)[number][];
 type PageId = "home" | (typeof ALL_NAV)[number];
 const NAV_ICON = { commands: Anchor, uniforms: Shirt, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, logbook: NotebookText, admin: ClipboardList };
 const PAGE_ICON: Record<PageId, typeof House> = { home: House, ...NAV_ICON };
-/** Top-bar menu (Sergio, Oct 2026): Home, Logbook, then Guestbook, Contact and Map. The pager (NAV) still steps Home ⇄ Logbook only. */
-const MENU = ["home", ...NAV, "map", "guestbook", "contact"] as const; // Sergio, Oct 2026: Home, Logbook, Map, Guestbook, Contact
+/** Top-bar menu: Home, Timeline, Logbook, Map, Guestbook, Contact. */
+const MENU = ["home", ...NAV, "map", "guestbook", "contact"] as const;
 /** Menu and footer-pager icons (Sergio, Oct 2026): Home Anchor, Logbook BookOpen, Travel Book Map, Guestbook PenLine, Contact MessageCircle. */
 const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: Anchor, logbook: BookOpen, guestbook: PenLine, contact: MessageCircle, map: Map };
 /** Footer pager icon, same size and stroke as the Settings gear. */
