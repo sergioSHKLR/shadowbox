@@ -1309,8 +1309,8 @@ body[data-scroll-locked] .home-pin {
 .timeline-scrub input::-webkit-slider-thumb { background: #daa520; }
 
 .case-home { display: grid; justify-items: center; }
-.case-frame { position: relative; width: min(68rem, 100%); padding: 0.7rem; background: #5c4030; border: 1px solid #3d291c; box-shadow: inset 0 0 0 3px #8a6a3b; }
-.case-mat { display: grid; grid-template-columns: 1fr minmax(12rem, 0.9fr) 1fr; grid-template-areas: "side portrait timeline"; gap: 0.7rem; padding: 0.8rem; background: #f4efe4; }
+.case-frame { position: relative; width: min(68rem, 100%); padding: 0.55rem; background: #8a6a3b; border: 1px solid #5c4030; box-shadow: inset 0 0 0 2px #c6a15b; }
+.case-mat { display: grid; grid-template-columns: 1fr minmax(12rem, 0.9fr) 1fr; grid-template-areas: "side portrait timeline"; gap: 1rem; padding: 1rem; background: #14233a; }
 .case-side { grid-area: side; display: grid; gap: 0.7rem; }
 .case-center { grid-area: portrait; display: flex; flex-direction: column; gap: 0.7rem; }
 .case-plaque { display: block; width: fit-content; margin: 0 auto; padding: 0.2rem 0.55rem; background: #c6a15b; color: #14233a; border: 1px solid #8a6a3b; letter-spacing: 0.04em; font-size: 0.72rem; font-weight: 600; text-align: center; line-height: 1.25; }
@@ -1319,9 +1319,10 @@ body[data-scroll-locked] .home-pin {
 .case-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .case-tray-timeline { grid-area: timeline; }
 .case-plates { grid-area: plates; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; justify-items: center; }
-.case-tray { width: 100%; border: 1px solid #e4dcc8; background: #fbf7ef; color: #14233a; text-align: center; padding: 0.8rem; cursor: pointer; font: inherit; }
+.case-tray, .case-portrait, .case-flag, .case-plaque { box-shadow: inset 3px 3px 0 #6d8eb8, inset -3px -3px 0 #0a1422; }
+.case-tray { width: 100%; border: 0; background: #0e1c30; color: #f4efe4; text-align: center; padding: 0.8rem; cursor: pointer; font: inherit; }
 .case-plates .case-tray { width: min(16rem, 100%); background: #c6a15b; border-color: #8a6a3b; letter-spacing: 0.08em; }
-.case-kicker { display: block; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.55rem; }
+.case-kicker { display: block; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.55rem; color: #f4efe4; }
 .case-side { container-type: inline-size; }
 .case-crests { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem; }
 .case-crests-assigned { display: grid; grid-template-columns: repeat(3, 1fr); justify-items: center; }
@@ -1357,4 +1358,4 @@ body[data-scroll-locked] .home-pin {
 .case-track::before { content: ""; position: absolute; left: 0.28rem; top: 0.35rem; bottom: 0.35rem; width: 1px; background: currentColor; }
 .case-stop { display: flex; align-items: center; gap: 0.3rem; position: relative; }
 .case-stop i { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: currentColor; flex: none; }
-.case-stop em { font-style: normal; font-size: 0.62rem; line-height: 1.1; color: #14233a; }
+.case-stop em { font-style: normal; font-size: 0.62rem; line-height: 1.1; color: #f4efe4; }
