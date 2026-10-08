@@ -1314,7 +1314,7 @@ body[data-scroll-locked] .home-pin {
 .case-side { grid-area: side; display: grid; gap: 0.7rem; }
 .case-center { grid-area: portrait; display: flex; flex-direction: column; gap: 0.7rem; }
 .case-plaque { display: block; margin: 0 auto; padding: 0.35rem 1.1rem; background: #c6a15b; color: #14233a; border: 1px solid #8a6a3b; letter-spacing: 0.08em; font-weight: 600; text-align: center; }
-.case-flag { display: block; width: 7.5rem; height: auto; margin: 0 auto 0.4rem; }
+.case-flag { display: block; width: 100%; height: auto; margin: 0 auto 0.4rem; }
 .case-portrait { margin: 0; background: #111; border: 0; padding: 0; cursor: pointer; display: block; }
 .case-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .case-tray-timeline { grid-area: timeline; }
