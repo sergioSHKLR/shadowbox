@@ -100,6 +100,15 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
   const stageRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef(cursor);
   cursorRef.current = cursor;
+  const cityKey = (stop: (typeof stops)[number]) => stop.cityId || stop.place.id;
+  const pinIndex = new Map<string, number>();
+  const pins = stops.flatMap((stop) => {
+    const key = cityKey(stop);
+    if (pinIndex.has(key)) return [];
+    pinIndex.set(key, pinIndex.size);
+    return [{ ...stop, n: 0 }];
+  });
+  const revealedPins = cursor == null ? pins.length : new Set(stops.slice(0, cursor + 1).map(cityKey)).size;
   const last = Math.max(0, stops.length - 1);
 
   // Fullscreen: browser Fullscreen API where available; CSS viewport cover otherwise (iPhone Safari).
@@ -240,13 +249,7 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
         <button type="button" className={`nav-btn icon-btn map-full-btn${full ? " on" : ""}`} aria-pressed={full} aria-label={full ? "Exit fullscreen" : "Fullscreen"} title={full ? "Exit fullscreen (Esc)" : "Fullscreen"} onClick={() => (full ? exitFull() : enterFull())}>
           {full ? <Shrink size={18} strokeWidth={2} aria-hidden="true" /> : <Expand size={18} strokeWidth={2} aria-hidden="true" />}
         </button>
-        <p className="map-play-status" aria-live="polite">
-          {here
-            ? `${here.n}${whenLabel ? ` · ${whenLabel}` : ""} · ${here.labels[0]}`
-            : shown
-              ? `${stops.length} ${t.ofStops} ${allStops.length} ${t.stopsWord}`
-              : `${t.fullMap} · ${allStops.length} ${t.stopsWord}`}
-        </p>
+
         {stops.length ? (
           <label className="map-play-scrub">
             <span className="sr-only">{t.stopInOrder}</span>
@@ -265,12 +268,12 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
       </div>
       {stops.length ? (
         <MapView
-          stops={stops}
+          stops={pins}
           extra={[]}
           tall
           focusId={here?.place.id ?? null}
-          focusIndex={cursor}
-          revealedCount={cursor == null ? null : cursor + 1}
+          focusIndex={here ? pinIndex.get(cityKey(here)) ?? null : null}
+          revealedCount={cursor == null ? null : revealedPins}
           layoutEpoch={full ? "full" : "inline"}
           onSelect={(id) => onOpen("place", id)}
         />
@@ -301,17 +304,7 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
         ))}
         <li><span className="pin-num approximate">#</span> {t.legendApprox}</li>
       </ul>
-      <ol className="stop-list">
-        {stops.map((stop, index) => (
-          <li key={`${stop.n}-${stop.place.id}`} data-stop={index} className={cursor == null ? undefined : index === cursor ? "now" : index > cursor ? "later" : "reached"}>
-            <button type="button" onClick={() => { setPlaying(false); setCursor(index); openStop(stop); }}>
-              <span className={`pin-num ${stop.kind} ${stop.place.accuracy}`} aria-label={`Pin ${stop.n}`}>{stop.n}</span>
-              <strong>{stop.labels[0]}</strong>
-              <span>{stop.place.name}{stop.when ? ` · ${stop.when.length === 4 ? stop.when : formatWhen(stop.when)}` : ""}</span>
-            </button>
-          </li>
-        ))}
-      </ol>
+
     </main>
   );
 }
