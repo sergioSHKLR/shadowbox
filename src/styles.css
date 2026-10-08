@@ -1330,9 +1330,9 @@ body[data-scroll-locked] .home-pin {
 .case-crests-assigned img { height: 3.4rem; width: auto; }
 .case-crests-partner { margin-top: 0.45rem; }
 .case-crests-partner img { height: 1.5rem; width: auto; }
-.case-ribbons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.45rem 0.35rem; align-items: start; }
-@container (min-width: 24rem) { .case-ribbons { grid-template-columns: repeat(4, 1fr); } }
-.case-ribbon { width: 100%; }
+.case-ribbons { display: flex; flex-direction: column; gap: 0.35rem; }
+.case-ribbon-row { display: flex; flex-direction: row-reverse; justify-content: flex-start; gap: 0.35rem; }
+.case-ribbon { width: 4.4rem; }
 .case-ribbon img { width: 100%; height: auto; display: block; }
 .case-map-wrap { position: relative; display: block; min-height: 8rem; }
 .case-map { display: block; width: 100%; height: 8rem; object-fit: cover; object-position: center; }

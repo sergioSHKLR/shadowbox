@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
-import { awards, photos, profile, publicUrl, timeline, units, type Kind } from "@/lib/shadowbox/model";
+import { awards, photos, profile, publicUrl, ribbonRows, timeline, units, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { chrome } from "@/lib/shadowbox/copy";
 import type { Locale } from "@/lib/shadowbox/prefs";
@@ -139,7 +139,11 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             ))}
             {tray("logbook", t.decorations, (
               <span className="case-ribbons">
-                {awards.map((award) => <RibbonArt key={award.id} award={award} className="case-ribbon" />)}
+                {ribbonRows(awards, 3).map((row) => (
+                  <span key={row[0].id} className="case-ribbon-row">
+                    {row.map((award) => <RibbonArt key={award.id} award={award} className="case-ribbon" />)}
+                  </span>
+                ))}
               </span>
             ))}
             {tray("map", t.map, (
