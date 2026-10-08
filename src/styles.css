@@ -1309,7 +1309,7 @@ body[data-scroll-locked] .home-pin {
 .timeline-scrub input::-webkit-slider-thumb { background: #daa520; }
 
 .case-home { display: grid; justify-items: center; background: #fff; }
-.case-frame { position: relative; width: min(68rem, 100%); padding: 0.85rem; background: #4a3b32; border: 1px solid #2c241e; box-shadow: inset 0 0 0 2px #6b5a4c, 0 8px 18px rgba(0,0,0,0.18); }
+.case-frame { position: relative; width: min(68rem, 100%); padding: 0.7rem; background: #5c4030; border: 1px solid #3d291c; box-shadow: inset 0 0 0 3px #8a6a3b; }
 .case-board-light, .case-board-white { background: transparent; padding: 0; }
 .case-mat { display: grid; grid-template-columns: 1fr minmax(12rem, 0.9fr) 1fr; grid-template-areas: "side portrait timeline"; gap: 1rem; padding: 1.1rem; background: #1d4e89; box-shadow: inset 0 0 0 3px #c6a15b; }
 .case-side { grid-area: side; display: grid; gap: 0.7rem; }
