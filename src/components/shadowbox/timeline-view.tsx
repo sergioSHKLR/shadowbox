@@ -90,14 +90,17 @@ function CaseTracks() {
     ["rank", bars.rank, "#7d1c20"],
     ["duty", bars.duty, "#14233a"],
     ["ops", bars.ops, "#1e6b3c"],
-    ["world", bars.world, "#ffd21a"],
+    ["world", bars.world, "#c6a15b"],
   ] as const;
   return (
     <span className="case-tracks" aria-hidden="true">
       {tracks.map(([id, items, color]) => (
-        <span key={id} className="case-track">
+        <span key={id} className="case-track" style={{ color }}>
           {items.map((item) => (
-            <i key={item.key} style={{ flexGrow: item.days && item.days > 0 ? item.days : 1, background: color }} />
+            <span key={item.key} className="case-stop">
+              <i />
+              <em>{item.title}</em>
+            </span>
           ))}
         </span>
       ))}
@@ -151,7 +154,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
             </button>
-            <span className="case-plaque">ETC(SW/EXW)</span>
+            <span className="case-plaque">Electronics Technician Chief (SW/EXW)<br />Sergio Schickler</span>
             <img className="case-flag" src={publicUrl("/incoming/home-folded-flag.webp")} alt="Folded flag" />
           </div>
           {tray("timeline", t.timeline, <CaseTracks />)}
