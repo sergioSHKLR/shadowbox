@@ -59,7 +59,7 @@
     "cityId": "city-biloxi",
     "baseId": null,
     "commandId": null,
-    "kind": "instruction",
+    "kind": "city",
     "when": null
   },
   {
@@ -73,9 +73,9 @@
   },
   {
     "order": 9,
-    "label": "San Diego, CA",
+    "label": "NS 32nd Street, San Diego, CA",
     "cityId": "city-san-diego",
-    "baseId": null,
+    "baseId": "san-diego",
     "commandId": null,
     "kind": "instruction",
     "when": null,
@@ -103,11 +103,11 @@
   },
   {
     "order": 12,
-    "label": "USS Essex (LHD-2)",
+    "label": "San Francisco, CA",
     "cityId": "city-san-francisco",
     "baseId": null,
     "commandId": "essex",
-    "kind": "base",
+    "kind": "port",
     "when": null
   },
   {
@@ -116,12 +116,12 @@
     "cityId": "city-san-diego",
     "baseId": "nas-north-island",
     "commandId": null,
-    "kind": "base",
+    "kind": "stopover",
     "when": null
   },
   {
     "order": 14,
-    "label": "Hagåtña (Agana), GU",
+    "label": "Hag\u00e5t\u00f1a (Agana), GU",
     "cityId": "city-agana",
     "baseId": null,
     "commandId": null,
@@ -152,7 +152,7 @@
     "cityId": "city-yokosuka",
     "baseId": null,
     "commandId": null,
-    "kind": "port",
+    "kind": "base",
     "when": null
   },
   {
@@ -161,7 +161,7 @@
     "cityId": "city-sasebo",
     "baseId": null,
     "commandId": null,
-    "kind": "port",
+    "kind": "base",
     "when": null
   },
   {
@@ -170,7 +170,7 @@
     "cityId": "city-chinhae",
     "baseId": null,
     "commandId": null,
-    "kind": "port",
+    "kind": "base",
     "when": null
   },
   {
@@ -215,7 +215,7 @@
     "cityId": "city-san-diego",
     "baseId": null,
     "commandId": null,
-    "kind": "instruction",
+    "kind": "city",
     "when": null,
     "alsoKinds": [
       "command"
@@ -245,7 +245,7 @@
     "cityId": null,
     "baseId": "shoalwater-bay",
     "commandId": null,
-    "kind": "base",
+    "kind": "field",
     "when": "2005"
   },
   {
@@ -272,7 +272,7 @@
     "cityId": null,
     "baseId": "u-tapao",
     "commandId": null,
-    "kind": "base",
+    "kind": "field",
     "when": "2004"
   },
   {
@@ -290,7 +290,7 @@
     "cityId": "city-san-diego",
     "baseId": null,
     "commandId": null,
-    "kind": "instruction",
+    "kind": "city",
     "when": null,
     "alsoKinds": [
       "command"
@@ -419,7 +419,7 @@
     "cityId": "city-san-diego",
     "baseId": null,
     "commandId": null,
-    "kind": "instruction",
+    "kind": "city",
     "when": null,
     "alsoKinds": [
       "command"
@@ -530,7 +530,7 @@
     "cityId": null,
     "baseId": "camp-blanding",
     "commandId": null,
-    "kind": "base",
+    "kind": "field",
     "when": null
   },
   {
@@ -557,7 +557,7 @@
     "cityId": null,
     "baseId": "bagram",
     "commandId": null,
-    "kind": "layover",
+    "kind": "stopover",
     "when": "2010"
   },
   {
@@ -593,7 +593,7 @@
     "cityId": null,
     "baseId": "bagram",
     "commandId": null,
-    "kind": "layover",
+    "kind": "stopover",
     "when": "2010"
   },
   {
@@ -629,7 +629,7 @@
     "cityId": null,
     "baseId": "camp-blanding",
     "commandId": null,
-    "kind": "base",
+    "kind": "field",
     "when": null
   },
   {
@@ -638,7 +638,7 @@
     "cityId": "city-fayetteville",
     "baseId": null,
     "commandId": "gryphon-school",
-    "kind": "field",
+    "kind": "instruction",
     "when": null
   },
   {
@@ -665,7 +665,7 @@
     "cityId": null,
     "baseId": "bagram",
     "commandId": null,
-    "kind": "layover",
+    "kind": "stopover",
     "when": null
   },
   {
@@ -701,7 +701,7 @@
     "cityId": null,
     "baseId": "bagram",
     "commandId": null,
-    "kind": "layover",
+    "kind": "stopover",
     "when": null
   },
   {
@@ -737,7 +737,7 @@
     "cityId": "city-fayetteville",
     "baseId": "fort-bragg",
     "commandId": null,
-    "kind": "instruction",
+    "kind": "city",
     "when": null
   },
   {
@@ -766,5 +766,68 @@
     "commandId": "navhosp",
     "kind": "command",
     "when": "2015"
+  },
+  {
+    "order": 85,
+    "label": "Nagasaki, JPN",
+    "cityId": null,
+    "baseId": "nagasaki",
+    "commandId": null,
+    "kind": "port",
+    "when": ""
+  },
+  {
+    "order": 86,
+    "label": "Rota, ESP",
+    "cityId": null,
+    "baseId": "rota",
+    "commandId": null,
+    "kind": "port",
+    "when": ""
+  },
+  {
+    "order": 87,
+    "label": "Philippines",
+    "cityId": null,
+    "baseId": "philippines",
+    "commandId": null,
+    "kind": "port",
+    "when": ""
+  },
+  {
+    "order": 88,
+    "label": "Bitburg, DEU",
+    "cityId": null,
+    "baseId": "bitburg",
+    "commandId": null,
+    "kind": "layover",
+    "when": ""
+  },
+  {
+    "order": 89,
+    "label": "Ramstein Air Base, DEU",
+    "cityId": null,
+    "baseId": "ramstein",
+    "commandId": null,
+    "kind": "layover",
+    "when": ""
+  },
+  {
+    "order": 90,
+    "label": "Hickam AFB, Honolulu, HI",
+    "cityId": null,
+    "baseId": "hickam",
+    "commandId": null,
+    "kind": "stopover",
+    "when": ""
+  },
+  {
+    "order": 91,
+    "label": "Travis AFB, Fairfield, CA",
+    "cityId": null,
+    "baseId": "travis",
+    "commandId": null,
+    "kind": "stopover",
+    "when": ""
   }
 ]
