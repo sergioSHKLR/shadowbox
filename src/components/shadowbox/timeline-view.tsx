@@ -236,7 +236,7 @@ function bioInline(text: string) {
       );
     }
     const hidden = /^\{\{r\}\}([\s\S]*)\{\{\/r\}\}$/.exec(bit);
-    if (hidden) return <span className="bio-redact" key={index}><span className="sr-only">[redacted]</span><MarkerLine seed={index + 3.1} tilt={index % 2 ? -0.6 : 0.4} /></span>;
+    if (hidden) return <span className={`redact-run redact-v${index % 4}`} key={index}><span className="sr-only">[redacted]</span><span className="redact-mark" aria-hidden="true">{hidden[1]}</span></span>;
     const name = /^\{\{b\}\}([\s\S]*)\{\{\/b\}\}$/.exec(bit);
     if (name) return <strong key={index}>{name[1]}</strong>;
     return bit;

@@ -1254,13 +1254,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   object-fit: contain;
 }
 
-.bio-redact {
-  display: inline-flex;
-  vertical-align: middle;
-  width: 7.5em;
-  height: 1.05em;
-  margin: 0 0.15em;
-  color: #1a1a1a;
+
+[data-theme="dark"] .bio .redact-mark {
+  background: linear-gradient(104deg, rgba(215, 209, 197, 0.95) 0%, rgba(232, 226, 214, 0.9) 100%);
 }
-.bio-redact .marker-line { width: 100%; }
-[data-theme="dark"] .bio-redact { color: #d7d1c5; }
