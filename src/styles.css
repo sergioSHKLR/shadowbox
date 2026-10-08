@@ -1309,12 +1309,12 @@ body[data-scroll-locked] .home-pin {
 .timeline-scrub input::-webkit-slider-thumb { background: #daa520; }
 
 .case-home { display: grid; justify-items: center; }
-.case-frame { width: min(68rem, 100%); padding: 0.7rem; background: #5c4030; border: 1px solid #3d291c; box-shadow: inset 0 0 0 3px #8a6a3b; }
+.case-frame { position: relative; width: min(68rem, 100%); padding: 0.7rem; background: #5c4030; border: 1px solid #3d291c; box-shadow: inset 0 0 0 3px #8a6a3b; }
 .case-mat { display: grid; grid-template-columns: 1fr minmax(12rem, 0.9fr) 1fr; grid-template-areas: "side portrait timeline" "plates plates plates"; gap: 0.7rem; padding: 0.8rem; background: #f4efe4; }
 .case-side { grid-area: side; display: grid; gap: 0.7rem; }
 .case-center { grid-area: portrait; display: flex; flex-direction: column; gap: 0.7rem; }
 .case-plaque { display: block; margin: 0 auto; padding: 0.35rem 1.1rem; background: #c6a15b; color: #14233a; border: 1px solid #8a6a3b; letter-spacing: 0.08em; font-weight: 600; text-align: center; }
-.case-flag { display: block; width: min(16rem, 100%); margin: 0 auto; }
+.case-flag { position: absolute; top: 0; left: 0; z-index: 2; width: 7.5rem; height: auto; transform-origin: top left; transform: rotate(0deg); pointer-events: none; }
 .case-portrait { margin: 0; background: #111; border: 0; padding: 0; cursor: pointer; display: block; }
 .case-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .case-tray-timeline { grid-area: timeline; }

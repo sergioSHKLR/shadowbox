@@ -121,6 +121,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
   return (
     <main className="sheet case-home">
       <section className="case-frame" aria-label="Shadowbox">
+        <img className="case-flag" src={publicUrl("/incoming/home-folded-flag.webp")} alt="Folded flag" />
         <div className="case-mat">
           <div className="case-side">
             {tray("logbook", t.logbook, (
@@ -155,7 +156,6 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
             </button>
             <span className="case-plaque">Electronics Technician Chief (SW/EXW)<br />Sergio Schickler</span>
-            <img className="case-flag" src={publicUrl("/incoming/home-folded-flag.webp")} alt="Folded flag" />
           </div>
           {tray("timeline", t.timeline, <CaseTracks />)}
           <div className="case-plates">
