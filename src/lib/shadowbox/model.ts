@@ -852,9 +852,6 @@ export const necById = (id: string | null) => byId(necs, id);
 export const awardById = (id: string) => byId(awards, id);
 
 const serviceYear = (value: string) => Number(value.slice(0, 4));
-const SCALE_START = Date.UTC(serviceYear(profile.serviceStart), 0, 1);
-const SCALE_END = Date.UTC(serviceYear(profile.serviceEnd), 11, 31);
-
 export function pct(ms: number): number {
   return ((ms - SCALE_START) / (SCALE_END - SCALE_START)) * 100;
 }
@@ -866,6 +863,8 @@ function bound(value: string, edge: "start" | "end"): number {
   const day = ds ? Number(ds) : edge === "end" ? 28 : 1;
   return Date.UTC(y, m - 1, day);
 }
+const SCALE_START = bound(profile.serviceStart, "start");
+const SCALE_END = bound(profile.serviceEnd, "end");
 
 /** Pay grades and promotion dates. The one place to edit them: src/data/ranks.json. */
 export type Rank = {
@@ -1023,7 +1022,7 @@ function assignmentBars(): Omit<Bar, "lane" | "left" | "width">[] {
   const dated = units.filter((unit): unit is Unit & { start: string } => Boolean(unit.start));
   const spanOf = (unit: Unit & { start: string }) => ({
     start: bound(unit.start, "start"),
-    end: bound(unit.end ?? unit.start, "end"),
+    end: Math.min(bound(unit.end ?? unit.start, "end"), bound(profile.serviceEnd, "end")),
   });
   const nested = new Set(
     dated
