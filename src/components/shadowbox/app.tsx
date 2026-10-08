@@ -114,14 +114,13 @@ function SettingsDialog({
     <Dialog.Root open={open} onOpenChange={(next) => { if (!next) onClose(); }}>
       <Dialog.Portal container={typeof HTMLElement !== "undefined" && frame instanceof HTMLElement ? frame : undefined}>
         <Dialog.Overlay className="settings-overlay" />
-        <Dialog.Content className="settings-modal" aria-describedby="settings-lead">
+        <Dialog.Content className="settings-modal" aria-describedby={undefined}>
           <header className="settings-head">
-            <Dialog.Title className="sr-only">{t.settingsTitle}</Dialog.Title>
+            <Dialog.Title>{t.settingsTitle}</Dialog.Title>
             <Dialog.Close className="icon-btn" aria-label={t.close}>
               <X />
             </Dialog.Close>
           </header>
-          <p id="settings-lead">{t.settingsLead}</p>
           {/* Plain radio groups (Sergio, Oct 2026), the same look as the Logbook Decorations radios. */}
           <RadioGroup name="settings-language" legend={t.language} value={locale} onChange={setLocale} options={[{ value: "en", label: t.english }, { value: "pt", label: t.portuguese }]} />
           {showTheme ? (
