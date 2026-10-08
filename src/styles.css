@@ -1332,7 +1332,9 @@ body[data-scroll-locked] .home-pin {
 .case-crests-partner img { height: 1.5rem; width: auto; }
 .case-ribbons { display: flex; flex-direction: column; gap: 0.35rem; }
 .case-ribbon-row { display: flex; flex-direction: row-reverse; justify-content: flex-start; gap: 0.35rem; }
-.case-ribbon { width: 4.4rem; }
+.case-ribbon-row.is-short { justify-content: center; }
+.case-ribbon { width: 3.2rem; }
+.case-pin { display: block; width: 3.2rem; height: auto; margin: 0.15rem auto; }
 .case-ribbon img { width: 100%; height: auto; display: block; }
 .case-map-wrap { position: relative; display: block; min-height: 8rem; }
 .case-map { display: block; width: 100%; height: 8rem; object-fit: cover; object-position: center; }
