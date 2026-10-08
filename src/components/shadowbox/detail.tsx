@@ -585,6 +585,7 @@ export function DetailPanel({
                   <figcaption>{extra.caption}</figcaption>
                 </figure>
               ))}
+              {selection ? <div className="detail-body"><MyWords noteId={`${selection.kind}:${selection.id}`} seed={words} usedWhere={selection.kind === "equipment" && DEPLOYMENT_GEAR_IDS.has(selection.id)} /></div> : null}
               {/* (d) map at the bottom */}
               {selection?.kind === "uniform" ? null : (
               <section className="sidebar-map">
@@ -657,7 +658,6 @@ export function DetailPanel({
                 ) : null}
               </div>
               )}
-              {selection ? <div className="detail-body"><MyWords noteId={`${selection.kind}:${selection.id}`} seed={words} usedWhere={selection.kind === "equipment" && DEPLOYMENT_GEAR_IDS.has(selection.id)} /></div> : null}
               </div>
               {more ? <span className="detail-more" aria-hidden="true" /> : null}
               </div>
