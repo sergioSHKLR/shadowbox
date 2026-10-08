@@ -247,10 +247,6 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
     <main className="sheet">
       {/* Travel Book (Sergio, Oct 2026): no visible page title; the heading stays for screen readers, like the Logbook. */}
       <h1 className="sr-only">{title}</h1>
-      <details className="map-about">
-        <summary>{aboutLabel}</summary>
-        <p>{caseCopy.mapLead}</p>
-      </details>
       <div ref={stageRef} className={`map-stage${cursor != null ? " is-playing" : ""}${full ? " is-full" : ""}`}>
       <div className="map-play" role="group" aria-label="Play the map in career order">
         <button type="button" className="nav-btn icon-btn" aria-label="Back" title="Back" onClick={() => step(-1)} disabled={!stops.length}>
@@ -319,9 +315,9 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
       </div>
       <ul className="map-legend" aria-label="Pin colours">
         {PIN_GROUPS.map((g) => (
-          <li key={g.id}><span className={`pin-num ${g.cls}`}><PinGlyph name={g.id} /></span> {g.legend}</li>
+          <li key={g.id}><span className={`pin-num ${g.cls}`}><PinGlyph name={g.id} /></span> {g.label}</li>
         ))}
-        <li><span className="pin-num approximate"><PinGlyph name="approximate" /></span> {t.legendApprox}</li>
+        <li><span className="pin-num approximate"><PinGlyph name="approximate" /></span> {t.legendApprox.split(',')[0]}</li>
       </ul>
 
     </main>
