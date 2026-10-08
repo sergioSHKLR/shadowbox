@@ -39,7 +39,8 @@ function useHomeFade(ref: RefObject<HTMLElement | null>) {
       if (reduce?.matches) p = p >= 0.5 ? 1 : 0;
       root.style.setProperty("--fade", p.toFixed(4));
       root.classList.toggle("is-late", p >= 0.5);
-      root.classList.toggle("is-end", p >= 0.92);
+      if (p >= 0.92) root.classList.add("is-end");
+      else if (p < 0.8) root.classList.remove("is-end");
       // Phone: the frame starts pinned under the bar. Once the bio card has slid fully over it, the frame moves (unseen)
       // to its spot after the stamps, so it scrolls in there, all End of Career, with no empty band below it.
       // A bio card shorter than the frame can't hide it, so a short page falls back to plain flow (frame, then bio).

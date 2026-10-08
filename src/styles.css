@@ -1276,8 +1276,9 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   .home-sheet > * { position: relative; z-index: 1; }
 }
 .home-end-stamps {
-  display: none;
+  display: flex;
   justify-content: center;
   margin: 0.45rem auto 0.2rem;
+  visibility: hidden;
 }
-.home-scroll.is-end .home-end-stamps { display: flex; }
+.home-scroll.is-end .home-end-stamps { visibility: visible; }
