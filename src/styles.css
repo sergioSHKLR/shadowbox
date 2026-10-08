@@ -969,7 +969,6 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 /* Uniform progression (Timeline). Ready slides from incoming/uniforms/. */
 .uprog { margin: 0.4rem 0 1.8rem; }
 .uprog-crest { height: 1.6rem; width: auto; vertical-align: middle; margin-right: 0.4rem; }
-.uprog-uim { display: inline-block; margin-left: 0.45rem; padding: 0.1rem 0.35rem; background: #111; color: #fff; font-size: 0.72rem; letter-spacing: 0.04em; vertical-align: middle; }
 .uprog-controls { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0.6rem 0; }
 .uprog-play { min-width: 5.2rem; justify-content: center; }
 .uprog-slider { flex: 1 1 10rem; min-width: 0; display: flex; }
