@@ -57,7 +57,7 @@ const CLUSTER_KM = 220;
 // gentler and the route around each stop stays readable. The full map opens a half step wider than a tight fit.
 const CLUSTER_MAX_ZOOM = 8;
 const SOLO_ZOOM = 5;
-const FULL_MAP_ZOOM_OUT = 0.5;
+const FULL_MAP_ZOOM_OUT = 0;
 const FLY_SECONDS = 0.7;
 
 function prefersReducedMotion() {
@@ -353,7 +353,7 @@ export function MapView({
         const PIN_PX = ref.current.clientWidth < 520 ? 18 : 22;
         const still = prefersReducedMotion();
         // Reduced motion: no zoom / fade / marker animations anywhere on the map; every camera move is a jump.
-        const view = L.map(ref.current, { crs, scrollWheelZoom: false, zoomControl: true, zoomSnap: 0.25, zoomDelta: 0.5, zoomAnimation: !still, fadeAnimation: !still, markerZoomAnimation: !still });
+        const view = L.map(ref.current, { crs, scrollWheelZoom: true, zoomControl: true, zoomSnap: 1, zoomDelta: 1, zoomAnimation: !still, fadeAnimation: !still, markerZoomAnimation: !still });
         map = view;
         // Give Leaflet a view up front. Focused maps (Logbook) skip fit(), and
         // flyTo/flyToBounds/getCenter throw until a center and zoom exist.
@@ -501,12 +501,11 @@ export function MapView({
           const bounds = cluster.getBounds();
           if (!bounds.isValid()) return;
           if (tall) {
-            // Half a step wider than the tightest fit, so the whole route reads at a glance and fewer tiles load.
             const pad = L.point(PIN_PX * 1.6, PIN_PX * 1.6);
             const tight = map.getBoundsZoom(bounds, false, pad);
-            // Never so far out that the world is shorter than the frame (grey bands above and below on phones).
-            const fill = Math.ceil(Math.log2(Math.max(1, map.getSize().y) / 256) * 4) / 4;
-            const zoom = Math.max(map.getMinZoom(), fill, tight - FULL_MAP_ZOOM_OUT);
+            const fill = Math.ceil(Math.log2(Math.max(1, map.getSize().y) / 256));
+            const solo = bounds.getNorthEast().distanceTo(bounds.getSouthWest()) < 1000;
+            const zoom = solo ? SOLO_ZOOM : Math.max(map.getMinZoom(), fill, tight - FULL_MAP_ZOOM_OUT);
             // The full map is a reset, so it jumps (no fly) and keeps the world's top and bottom edges outside the frame.
             map.setView(bounds.getCenter(), zoom, { animate: false });
             map.panInsideBounds(L.latLngBounds([-85.05, -1e5], [85.05, 1e5]), { animate: false });
@@ -514,9 +513,10 @@ export function MapView({
             // Fit the padded pins, but never so far out that the world is shorter than the frame (grey "no data" bands on tall
             // frames such as the enlarged phone map) as long as the pins themselves still fit at that zoom.
             const padded = bounds.pad(0.35);
-            let zoom = Math.min(map.getBoundsZoom(padded, false), fitMaxZoom ?? Infinity);
-            const fill = Math.ceil(Math.log2(Math.max(1, map.getSize().y) / 256) * 4) / 4;
-            if (zoom < fill && map.getBoundsZoom(bounds, false) >= fill) zoom = fill;
+            const solo = bounds.getNorthEast().distanceTo(bounds.getSouthWest()) < 1000;
+            let zoom = solo ? SOLO_ZOOM : Math.min(map.getBoundsZoom(padded, false), fitMaxZoom ?? Infinity);
+            const fill = Math.ceil(Math.log2(Math.max(1, map.getSize().y) / 256));
+            if (!solo && zoom < fill && map.getBoundsZoom(bounds, false) >= fill) zoom = fill;
             map.setView(padded.getCenter(), Math.max(map.getMinZoom(), zoom), { animate: !prefersReducedMotion() });
             if (zoom <= fill) map.panInsideBounds(L.latLngBounds([-85.05, -1e5], [85.05, 1e5]), { animate: false });
           }
