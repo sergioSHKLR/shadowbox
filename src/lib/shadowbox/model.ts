@@ -616,6 +616,7 @@ export type UniformStep = {
   from: string;
   month: number;
   crest?: string;
+  uim?: string;
 };
 
 function spanForUnit(unit: Unit): string {
@@ -626,6 +627,14 @@ function spanForUnit(unit: Unit): string {
   return a === b ? a : `${a}–${b}`;
 }
 
+const UIM: Record<string, string> = {
+  ncts: "NCTS SAN DIEGO",
+  "frank-cable": "USS FRANK CABLE",
+  eodmu5: "EOD MOBILE UNIT FIVE",
+  sercc: "SERCC JACKSONVILLE",
+  jcse: "JOINT COMM SPT ELMT",
+  navhosp: "NAVHOSP JACKSONVILLE",
+};
 export const uniformSteps: UniformStep[] = UNIFORM_STEP_PLATES.flatMap(({ unitId, stem, id, label, span }) => {
   const unit = units.find((row) => row.id === unitId);
   const plate = PLATE_FILE[stem];
@@ -635,6 +644,7 @@ export const uniformSteps: UniformStep[] = UNIFORM_STEP_PLATES.flatMap(({ unitId
     unitId,
     label: label ?? unit.abbreviation,
     crest: unit.image,
+    uim: UIM[unitId],
     span: span ?? spanForUnit(unit),
     from: `${plate.y}-${String(plate.m).padStart(2, "0")}`,
     month: plate.y * 12 + (plate.m - 1),
