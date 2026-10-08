@@ -121,7 +121,6 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
   return (
     <main className="sheet case-home">
       <section className="case-frame" aria-label="Shadowbox">
-        <img className="case-flag" src={publicUrl("/incoming/home-folded-flag.webp")} alt="Folded flag" />
         <div className="case-mat">
           <div className="case-side">
             {tray("logbook", t.logbook, (
@@ -156,6 +155,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             ))}
           </div>
           <div className="case-center">
+            <img className="case-flag" src={publicUrl("/incoming/home-folded-flag.webp")} alt="Folded flag" />
             <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
             </button>
@@ -167,18 +167,6 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
           </div>
         </div>
       </section>
-      <div className="home-branch-seals case-seals">
-        {([
-          ["army", "/incoming/Emblem_of_the_United_States_Department_of_the_Army.svg", "United States Army"],
-          ["marines", "/incoming/Emblem_of_the_United_States_Marine_Corps.svg", "United States Marine Corps"],
-          ["navy", "/incoming/Seal_of_the_United_States_Department_of_the_Navy.svg", "United States Navy"],
-          ["air-force", "/incoming/U.S._Air_Force_service_mark.svg", "United States Air Force"],
-        ] as const).map(([id, src, label]) => (
-          <button key={id} type="button" className="home-branch-seal" onClick={() => onOpen?.("branch", id)} aria-label={label}>
-            <img src={publicUrl(src)} alt="" />
-          </button>
-        ))}
-      </div>
     </main>
   );
 }
