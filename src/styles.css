@@ -1259,3 +1259,10 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   background: linear-gradient(104deg, rgba(215, 209, 197, 0.95) 0%, rgba(232, 226, 214, 0.9) 100%);
 }
 
+
+/* Sidebar scroll-lock drops the sticky Home portrait. Hold it. */
+body[data-scroll-locked] .home-pin {
+  position: fixed;
+  top: var(--pin-top, 4.25rem);
+  z-index: 1101;
+}
