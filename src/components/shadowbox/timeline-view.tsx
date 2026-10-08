@@ -81,7 +81,7 @@ function useHomeFade(ref: RefObject<HTMLElement | null>) {
   }, [ref]);
 }
 
-export function Home({ bio, locale = "en" }: { onOpen?: (k: Kind, id: string) => void; bio: string; locale?: Locale }) {
+export function Home({ bio, locale = "en", onOpen }: { onOpen?: (k: Kind, id: string) => void; bio: string; locale?: Locale }) {
   const t = chrome(locale);
   const paragraphs = bio.split("\n\n");
   const scrollRef = useRef<HTMLElement>(null);
@@ -95,6 +95,7 @@ export function Home({ bio, locale = "en" }: { onOpen?: (k: Kind, id: string) =>
           <FadePortrait
             first={{ src: SN_PORTRAIT?.src ?? profile.portrait, alt: SN_PORTRAIT?.alt ?? "Seaman Recruit Sergio Schickler, boot camp portrait, 1997", caption: t.bootCampCap }}
             last={{ src: CHIEF_PORTRAIT?.src ?? profile.portrait, alt: CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018", caption: t.endCareerCap }}
+            onOpen={onOpen}
           />
         </div>
         <div className="home-read">
@@ -123,7 +124,7 @@ export function Home({ bio, locale = "en" }: { onOpen?: (k: Kind, id: string) =>
 type Shot = { src: string; alt: string; caption: string };
 
 /** One frame, two stacked portraits; the second fades in with --fade (0..1) set on .home-scroll. */
-function FadePortrait({ first, last }: { first: Shot; last: Shot }) {
+function FadePortrait({ first, last, onOpen }: { first: Shot; last: Shot; onOpen?: (k: Kind, id: string) => void }) {
   return (
     <figure className="intro-solo home-pin home-fade">
       <div className="wood-frame">
@@ -138,11 +139,17 @@ function FadePortrait({ first, last }: { first: Shot; last: Shot }) {
         <span className="home-fade-cap-first">{first.caption}</span>
         <span className="home-fade-cap-last">{last.caption}</span>
       </figcaption>
-      <div className="home-branch-seals" aria-hidden="true">
-        <img src={publicUrl("/incoming/Emblem_of_the_United_States_Department_of_the_Army.svg")} alt="" />
-        <img src={publicUrl("/incoming/Emblem_of_the_United_States_Marine_Corps.svg")} alt="" />
-        <img src={publicUrl("/incoming/Seal_of_the_United_States_Department_of_the_Navy.svg")} alt="" />
-        <img src={publicUrl("/incoming/U.S._Air_Force_service_mark.svg")} alt="" />
+      <div className="home-branch-seals">
+        {([
+          ["army", "/incoming/Emblem_of_the_United_States_Department_of_the_Army.svg", "United States Army"],
+          ["marines", "/incoming/Emblem_of_the_United_States_Marine_Corps.svg", "United States Marine Corps"],
+          ["navy", "/incoming/Seal_of_the_United_States_Department_of_the_Navy.svg", "United States Navy"],
+          ["air-force", "/incoming/U.S._Air_Force_service_mark.svg", "United States Air Force"],
+        ] as const).map(([id, src, label]) => (
+          <button key={id} type="button" className="home-branch-seal" onClick={() => onOpen?.("branch", id)} aria-label={label}>
+            <img src={publicUrl(src)} alt="" />
+          </button>
+        ))}
       </div>
     </figure>
   );

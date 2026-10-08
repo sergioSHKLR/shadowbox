@@ -387,6 +387,13 @@ function UnitDossier({ id, part, hideUniforms = false, cardNames = [] }: { id: s
   );
 }
 
+
+const BRANCH_RECRUIT: Record<string, { href: string; label: string }> = {
+  army: { href: "https://www.goarmy.com/", label: "goarmy.com" },
+  marines: { href: "https://www.marines.com/", label: "marines.com" },
+  navy: { href: "https://www.navy.com/", label: "navy.com" },
+  "air-force": { href: "https://www.airforce.com/", label: "airforce.com" },
+};
 export function DetailPanel({
   selection,
   trail = [],
@@ -524,6 +531,9 @@ export function DetailPanel({
                   </>
                 ) : (
                   <p className="lede">{subject.explanation}</p>
+                  {selection?.kind === "branch" && BRANCH_RECRUIT[selection.id] ? (
+                    <p className="detail-recruit"><a href={BRANCH_RECRUIT[selection.id].href} target="_blank" rel="noreferrer">Recruiting · {BRANCH_RECRUIT[selection.id].label}</a></p>
+                  ) : null}
                 )}
               </div>
               {/* (c) cards, photos and inputs */}
