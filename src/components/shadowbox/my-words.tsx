@@ -41,7 +41,7 @@ export function MyWords({ noteId, seed, usedWhere: withUsedWhere = false }: { no
   const [text, setText] = useState("");
   const [where, setWhere] = useState("");
   const [saved, setSaved] = useState<Note | null>(null);
-  const [status, setStatus] = useState<"" | "saved" | "cleared" | "error">("");
+  const [status, setStatus] = useState<"" | "saved" | "download" | "cleared" | "error">("");
 
   useEffect(() => {
     const note = readAll()[noteId] ?? null;
@@ -52,11 +52,30 @@ export function MyWords({ noteId, seed, usedWhere: withUsedWhere = false }: { no
   }, [noteId, seed]);
 
   const dirty = text.trim() !== (saved?.text ?? seed ?? "").trim() || where.trim() !== (saved?.usedWhere ?? "").trim();
-  const save = () => {
+  const save = async () => {
     try {
       const note = writeNote(noteId, text, withUsedWhere ? where : "");
       setSaved(note);
-      setStatus(note ? "saved" : "cleared");
+      const [kind, subjectId] = noteId.split(":");
+      let published = "download";
+      try {
+        const response = await fetch("/__shadowbox/reflections", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ kind, subjectId, text: text.trim() }),
+        });
+        if (response.ok) published = "file";
+      } catch { /* live site has no write endpoint */ }
+      if (published !== "file") {
+        const blob = new Blob([`${JSON.stringify([{ id: noteId, kind, subjectId, text: text.trim() }], null, 2)}\n`], { type: "application/json" });
+        const href = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = href;
+        a.download = "reflections.json";
+        a.click();
+        URL.revokeObjectURL(href);
+      }
+      setStatus(note ? (published === "file" ? "saved" : "download") : "cleared");
     } catch {
       setStatus("error");
     }
@@ -66,6 +85,7 @@ export function MyWords({ noteId, seed, usedWhere: withUsedWhere = false }: { no
   return (
     <section className="my-words">
       <h3><label htmlFor={inputId}>In my own words</label></h3>
+      <p className="quiet">This note is about the record, not a photograph.</p>
       <form
         className="my-words-form"
         onSubmit={(event) => {
@@ -79,18 +99,20 @@ export function MyWords({ noteId, seed, usedWhere: withUsedWhere = false }: { no
             <input type="text" value={where} onChange={(event) => { setWhere(event.target.value); setStatus(""); }} maxLength={400} placeholder="e.g. which deployments or commands" />
           </label>
         ) : null}
-        <textarea id={inputId} value={text} onChange={(event) => { setText(event.target.value); setStatus(""); }} rows={4} maxLength={MAX} placeholder="Write your own notes about this. They stay in this browser." />
+        <textarea id={inputId} value={text} onChange={(event) => { setText(event.target.value); setStatus(""); }} rows={4} maxLength={MAX} placeholder="Your note on this record. Saving publishes it." />
         <div className="my-words-bar">
           <button type="submit" className="nav-btn on" disabled={!dirty}>Save</button>
           <span className="my-words-status quiet" role="status" aria-live="polite">
             {status === "error"
-              ? "Did not save (browser storage is blocked)."
+              ? "Did not save."
+              : status === "download"
+                ? "Saved reflections.json to Downloads. Commit that file to publish."
               : status === "cleared"
                 ? "Cleared."
                 : dirty
                   ? "Not saved yet."
                   : saved
-                    ? `Saved ${when(saved.savedAt)} (this browser)`
+                    ? `Saved ${when(saved.savedAt)}`
                     : ""}
           </span>
         </div>
