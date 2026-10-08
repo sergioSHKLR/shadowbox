@@ -150,9 +150,9 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             {tray("map", t.map, (
               <span className="case-map-wrap">
                 <img className="case-map" src={publicUrl("/incoming/world-map.png")} alt="" />
-                <img className="case-pass case-pass-br" src={publicUrl("/incoming/passport-br.svg")} alt="Brazilian passport" />
-                <img className="case-pass case-pass-us" src={publicUrl("/incoming/passport-us.svg")} alt="United States passport" />
-                <img className="case-pass case-pass-official" src={publicUrl("/incoming/passport-us-official.svg")} alt="United States official passport" />
+                <img className="case-pass case-pass-br" src={publicUrl("/incoming/passport-br.png")} alt="Brazilian passport" />
+                <img className="case-pass case-pass-us" src={publicUrl("/incoming/passport-us.png")} alt="United States passport" />
+                <img className="case-pass case-pass-official" src={publicUrl("/incoming/passport-us-official.png")} alt="United States official passport" />
               </span>
             ))}
           </div>
