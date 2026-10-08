@@ -68,6 +68,33 @@ export function photoRemarksPlugin() {
       const file = join(server.config.root, "src/data/photo-remarks.json");
       server.middlewares.use(async (req, res, next) => {
         const pathOnly = (req.url ?? "").split("?", 1)[0] ?? "";
+        if (pathOnly === "/__shadowbox/reflections") {
+          if ((req.method ?? "GET").toUpperCase() !== "POST") {
+            send(res, 405, { error: "Method Not Allowed" });
+            return;
+          }
+          try {
+            const body = JSON.parse(await readBody(req));
+            const kind = typeof body?.kind === "string" ? body.kind : "";
+            const subjectId = typeof body?.subjectId === "string" ? body.subjectId : "";
+            const text = typeof body?.text === "string" ? body.text.trim().slice(0, 8000) : "";
+            if (!kind || !subjectId || kind.includes("..") || subjectId.includes("..")) {
+              send(res, 400, { error: "Unknown record" });
+              return;
+            }
+            const file = join(server.config.root, "src/data/reflections.json");
+            const rows = JSON.parse(readFileSync(file, "utf8"));
+            const list = Array.isArray(rows) ? rows : [];
+            const id = `${kind}:${subjectId}`;
+            const nextRows = list.filter((row) => !(row && row.kind === kind && row.subjectId === subjectId));
+            if (text) nextRows.push({ id, kind, subjectId, text });
+            writeFileSync(file, `${JSON.stringify(nextRows, null, 2)}\n`);
+            send(res, 200, { ok: true, id });
+          } catch {
+            send(res, 400, { error: "Bad Request" });
+          }
+          return;
+        }
         if (pathOnly !== "/__shadowbox/photo-remarks") {
           next();
           return;

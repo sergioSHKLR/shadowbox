@@ -45,7 +45,7 @@ export function PhotoRemarks({ src }: { src: string }) {
             onChange={(event) => setText(event.target.value)}
             rows={3}
             maxLength={4000}
-            placeholder="Who, where, what this still shows"
+            placeholder="Your note on this photograph. Saving publishes it."
           />
         </label>
         <button type="submit" className="nav-btn on" disabled={busy}>
