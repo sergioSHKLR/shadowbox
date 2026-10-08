@@ -397,7 +397,7 @@ function GearPanel({ groups, what, onOpen, empty }: { groups: LogbookGearGroup[]
                   <span>{gearLabel(item)}</span>
                 </button>
               </li>
-            )); })()}
+            ))}
           </ul>
         </section>
       ))}
@@ -619,7 +619,7 @@ function OnDutyPanel({ beat, onOpen, empty }: { beat: LogbookBeat; onOpen: Open;
                   ) : <span className="quiet">Body armor and helmet not recorded</span>;
                 })()}
               </li>
-            ))}
+            )); })()}
           </ul>
         </section>
       ) : null}
