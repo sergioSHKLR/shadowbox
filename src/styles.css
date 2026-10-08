@@ -687,16 +687,16 @@ a { color: var(--color-navy); }
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
 }
 /* Mutually exclusive Map categories: command blue, base green, field orange, port yellow, layover teal, stopover rose. */
-.map-num, .pin-num { background: #1d4e89; color: #ffffff; border-color: #0c2748; }
-.map-num.command, .pin-num.command { background: #1d4e89; color: #ffffff; border-color: #0c2748; }
-.map-num.instruction, .pin-num.instruction { background: #7c3aed; color: #ffffff; border-color: #4c1d95; }
-.map-num.base, .pin-num.base { background: #1f8a3c; color: #ffffff; border-color: #0d4a1f; }
-.map-num.field, .pin-num.field { background: #c45c26; color: #ffffff; border-color: #6e2e10; }
-.map-num.port, .pin-num.port, .map-num.visit, .pin-num.visit, .map-num.city, .pin-num.city { background: #ffd21a; color: #1a1400; border-color: #8a6400; }
-.map-num.layover, .pin-num.layover { background: #0e7490; color: #ffffff; border-color: #083344; }
-.map-num.stopover, .pin-num.stopover { background: #be185d; color: #ffffff; border-color: #831843; }
+.map-num, .pin-num { background: #1d4e89; color: #ffffff; border: 0; }
+.map-num.command, .pin-num.command { background: #1d4e89; color: #ffffff; }
+.map-num.instruction, .pin-num.instruction { background: #7c3aed; color: #ffffff; }
+.map-num.base, .pin-num.base { background: #1f8a3c; color: #ffffff; }
+.map-num.field, .pin-num.field { background: #c45c26; color: #ffffff; }
+.map-num.port, .pin-num.port, .map-num.visit, .pin-num.visit, .map-num.city, .pin-num.city { background: #ffd21a; color: #1a1400; }
+.map-num.layover, .pin-num.layover { background: #0e7490; color: #ffffff; }
+.map-num.stopover, .pin-num.stopover { background: #be185d; color: #ffffff; }
 
-.map-num.approximate, .pin-num.approximate { border-style: dashed; }
+.map-num.approximate, .pin-num.approximate { border: 0; }
 .map-legend { list-style: none; display: flex; flex-wrap: wrap; gap: 0.55rem 1.25rem; margin: 0.4rem 0 0.7rem; padding: 0; font-size: 0.95rem; color: var(--color-quiet); }
 .map-legend li { display: inline-flex; align-items: center; gap: 0.55rem; }
 .map-legend .pin-num { width: 2.15rem; min-width: 2.15rem; height: 2.15rem; padding: 0.28rem; border-radius: 50%; box-shadow: none; }
@@ -928,7 +928,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .map-filter { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 0.6rem; }
 .map-filter .nav-btn { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0.15rem 0.75rem 0.15rem 0.15rem; font-size: 0.9rem; }
 @media (max-width: 420px) { .map-filter { gap: 0.3rem; } .map-filter .nav-btn { padding: 0.2rem 0.55rem; font-size: 0.82rem; gap: 0.3rem; } }
-.map-filter .pin-num { width: 2.45rem; min-width: 2.45rem; height: 2.45rem; padding: 0.32rem; border-radius: 50%; border-width: 2px; box-shadow: none; }
+.map-filter .pin-num { width: 2.45rem; min-width: 2.45rem; height: 2.45rem; padding: 0.32rem; border-radius: 50%; border: 0; box-shadow: none; }
 .map-filter .pin-num svg { width: 1.25rem; height: 1.25rem; }
 .map-play { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.55rem; margin: 0 0 0.7rem; }
 .map-play .nav-btn { min-height: 44px; padding: 0.25rem 0.75rem; font-size: 0.9rem; }
