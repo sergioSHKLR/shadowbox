@@ -11,6 +11,25 @@ import {
 import { MapView } from "@/components/shadowbox/map-view";
 import type { Chrome } from "@/lib/shadowbox/copy";
 
+
+const GLYPH: Record<string, string> = {
+  command: "M12 2a3 3 0 0 0-1 5.83V9H8a1 1 0 0 0 0 2h3v1.1A5 5 0 0 0 7.1 16H6a1 1 0 0 0 0 2h1.1A5 5 0 0 0 12 21a5 5 0 0 0 4.9-3H18a1 1 0 0 0 0-2h-1.1A5 5 0 0 0 13 12.1V11h3a1 1 0 0 0 0-2h-3V7.83A3 3 0 0 0 12 2z",
+  instruction: "M12 3 2 8l10 5 8-4v6h2V8L12 3zm-6 9.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-3.5l-6 3-6-3z",
+  base: "M4 10.5 12 4l8 6.5V20h-6v-5H10v5H4v-9.5z",
+  field: "M4 20l4-9 3 4 2-3 3 5 4-8 2 11H4z",
+  port: "M3 17h18v2H3v-2zm1-2 1.2-6h13.6L20 15H4zm3.2-8h9.6l.6 2H6.6l.6-2z",
+  layover: "M21 16v-2l-8-5V4a1 1 0 0 0-2 0v5L3 14v2l8-2.5V18l-2 1.5V21l3-1 3 1v-1.5L13 18v-4.5l8 2.5z",
+  stopover: "M4 8h6l2-3 2 3h6v2h-6.2l-1.8 3 1.8 3H20v2h-6l-2 3-2-3H4v-2h6.2L12 13 10.2 10H4V8z",
+  approximate: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-2h2v2zm1.1-6.5-.9.9c-.7.7-1.2 1.3-1.2 2.6h-2v-.5c0-1.1.4-2.1 1.2-2.8l1.2-1.3a2 2 0 1 0-3.4-1.4H7a4 4 0 1 1 7.1 2.5z",
+};
+function PinGlyph({ name }: { name: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="currentColor" d={GLYPH[name] || GLYPH.command} />
+    </svg>
+  );
+}
+
 function pinGroups(t: Chrome): { id: StopLayer; label: string; legend: string; cls: string }[] {
   return [
     { id: "command", label: t.pinCommands, legend: t.legendCommands, cls: "command" },
@@ -293,16 +312,16 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
         <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>{t.allChip}</button>
         {PIN_GROUPS.map((g) => (
           <button key={g.id} type="button" className={`nav-btn${shown?.includes(g.id) ? " on" : ""}`} aria-pressed={!!shown?.includes(g.id)} onClick={() => toggle(g.id)}>
-            <span className={`pin-num ${g.cls}`} aria-hidden="true" />
+            <span className={`pin-num ${g.cls}`} aria-hidden="true"><PinGlyph name={g.id} /></span>
             {g.label}
           </button>
         ))}
       </div>
       <ul className="map-legend" aria-label="Pin colours">
         {PIN_GROUPS.map((g) => (
-          <li key={g.id}><span className={`pin-num ${g.cls}`}>#</span> {g.legend}</li>
+          <li key={g.id}><span className={`pin-num ${g.cls}`}><PinGlyph name={g.id} /></span> {g.legend}</li>
         ))}
-        <li><span className="pin-num approximate">#</span> {t.legendApprox}</li>
+        <li><span className="pin-num approximate"><PinGlyph name="approximate" /></span> {t.legendApprox}</li>
       </ul>
 
     </main>
