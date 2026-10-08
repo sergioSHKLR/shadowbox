@@ -1322,15 +1322,24 @@ body[data-scroll-locked] .home-pin {
 .case-tray { width: 100%; border: 1px solid #e4dcc8; background: #fbf7ef; color: #14233a; text-align: center; padding: 0.8rem; cursor: pointer; font: inherit; }
 .case-plates .case-tray { width: min(16rem, 100%); background: #c6a15b; border-color: #8a6a3b; letter-spacing: 0.08em; }
 .case-kicker { display: block; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.55rem; }
+.case-side { container-type: inline-size; }
 .case-crests { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem; }
+.case-crests-assigned { display: grid; grid-template-columns: repeat(3, 1fr); justify-items: center; }
+@container (min-width: 28rem) { .case-crests-assigned { grid-template-columns: repeat(6, 1fr); } }
 .case-crests img { object-fit: contain; }
 .case-crests-assigned img { height: 3.4rem; width: auto; }
 .case-crests-partner { margin-top: 0.45rem; }
 .case-crests-partner img { height: 1.5rem; width: auto; }
-.case-ribbons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.45rem 0.35rem; align-items: start; }
+.case-ribbons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.45rem 0.35rem; align-items: start; }
+@container (min-width: 24rem) { .case-ribbons { grid-template-columns: repeat(4, 1fr); } }
 .case-ribbon { width: 100%; }
 .case-ribbon img { width: 100%; height: auto; display: block; }
+.case-map-wrap { position: relative; display: block; min-height: 8rem; }
 .case-map { display: block; width: 100%; height: 8rem; object-fit: cover; object-position: center; }
+.case-pass { position: absolute; width: 2.4rem; height: auto; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.35)); }
+.case-pass-br { left: 8%; bottom: 0.4rem; transform: rotate(-8deg); }
+.case-pass-us { left: 38%; bottom: 0.7rem; transform: rotate(4deg); }
+.case-pass-official { right: 8%; bottom: 0.35rem; transform: rotate(9deg); }
 .case-line { display: flex; align-items: center; justify-content: space-between; height: 4rem; position: relative; }
 .case-line::before { content: ""; position: absolute; left: 8%; right: 8%; height: 2px; background: #1d4e89; }
 .case-line i { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: #1d4e89; position: relative; }
