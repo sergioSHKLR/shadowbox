@@ -1312,7 +1312,7 @@ body[data-scroll-locked] .home-pin {
 .case-frame { width: min(68rem, 100%); padding: 0.7rem; background: #5c4030; border: 1px solid #3d291c; box-shadow: inset 0 0 0 3px #8a6a3b; }
 .case-mat { display: grid; grid-template-columns: 1fr minmax(12rem, 0.9fr) 1fr; grid-template-areas: "side portrait timeline" "plates plates plates"; gap: 0.7rem; padding: 0.8rem; background: #f4efe4; }
 .case-side { grid-area: side; display: grid; gap: 0.7rem; }
-.case-portrait { grid-area: portrait; margin: 0; background: #111; }
+.case-portrait { grid-area: portrait; margin: 0; background: #111; border: 0; padding: 0; cursor: pointer; display: block; }
 .case-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .case-tray-timeline { grid-area: timeline; }
 .case-plates { grid-area: plates; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; justify-items: center; }

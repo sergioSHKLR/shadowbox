@@ -99,9 +99,9 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             {tray("logbook", t.logbook, <span className="case-rack" aria-hidden="true">{["#c41e3a", "#1d4e89", "#f4c430", "#1f8a3c", "#7c3aed", "#0e7490"].map((color) => <i key={color} style={{ background: color }} />)}</span>)}
             {tray("map", t.map, <span className="case-map" aria-hidden="true" />)}
           </div>
-          <figure className="case-portrait">
+          <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
             <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
-          </figure>
+          </button>
           {tray("timeline", t.timeline, <span className="case-line" aria-hidden="true"><i /><i /><i /><i /></span>)}
           <div className="case-plates">
             {tray("guestbook", t.guestbook, null)}
@@ -121,6 +121,15 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
           </button>
         ))}
       </div>
+    </main>
+  );
+}
+
+export function BioPage({ bio, locale = "en" }: { bio: string; locale?: Locale }) {
+  const t = chrome(locale);
+  const paragraphs = bio.split("\n\n");
+  return (
+    <main className="sheet">
       <div className="home-sheet case-bio">
         <div className="intro-copy">
           <p className="kicker">{t.navyRetired}</p>
