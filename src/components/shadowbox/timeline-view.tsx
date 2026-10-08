@@ -144,6 +144,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
             </button>
+            <span className="case-plaque">ETC(SW/EXW)</span>
             <img className="case-flag" src={publicUrl("/incoming/home-folded-flag.webp")} alt="Folded flag" />
           </div>
           {tray("timeline", t.timeline, <CaseTracks />)}
