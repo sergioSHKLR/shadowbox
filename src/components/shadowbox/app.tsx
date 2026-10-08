@@ -250,6 +250,33 @@ export function ShadowboxApp() {
   const menuAt = MENU.indexOf(view as (typeof MENU)[number]);
   const menuPrev = menuAt > 0 ? MENU[menuAt - 1] : null;
   const menuNext = menuAt >= 0 && menuAt < MENU.length - 1 ? MENU[menuAt + 1] : null;
+  useEffect(() => {
+    const standalone = window.matchMedia("(display-mode: standalone)").matches || Boolean((navigator as Navigator & { standalone?: boolean }).standalone);
+    if (!standalone || selection) return;
+    let startX = 0;
+    let startY = 0;
+    const onStart = (event: TouchEvent) => {
+      const touch = event.changedTouches[0];
+      startX = touch.clientX;
+      startY = touch.clientY;
+    };
+    const onEnd = (event: TouchEvent) => {
+      const target = event.target as Element | null;
+      if (target?.closest("input, textarea, .map-stage, .chart-scroll, .leaflet-container, .detail-overlay")) return;
+      const touch = event.changedTouches[0];
+      const dx = touch.clientX - startX;
+      const dy = touch.clientY - startY;
+      if (Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.4) return;
+      if (dx < 0 && menuNext) go(menuNext);
+      if (dx > 0 && menuPrev) go(menuPrev);
+    };
+    window.addEventListener("touchstart", onStart, { passive: true });
+    window.addEventListener("touchend", onEnd);
+    return () => {
+      window.removeEventListener("touchstart", onStart);
+      window.removeEventListener("touchend", onEnd);
+    };
+  }, [menuPrev, menuNext, selection]);
   const PrevIcon = prevView ? PAGE_ICON[prevView] : null;
   const NextIcon = nextView ? PAGE_ICON[nextView] : null;
   const open = (kind: Kind, id: string) => {
