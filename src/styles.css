@@ -1352,8 +1352,15 @@ body[data-scroll-locked] .home-pin {
 .case-line i { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: #1d4e89; position: relative; }
 .case-seals { margin-top: 1rem; }
 .case-bio { width: min(46rem, 100%); margin-top: 1.5rem; }
+@media (max-width: 1100px) {
+  .case-mat { grid-template-columns: 1fr 1fr; grid-template-areas: "flag portrait" "flag plaque" "timeline logbook" "travel decorations"; }
+  .case-flag-cut { width: 100%; clip-path: polygon(0 0, 100% 0, 0 100%); }
+  .case-flag { clip-path: polygon(2% 2%, 94% 2%, 2% 94%); }
+}
 @media (max-width: 720px) {
   .case-mat { grid-template-columns: 1fr; grid-template-areas: "flag" "portrait" "plaque" "logbook" "decorations" "timeline" "travel"; }
+  .case-flag-cut { width: 100%; clip-path: polygon(50% 0, 0 100%, 100% 100%); }
+  .case-flag { clip-path: polygon(50% 4%, 3% 96%, 97% 96%); }
   .case-portrait img { max-height: 24rem; object-fit: contain; background: #fff; }
 }
 

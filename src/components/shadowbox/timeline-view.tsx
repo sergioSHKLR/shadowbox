@@ -84,6 +84,31 @@ function useHomeFade(ref: RefObject<HTMLElement | null>) {
   }, [ref]);
 }
 
+function CaseRack() {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [columns, setColumns] = useState(5);
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    const apply = (width: number) => setColumns(width < 16 * 16 ? 3 : width < 24 * 16 ? 4 : 5);
+    apply(node.clientWidth);
+    const observer = new ResizeObserver((entries) => apply(entries[0]?.contentRect.width ?? node.clientWidth));
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <span className="case-ribbons" ref={ref}>
+      <img className="case-pin" src={publicUrl("/insignia/esws.svg")} alt="Enlisted Surface Warfare Specialist" />
+      {ribbonRows(awards, columns).map((row) => (
+        <span key={row[0].id} className={row.length < columns ? "case-ribbon-row is-short" : "case-ribbon-row"}>
+          {row.map((award) => <RibbonArt key={award.id} award={award} className="case-ribbon" />)}
+        </span>
+      ))}
+      <img className="case-pin" src={publicUrl("/insignia/exw.svg")} alt="Enlisted Expeditionary Warfare Specialist" />
+    </span>
+  );
+}
+
 function CaseTracks() {
   const bars = timeline();
   const tracks = [
@@ -137,17 +162,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
                 </span>
               </>
             ))}
-            {tray("logbook", t.decorations, (
-              <span className="case-ribbons">
-                <img className="case-pin" src={publicUrl("/insignia/esws.svg")} alt="Enlisted Surface Warfare Specialist" />
-                {ribbonRows(awards, 5).map((row) => (
-                  <span key={row[0].id} className={row.length < 5 ? "case-ribbon-row is-short" : "case-ribbon-row"}>
-                    {row.map((award) => <RibbonArt key={award.id} award={award} className="case-ribbon" />)}
-                  </span>
-                ))}
-                <img className="case-pin" src={publicUrl("/insignia/exw.svg")} alt="Enlisted Expeditionary Warfare Specialist" />
-              </span>
-            ))}
+            {tray("logbook", t.decorations, <CaseRack />)}
             <span className="case-flag-cut"><img className="case-flag" src={publicUrl("/incoming/folded%20flag%20stripes.svg")} alt="Folded flag" /></span>
             <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
