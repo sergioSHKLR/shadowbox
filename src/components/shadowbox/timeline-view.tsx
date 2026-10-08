@@ -218,7 +218,7 @@ function BioBlock({ text }: { text: string }) {
 }
 
 function bioInline(text: string) {
-  const bits = text.split(/(\{\{b\}\}[\s\S]*?\{\{\/b\}\}|\{\{redacted-2011\}\})/);
+  const bits = text.split(/(\{\{b\}\}[\s\S]*?\{\{\/b\}\}|\{\{r\}\}[\s\S]*?\{\{\/r\}\}|\{\{redacted-2011\}\})/);
   if (bits.length === 1) return text;
   return bits.map((bit, index) => {
     if (!bit) return null;
@@ -236,6 +236,8 @@ function bioInline(text: string) {
         </span>
       );
     }
+    const hidden = /^\{\{r\}\}([\s\S]*)\{\{\/r\}\}$/.exec(bit);
+    if (hidden) return <span className="bio-redact" key={index}><span className="sr-only">[redacted]</span><MarkerLine seed={index + 3.1} tilt={index % 2 ? -0.6 : 0.4} /></span>;
     const name = /^\{\{b\}\}([\s\S]*)\{\{\/b\}\}$/.exec(bit);
     if (name) return <strong key={index}>{name[1]}</strong>;
     return bit;
