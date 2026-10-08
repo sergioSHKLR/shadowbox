@@ -1210,7 +1210,8 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
    before; stays behind the bio sheet and portrait. Gold-embossed Navy seal under the portrait (emboss.svg →
    home-navy-seal-gold.*). Joint-flags assets remain in incoming/ but are not shown pending approval.
    Watermark from incoming/folded-flag.svg → home-folded-flag.*. */
-.home-scroll .home-read::before {
+.home-scroll { isolation: isolate; }
+.home-scroll::before {
   content: "";
   position: fixed;
   left: 50%;
@@ -1224,10 +1225,12 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   z-index: 0;
   filter: grayscale(0.35) contrast(0.9);
 }
+.home-scroll .home-read::before { content: none; }
 [data-theme="dark"] .home-scroll .home-read::before { opacity: 0.11; filter: grayscale(0.2) brightness(1.15); }
 /* Keep portrait + bio above the fixed watermark. */
 .home-scroll .home-pins,
-.home-scroll .home-sheet { position: relative; z-index: 1; }
+.home-scroll .home-sheet { position: relative; z-index: 2; }
+.home-scroll .home-read { z-index: 1; }
 .home-navy-seal {
   display: block;
   width: min(5.5rem, 28%);
@@ -1261,20 +1264,6 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   background: linear-gradient(104deg, rgba(215, 209, 197, 0.95) 0%, rgba(232, 226, 214, 0.9) 100%);
 }
 
-@media (max-width: 959.98px) {
-  .home-scroll .home-read::before { display: none; }
-  .home-sheet { position: relative; }
-  .home-sheet::before {
-    content: "";
-    position: absolute;
-    inset: 8% 6%;
-    background: url("/incoming/folded%20flag%20stripes.svg") center / contain no-repeat;
-    opacity: 0.08;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .home-sheet > * { position: relative; z-index: 1; }
-}
 .home-end-stamps {
   display: flex;
   justify-content: center;
