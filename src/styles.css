@@ -936,8 +936,28 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .map-play .nav-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 .map-play-status { flex: 1 1 12rem; margin: 0; font-size: 0.95rem; color: var(--color-quiet); }
 [data-theme="dark"] .map-play-status { color: #c4b8a6; }
-.map-play-scrub { flex: 1 1 100%; display: block; }
-.map-play-scrub input { width: 100%; min-height: 44px; accent-color: var(--color-navy); }
+.map-play-scrub { flex: 1 1 100%; display: flex; align-items: center; min-height: 44px; }
+.map-play-scrub input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  background: transparent;
+  accent-color: auto;
+}
+.map-play-scrub input::-webkit-slider-runnable-track { height: 2px; background: #1d4e89; border: 0; }
+.map-play-scrub input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -7px;
+  border: 0;
+  border-radius: 50%;
+  background: #daa520;
+}
+.map-play-scrub input::-moz-range-track { height: 2px; background: #1d4e89; border: 0; }
+.map-play-scrub input::-moz-range-thumb { width: 16px; height: 16px; border: 0; border-radius: 50%; background: #daa520; }
 .map-num.now, .map-dot.now { box-shadow: 0 0 0 3px var(--color-ivory), 0 0 0 5px var(--color-navy); }
 .stop-list li.later { opacity: 0.38; }
 .stop-list li.now button { border-color: var(--color-navy); box-shadow: inset 3px 0 0 var(--color-navy); background: #fff8e6; }
