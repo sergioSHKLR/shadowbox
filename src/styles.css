@@ -1210,22 +1210,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
    before; stays behind the bio sheet and portrait. Gold-embossed Navy seal under the portrait (emboss.svg →
    home-navy-seal-gold.*). Joint-flags assets remain in incoming/ but are not shown pending approval.
    Watermark from incoming/folded-flag.svg → home-folded-flag.*. */
-.home-scroll { isolation: isolate; }
-.home-scroll::before {
-  content: "";
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: min(48rem, 92vw);
-  height: min(34rem, 72vh);
-  background: url("/incoming/folded%20flag%20stripes.svg") center / contain no-repeat;
-  opacity: 0.08;
-  pointer-events: none;
-  z-index: 0;
-  filter: grayscale(0.35) contrast(0.9);
-}
-.home-scroll .home-read::before { content: none; }
+.home-scroll::before, .home-scroll .home-read::before { content: none; }
 [data-theme="dark"] .home-scroll .home-read::before { opacity: 0.11; filter: grayscale(0.2) brightness(1.15); }
 /* Keep portrait + bio above the fixed watermark. */
 .home-scroll .home-pins,
@@ -1264,11 +1249,3 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   background: linear-gradient(104deg, rgba(215, 209, 197, 0.95) 0%, rgba(232, 226, 214, 0.9) 100%);
 }
 
-.home-end-stamps {
-  display: flex;
-  justify-content: center;
-  margin: 0.45rem auto 0;
-  padding-bottom: 2.5rem;
-  visibility: hidden;
-}
-.home-scroll.is-end .home-end-stamps { visibility: visible; }

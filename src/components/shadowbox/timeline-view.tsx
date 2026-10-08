@@ -103,7 +103,7 @@ export function Home({ bio, locale = "en" }: { onOpen?: (k: Kind, id: string) =>
           <div className="intro-copy">
             <p className="kicker">{t.navyRetired}</p>
             <h2>{profile.headerLines[0]}</h2>
-            <p className="quiet">{profile.headerLines[2]} · {t.serviceLength}</p>
+            <p className="quiet">{profile.headerLines[2]}</p>
           </div>
           <div className="bio-wrap">
             {paragraphs.map((paragraph) => (
@@ -144,10 +144,6 @@ function FadePortrait({ first, last }: { first: Shot; last: Shot }) {
         <img src={publicUrl("/incoming/Seal_of_the_United_States_Department_of_the_Navy.svg")} alt="" />
         <img src={publicUrl("/incoming/U.S._Air_Force_service_mark.svg")} alt="" />
       </div>
-      <div className="bio-stamps home-end-stamps">
-        <span className="bio-stamp bio-stamp-round bio-stamp-security" role="img" aria-label="Security Manager, redaction: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-security.webp")}")` }} />
-        <span className="bio-stamp bio-stamp-round bio-stamp-pao" role="img" aria-label="Public Affairs Officer, wide release: approved" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-pao.webp")}")` }} />
-        <span className="bio-stamp bio-stamp-rect bio-stamp-unclas" role="img" aria-label="Unclassified (UNCLAS)" style={{ ["--stamp" as string]: `url("${publicUrl("/incoming/stamp-unclas.webp")}")` }} />
       </div>
     </figure>
   );
