@@ -320,20 +320,6 @@ function ChartScroll({ children }: { children: ReactNode }) {
   }, []);
   return (
     <div className="chart-scroll-wrap">
-      <label className="map-play-scrub timeline-scrub">
-        <span className="sr-only">Timeline</span>
-        <input
-          type="range"
-          min={0}
-          max={Math.max(1, Math.round(max))}
-          value={Math.round(pos)}
-          onChange={(event) => {
-            const next = Number(event.target.value);
-            setPos(next);
-            if (ref.current) ref.current.scrollLeft = next;
-          }}
-        />
-      </label>
       <div className="chart-scroll" ref={ref}>
         {children}
       </div>
