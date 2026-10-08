@@ -1294,3 +1294,7 @@ body[data-scroll-locked] .home-pin {
   top: var(--pin-top, 4.25rem);
   z-index: 1101;
 }
+
+.timeline-scrub { margin: 0 0 0.7rem; }
+.timeline-scrub input::-webkit-slider-runnable-track { background: #1d4e89; }
+.timeline-scrub input::-webkit-slider-thumb { background: #daa520; }

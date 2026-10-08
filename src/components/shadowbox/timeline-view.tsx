@@ -299,16 +299,14 @@ export function Timeline({
 
 function ChartScroll({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [edge, setEdge] = useState({ left: false, right: false });
+  const [pos, setPos] = useState(0);
+  const [max, setMax] = useState(0);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const update = () => {
-      const max = el.scrollWidth - el.clientWidth;
-      setEdge({
-        left: el.scrollLeft > 6,
-        right: max > 6 && el.scrollLeft < max - 6,
-      });
+      setMax(Math.max(0, el.scrollWidth - el.clientWidth));
+      setPos(el.scrollLeft);
     };
     update();
     el.addEventListener("scroll", update, { passive: true });
@@ -322,8 +320,21 @@ function ChartScroll({ children }: { children: ReactNode }) {
     };
   }, []);
   return (
-    <div className={`chart-scroll-wrap${edge.left ? " has-left" : ""}${edge.right ? " has-right" : ""}`}>
-      {edge.right ? <span className="chart-scroll-hint">Scroll →</span> : null}
+    <div className="chart-scroll-wrap">
+      <label className="map-play-scrub timeline-scrub">
+        <span className="sr-only">Timeline</span>
+        <input
+          type="range"
+          min={0}
+          max={Math.max(1, Math.round(max))}
+          value={Math.round(pos)}
+          onChange={(event) => {
+            const next = Number(event.target.value);
+            setPos(next);
+            if (ref.current) ref.current.scrollLeft = next;
+          }}
+        />
+      </label>
       <div className="chart-scroll" ref={ref}>
         {children}
       </div>
