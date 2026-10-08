@@ -111,7 +111,7 @@ export function UniformProgression({ tour }: { tour?: TourFocus | null }) {
               onChange={(e) => { setPlaying(false); setIndex(Number(e.target.value)); }}
             />
           </label>
-          <output className="uprog-date">{label}{rank ? ` · ${rank.abbreviation}` : ""}</output>
+          <output className="uprog-date">{step?.crest ? <img className="uprog-crest" src={publicUrl(step.crest)} alt="" /> : null}{label}{rank ? ` · ${rank.abbreviation}` : ""}</output>
           {looks.map((id) => {
             const locked = id === "khaki" && !isChief;
             return (
