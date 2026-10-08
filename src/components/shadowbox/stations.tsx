@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Expand, Maximize2, Pause, Play, Shrink } from "lucide-react";
+import { Building2, ChevronLeft, ChevronRight, Expand, GraduationCap, Maximize2, Pause, Plane, Play, Route, Shield, Ship, Shrink, Tent } from "lucide-react";
 import {
   careerStops,
   caseCopy,
@@ -12,22 +12,10 @@ import { MapView } from "@/components/shadowbox/map-view";
 import type { Chrome } from "@/lib/shadowbox/copy";
 
 
-const GLYPH: Record<string, string> = {
-  command: "M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z",
-  instruction: "M12 3 2 8l10 5 8-4v6h2V8L12 3zm-6 9.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-3.5l-6 3-6-3z",
-  base: "M3 21V9l9-6 9 6v12H3zm4-2h3v-4H7v4zm5 0h3v-4h-3v4zM7 13h3v-3H7v3zm5 0h3v-3h-3v3z",
-  field: "M12 3 2 20h20L12 3zm-1 17v-5h2v5h-2z",
-  port: "M3 17h18v2H3v-2zm1-2 1.2-6h13.6L20 15H4zm3.2-8h9.6l.6 2H6.6l.6-2z",
-  layover: "M21 16v-2l-8-5V4a1 1 0 0 0-2 0v5L3 14v2l8-2.5V18l-2 1.5V21l3-1 3 1v-1.5L13 18v-4.5l8 2.5z",
-  stopover: "M4 8h6l2-3 2 3h6v2h-6.2l-1.8 3 1.8 3H20v2h-6l-2 3-2-3H4v-2h6.2L12 13 10.2 10H4V8z",
-  approximate: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-2h2v2zm1.1-6.5-.9.9c-.7.7-1.2 1.3-1.2 2.6h-2v-.5c0-1.1.4-2.1 1.2-2.8l1.2-1.3a2 2 0 1 0-3.4-1.4H7a4 4 0 1 1 7.1 2.5z",
-};
+const CHIP_ICON = { command: Shield, instruction: GraduationCap, base: Building2, field: Tent, port: Ship, layover: Plane, stopover: Route };
 function PinGlyph({ name }: { name: string }) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path fill="currentColor" d={GLYPH[name] || GLYPH.command} />
-    </svg>
-  );
+  const Icon = CHIP_ICON[name as keyof typeof CHIP_ICON] ?? Shield;
+  return <Icon size={18} strokeWidth={2} aria-hidden="true" />;
 }
 
 function pinGroups(t: Chrome): { id: StopLayer; label: string; legend: string; cls: string }[] {
