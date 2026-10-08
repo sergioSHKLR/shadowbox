@@ -313,12 +313,6 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
           </button>
         ))}
       </div>
-      <ul className="map-legend" aria-label="Pin colours">
-        {PIN_GROUPS.map((g) => (
-          <li key={g.id}><span className={`pin-num ${g.cls}`}><PinGlyph name={g.id} /></span> {g.label}</li>
-        ))}
-        <li><span className="pin-num approximate"><PinGlyph name="approximate" /></span> {t.legendApprox.split(',')[0]}</li>
-      </ul>
 
     </main>
   );
