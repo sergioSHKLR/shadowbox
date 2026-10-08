@@ -73,8 +73,6 @@ export function UniformProgression({ tour }: { tour?: TourFocus | null }) {
 
   return (
     <section className="uprog" aria-label="Uniform by command">
-      <h3>Uniform by command</h3>
-      <p>Play walks the commands and pauses at each slide.</p>
       {uniformSteps.length ? (
         <div className="uprog-controls">
           <button type="button" className="nav-btn icon-btn" aria-label="Previous command" onClick={() => { setPlaying(false); setIndex((i) => Math.max(0, i - 1)); }}>
@@ -111,7 +109,7 @@ export function UniformProgression({ tour }: { tour?: TourFocus | null }) {
               onChange={(e) => { setPlaying(false); setIndex(Number(e.target.value)); }}
             />
           </label>
-          <output className="uprog-date">{step?.crest ? <img className="uprog-crest" src={publicUrl(step.crest)} alt="" /> : null}{label}{rank ? ` · ${rank.abbreviation}` : ""}</output>
+          <output className="uprog-date">{label}{rank ? ` · ${rank.abbreviation}` : ""}</output>
           {looks.map((id) => {
             const locked = id === "khaki" && !isChief;
             return (
@@ -130,14 +128,17 @@ export function UniformProgression({ tour }: { tour?: TourFocus | null }) {
           })}
         </div>
       ) : null}
-      {slide ? (
-        <figure className="uprog-slide">
-          <img src={publicUrl(slide.src)} alt={slide.caption} />
-          <figcaption>{slide.caption}</figcaption>
-        </figure>
-      ) : (
-        <p className="quiet">No slides yet.</p>
-      )}
+      <div className="uprog-stage">
+        {step?.crest ? <img className="uprog-crest" src={publicUrl(step.crest)} alt="" /> : null}
+        {slide ? (
+          <figure className="uprog-slide">
+            <img src={publicUrl(slide.src)} alt={slide.caption} />
+            <figcaption>{slide.caption}</figcaption>
+          </figure>
+        ) : (
+          <p className="quiet">No slides yet.</p>
+        )}
+      </div>
     </section>
   );
 }
