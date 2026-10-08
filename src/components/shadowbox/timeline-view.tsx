@@ -84,6 +84,27 @@ function useHomeFade(ref: RefObject<HTMLElement | null>) {
   }, [ref]);
 }
 
+function CaseTracks() {
+  const bars = timeline();
+  const tracks = [
+    ["rank", bars.rank, "#7d1c20"],
+    ["duty", bars.duty, "#14233a"],
+    ["ops", bars.ops, "#1e6b3c"],
+    ["world", bars.world, "#ffd21a"],
+  ] as const;
+  return (
+    <span className="case-tracks" aria-hidden="true">
+      {tracks.map(([id, items, color]) => (
+        <span key={id} className="case-track">
+          {items.map((item) => (
+            <i key={item.key} style={{ flexGrow: item.days && item.days > 0 ? item.days : 1, background: color }} />
+          ))}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; bio: string; locale?: Locale }) {
   const t = chrome(locale);
   const paragraphs = bio.split("\n\n");
@@ -122,7 +143,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
           <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
             <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
           </button>
-          {tray("timeline", t.timeline, <span className="case-line" aria-hidden="true"><i /><i /><i /><i /></span>)}
+          {tray("timeline", t.timeline, <CaseTracks />)}
           <div className="case-plates">
             {tray("guestbook", t.guestbook, null)}
           </div>

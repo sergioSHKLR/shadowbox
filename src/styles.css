@@ -1337,3 +1337,8 @@ body[data-scroll-locked] .home-pin {
   .case-mat { grid-template-columns: 1fr; grid-template-areas: "portrait" "side" "timeline" "plates"; }
   .case-portrait img { max-height: 24rem; object-fit: contain; background: #111; }
 }
+
+.case-tray-timeline { display: flex; flex-direction: column; }
+.case-tracks { display: flex; gap: 0.4rem; flex: 1; min-height: 18rem; }
+.case-track { flex: 1; display: flex; flex-direction: column; min-width: 0.4rem; }
+.case-track i { display: block; min-height: 3px; }
