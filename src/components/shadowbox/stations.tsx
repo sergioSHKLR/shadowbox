@@ -293,9 +293,12 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
       </div>
       <div className="map-filter" role="group" aria-label="Show pin categories">
         {/* All (restored, Sergio, Oct 2026): first chip; shows every category (shown = null), as before 2f61e08. */}
-        <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>{t.allChip}</button>
+        <button type="button" className={`nav-btn map-all${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>
+          <span className="map-all-marks" aria-hidden="true">{PIN_GROUPS.map((g) => <span key={g.id} className={`pin-num ${g.cls}`}><PinGlyph name={g.id} /></span>)}</span>
+          {t.allChip}
+        </button>
         {PIN_GROUPS.map((g) => (
-          <button key={g.id} type="button" className={`nav-btn${shown?.includes(g.id) ? " on" : ""}`} aria-pressed={!!shown?.includes(g.id)} onClick={() => toggle(g.id)}>
+          <button key={g.id} type="button" className={`nav-btn${!shown || shown.includes(g.id) ? " on" : ""}`} aria-pressed={!shown || shown.includes(g.id)} onClick={() => toggle(g.id)}>
             <span className={`pin-num ${g.cls}`} aria-hidden="true"><PinGlyph name={g.id} /></span>
             {g.label}
           </button>
