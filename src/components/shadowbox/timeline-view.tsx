@@ -81,42 +81,57 @@ function useHomeFade(ref: RefObject<HTMLElement | null>) {
   }, [ref]);
 }
 
-export function Home({ bio, locale = "en", onOpen }: { onOpen?: (k: Kind, id: string) => void; bio: string; locale?: Locale }) {
+export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; bio: string; locale?: Locale }) {
   const t = chrome(locale);
   const paragraphs = bio.split("\n\n");
-  const scrollRef = useRef<HTMLElement>(null);
-  useHomeFade(scrollRef);
+  const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
+  const tray = (view: string, label: string, body: ReactNode) => (
+    <button type="button" className={`case-tray case-tray-${view}`} onClick={() => onGo?.(view)}>
+      <span className="case-kicker">{label}</span>
+      {body}
+    </button>
+  );
   return (
-    <main className="sheet">
-      {/* Home (Sergio, Oct 2026): one portrait frame, pinned (left column on desktop, under the bar on phone, where the
-          bio card scrolls over it). Boot Camp crossfades to End of Career as the bio is read; see useHomeFade. */}
-      <header className="intro home-scroll" ref={scrollRef}>
-        <div className="home-pins">
-          <FadePortrait
-            first={{ src: SN_PORTRAIT?.src ?? profile.portrait, alt: SN_PORTRAIT?.alt ?? "Seaman Recruit Sergio Schickler, boot camp portrait, 1997", caption: t.bootCampCap }}
-            last={{ src: CHIEF_PORTRAIT?.src ?? profile.portrait, alt: CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018", caption: t.endCareerCap }}
-            onOpen={onOpen}
-          />
-        </div>
-        <div className="home-read">
-          {/* One opaque sheet for the name block and the bio, so the pinned portrait never shows between them. */}
-          <div className="home-sheet">
-          <div className="intro-copy">
-            <p className="kicker">{t.navyRetired}</p>
-            <h2>{profile.headerLines[0]}</h2>
-            <p className="quiet">{profile.headerLines[2]}</p>
+    <main className="sheet case-home">
+      <section className="case-frame" aria-label="Shadowbox">
+        <div className="case-mat">
+          <div className="case-side">
+            {tray("logbook", t.logbook, <span className="case-rack" aria-hidden="true">{["#c41e3a", "#1d4e89", "#f4c430", "#1f8a3c", "#7c3aed", "#0e7490"].map((color) => <i key={color} style={{ background: color }} />)}</span>)}
+            {tray("map", t.map, <span className="case-map" aria-hidden="true" />)}
           </div>
-          <div className="bio-wrap">
-            {paragraphs.map((paragraph) => (
-              <BioBlock key={paragraph.slice(0, 24)} text={paragraph} />
-            ))}
-            {/* Three stamps (Oct 2026): Security Manager (maroon) and PAO (navy) round stamps, plus a separate black UNCLAS
-                block. The PNGs are ink masks; CSS colours them per theme. The sample redacted paragraph is placed by the
-                {{redaction-sample}} marker in the bio text (between Fourth and Fifth Command). */}
-          </div>
+          <figure className="case-portrait">
+            <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
+          </figure>
+          {tray("timeline", t.timeline, <span className="case-line" aria-hidden="true"><i /><i /><i /><i /></span>)}
+          <div className="case-plates">
+            {tray("guestbook", t.guestbook, null)}
+            {tray("contact", t.contact, null)}
           </div>
         </div>
-      </header>
+      </section>
+      <div className="home-branch-seals case-seals">
+        {([
+          ["army", "/incoming/Emblem_of_the_United_States_Department_of_the_Army.svg", "United States Army"],
+          ["marines", "/incoming/Emblem_of_the_United_States_Marine_Corps.svg", "United States Marine Corps"],
+          ["navy", "/incoming/Seal_of_the_United_States_Department_of_the_Navy.svg", "United States Navy"],
+          ["air-force", "/incoming/U.S._Air_Force_service_mark.svg", "United States Air Force"],
+        ] as const).map(([id, src, label]) => (
+          <button key={id} type="button" className="home-branch-seal" onClick={() => onOpen?.("branch", id)} aria-label={label}>
+            <img src={publicUrl(src)} alt="" />
+          </button>
+        ))}
+      </div>
+      <div className="home-sheet case-bio">
+        <div className="intro-copy">
+          <p className="kicker">{t.navyRetired}</p>
+          <h2>{profile.headerLines[0]}</h2>
+        </div>
+        <div className="bio-wrap">
+          {paragraphs.map((paragraph) => (
+            <BioBlock key={paragraph.slice(0, 24)} text={paragraph} />
+          ))}
+        </div>
+      </div>
     </main>
   );
 }
