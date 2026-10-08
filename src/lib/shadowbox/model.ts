@@ -87,7 +87,8 @@ export type Kind =
   | "photo"
   | "equipment"
   | "rank"
-  | "certificate";
+  | "certificate"
+  | "branch";
 
 export type Device = {
   kind: "oak" | "star" | "letter";
@@ -1767,6 +1768,60 @@ export function openRecord(): string[] {
 }
 
 export function toSubject(sel: Selection): SubjectView | null {
+
+  if (sel.kind === "branch") {
+    const branches: Record<string, { title: string; established: string; strength: string; history: string; recruit: string; recruitLabel: string }> = {
+      army: {
+        title: "United States Army",
+        established: "14 June 1775",
+        strength: "454,000",
+        history: "The land service. The Continental Congress established the Army on 14 June 1775. It is the senior service and the ground component of the joint force.",
+        recruit: "https://www.goarmy.com/",
+        recruitLabel: "goarmy.com",
+      },
+      marines: {
+        title: "United States Marine Corps",
+        established: "10 November 1775",
+        strength: "172,300",
+        history: "The naval expeditionary force. Established 10 November 1775. Marines serve as a separate service inside the Department of the Navy.",
+        recruit: "https://www.marines.com/",
+        recruitLabel: "marines.com",
+      },
+      navy: {
+        title: "United States Navy",
+        established: "13 October 1775",
+        strength: "344,600",
+        history: "The sea service. The Continental Congress established the Navy on 13 October 1775. Ships, submarines, and aircraft are its force.",
+        recruit: "https://www.navy.com/",
+        recruitLabel: "navy.com",
+      },
+      "air-force": {
+        title: "United States Air Force",
+        established: "18 September 1947",
+        strength: "321,500",
+        history: "The air service. It became a separate service on 18 September 1947, from the Army Air Forces. Air and space power were its charge until the Space Force stood up in 2019.",
+        recruit: "https://www.airforce.com/",
+        recruitLabel: "airforce.com",
+      },
+    };
+    const branch = branches[sel.id];
+    if (!branch) return null;
+    return {
+      kind: "branch",
+      id: sel.id,
+      kicker: "Service",
+      title: branch.title,
+      explanation: branch.history,
+      facts: [
+        { label: "Established", value: branch.established },
+        { label: "FY2026 authorized active strength", value: branch.strength },
+        { label: "Recruiting", value: branch.recruitLabel },
+      ],
+      placeIds: [],
+      related: [],
+    };
+  }
+
   if (sel.kind === "photo") {
     const photo = byId(photos, sel.id);
     if (!photo) return null;

@@ -1240,11 +1240,19 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   margin: 0.35rem auto 0.1rem;
   width: min(16rem, 92%);
 }
-.home-branch-seals img {
+.home-branch-seal {
   width: 3.74rem;
   height: 3.74rem;
-  object-fit: contain;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
 }
+.home-branch-seal img { width: 100%; height: 100%; object-fit: contain; }
+.home-branch-seal:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 2px; }
+.detail-recruit { margin: 0.4rem 0 0.8rem; }
+.detail-recruit a { color: var(--color-navy); font-weight: 600; }
+[data-theme="dark"] .detail-recruit a { color: var(--color-ivory); }
 
 
 [data-theme="dark"] .bio .redact-mark {
