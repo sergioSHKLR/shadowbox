@@ -818,7 +818,7 @@
     "cityId": null,
     "baseId": "hickam",
     "commandId": null,
-    "kind": "stopover",
+    "kind": "layover",
     "when": ""
   },
   {
@@ -827,7 +827,7 @@
     "cityId": null,
     "baseId": "travis",
     "commandId": null,
-    "kind": "stopover",
+    "kind": "layover",
     "when": ""
   },
   {

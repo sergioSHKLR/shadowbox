@@ -67,7 +67,8 @@ function commandPath(all: Stop[]): Stop[] {
 const FIELD_ORDER = ["u-tapao", "shoalwater-bay", "mosul", "fob-sykes", "fob-tal-afar", "camp-blanding", "camp-bastion", "fob-delaram", "camp-blanding", "fob-sharana", "fob-orgun-e", "fob-patriot"];
 const INSTRUCTION_ORDER = ["rtc", "ntc-great-lakes", "keesler", "san-diego", "imperial-beach", "gryphon-school"];
 const BASE_ORDER = ["little-creek", "nas-north-island", "san-diego", "guam", "city-yokosuka", "city-sasebo", "city-chinhae", "polaris-point", "whidbey", "fort-bliss", "macdill", "mayport", "nas-jax"];
-const STOPOVER_ORDER = ["camp-arifjan", "al-udeid", "bagram", "hickam", "travis", "nas-north-island"];
+const STOPOVER_ORDER = ["camp-arifjan", "al-udeid", "bagram", "nas-north-island"];
+const LAYOVER_ORDER = ["hickam", "travis", "bitburg", "ramstein", "leipzig", "city-baltimore"];
 function fieldPath(all: Stop[]): Stop[] {
   const sorted = [...all].sort((a, b) => (a.n ?? 0) - (b.n ?? 0));
   const used = new Set<number>();
@@ -98,6 +99,7 @@ function filterStops(all: Stop[], shown: StopLayer[] | null): Stop[] {
   if (shown && shown.length === 1 && shown[0] === "instruction") return orderedPath(all, INSTRUCTION_ORDER, "instruction");
   if (shown && shown.length === 1 && shown[0] === "base") return orderedPath(all, BASE_ORDER, "base");
   if (shown && shown.length === 1 && shown[0] === "stopover") return orderedPath(all, STOPOVER_ORDER, "stopover");
+  if (shown && shown.length === 1 && shown[0] === "layover") return orderedPath(all, LAYOVER_ORDER, "layover");
   const matched = all.filter((stop) => stopMatchesFilter(stop, shown));
   if (!shown) return matched;
   const seen = new Set<string>();
