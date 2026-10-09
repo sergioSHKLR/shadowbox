@@ -114,6 +114,7 @@ export function UniformProgression({ tour }: { tour?: TourFocus | null }) {
       ) : null}
       <div className="uprog-stage">
         <div className="uprog-looks">
+          {step?.crest ? <img className="uprog-crest" src={publicUrl(step.crest)} alt="" /> : null}
           {looks.map((id) => {
             const locked = id === "khaki" && !isChief;
             return (
@@ -131,7 +132,6 @@ export function UniformProgression({ tour }: { tour?: TourFocus | null }) {
             );
           })}
         </div>
-        {step?.crest ? <img className="uprog-crest" src={publicUrl(step.crest)} alt="" /> : null}
         {slide ? (
           <figure className="uprog-slide">
             <img src={publicUrl(slide.src)} alt={slide.caption} />

@@ -168,7 +168,7 @@ h1, h2, h3, .detail-title {
 .app-menu button.on { background: transparent; color: inherit; font-weight: 600; box-shadow: inset 3px 0 0 var(--color-brass); }
 .app-menu button.on:hover,
 .app-menu button.on:focus-visible { background: #17345c; }
-.app-main { width: min(72rem, calc(100% - 2rem)); max-width: 100%; min-width: 0; box-sizing: border-box; margin: 0 auto; padding: 1.25rem 0 2rem; flex: 1; }
+.app-main { width: min(72rem, calc(100% - 2rem)); max-width: 100%; min-width: 0; box-sizing: border-box; margin: 0 auto; padding: 1.25rem 0 1rem; }
 .page-pager {
   display: flex;
   justify-content: space-between;
@@ -600,7 +600,7 @@ a { color: var(--color-navy); }
 .row-btn em { color: var(--color-quiet); font-size: 0.85rem; }
 .sheet { margin-top: 0.5rem; }
 .page-tracks { display: grid; grid-template-columns: minmax(5.2rem, 0.55fr) minmax(0, 1.15fr) minmax(0, 1.15fr) minmax(0, 1.15fr); gap: 1rem 0.65rem; align-items: stretch; }
-.page-track { display: flex; flex-direction: column; min-height: 70vh; }
+.page-track { display: flex; flex-direction: column; }
 .page-track h3 { margin: 0 0 0.7rem; min-height: 2.4rem; font-size: 1rem; color: #14233a; }
 .page-line { position: relative; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
 .page-line::before { content: ""; position: absolute; left: 0.5rem; top: 0.55rem; bottom: 0.55rem; width: 2px; background: currentColor; }
@@ -946,7 +946,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 
 /* Map filter chips: one per pin group (no All); wrap on phones. Default null = show every category. */
 .map-filter { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 0.6rem; }
-.map-filter .nav-btn { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0.15rem 0.75rem 0.15rem 0.15rem; font-size: 0.9rem; }
+.map-filter .nav-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem; min-height: 44px; min-width: 7.5rem; padding: 0.15rem 0.9rem; font-size: 0.9rem; }
 @media (max-width: 420px) { .map-filter { gap: 0.3rem; } .map-filter .nav-btn { padding: 0.2rem 0.55rem; font-size: 0.82rem; gap: 0.3rem; } }
 .map-filter .pin-num { width: 2.45rem; min-width: 2.45rem; height: 2.45rem; padding: 0.32rem; border-radius: 50%; border: 0; box-shadow: none; }
 .map-filter .pin-num svg { width: 1.25rem; height: 1.25rem; }
@@ -988,7 +988,8 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 /* Uniform progression (Timeline). Ready slides from incoming/uniforms/. */
 .uprog { margin: 0.4rem 0 1.8rem; }
 .uprog-stage { display: flex; align-items: flex-start; gap: 1rem; }
-.uprog-looks { display: flex; flex-direction: column; gap: 0.4rem; flex: none; }
+.uprog-looks { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: none; }
+.uprog-looks .nav-btn { min-width: 6.5rem; }
 .uprog-crest { height: 8rem; width: auto; flex: none; }
 .uprog-controls { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0 0 0.6rem; }
 .uprog .nav-btn.icon-btn { width: 44px; min-width: 44px; height: 44px; padding: 0; border-radius: 50%; background: transparent; color: #1d4e89; border: 2px solid #1d4e89; }
@@ -1169,7 +1170,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .site-page { --site-panel: color-mix(in srgb, var(--color-ivory) 88%, #fff); --site-border: var(--color-line); display: grid; gap: 0.9rem; max-width: 40rem; }
 [data-theme="dark"] .site-page { --site-panel: #1a2130; --site-border: #2a3344; }
 .site-card { margin: 0; padding: 0.9rem 1rem; border: 1px solid var(--site-border); border-radius: 6px; background: var(--site-panel); }
-.site-form { display: grid; gap: 0.75rem; }
+.site-form { display: grid; gap: 0.75rem; padding: 0.9rem; border: 1px solid #8a6a3b; border-radius: 6px; }
 .site-field { display: grid; gap: 0.25rem; font-size: 0.85rem; color: var(--color-quiet); }
 [data-theme="dark"] .site-field { color: #c4b8a6; }
 .site-field input, .site-field textarea {
