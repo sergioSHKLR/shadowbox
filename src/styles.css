@@ -1384,7 +1384,7 @@ body[data-scroll-locked] .home-pin {
   .case-portrait img { width: 100%; height: auto; max-height: none; object-fit: contain; }
   .case-slot-logbook { background: #fff; display: flex; flex-direction: column; justify-content: center; }
   .case-slot-logbook .case-kicker { display: none; }
-  .case-slot-map { background: transparent; border: 0; }
+  .case-slot-map { background: #fff; }
   .case-slot-map .case-kicker, .case-slot-map .case-map { display: none; }
   .case-map-wrap { position: relative; min-height: 13rem; height: 13rem; }
   .case-pass { width: 46%; }
