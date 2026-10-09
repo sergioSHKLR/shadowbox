@@ -159,7 +159,9 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
                     {section("contact", t.contact)}
                   </div>
             <button type="button" className="case-uniform-cut" onClick={() => onGo?.("uniforms")} aria-label={t.uniforms}>
-              <img src={publicUrl("/incoming/plates/e7-blues.svg")} alt="Chief service dress blue coat with the rating badge and service stripes on the sleeve" />
+              <img className="case-plate-khaki" src={publicUrl("/incoming/plates/e7-khakis.svg")} alt="Chief working khaki" />
+              <img className="case-plate-white" src={publicUrl("/incoming/plates/e7-whites.svg")} alt="Chief summer white" />
+              <img className="case-plate-blue" src={publicUrl("/incoming/plates/e7-blues.svg")} alt="Chief service dress blue" />
             </button>
                     </div>
         </div>
