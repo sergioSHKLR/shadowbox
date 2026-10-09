@@ -105,8 +105,8 @@ function ContactForm({ lang }: { lang: Lang }) {
         <section className="site-card contact-card" aria-label={c.formLabel}>
           <p className="contact-thanks" role="status">{c.thanks}</p>
           <button type="button" className="nav-btn" onClick={() => setStatus("idle")}>{c.another}</button>
+          {alt}
         </section>
-        {alt}
       </>
     );
   }
@@ -133,8 +133,8 @@ function ContactForm({ lang }: { lang: Lang }) {
           </span>
         </div>
       </form>
+      {alt}
     </section>
-    {alt}
     </>
   );
 }
@@ -245,6 +245,9 @@ export function Guestbook({ locale = "en", onContact }: { locale?: string; onCon
         <section className="site-card guest-card" aria-label={c.formLabel}>
           <p className="contact-thanks" role="status">{c.thanks}</p>
           <button type="button" className="nav-btn" onClick={() => setStatus("idle")}>{c.another}</button>
+          <p className="guest-alt quiet">
+            <a href={GUESTBOOK} target="_blank" rel="noreferrer">{c.alt}</a>
+          </p>
         </section>
       ) : (
         <section className="site-card guest-card" aria-label={c.formLabel}>
@@ -279,11 +282,11 @@ export function Guestbook({ locale = "en", onContact }: { locale?: string; onCon
               </span>
             </div>
           </form>
+          <p className="guest-alt quiet">
+            <a href={GUESTBOOK} target="_blank" rel="noreferrer">{c.alt}</a>
+          </p>
         </section>
       )}
-      <p className="guest-alt quiet">
-        <a href={GUESTBOOK} target="_blank" rel="noreferrer">{c.alt}</a>
-      </p>
     </main>
   );
 }

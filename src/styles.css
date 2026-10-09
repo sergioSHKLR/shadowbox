@@ -1170,7 +1170,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .site-page { --site-panel: color-mix(in srgb, var(--color-ivory) 88%, #fff); --site-border: var(--color-line); display: grid; gap: 0.9rem; max-width: 40rem; }
 [data-theme="dark"] .site-page { --site-panel: #1a2130; --site-border: #2a3344; }
 .site-card { margin: 0; padding: 0.9rem 1rem; border: 1px solid var(--site-border); border-radius: 6px; background: var(--site-panel); }
-.site-form { display: grid; gap: 0.75rem; padding: 0.9rem; border: 1px solid #8a6a3b; border-radius: 6px; }
+.site-form { display: grid; gap: 0.75rem; }
 .site-field { display: grid; gap: 0.25rem; font-size: 0.85rem; color: var(--color-quiet); }
 [data-theme="dark"] .site-field { color: #c4b8a6; }
 .site-field input, .site-field textarea {
