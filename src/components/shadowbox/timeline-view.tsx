@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode, type RefObject } from "react";
-import { Backpack, Car, BookOpen, ChartGantt, Map, Medal, MessageCircle, PenLine, ScrollText, Shirt } from "lucide-react";
+import { ScrollText } from "lucide-react";
 import { awards, photos, profile, publicUrl, ribbonRows, timeline, units, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { chrome } from "@/lib/shadowbox/copy";
@@ -126,14 +126,11 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
   const t = chrome(locale);
   const paragraphs = bio.split("\n\n");
   const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
-  const section = (view: string, label: string) => {
-    const Icon = view === "bio" ? ScrollText : view === "contact" ? MessageCircle : view === "guestbook" ? PenLine : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : view === "onduty" ? Backpack : view === "offduty" ? Car : BookOpen;
-    return (
-      <button type="button" className="home-panel" onClick={() => onGo?.(view)} aria-label={label}>
-        <span className="home-section-head"><Icon aria-hidden="true" />{label}</span>
-      </button>
-    );
-  };
+  const section = (view: string, label: string) => (
+    <button type="button" className="home-panel" onClick={() => onGo?.(view)} aria-label={label}>
+      <span className="home-section-head">{label}</span>
+    </button>
+  );
     return (
     <main className="sheet case-home">
       <section className="case-frame" aria-label="Shadowbox">
@@ -141,7 +138,6 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
         <div className="case-board case-board-white">
         <div className="case-mat">
             <div className="case-identity">
-            <span className="case-flag-cut"><img className="case-flag" src={publicUrl("/incoming/folded%20flag%20stripes.svg")} alt="Folded flag" /></span>
             <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
             </button>
