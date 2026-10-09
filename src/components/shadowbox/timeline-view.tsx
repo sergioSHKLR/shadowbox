@@ -168,7 +168,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
             </button>
-            <span className="case-plaque"><span className="case-plaque-bio"><ScrollText aria-hidden="true" />{t.bioTitle}</span>ETC (SW/EXW) Sergio Schickler<br />30 Jun 1997 – 28 Feb 2018</span>
+            <button type="button" className="case-plaque" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}><span className="case-plaque-bio"><ScrollText aria-hidden="true" />{t.bioTitle}</span>ETC (SW/EXW) Sergio Schickler<br />30 Jun 1997 – 28 Feb 2018</button>
             {tray("timeline", t.timeline, <CaseTracks />)}
             {tray("map", t.map, (
               <span className="case-map-wrap">
