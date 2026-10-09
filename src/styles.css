@@ -1346,15 +1346,24 @@ body[data-scroll-locked] .home-pin {
 .home-section-head svg { width: 0.85rem; height: 0.85rem; }
 .home-panel { display: flex; align-items: center; justify-content: center; width: var(--plaque); max-width: 100%; background: linear-gradient(180deg, #e4c98a, #c6a15b 45%, #8a6a3b); color: #14233a; border: 1px solid #8a6a3b; padding: 0.4rem 0.7rem; cursor: pointer; font: inherit; text-align: center; box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 #f3e2b8; }
 .home-panel-art { width: 100%; flex: 1; min-height: 0; object-fit: contain; background: transparent; }
-@media (min-width: 800px) {
-  .case-frame { width: min(68rem, 100%); padding: 1.1rem; }
-  .case-mat { grid-template-columns: minmax(16rem, 0.85fr) 1.15fr; grid-template-rows: auto auto auto; align-items: stretch; justify-items: stretch; padding: 2.4rem; }
+/* Home case layout (Oct 2026). Mobile under 768: one stacked column (flag, portrait, plaque, nav, then the coat and sleeve in the
+   portrait's bevel). Tablet 768-1099: portrait column plus one gold nav column, no uniform opening; the case hugs both.
+   Laptop 1100 and up: a third column to the right of the buttons holds the coat and sleeve opening. */
+.case-home .case-uniform-open { width: min(70%, 15rem); }
+@media (min-width: 768px) {
+  .case-frame { width: fit-content; max-width: 100%; padding: 1.1rem; }
+  .case-mat { --portrait: 18rem; grid-template-columns: var(--portrait) var(--plaque); column-gap: 2rem; justify-content: center; grid-template-rows: auto auto auto; align-items: stretch; justify-items: stretch; padding: 2.4rem 2rem; }
   .case-identity { display: contents; }
   .case-flag-cut { grid-column: 1; grid-row: 1; }
   .case-portrait { grid-column: 1; grid-row: 2; }
   .case-plaque { grid-column: 1; grid-row: 3; }
   .home-sections { grid-column: 2; grid-row: 2; align-self: center; width: 100%; }
-  .case-flag-cut, .case-portrait, .case-plaque { width: 90%; justify-self: center; }
+  .case-flag-cut, .case-portrait, .case-plaque { width: 100%; justify-self: center; }
+  .case-home .case-uniform-open { display: none; }
+}
+@media (min-width: 1100px) {
+  .case-mat { grid-template-columns: var(--portrait) var(--plaque) 14rem; }
+  .case-home .case-uniform-open { display: block; grid-column: 3; grid-row: 2; align-self: center; justify-self: center; width: 100%; }
 }
 .case-slot-logbook { grid-area: logbook; }
 .case-slot-decorations { grid-area: decorations; }
@@ -1367,11 +1376,11 @@ body[data-scroll-locked] .home-pin {
 .case-plaque-name { white-space: nowrap; }
 .case-flag-cut { display: block; width: 90%; margin: 0 auto; background: linear-gradient(160deg, #ffffff, #d5d5d5); clip-path: polygon(50% 0, 0 100%, 100% 100%); filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.45)); }
 .case-flag { display: block; width: 100%; height: auto; clip-path: polygon(50% 4%, 3% 96%, 97% 96%); }
-.case-portrait { margin: 0 auto; width: 90%; background: #fff; border: 0; padding: 0; cursor: pointer; display: block; box-shadow: 0 12px 18px rgba(0, 0, 0, 0.5); }
+.case-portrait, .case-uniform-open { margin: 0 auto; width: 90%; background: #fff; border: 0; padding: 0; cursor: pointer; display: block; box-shadow: 0 12px 18px rgba(0, 0, 0, 0.5); }
 .case-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .case-tray-timeline { grid-area: timeline; }
 .case-plates { grid-area: plates; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; justify-items: center; }
-.case-portrait { border: 10px solid #f4f4f4; border-top-color: #ffffff; border-left-color: #f7f7f7; border-right-color: #d5d5d5; border-bottom-color: #cfcfcf; background: #fff; }
+.case-portrait, .case-uniform-open { border: 10px solid #f4f4f4; border-top-color: #ffffff; border-left-color: #f7f7f7; border-right-color: #d5d5d5; border-bottom-color: #cfcfcf; background: #fff; }
 .case-tray {
   width: 100%; color: #14233a; text-align: center; padding: 0.8rem; cursor: pointer; font: inherit;
   border: 1px solid #8a6a3b;
@@ -1415,9 +1424,7 @@ body[data-scroll-locked] .home-pin {
   .case-flag-cut { position: static; width: 90%; aspect-ratio: auto; margin: 0 auto; overflow: visible; clip-path: polygon(50% 0, 0 100%, 100% 100%); }
   .case-flag { position: static; width: 100%; max-width: none; height: auto; clip-path: polygon(50% 4%, 3% 96%, 97% 96%); transform: none; }
 }
-@media (min-width: 721px) and (max-width: 1100px) {
-}
-@media (max-width: 720px) {
+@media (max-width: 767.98px) {
   .case-mat { width: 100%; gap: 0.85rem; }
   .case-portrait { width: 90%; }
   .case-slot-logbook { display: flex; flex-direction: column; justify-content: center; }
