@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode, type RefObject } from "react";
-import { Backpack, Car, BookOpen, ChartGantt, Map, Medal, PenLine, ScrollText, Shirt } from "lucide-react";
+import { Backpack, Car, BookOpen, ChartGantt, Map, Medal, MessageCircle, PenLine, ScrollText, Shirt } from "lucide-react";
 import { awards, photos, profile, publicUrl, ribbonRows, timeline, units, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { chrome } from "@/lib/shadowbox/copy";
@@ -127,7 +127,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
   const paragraphs = bio.split("\n\n");
   const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
   const section = (view: string, label: string) => {
-    const Icon = view === "guestbook" ? PenLine : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : view === "onduty" ? Backpack : view === "offduty" ? Car : BookOpen;
+    const Icon = view === "contact" ? MessageCircle : view === "guestbook" ? PenLine : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : view === "onduty" ? Backpack : view === "offduty" ? Car : BookOpen;
     return (
       <button type="button" className="home-panel" onClick={() => onGo?.(view)} aria-label={label}>
         <span className="home-section-head"><Icon aria-hidden="true" />{label}</span>
@@ -157,7 +157,9 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
                     {section("timeline", t.timeline)}
                     {section("map", t.map)}
                     {section("onduty", t.onduty)}
+                    {section("offduty", t.offduty)}
                     {section("guestbook", t.guestbook)}
+                    {section("contact", t.contact)}
                   </div>
                     </div>
         </div>
