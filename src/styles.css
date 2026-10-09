@@ -1186,7 +1186,8 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .contact-whatsapp-row { display: flex; }
 .contact-whatsapp { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0.3rem 1rem; text-decoration: none; }
 .contact-thanks { margin: 0 0 0.7rem; font-size: 1rem; }
-.guest-card { padding: 0; overflow: hidden; }
+.contact-card, .guest-card { border: 1px solid var(--site-border); }
+.site-form, .gb-form { border: 0; box-shadow: none; background: transparent; padding: 0; }
 .guest-alt { margin: 0; font-size: 0.85rem; }
 .guest-alt a { color: var(--color-navy); }
 [data-theme="dark"] .guest-alt a { color: var(--color-goldenrod, #daa520); }
