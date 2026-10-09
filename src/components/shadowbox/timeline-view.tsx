@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
-import { BookOpen, ChartGantt, Map, Medal, ScrollText } from "lucide-react";
+import { BookOpen, ChartGantt, Map, Medal, ScrollText, Shirt } from "lucide-react";
 import { awards, photos, profile, publicUrl, ribbonRows, timeline, units, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { chrome } from "@/lib/shadowbox/copy";
@@ -128,7 +128,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
   const paragraphs = bio.split("\n\n");
   const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
   const tray = (view: string, label: string, body: ReactNode) => {
-    const Icon = label === t.decorations ? Medal : view === "timeline" ? ChartGantt : view === "map" ? Map : BookOpen;
+    const Icon = label === t.decorations ? Medal : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : BookOpen;
     return (
       <button type="button" className={`case-tray case-tray-${view} case-slot-${label === t.decorations ? "decorations" : view}`} onClick={() => onGo?.(view)}>
         <span className="case-kicker"><Icon aria-hidden="true" />{label}</span>
@@ -162,6 +162,9 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
               </>
             ))}
             {tray("logbook", t.decorations, <CaseRack />)}
+            {tray("uniforms", t.uniforms, (
+              <img className="case-uniform" src={publicUrl("/incoming/uniform-ranks.png")} alt="Rating badges and service stripes" />
+            ))}
             <span className="case-flag-cut"><img className="case-flag" src={publicUrl("/incoming/folded%20flag%20stripes.svg")} alt="Folded flag" /></span>
             <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
