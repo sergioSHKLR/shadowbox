@@ -146,17 +146,17 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
             </button>
             <button type="button" className="case-plaque" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}><span className="case-plaque-bio"><ScrollText aria-hidden="true" />{t.bioTitle}</span>ETC (SW/EXW) Sergio Schickler<br />30 Jun 1997 – 28 Feb 2018</button>
-        </div>
+                  <div className="home-sections">
+                    {section("logbook", t.logbook)}
+                    {section("logbook", t.decorations)}
+                    {section("uniforms", t.uniforms)}
+                    {section("timeline", t.timeline)}
+                    {section("map", t.map)}
+                  </div>
+                    </div>
         </div>
         </div>
       </section>
-      <div className="home-sections">
-        {section("logbook", t.logbook)}
-        {section("logbook", t.decorations)}
-        {section("uniforms", t.uniforms)}
-        {section("timeline", t.timeline)}
-        {section("map", t.map)}
-      </div>
       <div className="case-seals">
         {([
           ["air-force", "/incoming/U.S._Air_Force_service_mark.svg", "United States Air Force"],
