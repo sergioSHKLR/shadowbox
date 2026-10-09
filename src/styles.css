@@ -1185,6 +1185,8 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .site-form-bar .nav-btn { min-height: 44px; padding: 0.25rem 1.1rem; }
 .site-form-status { font-size: 0.85rem; }
 .contact-whatsapp-row { display: flex; }
+.guest-card .contact-whatsapp-row { margin-bottom: 0.85rem; }
+.guest-card .contact-whatsapp-row:last-child { margin: 0.85rem 0 0; }
 .contact-whatsapp { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0.3rem 1rem; text-decoration: none; }
 .contact-thanks { margin: 0 0 0.7rem; font-size: 1rem; }
 .contact-card, .guest-card { border: 1px solid var(--site-border); }

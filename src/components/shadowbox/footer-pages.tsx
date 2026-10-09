@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import { MessageCircle } from "lucide-react";
 
 const WHATSAPP = "https://wa.me/5547988695995";
@@ -67,7 +67,7 @@ function WhatsAppButton() {
   );
 }
 
-function ContactForm({ lang }: { lang: Lang }) {
+function ContactForm({ lang, lead, trail }: { lang: Lang; lead?: ReactNode; trail?: ReactNode }) {
   const c = COPY[lang];
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "notReady" | "failed">("idle");
   const [values, setValues] = useState({ name: "", email: "", message: "" });
@@ -102,7 +102,8 @@ function ContactForm({ lang }: { lang: Lang }) {
   if (status === "sent") {
     return (
       <>
-        <section className="site-card contact-card" aria-label={c.formLabel}>
+        <section className="site-card guest-card" aria-label={c.formLabel}>
+          {lead}
           <p className="contact-thanks" role="status">{c.thanks}</p>
           <button type="button" className="nav-btn" onClick={() => setStatus("idle")}>{c.another}</button>
           {alt}
@@ -112,8 +113,9 @@ function ContactForm({ lang }: { lang: Lang }) {
   }
   return (
     <>
-    <section className="site-card contact-card" aria-label={c.formLabel}>
-      <form className="site-form" onSubmit={submit}>
+    <section className="site-card guest-card" aria-label={c.formLabel}>
+      {lead}
+      <form className="site-form gb-form" onSubmit={submit} noValidate>
         <label className="site-field">
           <span>{c.name}</span>
           <input type="text" name="name" autoComplete="name" required maxLength={120} value={values.name} onChange={(e) => setValues({ ...values, name: e.target.value })} />
@@ -134,25 +136,25 @@ function ContactForm({ lang }: { lang: Lang }) {
         </div>
       </form>
       {alt}
+      {trail}
     </section>
     </>
   );
 }
 
-/** Contact (Sergio, Oct 2026): no visible header. WhatsApp first in PT, the form first in EN. */
+/** Contact uses the same card as Guestbook. WhatsApp stays first in PT, the form first in EN. */
 export function Contact({ locale = "en" }: { locale?: string }) {
   const lang: Lang = locale === "pt" ? "pt" : "en";
-  const whatsapp = (
-    <div className="contact-whatsapp-row" key="wa">
+  const lead = (
+    <div className="contact-whatsapp-row">
       <WhatsAppButton />
     </div>
   );
-  const form = <ContactForm lang={lang} key="form" />;
   return (
-    <div className="contact-page" id="contact-form">
-      <h2 className="sr-only">{COPY[lang].title}</h2>
-      {lang === "pt" ? [whatsapp, form] : [form, whatsapp]}
-    </div>
+    <main className="sheet site-page contact-page" id="contact-form">
+      <h1 className="sr-only">{COPY[lang].title}</h1>
+      <ContactForm lang={lang} lead={lang === "pt" ? lead : undefined} trail={lang === "pt" ? undefined : lead} />
+    </main>
   );
 }
 
