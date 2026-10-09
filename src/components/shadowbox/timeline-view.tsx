@@ -159,7 +159,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
                     {section("contact", t.contact)}
                   </div>
             <button type="button" className="case-uniform-cut" onClick={() => onGo?.("uniforms")} aria-label={t.uniforms}>
-              <img src={publicUrl("/incoming/square-decorations-b.png")} alt="Service dress blue coat and rating badge" />
+              <img src={publicUrl("/incoming/plates/e7-blues.svg")} alt="Chief service dress blue coat with the rating badge and service stripes on the sleeve" />
             </button>
                     </div>
         </div>
