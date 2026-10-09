@@ -1335,12 +1335,12 @@ body[data-scroll-locked] .home-pin {
 .case-home { display: grid; justify-items: center; background: #fff; }
 .case-frame { position: relative; width: min(36rem, 100%); margin: 0 auto; padding: 1.35rem; background: linear-gradient(145deg, #7a5a3a, #5c4030 40%, #3d291c); border: 1px solid #2a1b12; box-shadow: inset 0 0 0 7px #8a6a3b, inset 0 0 0 10px #3d291c, 0 14px 28px rgba(20, 14, 8, 0.35); }
 .case-board-light, .case-board-white { background: transparent; padding: 0; }
-.case-mat { --gap: 0.7rem; --in: 1.05rem; display: grid; justify-items: center; gap: var(--gap); width: 100%; padding: 2.4rem var(--gap) 2.4rem; background: radial-gradient(120% 90% at 50% 0%, #1a3a66, #0e2244 55%, #09162c); box-shadow: inset 0 0 0 3px #c6a15b, inset 0 18px 28px rgba(0, 0, 0, 0.45), inset 0 -10px 18px rgba(0, 0, 0, 0.35); }
+.case-mat { --gap: 0.7rem; --in: 1.05rem; --plaque: 17.5rem; display: grid; justify-items: center; gap: var(--gap); width: 100%; padding: 2.4rem var(--gap) 2.4rem; background: radial-gradient(120% 90% at 50% 0%, #1a3a66, #0e2244 55%, #09162c); box-shadow: inset 0 0 0 3px #c6a15b, inset 0 18px 28px rgba(0, 0, 0, 0.45), inset 0 -10px 18px rgba(0, 0, 0, 0.35); }
 .case-identity { display: grid; justify-items: center; gap: var(--gap); width: 100%; }
-.home-sections { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); width: 90%; margin: 0 auto; }
+.home-sections { display: grid; justify-items: center; gap: var(--gap); width: 100%; margin: 0 auto; }
 .home-section-head { display: flex; align-items: center; justify-content: center; gap: 0.3rem; margin: 0 auto 0.35rem; padding: 0; width: fit-content; max-width: 100%; background: transparent; color: #14233a; border: 0; font-family: Palatino, "Palatino Linotype", "Iowan Old Style", Georgia, serif; letter-spacing: 0.04em; font-size: 0.78rem; font-weight: 500; line-height: 1.2; }
 .home-section-head svg { width: 0.85rem; height: 0.85rem; }
-.home-panel { display: flex; flex-direction: column; align-items: center; width: 100%; aspect-ratio: 1; background: linear-gradient(180deg, #e4c98a, #c6a15b 45%, #8a6a3b); color: #14233a; border: 1px solid #8a6a3b; padding: 0.55rem; cursor: pointer; font: inherit; text-align: center; box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 #f3e2b8; }
+.home-panel { display: flex; align-items: center; justify-content: center; width: var(--plaque); max-width: 100%; background: linear-gradient(180deg, #e4c98a, #c6a15b 45%, #8a6a3b); color: #14233a; border: 1px solid #8a6a3b; padding: 0.4rem 0.7rem; cursor: pointer; font: inherit; text-align: center; box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 #f3e2b8; }
 .home-panel-art { width: 100%; flex: 1; min-height: 0; object-fit: contain; background: transparent; }
 @media (min-width: 800px) {
   .case-frame { width: min(68rem, 100%); padding: 1.1rem; }
@@ -1349,7 +1349,7 @@ body[data-scroll-locked] .home-pin {
   .case-flag-cut { grid-column: 1; grid-row: 1; }
   .case-portrait { grid-column: 1; grid-row: 2; }
   .case-plaque { grid-column: 1; grid-row: 3; }
-  .home-sections { grid-column: 2; grid-row: 2; align-self: center; width: 100%; grid-template-columns: repeat(3, 1fr); }
+  .home-sections { grid-column: 2; grid-row: 2; align-self: center; width: 100%; }
   .case-flag-cut, .case-portrait, .case-plaque { width: 90%; justify-self: center; }
 }
 .case-slot-logbook { grid-area: logbook; }
@@ -1359,7 +1359,7 @@ body[data-scroll-locked] .home-pin {
 .case-slot-uniforms { grid-area: uniforms; }
 .case-uniform { display: block; width: 100%; height: auto; }
 
-.case-plaque { display: block; width: max-content; max-width: 90%; margin: 0 auto; padding: 0.35rem 0.7rem; background: linear-gradient(180deg, #e4c98a, #c6a15b 45%, #8a6a3b); color: #14233a; border: 1px solid #8a6a3b; font-family: Palatino, "Palatino Linotype", "Iowan Old Style", Georgia, serif; letter-spacing: 0.04em; font-size: 0.82rem; font-weight: 500; text-align: center; line-height: 1.35; cursor: pointer; box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 #f3e2b8; }
+.case-plaque { display: block; width: var(--plaque); max-width: 100%; margin: 0 auto; padding: 0.35rem 0.7rem; background: linear-gradient(180deg, #e4c98a, #c6a15b 45%, #8a6a3b); color: #14233a; border: 1px solid #8a6a3b; font-family: Palatino, "Palatino Linotype", "Iowan Old Style", Georgia, serif; letter-spacing: 0.04em; font-size: 0.82rem; font-weight: 500; text-align: center; line-height: 1.35; cursor: pointer; box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 #f3e2b8; }
 .case-plaque-name { white-space: nowrap; }
 .case-flag-cut { display: block; width: 90%; margin: 0 auto; background: linear-gradient(160deg, #ffffff, #d5d5d5); clip-path: polygon(50% 0, 0 100%, 100% 100%); filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.45)); }
 .case-flag { display: block; width: 100%; height: auto; clip-path: polygon(50% 4%, 3% 96%, 97% 96%); }
