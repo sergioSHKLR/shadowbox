@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
+import { BookOpen, ChartGantt, Map, Medal, ScrollText } from "lucide-react";
 import { awards, photos, profile, publicUrl, ribbonRows, timeline, units, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { chrome } from "@/lib/shadowbox/copy";
@@ -126,12 +127,15 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
   const t = chrome(locale);
   const paragraphs = bio.split("\n\n");
   const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
-  const tray = (view: string, label: string, body: ReactNode) => (
-    <button type="button" className={`case-tray case-tray-${view} case-slot-${label === t.decorations ? "decorations" : view}`} onClick={() => onGo?.(view)}>
-      <span className="case-kicker">{label}</span>
-      {body}
-    </button>
-  );
+  const tray = (view: string, label: string, body: ReactNode) => {
+    const Icon = label === t.decorations ? Medal : view === "timeline" ? ChartGantt : view === "map" ? Map : BookOpen;
+    return (
+      <button type="button" className={`case-tray case-tray-${view} case-slot-${label === t.decorations ? "decorations" : view}`} onClick={() => onGo?.(view)}>
+        <span className="case-kicker"><Icon aria-hidden="true" />{label}</span>
+        {body}
+      </button>
+    );
+  };
   return (
     <main className="sheet case-home">
       <section className="case-frame" aria-label="Shadowbox">
@@ -162,7 +166,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
             </button>
-            <span className="case-plaque">ETC (SW/EXW) Sergio Schickler<br />30 Jun 1997 – 28 Feb 2018</span>
+            <span className="case-plaque"><span className="case-plaque-bio"><ScrollText aria-hidden="true" />{t.bioTitle}</span>ETC (SW/EXW) Sergio Schickler<br />30 Jun 1997 – 28 Feb 2018</span>
             {tray("timeline", t.timeline, <CaseTracks />)}
             {tray("map", t.map, (
               <span className="case-map-wrap">

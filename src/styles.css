@@ -1327,7 +1327,10 @@ body[data-scroll-locked] .home-pin {
 .case-tray, .case-portrait { border: 10px solid #f4f4f4; border-top-color: #ffffff; border-left-color: #f7f7f7; border-right-color: #d5d5d5; border-bottom-color: #cfcfcf; background: #fff; }
 .case-tray { width: 100%; color: #14233a; text-align: center; padding: 0.8rem; cursor: pointer; font: inherit; }
 .case-plates .case-tray { width: min(16rem, 100%); background: #c6a15b; border-color: #8a6a3b; letter-spacing: 0.08em; }
-.case-kicker { display: block; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.55rem; color: #14233a; }
+.case-plaque-bio { display: flex; align-items: center; justify-content: center; gap: 0.3rem; margin-bottom: 0.15rem; }
+.case-plaque-bio svg { width: 0.9rem; height: 0.9rem; }
+.case-kicker { display: flex; align-items: center; justify-content: center; gap: 0.35rem; font-size: 0.78rem; letter-spacing: 0.02em; margin-bottom: 0.55rem; color: #14233a; }
+.case-kicker svg { width: 0.95rem; height: 0.95rem; }
 .case-side { container-type: inline-size; }
 .case-crests { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem; }
 .case-crests-lead { display: grid; grid-template-columns: repeat(3, 1fr); justify-items: center; }
