@@ -1381,8 +1381,8 @@ body[data-scroll-locked] .home-pin {
 .case-bio { width: min(46rem, 100%); margin-top: 1.5rem; }
 @media (max-width: 1100px) {
   .case-mat { grid-template-columns: 1fr 1fr 1fr; grid-template-areas: "flag flag portrait" "plaque logbook logbook" "decorations decorations uniforms" "timeline travel travel"; }
-  .case-flag-cut { width: 100%; clip-path: polygon(0 0, 100% 0, 0 100%); }
-  .case-flag { clip-path: polygon(2% 2%, 94% 2%, 2% 94%); }
+  .case-flag-cut { position: relative; width: min(100%, 22rem); aspect-ratio: 1; margin: 0; justify-self: start; align-self: start; overflow: hidden; background: linear-gradient(160deg, #ffffff, #d5d5d5); clip-path: polygon(0 0, 100% 0, 0 100%); }
+  .case-flag { position: absolute; left: 0; top: 0; width: 218%; max-width: none; height: auto; clip-path: none; transform-origin: 50% 0.3%; transform: translate(10px, 10px) translateX(-50%) rotate(45deg); }
 }
 @media (min-width: 721px) and (max-width: 1100px) {
   .case-mat { align-items: start; }
@@ -1397,8 +1397,8 @@ body[data-scroll-locked] .home-pin {
     gap: 1.15rem;
     padding: 1.45rem;
   }
-  .case-flag-cut { width: 100%; aspect-ratio: auto; margin: 0 auto; clip-path: polygon(50% 0, 0 100%, 100% 100%); }
-  .case-flag { clip-path: polygon(50% 4%, 3% 96%, 97% 96%); }
+  .case-flag-cut { position: static; width: 100%; aspect-ratio: auto; margin: 0 auto; overflow: visible; justify-self: stretch; clip-path: polygon(50% 0, 0 100%, 100% 100%); }
+  .case-flag { position: static; width: 100%; max-width: none; height: auto; clip-path: polygon(50% 4%, 3% 96%, 97% 96%); transform: none; }
   .case-portrait { width: 100%; }
   .case-portrait img { width: 100%; height: auto; max-height: none; object-fit: contain; }
   .case-slot-logbook { background: #fff; display: flex; flex-direction: column; justify-content: center; }
