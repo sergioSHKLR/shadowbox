@@ -141,11 +141,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
         <div className="case-board case-board-white">
         <div className="case-mat">
             <div className="case-identity">
-            <div className="case-flag-row">
-              <img className="case-coin case-coin-dow" src={publicUrl("/incoming/coin-dow.png")} alt="Department of War coin" />
-              <span className="case-flag-cut"><img className="case-flag" src={publicUrl("/incoming/folded%20flag%20stripes.svg")} alt="Folded flag" /></span>
-              <img className="case-coin case-coin-navy" src={publicUrl("/incoming/coin-navy.png")} alt="Department of the Navy coin" />
-            </div>
+            <span className="case-flag-cut"><img className="case-flag" src={publicUrl("/incoming/folded%20flag%20stripes.svg")} alt="Folded flag" /></span>
             <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
             </button>
