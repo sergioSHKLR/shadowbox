@@ -149,12 +149,12 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             </button>
             <button type="button" className="case-plaque" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}><span className="case-plaque-bio"><ScrollText aria-hidden="true" />{t.bioTitle}</span><span className="case-plaque-name">ETC (SW/EXW) Sergio Schickler</span><br />30 Jun 1997 – 28 Feb 2018</button>
                   <div className="home-sections">
-                    {section("logbook", t.logbook, "/incoming/square-logbook-a.png")}
-                    {section("logbook", t.decorations, "/incoming/square-decorations-a.png")}
-                    {section("uniforms", t.uniforms, "/incoming/square-uniforms-a.png")}
-                    {section("timeline", t.timeline, "/incoming/square-timeline-a.png")}
-                    {section("map", t.map, "/incoming/square-travel-a.png")}
-                    {section("onduty", t.gear, "/incoming/square-gear-a.png")}
+                    {section("logbook", t.logbook, "/incoming/square-logbook-b.png")}
+                    {section("logbook", t.decorations, "/incoming/square-decorations-b.png")}
+                    {section("uniforms", t.uniforms, "/incoming/square-uniforms-b.png")}
+                    {section("timeline", t.timeline, "/incoming/square-timeline-b.png")}
+                    {section("map", t.map, "/incoming/square-travel-b.png")}
+                    {section("onduty", t.gear, "/incoming/square-gear-b.png")}
                   </div>
                     </div>
         </div>
