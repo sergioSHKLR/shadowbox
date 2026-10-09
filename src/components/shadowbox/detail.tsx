@@ -224,26 +224,21 @@ function uniqueShots(shots: Shot[]) {
 
 function OperationMarks({ id }: { id: string }) {
   const op = operations.find((item) => item.id === id);
-  const admin: string[] = [];
-  const partner = fieldNames("operation", id, "Partner");
-  const sponsor = fieldNames("operation", id, "Sponsor");
-  const customer = fieldNames("operation", id, "Customer");
-  if (op?.unitId === "troy") {
-    partner.push(...fieldNames("unit", "troy", "Partner"));
-    sponsor.push(...fieldNames("unit", "troy", "Sponsor"));
-  }
-  if (id === "oif-2009") {
-    admin.push("11th ADA");
-    partner.push(...fieldNames("unit", "ia-army", "Partner"));
-    customer.push(...fieldNames("unit", "ia-army", "Customer"));
-  }
+  const take = (field: string) => unique([
+    ...fieldNames("operation", id, field),
+    ...(op?.unitId ? fieldNames("unit", op.unitId, field) : []),
+  ]);
+  const admin = take("Admin");
+  if (id === "oif-2009" && !admin.includes("11th ADA")) admin.unshift("11th ADA");
+  const unit = op?.unitId ? units.find((item) => item.id === op.unitId) : undefined;
   const shot = (name: string) => ({ name, src: crestFor(name) });
   return (
     <>
+      {unit?.image ? <ThumbRow label="In theater" items={[{ name: unit.abbreviation || unit.name, src: unit.image }]} /> : null}
       <ThumbRow label="Admin" items={unique(admin).map(shot)} />
-      <ThumbRow label="Partners" items={unique(partner).map(shot)} />
-      <ThumbRow label="Sponsors" items={unique(sponsor).map(shot)} />
-      <ThumbRow label="Customers" items={unique(customer).map(shot)} />
+      <ThumbRow label="Partners" items={take("Partner").map(shot)} />
+      <ThumbRow label="Sponsors" items={take("Sponsor").map(shot)} />
+      <ThumbRow label="Customers" items={take("Customer").map(shot)} />
     </>
   );
 }
@@ -551,7 +546,16 @@ export function DetailPanel({
                 ) : null}
               <div className="detail-body">
                 {selection?.kind === "unit" ? <UnitDossier id={selection.id} part="cards" hideUniforms={Boolean(subject.usedHere?.some((item) => item.kind === "uniform"))} /> : null}
-                {selection?.kind === "operation" ? <OperationMarks id={selection.id} /> : null}
+                {selection?.kind === "operation" ? (
+                  <>
+                    <dl className="facts">
+                      {subject.facts.filter((fact) => fact.label === "Phase" || fact.label === "When").map((fact) => (
+                        <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>
+                      ))}
+                    </dl>
+                    <OperationMarks id={selection.id} />
+                  </>
+                ) : null}
                 {editableInstances ? (
                   <section>
                     <h3>Each award</h3>
