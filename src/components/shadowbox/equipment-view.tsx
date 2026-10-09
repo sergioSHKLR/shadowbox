@@ -69,7 +69,9 @@ export function OnDuty({ onOpen, title }: { onOpen: (k: Kind, id: string) => voi
       const next = cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id];
       return next.length === 0 || next.length === COMMANDS.length ? null : next;
     });
+  const DROPPED = new Set(["iotv-ucp", "plate-carrier-multicam", "ach-tan", "ach-acu-cover"]);
   const visible = equipment.filter((item) => {
+    if (DROPPED.has(item.id)) return false;
     if (!DUTY.includes(item.group) || OFF_DUTY_IDS.has(item.id)) return false;
     if (!shown) return true;
     const owners = ownersOf(item.id);
