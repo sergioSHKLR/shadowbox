@@ -1341,9 +1341,13 @@ body[data-scroll-locked] .home-pin {
 .home-panel { display: flex; flex-direction: column; align-items: center; width: 100%; aspect-ratio: 1; background: #fff; border: 8px solid #f4f4f4; border-top-color: #ffffff; border-left-color: #f7f7f7; border-right-color: #d5d5d5; border-bottom-color: #cfcfcf; padding: 0.45rem; cursor: pointer; font: inherit; text-align: center; box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #c8c8c8; }
 .home-panel-art { width: 100%; flex: 1; min-height: 0; object-fit: contain; background: transparent; }
 @media (min-width: 800px) {
-  .case-frame { width: min(68rem, 100%); }
-  .case-mat { grid-template-columns: minmax(16rem, 0.85fr) 1.15fr; align-items: center; justify-items: stretch; }
-  .home-sections { width: 100%; grid-template-columns: repeat(3, 1fr); }
+  .case-frame { width: min(68rem, 100%); padding: 1.1rem; }
+  .case-mat { grid-template-columns: minmax(16rem, 0.85fr) 1.15fr; grid-template-rows: auto auto auto; align-items: stretch; justify-items: stretch; padding: 2.4rem; }
+  .case-identity { display: contents; }
+  .case-flag-cut { grid-column: 1; grid-row: 1; }
+  .case-portrait { grid-column: 1; grid-row: 2; }
+  .case-plaque { grid-column: 1; grid-row: 3; }
+  .home-sections { grid-column: 2; grid-row: 2; align-self: center; width: 100%; grid-template-columns: repeat(3, 1fr); }
   .case-flag-cut, .case-portrait, .case-plaque { width: 90%; }
 }
 .case-slot-logbook { grid-area: logbook; }
