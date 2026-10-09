@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode, type RefObject } from "react";
-import { BookOpen, ChartGantt, Map, Medal, ScrollText, Shirt } from "lucide-react";
+import { Backpack, BookOpen, ChartGantt, Map, Medal, ScrollText, Shirt } from "lucide-react";
 import { awards, photos, profile, publicUrl, ribbonRows, timeline, units, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { chrome } from "@/lib/shadowbox/copy";
@@ -126,12 +126,13 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
   const t = chrome(locale);
   const paragraphs = bio.split("\n\n");
   const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
-  const section = (view: string, label: string) => {
-    const Icon = label === t.decorations ? Medal : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : BookOpen;
+  const section = (view: string, label: string, art: string) => {
+    const Icon = label === t.decorations ? Medal : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : view === "onduty" ? Backpack : BookOpen;
     return (
       <section className="home-section">
         <button type="button" className="home-panel" onClick={() => onGo?.(view)} aria-label={label}>
           <span className="home-section-head"><Icon aria-hidden="true" />{label}</span>
+          <img className="home-panel-art" src={publicUrl(art)} alt="" />
         </button>
       </section>
     );
@@ -148,11 +149,12 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             </button>
             <button type="button" className="case-plaque" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}><span className="case-plaque-bio"><ScrollText aria-hidden="true" />{t.bioTitle}</span><span className="case-plaque-name">ETC (SW/EXW) Sergio Schickler</span><br />30 Jun 1997 – 28 Feb 2018</button>
                   <div className="home-sections">
-                    {section("logbook", t.logbook)}
-                    {section("logbook", t.decorations)}
-                    {section("uniforms", t.uniforms)}
-                    {section("timeline", t.timeline)}
-                    {section("map", t.map)}
+                    {section("logbook", t.logbook, "/incoming/square-logbook-a.png")}
+                    {section("logbook", t.decorations, "/incoming/square-decorations-a.png")}
+                    {section("uniforms", t.uniforms, "/incoming/square-uniforms-a.png")}
+                    {section("timeline", t.timeline, "/incoming/square-timeline-a.png")}
+                    {section("map", t.map, "/incoming/square-travel-a.png")}
+                    {section("onduty", t.gear, "/incoming/square-gear-a.png")}
                   </div>
                     </div>
         </div>
