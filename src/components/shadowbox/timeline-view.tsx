@@ -126,12 +126,12 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
   const t = chrome(locale);
   const paragraphs = bio.split("\n\n");
   const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
-  const section = (view: string, label: string, body: ReactNode) => {
+  const section = (view: string, label: string) => {
     const Icon = label === t.decorations ? Medal : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : BookOpen;
     return (
       <section className="home-section">
         <h2 className="home-section-head"><Icon aria-hidden="true" />{label}</h2>
-        <button type="button" className="home-panel" onClick={() => onGo?.(view)}>{body}</button>
+        <button type="button" className="home-panel" onClick={() => onGo?.(view)} aria-label={label} />
       </section>
     );
   };
@@ -151,37 +151,11 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
         </div>
       </section>
       <div className="home-sections">
-        {section("logbook", t.logbook, (
-          <>
-            <span className="case-crests case-crests-lead">
-              {ASSIGNED.slice(0, 3).map((id) => {
-                const unit = units.find((row) => row.id === id);
-                return unit?.image ? <img key={id} src={publicUrl(unit.image)} alt="" /> : null;
-              })}
-            </span>
-            <span className="case-crests case-crests-assigned">
-              {ASSIGNED.slice(3).map((id) => {
-                const unit = units.find((row) => row.id === id);
-                return unit?.image ? <img key={id} src={publicUrl(unit.image)} alt="" /> : null;
-              })}
-            </span>
-            <span className="case-crests case-crests-partner">
-              {PARTNERS.map((unit) => unit.image ? <img key={unit.id} src={publicUrl(unit.image)} alt="" /> : null)}
-            </span>
-          </>
-        ))}
-        {section("logbook", t.decorations, <CaseRack />)}
-        {section("uniforms", t.uniforms, (
-          <img className="case-uniform" src={publicUrl("/incoming/uniform-ranks.png")} alt="Rating badges and service stripes" />
-        ))}
-        {section("timeline", t.timeline, <CaseTracks />)}
-        {section("map", t.map, (
-          <span className="case-map-wrap">
-            <img className="case-map" src={publicUrl("/incoming/world-map.png")} alt="" />
-            <img className="case-pass case-pass-us" src={publicUrl("/incoming/passport-us.png")} alt="United States passport" />
-            <img className="case-pass case-pass-official" src={publicUrl("/incoming/passport-us-official.png")} alt="United States official passport" />
-          </span>
-        ))}
+        {section("logbook", t.logbook)}
+        {section("logbook", t.decorations)}
+        {section("uniforms", t.uniforms)}
+        {section("timeline", t.timeline)}
+        {section("map", t.map)}
       </div>
       <div className="case-seals">
         {([
