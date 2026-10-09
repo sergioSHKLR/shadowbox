@@ -1954,7 +1954,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       kind: "operation",
       id: op.id,
       kicker: op.theater,
-      title: op.name,
+      title: opChipTitle(op),
       explanation: op.explanation,
       facts: [
         { label: "Phase", value: op.phase },
@@ -1967,7 +1967,7 @@ export function toSubject(sel: Selection): SubjectView | null {
         ...(op.placeId ? [rel("place", op.placeId, placeById(op.placeId)?.name ?? "Place")] : []),
         ...opBases.map((place) => rel("place", place.id, place.name)),
       ],
-      usedHere: usedHereFor(op.id),
+      usedHere: usedHereFor(op.id).length ? usedHereFor(op.id) : usedHereFor(op.unitId),
     };
   }
 
