@@ -130,8 +130,9 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
     const Icon = label === t.decorations ? Medal : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : BookOpen;
     return (
       <section className="home-section">
-        <h2 className="home-section-head"><Icon aria-hidden="true" />{label}</h2>
-        <button type="button" className="home-panel" onClick={() => onGo?.(view)} aria-label={label} />
+        <button type="button" className="home-panel" onClick={() => onGo?.(view)} aria-label={label}>
+          <span className="home-section-head"><Icon aria-hidden="true" />{label}</span>
+        </button>
       </section>
     );
   };
@@ -145,7 +146,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
             </button>
-            <button type="button" className="case-plaque" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}><span className="case-plaque-bio"><ScrollText aria-hidden="true" />{t.bioTitle}</span>ETC (SW/EXW) Sergio Schickler<br />30 Jun 1997 – 28 Feb 2018</button>
+            <button type="button" className="case-plaque" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}><span className="case-plaque-bio"><ScrollText aria-hidden="true" />{t.bioTitle}</span><span className="case-plaque-name">ETC (SW/EXW) Sergio Schickler</span><br />30 Jun 1997 – 28 Feb 2018</button>
                   <div className="home-sections">
                     {section("logbook", t.logbook)}
                     {section("logbook", t.decorations)}
