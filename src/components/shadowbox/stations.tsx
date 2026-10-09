@@ -328,6 +328,22 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
         ))}
       </div>
 
+      <section className="places-track" aria-label="Places">
+        <h3>Places</h3>
+        <p className="quiet">The same order as the Map. Numbers do not change.</p>
+        <ol className="stop-list">
+          {allStops.map((stop) => (
+            <li key={stop.n}>
+              <button type="button" onClick={() => onOpen("place", stop.place.id)}>
+                <span className={`pin-num ${stop.kind} ${stop.place.accuracy}`} aria-label={`Stop ${stop.n}`}>{stop.n}</span>
+                <strong>{stop.labels[0]}</strong>
+                <span>{stop.place.name}{stop.when ? ` · ${stop.when}` : ""}</span>
+              </button>
+            </li>
+          ))}
+        </ol>
+      </section>
+
     </main>
   );
 }

@@ -1,4 +1,5 @@
 import { caseCopy, publicUrl, uniforms, type Kind, type UniformGroup } from "@/lib/shadowbox/model";
+import { UniformProgression } from "@/components/shadowbox/uniform-progression";
 
 const UNIFORM_SECTIONS: { id: UniformGroup; label: string }[] = [
   { id: "battle", label: "Battle" },
@@ -11,6 +12,7 @@ const UNIFORM_SECTIONS: { id: UniformGroup; label: string }[] = [
 export function Uniforms({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
   return (
     <main className="sheet">
+      <UniformProgression />
       <h2>Uniforms</h2>
       <p>{uniforms.length} uniforms. {caseCopy.uniformsLead}</p>
       {UNIFORM_SECTIONS.map((group) => {
