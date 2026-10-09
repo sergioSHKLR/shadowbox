@@ -1311,7 +1311,7 @@ body[data-scroll-locked] .home-pin {
 .case-home { display: grid; justify-items: center; background: #fff; }
 .case-frame { position: relative; width: min(72rem, 100%); padding: 1.15rem; background: #5c4030; border: 1px solid #3d291c; box-shadow: inset 0 0 0 4px #8a6a3b; }
 .case-board-light, .case-board-white { background: transparent; padding: 0; }
-.case-mat { --in: 1.05rem; display: grid; grid-template-columns: 1.15fr 0.9fr 1.15fr; grid-template-areas: "logbook flag timeline" "logbook portrait timeline" "decorations portrait travel" "decorations plaque travel"; gap: 0.85rem; padding: 1rem; background: #1d4e89; box-shadow: inset 0 0 0 3px #c6a15b; }
+.case-mat { --in: 1.05rem; display: grid; grid-template-columns: 1.15fr 0.9fr 1.15fr; grid-template-areas: "logbook flag timeline" "logbook portrait timeline" "decorations portrait travel" "decorations plaque travel"; gap: 0.85rem; padding: 1rem; background: #0e2244; box-shadow: inset 0 0 0 3px #c6a15b; }
 .case-slot-logbook { grid-area: logbook; }
 .case-slot-decorations { grid-area: decorations; }
 .case-slot-timeline { grid-area: timeline; }
@@ -1336,17 +1336,18 @@ body[data-scroll-locked] .home-pin {
 .case-crests-assigned img { height: 3.4rem; width: auto; }
 .case-crests-partner { margin-top: 0.45rem; }
 .case-crests-partner img { height: 1.5rem; width: auto; }
-.case-ribbons { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
-.case-ribbon-row { display: flex; flex-direction: row-reverse; justify-content: center; gap: calc(0.125 * var(--in)); }
-.case-ribbon { width: calc(1.375 * var(--in)); }
-.case-pin { display: block; width: calc(2.75 * var(--in)); height: auto; margin: 0.2rem auto; }
+.case-ribbons { display: flex; flex-direction: column; align-items: stretch; width: 100%; gap: 0.45rem; }
+.case-ribbon-row { display: flex; flex-direction: row-reverse; justify-content: stretch; width: 100%; gap: 0.7rem; }
+.case-ribbon { flex: 1 1 0; width: auto; min-width: 0; }
+.case-ribbon-row.is-short { justify-content: center; }
+.case-ribbon-row.is-short .case-ribbon { flex: 0 1 calc((100% - 1.4rem) / 3); }
+.case-pin { display: block; width: calc((100% - 1.4rem) / 3 * 2); height: auto; margin: 0.25rem auto; }
 .case-ribbon img { width: 100%; height: auto; display: block; }
 .case-map-wrap { position: relative; display: block; min-height: 8rem; }
 .case-map { display: block; width: 100%; height: 8rem; object-fit: cover; object-position: center; }
 .case-pass { position: absolute; width: calc(3.465 * var(--in)); height: auto; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.35)); }
-.case-pass-br { left: 8%; bottom: 0.4rem; transform: rotate(-8deg); }
-.case-pass-us { left: 38%; bottom: 0.7rem; transform: rotate(4deg); }
-.case-pass-official { right: 8%; bottom: 0.35rem; transform: rotate(9deg); }
+.case-pass-us { left: 16%; bottom: 0.15rem; transform: rotate(-14deg); z-index: 1; }
+.case-pass-official { right: 16%; bottom: 0.15rem; transform: rotate(12deg); z-index: 2; }
 .case-line { display: flex; align-items: center; justify-content: space-between; height: 4rem; position: relative; }
 .case-line::before { content: ""; position: absolute; left: 8%; right: 8%; height: 2px; background: #1d4e89; }
 .case-line i { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: #1d4e89; position: relative; }
@@ -1358,19 +1359,19 @@ body[data-scroll-locked] .home-pin {
   .case-flag { clip-path: polygon(2% 2%, 94% 2%, 2% 94%); }
 }
 @media (max-width: 720px) {
-  .case-frame { background: #000; border-color: #000; box-shadow: none; padding: 0.7rem; }
-  .case-mat { grid-template-columns: 1fr; grid-template-areas: "flag" "portrait" "plaque" "logbook" "decorations" "timeline" "travel"; background: #000; box-shadow: none; gap: 1.1rem; }
-  .case-flag-cut { width: 100%; clip-path: polygon(50% 0, 0 100%, 100% 100%); background: transparent; }
-  .case-flag { clip-path: polygon(50% 0, 0 100%, 100% 100%); }
-  .case-portrait { width: 100%; border: 0; background: transparent; }
-  .case-portrait img { width: 100%; height: auto; max-height: none; object-fit: contain; background: transparent; }
-  .case-slot-logbook { aspect-ratio: 1.15; background: #d7e7f6; border: 0; display: flex; flex-direction: column; justify-content: center; }
+  .case-mat { grid-template-columns: 1fr; grid-template-areas: "flag" "portrait" "plaque" "logbook" "decorations" "timeline" "travel"; background: #0e2244; gap: 1.1rem; }
+  .case-flag-cut { width: 100%; clip-path: polygon(50% 0, 0 100%, 100% 100%); }
+  .case-flag { clip-path: polygon(50% 4%, 3% 96%, 97% 96%); }
+  .case-portrait { width: 100%; }
+  .case-portrait img { width: 100%; height: auto; max-height: none; object-fit: contain; }
+  .case-slot-logbook { background: #fff; display: flex; flex-direction: column; justify-content: center; }
   .case-slot-logbook .case-kicker { display: none; }
-  .case-slot-decorations { background: transparent; border: 0; }
   .case-slot-map { background: transparent; border: 0; }
   .case-slot-map .case-kicker, .case-slot-map .case-map { display: none; }
-  .case-map-wrap { min-height: 0; display: flex; justify-content: center; gap: 0.8rem; }
-  .case-pass { position: static; width: calc(3.465 * var(--in)); transform: none; }
+  .case-map-wrap { position: relative; min-height: 13rem; height: 13rem; }
+  .case-pass { width: 46%; }
+  .case-pass-us { left: 6%; bottom: 0; transform: rotate(-16deg); }
+  .case-pass-official { right: 6%; bottom: 0; transform: rotate(14deg); }
   .case-seals { display: flex; }
 }
 .case-seals { display: none; justify-content: center; gap: 0.8rem; margin-top: 0.8rem; }
