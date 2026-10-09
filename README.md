@@ -1,4 +1,4 @@
-# ETC (EXW/SW) Sergio Schickler
+# Chief Petty Officer Sergio Schickler
 
 United States Navy, Retired  
 30 June 1997 – 28 February 2018

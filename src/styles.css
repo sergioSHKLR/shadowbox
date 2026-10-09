@@ -61,7 +61,7 @@ h1, h2, h3, .detail-title {
 
 .screen-off { display: none; }
 
-.app-shell { min-height: 100vh; min-width: 0; max-width: 100%; display: flex; flex-direction: column; overflow-x: clip; }
+.app-shell { min-height: 100vh; min-height: 100dvh; min-width: 0; max-width: 100%; display: flex; flex-direction: column; overflow-x: clip; }
 .app-bar {
   position: sticky;
   top: 0;
@@ -171,7 +171,7 @@ h1, h2, h3, .detail-title {
 .app-menu button.on { background: transparent; color: inherit; font-weight: 600; box-shadow: inset 3px 0 0 var(--color-brass); }
 .app-menu button.on:hover,
 .app-menu button.on:focus-visible { background: #17345c; }
-.app-main { width: min(72rem, calc(100% - 2rem)); max-width: 100%; min-width: 0; min-height: 85vh; box-sizing: border-box; margin: 0 auto; padding: 1.25rem 0 1rem; }
+.app-main { width: min(72rem, calc(100% - 2rem)); max-width: 100%; min-width: 0; flex: 1 0 auto; box-sizing: border-box; margin: 0 auto; padding: 1.25rem 0 1rem; }
 .page-pager {
   display: flex;
   justify-content: space-between;
@@ -1295,25 +1295,6 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.45)) brightness(1.08);
 }
 /* Keep the seal clear of the bio watermark; caption stays above it. */
-
-.home-branch-seals {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.55rem;
-  margin: 0.35rem auto 0.1rem;
-  width: min(16rem, 92%);
-}
-.home-branch-seal {
-  width: 3.74rem;
-  height: 3.74rem;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-.home-branch-seal img { width: 100%; height: 100%; object-fit: contain; }
-.home-branch-seal:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 2px; }
 .detail-recruit { margin: 0.4rem 0 0.8rem; }
 .detail-recruit a { color: var(--color-navy); font-weight: 600; }
 [data-theme="dark"] .detail-recruit a { color: var(--color-ivory); }
@@ -1336,7 +1317,7 @@ body[data-scroll-locked] .home-pin {
 .timeline-scrub input::-webkit-slider-thumb { background: #daa520; }
 
 .case-home { display: grid; justify-items: center; background: transparent; }
-.case-frame { position: relative; width: min(28rem, 100%); margin: 0 auto; padding: 1.35rem; background: linear-gradient(145deg, #7a5a3a, #5c4030 40%, #3d291c); border: 1px solid #2a1b12; box-shadow: inset 0 0 0 7px #8a6a3b, inset 0 0 0 10px #3d291c, 0 14px 28px rgba(20, 14, 8, 0.35); }
+.case-frame { container-type: inline-size; position: relative; width: min(72rem, 100%); margin: 0 auto; padding: 1.35rem; background: linear-gradient(145deg, #7a5a3a, #5c4030 40%, #3d291c); border: 1px solid #2a1b12; box-shadow: inset 0 0 0 7px #8a6a3b, inset 0 0 0 10px #3d291c, 0 14px 28px rgba(20, 14, 8, 0.35); }
 .case-board-light, .case-board-white { background: transparent; padding: 0; }
 .case-mat { --gap: 0.7rem; --in: 1.05rem; --plaque: 17.5rem; display: grid; justify-items: center; gap: var(--gap); width: 100%; padding: 2.4rem var(--gap) 2.4rem; background: radial-gradient(120% 90% at 50% 0%, #1a3a66, #0e2244 55%, #09162c); box-shadow: inset 0 0 0 3px #c6a15b, inset 0 18px 28px rgba(0, 0, 0, 0.45), inset 0 -10px 18px rgba(0, 0, 0, 0.35); }
 .case-identity { display: grid; justify-items: center; gap: var(--gap); width: 100%; }
@@ -1348,9 +1329,9 @@ body[data-scroll-locked] .home-pin {
 .case-uniform-cut { display: block; width: min(100%, 22rem); margin: 0 auto; padding: 0; border: 10px solid #f4f4f4; border-top-color: #ffffff; border-left-color: #f7f7f7; border-right-color: #d5d5d5; border-bottom-color: #cfcfcf; background: #fff; cursor: pointer; box-shadow: 0 12px 18px rgba(0, 0, 0, 0.5); }
 .case-uniform-cut img { display: none; width: 100%; height: auto; object-fit: contain; background: #fff; }
 .case-uniform-cut .case-plate-khaki { display: block; }
-/* Tablet: whites plate, with the portrait and button column. */
-@media (min-width: 768px) and (max-width: 1099px) {
-  .case-frame { width: min(68rem, 100%); padding: 1.1rem; }
+/* Row layout only when the case itself is wide enough. A phone on its side stays stacked. */
+@container (min-width: 56rem) {
+  .case-frame { padding: 1.1rem; }
   .case-mat { grid-template-columns: minmax(14rem, 1.1fr) 12.5rem minmax(12rem, 0.85fr); align-items: center; justify-items: stretch; padding: 2.4rem; }
   .case-identity { display: contents; }
   .case-portrait { grid-column: 1; grid-row: 1; }
@@ -1362,19 +1343,9 @@ body[data-scroll-locked] .home-pin {
   .case-uniform-cut .case-plate-khaki,
   .case-uniform-cut .case-plate-blue { display: none; }
   .case-uniform-cut .case-plate-white { display: block; }
-  .case-seals { display: none; }
 }
-/* Laptop: blues plate. */
-@media (min-width: 1100px) {
-  .case-frame { width: min(72rem, 100%); padding: 1.1rem; }
-  .case-mat { grid-template-columns: minmax(16rem, 1.15fr) 12.5rem minmax(16rem, 0.95fr); align-items: center; justify-items: stretch; padding: 2.4rem; }
-  .case-identity { display: contents; }
-  .case-portrait { grid-column: 1; grid-row: 1; }
-  .case-plaque { grid-column: 1; grid-row: 2; }
-  .home-sections { grid-column: 2; grid-row: 1 / span 2; align-self: stretch; width: 100%; align-content: center; }
-  .home-sections .home-panel { width: 100%; min-height: 2.35rem; }
-  .case-portrait, .case-plaque { width: 92%; justify-self: center; }
-  .case-uniform-cut { display: block; grid-column: 3; grid-row: 1 / span 2; align-self: center; width: 100%; max-width: none; justify-self: center; }
+@container (min-width: 68rem) {
+  .case-mat { grid-template-columns: minmax(16rem, 1.15fr) 12.5rem minmax(16rem, 0.95fr); }
   .case-uniform-cut .case-plate-khaki,
   .case-uniform-cut .case-plate-white { display: none; }
   .case-uniform-cut .case-plate-blue { display: block; }
@@ -1433,7 +1404,7 @@ body[data-scroll-locked] .home-pin {
 .case-line { display: flex; align-items: center; justify-content: space-between; height: 4rem; position: relative; }
 .case-line::before { content: ""; position: absolute; left: 8%; right: 8%; height: 2px; background: #1d4e89; }
 .case-line i { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: #1d4e89; position: relative; }
-.case-seals { margin-top: 1rem; }
+.case-seals { display: none; }
 .case-bio { width: min(46rem, 100%); margin: 1.5rem auto 0; }
 @media (max-width: 1100px) {
   .case-flag-cut { position: static; width: 90%; aspect-ratio: auto; margin: 0 auto; overflow: visible; clip-path: polygon(50% 0, 0 100%, 100% 100%); }
@@ -1452,15 +1423,6 @@ body[data-scroll-locked] .home-pin {
   .case-pass-us { left: 6%; bottom: 0; transform: rotate(-16deg); }
   .case-pass-official { right: 6%; bottom: 0; transform: rotate(14deg); }
 }
-.case-seals { display: none; justify-content: center; gap: 0.8rem; margin-top: 0.8rem; }
-.case-seals .home-branch-seal { width: 3.4rem; height: 3.4rem; }
-@media (min-width: 768px) and (max-width: 1099px) {
-  .case-seals { display: none; }
-}
-@media (min-width: 1100px) {
-  .case-seals { display: none; }
-}
-
 .case-tray-timeline { display: flex; flex-direction: column; }
 .case-tracks { display: flex; gap: 0.35rem; flex: 1; min-height: 18rem; text-align: left; justify-content: center; }
 .case-track { flex: 0 1 4.5rem; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; position: relative; }
