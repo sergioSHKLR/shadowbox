@@ -110,6 +110,10 @@ export function UniformProgression({ tour }: { tour?: TourFocus | null }) {
             />
           </label>
           <output className="uprog-date">{label}{rank ? ` · ${rank.abbreviation}` : ""}</output>
+        </div>
+      ) : null}
+      <div className="uprog-stage">
+        <div className="uprog-looks">
           {looks.map((id) => {
             const locked = id === "khaki" && !isChief;
             return (
@@ -127,8 +131,6 @@ export function UniformProgression({ tour }: { tour?: TourFocus | null }) {
             );
           })}
         </div>
-      ) : null}
-      <div className="uprog-stage">
         {step?.crest ? <img className="uprog-crest" src={publicUrl(step.crest)} alt="" /> : null}
         {slide ? (
           <figure className="uprog-slide">
