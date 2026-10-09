@@ -1381,7 +1381,7 @@ body[data-scroll-locked] .home-pin {
 
 .case-plaque { display: block; width: var(--plaque); max-width: 100%; margin: 0 auto; padding: 0.35rem 0.7rem; background: linear-gradient(180deg, #e4c98a, #c6a15b 45%, #8a6a3b); color: #14233a; border: 1px solid #8a6a3b; font-family: Palatino, "Palatino Linotype", "Iowan Old Style", Georgia, serif; letter-spacing: 0.04em; font-size: 0.82rem; font-weight: 500; text-align: center; line-height: 1.35; cursor: default; box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 #f3e2b8; }
 .case-plaque-name { white-space: nowrap; display: block; }
-.case-plaque-rank { display: block; }
+.case-plaque-rank, .case-plaque-dates { display: block; }
 .case-flag-cut { display: none; }
 .case-flag { display: block; width: 100%; height: auto; clip-path: polygon(50% 4%, 3% 96%, 97% 96%); }
 .case-portrait { margin: 0 auto; width: 90%; background: #fff; border: 0; padding: 0; cursor: pointer; display: block; box-shadow: 0 12px 18px rgba(0, 0, 0, 0.5); }
