@@ -156,7 +156,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
                     {section("timeline", t.timeline, "/incoming/square-timeline-c.jpg")}
                     {section("map", t.map, "/incoming/square-travel-c.jpg")}
                     {section("onduty", t.onduty, "/incoming/square-gear-c.jpg")}
-                    {section("offduty", t.offduty, "/equipment/toyota-hilux-white.webp")}
+                    {section("offduty", t.offduty, "/equipment/city-orange-park.webp")}
                     {section("guestbook", t.guestbook, "/incoming/square-guestbook-c.jpg")}
                   </div>
                     </div>
