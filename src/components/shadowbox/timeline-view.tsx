@@ -127,7 +127,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
   const paragraphs = bio.split("\n\n");
   const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
   const section = (view: string, label: string) => {
-    const Icon = view === "contact" ? MessageCircle : view === "guestbook" ? PenLine : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : view === "onduty" ? Backpack : view === "offduty" ? Car : BookOpen;
+    const Icon = view === "bio" ? ScrollText : view === "contact" ? MessageCircle : view === "guestbook" ? PenLine : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : view === "onduty" ? Backpack : view === "offduty" ? Car : BookOpen;
     return (
       <button type="button" className="home-panel" onClick={() => onGo?.(view)} aria-label={label}>
         <span className="home-section-head"><Icon aria-hidden="true" />{label}</span>
@@ -148,6 +148,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             <button type="button" className="case-plaque" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}><span className="case-plaque-bio"><ScrollText aria-hidden="true" />{t.bioTitle}</span><span className="case-plaque-name">ETC (SW/EXW) Sergio Schickler</span><br />30 Jun 1997 – 28 Feb 2018</button>
             </div>
                   <div className="home-sections">
+                    {section("bio", t.bioTitle)}
                     {section("logbook", t.logbook)}
                     {section("uniforms", t.uniforms)}
                     {section("timeline", t.timeline)}
@@ -157,6 +158,9 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
                     {section("guestbook", t.guestbook)}
                     {section("contact", t.contact)}
                   </div>
+            <button type="button" className="case-uniform-cut" onClick={() => onGo?.("uniforms")} aria-label={t.uniforms}>
+              <img src={publicUrl("/incoming/square-decorations-b.png")} alt="Service dress blue coat and rating badge" />
+            </button>
                     </div>
         </div>
         </div>
