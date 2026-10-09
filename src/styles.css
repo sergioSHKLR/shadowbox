@@ -1359,8 +1359,25 @@ body[data-scroll-locked] .home-pin {
   .case-flag { clip-path: polygon(2% 2%, 94% 2%, 2% 94%); }
 }
 @media (max-width: 720px) {
-  .case-mat { grid-template-columns: 1fr; grid-template-areas: "flag" "portrait" "plaque" "logbook" "decorations" "timeline" "travel"; background: #0e2244; gap: 1.1rem; }
-  .case-flag-cut { width: 100%; clip-path: polygon(50% 0, 0 100%, 100% 100%); }
+  .case-home { container-type: inline-size; }
+  .case-frame {
+    --roof: calc(48cqw + 1.4rem);
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    clip-path: polygon(50% 0, 100% var(--roof), 100% 100%, 0 100%, 0 var(--roof));
+  }
+  .case-mat {
+    grid-template-columns: 1fr;
+    grid-template-areas: "flag" "portrait" "plaque" "logbook" "decorations" "timeline" "travel";
+    background: #0e2244;
+    box-shadow: none;
+    gap: 1.1rem;
+    padding: 0.9rem;
+    padding-top: 1.5rem;
+    clip-path: polygon(50% 0.72rem, calc(100% - 0.72rem) calc(var(--roof) - 0.5rem), calc(100% - 0.72rem) calc(100% - 0.72rem), 0.72rem calc(100% - 0.72rem), 0.72rem calc(var(--roof) - 0.5rem));
+  }
+  .case-flag-cut { width: calc(100% - 1.7rem); aspect-ratio: 960 / 444; margin: 0.45rem auto 0; clip-path: polygon(50% 0, 0 100%, 100% 100%); }
   .case-flag { clip-path: polygon(50% 4%, 3% 96%, 97% 96%); }
   .case-portrait { width: 100%; }
   .case-portrait img { width: 100%; height: auto; max-height: none; object-fit: contain; }
