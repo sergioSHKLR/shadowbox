@@ -49,8 +49,8 @@ const NAV = ["timeline", "logbook"] as const satisfies readonly (typeof ALL_NAV)
 type PageId = "home" | (typeof ALL_NAV)[number];
 const NAV_ICON = { commands: Anchor, uniforms: Shirt, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, logbook: NotebookText, admin: ClipboardList };
 const PAGE_ICON: Record<PageId, typeof House> = { home: House, ...NAV_ICON };
-/** Top-bar menu: Home, Logbook, Travelbook, Timeline, then Guestbook and Contact. */
-const MENU = ["home", "bio", "logbook", "map", "timeline", "uniforms", "guestbook", "contact"] as const;
+/** Top-bar menu follows the case: Home, Bio, Logbook, Uniforms, Timeline, Travelbook, then Guestbook and Contact. */
+const MENU = ["home", "bio", "logbook", "uniforms", "timeline", "map", "guestbook", "contact"] as const;
 /** Menu and footer-pager icons (Sergio, Oct 2026): Home Anchor, Logbook BookOpen, Travel Book Map, Guestbook PenLine, Contact MessageCircle. */
 const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: Anchor, bio: ScrollText, timeline: ChartGantt, logbook: BookOpen, uniforms: Shirt, guestbook: PenLine, contact: MessageCircle, map: Map };
 /** Footer pager icon, same size and stroke as the Settings gear. */
