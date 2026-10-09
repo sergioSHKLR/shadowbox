@@ -1347,7 +1347,7 @@ body[data-scroll-locked] .home-pin {
 .home-panel-art { width: 100%; flex: 1; min-height: 0; object-fit: contain; background: transparent; }
 .case-uniform-cut { display: block; width: min(100%, 22rem); margin: 0 auto; padding: 0; border: 10px solid #f4f4f4; border-top-color: #ffffff; border-left-color: #f7f7f7; border-right-color: #d5d5d5; border-bottom-color: #cfcfcf; background: #fff; cursor: pointer; box-shadow: 0 12px 18px rgba(0, 0, 0, 0.5); }
 .case-uniform-cut img { display: none; width: 100%; height: auto; object-fit: contain; background: #fff; }
-.case-plate-khaki { display: block; }
+.case-uniform-cut .case-plate-khaki { display: block; }
 /* Tablet: whites plate, with the portrait and button column. */
 @media (min-width: 768px) and (max-width: 1099px) {
   .case-frame { width: min(68rem, 100%); padding: 1.1rem; }
@@ -1359,8 +1359,9 @@ body[data-scroll-locked] .home-pin {
   .home-sections .home-panel { width: 100%; min-height: 2.45rem; }
   .case-portrait, .case-plaque { width: 92%; justify-self: center; }
   .case-uniform-cut { display: block; grid-column: 3; grid-row: 1 / span 2; align-self: center; width: 100%; max-width: none; justify-self: center; }
-  .case-plate-khaki, .case-plate-blue { display: none; }
-  .case-plate-white { display: block; }
+  .case-uniform-cut .case-plate-khaki,
+  .case-uniform-cut .case-plate-blue { display: none; }
+  .case-uniform-cut .case-plate-white { display: block; }
   .case-seals { display: none; }
 }
 /* Laptop: blues plate. */
@@ -1374,8 +1375,9 @@ body[data-scroll-locked] .home-pin {
   .home-sections .home-panel { width: 100%; min-height: 2.35rem; }
   .case-portrait, .case-plaque { width: 92%; justify-self: center; }
   .case-uniform-cut { display: block; grid-column: 3; grid-row: 1 / span 2; align-self: center; width: 100%; max-width: none; justify-self: center; }
-  .case-plate-khaki, .case-plate-white { display: none; }
-  .case-plate-blue { display: block; }
+  .case-uniform-cut .case-plate-khaki,
+  .case-uniform-cut .case-plate-white { display: none; }
+  .case-uniform-cut .case-plate-blue { display: block; }
 }
 .case-slot-logbook { grid-area: logbook; }
 .case-slot-decorations { grid-area: decorations; }
