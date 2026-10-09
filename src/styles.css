@@ -600,8 +600,9 @@ a { color: var(--color-navy); }
 .row-btn em { color: var(--color-quiet); font-size: 0.85rem; }
 .sheet { margin-top: 0.5rem; }
 .page-tracks { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; align-items: stretch; }
-.page-track h3 { margin: 0 0 0.7rem; font-size: 1rem; color: #14233a; }
-.page-line { position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 34rem; }
+.page-track { display: flex; flex-direction: column; min-height: 34rem; }
+.page-track h3 { margin: 0 0 0.7rem; min-height: 2.4rem; font-size: 1rem; color: #14233a; }
+.page-line { position: relative; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
 .page-line::before { content: ""; position: absolute; left: 0.5rem; top: 0.55rem; bottom: 0.55rem; width: 2px; background: currentColor; }
 .page-stop { display: flex; align-items: center; gap: 0.55rem; position: relative; background: none; border: 0; padding: 0.2rem 0; text-align: left; color: inherit; cursor: pointer; font: inherit; }
 .page-stop.is-start { align-items: flex-start; }
