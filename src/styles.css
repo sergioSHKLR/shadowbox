@@ -171,7 +171,7 @@ h1, h2, h3, .detail-title {
 .app-menu button.on { background: transparent; color: inherit; font-weight: 600; box-shadow: inset 3px 0 0 var(--color-brass); }
 .app-menu button.on:hover,
 .app-menu button.on:focus-visible { background: #17345c; }
-.app-main { width: min(72rem, calc(100% - 2rem)); max-width: 100%; min-width: 0; min-height: 90vh; box-sizing: border-box; margin: 0 auto; padding: 1.25rem 0 1rem; }
+.app-main { width: min(72rem, calc(100% - 2rem)); max-width: 100%; min-width: 0; min-height: 85vh; box-sizing: border-box; margin: 0 auto; padding: 1.25rem 0 1rem; }
 .page-pager {
   display: flex;
   justify-content: space-between;
