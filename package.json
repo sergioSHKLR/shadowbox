@@ -1,6 +1,6 @@
 {
   "name": "app-builder-workspace",
-  "homepage": "https://signum.shklr.org",
+  "homepage": "https://shadowbox.shklr.org",
   "private": true,
   "sideEffects": false,
   "type": "module",
