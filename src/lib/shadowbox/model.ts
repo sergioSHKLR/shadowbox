@@ -30,7 +30,7 @@ import deploymentGearJson from "@/data/deployment-gear.json";
 import commandDutiesJson from "@/data/command-duties.json";
 import commandProfilesJson from "@/data/command-profiles.json";
 
-/** Public files are served from the base URL: the site root in dev and on https://signum.shklr.org. */
+/** Public files are served from the base URL: the site root in dev and on https://shadowbox.shklr.org. */
 export function publicUrl(path: string): string {
   if (!path || /^(https?:|data:)/.test(path)) return path;
   const base = import.meta.env.BASE_URL || "/";

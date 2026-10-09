@@ -3,7 +3,7 @@
 United States Navy, Retired  
 30 June 1997 – 28 February 2018
 
-A reading copy of the Navy career of Chief Electronics Technician Sergio Schickler. Live at [signum.shklr.org](https://signum.shklr.org/).
+A reading copy of the Navy career of Chief Electronics Technician Sergio Schickler. Live at [shadowbox.shklr.org](https://shadowbox.shklr.org/).
 
 The home page is the portrait, the end-state rack, and a short biography. Commands, Timeline, Operations, Map, Uniforms, On Duty, Admin, and Off Duty are in the menu. A crest, ribbon, uniform, or pin opens its explanation beside the page. Language and theme are in Settings.
 
@@ -33,7 +33,7 @@ Decorations is not in the menu. Ready slides, if added later, go in `incoming/de
 
 ## Published site
 
-Pushes to `main` publish the built site from the repository root. GitHub Pages deploys that branch. `public/CNAME` keeps [signum.shklr.org](https://signum.shklr.org/) set on every publish. The old address, mil.shklr.org, is served by the [mil-redirect](https://github.com/sergioSHKLR/mil-redirect) repository, which forwards every path to the same path on signum.shklr.org.
+Pushes to `main` publish the built site from the repository root. GitHub Pages deploys that branch. `public/CNAME` keeps [shadowbox.shklr.org](https://shadowbox.shklr.org/) set on every publish. The old address, mil.shklr.org, is served by the [mil-redirect](https://github.com/sergioSHKLR/mil-redirect) repository, which forwards every path to the same path on shadowbox.shklr.org.
 
 ## Edit the record
 
