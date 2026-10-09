@@ -50,9 +50,9 @@ type PageId = "home" | (typeof ALL_NAV)[number];
 const NAV_ICON = { commands: Anchor, uniforms: Shirt, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, logbook: NotebookText, admin: ClipboardList };
 const PAGE_ICON: Record<PageId, typeof House> = { home: House, ...NAV_ICON };
 /** Top-bar menu follows the case: Home, Bio, Logbook, Uniforms, Timeline, Travelbook, then Guestbook and Contact. */
-const MENU = ["home", "bio", "logbook", "uniforms", "timeline", "map", "onduty", "offduty", "guestbook", "contact"] as const;
+const MENU = ["home", "bio", "logbook", "uniforms", "timeline", "map", "onduty", "guestbook", "contact"] as const;
 /** Menu and footer-pager icons (Sergio, Oct 2026): Home Anchor, Logbook BookOpen, Travel Book Map, Guestbook PenLine, Contact MessageCircle. */
-const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: Anchor, bio: ScrollText, timeline: ChartGantt, logbook: BookOpen, uniforms: Shirt, guestbook: PenLine, contact: MessageCircle, map: Map, onduty: Backpack, offduty: Car };
+const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: Anchor, bio: ScrollText, timeline: ChartGantt, logbook: BookOpen, uniforms: Shirt, guestbook: PenLine, contact: MessageCircle, map: Map, onduty: Backpack };
 /** Footer pager icon, same size and stroke as the Settings gear. */
 function PagerIcon({ id }: { id: string }) {
   const Icon = (MENU_ICON as Record<string, typeof House>)[id];
