@@ -1445,9 +1445,8 @@ body[data-scroll-locked] .home-pin {
   .case-pass { width: 46%; }
   .case-pass-us { left: 6%; bottom: 0; transform: rotate(-16deg); }
   .case-pass-official { right: 6%; bottom: 0; transform: rotate(14deg); }
-  .case-seals { display: flex; }
 }
-.case-seals { display: none; justify-content: center; gap: 0.8rem; margin-top: 0.8rem; }
+.case-seals { display: flex; justify-content: center; gap: 0.8rem; margin-top: 0.8rem; }
 .case-seals .home-branch-seal { width: 3.4rem; height: 3.4rem; }
 
 .case-tray-timeline { display: flex; flex-direction: column; }

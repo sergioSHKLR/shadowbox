@@ -167,10 +167,10 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
       </section>
       <div className="case-seals">
         {([
-          ["air-force", "/incoming/U.S._Air_Force_service_mark.svg", "United States Air Force"],
-          ["navy", "/incoming/Seal_of_the_United_States_Department_of_the_Navy.svg", "United States Navy"],
           ["army", "/incoming/Emblem_of_the_United_States_Department_of_the_Army.svg", "United States Army"],
           ["marines", "/incoming/Emblem_of_the_United_States_Marine_Corps.svg", "United States Marine Corps"],
+          ["navy", "/incoming/Seal_of_the_United_States_Department_of_the_Navy.svg", "United States Navy"],
+          ["air-force", "/incoming/U.S._Air_Force_service_mark.svg", "United States Air Force"],
         ] as const).map(([id, src, label]) => (
           <button key={id} type="button" className="home-branch-seal" onClick={() => onOpen?.("branch", id)} aria-label={label}>
             <img src={publicUrl(src)} alt="" />
