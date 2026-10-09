@@ -1311,11 +1311,13 @@ body[data-scroll-locked] .home-pin {
 .case-home { display: grid; justify-items: center; background: #fff; }
 .case-frame { position: relative; width: min(72rem, 100%); padding: 1.15rem; background: #5c4030; border: 1px solid #3d291c; box-shadow: inset 0 0 0 4px #8a6a3b; }
 .case-board-light, .case-board-white { background: transparent; padding: 0; }
-.case-mat { --in: 1.05rem; display: grid; grid-template-columns: 1.15fr 0.9fr 1.15fr; grid-template-areas: "logbook flag timeline" "logbook portrait timeline" "decorations portrait travel" "decorations plaque travel"; gap: 0.85rem; padding: 1.35rem; background: #0e2244; box-shadow: inset 0 0 0 3px #c6a15b; }
+.case-mat { --in: 1.05rem; display: grid; grid-template-columns: 1.15fr 0.9fr 1.15fr; grid-template-areas: "logbook flag timeline" "logbook portrait timeline" "decorations portrait travel" "decorations plaque travel" "uniforms uniforms uniforms"; gap: 0.85rem; padding: 1.35rem; background: #0e2244; box-shadow: inset 0 0 0 3px #c6a15b; }
 .case-slot-logbook { grid-area: logbook; }
 .case-slot-decorations { grid-area: decorations; }
 .case-slot-timeline { grid-area: timeline; }
 .case-slot-map { grid-area: travel; }
+.case-slot-uniforms { grid-area: uniforms; background: #000; }
+.case-uniform { display: block; width: 100%; height: auto; }
 
 .case-plaque { grid-area: plaque; display: block; width: fit-content; margin: 0 auto; padding: 0.35rem 0.7rem; background: #c6a15b; color: #14233a; border: 1px solid #8a6a3b; font-family: Palatino, "Palatino Linotype", "Iowan Old Style", Georgia, serif; letter-spacing: 0.04em; font-size: 0.82rem; font-weight: 500; text-align: center; line-height: 1.35; }
 .case-flag-cut { grid-area: flag; display: block; width: min(100%, calc(12 * var(--in))); margin: 0 auto; background: linear-gradient(160deg, #ffffff, #d5d5d5); clip-path: polygon(50% 0, 0 100%, 100% 100%); }
@@ -1326,6 +1328,8 @@ body[data-scroll-locked] .home-pin {
 .case-plates { grid-area: plates; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; justify-items: center; }
 .case-tray, .case-portrait { border: 10px solid #f4f4f4; border-top-color: #ffffff; border-left-color: #f7f7f7; border-right-color: #d5d5d5; border-bottom-color: #cfcfcf; background: #fff; }
 .case-tray { width: 100%; color: #14233a; text-align: center; padding: 0.8rem; cursor: pointer; font: inherit; }
+.case-slot-uniforms { background: #000; color: #fff; padding: 0.45rem 0.35rem 0.35rem; }
+.case-slot-uniforms .case-kicker { color: #fff; }
 .case-plates .case-tray { width: min(16rem, 100%); background: #c6a15b; border-color: #8a6a3b; letter-spacing: 0.08em; }
 .case-plaque-bio { display: flex; align-items: center; justify-content: center; gap: 0.3rem; margin-bottom: 0.15rem; }
 .case-plaque-bio svg { width: 0.9rem; height: 0.9rem; }
@@ -1358,14 +1362,14 @@ body[data-scroll-locked] .home-pin {
 .case-seals { margin-top: 1rem; }
 .case-bio { width: min(46rem, 100%); margin-top: 1.5rem; }
 @media (max-width: 1100px) {
-  .case-mat { grid-template-columns: 1fr 1fr; grid-template-areas: "flag portrait" "flag plaque" "timeline logbook" "travel decorations"; }
+  .case-mat { grid-template-columns: 1fr 1fr; grid-template-areas: "flag portrait" "flag plaque" "timeline logbook" "travel decorations" "uniforms uniforms"; }
   .case-flag-cut { width: 100%; clip-path: polygon(0 0, 100% 0, 0 100%); }
   .case-flag { clip-path: polygon(2% 2%, 94% 2%, 2% 94%); }
 }
 @media (max-width: 720px) {
   .case-mat {
     grid-template-columns: 1fr;
-    grid-template-areas: "flag" "portrait" "plaque" "logbook" "decorations" "timeline" "travel";
+    grid-template-areas: "flag" "portrait" "plaque" "logbook" "decorations" "uniforms" "timeline" "travel";
     background: #0e2244;
     gap: 1.15rem;
     padding: 1.45rem;
