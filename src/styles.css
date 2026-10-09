@@ -1455,6 +1455,9 @@ body[data-scroll-locked] .home-pin {
 @media (min-width: 768px) and (max-width: 1099px) {
   .case-seals { display: none; }
 }
+@media (min-width: 1100px) {
+  .case-seals { display: none; }
+}
 
 .case-tray-timeline { display: flex; flex-direction: column; }
 .case-tracks { display: flex; gap: 0.35rem; flex: 1; min-height: 18rem; text-align: left; justify-content: center; }
