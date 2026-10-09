@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Anchor, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, MessageCircle, Monitor, Moon, NotebookText, PenLine, Radio, Settings, ScrollText, Share2, Shirt, Sun, X } from "lucide-react";
+import { Anchor, Backpack, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, MessageCircle, Monitor, Moon, NotebookText, PenLine, Radio, Settings, ScrollText, Share2, Shirt, Sun, X } from "lucide-react";
 import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
 import { BIO_PLACEHOLDER, chrome, type Chrome } from "@/lib/shadowbox/copy";
@@ -50,9 +50,9 @@ type PageId = "home" | (typeof ALL_NAV)[number];
 const NAV_ICON = { commands: Anchor, uniforms: Shirt, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, logbook: NotebookText, admin: ClipboardList };
 const PAGE_ICON: Record<PageId, typeof House> = { home: House, ...NAV_ICON };
 /** Top-bar menu follows the case: Home, Bio, Logbook, Uniforms, Timeline, Travelbook, then Guestbook and Contact. */
-const MENU = ["home", "bio", "logbook", "uniforms", "timeline", "map", "guestbook", "contact"] as const;
+const MENU = ["home", "bio", "logbook", "uniforms", "timeline", "map", "onduty", "guestbook", "contact"] as const;
 /** Menu and footer-pager icons (Sergio, Oct 2026): Home Anchor, Logbook BookOpen, Travel Book Map, Guestbook PenLine, Contact MessageCircle. */
-const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: Anchor, bio: ScrollText, timeline: ChartGantt, logbook: BookOpen, uniforms: Shirt, guestbook: PenLine, contact: MessageCircle, map: Map };
+const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: Anchor, bio: ScrollText, timeline: ChartGantt, logbook: BookOpen, uniforms: Shirt, guestbook: PenLine, contact: MessageCircle, map: Map, onduty: Backpack };
 /** Footer pager icon, same size and stroke as the Settings gear. */
 function PagerIcon({ id }: { id: string }) {
   const Icon = (MENU_ICON as Record<string, typeof House>)[id];
@@ -68,6 +68,7 @@ const ALIAS: Record<string, View> = { case: "home", schools: "admin", equipment:
 
 function pageLabel(t: Chrome, id: string): string {
   if (id === "bio") return t.bioTitle;
+  if (id === "onduty") return t.gear;
   return t[id as keyof Chrome] as string;
 }
 function asView(value: string): View {
