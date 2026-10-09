@@ -126,61 +126,63 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
   const t = chrome(locale);
   const paragraphs = bio.split("\n\n");
   const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
-  const tray = (view: string, label: string, body: ReactNode) => {
+  const section = (view: string, label: string, body: ReactNode) => {
     const Icon = label === t.decorations ? Medal : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : BookOpen;
     return (
-      <button type="button" className={`case-tray case-tray-${view} case-slot-${label === t.decorations ? "decorations" : view}`} onClick={() => onGo?.(view)}>
-        <span className="case-kicker"><Icon aria-hidden="true" />{label}</span>
-        {body}
-      </button>
+      <section className="home-section">
+        <h2 className="home-section-head"><Icon aria-hidden="true" />{label}</h2>
+        <button type="button" className="home-panel" onClick={() => onGo?.(view)}>{body}</button>
+      </section>
     );
   };
-  return (
+    return (
     <main className="sheet case-home">
       <section className="case-frame" aria-label="Shadowbox">
         <div className="case-board case-board-light">
         <div className="case-board case-board-white">
         <div className="case-mat">
-          {tray("logbook", t.logbook, (
-              <>
-                <span className="case-crests case-crests-lead">
-                  {ASSIGNED.slice(0, 3).map((id) => {
-                    const unit = units.find((row) => row.id === id);
-                    return unit?.image ? <img key={id} src={publicUrl(unit.image)} alt="" /> : null;
-                  })}
-                </span>
-                <span className="case-crests case-crests-assigned">
-                  {ASSIGNED.slice(3).map((id) => {
-                    const unit = units.find((row) => row.id === id);
-                    return unit?.image ? <img key={id} src={publicUrl(unit.image)} alt="" /> : null;
-                  })}
-                </span>
-                <span className="case-crests case-crests-partner">
-                  {PARTNERS.map((unit) => unit.image ? <img key={unit.id} src={publicUrl(unit.image)} alt="" /> : null)}
-                </span>
-              </>
-            ))}
-            {tray("logbook", t.decorations, <CaseRack />)}
-            {tray("uniforms", t.uniforms, (
-              <img className="case-uniform" src={publicUrl("/incoming/uniform-ranks.png")} alt="Rating badges and service stripes" />
-            ))}
             <span className="case-flag-cut"><img className="case-flag" src={publicUrl("/incoming/folded%20flag%20stripes.svg")} alt="Folded flag" /></span>
             <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
             </button>
             <button type="button" className="case-plaque" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}><span className="case-plaque-bio"><ScrollText aria-hidden="true" />{t.bioTitle}</span>ETC (SW/EXW) Sergio Schickler<br />30 Jun 1997 – 28 Feb 2018</button>
-            {tray("timeline", t.timeline, <CaseTracks />)}
-            {tray("map", t.map, (
-              <span className="case-map-wrap">
-                <img className="case-map" src={publicUrl("/incoming/world-map.png")} alt="" />
-                <img className="case-pass case-pass-us" src={publicUrl("/incoming/passport-us.png")} alt="United States passport" />
-                <img className="case-pass case-pass-official" src={publicUrl("/incoming/passport-us-official.png")} alt="United States official passport" />
-              </span>
-            ))}
         </div>
         </div>
         </div>
       </section>
+      <div className="home-sections">
+        {section("logbook", t.logbook, (
+          <>
+            <span className="case-crests case-crests-lead">
+              {ASSIGNED.slice(0, 3).map((id) => {
+                const unit = units.find((row) => row.id === id);
+                return unit?.image ? <img key={id} src={publicUrl(unit.image)} alt="" /> : null;
+              })}
+            </span>
+            <span className="case-crests case-crests-assigned">
+              {ASSIGNED.slice(3).map((id) => {
+                const unit = units.find((row) => row.id === id);
+                return unit?.image ? <img key={id} src={publicUrl(unit.image)} alt="" /> : null;
+              })}
+            </span>
+            <span className="case-crests case-crests-partner">
+              {PARTNERS.map((unit) => unit.image ? <img key={unit.id} src={publicUrl(unit.image)} alt="" /> : null)}
+            </span>
+          </>
+        ))}
+        {section("logbook", t.decorations, <CaseRack />)}
+        {section("uniforms", t.uniforms, (
+          <img className="case-uniform" src={publicUrl("/incoming/uniform-ranks.png")} alt="Rating badges and service stripes" />
+        ))}
+        {section("timeline", t.timeline, <CaseTracks />)}
+        {section("map", t.map, (
+          <span className="case-map-wrap">
+            <img className="case-map" src={publicUrl("/incoming/world-map.png")} alt="" />
+            <img className="case-pass case-pass-us" src={publicUrl("/incoming/passport-us.png")} alt="United States passport" />
+            <img className="case-pass case-pass-official" src={publicUrl("/incoming/passport-us-official.png")} alt="United States official passport" />
+          </span>
+        ))}
+      </div>
       <div className="case-seals">
         {([
           ["air-force", "/incoming/U.S._Air_Force_service_mark.svg", "United States Air Force"],
