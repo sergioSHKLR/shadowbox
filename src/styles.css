@@ -630,6 +630,14 @@ a { color: var(--color-navy); }
 .bar.point { border-radius: 0; background: var(--color-brass); color: var(--color-ink); text-align: center; padding: 0 0.55rem; }
 .bar.bar--school { border-radius: 0; background: #ffe14a; color: #14233a; text-align: center; align-items: center; }
 .bar.bar--ops { background: #1e6b3c; color: #fff; }
+@media (max-width: 1100px) and (orientation: portrait) {
+  .chart-scroll { overflow-x: visible; }
+  .chart-stack { width: 100%; }
+  .chart-scroll .track h3 { position: static; }
+  .track-lanes { flex-direction: column; align-items: stretch; min-height: 28rem; min-width: 0; width: 100%; }
+  .bar { width: 100%; min-width: 0; min-height: 2.6rem; flex-basis: auto; white-space: normal; border-right: 0; border-bottom: 2px solid var(--color-ivory); }
+  .bar:last-child { border-bottom: 0; }
+}
 .bar-days { font-size: 0.72rem; font-weight: 500; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
 .uniform-grid { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 0.7rem; }

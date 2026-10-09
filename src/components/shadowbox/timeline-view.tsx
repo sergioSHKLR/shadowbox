@@ -4,7 +4,6 @@ import { awards, photos, profile, publicUrl, ribbonRows, timeline, units, type K
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { chrome } from "@/lib/shadowbox/copy";
 import type { Locale } from "@/lib/shadowbox/prefs";
-import { UniformProgression } from "@/components/shadowbox/uniform-progression";
 import { RedactionSample } from "@/components/shadowbox/redaction-sample";
 
 const ASSIGNED = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"];
@@ -346,14 +345,10 @@ function bioInline(text: string) {
 
 export function Timeline({
   bars,
-  stops,
   onOpen,
-  title,
-  lead,
   eventsNote,
 }: {
   bars: ReturnType<typeof timeline>;
-  stops: { n: number; labels: string[]; when: string; place: { id: string; name: string; accuracy: string }; layers: string[]; kind: string; cityId: string | null; baseId: string | null; commandId: string | null }[];
   onOpen: (k: Kind, id: string) => void;
   title: string;
   lead: string;
@@ -361,7 +356,6 @@ export function Timeline({
 }) {
   return (
     <main className="sheet">
-      <UniformProgression />
       <ChartScroll>
         <div className="chart-stack">
         <Track label="Rank" items={bars.rank} onOpen={onOpen} />
@@ -371,24 +365,6 @@ export function Timeline({
         </div>
       </ChartScroll>
       <p className="quiet">{eventsNote}</p>
-      <section className="places-track" aria-label="Places">
-        <h3>Places</h3>
-        <p className="quiet">The same order as the Map. Numbers do not change.</p>
-        <ol className="stop-list">
-          {stops.map((stop) => {
-            const layer = "kind" in stop && stop.kind ? String(stop.kind) : "base";
-            return (
-              <li key={stop.n}>
-                <button type="button" onClick={() => onOpen("place", stop.place.id)}>
-                  <span className={`pin-num ${layer} ${stop.place.accuracy}`} aria-label={`Stop ${stop.n}`}>{stop.n}</span>
-                  <strong>{stop.labels[0]}</strong>
-                  <span>{stop.place.name}{stop.when ? ` · ${stop.when}` : ""}</span>
-                </button>
-              </li>
-            );
-          })}
-        </ol>
-      </section>
     </main>
   );
 }
