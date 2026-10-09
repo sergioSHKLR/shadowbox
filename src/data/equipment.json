@@ -67,9 +67,9 @@
     "group": "vehicles",
     "order": 5,
     "name": "Up-armored HMMWV with turtleback",
-    "caption": "M1114 shown, with the armored gunner’s turret",
+    "caption": "M1114 shown, with the armored gunner\u2019s turret",
     "cutout": true,
-    "note": "Up-armored Humvee with armored doors and glass, and an armored gunner’s turret on the roof, the “turtleback”.",
+    "note": "Up-armored Humvee with armored doors and glass, and an armored gunner\u2019s turret on the roof, the \u201cturtleback\u201d.",
     "image": "/equipment/hmmwv-up-armored.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Marine_vehicles_roll_out_for_Marine_Week_Cleveland_120611-M-QZ986-385.jpg",
@@ -179,7 +179,7 @@
     "group": "ships",
     "order": 13,
     "name": "LCAC (Landing Craft Air Cushion)",
-    "caption": "Entering USS Tortuga’s well deck, 2007",
+    "caption": "Entering USS Tortuga\u2019s well deck, 2007",
     "cutout": false,
     "note": "Landing Craft Air Cushion: a hovercraft that carries Marines, vehicles and cargo from a well deck to the beach. Whidbey Island-class LSDs such as Tortuga (LSD-46) embark LCACs in the well deck. Card photo: an LCAC preparing to enter Tortuga off Okinawa, 1 March 2007.",
     "image": "/equipment/lcac.webp",
@@ -246,7 +246,7 @@
     "name": "JERRV (Cougar 6x6)",
     "caption": "Joint EOD Rapid Response Vehicle, desert tan",
     "cutout": false,
-    "note": "Joint EOD Rapid Response Vehicle (JERRV): the 6x6 Force Protection Cougar built as a mine-protected truck for explosive ordnance disposal teams, with a V-shaped hull that deflects blast away from the crew. The Navy's caption for this photo calls them “Cougar type JERRVs … employed by Coalition forces for escort and logistics missions, and to protect personnel from Improvised Explosive Devices.” Card photo: JERRVs of NMCB-7 in Iraq, 2008, with mine rollers.",
+    "note": "Joint EOD Rapid Response Vehicle (JERRV): the 6x6 Force Protection Cougar built as a mine-protected truck for explosive ordnance disposal teams, with a V-shaped hull that deflects blast away from the crew. The Navy's caption for this photo calls them \u201cCougar type JERRVs \u2026 employed by Coalition forces for escort and logistics missions, and to protect personnel from Improvised Explosive Devices.\u201d Card photo: JERRVs of NMCB-7 in Iraq, 2008, with mine rollers.",
     "image": "/equipment/jerrv-cougar-6x6.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cougar_type_JERRVs_in_Iraq.jpg",
@@ -358,7 +358,7 @@
     "name": "AN/PSC-5 (Spitfire)",
     "caption": "UHF tactical satellite radio; he used the -5D",
     "cutout": false,
-    "note": "AN/PSC-5 “Spitfire”: a lightweight UHF tactical satellite (TACSAT) and line-of-sight manpack radio. He used the AN/PSC-5D version; the card photo shows an airman assembling a PSC-5 at RAF Fairford, 2004.",
+    "note": "AN/PSC-5 \u201cSpitfire\u201d: a lightweight UHF tactical satellite (TACSAT) and line-of-sight manpack radio. He used the AN/PSC-5D version; the card photo shows an airman assembling a PSC-5 at RAF Fairford, 2004.",
     "image": "/equipment/an-psc-5.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Setting_up_communications_Royal_Air_Force_Fairford_USAF_040401-F-5098W-001.jpg",
@@ -374,7 +374,7 @@
     "name": "AN/PRC-148 MBITR",
     "caption": "Thales handheld radio",
     "cutout": true,
-    "note": "Thales AN/PRC-148 Multiband Inter/Intra Team Radio (MBITR): a handheld radio covering 30–512 MHz with embedded encryption, widely used by U.S. special operations forces.",
+    "note": "Thales AN/PRC-148 Multiband Inter/Intra Team Radio (MBITR): a handheld radio covering 30\u2013512 MHz with embedded encryption, widely used by U.S. special operations forces.",
     "image": "/equipment/an-prc-148-mbitr.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:AN_PRC-148_(cropped).jpg",
@@ -470,7 +470,7 @@
     "name": "AN/CYZ-10 DTD",
     "caption": "Data transfer device (fill device)",
     "cutout": false,
-    "note": "AN/CYZ-10 Data Transfer Device, the “crazy 10”: a hand-held key-management device that stores and loads electronic keys, replacing the KYK-13 and KOI-18. Card photo: National Cryptologic Museum.",
+    "note": "AN/CYZ-10 Data Transfer Device, the \u201ccrazy 10\u201d: a hand-held key-management device that stores and loads electronic keys, replacing the KYK-13 and KOI-18. Card photo: National Cryptologic Museum.",
     "image": "/equipment/an-cyz-10.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:AN-CYZ-10_Data_Transfer_Device_-_National_Cryptologic_Museum_-_DSC07945.JPG",
@@ -566,7 +566,7 @@
     "name": "JBLOX",
     "caption": "JCSE transit-case comms kit",
     "cutout": false,
-    "note": "JBLOX: a JCSE transit-case communications kit that, per the Joint Enabling Capabilities Command, “utilizes the latest virtual technology to provide communications capabilities ranging from early entry to the establishment of a joint task force.” Card photo: a JBLOX ashore during a USSOUTHCOM mission, 2013.",
+    "note": "JBLOX: a JCSE transit-case communications kit that, per the Joint Enabling Capabilities Command, \u201cutilizes the latest virtual technology to provide communications capabilities ranging from early entry to the establishment of a joint task force.\u201d Card photo: a JBLOX ashore during a USSOUTHCOM mission, 2013.",
     "image": "/equipment/jblox.webp",
     "credit": {
       "sourceUrl": "https://www.dvidshub.net/image/1407702/jcse-embarks-usns-spearhead-mission-supporting-ussouthcom-area-operations",
@@ -582,7 +582,7 @@
     "name": "JCSE IEP kit (Initial Entry Package)",
     "caption": "Small deployable comms package",
     "cutout": false,
-    "note": "JCSE's Initial Entry Package is, in DoD's words, “a small, joint communications package designed to provide secure and unsecured network access, voice and video capabilities.” Sergio recalls his tent kit (radio, IP phone, Toughbook and a PacStar-style case) as likely part of an IEP. Card photo: a JCSE IEP set up for paratroopers during Talisman Saber 13, Australia, 2013.",
+    "note": "JCSE's Initial Entry Package is, in DoD's words, \u201ca small, joint communications package designed to provide secure and unsecured network access, voice and video capabilities.\u201d Sergio recalls his tent kit (radio, IP phone, Toughbook and a PacStar-style case) as likely part of an IEP. Card photo: a JCSE IEP set up for paratroopers during Talisman Saber 13, Australia, 2013.",
     "image": "/equipment/jcse-iep.webp",
     "credit": {
       "sourceUrl": "https://www.dvidshub.net/image/1020017/talisman-saber-13-shows-flexibility-versatility-jecc-capabilities",
@@ -764,7 +764,7 @@
     "group": "aircraft",
     "order": 40,
     "name": "C-5",
-    "caption": "Off duty · AS-40",
+    "caption": "Off duty \u00b7 AS-40",
     "cutout": false,
     "note": "C-5 Galaxy. Off duty during the AS-40 tour.",
     "image": "/equipment/c-5-own.webp",
@@ -795,7 +795,7 @@
     "group": "aircraft",
     "order": 42,
     "name": "C-9",
-    "caption": "Off duty · AS-40",
+    "caption": "Off duty \u00b7 AS-40",
     "cutout": false,
     "note": "Navy C-9B Skytrain II, the C-9 the fleet flew. Off duty during the AS-40 tour.",
     "image": "/equipment/c-9-own.webp",
@@ -1129,13 +1129,13 @@
     "order": 77,
     "name": "Tamuning, GU",
     "cutout": false,
-    "note": "Tamuning, Guam. Oka Towers. Photograph of that building not entered.",
-    "image": "",
+    "note": "Tamuning, Guam. Street view from the front of the Outrigger Guam Resort. Oka Towers itself is not in this photograph.",
+    "image": "/equipment/city-tamuning.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": "No photograph yet."
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tamuning,_Guam.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:Tamuning,_Guam.jpg",
+      "creator": "NJo",
+      "license": "CC BY-SA 3.0"
     }
   },
   {
