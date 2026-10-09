@@ -1329,13 +1329,19 @@ body[data-scroll-locked] .home-pin {
 .case-home { display: grid; justify-items: center; background: #fff; }
 .case-frame { position: relative; width: min(36rem, 100%); margin: 0 auto; padding: 1.1rem; background: #5c4030; border: 1px solid #3d291c; box-shadow: inset 0 0 0 6px #8a6a3b; }
 .case-board-light, .case-board-white { background: transparent; padding: 0; }
-.case-mat { --in: 1.05rem; display: grid; justify-items: center; gap: 0.7rem; width: 100%; padding: 1rem; background: #0e2244; box-shadow: inset 0 0 0 3px #c6a15b; }
-.home-sections { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.55rem; width: 90%; margin: 0.4rem auto 0; }
+.case-mat { --gap: 0.7rem; --in: 1.05rem; display: grid; justify-items: center; gap: var(--gap); width: 100%; padding: var(--gap); background: #0e2244; box-shadow: inset 0 0 0 3px #c6a15b; }
+.case-identity { display: grid; justify-items: center; gap: var(--gap); width: 100%; }
+.home-sections { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); width: 90%; margin: 0 auto; }
 .home-section-head { display: flex; align-items: center; gap: 0.4rem; margin: 0; font-size: 0.95rem; color: #14233a; }
 .home-section-head svg { width: 1.1rem; height: 1.1rem; }
-.home-panel { display: flex; flex-direction: column; align-items: flex-start; width: 100%; aspect-ratio: 1; background: #fff; border: 1px solid #d7d1c4; padding: 0.45rem; cursor: pointer; font: inherit; text-align: left; }
+.home-panel { display: flex; flex-direction: column; align-items: flex-start; width: 100%; aspect-ratio: 1; background: #fff; border: 8px solid #f4f4f4; border-top-color: #ffffff; border-left-color: #f7f7f7; border-right-color: #d5d5d5; border-bottom-color: #cfcfcf; padding: 0.45rem; cursor: pointer; font: inherit; text-align: left; box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #c8c8c8; }
 .home-panel-art { width: 100%; flex: 1; min-height: 0; object-fit: contain; }
-@media (max-width: 520px) { .home-sections { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 800px) {
+  .case-frame { width: min(68rem, 100%); }
+  .case-mat { grid-template-columns: minmax(16rem, 0.85fr) 1.15fr; align-items: center; justify-items: stretch; }
+  .home-sections { width: 100%; grid-template-columns: repeat(3, 1fr); }
+  .case-flag-cut, .case-portrait, .case-plaque { width: 90%; }
+}
 .case-slot-logbook { grid-area: logbook; }
 .case-slot-decorations { grid-area: decorations; }
 .case-slot-timeline { grid-area: timeline; }
