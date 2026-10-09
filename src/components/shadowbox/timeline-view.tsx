@@ -126,15 +126,12 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
   const t = chrome(locale);
   const paragraphs = bio.split("\n\n");
   const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
-  const section = (view: string, label: string, art: string) => {
+  const section = (view: string, label: string) => {
     const Icon = view === "guestbook" ? PenLine : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : view === "onduty" ? Backpack : view === "offduty" ? Car : BookOpen;
     return (
-      <section className="home-section">
-        <button type="button" className="home-panel" onClick={() => onGo?.(view)} aria-label={label}>
-          <span className="home-section-head"><Icon aria-hidden="true" />{label}</span>
-          <img className="home-panel-art" src={publicUrl(art)} alt="" />
-        </button>
-      </section>
+      <button type="button" className="home-panel" onClick={() => onGo?.(view)} aria-label={label}>
+        <span className="home-section-head"><Icon aria-hidden="true" />{label}</span>
+      </button>
     );
   };
     return (
@@ -151,12 +148,12 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             <button type="button" className="case-plaque" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}><span className="case-plaque-bio"><ScrollText aria-hidden="true" />{t.bioTitle}</span><span className="case-plaque-name">ETC (SW/EXW) Sergio Schickler</span><br />30 Jun 1997 – 28 Feb 2018</button>
             </div>
                   <div className="home-sections">
-                    {section("logbook", t.logbook, "/incoming/square-logbook-d.png")}
-                    {section("uniforms", t.uniforms, "/incoming/square-uniforms-d.png")}
-                    {section("timeline", t.timeline, "/incoming/square-timeline-d.png")}
-                    {section("map", t.map, "/incoming/square-travel-d.png")}
-                    {section("onduty", t.onduty, "/incoming/square-gear-d.png")}
-                    {section("guestbook", t.guestbook, "/incoming/square-guestbook-d.png")}
+                    {section("logbook", t.logbook)}
+                    {section("uniforms", t.uniforms)}
+                    {section("timeline", t.timeline)}
+                    {section("map", t.map)}
+                    {section("onduty", t.onduty)}
+                    {section("guestbook", t.guestbook)}
                   </div>
                     </div>
         </div>
