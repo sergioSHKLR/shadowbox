@@ -988,10 +988,10 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 /* Uniform progression (Timeline). Ready slides from incoming/uniforms/. */
 .uprog { margin: 0.4rem 0 1.8rem; }
 .uprog-stage { display: flex; align-items: flex-start; gap: 1rem; }
-.uprog-looks { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: none; }
-.uprog-looks .nav-btn { min-width: 6.5rem; background: transparent; color: #1d4e89; border: 2px solid #1d4e89; }
+.uprog-looks { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: none; width: 8rem; }
+.uprog-looks .nav-btn { min-width: 6.5rem; width: 100%; background: transparent; color: #1d4e89; border: 2px solid #1d4e89; }
 .uprog-looks .nav-btn.on { background: #daa520; color: var(--color-navy); border-color: #daa520; }
-.uprog-crest { height: 8rem; width: auto; flex: none; }
+.uprog-crest { width: 8rem; height: 8rem; object-fit: contain; flex: none; }
 .uprog-controls { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0 0 0.6rem; }
 .uprog .nav-btn.icon-btn { width: 44px; min-width: 44px; height: 44px; padding: 0; border-radius: 50%; background: transparent; color: #1d4e89; border: 2px solid #1d4e89; }
 .uprog .nav-btn.icon-btn.on { background: transparent; color: #8a6a1c; border-color: #daa520; }
