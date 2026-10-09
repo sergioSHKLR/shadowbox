@@ -1406,7 +1406,7 @@ body[data-scroll-locked] .home-pin {
 .case-line::before { content: ""; position: absolute; left: 8%; right: 8%; height: 2px; background: #1d4e89; }
 .case-line i { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: #1d4e89; position: relative; }
 .case-seals { margin-top: 1rem; }
-.case-bio { width: min(46rem, 100%); margin-top: 1.5rem; }
+.case-bio { width: min(46rem, 100%); margin: 1.5rem auto 0; }
 @media (max-width: 1100px) {
   .case-flag-cut { position: static; width: 90%; aspect-ratio: auto; margin: 0 auto; overflow: visible; clip-path: polygon(50% 0, 0 100%, 100% 100%); }
   .case-flag { position: static; width: 100%; max-width: none; height: auto; clip-path: polygon(50% 4%, 3% 96%, 97% 96%); transform: none; }
