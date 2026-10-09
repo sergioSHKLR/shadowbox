@@ -122,7 +122,7 @@ function CaseTracks() {
   );
 }
 
-export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; bio: string; locale?: Locale }) {
+export function Home({ bio, locale = "en", onGo }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; bio: string; locale?: Locale }) {
   const t = chrome(locale);
   const paragraphs = bio.split("\n\n");
   const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
@@ -167,18 +167,6 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
         </div>
         </div>
       </section>
-      <div className="case-seals">
-        {([
-          ["army", "/incoming/Emblem_of_the_United_States_Department_of_the_Army.svg", "United States Army"],
-          ["marines", "/incoming/Emblem_of_the_United_States_Marine_Corps.svg", "United States Marine Corps"],
-          ["navy", "/incoming/Seal_of_the_United_States_Department_of_the_Navy.svg", "United States Navy"],
-          ["air-force", "/incoming/U.S._Air_Force_service_mark.svg", "United States Air Force"],
-        ] as const).map(([id, src, label]) => (
-          <button key={id} type="button" className="home-branch-seal" onClick={() => onOpen?.("branch", id)} aria-label={label}>
-            <img src={publicUrl(src)} alt="" />
-          </button>
-        ))}
-      </div>
     </main>
   );
 }
@@ -206,7 +194,7 @@ export function BioPage({ bio, locale = "en" }: { bio: string; locale?: Locale }
 type Shot = { src: string; alt: string; caption: string };
 
 /** One frame, two stacked portraits; the second fades in with --fade (0..1) set on .home-scroll. */
-function FadePortrait({ first, last, onOpen }: { first: Shot; last: Shot; onOpen?: (k: Kind, id: string) => void }) {
+function FadePortrait({ first, last }: { first: Shot; last: Shot; onOpen?: (k: Kind, id: string) => void }) {
   return (
     <figure className="intro-solo home-pin home-fade">
       <div className="wood-frame">
@@ -221,18 +209,6 @@ function FadePortrait({ first, last, onOpen }: { first: Shot; last: Shot; onOpen
         <span className="home-fade-cap-first">{first.caption}</span>
         <span className="home-fade-cap-last">{last.caption}</span>
       </figcaption>
-      <div className="home-branch-seals">
-        {([
-          ["army", "/incoming/Emblem_of_the_United_States_Department_of_the_Army.svg", "United States Army"],
-          ["marines", "/incoming/Emblem_of_the_United_States_Marine_Corps.svg", "United States Marine Corps"],
-          ["navy", "/incoming/Seal_of_the_United_States_Department_of_the_Navy.svg", "United States Navy"],
-          ["air-force", "/incoming/U.S._Air_Force_service_mark.svg", "United States Air Force"],
-        ] as const).map(([id, src, label]) => (
-          <button key={id} type="button" className="home-branch-seal" onClick={() => onOpen?.("branch", id)} aria-label={label}>
-            <img src={publicUrl(src)} alt="" />
-          </button>
-        ))}
-      </div>
     </figure>
   );
 }
