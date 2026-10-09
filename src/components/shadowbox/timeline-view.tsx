@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
+import { useEffect, type ReactNode, type RefObject } from "react";
 import { BookOpen, ChartGantt, Map, Medal, ScrollText, Shirt } from "lucide-react";
 import { awards, photos, profile, publicUrl, ribbonRows, timeline, units, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
@@ -354,114 +354,36 @@ export function Timeline({
   lead: string;
   eventsNote: string;
 }) {
+  const tracks = [
+    ["Rank", bars.rank, "#7d1c20"],
+    ["Assignments", bars.duty, "#14233a"],
+    ["Deployments", bars.ops, "#1e6b3c"],
+    ["Events", bars.world, "#c6a15b"],
+  ] as const;
   return (
     <main className="sheet">
-      <ChartScroll>
-        <div className="chart-stack">
-        <Track label="Rank" items={bars.rank} onOpen={onOpen} />
-        <Track label="Assignments" items={bars.duty} onOpen={onOpen} />
-        <Track label="Deployments" items={bars.ops} onOpen={onOpen} />
-        <Track label="Events" items={bars.world} />
-        </div>
-      </ChartScroll>
+      <div className="page-tracks">
+        {tracks.map(([label, items, color]) => (
+          <section key={label} className="page-track" style={{ color }} aria-label={label}>
+            <h3>{label}</h3>
+            <div className="page-line">
+              {items.map((item, index) => {
+                const place = index === 0 ? " is-start" : index === items.length - 1 ? " is-end" : "";
+                const body = (<><i /><em>{item.title}</em></>);
+                if (item.href) {
+                  return <a key={item.key} className={`page-stop${place}`} href={item.href} target="_blank" rel="noreferrer" title={item.detail}>{body}</a>;
+                }
+                return (
+                  <button key={item.key} type="button" className={`page-stop${place}`} title={item.detail} onClick={() => onOpen(item.kind, item.id)}>
+                    {body}
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+      </div>
       <p className="quiet">{eventsNote}</p>
     </main>
   );
-}
-
-function ChartScroll({ children }: { children: ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState(0);
-  const [max, setMax] = useState(0);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const update = () => {
-      setMax(Math.max(0, el.scrollWidth - el.clientWidth));
-      setPos(el.scrollLeft);
-    };
-    update();
-    el.addEventListener("scroll", update, { passive: true });
-    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(update) : null;
-    ro?.observe(el);
-    window.addEventListener("resize", update);
-    return () => {
-      el.removeEventListener("scroll", update);
-      ro?.disconnect();
-      window.removeEventListener("resize", update);
-    };
-  }, []);
-  return (
-    <div className="chart-scroll-wrap">
-      <div className="chart-scroll" ref={ref}>
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function Track({
-  label,
-  items,
-  onOpen,
-}: {
-  label: string;
-  items: ReturnType<typeof timeline>["duty"];
-  onOpen?: (k: Kind, id: string) => void;
-}) {
-  return (
-    <section className="track" aria-label={label}>
-      <h3>{label}</h3>
-      <div className="track-lanes">
-        {items.map((item) => {
-          const body = (
-            <>
-              <span className="bar-title">{item.title}</span>
-              <span className="bar-days">{item.group === "world" ? String(new Date(item.start).getUTCFullYear()) : barLength(item.days)}</span>
-              <span className="sr-only">{item.detail}</span>
-            </>
-          );
-          if (item.href) {
-            return (
-              <a key={item.key} className={`bar bar--${item.group}`} style={{ flexGrow: item.days && item.days > 0 ? item.days : 1 }} title={item.detail} href={item.href} target="_blank" rel="noreferrer">
-                {body}
-              </a>
-            );
-          }
-          if (!onOpen) {
-            return (
-              <div key={item.key} className={`bar bar--${item.group}`} style={{ flexGrow: item.days && item.days > 0 ? item.days : 1 }} title={item.detail}>
-                {body}
-              </div>
-            );
-          }
-          return (
-            <button
-              key={item.key}
-              type="button"
-              className={`bar bar--${item.group}${item.kind === "school" ? " bar--school" : ""}`}
-              style={{ flexGrow: item.days && item.days > 0 ? item.days : 1 }}
-              title={item.detail}
-              onClick={() => onOpen(item.kind, item.id)}
-            >
-              {body}
-            </button>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
-function barLength(days: number | null): string {
-  if (days == null) return "not entered";
-  let left = Math.max(0, Math.round(days));
-  const years = Math.floor(left / 365);
-  left -= years * 365;
-  const months = Math.floor(left / 30);
-  left -= months * 30;
-  const weeks = Math.round(left / 7);
-  const part = (n: number, one: string, many: string) => (n ? (n === 1 ? `1 ${one}` : `${n} ${many}`) : "");
-  const parts = [part(years, "year", "years"), part(months, "month", "months"), part(weeks, "week", "weeks")].filter(Boolean);
-  return parts.join(", ") || "under a week";
 }
