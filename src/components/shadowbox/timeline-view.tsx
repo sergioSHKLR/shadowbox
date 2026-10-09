@@ -1,4 +1,5 @@
 import { useEffect, type ReactNode, type RefObject } from "react";
+import { Backpack, BookOpen, Car, ChartGantt, Map, MessageCircle, PenLine, ScrollText, Shirt } from "lucide-react";
 import { awards, photos, profile, publicUrl, ribbonRows, timeline, units, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { chrome } from "@/lib/shadowbox/copy";
@@ -125,11 +126,14 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
   const t = chrome(locale);
   const paragraphs = bio.split("\n\n");
   const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
-  const section = (view: string, label: string) => (
-    <button type="button" className="home-panel" onClick={() => onGo?.(view)} aria-label={label}>
-      <span className="home-section-head">{label}</span>
-    </button>
-  );
+  const section = (view: string, label: string) => {
+    const Icon = view === "bio" ? ScrollText : view === "contact" ? MessageCircle : view === "guestbook" ? PenLine : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : view === "onduty" ? Backpack : view === "offduty" ? Car : BookOpen;
+    return (
+      <button type="button" className="home-panel" onClick={() => onGo?.(view)} aria-label={label}>
+        <span className="home-section-head"><Icon aria-hidden="true" />{label}</span>
+      </button>
+    );
+  };
     return (
     <main className="sheet case-home">
       <section className="case-frame" aria-label="Shadowbox">
@@ -140,7 +144,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
             </button>
-            <div className="case-plaque"><span className="case-plaque-name">ETC (SW/EXW) Sergio Schickler</span><br />30 Jun 1997 – 28 Feb 2018</div>
+            <div className="case-plaque"><span className="case-plaque-rank">Chief Petty Officer</span><span className="case-plaque-name">Schickler, Sergio</span><br />30 Jun 1997 – 28 Feb 2018</div>
             </div>
                   <div className="home-sections">
                     {section("bio", t.bioTitle)}

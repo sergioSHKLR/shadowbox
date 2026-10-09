@@ -11,7 +11,7 @@ const PLACEHOLDER_BIO_PT = "{{h}}Treinamento de recrutas{{/h}}[Espaço reservado
 const en = {
   title: "Shadowbox",
   home: "Home",
-  bioTitle: "Bio",
+  bioTitle: "Biography",
   search: "Search",
   searchPlaceholder: "Search the record",
   menu: "Menu",
