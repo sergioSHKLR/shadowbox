@@ -327,13 +327,11 @@ function bioInline(text: string) {
 export function Timeline({
   bars,
   onOpen,
-  eventsNote,
 }: {
   bars: ReturnType<typeof timeline>;
   onOpen: (k: Kind, id: string) => void;
   title: string;
   lead: string;
-  eventsNote: string;
 }) {
   const tracks = [
     ["Rank", bars.rank, "#7d1c20"],
@@ -364,7 +362,6 @@ export function Timeline({
           </section>
         ))}
       </div>
-      <p className="quiet">{eventsNote}</p>
     </main>
   );
 }
