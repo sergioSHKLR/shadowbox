@@ -1350,7 +1350,7 @@ body[data-scroll-locked] .home-pin {
   .case-portrait { grid-column: 1; grid-row: 2; }
   .case-plaque { grid-column: 1; grid-row: 3; }
   .home-sections { grid-column: 2; grid-row: 2; align-self: center; width: 100%; grid-template-columns: repeat(3, 1fr); }
-  .case-flag-cut, .case-portrait, .case-plaque { width: 90%; }
+  .case-flag-cut, .case-portrait, .case-plaque { width: 90%; justify-self: center; }
 }
 .case-slot-logbook { grid-area: logbook; }
 .case-slot-decorations { grid-area: decorations; }
