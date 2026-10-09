@@ -1330,12 +1330,13 @@ body[data-scroll-locked] .home-pin {
 .case-kicker { display: block; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.55rem; color: #14233a; }
 .case-side { container-type: inline-size; }
 .case-crests { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem; }
+.case-crests-lead { display: grid; grid-template-columns: repeat(3, 1fr); justify-items: center; }
+.case-crests-lead img { height: 6.8rem; width: auto; }
 .case-crests-assigned { display: grid; grid-template-columns: repeat(3, 1fr); justify-items: center; }
-@container (min-width: 28rem) { .case-crests-assigned { grid-template-columns: repeat(6, 1fr); } }
 .case-crests img { object-fit: contain; }
-.case-crests-assigned img { height: 3.4rem; width: auto; }
+.case-crests-assigned img { height: 4.6rem; width: auto; }
 .case-crests-partner { margin-top: 0.45rem; }
-.case-crests-partner img { height: 1.5rem; width: auto; }
+.case-crests-partner img { height: 2.4rem; width: auto; }
 .case-ribbons { display: flex; flex-direction: column; align-items: stretch; width: 100%; gap: 0.45rem; }
 .case-ribbon-row { display: flex; flex-direction: row-reverse; justify-content: stretch; width: 100%; gap: 0.7rem; }
 .case-ribbon { flex: 1 1 0; width: auto; min-width: 0; }

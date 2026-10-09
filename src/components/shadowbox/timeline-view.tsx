@@ -113,7 +113,7 @@ function CaseTracks() {
           {items.map((item, index) => (
             <span key={item.key} className={`case-stop${id === "ops" && index === 0 ? " is-start" : ""}${id === "ops" && index === items.length - 1 ? " is-end" : ""}`}>
               <i />
-              <em>{item.title}</em>
+              <em>{id === "ops" ? item.title.replace(/ \(.*\)$/, "") : item.title}</em>
             </span>
           ))}
         </span>
@@ -140,8 +140,14 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
         <div className="case-mat">
           {tray("logbook", t.logbook, (
               <>
+                <span className="case-crests case-crests-lead">
+                  {ASSIGNED.slice(0, 3).map((id) => {
+                    const unit = units.find((row) => row.id === id);
+                    return unit?.image ? <img key={id} src={publicUrl(unit.image)} alt="" /> : null;
+                  })}
+                </span>
                 <span className="case-crests case-crests-assigned">
-                  {ASSIGNED.map((id) => {
+                  {ASSIGNED.slice(3).map((id) => {
                     const unit = units.find((row) => row.id === id);
                     return unit?.image ? <img key={id} src={publicUrl(unit.image)} alt="" /> : null;
                   })}
