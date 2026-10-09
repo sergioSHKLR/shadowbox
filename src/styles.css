@@ -1370,9 +1370,15 @@ body[data-scroll-locked] .home-pin {
 .case-seals { margin-top: 1rem; }
 .case-bio { width: min(46rem, 100%); margin-top: 1.5rem; }
 @media (max-width: 1100px) {
-  .case-mat { grid-template-columns: 1fr 1fr; grid-template-areas: "flag portrait" "flag plaque" "timeline logbook" "travel decorations" "uniforms uniforms"; }
+  .case-mat { grid-template-columns: 1fr 1fr 1fr; grid-template-areas: "flag flag portrait" "plaque logbook logbook" "decorations decorations uniforms" "timeline travel travel"; }
   .case-flag-cut { width: 100%; clip-path: polygon(0 0, 100% 0, 0 100%); }
   .case-flag { clip-path: polygon(2% 2%, 94% 2%, 2% 94%); }
+}
+@media (min-width: 721px) and (max-width: 1100px) {
+  .case-portrait, .case-plaque, .case-tray { height: 100%; }
+  .case-portrait { width: 100%; }
+  .case-portrait img { height: 100%; object-fit: contain; }
+  .case-plaque { width: auto; display: flex; flex-direction: column; justify-content: center; }
 }
 @media (max-width: 720px) {
   .case-mat {
