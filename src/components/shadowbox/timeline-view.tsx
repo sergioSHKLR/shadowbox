@@ -85,22 +85,11 @@ function useHomeFade(ref: RefObject<HTMLElement | null>) {
 }
 
 function CaseRack() {
-  const ref = useRef<HTMLSpanElement>(null);
-  const [columns, setColumns] = useState(5);
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-    const apply = (width: number) => setColumns(width < 16 * 16 ? 3 : width < 24 * 16 ? 4 : 5);
-    apply(node.clientWidth);
-    const observer = new ResizeObserver((entries) => apply(entries[0]?.contentRect.width ?? node.clientWidth));
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
   return (
-    <span className="case-ribbons" ref={ref}>
+    <span className="case-ribbons">
       <img className="case-pin" src={publicUrl("/insignia/esws.svg")} alt="Enlisted Surface Warfare Specialist" />
-      {ribbonRows(awards, columns).map((row) => (
-        <span key={row[0].id} className={row.length < columns ? "case-ribbon-row is-short" : "case-ribbon-row"}>
+      {ribbonRows(awards, 3).map((row) => (
+        <span key={row[0].id} className={row.length < 3 ? "case-ribbon-row is-short" : "case-ribbon-row"}>
           {row.map((award) => <RibbonArt key={award.id} award={award} className="case-ribbon" />)}
         </span>
       ))}
@@ -172,7 +161,6 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
             {tray("map", t.map, (
               <span className="case-map-wrap">
                 <img className="case-map" src={publicUrl("/incoming/world-map.png")} alt="" />
-                <img className="case-pass case-pass-br" src={publicUrl("/incoming/passport-br.png")} alt="Brazilian passport" />
                 <img className="case-pass case-pass-us" src={publicUrl("/incoming/passport-us.png")} alt="United States passport" />
                 <img className="case-pass case-pass-official" src={publicUrl("/incoming/passport-us-official.png")} alt="United States official passport" />
               </span>
