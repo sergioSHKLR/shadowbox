@@ -1338,9 +1338,9 @@ body[data-scroll-locked] .home-pin {
 .case-mat { --gap: 0.7rem; --in: 1.05rem; display: grid; justify-items: center; gap: var(--gap); width: 100%; padding: 2.4rem var(--gap) 2.4rem; background: radial-gradient(120% 90% at 50% 0%, #1a3a66, #0e2244 55%, #09162c); box-shadow: inset 0 0 0 3px #c6a15b, inset 0 18px 28px rgba(0, 0, 0, 0.45), inset 0 -10px 18px rgba(0, 0, 0, 0.35); }
 .case-identity { display: grid; justify-items: center; gap: var(--gap); width: 100%; }
 .home-sections { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); width: 90%; margin: 0 auto; }
-.home-section-head { display: flex; align-items: center; justify-content: center; gap: 0.3rem; margin: 0 auto 0.35rem; padding: 0.2rem 0.45rem; width: fit-content; max-width: 100%; background: #fff; color: #1d4e89; border: 1px solid #1d4e89; font-family: Palatino, "Palatino Linotype", "Iowan Old Style", Georgia, serif; letter-spacing: 0.03em; font-size: 0.72rem; font-weight: 500; line-height: 1.2; }
+.home-section-head { display: flex; align-items: center; justify-content: center; gap: 0.3rem; margin: 0 auto 0.35rem; padding: 0; width: fit-content; max-width: 100%; background: transparent; color: #14233a; border: 0; font-family: Palatino, "Palatino Linotype", "Iowan Old Style", Georgia, serif; letter-spacing: 0.04em; font-size: 0.78rem; font-weight: 500; line-height: 1.2; }
 .home-section-head svg { width: 0.85rem; height: 0.85rem; }
-.home-panel { display: flex; flex-direction: column; align-items: center; width: 100%; aspect-ratio: 1; background: #fff; border: 8px solid #f4f4f4; border-top-color: #ffffff; border-left-color: #f7f7f7; border-right-color: #d5d5d5; border-bottom-color: #cfcfcf; padding: 0.45rem; cursor: pointer; font: inherit; text-align: center; box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #c8c8c8, 0 10px 16px rgba(0, 0, 0, 0.45), 0 2px 0 rgba(255, 255, 255, 0.15); }
+.home-panel { display: flex; flex-direction: column; align-items: center; width: 100%; aspect-ratio: 1; background: linear-gradient(180deg, #e4c98a, #c6a15b 45%, #8a6a3b); color: #14233a; border: 1px solid #8a6a3b; padding: 0.55rem; cursor: pointer; font: inherit; text-align: center; box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 #f3e2b8; }
 .home-panel-art { width: 100%; flex: 1; min-height: 0; object-fit: contain; background: transparent; }
 @media (min-width: 800px) {
   .case-frame { width: min(68rem, 100%); padding: 1.1rem; }
@@ -1359,7 +1359,7 @@ body[data-scroll-locked] .home-pin {
 .case-slot-uniforms { grid-area: uniforms; }
 .case-uniform { display: block; width: 100%; height: auto; }
 
-.case-plaque { display: block; width: max-content; max-width: 90%; margin: 0 auto; padding: 0.55rem 0.9rem; color: #14233a; border: 1px solid #8a6a3b; font-family: Palatino, "Palatino Linotype", "Iowan Old Style", Georgia, serif; letter-spacing: 0.04em; font-size: 0.82rem; font-weight: 500; text-align: center; line-height: 1.35; cursor: pointer; box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 #f3e2b8; background: radial-gradient(circle at 0.42rem 0.42rem, #f6e7c2 0 1.5px, #5c431c 1.6px 3.4px, #e4c98a 3.5px 4.4px, transparent 4.6px), radial-gradient(circle at calc(100% - 0.42rem) 0.42rem, #f6e7c2 0 1.5px, #5c431c 1.6px 3.4px, #e4c98a 3.5px 4.4px, transparent 4.6px), radial-gradient(circle at 0.42rem calc(100% - 0.42rem), #f6e7c2 0 1.5px, #5c431c 1.6px 3.4px, #e4c98a 3.5px 4.4px, transparent 4.6px), radial-gradient(circle at calc(100% - 0.42rem) calc(100% - 0.42rem), #f6e7c2 0 1.5px, #5c431c 1.6px 3.4px, #e4c98a 3.5px 4.4px, transparent 4.6px), linear-gradient(180deg, #e4c98a, #c6a15b 45%, #8a6a3b); }
+.case-plaque { display: block; width: max-content; max-width: 90%; margin: 0 auto; padding: 0.35rem 0.7rem; background: linear-gradient(180deg, #e4c98a, #c6a15b 45%, #8a6a3b); color: #14233a; border: 1px solid #8a6a3b; font-family: Palatino, "Palatino Linotype", "Iowan Old Style", Georgia, serif; letter-spacing: 0.04em; font-size: 0.82rem; font-weight: 500; text-align: center; line-height: 1.35; cursor: pointer; box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 #f3e2b8; }
 .case-plaque-name { white-space: nowrap; }
 .case-flag-cut { display: block; width: 90%; margin: 0 auto; background: linear-gradient(160deg, #ffffff, #d5d5d5); clip-path: polygon(50% 0, 0 100%, 100% 100%); filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.45)); }
 .case-flag { display: block; width: 100%; height: auto; clip-path: polygon(50% 4%, 3% 96%, 97% 96%); }
@@ -1371,12 +1371,7 @@ body[data-scroll-locked] .home-pin {
 .case-tray {
   width: 100%; color: #14233a; text-align: center; padding: 0.8rem; cursor: pointer; font: inherit;
   border: 1px solid #8a6a3b;
-  background:
-    radial-gradient(circle at 0.48rem 0.48rem, #f6e7c2 0 1.5px, #5c431c 1.6px 3.4px, #e4c98a 3.5px 4.4px, transparent 4.6px),
-    radial-gradient(circle at calc(100% - 0.48rem) 0.48rem, #f6e7c2 0 1.5px, #5c431c 1.6px 3.4px, #e4c98a 3.5px 4.4px, transparent 4.6px),
-    radial-gradient(circle at 0.48rem calc(100% - 0.48rem), #f6e7c2 0 1.5px, #5c431c 1.6px 3.4px, #e4c98a 3.5px 4.4px, transparent 4.6px),
-    radial-gradient(circle at calc(100% - 0.48rem) calc(100% - 0.48rem), #f6e7c2 0 1.5px, #5c431c 1.6px 3.4px, #e4c98a 3.5px 4.4px, transparent 4.6px),
-    linear-gradient(180deg, #e4c98a, #c6a15b 45%, #8a6a3b);
+  background: linear-gradient(180deg, #e4c98a, #c6a15b 45%, #8a6a3b);
   box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 #f3e2b8;
 }
 .case-slot-uniforms { color: #14233a; padding: 0.8rem; }
