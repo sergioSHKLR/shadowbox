@@ -269,7 +269,7 @@ export function Guestbook({ locale = "en", onContact }: { locale?: string; onCon
             </label>
             <p className="gb-privacy quiet" id="guestbook-privacy">
               {c.notePre}
-              <a className="gb-privacy-link" href="#contact-form">{c.noteLink}</a>
+              <button type="button" className="gb-privacy-link" onClick={onContact}>{c.noteLink}</button>
               {c.notePost}
             </p>
             <div className="site-form-bar">
@@ -284,7 +284,6 @@ export function Guestbook({ locale = "en", onContact }: { locale?: string; onCon
       <p className="guest-alt quiet">
         <a href={GUESTBOOK} target="_blank" rel="noreferrer">{c.alt}</a>
       </p>
-      <Contact locale={locale} />
     </main>
   );
 }
