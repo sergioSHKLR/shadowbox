@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode, type RefObject } from "react";
-import { Backpack, BookOpen, ChartGantt, Map, Medal, PenLine, ScrollText, Shirt } from "lucide-react";
+import { Backpack, Car, BookOpen, ChartGantt, Map, Medal, PenLine, ScrollText, Shirt } from "lucide-react";
 import { awards, photos, profile, publicUrl, ribbonRows, timeline, units, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { chrome } from "@/lib/shadowbox/copy";
@@ -127,7 +127,7 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
   const paragraphs = bio.split("\n\n");
   const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
   const section = (view: string, label: string, art: string) => {
-    const Icon = view === "guestbook" ? PenLine : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : view === "onduty" ? Backpack : BookOpen;
+    const Icon = view === "guestbook" ? PenLine : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : view === "onduty" ? Backpack : view === "offduty" ? Car : BookOpen;
     return (
       <section className="home-section">
         <button type="button" className="home-panel" onClick={() => onGo?.(view)} aria-label={label}>
@@ -155,7 +155,8 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
                     {section("uniforms", t.uniforms, "/incoming/square-uniforms-c.jpg")}
                     {section("timeline", t.timeline, "/incoming/square-timeline-c.jpg")}
                     {section("map", t.map, "/incoming/square-travel-c.jpg")}
-                    {section("onduty", t.gear, "/incoming/square-gear-c.jpg")}
+                    {section("onduty", t.onduty, "/incoming/square-gear-c.jpg")}
+                    {section("offduty", t.offduty, "/equipment/toyota-hilux-white.webp")}
                     {section("guestbook", t.guestbook, "/incoming/square-guestbook-c.jpg")}
                   </div>
                     </div>
