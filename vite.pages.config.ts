@@ -40,8 +40,8 @@ export default defineConfig({
       includeAssets: [],
       manifest: {
         id: "/",
-        name: "SIGNUM",
-        short_name: "SIGNUM",
+        name: "Shadowbox",
+        short_name: "Shadowbox",
         description: "Zero gawking, All instructing",
         start_url: "/",
         scope: "/",
