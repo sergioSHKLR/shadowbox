@@ -505,7 +505,8 @@ const UNIFORM_LOOK: Record<string, UniformLook> = {
 };
 
 /** incoming/plates/e1-blues.svg … e7-nh-khakis.svg (Sergio's set, Oct 2026). Grade, then the E-6 tour index (1 USS Frank Cable … 4 JCSE)
- * or the E-7 command (jcse = CPO at JCSE, with the JCSE badge; nh = Naval Hospital Jacksonville), then the look. */
+ * or the E-7 command (jcse = CPO at JCSE, with the JCSE badge; nh = Naval Hospital Jacksonville), then the look.
+ * E-7 blues are look-first: e7-blues-jcse.svg and e7-blues-nh.svg. */
 const PLATE_FILE: Record<string, { look: UniformLook; y: number; m: number; caption: string }> = {
   "e1-blues": { look: "blue", y: 1997, m: 6, caption: "SR · dress blues" },
   "e1-whites": { look: "white", y: 1997, m: 6, caption: "SR · dress whites" },
@@ -523,18 +524,26 @@ const PLATE_FILE: Record<string, { look: UniformLook; y: number; m: number; capt
   "e6-3-whites": { look: "white", y: 2009, m: 6, caption: "ET1 · dress whites" },
   "e6-4-blues": { look: "blue", y: 2014, m: 1, caption: "ET1 · dress blues" },
   "e6-4-whites": { look: "white", y: 2014, m: 1, caption: "ET1 · dress whites" },
-  "e7-jcse-blues": { look: "blue", y: 2014, m: 9, caption: "ETC · dress blues" },
+  "e7-blues-jcse": { look: "blue", y: 2014, m: 9, caption: "ETC · dress blues" },
   "e7-jcse-whites": { look: "white", y: 2014, m: 9, caption: "ETC · dress whites" },
   "e7-jcse-khakis": { look: "khaki", y: 2014, m: 9, caption: "ETC · khakis" },
   // NAVHOSP's start is year-only (2015); m: 1 is only a sort key so these follow the JCSE CPO set. Not shown as a date.
-  "e7-nh-blues": { look: "blue", y: 2015, m: 1, caption: "ETC · dress blues" },
+  "e7-blues-nh": { look: "blue", y: 2015, m: 1, caption: "ETC · dress blues" },
   "e7-nh-whites": { look: "white", y: 2015, m: 1, caption: "ETC · dress whites" },
   "e7-nh-khakis": { look: "khaki", y: 2015, m: 1, caption: "ETC · khakis" },
 };
 
-/** Plate set a file belongs to: "e6-2-blues.svg" → "e6-2" (blues / whites / khakis of one snapshot). */
+const PLATE_LOOK = "(?:blues?|whites?|khakis?|sdb|sdw|choker)";
+const PLATE_LOOK_SUFFIX = new RegExp(`-${PLATE_LOOK}$`);
+/** e7-blues-jcse.svg keeps the command after the look. e6-2-blues.svg keeps the look at the end. */
+const PLATE_LOOK_FIRST = new RegExp(`^(e\\d+)-${PLATE_LOOK}-(.+)$`);
+
+/** Plate set a file belongs to: "e6-2-blues.svg" → "e6-2"; "e7-blues-jcse.svg" → "e7-jcse". */
 export function plateGroup(file: string | null | undefined): string {
-  return (file ?? "").replace(/\.[^.]+$/, "").toLowerCase().replace(/-(blues?|whites?|khakis?)$/, "");
+  const stem = (file ?? "").replace(/\.[^.]+$/, "").toLowerCase();
+  const swapped = stem.match(PLATE_LOOK_FIRST);
+  if (swapped) return `${swapped[1]}-${swapped[2]}`;
+  return stem.replace(PLATE_LOOK_SUFFIX, "");
 }
 
 function uniformFromPath(path: string, src: string): UniformSlide {
@@ -586,8 +595,8 @@ const UNIFORM_STEP_PLATES: { unitId: string; stem: string; id?: string; label?: 
   { unitId: "eodmu5", stem: "e6-2-blues" },
   { unitId: "sercc", stem: "e6-3-blues" },
   { unitId: "jcse", stem: "e6-4-blues" },
-  { unitId: "jcse", stem: "e7-jcse-blues", id: "jcse-cpo", label: "CPO", span: "2014" },
-  { unitId: "navhosp", stem: "e7-nh-blues" },
+  { unitId: "jcse", stem: "e7-blues-jcse", id: "jcse-cpo", label: "CPO", span: "2014" },
+  { unitId: "navhosp", stem: "e7-blues-nh" },
 ];
 
 /** Logbook plate sets per command (end-of-tour snapshot). RTC is Seaman Recruit (E-1); Tortuga (Seaman TAD) wears the SN set; NTC ends as ET3. */
