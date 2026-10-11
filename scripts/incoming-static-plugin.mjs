@@ -19,7 +19,12 @@ const TYPES = {
 export function incomingStaticPlugin() {
   const root = resolve("incoming");
   const handler = (req, res, next) => {
-    const url = (req.url || "").split("?")[0];
+    const raw = req.url || "";
+    const q = raw.split("?")[1] ?? "";
+    // Vite serves `import x from "...svg?url"` as a JS module at this same path.
+    // Handing back the image bytes breaks the client (wrong MIME type).
+    if (/(^|&)(import|url|raw)(&|=|$)/.test(q)) return next();
+    const url = raw.split("?")[0];
     const at = url.indexOf("/incoming/");
     if (at < 0) return next();
     let rel;
