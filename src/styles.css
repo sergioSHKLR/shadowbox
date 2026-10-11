@@ -1321,9 +1321,12 @@ body[data-scroll-locked] .home-pin {
 .case-board-light, .case-board-white { background: transparent; padding: 0; }
 .case-mat { --gap: 0.7rem; --in: 1.05rem; --plaque: 17.5rem; isolation: isolate; position: relative; display: grid; justify-items: center; gap: var(--gap); width: 100%; padding: 2.4rem var(--gap) 13%; background: #073763; box-shadow: inset 0 0 0 3px #c6a15b, inset 0 18px 28px rgba(0, 0, 0, 0.45), inset 0 -10px 18px rgba(0, 0, 0, 0.35); }
 .case-felt { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; z-index: 0; }
+.case-mat.case-mat-comp { display: block; padding: 0; background: #073763; }
+.case-stage { position: relative; width: 100%; aspect-ratio: 960 / 600; }
 .case-plate-stack, .case-command-row { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; aspect-ratio: 960 / 600; margin: 0; pointer-events: none; }
+.case-stage .case-command-row { inset: 0; height: 100%; aspect-ratio: auto; z-index: 2; }
 .case-plate-stack { z-index: 0; }
-.case-plate { position: absolute; inset: 0; width: 100%; height: 100%; }
+.case-plate { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; pointer-events: none; }
 .case-portrait, .case-plaque, .home-sections, .case-uniform-cut { position: relative; z-index: 1; }
 .case-command-row { z-index: 2; }
 .case-command { position: absolute; margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; pointer-events: auto; }
