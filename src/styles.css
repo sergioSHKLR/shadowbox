@@ -1316,6 +1316,9 @@ body[data-scroll-locked] .home-pin {
 .timeline-scrub input::-webkit-slider-runnable-track { background: #1d4e89; }
 .timeline-scrub input::-webkit-slider-thumb { background: #daa520; }
 
+/* Home case fills the viewport, capped only by the 960×600 ratio. */
+.app-main:has(.case-home) { width: min(100%, calc(100vw - 1rem)); max-width: none; }
+.case-frame:has(.case-mat-comp) { width: min(100%, calc((100dvh - 8rem) * 960 / 600)); max-width: none; }
 .case-mat.case-mat-comp { display: block; justify-items: stretch; padding: 0; background: #09162c; box-shadow: inset 0 0 0 3px #c6a15b; }
 .case-mat.case-mat-comp .case-stage { width: 100%; }
 .case-stage { position: relative; width: 100%; aspect-ratio: 960 / 600; }
