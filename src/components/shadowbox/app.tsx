@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Anchor, Backpack, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, MessageCircle, Monitor, Moon, NotebookText, PenLine, Radio, Settings, ScrollText, Share2, Shirt, Sun, X } from "lucide-react";
+import { Anchor, Backpack, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, Maximize2, MessageCircle, Minimize2, Monitor, Moon, NotebookText, PenLine, Radio, Settings, ScrollText, Share2, Shirt, Sun, X } from "lucide-react";
 import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
 import { BIO_PLACEHOLDER, chrome, type Chrome } from "@/lib/shadowbox/copy";
@@ -64,7 +64,7 @@ void ALL_FOOTER;
 const FOOTER_ICON = { sources: Library, contact: MessageCircle, guestbook: BookOpen };
 /** Footer "Settings" link opens the Settings modal (restored from before c7c06fc): language + theme. Not a page or route. */
 const SETTINGS_LINK_ENABLED = true;
-const ALIAS: Record<string, View> = { case: "home", schools: "admin", equipment: "onduty" };
+const ALIAS: Record<string, View> = { case: "home", schools: "admin", equipment: "onduty", decorations: "logbook" };
 
 function pageLabel(t: Chrome, id: string): string {
   if (id === "bio") return t.bioTitle;
@@ -227,6 +227,7 @@ export function ShadowboxApp() {
   const [fontSize, setFontSize] = useState<FontSize>("default");
   const [prefsReady, setPrefsReady] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [caseFull, setCaseFull] = useState(false);
   const menuRef = useRef<HTMLUListElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -243,6 +244,25 @@ export function ShadowboxApp() {
     setQuery("");
     window.scrollTo(0, 0);
   };
+  const toggleCaseFull = () => {
+    const stage = document.querySelector<HTMLElement>(".case-stage");
+    if (!stage) return;
+    if (document.fullscreenElement === stage || stage.dataset.cover === "1") {
+      delete stage.dataset.cover;
+      if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
+      setCaseFull(false);
+      return;
+    }
+    if (typeof stage.requestFullscreen === "function" && document.fullscreenEnabled) {
+      stage.requestFullscreen().then(() => setCaseFull(true)).catch(() => {
+        stage.dataset.cover = "1";
+        setCaseFull(true);
+      });
+    } else {
+      stage.dataset.cover = "1";
+      setCaseFull(true);
+    }
+  };
   const navAt = NAV.indexOf(view as (typeof NAV)[number]);
   const prevView: PageId | null = navAt > 0 ? NAV[navAt - 1] : navAt === 0 ? "home" : null;
   const nextView: PageId | null = navAt >= 0 && navAt < NAV.length - 1 ? NAV[navAt + 1] : view === "home" ? NAV[0] : null;
@@ -251,6 +271,14 @@ export function ShadowboxApp() {
   const menuAt = MENU.indexOf(view as (typeof MENU)[number]);
   const menuPrev = menuAt > 0 ? MENU[menuAt - 1] : null;
   const menuNext = menuAt >= 0 && menuAt < MENU.length - 1 ? MENU[menuAt + 1] : null;
+  useEffect(() => {
+    const sync = () => {
+      const stage = document.querySelector<HTMLElement>(".case-stage");
+      setCaseFull(document.fullscreenElement === stage || stage?.dataset.cover === "1");
+    };
+    document.addEventListener("fullscreenchange", sync);
+    return () => document.removeEventListener("fullscreenchange", sync);
+  }, []);
   useEffect(() => {
     const standalone = window.matchMedia("(display-mode: standalone)").matches || Boolean((navigator as Navigator & { standalone?: boolean }).standalone);
     if (!standalone || selection) return;
@@ -396,6 +424,11 @@ export function ShadowboxApp() {
           <span className="app-title">{t.title}</span>
         </button>
         <div className="app-end">
+        {view === "home" ? (
+          <button type="button" className="app-icon" aria-label={caseFull ? "Exit full case" : "Full case"} title={caseFull ? "Exit full case" : "Full case"} onClick={toggleCaseFull}>
+            {caseFull ? <Minimize2 size={16} strokeWidth={2} aria-hidden="true" /> : <Maximize2 size={16} strokeWidth={2} aria-hidden="true" />}
+          </button>
+        ) : null}
         <div className="app-langs" role="group" aria-label={t.language}>
           <button type="button" className={locale === "en" ? "app-lang is-on" : "app-lang"} aria-pressed={locale === "en"} aria-label={t.english} title={t.english} onClick={() => setLocale("en")}>🇺🇸</button>
           <button type="button" className={locale === "pt" ? "app-lang is-on" : "app-lang"} aria-pressed={locale === "pt"} aria-label={t.portuguese} title={t.portuguese} onClick={() => setLocale("pt")}>🇧🇷</button>
