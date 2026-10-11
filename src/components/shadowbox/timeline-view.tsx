@@ -7,6 +7,14 @@ import type { Locale } from "@/lib/shadowbox/prefs";
 import { RedactionSample } from "@/components/shadowbox/redaction-sample";
 
 const ASSIGNED = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"];
+/** Vector plates on the felt. AS-40 has no vector, so that slot stays empty. Boxes are the crest rectangles on the 960×600 plate. */
+const COMMAND_PLATES = [
+  { id: "ncts", src: "/incoming/case/plate-ncts.svg", left: 31.32, top: 80.972, width: 9.818, height: 15.725 },
+  { id: "eodmu5", src: "/incoming/case/plate-eodmu5.svg", left: 52.105, top: 80.977, width: 9.918, height: 15.715 },
+  { id: "sercc", src: "/incoming/case/plate-sercc.svg", left: 62.595, top: 80.981, width: 11.238, height: 15.707 },
+  { id: "jcse", src: "/incoming/case/plate-jcse.svg", left: 74.405, top: 80.98, width: 6.977, height: 15.71 },
+  { id: "navhosp", src: "/incoming/case/plate-nhjax.svg", left: 81.954, top: 80.977, width: 9.958, height: 15.715 },
+] as const;
 const PARTNERS = units.filter((unit) => unit.image && !ASSIGNED.includes(unit.id) && !["rtc", "tortuga", "ntc-great-lakes", "local-hires"].includes(unit.id));
 const CHIEF_PORTRAIT = photos.find((photo) => photo.src === profile.portrait);
 const SN_PORTRAIT = photos.find((photo) => photo.id === "recruit-portrait-1997");
@@ -122,7 +130,7 @@ function CaseTracks() {
   );
 }
 
-export function Home({ bio, locale = "en", onGo }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; bio: string; locale?: Locale }) {
+export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; bio: string; locale?: Locale }) {
   const t = chrome(locale);
   const paragraphs = bio.split("\n\n");
   const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
@@ -140,6 +148,12 @@ export function Home({ bio, locale = "en", onGo }: { onOpen?: (k: Kind, id: stri
         <div className="case-board case-board-light">
         <div className="case-board case-board-white">
         <div className="case-mat">
+            <img className="case-felt" src={publicUrl("/incoming/case/plate-felt.svg")} alt="" />
+            <div className="case-plate-stack" aria-hidden="true">
+              {COMMAND_PLATES.map((plate) => (
+                <img key={plate.id} className="case-plate" src={publicUrl(plate.src)} alt="" />
+              ))}
+            </div>
             <div className="case-identity">
             <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
               <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
@@ -163,6 +177,14 @@ export function Home({ bio, locale = "en", onGo }: { onOpen?: (k: Kind, id: stri
               <img className="case-plate-white" src={publicUrl("/incoming/plates/e7-nh-whites.svg")} alt="Chief summer white" />
               <img className="case-plate-blue" src={publicUrl("/incoming/plates/e7-blues-nh.svg")} alt="Chief service dress blue" />
             </button>
+            <div className="case-command-row" aria-label="Commands">
+              {COMMAND_PLATES.map((plate) => {
+                const unit = units.find((row) => row.id === plate.id);
+                return (
+                  <button key={plate.id} type="button" className="case-command" style={{ left: `${plate.left}%`, top: `${plate.top}%`, width: `${plate.width}%`, height: `${plate.height}%` }} onClick={() => onOpen?.("unit", plate.id)} aria-label={unit?.name ?? plate.id} />
+                );
+              })}
+            </div>
                     </div>
         </div>
         </div>

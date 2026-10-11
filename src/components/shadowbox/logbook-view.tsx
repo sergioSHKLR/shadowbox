@@ -724,7 +724,8 @@ function Tabbed<T extends string>({
 }
 
 function useNarrow(query = "(max-width: 900px)") {
-  const [narrow, setNarrow] = useState(() => (typeof window !== "undefined" ? window.matchMedia(query).matches : false));
+  // Start false so the first paint matches the server. Reading the screen size here mismatches on a phone and React throws the tree away, which drops the crest taps.
+  const [narrow, setNarrow] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia(query);
     const on = () => setNarrow(mq.matches);
