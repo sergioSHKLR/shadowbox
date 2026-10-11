@@ -1,5 +1,4 @@
 import { useEffect, type ReactNode, type RefObject } from "react";
-import { Backpack, BookOpen, Car, ChartGantt, ClipboardList, Map, MessageCircle, PenLine, ScrollText, Shirt } from "lucide-react";
 import { awards, photos, profile, publicUrl, ribbonRows, timeline, units, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { chrome } from "@/lib/shadowbox/copy";
@@ -7,13 +6,37 @@ import type { Locale } from "@/lib/shadowbox/prefs";
 import { RedactionSample } from "@/components/shadowbox/redaction-sample";
 
 const ASSIGNED = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"];
-/** Vector plates on the felt. AS-40 has no vector, so that slot stays empty. Boxes are the crest rectangles on the 960×600 plate. */
+/** Named 960×600 plates, back to front. Each is transparent outside its object, so the stack is the case. */
+const CASE_PLATES = [
+  "plate-felt.svg",
+  "plate-shirt.svg",
+  "plate-awards.svg",
+  "plate-lapel.svg",
+  "plate-calling-card.svg",
+  "plate-nec-card.svg",
+  "plate-blue-passport.svg",
+  "plate-maroon-passport.svg",
+  "plate-memoranda.svg",
+  "plate-liberty-card.svg",
+  "plate-rank-devices.svg",
+  "plate-portrait.svg",
+  "plate-brass-plaque.svg",
+  "plate-pen.svg",
+  "plate-ncts.svg",
+  "plate-as-40.svg",
+  "plate-eodmu5.svg",
+  "plate-sercc.svg",
+  "plate-jcse.svg",
+  "plate-nhjax.svg",
+] as const;
+/** Crest rectangles on the 960×600 plate. Frank Cable keeps its photograph plate. */
 const COMMAND_PLATES = [
-  { id: "ncts", src: "/incoming/case/plate-ncts.svg", left: 31.32, top: 80.972, width: 9.818, height: 15.725 },
-  { id: "eodmu5", src: "/incoming/case/plate-eodmu5.svg", left: 52.105, top: 80.977, width: 9.918, height: 15.715 },
-  { id: "sercc", src: "/incoming/case/plate-sercc.svg", left: 62.595, top: 80.981, width: 11.238, height: 15.707 },
-  { id: "jcse", src: "/incoming/case/plate-jcse.svg", left: 74.405, top: 80.98, width: 6.977, height: 15.71 },
-  { id: "navhosp", src: "/incoming/case/plate-nhjax.svg", left: 81.954, top: 80.977, width: 9.958, height: 15.715 },
+  { id: "ncts", left: 31.32, top: 80.972, width: 9.818, height: 15.725 },
+  { id: "frank-cable", left: 41.71, top: 80.977, width: 9.822, height: 15.715 },
+  { id: "eodmu5", left: 52.105, top: 80.977, width: 9.918, height: 15.715 },
+  { id: "sercc", left: 62.595, top: 80.981, width: 11.238, height: 15.707 },
+  { id: "jcse", left: 74.405, top: 80.98, width: 6.977, height: 15.71 },
+  { id: "navhosp", left: 81.954, top: 80.977, width: 9.958, height: 15.715 },
 ] as const;
 const PARTNERS = units.filter((unit) => unit.image && !ASSIGNED.includes(unit.id) && !["rtc", "tortuga", "ntc-great-lakes", "local-hires"].includes(unit.id));
 const CHIEF_PORTRAIT = photos.find((photo) => photo.src === profile.portrait);
@@ -130,53 +153,17 @@ function CaseTracks() {
   );
 }
 
-export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; bio: string; locale?: Locale }) {
-  const t = chrome(locale);
-  const paragraphs = bio.split("\n\n");
-  const portrait = CHIEF_PORTRAIT?.src ?? profile.portrait;
-  const section = (view: string, label: string) => {
-    const Icon = view === "bio" ? ScrollText : view === "admin" ? ClipboardList : view === "contact" ? MessageCircle : view === "guestbook" ? PenLine : view === "timeline" ? ChartGantt : view === "map" ? Map : view === "uniforms" ? Shirt : view === "onduty" ? Backpack : view === "offduty" ? Car : BookOpen;
-    return (
-      <button type="button" className="home-panel" onClick={() => onGo?.(view)} aria-label={label}>
-        <span className="home-section-head"><Icon aria-hidden="true" />{label}</span>
-      </button>
-    );
-  };
-    return (
+export function Home({ onOpen }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; bio: string; locale?: Locale }) {
+  return (
     <main className="sheet case-home">
       <section className="case-frame" aria-label="Shadowbox">
         <div className="case-board case-board-light">
         <div className="case-board case-board-white">
-        <div className="case-mat">
-            <img className="case-felt" src={publicUrl("/incoming/case/plate-felt.svg")} alt="" />
-            <div className="case-plate-stack" aria-hidden="true">
-              {COMMAND_PLATES.map((plate) => (
-                <img key={plate.id} className="case-plate" src={publicUrl(plate.src)} alt="" />
-              ))}
-            </div>
-            <div className="case-identity">
-            <button type="button" className="case-portrait" onClick={() => onGo?.("bio")} aria-label={t.bioTitle}>
-              <img src={publicUrl(portrait)} alt={CHIEF_PORTRAIT?.alt ?? "Chief Petty Officer Sergio Schickler in service dress blue, 2018"} />
-            </button>
-            <div className="case-plaque"><span className="case-plaque-rank">Chief Petty Officer</span><span className="case-plaque-name">Schickler, Sergio</span><span className="case-plaque-dates">30 Jun 1997 – 28 Feb 2018</span></div>
-            </div>
-                  <div className="home-sections">
-                    {section("bio", t.bioTitle)}
-                    {section("logbook", t.logbook)}
-                    {section("uniforms", t.uniforms)}
-                    {section("timeline", t.timeline)}
-                    {section("map", t.map)}
-                    {section("onduty", t.onduty)}
-                    {section("offduty", t.offduty)}
-                    {section("admin", t.admin)}
-                    {section("guestbook", t.guestbook)}
-                    {section("contact", t.contact)}
-                  </div>
-            <button type="button" className="case-uniform-cut" onClick={() => onGo?.("uniforms")} aria-label={t.uniforms}>
-              <img className="case-plate-khaki" src={publicUrl("/incoming/plates/e7-nh-khakis.svg")} alt="Chief working khaki" />
-              <img className="case-plate-white" src={publicUrl("/incoming/plates/e7-nh-whites.svg")} alt="Chief summer white" />
-              <img className="case-plate-blue" src={publicUrl("/incoming/plates/e7-blues-nh.svg")} alt="Chief service dress blue" />
-            </button>
+        <div className="case-mat case-mat-comp">
+          <div className="case-stage">
+            {CASE_PLATES.map((file) => (
+              <img key={file} className="case-plate" src={publicUrl(`/incoming/case/${file}`)} alt="" />
+            ))}
             <div className="case-command-row" aria-label="Commands">
               {COMMAND_PLATES.map((plate) => {
                 const unit = units.find((row) => row.id === plate.id);
@@ -185,7 +172,8 @@ export function Home({ bio, locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, 
                 );
               })}
             </div>
-                    </div>
+          </div>
+        </div>
         </div>
         </div>
       </section>
