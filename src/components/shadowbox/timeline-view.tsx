@@ -130,7 +130,7 @@ const CASE_PLATES = [
   { file: "plate-4.svg", view: "admin" },
   { file: "plate-5.svg", view: "offduty" },
   { file: "plate-6.svg", view: "contact" },
-  { file: "palte-7.svg", view: "map" },
+  { file: "plate-7.svg", view: "map" },
   { file: "plate-8.svg", view: "timeline" },
   { file: "plate-9.svg", view: "bio" },
   { file: "plate-10.svg", view: "onduty" },

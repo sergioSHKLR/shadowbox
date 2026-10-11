@@ -1316,9 +1316,9 @@ body[data-scroll-locked] .home-pin {
 .timeline-scrub input::-webkit-slider-runnable-track { background: #1d4e89; }
 .timeline-scrub input::-webkit-slider-thumb { background: #daa520; }
 
-.case-mat-comp { padding: 0; background: transparent; box-shadow: inset 0 0 0 3px #c6a15b; }
+.case-mat-comp { display: block; padding: 0; background: #09162c; box-shadow: inset 0 0 0 3px #c6a15b; }
 .case-stage { position: relative; width: 100%; aspect-ratio: 960 / 600; }
-.case-plate { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.case-plate { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; pointer-events: none; }
 .case-link { position: absolute; margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; }
 .case-link:focus-visible { outline: 2px solid #e4c98a; outline-offset: -2px; }
 .case-stage:fullscreen,
