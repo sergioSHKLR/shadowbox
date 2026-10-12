@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode, type RefObject } from "react";
+import { useEffect, useRef, type ReactNode, type RefObject } from "react";
 import { awards, photos, profile, publicUrl, ribbonRows, timeline, units, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { chrome } from "@/lib/shadowbox/copy";
@@ -121,42 +121,41 @@ function CaseTracks() {
   );
 }
 
-/** Plates on the felt, bottom to top. Felt and the anchor are not links. */
-const CASE_PLATES = [
-  { file: "plate-12.svg", view: null },
-  { file: "plate-1.svg", view: "uniforms" },
-  { file: "plate-2.svg", view: "logbook" },
-  { file: "plate-3.svg", view: "guestbook" },
-  { file: "plate-4.svg", view: "admin" },
-  { file: "plate-5.svg", view: "offduty" },
-  { file: "plate-6.svg", view: "contact" },
-  { file: "plate-7.svg", view: "map" },
-  { file: "plate-8.svg", view: "timeline" },
-  { file: "plate-9.svg", view: "bio" },
-  { file: "plate-10.svg", view: "onduty" },
-  { file: "plate-11.svg", view: null },
-  { file: "plate-13.svg", view: "decorations" },
-  { file: "plate-14.svg", view: "uniforms" },
-] as const;
-
-const CASE_LINKS: { view: string; unit?: string; x: string; y: string; w: string; h: string; z: number }[] = [
-  { view: "uniforms", x: "0%", y: "4%", w: "38%", h: "92%", z: 1 },
-  { view: "logbook", x: "1%", y: "58%", w: "18%", h: "36%", z: 3 },
-  { view: "guestbook", x: "27%", y: "36%", w: "10%", h: "30%", z: 5 },
-  { view: "admin", x: "26%", y: "5%", w: "22%", h: "22%", z: 3 },
-  { view: "offduty", x: "30%", y: "30%", w: "22%", h: "16%", z: 3 },
-  { view: "contact", x: "30%", y: "48%", w: "20%", h: "18%", z: 3 },
-  { view: "map", x: "46%", y: "3%", w: "22%", h: "54%", z: 2 },
-  { view: "timeline", x: "66%", y: "2%", w: "12%", h: "68%", z: 2 },
-  { view: "bio", x: "78%", y: "2%", w: "21%", h: "54%", z: 2 },
-  { view: "uniforms", x: "10%", y: "8%", w: "16%", h: "14%", z: 4 },
-  { view: "decorations", x: "8%", y: "22%", w: "22%", h: "28%", z: 3 },
-  { view: "onduty", unit: "ncts", x: "20%", y: "72%", w: "12%", h: "26%", z: 4 },
-  { view: "onduty", unit: "frank-cable", x: "32%", y: "72%", w: "12%", h: "26%", z: 4 },
-  { view: "onduty", unit: "eodmu5", x: "44%", y: "72%", w: "12%", h: "26%", z: 4 },
-  { view: "onduty", unit: "sercc", x: "56%", y: "72%", w: "11%", h: "26%", z: 4 },
-  { view: "onduty", unit: "jcse", x: "67%", y: "72%", w: "11%", h: "26%", z: 4 },
-  { view: "onduty", unit: "navhosp", x: "78%", y: "72%", w: "14%", h: "26%", z: 4 },
+/**
+ * Home case, from Sergio's local-case work (Oct 12, 2026): incoming/case/shadowbox-case-clean.svg / "shadowbox case.png".
+ * Each named plate-*.svg holds one object of that case on the same 960×600 felt, so box = [x0, y0, x1, y1] is the
+ * object's true size and place. The ID card uses plate-id-placed.svg (Sergio's placed ID from new-plates; the
+ * local-case plate-id.svg is the unplaced full-size card). The stack matches "shadowbox case.png".
+ * One scale for the whole set; landscape = the case's own coordinates, portrait (590×1235) only moves objects.
+ * The rank devices are one plate of his art over the crest row; portrait keeps that pair together, same offsets.
+ */
+type Box = [number, number, number, number];
+type Piece = { id: string; plates: string[]; box: Box; land: [number, number]; port: [number, number]; view?: string; unit?: string; z: number; label?: string };
+const LAND = { w: 960, h: 600 };
+const PORT = { w: 590, h: 1235 };
+const ROW_DX = -297; // portrait: rank devices + crests keep their relative layout, moved as one block
+const ROW_DY = 638.5;
+const at = (box: Box, port: [number, number]): Pick<Piece, "box" | "land" | "port"> => ({ box, land: [box[0], box[1]], port });
+const row = (box: Box): Pick<Piece, "box" | "land" | "port"> => at(box, [box[0] + ROW_DX, box[1] + ROW_DY]);
+const PIECES: Piece[] = [
+  { id: "uniforms", plates: ["plate-shirt.svg", "plate-lapel.svg"], ...at([0, 0, 528, 600], [0, 0]), view: "uniforms", z: 1 },
+  { id: "decorations", plates: ["plate-awards.svg"], ...at([100, 141, 262.5, 353.5], [100, 141]), view: "decorations", z: 3 },
+  { id: "contact", plates: ["plate-calling-card.svg"], ...at([104, 435.5, 259, 556], [104, 435.5]), view: "contact", z: 3 },
+  { id: "admin", plates: ["plate-nec-card.svg"], ...at([271, 19, 426, 139.5], [271, 19]), view: "admin", z: 3 },
+  { id: "logbook", plates: ["plate-memoranda.svg"], ...at([274, 130, 494.5, 379], [274, 130]), view: "logbook", z: 4 },
+  { id: "map", plates: ["plate-maroon-passport.svg"], ...at([436, 29, 616.5, 248], [240, 615]), view: "map", z: 3 },
+  { id: "onduty", plates: ["plate-id-placed.svg"], ...at([566, 80.5, 682, 230], [400, 650]), view: "onduty", z: 4, label: "Identification card" },
+  { id: "offduty", plates: ["plate-liberty-card.svg"], ...at([563.5, 263, 718, 383], [250, 850]), view: "offduty", z: 3 },
+  { id: "bio", plates: ["plate-portrait.svg"], ...at([728, 18.5, 941, 259.5], [10, 615]), view: "bio", z: 2 },
+  { id: "plaque", plates: ["plate-brass-plaque.svg"], ...at([767.5, 269, 901.5, 314], [49.5, 866]), z: 2 },
+  { id: "guestbook", plates: ["plate-pen.svg"], ...at([868.5, 331.5, 928, 537], [520, 800]), view: "guestbook", z: 4 },
+  { id: "timeline", plates: ["plate-rank-devices.svg"], ...row([319.5, 391.5, 862.5, 478]), view: "timeline", z: 4, label: "Rank devices" },
+  { id: "ncts", plates: ["plate-ncts.svg"], ...row([301, 485.5, 395.5, 581]), view: "onduty", unit: "ncts", z: 5 },
+  { id: "frank-cable", plates: ["plate-as-40.svg"], ...row([398, 485.5, 497, 584]), view: "onduty", unit: "frank-cable", z: 5 },
+  { id: "eodmu5", plates: ["plate-eodmu5.svg"], ...row([492.5, 485.5, 603, 580.5]), view: "onduty", unit: "eodmu5", z: 5 },
+  { id: "sercc", plates: ["plate-sercc.svg"], ...row([602.5, 485, 711.5, 580]), view: "onduty", unit: "sercc", z: 5 },
+  { id: "jcse", plates: ["plate-jcse.svg"], ...row([714, 486, 781.5, 580]), view: "onduty", unit: "jcse", z: 5 },
+  { id: "navhosp", plates: ["plate-nhjax.svg"], ...row([787.5, 486, 883, 580]), view: "onduty", unit: "navhosp", z: 5 },
 ];
 
 function pageLabel(t: ReturnType<typeof chrome>, view: string) {
@@ -167,29 +166,70 @@ function pageLabel(t: ReturnType<typeof chrome>, view: string) {
   return (t as Record<string, string>)[view] ?? view;
 }
 
-export function Home({ bio, locale = "en", onGo }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; bio: string; locale?: Locale }) {
+function PieceArt({ piece }: { piece: Piece }) {
+  const [x0, y0, x1, y1] = piece.box;
+  return (
+    <svg className="loose-art" viewBox={`${x0} ${y0} ${x1 - x0} ${y1 - y0}`} preserveAspectRatio="none" aria-hidden="true">
+      {piece.plates.map((file) => (
+        <image key={file} href={publicUrl(`/incoming/case/${file}`)} x={0} y={0} width={960} height={600} />
+      ))}
+      <rect className="loose-hit" x={x0} y={y0} width={x1 - x0} height={y1 - y0} />
+    </svg>
+  );
+}
+
+/** One scale factor for the whole set: the canvas fits the stage, centred; portrait swaps to the tall arrangement. */
+function useCaseScale(ref: RefObject<HTMLDivElement | null>) {
+  useEffect(() => {
+    const stage = ref.current;
+    if (!stage) return;
+    const fit = () => {
+      const tall = stage.clientHeight > stage.clientWidth;
+      const c = tall ? PORT : LAND;
+      const k = Math.min(stage.clientWidth / c.w, stage.clientHeight / c.h);
+      stage.dataset.layout = tall ? "port" : "land";
+      stage.style.setProperty("--k", String(k));
+      stage.style.setProperty("--cw", `${c.w}px`);
+      stage.style.setProperty("--ch", `${c.h}px`);
+      stage.style.setProperty("--ox", `${(stage.clientWidth - c.w * k) / 2}px`);
+      stage.style.setProperty("--oy", `${(stage.clientHeight - c.h * k) / 2}px`);
+    };
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(stage);
+    return () => ro.disconnect();
+  }, [ref]);
+}
+
+export function Home({ locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; bio: string; locale?: Locale }) {
   const t = chrome(locale);
+  const stageRef = useRef<HTMLDivElement | null>(null);
+  useCaseScale(stageRef);
   return (
     <main className="sheet case-home">
       <section className="case-frame" aria-label="Shadowbox">
         <div className="case-board case-board-light">
         <div className="case-board case-board-white">
         <div className="case-mat case-mat-comp">
-          <div className="case-stage">
-            {CASE_PLATES.map((plate) => (
-              <img key={plate.file} className="case-plate" src={publicUrl(`/incoming/case/${plate.file}`)} alt="" />
-            ))}
-            {CASE_LINKS.map((link, index) => (
-              <button
-                key={`${link.view}-${link.unit ?? index}`}
-                type="button"
-                className="case-link"
-                style={{ left: link.x, top: link.y, width: link.w, height: link.h, zIndex: link.z }}
-                onClick={() => (link.unit ? onOpen?.("unit", link.unit) : onGo?.(link.view))}
-                aria-label={link.unit ?? pageLabel(t, link.view)}
-                title={link.unit ?? pageLabel(t, link.view)}
-              />
-            ))}
+          <div ref={stageRef} className="case-stage case-loose" data-layout="land" style={{ backgroundImage: `url("${publicUrl("/incoming/case/plate-felt.svg")}")` }}>
+            <div className="loose-canvas">
+              {PIECES.map((piece) => {
+                const [x0, y0, x1, y1] = piece.box;
+                const style = {
+                  ["--lx" as string]: `${piece.land[0]}px`, ["--ly" as string]: `${piece.land[1]}px`,
+                  ["--px" as string]: `${piece.port[0]}px`, ["--py" as string]: `${piece.port[1]}px`,
+                  width: `${x1 - x0}px`, height: `${y1 - y0}px`, zIndex: piece.z,
+                };
+                const label = piece.label ?? (piece.unit ? units.find((u) => u.id === piece.unit)?.name ?? piece.unit : piece.view ? pageLabel(t, piece.view) : "");
+                if (!piece.view) return <span key={piece.id} className="loose-item is-static" data-id={piece.id} style={style}><PieceArt piece={piece} /></span>;
+                return (
+                  <button key={piece.id} type="button" className="loose-item" data-id={piece.id} style={style} aria-label={label} title={label}
+                    onClick={() => (piece.unit ? onOpen?.("unit", piece.unit) : onGo?.(piece.view!))}>
+                    <PieceArt piece={piece} />
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
         </div>
