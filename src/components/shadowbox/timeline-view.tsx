@@ -131,31 +131,59 @@ function CaseTracks() {
  */
 type Box = [number, number, number, number];
 type Piece = { id: string; plates: string[]; box: Box; land: [number, number]; port: [number, number]; view?: string; unit?: string; z: number; label?: string };
-const LAND = { w: 960, h: 600 };
-const PORT = { w: 590, h: 1235 };
-const ROW_DX = -297; // portrait: rank devices + crests keep their relative layout, moved as one block
-const ROW_DY = 638.5;
-const at = (box: Box, port: [number, number]): Pick<Piece, "box" | "land" | "port"> => ({ box, land: [box[0], box[1]], port });
-const row = (box: Box): Pick<Piece, "box" | "land" | "port"> => at(box, [box[0] + ROW_DX, box[1] + ROW_DY]);
+// Square variant: every object at 0°, on a clean grid with 16-unit gutters and no overlaps; same one scale.
+const LAND = { w: 1206, h: 760 };
+const PORT = { w: 584, h: 1510 };
+const G = 16;
+// Rank devices + crest row move as one block, keeping Sergio's offsets (devices over the crests).
+const BLOCK_X0 = 301;
+const BLOCK_Y0 = 391.5;
+const LB: [number, number] = [528 + G, 760 - G - (584 - BLOCK_Y0)];
+const PB: [number, number] = [0, 1305];
+const at = (box: Box, land: [number, number], port: [number, number]): Pick<Piece, "box" | "land" | "port"> => ({ box, land, port });
+const blk = (box: Box): Pick<Piece, "box" | "land" | "port"> => {
+  const dx = box[0] - BLOCK_X0, dy = box[1] - BLOCK_Y0;
+  return { box, land: [LB[0] + dx, LB[1] + dy], port: [PB[0] + dx, PB[1] + dy] };
+};
+const CREST_SRC: { id: string; file: string; box: Box }[] = [
+  { id: "ncts", file: "plate-ncts.svg", box: [301, 485.5, 395.5, 581] },
+  { id: "frank-cable", file: "plate-as-40.svg", box: [398, 485.5, 497, 584] },
+  { id: "eodmu5", file: "plate-eodmu5.svg", box: [492.5, 485.5, 603, 580.5] },
+  { id: "sercc", file: "plate-sercc.svg", box: [602.5, 485, 711.5, 580] },
+  { id: "jcse", file: "plate-jcse.svg", box: [714, 486, 781.5, 580] },
+  { id: "navhosp", file: "plate-nhjax.svg", box: [787.5, 486, 883, 580] },
+];
+const CREST_GAP = (883 - 301 - CREST_SRC.reduce((sum, c) => sum + c.box[2] - c.box[0], 0)) / (CREST_SRC.length - 1);
+// blk() reads the source box for size; the evened x is passed through the box's own offset.
+const CRESTS = (() => {
+  let x = 301;
+  return CREST_SRC.map((c) => {
+    const w = c.box[2] - c.box[0];
+    const out = { id: c.id, file: c.file, box: c.box, x };
+    x += w + CREST_GAP;
+    return out;
+  });
+})().map(({ id, file, box, x }) => ({ id, file, box, dx: x - box[0] }));
+const C1 = 528 + G;
 const PIECES: Piece[] = [
-  { id: "uniforms", plates: ["plate-shirt.svg", "plate-lapel.svg"], ...at([0, 0, 528, 600], [0, 0]), view: "uniforms", z: 1 },
-  { id: "decorations", plates: ["plate-awards.svg"], ...at([100, 141, 262.5, 353.5], [100, 141]), view: "decorations", z: 3 },
-  { id: "contact", plates: ["plate-calling-card.svg"], ...at([104, 435.5, 259, 556], [104, 435.5]), view: "contact", z: 3 },
-  { id: "admin", plates: ["plate-nec-card.svg"], ...at([271, 19, 426, 139.5], [271, 19]), view: "admin", z: 3 },
-  { id: "logbook", plates: ["plate-memoranda.svg"], ...at([274, 130, 494.5, 379], [274, 130]), view: "logbook", z: 4 },
-  { id: "map", plates: ["plate-maroon-passport.svg"], ...at([436, 29, 616.5, 248], [240, 615]), view: "map", z: 3 },
-  { id: "onduty", plates: ["plate-id-placed.svg"], ...at([566, 80.5, 682, 230], [400, 650]), view: "onduty", z: 4, label: "Identification card" },
-  { id: "offduty", plates: ["plate-liberty-card.svg"], ...at([563.5, 263, 718, 383], [250, 850]), view: "offduty", z: 3 },
-  { id: "bio", plates: ["plate-portrait.svg"], ...at([728, 18.5, 941, 259.5], [10, 615]), view: "bio", z: 2 },
-  { id: "plaque", plates: ["plate-brass-plaque.svg"], ...at([767.5, 269, 901.5, 314], [49.5, 866]), z: 2 },
-  { id: "guestbook", plates: ["plate-pen.svg"], ...at([868.5, 331.5, 928, 537], [520, 800]), view: "guestbook", z: 4 },
-  { id: "timeline", plates: ["plate-rank-devices.svg"], ...row([319.5, 391.5, 862.5, 478]), view: "timeline", z: 4, label: "Rank devices" },
-  { id: "ncts", plates: ["plate-ncts.svg"], ...row([301, 485.5, 395.5, 581]), view: "onduty", unit: "ncts", z: 5 },
-  { id: "frank-cable", plates: ["plate-as-40.svg"], ...row([398, 485.5, 497, 584]), view: "onduty", unit: "frank-cable", z: 5 },
-  { id: "eodmu5", plates: ["plate-eodmu5.svg"], ...row([492.5, 485.5, 603, 580.5]), view: "onduty", unit: "eodmu5", z: 5 },
-  { id: "sercc", plates: ["plate-sercc.svg"], ...row([602.5, 485, 711.5, 580]), view: "onduty", unit: "sercc", z: 5 },
-  { id: "jcse", plates: ["plate-jcse.svg"], ...row([714, 486, 781.5, 580]), view: "onduty", unit: "jcse", z: 5 },
-  { id: "navhosp", plates: ["plate-nhjax.svg"], ...row([787.5, 486, 883, 580]), view: "onduty", unit: "navhosp", z: 5 },
+  { id: "uniforms", plates: ["plate-shirt.svg", "plate-lapel.svg"], ...at([0, 0, 528, 600], [0, 0], [0, 0]), view: "uniforms", z: 1 },
+  { id: "contact", plates: ["plate-calling-card.svg"], ...at([104, 435.5, 259, 556], [0, 600 + G], [0, 600 + G]), view: "contact", z: 3 },
+  { id: "admin", plates: ["plate-nec-card.svg"], ...at([271, 19, 426, 139.5], [155 + G, 600 + G], [155 + G, 600 + G]), view: "admin", z: 3 },
+  { id: "offduty", plates: ["plate-liberty-card.svg"], ...at([563.5, 263, 718, 383], [310 + 2 * G, 600 + G], [310 + 2 * G, 600 + G]), view: "offduty", z: 3 },
+  { id: "bio", plates: ["plate-portrait.svg"], ...at([728, 18.5, 941, 259.5], [C1, G], [0, 752]), view: "bio", z: 2 },
+  { id: "plaque", plates: ["plate-brass-plaque.svg"], ...at([767.5, 269, 901.5, 314], [C1 + 39.5, G + 241 + G], [39.5, 752 + 241 + G]), z: 2 },
+  { id: "onduty", plates: ["plate-id-placed.svg"], ...at([566, 80.5, 682, 230], [C1 + 48.5, G + 241 + G + 45 + G], [213 + G + 220.5 + G, 752]), view: "onduty", z: 4, label: "Identification card" },
+  { id: "logbook", plates: ["plate-memoranda.svg"], ...at([274, 130, 494.5, 379], [C1 + 213 + G, G], [213 + G, 752]), view: "logbook", z: 4 },
+  { id: "decorations", plates: ["plate-awards.svg"], ...at([100, 141, 262.5, 353.5], [C1 + 213 + G + 29, G + 249 + G], [180.5 + G, 1070]), view: "decorations", z: 3 },
+  { id: "map", plates: ["plate-maroon-passport.svg"], ...at([436, 29, 616.5, 248], [C1 + 213 + G + 220.5 + G, G], [0, 1070]), view: "map", z: 3 },
+  { id: "guestbook", plates: ["plate-pen.svg"], ...at([868.5, 331.5, 928, 537], [C1 + 213 + G + 220.5 + G + 60.5, G + 219 + G], [213 + G + 220.5 + G + 28.25, 752 + 149.5 + G]), view: "guestbook", z: 4 },
+  { id: "timeline", plates: ["plate-rank-devices.svg"], ...blk([319.5, 391.5, 862.5, 478]), view: "timeline", z: 4, label: "Rank devices" },
+  // Crests: same span as the case file, gutters evened out so no two crests touch (the case file has them overlapping
+  // by up to 4.5 units).
+  ...CRESTS.map(({ id, file, box, dx }): Piece => {
+    const b = blk(box);
+    return { id, plates: [file], box, land: [b.land[0] + dx, b.land[1]], port: [b.port[0] + dx, b.port[1]], view: "onduty", unit: id, z: 5 };
+  }),
 ];
 
 function pageLabel(t: ReturnType<typeof chrome>, view: string) {
