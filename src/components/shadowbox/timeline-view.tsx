@@ -6,7 +6,8 @@ import type { Locale } from "@/lib/shadowbox/prefs";
 import { RedactionSample } from "@/components/shadowbox/redaction-sample";
 
 const ASSIGNED = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"];
-/** Named 960×600 plates, back to front. Each is transparent outside its object, so the stack is the case. */
+/** Named 960×600 plates, back to front. Each is transparent outside its object, so the stack is the case.
+ *  The complete-case PNG is a placement reference only. The blue passport came off; the ID sits in front of the maroon passport. */
 const CASE_PLATES = [
   "plate-felt.svg",
   "plate-shirt.svg",
@@ -14,8 +15,8 @@ const CASE_PLATES = [
   "plate-lapel.svg",
   "plate-calling-card.svg",
   "plate-nec-card.svg",
-  "plate-blue-passport.svg",
   "plate-maroon-passport.svg",
+  "plate-id.svg",
   "plate-memoranda.svg",
   "plate-liberty-card.svg",
   "plate-rank-devices.svg",
@@ -37,6 +38,11 @@ const COMMAND_PLATES = [
   { id: "sercc", left: 62.595, top: 80.981, width: 11.238, height: 15.707 },
   { id: "jcse", left: 74.405, top: 80.98, width: 6.977, height: 15.71 },
   { id: "navhosp", left: 81.954, top: 80.977, width: 9.958, height: 15.715 },
+] as const;
+/** Opaque bounds on the 960×600 plate, in percent. The ribbon rack opens Decorations; the ID opens On Duty. */
+const CASE_OBJECTS = [
+  { key: "awards", left: 10.74, top: 33.63, width: 16.27, height: 13.92, label: "Ribbon rack", view: "decorations" },
+  { key: "id", left: 59.02, top: 13.53, width: 11.97, height: 24.73, label: "Identification card", view: "onduty" },
 ] as const;
 const PARTNERS = units.filter((unit) => unit.image && !ASSIGNED.includes(unit.id) && !["rtc", "tortuga", "ntc-great-lakes", "local-hires"].includes(unit.id));
 const CHIEF_PORTRAIT = photos.find((photo) => photo.src === profile.portrait);
@@ -153,7 +159,7 @@ function CaseTracks() {
   );
 }
 
-export function Home({ onOpen }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; bio: string; locale?: Locale }) {
+export function Home({ onOpen, onGo }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; bio: string; locale?: Locale }) {
   return (
     <main className="sheet case-home">
       <section className="case-frame" aria-label="Shadowbox">
@@ -171,6 +177,9 @@ export function Home({ onOpen }: { onOpen?: (k: Kind, id: string) => void; onGo?
                   <button key={plate.id} type="button" className="case-command" style={{ left: `${plate.left}%`, top: `${plate.top}%`, width: `${plate.width}%`, height: `${plate.height}%` }} onClick={() => onOpen?.("unit", plate.id)} aria-label={unit?.name ?? plate.id} />
                 );
               })}
+              {CASE_OBJECTS.map((object) => (
+                <button key={object.key} type="button" className="case-command" style={{ left: `${object.left}%`, top: `${object.top}%`, width: `${object.width}%`, height: `${object.height}%` }} onClick={() => onGo?.(object.view)} aria-label={object.label} />
+              ))}
             </div>
           </div>
         </div>
