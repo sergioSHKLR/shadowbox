@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, rmSync, cpSync, writeFileSync } from "node:fs";
 
 const from = "dist/pages";
-for (const name of ["assets", "photos", "ribbons", "uniforms", "crests", "insignia", "devices", "equipment", "icons", "medals"]) {
+for (const name of ["assets", "photos", "ribbons", "case", "uniforms", "crests", "insignia", "devices", "equipment", "icons", "medals"]) {
   rmSync(name, { recursive: true, force: true });
   if (existsSync(`${from}/${name}`)) cpSync(`${from}/${name}`, name, { recursive: true });
 }
