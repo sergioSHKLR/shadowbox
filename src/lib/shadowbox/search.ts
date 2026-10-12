@@ -35,6 +35,8 @@ const PAGES: Hit[] = [
   { title: "Diário de bordo", kindLabel: "Página", snippet: "Uniforme, rack, mapa e unidades por comando", open: { view: "logbook" } },
   { title: "Uniforms", kindLabel: "Page", snippet: "Uniforms worn across the career", open: { view: "uniforms" } },
   { title: "Uniformes", kindLabel: "Página", snippet: "Uniformes usados na carreira", open: { view: "uniforms" } },
+  { title: "Decorations", kindLabel: "Page", snippet: "End-of-career ribbons in order of precedence", open: { view: "decorations" } },
+  { title: "Condecorações", kindLabel: "Página", snippet: "Fitas do fim da carreira, por precedência", open: { view: "decorations" } },
   { title: "Commands", kindLabel: "Page", snippet: "Command rows: crest, rating badges, loose ribbons and medals", open: { view: "commands" } },
   { title: "Comandos", kindLabel: "Página", snippet: "Fileiras de comando: distintivo, postos, rack, medalhas", open: { view: "commands" } },
   { title: "On Duty", kindLabel: "Page", snippet: "Equipment, gear, vehicles, ships, and aircraft", open: { view: "onduty" } },

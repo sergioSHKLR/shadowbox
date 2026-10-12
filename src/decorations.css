@@ -1,4 +1,46 @@
 .decorations { --in: 4.07rem; }
+.decorations-page { --in: 7.2rem; }
+.decorations-ribbons {
+  list-style: none;
+  margin: 1.2rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.35rem 1.6rem;
+  align-items: flex-start;
+}
+.decorations-ribbon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  width: 9.2rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.decorations-ribbon .ribbon {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 131.528 / 35.528;
+}
+.decorations-ribbon .ribbon > img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 131.528 / 35.528;
+  object-fit: contain;
+}
+.decorations-ribbon > span {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-align: center;
+}
+.decorations-ribbon:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 3px; }
 .site-footer {
   display: flex;
   flex-wrap: wrap;
