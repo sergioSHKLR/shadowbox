@@ -3,6 +3,7 @@ import { awards, photos, profile, publicUrl, ribbonRows, timeline, units, type K
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { chrome } from "@/lib/shadowbox/copy";
 import type { Locale } from "@/lib/shadowbox/prefs";
+import { CaseHome } from "@/components/shadowbox/case-home";
 import { RedactionSample } from "@/components/shadowbox/redaction-sample";
 
 const ASSIGNED = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"];
@@ -121,44 +122,6 @@ function CaseTracks() {
   );
 }
 
-/** Plates on the felt, bottom to top. Felt and the anchor are not links. */
-const CASE_PLATES = [
-  { file: "plate-12.svg", view: null },
-  { file: "plate-1.svg", view: "uniforms" },
-  { file: "plate-2.svg", view: "logbook" },
-  { file: "plate-3.svg", view: "guestbook" },
-  { file: "plate-4.svg", view: "admin" },
-  { file: "plate-5.svg", view: "offduty" },
-  { file: "plate-6.svg", view: "contact" },
-  { file: "plate-7.svg", view: "map" },
-  { file: "plate-8.svg", view: "timeline" },
-  { file: "plate-9.svg", view: "bio" },
-  { file: "plate-10.svg", view: "onduty" },
-  { file: "plate-11.svg", view: null },
-  { file: "plate-13.svg", view: "decorations" },
-  { file: "plate-14.svg", view: "uniforms" },
-] as const;
-
-const CASE_LINKS: { view: string; unit?: string; x: string; y: string; w: string; h: string; z: number }[] = [
-  { view: "uniforms", x: "0%", y: "4%", w: "38%", h: "92%", z: 1 },
-  { view: "logbook", x: "1%", y: "58%", w: "18%", h: "36%", z: 3 },
-  { view: "guestbook", x: "27%", y: "36%", w: "10%", h: "30%", z: 5 },
-  { view: "admin", x: "26%", y: "5%", w: "22%", h: "22%", z: 3 },
-  { view: "offduty", x: "30%", y: "30%", w: "22%", h: "16%", z: 3 },
-  { view: "contact", x: "30%", y: "48%", w: "20%", h: "18%", z: 3 },
-  { view: "map", x: "46%", y: "3%", w: "22%", h: "54%", z: 2 },
-  { view: "timeline", x: "66%", y: "2%", w: "12%", h: "68%", z: 2 },
-  { view: "bio", x: "78%", y: "2%", w: "21%", h: "54%", z: 2 },
-  { view: "uniforms", x: "10%", y: "8%", w: "16%", h: "14%", z: 4 },
-  { view: "decorations", x: "8%", y: "22%", w: "22%", h: "28%", z: 3 },
-  { view: "onduty", unit: "ncts", x: "20%", y: "72%", w: "12%", h: "26%", z: 4 },
-  { view: "onduty", unit: "frank-cable", x: "32%", y: "72%", w: "12%", h: "26%", z: 4 },
-  { view: "onduty", unit: "eodmu5", x: "44%", y: "72%", w: "12%", h: "26%", z: 4 },
-  { view: "onduty", unit: "sercc", x: "56%", y: "72%", w: "11%", h: "26%", z: 4 },
-  { view: "onduty", unit: "jcse", x: "67%", y: "72%", w: "11%", h: "26%", z: 4 },
-  { view: "onduty", unit: "navhosp", x: "78%", y: "72%", w: "14%", h: "26%", z: 4 },
-];
-
 function pageLabel(t: ReturnType<typeof chrome>, view: string) {
   if (view === "bio") return t.bioTitle;
   if (view === "map") return t.map;
@@ -167,32 +130,13 @@ function pageLabel(t: ReturnType<typeof chrome>, view: string) {
   return (t as Record<string, string>)[view] ?? view;
 }
 
-export function Home({ bio, locale = "en", onGo }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; bio: string; locale?: Locale }) {
+export function Home({ locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; bio: string; locale?: Locale }) {
   const t = chrome(locale);
   return (
     <main className="sheet case-home">
       <section className="case-frame" aria-label="Shadowbox">
-        <div className="case-board case-board-light">
-        <div className="case-board case-board-white">
         <div className="case-mat case-mat-comp">
-          <div className="case-stage">
-            {CASE_PLATES.map((plate) => (
-              <img key={plate.file} className="case-plate" src={publicUrl(`/incoming/case/${plate.file}`)} alt="" />
-            ))}
-            {CASE_LINKS.map((link, index) => (
-              <button
-                key={`${link.view}-${link.unit ?? index}`}
-                type="button"
-                className="case-link"
-                style={{ left: link.x, top: link.y, width: link.w, height: link.h, zIndex: link.z }}
-                onClick={() => (link.unit ? onOpen?.("unit", link.unit) : onGo?.(link.view))}
-                aria-label={link.unit ?? pageLabel(t, link.view)}
-                title={link.unit ?? pageLabel(t, link.view)}
-              />
-            ))}
-          </div>
-        </div>
-        </div>
+          <CaseHome onOpen={onOpen} onGo={onGo} label={(view) => pageLabel(t, view)} />
         </div>
       </section>
     </main>
