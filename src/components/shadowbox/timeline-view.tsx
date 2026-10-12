@@ -130,16 +130,63 @@ function CaseTracks() {
  * The rank devices are one plate of his art over the crest row; portrait keeps that pair together, same offsets.
  */
 type Box = [number, number, number, number];
-type Piece = { id: string; plates: string[]; box: Box; land: [number, number]; port: [number, number]; view?: string; unit?: string; z: number; label?: string };
-// Square variant: every object at 0°, on a clean grid with 16-unit gutters and no overlaps; same one scale.
-const LAND = { w: 1206, h: 760 };
-const PORT = { w: 584, h: 1510 };
+type Tilt = { deg: number; cx: number; cy: number };
+type Piece = { id: string; plates: string[]; box: Box; land: [number, number]; port: [number, number]; view?: string; unit?: string; z: number; label?: string; tilt?: Tilt };
+// Square variant, upright: every object level on a clean 16-unit grid, no overlaps, same one scale.
+// Built-in tilt of the drawn objects, measured from each plate's alpha (minimum-area bounding rectangle, deg in screen
+// coordinates). The art is untouched; PieceArt counter-rotates it about the rectangle centre and crops to the upright box.
+const TILT = {
+  nec: { deg: -15.0, cx: 348.25, cy: 78.72, w: 136.15, h: 88.73 },
+  liberty: { deg: 15.0, cx: 640.8, cy: 322.43, w: 135.81, h: 88.49 },
+  calling: { deg: 15.0, cx: 181.76, cy: 494.99, w: 135.99, h: 88.38 },
+  passport: { deg: -15.0, cx: 526.61, cy: 137.32, w: 134.63, h: 191.1 },
+  id: { deg: 14.99, cx: 623.97, cy: 155.44, w: 86.73, h: 134.29 },
+  memoranda: { deg: -30.0, cx: 386.44, cy: 256.47, w: 136.41, h: 213.1 },
+  pen: { deg: -14.04, cx: 897.7, cy: 433.29, w: 18.61, h: 208.1 },
+};
 const G = 16;
+const PAD = 0.5;
+const upright = (t: (typeof TILT)[keyof typeof TILT]): { box: Box; tilt: Tilt } => {
+  const w = t.w / 2 + PAD, h = t.h / 2 + PAD;
+  return { box: [t.cx - w, t.cy - h, t.cx + w, t.cy + h], tilt: { deg: t.deg, cx: t.cx, cy: t.cy } };
+};
+const W = (b: Box) => b[2] - b[0];
+const H = (b: Box) => b[3] - b[1];
+const SHIRT: Box = [0, 0, 528, 600];
+const PORTRAIT: Box = [728, 18.5, 941, 259.5];
+const PLAQUE: Box = [767.5, 269, 901.5, 314];
+const AWARDS: Box = [100, 141, 262.5, 353.5];
+const RANK: Box = [319.5, 391.5, 862.5, 478];
+const CALL = upright(TILT.calling), NEC = upright(TILT.nec), LIB = upright(TILT.liberty), ID = upright(TILT.id);
+const MEMO = upright(TILT.memoranda), PASS = upright(TILT.passport), PEN = upright(TILT.pen);
 // Rank devices + crest row move as one block, keeping Sergio's offsets (devices over the crests).
 const BLOCK_X0 = 301;
 const BLOCK_Y0 = 391.5;
-const LB: [number, number] = [528 + G, 760 - G - (584 - BLOCK_Y0)];
-const PB: [number, number] = [0, 1305];
+const BLOCK_W = 883 - 301;
+const BLOCK_H = 584 - BLOCK_Y0;
+// Three columns: A = portrait / plaque / ID, B = memoranda / awards, C = passport / pen; items centred in their column.
+const COLS = [[PORTRAIT, PLAQUE, ID.box], [MEMO.box, AWARDS], [PASS.box, PEN.box]] as const;
+const COL_W = COLS.map((c) => Math.max(...c.map(W)));
+const COL_H = COLS.map((c) => c.reduce((s, b) => s + H(b), 0) + (c.length - 1) * G);
+const colPos = (x0: number, y0: number) => {
+  const out: [number, number][][] = [];
+  let x = x0;
+  COLS.forEach((col, i) => {
+    let y = y0;
+    out.push(col.map((b) => { const p: [number, number] = [x + (COL_W[i] - W(b)) / 2, y]; y += H(b) + G; return p; }));
+    x += COL_W[i] + G;
+  });
+  return out;
+};
+const CARD_Y = H(SHIRT) + G;
+const CARD_H = Math.max(H(CALL.box), H(NEC.box), H(LIB.box));
+const C1 = W(SHIRT) + G;
+const LC = colPos(C1, G);
+const LB: [number, number] = [C1, Math.max(...COL_H) + 2 * G];
+const PC = colPos(0, CARD_Y + CARD_H + G);
+const PB: [number, number] = [0, CARD_Y + CARD_H + G + Math.max(...COL_H) + G];
+const LAND = { w: Math.ceil(C1 + Math.max(BLOCK_W, COL_W.reduce((s, w) => s + w, 0) + 2 * G) + G), h: Math.ceil(Math.max(CARD_Y + CARD_H, LB[1] + BLOCK_H) + G) };
+const PORT = { w: 584, h: Math.ceil(PB[1] + BLOCK_H + G) };
 const at = (box: Box, land: [number, number], port: [number, number]): Pick<Piece, "box" | "land" | "port"> => ({ box, land, port });
 const blk = (box: Box): Pick<Piece, "box" | "land" | "port"> => {
   const dx = box[0] - BLOCK_X0, dy = box[1] - BLOCK_Y0;
@@ -153,38 +200,33 @@ const CREST_SRC: { id: string; file: string; box: Box }[] = [
   { id: "jcse", file: "plate-jcse.svg", box: [714, 486, 781.5, 580] },
   { id: "navhosp", file: "plate-nhjax.svg", box: [787.5, 486, 883, 580] },
 ];
-const CREST_GAP = (883 - 301 - CREST_SRC.reduce((sum, c) => sum + c.box[2] - c.box[0], 0)) / (CREST_SRC.length - 1);
-// blk() reads the source box for size; the evened x is passed through the box's own offset.
+const CREST_GAP = (BLOCK_W - CREST_SRC.reduce((sum, c) => sum + W(c.box), 0)) / (CREST_SRC.length - 1);
 const CRESTS = (() => {
   let x = 301;
-  return CREST_SRC.map((c) => {
-    const w = c.box[2] - c.box[0];
-    const out = { id: c.id, file: c.file, box: c.box, x };
-    x += w + CREST_GAP;
-    return out;
-  });
-})().map(({ id, file, box, x }) => ({ id, file, box, dx: x - box[0] }));
-const C1 = 528 + G;
+  return CREST_SRC.map((c) => { const dx = x - c.box[0]; x += W(c.box) + CREST_GAP; return { ...c, dx }; });
+})();
+const CARDS = [CALL.box, NEC.box, LIB.box];
+const card = (i: number, b: Box): [number, number] => [CARDS.slice(0, i).reduce((s, c) => s + W(c) + G, 0), CARD_Y + (CARD_H - H(b)) / 2];
 const PIECES: Piece[] = [
-  { id: "uniforms", plates: ["plate-shirt.svg", "plate-lapel.svg"], ...at([0, 0, 528, 600], [0, 0], [0, 0]), view: "uniforms", z: 1 },
-  { id: "contact", plates: ["plate-calling-card.svg"], ...at([104, 435.5, 259, 556], [0, 600 + G], [0, 600 + G]), view: "contact", z: 3 },
-  { id: "admin", plates: ["plate-nec-card.svg"], ...at([271, 19, 426, 139.5], [155 + G, 600 + G], [155 + G, 600 + G]), view: "admin", z: 3 },
-  { id: "offduty", plates: ["plate-liberty-card.svg"], ...at([563.5, 263, 718, 383], [310 + 2 * G, 600 + G], [310 + 2 * G, 600 + G]), view: "offduty", z: 3 },
-  { id: "bio", plates: ["plate-portrait.svg"], ...at([728, 18.5, 941, 259.5], [C1, G], [0, 752]), view: "bio", z: 2 },
-  { id: "plaque", plates: ["plate-brass-plaque.svg"], ...at([767.5, 269, 901.5, 314], [C1 + 39.5, G + 241 + G], [39.5, 752 + 241 + G]), z: 2 },
-  { id: "onduty", plates: ["plate-id-placed.svg"], ...at([566, 80.5, 682, 230], [C1 + 48.5, G + 241 + G + 45 + G], [213 + G + 220.5 + G, 752]), view: "onduty", z: 4, label: "Identification card" },
-  { id: "logbook", plates: ["plate-memoranda.svg"], ...at([274, 130, 494.5, 379], [C1 + 213 + G, G], [213 + G, 752]), view: "logbook", z: 4 },
-  { id: "decorations", plates: ["plate-awards.svg"], ...at([100, 141, 262.5, 353.5], [C1 + 213 + G + 29, G + 249 + G], [180.5 + G, 1070]), view: "decorations", z: 3 },
-  { id: "map", plates: ["plate-maroon-passport.svg"], ...at([436, 29, 616.5, 248], [C1 + 213 + G + 220.5 + G, G], [0, 1070]), view: "map", z: 3 },
-  { id: "guestbook", plates: ["plate-pen.svg"], ...at([868.5, 331.5, 928, 537], [C1 + 213 + G + 220.5 + G + 60.5, G + 219 + G], [213 + G + 220.5 + G + 28.25, 752 + 149.5 + G]), view: "guestbook", z: 4 },
-  { id: "timeline", plates: ["plate-rank-devices.svg"], ...blk([319.5, 391.5, 862.5, 478]), view: "timeline", z: 4, label: "Rank devices" },
-  // Crests: same span as the case file, gutters evened out so no two crests touch (the case file has them overlapping
-  // by up to 4.5 units).
+  { id: "uniforms", plates: ["plate-shirt.svg", "plate-lapel.svg"], ...at(SHIRT, [0, 0], [0, 0]), view: "uniforms", z: 1 },
+  { id: "contact", plates: ["plate-calling-card.svg"], ...at(CALL.box, card(0, CALL.box), card(0, CALL.box)), tilt: CALL.tilt, view: "contact", z: 3 },
+  { id: "admin", plates: ["plate-nec-card.svg"], ...at(NEC.box, card(1, NEC.box), card(1, NEC.box)), tilt: NEC.tilt, view: "admin", z: 3 },
+  { id: "offduty", plates: ["plate-liberty-card.svg"], ...at(LIB.box, card(2, LIB.box), card(2, LIB.box)), tilt: LIB.tilt, view: "offduty", z: 3 },
+  { id: "bio", plates: ["plate-portrait.svg"], ...at(PORTRAIT, LC[0][0], PC[0][0]), view: "bio", z: 2 },
+  { id: "plaque", plates: ["plate-brass-plaque.svg"], ...at(PLAQUE, LC[0][1], PC[0][1]), z: 2 },
+  { id: "onduty", plates: ["plate-id-placed.svg"], ...at(ID.box, LC[0][2], PC[0][2]), tilt: ID.tilt, view: "onduty", z: 4, label: "Identification card" },
+  { id: "logbook", plates: ["plate-memoranda.svg"], ...at(MEMO.box, LC[1][0], PC[1][0]), tilt: MEMO.tilt, view: "logbook", z: 4 },
+  { id: "decorations", plates: ["plate-awards.svg"], ...at(AWARDS, LC[1][1], PC[1][1]), view: "decorations", z: 3 },
+  { id: "map", plates: ["plate-maroon-passport.svg"], ...at(PASS.box, LC[2][0], PC[2][0]), tilt: PASS.tilt, view: "map", z: 3 },
+  { id: "guestbook", plates: ["plate-pen.svg"], ...at(PEN.box, LC[2][1], PC[2][1]), tilt: PEN.tilt, view: "guestbook", z: 4 },
+  { id: "timeline", plates: ["plate-rank-devices.svg"], ...blk(RANK), view: "timeline", z: 4, label: "Rank devices" },
+  // Crests: same span as the case file, gutters evened out so no two crests touch.
   ...CRESTS.map(({ id, file, box, dx }): Piece => {
     const b = blk(box);
     return { id, plates: [file], box, land: [b.land[0] + dx, b.land[1]], port: [b.port[0] + dx, b.port[1]], view: "onduty", unit: id, z: 5 };
   }),
 ];
+export const CASE_SIZE = { LAND, PORT };
 
 function pageLabel(t: ReturnType<typeof chrome>, view: string) {
   if (view === "bio") return t.bioTitle;
@@ -198,9 +240,11 @@ function PieceArt({ piece }: { piece: Piece }) {
   const [x0, y0, x1, y1] = piece.box;
   return (
     <svg className="loose-art" viewBox={`${x0} ${y0} ${x1 - x0} ${y1 - y0}`} preserveAspectRatio="none" aria-hidden="true">
-      {piece.plates.map((file) => (
-        <image key={file} href={publicUrl(`/incoming/case/${file}`)} x={0} y={0} width={960} height={600} />
-      ))}
+      <g transform={piece.tilt ? `rotate(${-piece.tilt.deg} ${piece.tilt.cx} ${piece.tilt.cy})` : undefined}>
+        {piece.plates.map((file) => (
+          <image key={file} href={publicUrl(`/incoming/case/${file}`)} x={0} y={0} width={960} height={600} />
+        ))}
+      </g>
       <rect className="loose-hit" x={x0} y={y0} width={x1 - x0} height={y1 - y0} />
     </svg>
   );

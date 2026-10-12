@@ -1455,7 +1455,7 @@ body[data-scroll-locked] .home-pin {
 
 /* Home case from shadowbox-case-clean.svg (Oct 2026): items at true relative size on one canvas, scaled by one factor
    (--k, set by script) to fit the stage; landscape and portrait only move items. */
-.case-stage.case-loose { position: relative; overflow: hidden; aspect-ratio: 1206 / 760; min-height: 0;
+.case-stage.case-loose { position: relative; overflow: hidden; aspect-ratio: 1142 / 722; min-height: 0;
   background-color: #09162c; background-size: cover; background-position: center; background-repeat: no-repeat; }
 .loose-canvas { position: absolute; left: 0; top: 0; width: var(--cw, 960px); height: var(--ch, 600px); transform-origin: 0 0;
   transform: translate(var(--ox, 0px), var(--oy, 0px)) scale(var(--k, 1)); }
@@ -1470,8 +1470,8 @@ button.loose-item:hover .loose-art, button.loose-item:focus-visible .loose-art {
 .loose-item:focus-visible { outline: 2px solid #e4c98a; outline-offset: 2px; }
 @media (max-width: 56rem) and (orientation: landscape) {
   .case-home { min-height: 0; }
-  .case-frame:has(.case-loose) { width: min(100%, calc((100dvh - 4.4rem) * 1206 / 760)); padding: 0.5rem; }
-  .case-stage.case-loose { aspect-ratio: 1206 / 760; min-height: 0; }
+  .case-frame:has(.case-loose) { width: min(100%, calc((100dvh - 4.4rem) * 1142 / 722)); padding: 0.5rem; }
+  .case-stage.case-loose { aspect-ratio: 1142 / 722; min-height: 0; }
 }
 @media (orientation: portrait) {
   .case-stage.case-loose { aspect-ratio: auto; height: calc(100dvh - 4.6rem); min-height: 34rem; }
