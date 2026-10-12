@@ -1452,3 +1452,27 @@ body[data-scroll-locked] .home-pin {
 .case-stop.is-end { align-items: flex-end; }
 .case-stop i { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: currentColor; flex: none; }
 .case-stop em { font-style: normal; font-size: 0.62rem; line-height: 1.1; color: #14233a; }
+
+/* Home case from shadowbox-case-clean.svg (Oct 2026): items at true relative size on one canvas, scaled by one factor
+   (--k, set by script) to fit the stage; landscape and portrait only move items. */
+.case-stage.case-loose { position: relative; overflow: hidden; aspect-ratio: 960 / 600; min-height: 0;
+  background-color: #09162c; background-size: cover; background-position: center; background-repeat: no-repeat; }
+.loose-canvas { position: absolute; left: 0; top: 0; width: var(--cw, 960px); height: var(--ch, 600px); transform-origin: 0 0;
+  transform: translate(var(--ox, 0px), var(--oy, 0px)) scale(var(--k, 1)); }
+.loose-item { position: absolute; left: var(--lx); top: var(--ly); margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; pointer-events: none; }
+[data-layout="port"] .loose-item { left: var(--px); top: var(--py); }
+.loose-item.is-static { cursor: default; }
+.loose-art { display: block; width: 100%; height: 100%; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.4)); pointer-events: none; }
+.loose-art image { pointer-events: none; }
+.loose-hit { fill: transparent; pointer-events: all; }
+.loose-hit-line { stroke: transparent; stroke-width: 16; stroke-linecap: round; pointer-events: stroke; }
+button.loose-item:hover .loose-art, button.loose-item:focus-visible .loose-art { filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 4px rgba(228, 201, 138, 0.9)); }
+.loose-item:focus-visible { outline: 2px solid #e4c98a; outline-offset: 2px; }
+@media (max-width: 56rem) and (orientation: landscape) {
+  .case-home { min-height: 0; }
+  .case-frame:has(.case-loose) { width: min(100%, calc((100dvh - 4.4rem) * 960 / 600)); padding: 0.5rem; }
+  .case-stage.case-loose { aspect-ratio: 960 / 600; min-height: 0; }
+}
+@media (orientation: portrait) {
+  .case-stage.case-loose { aspect-ratio: auto; height: calc(100dvh - 4.6rem); min-height: 34rem; }
+}
