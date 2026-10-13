@@ -276,12 +276,11 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
 
 const INTRO_KEY = "sb-case-intro-v1";
 const WHY: [string, string, string][] = [
-  ["Each item's story", "A label or a memory", "Every item opens its page: logbook, uniforms, timeline, travel"],
-  ["Condition", "Glass glare, dust, fading, breakage", "No glare, dust, fading or breakage"],
-  ["Who can see it", "Whoever visits the wall", "Anyone, on any device, shared by a link"],
-  ["Detail", "Small items, seen from a distance", "True-to-scale items with full detail"],
-  ["Growth", "Fixed once it is framed", "Grows as records are added: medals, photos"],
-  ["Legacy", "One case, in one home", "Preserved for family"],
+  ["Items", "Real medals, devices and uniforms are costly or hard to find", "Every item drawn to scale, at no cost"],
+  ["Condition", "Fades, tarnishes and gathers dust behind glass", "Does not deteriorate"],
+  ["Meaning", "Much stays unknown unless the owner or someone versed is there to explain", "Each item explains itself and opens its story"],
+  ["Access", "Seen only where it hangs", "Open on any device, shared by a link"],
+  ["Content", "Objects only", "Text and photos, with room for narrations and interviews"],
 ];
 
 /** First-visit introduction (Oct 13 2026): Esc, the close button or the backdrop dismiss it; focus stays inside. */
@@ -307,7 +306,7 @@ function CaseIntro({ onClose }: { onClose: () => void }) {
       <div ref={box} className="cx-intro-box" role="dialog" aria-modal="true" aria-labelledby="cx-intro-title">
         <button type="button" className="cx-intro-x" aria-label="Close" onClick={onClose}>×</button>
         <h2 id="cx-intro-title">Welcome to the shadowbox</h2>
-        <p>This case holds the items of a Navy career, each shown at its true size. Select any item that glows to open its page: the shirt for uniforms, the ribbons for decorations, the crests for each command, the rank devices for the timeline.</p>
+        <p>This is a digital shadowbox: every item from a Navy career, drawn at its true size. Each one carries its own story, so nothing depends on someone being here to explain it. Items that glow are clickable; select one to open its page.</p>
         <table className="cx-why">
           <caption>Why a digital shadowbox beats a physical one</caption>
           <thead><tr><th scope="col"></th><th scope="col">Physical case</th><th scope="col">This site</th></tr></thead>
