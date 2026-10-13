@@ -144,6 +144,123 @@ let WIDE_W = 0;
   WP.contact = [G + memo.w + G + pen.w + G, WIDE_H - G - CARD.h];
 }
 const WIDE = { w: WIDE_W, h: WIDE_H };
+const TILT: Record<string, number> = {};
+
+/**
+ * Wide variations for Sergio to choose from (storyboards, Oct 13): ?layout=a|b|c|d. Same hard rules in each: shirt against
+ * left and bottom, rack and pins uncovered under the lapel, crests on shared centre axes with cap devices above, no SN.
+ */
+const SX = SHIRT_W + G; // first column right of the shirt
+/** Crests stacked in one column on a shared centre axis; returns the height used. */
+const crestCol = (cx: number, y0: number, ids: string[], pos: Pos, gap = G) => {
+  let y = y0;
+  for (const id of ids) {
+    const c = byId(id);
+    pos[id] = [cx - c.w / 2, y + c.dev!.h + DEV_GAP];
+    y += c.dev!.h + DEV_GAP + CREST_H + gap;
+  }
+  return y - gap - y0;
+};
+const crestColH = (ids: string[], gap = G) => ids.reduce((s, id) => s + byId(id).dev!.h + DEV_GAP + CREST_H, 0) + gap * (ids.length - 1);
+const maxW = (ids: string[]) => Math.max(...ids.map((id) => byId(id).w));
+const put = (pos: Pos, tilt: Record<string, number>, id: string, cx: number, cy: number, deg = 0) => {
+  const it = byId(id); pos[id] = [cx - it.w / 2, cy - it.h / 2]; if (deg) tilt[id] = deg;
+};
+const L3 = ["ncts", "frank-cable", "eodmu5"], R3 = ["sercc", "jcse", "navhosp"];
+type Variant = { pos: Pos; tilt: Record<string, number>; w: number; h: number };
+const VARIANTS: Record<string, () => Variant> = {
+  // A: portrait + plaque at the centre, crests flanking in two columns, cards and books resting on the shirt.
+  a: () => {
+    const pos: Pos = { uniforms: [0, 0] }, tilt: Record<string, number> = {};
+    const H = SHIRT_H, lw = maxW(L3), rw = maxW(R3);
+    crestCol(SX + lw / 2, (H - crestColH(L3)) / 2, L3, pos);
+    const cx0 = SX + lw + G;
+    const ch = column(cx0, 0, PORTRAIT.w, BIO_ROWS, {});
+    column(cx0, (H - ch) / 2, PORTRAIT.w, BIO_ROWS, pos);
+    const rx0 = cx0 + PORTRAIT.w + G;
+    crestCol(rx0 + rw / 2, (H - crestColH(R3)) / 2, R3, pos);
+    put(pos, tilt, "logbook", 268, 255, 6);       // sleeve
+    put(pos, tilt, "contact", 300, 372, 7);       // sleeve cuff
+    put(pos, tilt, "offduty", 62, 428, -6);       // lower front
+    put(pos, tilt, "admin", 160, 424, 5);
+    put(pos, tilt, "guestbook", 112, 392, 4);
+    return { pos, tilt, w: rx0 + rw + G, h: H };
+  },
+  // B: page order left to right: [Biography on the shoulder, Logbook on the front, Uniforms] > Timeline crests > Travel,
+  //    On Duty > Off Duty, Admin > Guestbook, Contact.
+  b: () => {
+    const pos: Pos = { uniforms: [0, 0] }, tilt: Record<string, number> = {};
+    const H = SHIRT_H;
+    put(pos, tilt, "bio", 300, 150, -4);
+    put(pos, tilt, "plaque", 300, 245, -4);
+    put(pos, tilt, "logbook", 62, 390, -4);
+    const lw = maxW(L3), rw = maxW(R3);
+    crestCol(SX + lw / 2, (H - crestColH(L3)) / 2, L3, pos);
+    const c2 = SX + lw + G;
+    crestCol(c2 + rw / 2, (H - crestColH(R3)) / 2, R3, pos);
+    const x3 = c2 + rw + G, w3 = 88 + G + CARD.w;
+    const rows = [["map", "onduty"], ["offduty", "admin"], ["guestbook", "contact"]];
+    const h3 = column(x3, 0, w3, rows, {});
+    column(x3, (H - h3) / 2, w3, rows, pos);
+    return { pos, tilt, w: x3 + w3 + G, h: H };
+  },
+  // C: formal and symmetric: portrait + plaque on the axis, crests in a 3 x 2 grid below it (each column on one axis),
+  //    passport and cards flanking left, ID / pen / USO flanking right; memorandum on the sleeve.
+  c: () => {
+    const pos: Pos = {}, tilt: Record<string, number> = {};
+    const cols = [["ncts", "sercc"], ["frank-cable", "jcse"], ["eodmu5", "navhosp"]];
+    const cw = cols.map(maxW);
+    const gw = cw.reduce((s, w) => s + w, 0) + G * 2;
+    const ch = Math.max(...cols.map((c) => crestColH(c, 4)));
+    const topH = PORTRAIT.h + G + byId("plaque").h;
+    const H = Math.max(SHIRT_H, G + topH + G + ch + G);
+    pos.uniforms = [0, H - SHIRT_H];
+    const lw = 88, x1 = SX + lw + G, axis = x1 + gw / 2;
+    const y0 = (H - (topH + G + ch)) / 2;
+    put(pos, tilt, "bio", axis, y0 + PORTRAIT.h / 2);
+    put(pos, tilt, "plaque", axis, y0 + PORTRAIT.h + G + byId("plaque").h / 2);
+    let x = x1;
+    cols.forEach((c, i) => { crestCol(x + cw[i] / 2, y0 + topH + G, c, pos, 4); x += cw[i] + G; });
+    const lh = column(SX, 0, lw, [["map"], ["offduty"], ["admin"]], {});
+    column(SX, (H - lh) / 2, lw, [["map"], ["offduty"], ["admin"]], pos);
+    const rx = x1 + gw + G, rw2 = CARD.w;
+    const rh = column(rx, 0, rw2, [["onduty", "guestbook"], ["contact"]], {});
+    column(rx, (H - rh) / 2, rw2, [["onduty", "guestbook"], ["contact"]], pos);
+    put(pos, tilt, "logbook", 268, H - SHIRT_H + 255, 6);
+    return { pos, tilt, w: rx + rw2 + G, h: H };
+  },
+  // D: crests in a shallow arc over the portrait, plaque beneath it, documents and cards in a row along the bottom;
+  //    memorandum on the sleeve, pen on the lower front.
+  d: () => {
+    const pos: Pos = { uniforms: [0, 0] }, tilt: Record<string, number> = {};
+    const H = SHIRT_H;
+    const ids = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"];
+    const dy = [52, 16, 0, 0, 16, 52];
+    const rowW = ids.reduce((s, id) => s + byId(id).w, 0) + G * 5;
+    let x = SX;
+    ids.forEach((id, i) => { const c = byId(id); crestCol(x + c.w / 2, G + dy[i] + (44 - c.dev!.h), [id], pos); x += c.w + G; });
+    const axis = SX + rowW / 2;
+    const py = G + 44 + DEV_GAP + CREST_H + G;
+    put(pos, tilt, "bio", axis, py + PORTRAIT.h / 2);
+    put(pos, tilt, "plaque", axis, py + PORTRAIT.h + G + byId("plaque").h / 2);
+    const bottom = ["map", "onduty", "offduty", "admin", "contact"];
+    const bw = bottom.reduce((s, id) => s + byId(id).w, 0) + G * 4;
+    let bx = axis - bw / 2;
+    for (const id of bottom) { const it = byId(id); pos[id] = [bx, H - G - it.h]; bx += it.w + G; }
+    put(pos, tilt, "logbook", 268, 255, 6);
+    put(pos, tilt, "guestbook", 120, 392, 4);
+    return { pos, tilt, w: SX + rowW + G, h: H };
+  },
+};
+const VARIANT = typeof location !== "undefined" ? new URLSearchParams(location.search).get("layout")?.toLowerCase() ?? "" : "";
+if (VARIANTS[VARIANT]) {
+  const v = VARIANTS[VARIANT]();
+  for (const k of Object.keys(WP)) delete WP[k];
+  Object.assign(WP, v.pos);
+  Object.assign(TILT, v.tilt);
+  WIDE.w = v.w;
+  WIDE.h = v.h;
+}
 
 // ---- Grid (narrow)
 const GP: Pos = {};
@@ -174,7 +291,7 @@ const GRID: Pos = GP;
 for (const [layout, pos] of [["wide", WP], ["grid", GP]] as const) {
   const [sx, sy] = pos.uniforms;
   for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = byId(id); pos[id] = [sx + rx - it.w / 2, sy + ry - it.h / 2]; }
-  if (layout === "wide") for (const it of ALL) { const p = pos[it.id]; if (p) it.wide = [p[0] + it.w / 2, p[1] + it.h / 2, 0]; }
+  if (layout === "wide") for (const it of ALL) { const p = pos[it.id]; if (p) it.wide = [p[0] + it.w / 2, p[1] + it.h / 2, TILT[it.id] ?? 0]; }
 }
 export const CASE_DIMS = { WIDE, GRID_SIZE };
 export const NARROW_QUERY = "(max-width: 768px), (orientation: portrait)";
@@ -219,6 +336,7 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
       const w = el.clientWidth;
       const k = narrow ? w / c.w : Math.min(w / c.w, el.clientHeight / c.h);
       el.dataset.layout = narrow ? "grid" : "wide";
+      (el.closest(".case-frame") as HTMLElement | null)?.style.setProperty("--cx-r", String(WIDE.w / WIDE.h));
       if (narrow) el.style.height = `${c.h * k}px`; else el.style.removeProperty("height");
       el.style.setProperty("--k", String(k));
       el.style.setProperty("--cw", `${c.w}px`);

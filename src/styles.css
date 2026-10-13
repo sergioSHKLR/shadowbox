@@ -1468,7 +1468,7 @@ button.cx-item:hover .cx-art, button.cx-item:focus-visible .cx-art { filter: dro
 .cx-rows { display: flex; flex-direction: column; align-items: center; }
 .cx-row { display: flex; flex-direction: row-reverse; justify-content: center; }
 .cx-ribbon.ribbon { width: 35px; }
-.case-frame:has(.cx-stage) { width: min(100%, calc((100dvh - 7rem) * 789 / 470 + 2.7rem)); max-width: none; }
+.case-frame:has(.cx-stage) { width: min(100%, calc((100dvh - 7rem) * var(--cx-r, 1.679) + 2.7rem)); max-width: none; }
 @media (max-width: 768px), (orientation: portrait) {
   .case-frame:has(.cx-stage) { width: 100%; padding: 0.6rem; }
   .cx-stage { aspect-ratio: auto; min-height: 0; }
