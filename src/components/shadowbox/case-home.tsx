@@ -283,6 +283,14 @@ const twoP = (): Layout => {
   pos.onduty = [pos.onduty[0], (devBottom + passTop) / 2 - byId("onduty").h / 2];
   // Memorandum's top level with the ID card's top (Sergio); 2M keeps its place.
   pos.logbook = [pos.logbook[0], pos.onduty[1]];
+  // Four columns distributed with equal gaps between the pen's left edge and the passport's right edge (Sergio):
+  // pen | 2M + Liberty | USO + memo | passport + ID; each item centred in its column, vertical positions kept.
+  const dcols = [["guestbook"], ["admin", "offduty"], ["contact", "logbook"], ["map", "onduty"]];
+  const dcw = dcols.map((ids) => Math.max(...ids.map((id) => byId(id).w)));
+  const left = pos.guestbook[0], right = W - G;
+  const dgap = (right - left - dcw.reduce((t, v) => t + v, 0)) / (dcols.length - 1);
+  let dx0 = left;
+  dcols.forEach((ids, i) => { for (const id of ids) pos[id] = [dx0 + (dcw[i] - byId(id).w) / 2, pos[id][1]]; dx0 += dcw[i] + dgap; });
   // Memorandum's top level with the ID card's (Sergio); 2M keeps its place (bottom where the memo's used to be).
   pos.logbook = [pos.logbook[0], pos.onduty[1]];
   return { pos, size, tilt: {}, w: W, h: sy + H0 };
