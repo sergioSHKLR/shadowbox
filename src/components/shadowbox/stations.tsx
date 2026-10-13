@@ -268,7 +268,7 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
         <button type="button" className="nav-btn icon-btn" aria-label="Back" title="Back" onClick={() => step(-1)} disabled={!stops.length}>
           <ChevronLeft size={20} strokeWidth={2} aria-hidden="true" />
         </button>
-        <button type="button" className={`nav-btn icon-btn${playing ? " on" : ""}`} aria-pressed={playing} aria-label={playing ? "Pause" : "Play"} title={playing ? "Pause" : "Play"} onClick={() => (playing ? stopPlay() : startPlay())}>
+        <button type="button" className={`nav-btn icon-btn${playing ? " on" : ""}`} aria-pressed={playing} aria-label={playing ? "Pause" : "Play"} title={playing ? "Pause" : "Play"} onClick={() => (playing ? stopPlay() : startPlay())} disabled={!stops.length && !playing}>
           {playing ? <Pause size={20} strokeWidth={2} aria-hidden="true" /> : <Play size={20} strokeWidth={2} aria-hidden="true" />}
         </button>
         <button type="button" className="nav-btn icon-btn" aria-label="Next" title="Next" onClick={() => step(1)} disabled={!stops.length}>
@@ -294,8 +294,10 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
           </label>
         ) : null}
       </div>
-      {stops.length ? (
+      {/* Always mounted: with every filter off the map stays (no pins, no route) instead of disappearing. */}
+      {(
         <MapView
+          keepEmpty
           stops={pins}
           extra={[]}
           tall
@@ -305,7 +307,7 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
           layoutEpoch={full ? "full" : "inline"}
           onSelect={(id) => onOpen("place", id)}
         />
-      ) : null}
+      )}
       {here ? (
         <div className="map-now-card" aria-hidden="true">
           <span className={`pin-num ${here.kind} ${here.place.accuracy}`}>{here.n}</span>
