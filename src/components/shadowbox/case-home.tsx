@@ -1,4 +1,4 @@
-import { useEffect, useRef, type CSSProperties, type MouseEvent as ReactMouseEvent, type ReactNode } from "react";
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { awards, publicUrl, ribbonRows, units, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 
@@ -139,23 +139,6 @@ function Rack() {
 
 export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; label: (view: string) => string }) {
   const stage = useRef<HTMLDivElement | null>(null);
-  // Touch: first tap enlarges an item in place, the second follows its link, a tap elsewhere dismisses.
-  useEffect(() => {
-    const off = (e: PointerEvent) => {
-      const hit = (e.target as Element | null)?.closest?.(".cx-item");
-      stage.current?.querySelectorAll(".cx-item.is-armed").forEach((n) => { if (n !== hit) n.classList.remove("is-armed"); });
-    };
-    document.addEventListener("pointerdown", off);
-    return () => document.removeEventListener("pointerdown", off);
-  }, []);
-  const arm = (e: ReactMouseEvent) => {
-    if (!matchMedia("(hover: none), (pointer: coarse)").matches) return;
-    const btn = (e.target as Element).closest("button.cx-item");
-    if (!btn || btn.classList.contains("is-armed")) return;
-    e.preventDefault();
-    e.stopPropagation();
-    btn.classList.add("is-armed");
-  };
   useEffect(() => {
     const el = stage.current;
     if (!el) return;
@@ -182,17 +165,11 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
   }, []);
   return (
     <div ref={stage} className="cx-stage" data-layout="wide" style={{ backgroundImage: `url("${publicUrl("/case/felt.svg")}")` }}>
-      <div className="cx-canvas" onClickCapture={arm}>
+      <div className="cx-canvas">
         {ALL.map((item) => {
           const [cx, cy, deg] = item.wide;
           const g = GRID[item.id];
-          const gs = growOf(item);
-          const [wtx, wty] = clampShift(cx - item.w / 2, cy - item.h / 2, item.w, item.h, gs, WIDE.w, WIDE.h);
-          const gh = item.gh ?? item.h;
-          const [gtx, gty] = clampShift(g[0], g[1], item.w, gh, gs, GRID_SIZE.w, GRID_SIZE.h);
-          const ts = Math.min(2, WIDE.w / item.w, WIDE.h / item.h, GRID_SIZE.w / item.w);
           const style = {
-            "--grow": gs, "--tgrow": ts, "--wtx": `${wtx}px`, "--wty": `${wty}px`, "--gtx": `${gtx}px`, "--gty": `${gty}px`,
             width: item.w,
             "--wx": `${cx - item.w / 2}px`, "--wy": `${cy - item.h / 2}px`, "--wr": `${deg}deg`, "--wz": item.z,
             "--gx": `${g[0]}px`, "--gy": `${g[1]}px`, "--wh": `${item.h}px`, "--gh": `${item.gh ?? item.h}px`,
@@ -200,7 +177,7 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
           const dev = item.dev ? (
             <span key={`${item.id}-dev`} className="cx-item cx-dev is-static" data-id={`${item.id}-dev`} aria-hidden="true" title={item.dev.label}
               style={{ width: item.dev.w, height: item.dev.h, "--wx": `${cx - item.dev.w / 2}px`, "--wy": `${cy - item.h / 2 - DEV_GAP - item.dev.h}px`, "--wr": "0deg", "--wz": item.z,
-                "--gx": `${g[0] + item.w / 2 - item.dev.w / 2}px`, "--gy": `${g[1] - DEV_GAP - item.dev.h}px`, "--grow": 1.8, "--tgrow": 1.8 } as CSSProperties}>
+                "--gx": `${g[0] + item.w / 2 - item.dev.w / 2}px`, "--gy": `${g[1] - DEV_GAP - item.dev.h}px` } as CSSProperties}>
               <img className="cx-art" src={publicUrl(`/case/${item.dev.src}`)} alt="" draggable={false} />
             </span>
           ) : null;
@@ -228,17 +205,3 @@ function CaseButton({ item, style, art, name, go }: { item: Item; style: CSSProp
   return <button type="button" className="cx-item" data-id={item.id} style={style} aria-label={name} title={name} onClick={go}>{art}</button>;
 }
 
-const LARGE = new Set(["uniforms", "timeline", "bio", "logbook", "map", "decorations", "lapel"]);
-/** Hover growth: ~1.8x small items, ~1.25x large ones. */
-function growOf(item: Item) {
-  return LARGE.has(item.id) ? 1.25 : 1.8;
-}
-/** Translation that keeps an item scaled about its centre inside the canvas. */
-function clampShift(x: number, y: number, w: number, h: number, k: number, W: number, H: number): [number, number] {
-  const fit = (p: number, d: number, D: number) => {
-    const sd = d * k, p0 = p - (sd - d) / 2;
-    if (sd >= D) return D / 2 - (p + d / 2);
-    return p0 < 0 ? -p0 : p0 + sd > D ? D - (p0 + sd) : 0;
-  };
-  return [Math.round(fit(x, w, W) * 10) / 10, Math.round(fit(y, h, H) * 10) / 10];
-}
