@@ -845,7 +845,7 @@
     "cityId": null,
     "baseId": "mayport",
     "commandId": null,
-    "kind": "base",
+    "kind": "instruction",
     "when": ""
   }
 ]
