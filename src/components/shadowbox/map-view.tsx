@@ -296,7 +296,10 @@ export function MapView({
   hidden = NO_HIDDEN,
   layoutEpoch = "inline",
   fitMaxZoom,
+  keepEmpty = false,
 }: {
+  /** Keep the map (tiles, controls) when there are no pins, e.g. the Travel Book with every filter off. */
+  keepEmpty?: boolean;
   stops: Stop[];
   extra?: Place[];
   tall?: boolean;
@@ -324,7 +327,7 @@ export function MapView({
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || stops.length + extra.length === 0) return;
+    if (!el || (!keepEmpty && stops.length + extra.length === 0)) return;
     let map: import("leaflet").Map | undefined;
     let alive = true;
     let started = false;
@@ -623,7 +626,7 @@ export function MapView({
     };
   }, [layoutEpoch]);
 
-  if (!stops.length && !extra.length) {
+  if (!keepEmpty && !stops.length && !extra.length) {
     return <p className="quiet">No map location has been entered for this yet.</p>;
   }
 
