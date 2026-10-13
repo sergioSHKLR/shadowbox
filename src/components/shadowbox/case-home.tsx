@@ -257,11 +257,13 @@ const VARIANTS: Record<string, () => Variant> = {
     const ph = size.bio.h + G + plaque.h;
     pos.bio = [px0, (H - ph) / 2];
     pos.plaque = [px0 + (size.bio.w - plaque.w) / 2, (H - ph) / 2 + size.bio.h + G];
-    const lw = maxW(L3), rw = maxW(R3);
+    // Chronological, read left-to-right then down: NCTS, AS-40 / EODMU-5, SERCC / JCSE, NH Jax.
+    const LE = ["ncts", "eodmu5", "jcse"], RE = ["frank-cable", "sercc", "navhosp"];
+    const lw = maxW(LE), rw = maxW(RE);
     const c1 = px0 + size.bio.w + G;
-    crestCol(c1 + lw / 2, (H - crestColH(L3)) / 2, L3, pos);
+    crestCol(c1 + lw / 2, (H - crestColH(LE)) / 2, LE, pos);
     const c2 = c1 + lw + G;
-    crestCol(c2 + rw / 2, (H - crestColH(R3)) / 2, R3, pos);
+    crestCol(c2 + rw / 2, (H - crestColH(RE)) / 2, RE, pos);
     return { pos, tilt, w: c2 + rw + G, h: H, size };
   },
   d: () => {
