@@ -153,8 +153,7 @@ const WIDE = { w: WIDE_W, h: WIDE_H };
 //  twoL  (2 columns, landscape): shirt block | SR beside CPO over [devices 2 x 3 | crests 3 x 2].
 //  twoP  (2 columns, portrait): SR beside CPO, crests 3 x 2, devices in a row, shirt with ID and passport beside it.
 //  one   (1 column): SR beside CPO, crests 2 x 3, devices in a row, shirt block.
-//  menu  (?layout=menu, study only): the ten pages in menu order, left to right.
-type Mode = "wide" | "twoL" | "twoP" | "one" | "menu";
+type Mode = "wide" | "twoL" | "twoP" | "one";
 type Size = { w: number; h: number };
 type Layout = { pos: Pos; size: Record<string, Size>; tilt: Record<string, number>; w: number; h: number };
 const PLAQUE_H = mm(89.197);
@@ -260,15 +259,24 @@ const twoL = (): Layout => {
   return { pos, size, tilt: {}, w: x2 + w2 + G, h: H0 };
 };
 const twoP = (): Layout => {
+  // Sergio's drawing: SR | CPO; crests 18-20 across; crests 21 and 22 with the shirt's collar and shoulder beneath them
+  // and 23 at the right over the device grid (12-14 / 15-17) on the right shoulder; ID and passport on the felt to the
+  // right of the shirt. Crest 21 stays clear of the lapel above the collar.
   const pos: Pos = {}, size: Record<string, Size> = {};
-  const W = SHIRT_W + G + byId("map").w + 2 * G, c = 110;
+  const W = SHIRT_W + G + byId("map").w + 2 * G, c = 100;
   let y = G;
-  y += portraitsSide(pos, size, G, y, W - 2 * G) + G;
-  const ch = 2 * c + 3 * G;
-  crestGrid(pos, size, R3x2, c, 0, y, W, ch); y += ch;
-  devGrid(pos, 6, G, y, W - 2 * G, DEV_H + 2 * G); y += DEV_H + 2 * G;
-  shirtBlock(pos, 0, y, SHIRT_W + G);
-  return { pos, size, tilt: {}, w: W, h: y + H0 };
+  y += portraitsSide(pos, size, G, y, W - 2 * G) + 2 * G;
+  crestGrid(pos, size, [R3x2[0]], c, 0, y - G, W, c + 2 * G); y += c + G;
+  const put = (id: string, x: number) => { size[id] = crestSize(id, c); pos[id] = [x, y]; };
+  const [c21, c22, c23] = R3x2[1];
+  put(c21, G + 10);
+  put(c22, LAPEL.w + G);
+  put(c23, W - G - crestSize(c23, c).w);
+  const sy = y + c; // shirt top: collar just under crest 21
+  const dx = pos[c22][0] + crestSize(c22, c).w + G;
+  devGrid(pos, 3, dx, sy + G, W - G - dx, 2 * DEV_H + 3 * G);
+  shirtBlock(pos, 0, sy, SHIRT_W + G);
+  return { pos, size, tilt: {}, w: W, h: sy + H0 };
 };
 const oneL = (): Layout => {
   const pos: Pos = {}, size: Record<string, Size> = {};
@@ -281,40 +289,14 @@ const oneL = (): Layout => {
   shirtBlock(pos, 0, y);
   return { pos, size, tilt: {}, w: W, h: y + H0 };
 };
-/** Study: the ten pages in menu order left to right (Biography, Logbook, Uniforms, Timeline, Travel Book, On Duty,
- * Off Duty, Admin, Guestbook, Contact), each column centred vertically. Breaks the shirt-left rule by design. */
-const menuL = (): Layout => {
-  const pos: Pos = {}, size: Record<string, Size> = {};
-  let x = G;
-  const col = (w: number, place: (x: number) => void) => { place(x); x += w + G; };
-  const ph = 180, pw = portraitSize(ph).w;
-  col(pw, (x0) => portraitsStacked(pos, size, x0 + pw / 2, (H0 - 2 * (ph + G + PLAQUE_H) - G) / 2, ph));
-  col(byId("logbook").w, (x0) => { pos.logbook = [x0, (H0 - byId("logbook").h) / 2]; });
-  col(SHIRT_W, (x0) => {
-    pos.uniforms = [x0, 0];
-    for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = byId(id); pos[id] = [x0 + rx - it.w / 2, ry - it.h / 2]; }
-  });
-  col(31, (x0) => DEVS.forEach((id, i) => { const d = devOf(id); pos[id] = [x0 + (31 - d.w) / 2, G + i * ((H0 - 2 * G) / 6) + ((H0 - 2 * G) / 6 - d.h) / 2]; }));
-  col(byId("map").w, (x0) => { pos.map = [x0, (H0 - byId("map").h) / 2]; });
-  const c = 70, cw = Math.max(...CRESTS_IN_ORDER.map((id) => crestSize(id, c).w));
-  col(cw, (x0) => {
-    spreadY(pos, ["onduty", ...CRESTS_IN_ORDER], x0 + cw / 2, 0, H0, (id) => (id === "onduty" ? byId(id) : crestSize(id, c)));
-    for (const id of CRESTS_IN_ORDER) size[id] = crestSize(id, c);
-  });
-  for (const id of ["offduty", "admin"]) col(CARD.w, (x0) => { pos[id] = [x0, (H0 - CARD.h) / 2]; });
-  col(PEN.w, (x0) => { pos.guestbook = [x0, (H0 - PEN.h) / 2]; });
-  col(CARD.w, (x0) => { pos.contact = [x0, (H0 - CARD.h) / 2]; });
-  return { pos, size, tilt: {}, w: x, h: H0 };
-};
-const LAYOUTS: Record<Mode, Layout> = { wide: wideL(), twoL: twoL(), twoP: twoP(), one: oneL(), menu: menuL() };
+const LAYOUTS: Record<Mode, Layout> = { wide: wideL(), twoL: twoL(), twoP: twoP(), one: oneL() };
 WIDE.w = LAYOUTS.wide.w; WIDE.h = LAYOUTS.wide.h;
 /** Breakpoints on the window (Sergio's proposal): laptops (1200 px and wider, or 1000+ px at 1.6 : 1) 3 columns;
  *  phones upright (under 600 px wide) 1 column; other windows wider than tall (wide tablets, sideways phones) 2 columns
  *  landscape; other windows taller than wide (tall tablets) 2 columns portrait. */
-const FORCE = typeof location !== "undefined" && new URLSearchParams(location.search).get("layout") === "menu";
 const modeFor = (w: number, h: number): Mode =>
-  FORCE ? "menu" : w >= 1200 || (w >= 1000 && w / h >= 1.6) ? "wide" : w < 600 && h > w ? "one" : w > h ? "twoL" : "twoP";
-const SCROLLS: Record<Mode, boolean> = { wide: false, twoL: false, menu: false, twoP: true, one: true };
+  w >= 1200 || (w >= 1000 && w / h >= 1.6) ? "wide" : w < 600 && h > w ? "one" : w > h ? "twoL" : "twoP";
+const SCROLLS: Record<Mode, boolean> = { wide: false, twoL: false, twoP: true, one: true };
 export const CASE_DIMS = { WIDE, LAYOUTS };
 
 function Rack() {
