@@ -1460,7 +1460,7 @@ body[data-scroll-locked] .home-pin {
 
 /* Home shadowbox case, hybrid (Oct 12 2026): one mm canvas scaled by --k; thrown about when wide, upright grid when narrow. */
 .case-mat.case-mat-comp .cx-stage { width: 100%; }
-.cx-stage { position: relative; overflow: hidden; width: 100%; aspect-ratio: var(--ratio, 789 / 470); background-color: #09162c; background-size: cover; background-position: center; }
+.cx-stage { position: relative; overflow: hidden; width: 100%; aspect-ratio: var(--ratio, 789 / 470); background-color: #09162c; background-size: 100% 100%; background-position: center; }
 .cx-canvas { position: absolute; left: 0; top: 0; width: var(--cw, 1080px); height: var(--ch, 675px); transform-origin: 0 0; transform: translate(var(--ox, 0px), var(--oy, 0px)) scale(var(--k, 1)); }
 .cx-item { position: absolute; width: var(--ww); height: var(--wh); left: var(--wx); top: var(--wy); z-index: var(--wz); transform: rotate(var(--wr)); margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; display: block; }
 .cx-item.is-static { cursor: default; }
