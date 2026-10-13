@@ -9,6 +9,24 @@ const PLACEHOLDER_BIO_EN = "{{h}}Boot Camp{{/h}}[Placeholder] A few sentences ab
 const PLACEHOLDER_BIO_PT = "{{h}}Treinamento de recrutas{{/h}}[Espaço reservado] Algumas frases sobre o treinamento de recrutas: a chegada, as primeiras semanas e a formatura.\n\n{{h}}Escola A{{/h}}[Espaço reservado] Algumas frases sobre a Escola A: o treinamento e aonde ele levou.\n\n{{h}}Escola C{{/h}}[Espaço reservado] Algumas frases sobre a Escola C: o curso e por que ele importou.\n\n{{h}}Primeiro comando{{/h}}[Espaço reservado] Algumas frases sobre o primeiro comando: o trabalho, as pessoas e uma lembrança que vale guardar.\n\n{{h}}Segundo comando{{/h}}[Espaço reservado] Algumas frases sobre o segundo comando: o trabalho, as pessoas e uma lembrança que vale guardar.\n\n{{h}}Terceiro comando{{/h}}[Espaço reservado] Algumas frases sobre o terceiro comando: o trabalho, as pessoas e uma lembrança que vale guardar.\n\n{{h}}Quarto comando{{/h}}[Espaço reservado] Algumas frases sobre o quarto comando: o trabalho, as pessoas e uma lembrança que vale guardar.\n\n{{redaction-sample}}\n\n{{h}}Quinto comando{{/h}}[Espaço reservado] Algumas frases sobre o quinto comando: o trabalho, as pessoas e uma lembrança que vale guardar.\n\n{{h}}Eventos mundiais marcantes{{/h}}[Espaço reservado] Algumas frases sobre os acontecimentos mundiais desses anos e como tocaram o trabalho.\n\n{{h}}Presidentes sob os quais serviu{{/h}}Bill Clinton (1997–2001), George W. Bush (2001–2009), Barack Obama (2009–2017), Donald Trump (2017–2018). [Espaço reservado] Uma ou duas frases sobre servir sob cada um.\n\n{{quote}}Any man who may be asked in this century what he did to make his life worth while, I think can respond with a good deal of pride and satisfaction: “I served in the United States Navy.”{{cite}}Presidente John F. Kennedy, discurso na Academia Naval dos EUA, Annapolis, Maryland, 1º de agosto de 1963";
 
 const en = {
+  intro: {
+    title: "Welcome to the shadowbox",
+    body: "This is a digital shadowbox: every item from a Navy career, drawn at its true size. Each one carries its own story, so nothing depends on someone being here to explain it. Items that glow are clickable; select one to open its page.",
+    caption: "Why a digital shadowbox beats a physical one",
+    physical: "Physical case",
+    site: "This site",
+    rows: [
+      ["Items", "Real medals, devices and uniforms are costly or hard to find", "Every item drawn to scale, at no cost"],
+      ["Condition", "Fades, tarnishes and gathers dust behind glass", "Does not deteriorate"],
+      ["Meaning", "Much stays unknown unless the owner or someone versed is there to explain", "Each item explains itself and opens its story"],
+      ["Access", "Seen only where it hangs", "Open on any device, shared by a link"],
+      ["Content", "Objects only", "Text and photos, with room for narrations and interviews"],
+    ] as [string, string, string][],
+    go: "View the case",
+    close: "Close",
+    help: "About this shadowbox",
+    exitFull: "Exit full case",
+  },
   title: "Shadowbox",
   home: "Home",
   bioTitle: "Biography",
@@ -111,6 +129,24 @@ const en = {
 };
 
 const pt: typeof en = {
+  intro: {
+    title: "Bem-vindo ao shadowbox",
+    body: "Este é um shadowbox digital: cada item de uma carreira na Marinha, desenhado em tamanho real. Cada um traz a sua própria história, então nada depende de alguém estar aqui para explicá-la. Os itens que brilham são clicáveis; selecione um para abrir a página dele.",
+    caption: "Por que um shadowbox digital supera um físico",
+    physical: "Quadro físico",
+    site: "Este site",
+    rows: [
+      ["Itens", "Medalhas, insígnias e uniformes de verdade são caros ou difíceis de encontrar", "Cada item desenhado em escala, sem custo"],
+      ["Conservação", "Desbota, oxida e junta poeira atrás do vidro", "Não se deteriora"],
+      ["Significado", "Muita coisa fica sem explicação se o dono ou alguém que entenda do assunto não estiver presente", "Cada item se explica e abre a sua história"],
+      ["Acesso", "Só pode ser visto onde está pendurado", "Abre em qualquer aparelho e pode ser compartilhado por link"],
+      ["Conteúdo", "Apenas objetos", "Textos e fotos, com espaço para narrações e entrevistas"],
+    ] as [string, string, string][],
+    go: "Ver o quadro",
+    close: "Fechar",
+    help: "Sobre este shadowbox",
+    exitFull: "Sair da tela cheia",
+  },
   title: "Shadowbox",
   home: "Início",
   bioTitle: "Biografia",

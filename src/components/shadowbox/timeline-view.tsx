@@ -127,7 +127,7 @@ function pageLabel(t: ReturnType<typeof chrome>, view: string) {
   if (view === "map") return t.map;
   if (view === "admin") return t.admin;
   if (view === "decorations") return t.decorations;
-  return (t as Record<string, string>)[view] ?? view;
+  return (t as unknown as Record<string, string>)[view] ?? view;
 }
 
 export function Home({ locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; bio: string; locale?: Locale }) {
@@ -136,7 +136,7 @@ export function Home({ locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, id: s
     <main className="sheet case-home">
       <section className="case-frame" aria-label="Shadowbox">
         <div className="case-mat case-mat-comp">
-          <CaseHome onOpen={onOpen} onGo={onGo} label={(view) => pageLabel(t, view)} />
+          <CaseHome onOpen={onOpen} onGo={onGo} label={(view) => pageLabel(t, view)} copy={t.intro} />
         </div>
       </section>
     </main>
