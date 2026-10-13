@@ -778,7 +778,7 @@
   },
   {
     "order": 86,
-    "label": "Rota CNM",
+    "label": "Rota, MNP",
     "cityId": null,
     "baseId": "rota",
     "commandId": null,
@@ -846,6 +846,15 @@
     "baseId": "mayport",
     "commandId": null,
     "kind": "instruction",
+    "when": ""
+  },
+  {
+    "order": 94,
+    "label": "Tijuana, MEX",
+    "cityId": null,
+    "baseId": "tijuana",
+    "commandId": null,
+    "kind": "port",
     "when": ""
   }
 ]

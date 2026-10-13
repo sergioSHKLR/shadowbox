@@ -333,8 +333,10 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
       <section className="places-track" aria-label="Places">
         <h3>Places</h3>
         <p className="quiet">The same order as the Map. Numbers do not change.</p>
+        {/* The list follows the chips, same filter as the map (Sergio); nothing selected = empty list with a note. */}
+        {shown && shown.length === 0 ? <p className="quiet">{t.placesNone}</p> : null}
         <ol className="stop-list">
-          {allStops.map((stop) => (
+          {stops.map((stop) => (
             <li key={stop.n}>
               <button type="button" onClick={() => onOpen("place", stop.place.id)}>
                 <span className={`pin-num ${stop.kind} ${stop.place.accuracy}`} aria-label={`Stop ${stop.n}`}>{stop.n}</span>

@@ -641,12 +641,12 @@
   },
   {
     "id": "rota",
-    "name": "Rota CNM",
-    "locality": "Rota CNM",
-    "lat": 36.624,
-    "lng": -6.35,
+    "name": "Rota, MNP",
+    "locality": "Rota, MNP",
+    "lat": 14.154,
+    "lng": 145.203,
     "accuracy": "approximate",
-    "note": "Port visit. Naval Station Rota, not the town.",
+    "note": "Port visit to Rota (Commonwealth of the Northern Mariana Islands).",
     "type": "visit"
   },
   {
@@ -698,5 +698,15 @@
     "accuracy": "approximate",
     "note": "Base stop.",
     "type": "base"
+  },
+  {
+    "id": "tijuana",
+    "name": "Tijuana, MEX",
+    "locality": "Tijuana, MEX",
+    "lat": 32.525,
+    "lng": -117.033,
+    "accuracy": "approximate",
+    "note": "Port visit to Tijuana, Mexico.",
+    "type": "visit"
   }
 ]
