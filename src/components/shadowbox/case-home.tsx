@@ -211,7 +211,7 @@ const wideF = (): Variant => {
 // ---- Layouts (Sergio, Oct 13). Every layout uses the same true-size items; only positions differ.
 //  wide (3 columns): shirt cropped at 3 buttons | full-length portrait + plaque | crests 2 x 3 (variant F).
 //  two  (2 columns): full-length shirt with the F overlays, documents above it | portrait + plaque over crests 3 x 2.
-//  one  (1 column):  portrait + plaque, crests 3 x 2, documents, full-length shirt with the F overlays.
+//  one  (1 column):  portrait + plaque, crests 3 x 2, then the wide layout's first column unchanged.
 type Mode = "wide" | "two" | "one";
 type Layout = { pos: Pos; size: Record<string, { w: number; h: number }>; tilt: Record<string, number>; w: number; h: number };
 const BIO_FULL = { w: 420 * (687 / 1024), h: 420 }; // Sergio's official full-length portrait, 687 x 1024, shown whole
@@ -264,32 +264,35 @@ const twoCol = (): Layout => {
   crests3(pos, c2x + (c2w - CREST3_W) / 2, H - G - CREST3_H);
   return { pos, size: { bio: BIO_FULL, uniforms: SHIRT_FULL_SIZE }, tilt: {}, w: c2x + c2w + G, h: H };
 };
+const WIDE_L: Layout = (() => {
+    const pos: Pos = { ...WP };
+    const [sx, sy] = pos.uniforms;
+    for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = byId(id); pos[id] = [sx + rx - it.w / 2, sy + ry - it.h / 2]; }
+    return { pos, size: { ...WSIZE }, tilt: { ...TILT }, w: WIDE.w, h: WIDE.h };
+  })();
+/** The wide layout's first column (cropped shirt, awards, lapel, pen, stack 1 over the pocket, stack 2 beside it). */
+const COL1 = ["uniforms", "lapel", "decorations", "swo", "exw", "guestbook", "admin", "offduty", "contact", "onduty", "map", "logbook"];
 const oneCol = (): Layout => {
   const pos: Pos = {};
   const W = SHIRT_W + G;
   let y = G;
   y += bioBlock(pos, 0, y, W) + G;
   crests3(pos, (W - CREST3_W) / 2, y); y += CREST3_H + G;
-  docRow(pos, 0, y, W); y += DOCS_H + G;
-  onShirt(pos, 0, y, SHIRT_FULL);
-  return { pos, size: { bio: BIO_FULL, uniforms: SHIRT_FULL_SIZE }, tilt: {}, w: W, h: y + SHIRT_FULL };
+  // Last block identical to the wide layout's first column (Sergio), against the left and bottom edges.
+  for (const id of COL1) { const [x, wy] = WIDE_L.pos[id]; pos[id] = [x, y + wy]; }
+  return { pos, size: { bio: BIO_FULL }, tilt: {}, w: W, h: y + SHIRT_H };
 };
 const LAYOUTS: Record<Mode, Layout> = {
-  wide: (() => {
-    const pos: Pos = { ...WP };
-    const [sx, sy] = pos.uniforms;
-    for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = byId(id); pos[id] = [sx + rx - it.w / 2, sy + ry - it.h / 2]; }
-    return { pos, size: { ...WSIZE }, tilt: { ...TILT }, w: WIDE.w, h: WIDE.h };
-  })(),
+  wide: WIDE_L,
   two: twoCol(),
   one: oneCol(),
 };
 /** Breakpoints on the window (Sergio, Oct 13: phone 1 column, tablet 2, laptop 3):
- *  3 columns from 1200 px wide, or any landscape window of at least 640 px that is 1.6 : 1 or wider (phones held
- *  sideways fit the whole case on screen);
+ *  3 columns from 1200 px wide, or from 1000 px when the window is 1.6 : 1 or wider (short laptop screens);
+ *  phones held sideways (~900 x 400) get 2 columns, where every item keeps a 44 px tap area and stays visible;
  *  1 column under 768 px wide otherwise (phones upright);
  *  2 columns for everything between (tablets either way up, ~4:3 and small laptop windows). */
-const modeFor = (w: number, h: number): Mode => (w >= 1200 || (w >= 640 && w / h >= 1.6) ? "wide" : w < 768 ? "one" : "two");
+const modeFor = (w: number, h: number): Mode => (w >= 1200 || (w >= 1000 && w / h >= 1.6) ? "wide" : w < 768 ? "one" : "two");
 export const CASE_DIMS = { WIDE, LAYOUTS };
 
 function Rack() {
