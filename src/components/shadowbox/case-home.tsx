@@ -41,8 +41,8 @@ const SHIRT = { buttons: [212.5, 316, 419, 522, 625], show: 3, pocket: { cx: 131
 // Crop (never scale) halfway between the last shown front button and the next one.
 const SHIRT_H = Math.round((SHIRT.buttons[SHIRT.show - 1] + (SHIRT.buttons[SHIRT.show] ?? mm(SHIRT_VB[1]))) / 2);
 /** Old shirt (with lapel): 1474.016 x 2532.283 px; lapel polygon in its mm, top-left aligned with the shirt. */
-// shirt-lapel.svg: lapel, collar and collar device clipped from b24f8e8 shirt-long.svg, 182 x 196 mm, top-left aligned.
-const LAPEL = { w: 182, h: 196 };
+// shirt-lapel.svg: Sergio's lapel-only drawing (local-case ff91302), 680.3 x 755.9 px = 180 x 200 mm, same origin as shirt-long.svg.
+const LAPEL = { w: mm(680.315), h: mm(755.906) };
 const QIN = 6.35; // 1/4 in
 const SWO_H = mm(90.7);
 const EXW_H = mm(98.3);
