@@ -65,8 +65,8 @@ function commandPath(all: Stop[]): Stop[] {
 }
 
 const FIELD_ORDER = ["u-tapao", "shoalwater-bay", "mosul", "fob-sykes", "fob-tal-afar", "camp-blanding", "camp-bastion", "fob-delaram", "camp-blanding", "fob-sharana", "fob-orgun-e", "fob-patriot"];
-const INSTRUCTION_ORDER = ["rtc", "ntc-great-lakes", "keesler", "san-diego", "imperial-beach", "gryphon-school"];
-const BASE_ORDER = ["little-creek", "nas-north-island", "san-diego", "guam", "city-yokosuka", "city-sasebo", "city-chinhae", "polaris-point", "whidbey", "fort-bliss", "macdill", "mayport", "nas-jax"];
+const INSTRUCTION_ORDER = ["rtc", "ntc-great-lakes", "keesler", "san-diego", "imperial-beach", "gryphon-school", "mayport"];
+const BASE_ORDER = ["little-creek", "nas-north-island", "san-diego", "guam", "city-yokosuka", "city-sasebo", "city-chinhae", "polaris-point", "whidbey", "fort-bliss", "macdill", "nas-jax"];
 const STOPOVER_ORDER = ["camp-arifjan", "al-udeid", "bagram", "nas-north-island"];
 const LAYOVER_ORDER = ["hickam", "travis", "bitburg", "ramstein", "leipzig", "city-baltimore"];
 function fieldPath(all: Stop[]): Stop[] {
@@ -120,7 +120,9 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
     setShown((cur) => {
       if (!cur) return [g];
       const next = cur.includes(g) ? cur.filter((x) => x !== g) : [...cur, g];
-      return next.length === 0 || next.length === PIN_GROUPS.length ? null : next;
+      // Empty stays empty (all chips off); only a full set collapses to "All". Before, an empty set also became null = All,
+      // so turning the only chip off selected every filter.
+      return next.length === PIN_GROUPS.length ? null : next;
     });
 
   const stops = useMemo(
