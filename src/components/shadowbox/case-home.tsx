@@ -241,8 +241,8 @@ const VARIANTS: Record<string, () => Variant> = {
     const pos: Pos = { uniforms: [0, 0] }, tilt: Record<string, number> = {};
     const H = SHIRT_H;
     // Portrait grown into the space the documents freed (10:17, still under the shirt height with the plaque).
-    const size = { bio: { w: 247, h: 420 } };
-    byId("bio").src = "portrait-full.webp"; // real full-length photo (background removed only)
+    const size = { bio: { w: 420 * (687 / 1024), h: 420 } }; // official portrait, 687 x 1024, shown whole
+    byId("bio").src = "portrait-full.webp"; // Sergio's official full-length portrait (portrait-cutout.webp kept, unused)
     const memo = byId("logbook"), pen = byId("guestbook");
     pos.logbook = [G, H - G - memo.h]; tilt.logbook = -4;
     pos.guestbook = [G + memo.w + G + 4, H - G - pen.h]; tilt.guestbook = 4;
