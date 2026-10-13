@@ -10,18 +10,18 @@ import { RibbonArt } from "@/components/shadowbox/marks";
  */
 const PX = 96 / 25.4;
 type Item = {
-  id: string; src: string; w: number; h: number; view?: string; unit?: string; label: string; obj?: boolean; rack?: boolean; crop?: boolean; gh?: number; dev?: { src: string; h: number; label: string };
+  id: string; src: string; w: number; h: number; view?: string; unit?: string; label: string; obj?: boolean; rack?: boolean; crop?: boolean; lapel?: boolean; gh?: number; dev?: { src: string; h: number; w: number; label: string };
   /** wide: centre x, y and tilt in degrees */ wide: [number, number, number]; z: number;
 };
 const mm = (px: number) => Math.round((px / PX) * 10) / 10;
 const CREST_H = 95;
 /** Collar device for the rank on arrival at each command (true size: 23 mm wide, art cropped to its own height). */
 const DEV = {
-  po3: { src: "po3-silver-collar.svg", h: 25, label: "PO3" }, po2: { src: "po2-silver-collar.svg", h: 29.9, label: "PO2" },
-  po1: { src: "po1-silver-collar.svg", h: 32.5, label: "PO1" }, po1g: { src: "po1-gold-collar.svg", h: 32.5, label: "PO1 (gold)" },
-  cpo: { src: "cpo-collar.svg", h: 32.5, label: "CPO" },
+  // Cap-device heights (Sergio): PO3 32, PO2 38, PO1 44, CPO 44 mm; width follows each art's own aspect.
+  po3: { src: "po3-silver-collar.svg", h: 32, w: 32 * 23 / 25, label: "PO3" }, po2: { src: "po2-silver-collar.svg", h: 38, w: 38 * 23 / 29.9, label: "PO2" },
+  po1: { src: "po1-silver-collar.svg", h: 44, w: 44 * 23 / 32.5, label: "PO1" }, po1g: { src: "po1-gold-collar.svg", h: 44, w: 44 * 23 / 32.5, label: "PO1 (gold)" },
+  cpo: { src: "cpo-collar.svg", h: 44, w: 44 * 23 / 32.5, label: "CPO" },
 };
-const DEV_W = 23;
 const DEV_GAP = 5;
 const crest = (id: string, unit: string, file: string, aspect: number, cx: number, label: string, dev?: Item["dev"]): Item => ({
   id, src: file, dev, w: Math.round(CREST_H * aspect), h: CREST_H, view: "onduty", unit, label, wide: [cx, 600, 0], z: 5,
@@ -37,21 +37,27 @@ const RACK_H = RACK_ROWS.length * RIBBON_H;
  * moves them, update these numbers only: the crop and the rack, pins and pocket follow.
  */
 const SHIRT_VB = [1455.118, 2437.795];
-const SHIRT = { buttons: [212.5, 316, 419, 522, 625], show: 3, pocket: { cx: 131.3, top: 224, flapCy: 255 } };
+const SHIRT = { buttons: [212.5, 316, 419, 522, 625], show: 3, pocket: { cx: 131.3, top: 224, flapCy: 255, button: 272 } };
 // Crop (never scale) halfway between the last shown front button and the next one.
 const SHIRT_H = Math.round((SHIRT.buttons[SHIRT.show - 1] + (SHIRT.buttons[SHIRT.show] ?? mm(SHIRT_VB[1]))) / 2);
+/** Old shirt (with lapel): 1474.016 x 2532.283 px; lapel polygon in its mm, top-left aligned with the shirt. */
+const LAPEL = { w: mm(1474.016), h: 200, fullH: mm(2532.283), clip: "polygon(0 0, 70px 0, 84px 42px, 130px 45px, 182px 108px, 112px 112px, 0 196px)" };
 const QIN = 6.35; // 1/4 in
 const SWO_H = mm(90.7);
 const EXW_H = mm(98.3);
 /** Items worn on the shirt in both layouts: centre relative to the shirt's top-left. */
 const ON_SHIRT: Record<string, [number, number]> = {
+  lapel: [LAPEL.w / 2, LAPEL.h / 2],
   decorations: [SHIRT.pocket.cx, SHIRT.pocket.top - QIN - RACK_H / 2],
   swo: [SHIRT.pocket.cx, SHIRT.pocket.top - QIN - RACK_H - QIN - SWO_H / 2],
-  exw: [SHIRT.pocket.cx, SHIRT.pocket.flapCy],
+  // EXW centred on the flap, just above the flap button (button radius ~9 mm + 2 mm clearance).
+  exw: [SHIRT.pocket.cx, SHIRT.pocket.button - 11 - EXW_H / 2],
 };
 const ITEMS: Item[] = [
   // Shirt cropped (not scaled) to the top 478 mm so three front buttons show; flush top-left.
   { id: "uniforms", src: "shirt-long.svg", crop: true, w: mm(SHIRT_VB[0]), h: SHIRT_H, gh: mm(SHIRT_VB[1]), view: "uniforms", label: "Uniforms", wide: [mm(SHIRT_VB[0]) / 2, SHIRT_H / 2, 0], z: 1 },
+  // Lapel/collar from the previous shirt-long.svg, clipped and laid over the rack and pins (Sergio, Oct 12).
+  { id: "lapel", src: "shirt-lapel.svg", lapel: true, w: LAPEL.w, h: LAPEL.h, label: "", wide: [0, 0, 0], z: 6 },
   { id: "decorations", src: "", rack: true, w: 3 * RIBBON_W, h: RACK_H, view: "decorations", label: "Decorations", wide: [0, 0, 0], z: 3 },
   { id: "swo", src: "surface-warfare.svg", w: PIN_W, h: SWO_H, view: "decorations", label: "Surface Warfare", wide: [0, 0, 0], z: 3 },
   { id: "exw", src: "expeditionary-warfare.svg", w: PIN_W, h: EXW_H, view: "decorations", label: "Expeditionary Warfare", wide: [0, 0, 0], z: 3 },
@@ -169,12 +175,14 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
           } as CSSProperties;
           const dev = item.dev ? (
             <span key={`${item.id}-dev`} className="cx-item cx-dev is-static" data-id={`${item.id}-dev`} aria-hidden="true" title={item.dev.label}
-              style={{ width: DEV_W, height: item.dev.h, "--wx": `${cx - DEV_W / 2}px`, "--wy": `${cy - item.h / 2 - DEV_GAP - item.dev.h}px`, "--wr": "0deg", "--wz": item.z,
-                "--gx": `${g[0] + item.w / 2 - DEV_W / 2}px`, "--gy": `${g[1] - DEV_GAP - item.dev.h}px` } as CSSProperties}>
+              style={{ width: item.dev.w, height: item.dev.h, "--wx": `${cx - item.dev.w / 2}px`, "--wy": `${cy - item.h / 2 - DEV_GAP - item.dev.h}px`, "--wr": "0deg", "--wz": item.z,
+                "--gx": `${g[0] + item.w / 2 - item.dev.w / 2}px`, "--gy": `${g[1] - DEV_GAP - item.dev.h}px` } as CSSProperties}>
               <img className="cx-art" src={publicUrl(`/case/${item.dev.src}`)} alt="" draggable={false} />
             </span>
           ) : null;
-          const art = item.rack ? <Rack /> : item.obj
+          const art = item.lapel
+            ? <span className="cx-lapel" style={{ clipPath: LAPEL.clip }}><img src={publicUrl(`/case/${item.src}`)} alt="" draggable={false} style={{ width: LAPEL.w, height: LAPEL.fullH }} /></span>
+            : item.rack ? <Rack /> : item.obj
             ? <object className="cx-art" type="image/svg+xml" data={publicUrl(`/case/${item.src}`)} aria-hidden="true" tabIndex={-1} />
             : <img className={item.crop ? "cx-art is-crop" : "cx-art"} src={publicUrl(`/case/${item.src}`)} alt="" draggable={false} />;
           if (dev) return [dev, <CaseButton key={item.id} item={item} style={style} art={art} name={item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : item.label} go={() => onOpen?.("unit", item.unit!)} />];
