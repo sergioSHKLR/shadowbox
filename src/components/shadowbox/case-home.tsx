@@ -1,4 +1,4 @@
-import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { awards, publicUrl, ribbonRows, units, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 
@@ -10,7 +10,7 @@ import { RibbonArt } from "@/components/shadowbox/marks";
  */
 const PX = 96 / 25.4;
 type Item = {
-  id: string; src: string; w: number; h: number; view?: string; unit?: string; label: string; obj?: boolean; rack?: boolean; crop?: boolean; only?: "wide" | "grid"; row?: boolean; lapel?: boolean; gh?: number; dev?: { src: string; h: number; w: number; label: string };
+  id: string; src: string; w: number; h: number; view?: string; unit?: string; label: string; obj?: boolean; rack?: boolean; crop?: boolean; lapel?: boolean; gh?: number; dev?: { src: string; h: number; w: number; label: string };
   /** wide: centre x, y and tilt in degrees */ wide: [number, number, number]; z: number;
 };
 const mm = (px: number) => Math.round((px / PX) * 10) / 10;
@@ -23,13 +23,8 @@ const DEV = {
   cpo: { src: "cpo-collar.svg", h: 44, w: 44 * 23 / 32.5, label: "CPO" },
 };
 const DEV_GAP = 5;
-const WIDE_H = 540;
-// Wide only: collar-device progression under the cards (one Timeline link), CPO collar art as the fouled-anchor decoration.
-const PROG = [DEV.po3, DEV.po2, DEV.po1, DEV.cpo];
-const PROG_GAP = 8;
-const PROG_W = PROG.reduce((s, d) => s + d.w, 0) + (PROG.length - 1) * PROG_GAP;
-const crest = (id: string, unit: string, file: string, aspect: number, cx: number, label: string, dev?: Item["dev"]): Item => ({
-  id, src: file, dev, w: Math.round(CREST_H * aspect), h: CREST_H, view: "onduty", unit, label, wide: [cx, 600, 0], z: 5,
+const crest = (id: string, unit: string, file: string, aspect: number, label: string, dev: NonNullable<Item["dev"]>): Item => ({
+  id, src: file, dev, w: Math.round(CREST_H * aspect), h: CREST_H, view: "onduty", unit, label, wide: [0, 0, 0], z: 5,
 });
 const RACK_ROWS = ribbonRows(awards, 3);
 const RIBBON_W = 35; // 1 3/8 in
@@ -45,13 +40,14 @@ const SHIRT_VB = [1455.118, 2437.795];
 const SHIRT = { buttons: [212.5, 316, 419, 522, 625], show: 3, pocket: { cx: 131.3, top: 224, flapCy: 255, button: 272 } };
 // Crop (never scale) halfway between the last shown front button and the next one.
 const SHIRT_H = Math.round((SHIRT.buttons[SHIRT.show - 1] + (SHIRT.buttons[SHIRT.show] ?? mm(SHIRT_VB[1]))) / 2);
-/** Old shirt (with lapel): 1474.016 x 2532.283 px; lapel polygon in its mm, top-left aligned with the shirt. */
+const SHIRT_W = mm(SHIRT_VB[0]);
+const SHIRT_FULL = mm(SHIRT_VB[1]);
 // shirt-lapel.svg: Sergio's lapel-only drawing (local-case ff91302), 680.3 x 755.9 px = 180 x 200 mm, same origin as shirt-long.svg.
 const LAPEL = { w: mm(680.315), h: mm(755.906) };
 const QIN = 6.35; // 1/4 in
 const SWO_H = mm(90.7);
 const EXW_H = mm(98.3);
-/** Items worn on the shirt in both layouts: centre relative to the shirt's top-left. */
+/** Worn on the shirt in both layouts: centre relative to the shirt's top-left. */
 const ON_SHIRT: Record<string, [number, number]> = {
   lapel: [LAPEL.w / 2, LAPEL.h / 2],
   decorations: [SHIRT.pocket.cx, SHIRT.pocket.top - QIN - RACK_H / 2],
@@ -59,79 +55,128 @@ const ON_SHIRT: Record<string, [number, number]> = {
   // EXW centred on the flap, just above the flap button (button radius ~9 mm + 2 mm clearance).
   exw: [SHIRT.pocket.cx, SHIRT.pocket.button - 11 - EXW_H / 2],
 };
+const CARD = { w: 85.6, h: 54 };
+const PORTRAIT = { w: 150, h: 150 * (625 / 640) };
 const ITEMS: Item[] = [
-  // Shirt cropped (not scaled) to the top 478 mm so three front buttons show; flush top-left.
-  { id: "uniforms", src: "shirt-long.svg", crop: true, w: mm(SHIRT_VB[0]), h: SHIRT_H, gh: mm(SHIRT_VB[1]), view: "uniforms", label: "Uniforms", wide: [mm(SHIRT_VB[0]) / 2, SHIRT_H / 2, 0], z: 1 },
-  // Lapel/collar from the previous shirt-long.svg, clipped and laid over the rack and pins (Sergio, Oct 12).
+  { id: "uniforms", src: "shirt-long.svg", crop: true, w: SHIRT_W, h: SHIRT_H, gh: SHIRT_FULL, view: "uniforms", label: "Uniforms", wide: [0, 0, 0], z: 1 },
   { id: "lapel", src: "shirt-lapel.svg", lapel: true, w: LAPEL.w, h: LAPEL.h, label: "", wide: [0, 0, 0], z: 6 },
   { id: "decorations", src: "", rack: true, w: 3 * RIBBON_W, h: RACK_H, view: "decorations", label: "Decorations", wide: [0, 0, 0], z: 3 },
   { id: "swo", src: "surface-warfare.svg", w: PIN_W, h: SWO_H, view: "decorations", label: "Surface Warfare", wide: [0, 0, 0], z: 3 },
   { id: "exw", src: "expeditionary-warfare.svg", w: PIN_W, h: EXW_H, view: "decorations", label: "Expeditionary Warfare", wide: [0, 0, 0], z: 3 },
-  { id: "contact", src: "calling-card.svg", w: 85.6, h: 54, view: "contact", label: "Contact", wide: [573, 179, 0], z: 3 },
-  { id: "admin", src: "9527-card.svg", w: 85.6, h: 54, view: "admin", label: "Admin", wide: [470, 203, 0], z: 3 },
-  { id: "logbook", src: "green-notebook.svg", w: mm(359.055), h: mm(529.134), view: "logbook", label: "Logbook", wide: [62.5, 390, 0], z: 7 },
-  { id: "map", src: "passport-maroon.svg", w: mm(332.598), h: mm(472.441), view: "map", label: "Travel book", wide: [574, 76.5, 0], z: 3 },
-  { id: "onduty", src: "id-card.svg", obj: true, w: 54, h: 54 * (680.11 / 439.297), view: "onduty", label: "Identification card", wide: [470, 56, 0], z: 4 },
-  { id: "offduty", src: "liberty-card.svg", w: 85.6, h: 54, view: "offduty", label: "Off Duty", wide: [470, 137, 0], z: 3 },
-  { id: "timeline", src: "portrait-recruit.webp", w: 150, h: 150 * (625 / 640), view: "timeline", label: "Timeline", wide: [0, 0, 0], z: 2, only: "grid" },
-  { id: "bio", src: "portrait-chief.webp", w: 150, h: 150 * (625 / 640), view: "bio", label: "Biography", wide: [780, 87, 0], z: 2 },
-  { id: "plaque", src: "brass-plaque.svg", w: mm(264.567), h: mm(89.197), view: "bio", label: "Biography", wide: [780, 184, 0], z: 3 },
-  { id: "guestbook", src: "black-pen.svg", w: mm(37.795), h: mm(536.693), view: "guestbook", label: "Guestbook", wide: [872, 351, 0], z: 7 },
+  { id: "contact", src: "calling-card.svg", ...CARD, view: "contact", label: "Contact", wide: [0, 0, 0], z: 7 },
+  { id: "admin", src: "9527-card.svg", ...CARD, view: "admin", label: "Admin", wide: [0, 0, 0], z: 7 },
+  { id: "offduty", src: "liberty-card.svg", ...CARD, view: "offduty", label: "Off Duty", wide: [0, 0, 0], z: 7 },
+  { id: "logbook", src: "green-notebook.svg", w: mm(359.055), h: mm(529.134), view: "logbook", label: "Logbook", wide: [0, 0, 0], z: 7 },
+  { id: "guestbook", src: "black-pen.svg", w: mm(37.795), h: mm(536.693), view: "guestbook", label: "Guestbook", wide: [0, 0, 0], z: 7 },
+  { id: "map", src: "passport-maroon.svg", w: mm(332.598), h: mm(472.441), view: "map", label: "Travel book", wide: [0, 0, 0], z: 3 },
+  { id: "onduty", src: "id-card.svg", obj: true, w: 54, h: 54 * (680.11 / 439.297), view: "onduty", label: "Identification card", wide: [0, 0, 0], z: 4 },
+  { id: "bio", src: "portrait-chief.webp", ...PORTRAIT, view: "bio", label: "Biography", wide: [0, 0, 0], z: 2 },
+  { id: "plaque", src: "brass-plaque.svg", w: mm(264.567), h: mm(89.197), view: "bio", label: "Biography", wide: [0, 0, 0], z: 3 },
 ];
-ITEMS.push(
-  { id: "progression", src: "", row: true, w: PROG_W, h: 44, view: "timeline", label: "Timeline", wide: [520 + PROG_W / 2, 360, 0], z: 3, only: "wide" },
-  { id: "anchor", src: "cpo-collar.svg", w: DEV.cpo.w, h: DEV.cpo.h, label: "", wide: [520 + PROG_W + 18 + DEV.cpo.w / 2, 360, 0], z: 3, only: "wide" },
-);
 const CRESTS: Item[] = [
-  crest("ncts", "ncts", "ncts-crest.svg", 1, 0, "NCTS", DEV.po3),
-  crest("frank-cable", "frank-cable", "as40-crest.svg", 960 / 720, 0, "USS Frank Cable", DEV.po2),
-  crest("eodmu5", "eodmu5", "eodmu5-crest.svg", 1, 0, "EODMU-5", DEV.po1),
-  crest("sercc", "sercc", "sercc-crest.svg", 341.781 / 298.482, 0, "SERCC", DEV.po1),
-  crest("jcse", "jcse", "jcse-crest.svg", 1208.234 / 1700.204, 0, "JCSE", DEV.po1g),
-  crest("navhosp", "navhosp", "nhjax-crest.svg", 298.611 / 295.308, 0, "NH Jacksonville", DEV.cpo),
+  crest("ncts", "ncts", "ncts-crest.svg", 1, "NCTS", DEV.po3),
+  crest("frank-cable", "frank-cable", "as40-crest.svg", 960 / 720, "USS Frank Cable", DEV.po2),
+  crest("eodmu5", "eodmu5", "eodmu5-crest.svg", 1, "EODMU-5", DEV.po1),
+  crest("sercc", "sercc", "sercc-crest.svg", 341.781 / 298.482, "SERCC", DEV.po1),
+  crest("jcse", "jcse", "jcse-crest.svg", 1208.234 / 1700.204, "JCSE", DEV.po1g),
+  crest("navhosp", "navhosp", "nhjax-crest.svg", 298.611 / 295.308, "NH Jacksonville", DEV.cpo),
 ];
-// Crest row: Sergio's span (x 301-883 of 960) scaled to the wide canvas, gutters evened out.
-{
-  const x0 = 225, x1 = 885;
-  const gap = (x1 - x0 - CRESTS.reduce((s, c) => s + c.w, 0)) / (CRESTS.length - 1);
-  let x = x0;
-  for (const c of CRESTS) { c.wide = [x + c.w / 2, WIDE_H - 6 - CREST_H / 2, 0]; x += c.w + gap; }
-}
 const ALL = [...ITEMS, ...CRESTS];
-const WIDE = { w: 900, h: WIDE_H };
-const SHIRT_ITEM = ALL.find((i) => i.id === "uniforms")!;
-for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) {
-  const it = ALL.find((i) => i.id === id)!;
-  it.wide = [SHIRT_ITEM.wide[0] - SHIRT_ITEM.w / 2 + rx, SHIRT_ITEM.wide[1] - SHIRT_ITEM.h / 2 + ry, 0];
-}
+const byId = (id: string) => ALL.find((i) => i.id === id)!;
 
-// Upright grid for narrow screens, in nav order; rows are centred, items centred on the row's height.
-const G = 12;
-const GRID_W = 397;
-const GRID_ROWS = [["bio", "timeline", "plaque"], ["uniforms"], ["ncts", "frank-cable", "eodmu5"], ["sercc", "jcse", "navhosp"]];
-const GRID: Record<string, [number, number]> = {};
-let gridH = 6;
-// Mobile: full-length shirt; other items rest on its lower area and the felt under the sleeve. Hit boxes never touch.
-const GRID_ON_SHIRT: Record<string, [number, number]> = {
-  logbook: [18, 392], map: [122, 400],
-  admin: [222, 452], offduty: [222, 512], contact: [222, 572], guestbook: [316, 452], onduty: [334, 452],
+/**
+ * Both layouts are built from the same blocks (Sergio, Oct 13): one gutter G everywhere, canvas hugging the content.
+ *  - CRESTS: 3 rows x 2 in service order, each crest with its arrival-rank device centred above it.
+ *  - BIO: chief portrait, plaque, then [passport | ID] (88 + G + 54 = 150, the portrait's width).
+ * Wide: shirt (3-button crop) against the left, top and bottom edges | crest block | BIO block + Liberty and 2M cards;
+ *   memorandum, pen and USO card rest on the shirt's lower front.
+ * Grid: crest block | BIO block + Liberty and 2M; full-length shirt bottom-left with [memorandum | pen] over the USO card
+ *   on the felt under its sleeve.
+ */
+const G = 8;
+type Pos = Record<string, [number, number]>;
+const crestBlock = (x0: number, y0: number, pos: Pos) => {
+  const rows = [CRESTS.slice(0, 2), CRESTS.slice(2, 4), CRESTS.slice(4, 6)];
+  const w = Math.max(...rows.map((r) => r.reduce((s, c) => s + c.w, 0) + G * (r.length - 1)));
+  let y = y0;
+  for (const r of rows) {
+    const dh = Math.max(...r.map((c) => c.dev!.h));
+    const rw = r.reduce((s, c) => s + c.w, 0) + G * (r.length - 1);
+    let x = x0 + (w - rw) / 2;
+    for (const c of r) { pos[c.id] = [x, y + dh + DEV_GAP]; x += c.w + G; }
+    y += dh + DEV_GAP + CREST_H + G;
+  }
+  return { w, h: y - G - y0 };
 };
-const placeOnShirt = () => {
-  const [sx, sy] = GRID.uniforms;
-  for (const [id, [rx, ry]] of Object.entries(GRID_ON_SHIRT)) GRID[id] = [sx + rx, sy + ry];
-  for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = ALL.find((i) => i.id === id)!; GRID[id] = [sx + rx - it.w / 2, sy + ry - it.h / 2]; }
+/** Stack of items centred in a column of width w; returns the height used. */
+const column = (x0: number, y0: number, w: number, rows: string[][], pos: Pos) => {
+  let y = y0;
+  for (const r of rows) {
+    const items = r.map(byId);
+    const rw = items.reduce((s, i) => s + i.w, 0) + G * (items.length - 1);
+    const rh = Math.max(...items.map((i) => i.h));
+    let x = x0 + (w - rw) / 2;
+    for (const i of items) { pos[i.id] = [x, y + (rh - i.h)]; x += i.w + G; }
+    y += rh + G;
+  }
+  return y - G - y0;
 };
-for (const row of GRID_ROWS) {
-  const items = row.map((id) => ALL.find((i) => i.id === id)!);
-  const rw = items.reduce((s, i) => s + i.w, 0) + (items.length - 1) * G;
-  const top = (i: Item) => (i.dev ? i.dev.h + DEV_GAP : 0);
-  const rh = Math.max(...items.map((i) => (i.gh ?? i.h) + top(i)));
-  let x = (GRID_W - rw) / 2;
-  for (const i of items) { GRID[i.id] = [x, gridH + (rh - (i.gh ?? i.h) - top(i)) / 2 + top(i)]; x += i.w + G; }
-  gridH += rh + G;
+const BIO_ROWS = [["bio"], ["plaque"], ["map", "onduty"]];
+
+// ---- Wide
+const WP: Pos = {};
+const WIDE_H = SHIRT_H;
+WP.uniforms = [0, 0];
+let WIDE_W = 0;
+{
+  const cx0 = SHIRT_W + G;
+  const cb = crestBlock(cx0, 0, {});
+  const cy0 = (WIDE_H - cb.h) / 2;
+  crestBlock(cx0, cy0, WP);
+  const bx0 = cx0 + cb.w + G;
+  const bh = column(bx0, 0, PORTRAIT.w, [...BIO_ROWS, ["offduty"], ["admin"]], {});
+  column(bx0, (WIDE_H - bh) / 2, PORTRAIT.w, [...BIO_ROWS, ["offduty"], ["admin"]], WP);
+  WIDE_W = bx0 + PORTRAIT.w + G;
+  // On the shirt's lower front, bottom-aligned with G clearance: memorandum, pen, USO card.
+  const memo = byId("logbook"), pen = byId("guestbook");
+  WP.logbook = [G, WIDE_H - G - memo.h];
+  WP.guestbook = [G + memo.w + G, WIDE_H - G - pen.h];
+  WP.contact = [G + memo.w + G + pen.w + G, WIDE_H - G - CARD.h];
 }
-placeOnShirt();
-const GRID_SIZE = { w: GRID_W, h: Math.ceil(gridH - G + 6) };
+const WIDE = { w: WIDE_W, h: WIDE_H };
+
+// ---- Grid (narrow)
+const GP: Pos = {};
+const GRID_W = Math.ceil(SHIRT_W + G);
+let gridH: number;
+{
+  const cb = crestBlock(0, 0, {});
+  const rows = [...BIO_ROWS, ["offduty"], ["admin"]];
+  const bh = column(0, 0, PORTRAIT.w, rows, {});
+  const x0 = (GRID_W - (cb.w + G + PORTRAIT.w)) / 2;
+  const top = Math.max(cb.h, bh);
+  crestBlock(x0, G + (top - cb.h) / 2, GP);
+  column(x0 + cb.w + G, G + (top - bh) / 2, PORTRAIT.w, rows, GP);
+  const sy = G + top + G;
+  GP.uniforms = [0, sy];
+  // On the felt under the sleeve, against the right edge and the bottom: [memorandum | pen] over the USO card.
+  const bottom = sy + SHIRT_FULL;
+  const memo = byId("logbook"), pen = byId("guestbook");
+  const rx = GRID_W - G;
+  GP.contact = [rx - CARD.w, bottom - G - CARD.h];
+  GP.guestbook = [rx - pen.w, bottom - G - CARD.h - G - pen.h];
+  GP.logbook = [rx - pen.w - G - memo.w, bottom - G - CARD.h - G - memo.h];
+  gridH = bottom;
+}
+const GRID_SIZE = { w: GRID_W, h: Math.ceil(gridH) };
+
+const GRID: Pos = GP;
+for (const [layout, pos] of [["wide", WP], ["grid", GP]] as const) {
+  const [sx, sy] = pos.uniforms;
+  for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = byId(id); pos[id] = [sx + rx - it.w / 2, sy + ry - it.h / 2]; }
+  if (layout === "wide") for (const it of ALL) { const p = pos[it.id]; if (p) it.wide = [p[0] + it.w / 2, p[1] + it.h / 2, 0]; }
+}
+export const CASE_DIMS = { WIDE, GRID_SIZE };
 export const NARROW_QUERY = "(max-width: 768px), (orientation: portrait)";
 
 function Rack() {
@@ -148,6 +193,22 @@ function Rack() {
 
 export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; label: (view: string) => string }) {
   const stage = useRef<HTMLDivElement | null>(null);
+  const [intro, setIntro] = useState(false);
+  const [hint, setHint] = useState(false);
+  useEffect(() => {
+    let seen = true;
+    try { seen = localStorage.getItem(INTRO_KEY) === "1"; } catch { /* storage blocked: treat as seen */ }
+    if (!seen) { setIntro(true); setHint(true); }
+  }, []);
+  useEffect(() => {
+    if (intro || !hint) return;
+    const t = window.setTimeout(() => setHint(false), 2000);
+    return () => window.clearTimeout(t);
+  }, [intro, hint]);
+  const closeIntro = useCallback(() => {
+    setIntro(false);
+    try { localStorage.setItem(INTRO_KEY, "1"); } catch { /* ignore */ }
+  }, []);
   useEffect(() => {
     const el = stage.current;
     if (!el) return;
@@ -157,7 +218,6 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
       const c = narrow ? GRID_SIZE : WIDE;
       const w = el.clientWidth;
       const k = narrow ? w / c.w : Math.min(w / c.w, el.clientHeight / c.h);
-      el.style.setProperty("--ratio", String(WIDE.w / WIDE.h));
       el.dataset.layout = narrow ? "grid" : "wide";
       if (narrow) el.style.height = `${c.h * k}px`; else el.style.removeProperty("height");
       el.style.setProperty("--k", String(k));
@@ -173,7 +233,8 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
     return () => { ro.disconnect(); mq.removeEventListener?.("change", fit); };
   }, []);
   return (
-    <div ref={stage} className="cx-stage" data-layout="wide" style={{ backgroundImage: `url("${publicUrl("/case/felt.svg")}")` }}>
+    <>
+    <div ref={stage} className={hint ? "cx-stage cx-hint" : "cx-stage"} data-layout="wide" style={{ ["--ratio" as string]: `${WIDE.w} / ${WIDE.h}`, backgroundImage: `url("${publicUrl("/case/felt.svg")}")` }}>
       <div className="cx-canvas">
         {ALL.map((item) => {
           const [cx, cy, deg] = item.wide;
@@ -184,29 +245,75 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
             "--gx": `${g[0]}px`, "--gy": `${g[1]}px`, "--wh": `${item.h}px`, "--gh": `${item.gh ?? item.h}px`,
           } as CSSProperties;
           const dev = item.dev ? (
-            <span key={`${item.id}-dev`} className="cx-item cx-dev is-static" data-only="grid" data-id={`${item.id}-dev`} aria-hidden="true" title={item.dev.label}
+            <button type="button" key={`${item.id}-dev`} className="cx-item cx-dev" data-id={`${item.id}-dev`} aria-label={`${item.dev.label}: ${label("timeline") || "Timeline"}`} title={`${item.dev.label}: Timeline`} onClick={() => onGo?.("timeline")}
               style={{ width: item.dev.w, height: item.dev.h, "--wx": `${cx - item.dev.w / 2}px`, "--wy": `${cy - item.h / 2 - DEV_GAP - item.dev.h}px`, "--wr": "0deg", "--wz": item.z,
                 "--gx": `${g[0] + item.w / 2 - item.dev.w / 2}px`, "--gy": `${g[1] - DEV_GAP - item.dev.h}px` } as CSSProperties}>
               <img className="cx-art" src={publicUrl(`/case/${item.dev.src}`)} alt="" draggable={false} />
-            </span>
+            </button>
           ) : null;
-          const art = item.row
-            ? <span className="cx-prog">{PROG.map((d) => <img key={d.src} src={publicUrl(`/case/${d.src}`)} alt="" draggable={false} style={{ width: d.w, height: d.h }} />)}</span>
-            : item.lapel
+          const art = item.lapel
             ? <img className="cx-art cx-lapel" src={publicUrl(`/case/${item.src}`)} alt="" draggable={false} />
             : item.rack ? <Rack /> : item.obj
             ? <object className="cx-art" type="image/svg+xml" data={publicUrl(`/case/${item.src}`)} aria-hidden="true" tabIndex={-1} />
             : <img className={item.crop ? "cx-art is-crop" : "cx-art"} src={publicUrl(`/case/${item.src}`)} alt="" draggable={false} />;
           if (dev) return [dev, <CaseButton key={item.id} item={item} style={style} art={art} name={item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : item.label} go={() => onOpen?.("unit", item.unit!)} />];
-          if (!item.view) return <span key={item.id} className="cx-item is-static" data-only={item.only} data-id={item.id} style={style}>{art}</span>;
+          if (!item.view) return <span key={item.id} className="cx-item is-static" data-id={item.id} style={style}>{art}</span>;
           const name = item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : label(item.view) || item.label;
           return (
-            <button key={item.id} type="button" className="cx-item" data-only={item.only} data-id={item.id} style={style} aria-label={name} title={name}
+            <button key={item.id} type="button" className="cx-item" data-id={item.id} style={style} aria-label={name} title={name}
               onClick={() => (item.unit ? onOpen?.("unit", item.unit) : onGo?.(item.view!))}>
               {art}
             </button>
           );
         })}
+      </div>
+      <button type="button" className="cx-help" aria-label="About this shadowbox" title="About this shadowbox" onClick={() => { setIntro(true); setHint(true); }}>?</button>
+    </div>
+    {intro ? <CaseIntro onClose={closeIntro} /> : null}
+    </>
+  );
+}
+
+const INTRO_KEY = "sb-case-intro-v1";
+const WHY: [string, string, string][] = [
+  ["Each item's story", "A label or a memory", "Every item opens its page: logbook, uniforms, timeline, travel"],
+  ["Condition", "Glass glare, dust, fading, breakage", "No glare, dust, fading or breakage"],
+  ["Who can see it", "Whoever visits the wall", "Anyone, on any device, shared by a link"],
+  ["Detail", "Small items, seen from a distance", "True-to-scale items with full detail"],
+  ["Growth", "Fixed once it is framed", "Grows as records are added: medals, photos"],
+  ["Legacy", "One case, in one home", "Preserved for family"],
+];
+
+/** First-visit introduction (Oct 13 2026): Esc, the close button or the backdrop dismiss it; focus stays inside. */
+function CaseIntro({ onClose }: { onClose: () => void }) {
+  const box = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const prev = document.activeElement as HTMLElement | null;
+    box.current?.querySelector<HTMLElement>("button")?.focus();
+    const key = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { e.preventDefault(); onClose(); return; }
+      if (e.key !== "Tab" || !box.current) return;
+      const f = [...box.current.querySelectorAll<HTMLElement>("button, [href], [tabindex]:not([tabindex='-1'])")];
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
+    document.addEventListener("keydown", key);
+    return () => { document.removeEventListener("keydown", key); prev?.focus?.(); };
+  }, [onClose]);
+  return (
+    <div className="cx-intro" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div ref={box} className="cx-intro-box" role="dialog" aria-modal="true" aria-labelledby="cx-intro-title">
+        <button type="button" className="cx-intro-x" aria-label="Close" onClick={onClose}>×</button>
+        <h2 id="cx-intro-title">Welcome to the shadowbox</h2>
+        <p>This case holds the items of a Navy career, each shown at its true size. Select any item that glows to open its page: the shirt for uniforms, the ribbons for decorations, the crests for each command, the rank devices for the timeline.</p>
+        <table className="cx-why">
+          <caption>Why a digital shadowbox beats a physical one</caption>
+          <thead><tr><th scope="col"></th><th scope="col">Physical case</th><th scope="col">This site</th></tr></thead>
+          <tbody>{WHY.map(([k, a, b]) => <tr key={k}><th scope="row">{k}</th><td>{a}</td><td>{b}</td></tr>)}</tbody>
+        </table>
+        <button type="button" className="cx-intro-go" onClick={onClose}>View the case</button>
       </div>
     </div>
   );
