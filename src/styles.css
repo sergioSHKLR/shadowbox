@@ -1515,3 +1515,7 @@ button.cx-item::after { content: ""; position: absolute; left: 50%; top: 50%; wi
 @media (max-height: 500px) and (orientation: landscape) {
   .case-frame:has(.cx-stage[data-layout="twoL"]), .case-frame:has(.cx-stage[data-layout="wide"]) { width: min(100%, calc((100dvh - 3.7rem) * var(--cx-r, 1.679) + 2.7rem)); padding: 0.6rem; }
 }
+
+/* Full-case button only on touch phones held sideways (Sergio); hidden everywhere else. */
+.app-end > .app-icon.app-full { display: none; }
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) { .app-end > .app-icon.app-full { display: grid; } }

@@ -23,7 +23,7 @@ const DEV = {
   cpo: { src: "cpo-collar.svg", h: 44, w: 44 * 23 / 32.5, label: "CPO" },
 };
 const DEV_GAP = 5;
-const crest = (id: string, unit: string, file: string, aspect: number, label: string, dev: NonNullable<Item["dev"]>): Item => ({
+const crest = (id: string, unit: string, file: string, aspect: number, label: string, dev?: Item["dev"]): Item => ({
   id, src: file, dev, w: Math.round(CREST_H * aspect), h: CREST_H, view: "onduty", unit, label, wide: [0, 0, 0], z: 5,
 });
 const RACK_ROWS = ribbonRows(awards, 3);
@@ -80,7 +80,7 @@ const CRESTS: Item[] = [
   crest("ncts", "ncts", "ncts-crest.svg", 1, "NCTS", DEV.po3),
   crest("frank-cable", "frank-cable", "as40-crest.svg", 960 / 720, "USS Frank Cable", DEV.po2),
   crest("eodmu5", "eodmu5", "eodmu5-crest.svg", 1, "EODMU-5", DEV.po1),
-  crest("sercc", "sercc", "sercc-crest.svg", 341.781 / 298.482, "SERCC", DEV.po1),
+  crest("sercc", "sercc", "sercc-crest.svg", 341.781 / 298.482, "SERCC"),
   crest("jcse", "jcse", "jcse-crest.svg", 1208.234 / 1700.204, "JCSE", DEV.po1g),
   crest("navhosp", "navhosp", "nhjax-crest.svg", 298.611 / 295.308, "NH Jacksonville", DEV.cpo),
 ];
@@ -103,7 +103,7 @@ const crestBlock = (x0: number, y0: number, pos: Pos) => {
   const w = Math.max(...rows.map((r) => r.reduce((s, c) => s + c.w, 0) + G * (r.length - 1)));
   let y = y0;
   for (const r of rows) {
-    const dh = Math.max(...r.map((c) => c.dev!.h));
+    const dh = Math.max(...r.map((c) => c.dev?.h ?? 0));
     const rw = r.reduce((s, c) => s + c.w, 0) + G * (r.length - 1);
     let x = x0 + (w - rw) / 2;
     for (const c of r) { pos[c.id] = [x, y + dh + DEV_GAP]; x += c.w + G; }
@@ -159,7 +159,8 @@ type Layout = { pos: Pos; size: Record<string, Size>; tilt: Record<string, numbe
 const PLAQUE_H = mm(89.197);
 const PEN = byId("guestbook");
 const CRESTS_IN_ORDER = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"];
-const DEVS = CRESTS_IN_ORDER.map((id) => `${id}-dev`);
+// One PO1 silver device only (Sergio): five devices, PO3, PO2, PO1 silver, PO1 gold, CPO.
+const DEVS = CRESTS_IN_ORDER.filter((id) => byId(id).dev).map((id) => `${id}-dev`);
 const devOf = (id: string) => byId(id.replace(/-dev$/, "")).dev!;
 const EXW_BOTTOM = ON_SHIRT.exw[1] + EXW_H / 2;
 /** Items spread evenly (equal gaps, edges included) along one axis. */
@@ -217,7 +218,9 @@ const crestGrid = (pos: Pos, size: Record<string, Size>, rows: string[][], c: nu
 /** Rank devices on a grid of cols x rows, each centred in its cell (true size). */
 const devGrid = (pos: Pos, cols: number, x0: number, y0: number, w: number, h: number) => {
   const rows = Math.ceil(DEVS.length / cols), cw = w / cols, ch = h / rows;
-  DEVS.forEach((id, i) => { const d = devOf(id); pos[id] = [x0 + (i % cols) * cw + (cw - d.w) / 2, y0 + Math.floor(i / cols) * ch + (ch - d.h) / 2]; });
+  // A short last row is centred under the full ones (3 over 2), same column pitch.
+  DEVS.forEach((id, i) => { const d = devOf(id), r = Math.floor(i / cols), n = Math.min(cols, DEVS.length - r * cols), off = (cols - n) * cw / 2;
+    pos[id] = [x0 + off + (i % cols) * cw + (cw - d.w) / 2, y0 + r * ch + (ch - d.h) / 2]; });
 };
 const DEV_H = 44;
 const R2x3 = [["ncts", "frank-cable"], ["eodmu5", "sercc"], ["jcse", "navhosp"]];
@@ -302,7 +305,7 @@ const oneL = (): Layout => {
   y += portraitsSide(pos, size, G, y, W - 2 * G) + G;
   const ch = 3 * c + 4 * G;
   crestGrid(pos, size, R2x3, c, 0, y, W, ch); y += ch;
-  devGrid(pos, 6, G, y, W - 2 * G, DEV_H + 2 * G); y += DEV_H + 2 * G;
+  devGrid(pos, 5, G, y, W - 2 * G, DEV_H + 2 * G); y += DEV_H + 2 * G;
   shirtBlock(pos, 0, y);
   return { pos, size, tilt: {}, w: W, h: y + H0 };
 };

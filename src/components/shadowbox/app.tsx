@@ -428,7 +428,7 @@ export function ShadowboxApp() {
         </button>
         <div className="app-end">
         {view === "home" ? (
-          <button type="button" className="app-icon" aria-label={caseFull ? "Exit full case" : "Full case"} title={caseFull ? "Exit full case" : "Full case"} onClick={toggleCaseFull}>
+          <button type="button" className="app-icon app-full" aria-label={caseFull ? "Exit full case" : "Full case"} title={caseFull ? "Exit full case" : "Full case"} onClick={toggleCaseFull}>
             {caseFull ? <Minimize2 size={16} strokeWidth={2} aria-hidden="true" /> : <Maximize2 size={16} strokeWidth={2} aria-hidden="true" />}
           </button>
         ) : null}
