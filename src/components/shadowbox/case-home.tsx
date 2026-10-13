@@ -270,6 +270,38 @@ const VARIANTS: Record<string, () => Variant> = {
     crestCol(c2 + rw / 2, (H - crestColH(RE)) / 2, RE, pos);
     return { pos, tilt, w: c2 + rw + G, h: H, size };
   },
+  // F (Sergio, Oct 13): E with, between the shirt's right side and the portrait, left to right:
+  //    [2M, Liberty, USO] | pen (plumb) | [ID, passport, memorandum]; portrait + plaque, then crests as in E.
+  f: () => {
+    const pos: Pos = { uniforms: [0, 0] }, tilt: Record<string, number> = {};
+    const H = SHIRT_H;
+    const size = { bio: { w: 420 * (687 / 1024), h: 420 } };
+    byId("bio").src = "portrait-full.webp";
+    const spread = (x0: number, w: number, ids: string[]) => {
+      const its = ids.map(byId);
+      const gap = (H - its.reduce((t, d) => t + d.h, 0)) / (its.length + 1);
+      let y = gap;
+      for (const d of its) { pos[d.id] = [x0 + (w - d.w) / 2, y]; y += d.h + gap; }
+    };
+    // Starts right of the lapel tip and rack/pins (x > 180 mm).
+    const pen = byId("guestbook"), s2w = maxW(["onduty", "map", "logbook"]);
+    const x1 = 188, xp = x1 + CARD.w + G, x2 = xp + pen.w + G;
+    spread(x1, CARD.w, ["admin", "offduty", "contact"]);
+    pos.guestbook = [xp, (H - pen.h) / 2];
+    spread(x2, s2w, ["onduty", "map", "logbook"]);
+    const px0 = x2 + s2w + G;
+    const plaque = byId("plaque");
+    const ph = size.bio.h + G + plaque.h;
+    pos.bio = [px0, (H - ph) / 2];
+    pos.plaque = [px0 + (size.bio.w - plaque.w) / 2, (H - ph) / 2 + size.bio.h + G];
+    const LE = ["ncts", "eodmu5", "jcse"], RE = ["frank-cable", "sercc", "navhosp"];
+    const cw1 = maxW(LE), cw2 = maxW(RE);
+    const c1 = px0 + size.bio.w + G;
+    crestCol(c1 + cw1 / 2, (H - crestColH(LE)) / 2, LE, pos);
+    const c2 = c1 + cw1 + G;
+    crestCol(c2 + cw2 / 2, (H - crestColH(RE)) / 2, RE, pos);
+    return { pos, tilt, w: c2 + cw2 + G, h: H, size };
+  },
   d: () => {
     const pos: Pos = { uniforms: [0, 0] }, tilt: Record<string, number> = {};
     const H = SHIRT_H;
