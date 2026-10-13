@@ -167,7 +167,9 @@ const put = (pos: Pos, tilt: Record<string, number>, id: string, cx: number, cy:
   const it = byId(id); pos[id] = [cx - it.w / 2, cy - it.h / 2]; if (deg) tilt[id] = deg;
 };
 const L3 = ["ncts", "frank-cable", "eodmu5"], R3 = ["sercc", "jcse", "navhosp"];
-type Variant = { pos: Pos; tilt: Record<string, number>; w: number; h: number };
+type Variant = { pos: Pos; tilt: Record<string, number>; w: number; h: number; size?: Record<string, { w: number; h: number }> };
+/** Wide-only size overrides (variant E's tall portrait slot). */
+const WSIZE: Record<string, { w: number; h: number }> = {};
 const VARIANTS: Record<string, () => Variant> = {
   // A: portrait + plaque at the centre, crests flanking in two columns, cards and books resting on the shirt.
   a: () => {
@@ -231,6 +233,34 @@ const VARIANTS: Record<string, () => Variant> = {
   },
   // D: crests in a shallow arc over the portrait, plaque beneath it, documents and cards in a row along the bottom;
   //    memorandum on the sleeve, pen on the lower front.
+  // E (Sergio's mark-up, Oct 13): shirt with memo + pen | documents stacked over the sleeve edge (passport, ID, Liberty,
+  //    2M, USO) | tall portrait slot with the plaque centred under it | crests 2 x 3 on shared centre axes.
+  //    Portrait slot 200 x 340 mm is reserved for a future full-body photo (10:17); today's waist-up image is
+  //    centred in it with object-fit: cover (sides cropped, nothing added).
+  e: () => {
+    const pos: Pos = { uniforms: [0, 0] }, tilt: Record<string, number> = {};
+    const H = SHIRT_H;
+    const size = { bio: { w: 200, h: 340 } };
+    byId("bio").src = "portrait-placeholder.svg"; // approved generic silhouette until a full-length photo exists
+    const memo = byId("logbook"), pen = byId("guestbook");
+    pos.logbook = [G, H - G - memo.h]; tilt.logbook = -4;
+    pos.guestbook = [G + memo.w + G + 4, H - G - pen.h]; tilt.guestbook = 4;
+    const dw = 88, dx0 = SHIRT_W - 84; // overlaps the sleeve's right edge
+    const docs = [["map"], ["onduty"], ["offduty"], ["admin"], ["contact"]];
+    const dh = column(dx0, 0, dw, docs, {});
+    column(dx0, (H - dh) / 2, dw, docs, pos);
+    const px0 = dx0 + dw + G;
+    const plaque = byId("plaque");
+    const ph = size.bio.h + G + plaque.h;
+    pos.bio = [px0, (H - ph) / 2];
+    pos.plaque = [px0 + (size.bio.w - plaque.w) / 2, (H - ph) / 2 + size.bio.h + G];
+    const lw = maxW(L3), rw = maxW(R3);
+    const c1 = px0 + size.bio.w + G;
+    crestCol(c1 + lw / 2, (H - crestColH(L3)) / 2, L3, pos);
+    const c2 = c1 + lw + G;
+    crestCol(c2 + rw / 2, (H - crestColH(R3)) / 2, R3, pos);
+    return { pos, tilt, w: c2 + rw + G, h: H, size };
+  },
   d: () => {
     const pos: Pos = { uniforms: [0, 0] }, tilt: Record<string, number> = {};
     const H = SHIRT_H;
@@ -260,6 +290,7 @@ if (VARIANTS[VARIANT]) {
   Object.assign(TILT, v.tilt);
   WIDE.w = v.w;
   WIDE.h = v.h;
+  Object.assign(WSIZE, v.size ?? {});
 }
 
 // ---- Grid (narrow)
@@ -291,7 +322,7 @@ const GRID: Pos = GP;
 for (const [layout, pos] of [["wide", WP], ["grid", GP]] as const) {
   const [sx, sy] = pos.uniforms;
   for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = byId(id); pos[id] = [sx + rx - it.w / 2, sy + ry - it.h / 2]; }
-  if (layout === "wide") for (const it of ALL) { const p = pos[it.id]; if (p) it.wide = [p[0] + it.w / 2, p[1] + it.h / 2, TILT[it.id] ?? 0]; }
+  if (layout === "wide") for (const it of ALL) { const p = pos[it.id]; if (p) { const z = layout === "wide" ? WSIZE[it.id] ?? it : it; it.wide = [p[0] + z.w / 2, p[1] + z.h / 2, TILT[it.id] ?? 0]; } }
 }
 export const CASE_DIMS = { WIDE, GRID_SIZE };
 export const NARROW_QUERY = "(max-width: 768px), (orientation: portrait)";
@@ -357,10 +388,11 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
         {ALL.map((item) => {
           const [cx, cy, deg] = item.wide;
           const g = GRID[item.id] ?? [0, 0];
+          const ws = WSIZE[item.id] ?? item;
           const style = {
-            width: item.w,
-            "--wx": `${cx - item.w / 2}px`, "--wy": `${cy - item.h / 2}px`, "--wr": `${deg}deg`, "--wz": item.z,
-            "--gx": `${g[0]}px`, "--gy": `${g[1]}px`, "--wh": `${item.h}px`, "--gh": `${item.gh ?? item.h}px`,
+            "--ww": `${ws.w}px`, "--gw": `${item.w}px`,
+            "--wx": `${cx - ws.w / 2}px`, "--wy": `${cy - ws.h / 2}px`, "--wr": `${deg}deg`, "--wz": item.z,
+            "--gx": `${g[0]}px`, "--gy": `${g[1]}px`, "--wh": `${ws.h}px`, "--gh": `${item.gh ?? item.h}px`,
           } as CSSProperties;
           const dev = item.dev ? (
             <button type="button" key={`${item.id}-dev`} className="cx-item cx-dev" data-id={`${item.id}-dev`} aria-label={`${item.dev.label}: ${label("timeline") || "Timeline"}`} title={`${item.dev.label}: Timeline`} onClick={() => onGo?.("timeline")}
@@ -373,7 +405,7 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
             ? <img className="cx-art cx-lapel" src={publicUrl(`/case/${item.src}`)} alt="" draggable={false} />
             : item.rack ? <Rack /> : item.obj
             ? <object className="cx-art" type="image/svg+xml" data={publicUrl(`/case/${item.src}`)} aria-hidden="true" tabIndex={-1} />
-            : <img className={item.crop ? "cx-art is-crop" : "cx-art"} src={publicUrl(`/case/${item.src}`)} alt="" draggable={false} />;
+            : <img className={item.crop ? "cx-art is-crop" : item.id === "bio" ? "cx-art is-cover" : "cx-art"} src={publicUrl(`/case/${item.src}`)} alt="" draggable={false} />;
           if (dev) return [dev, <CaseButton key={item.id} item={item} style={style} art={art} name={item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : item.label} go={() => onOpen?.("unit", item.unit!)} />];
           if (!item.view) return <span key={item.id} className="cx-item is-static" data-id={item.id} style={style}>{art}</span>;
           const name = item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : label(item.view) || item.label;
