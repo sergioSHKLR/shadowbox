@@ -233,23 +233,26 @@ const VARIANTS: Record<string, () => Variant> = {
   },
   // D: crests in a shallow arc over the portrait, plaque beneath it, documents and cards in a row along the bottom;
   //    memorandum on the sleeve, pen on the lower front.
-  // E (Sergio's mark-up, Oct 13): shirt with memo + pen | documents stacked over the sleeve edge (passport, ID, Liberty,
+  // E (Sergio's mark-up, Oct 13): shirt with memo + pen and documents stacked on its right half (passport, ID, Liberty,
   //    2M, USO) | tall portrait slot with the plaque centred under it | crests 2 x 3 on shared centre axes.
   //    Portrait slot 200 x 340 mm is reserved for a future full-body photo (10:17); today's waist-up image is
   //    centred in it with object-fit: cover (sides cropped, nothing added).
   e: () => {
     const pos: Pos = { uniforms: [0, 0] }, tilt: Record<string, number> = {};
     const H = SHIRT_H;
-    const size = { bio: { w: 200, h: 340 } };
+    // Portrait grown into the space the documents freed (10:17, still under the shirt height with the plaque).
+    const size = { bio: { w: 247, h: 420 } };
     byId("bio").src = "portrait-full.webp"; // real full-length photo (background removed only)
     const memo = byId("logbook"), pen = byId("guestbook");
     pos.logbook = [G, H - G - memo.h]; tilt.logbook = -4;
     pos.guestbook = [G + memo.w + G + 4, H - G - pen.h]; tilt.guestbook = 4;
-    const dw = 88, dx0 = SHIRT_W - 84; // overlaps the sleeve's right edge
+    // Documents on the shirt (Sergio's mark-up, Oct 13): band between the lapel tip / pocket's right edge and the
+    // shirt's right edge, clear of the lapel (x < 180 mm), rack, pins, memo and pen.
+    const dw = 88, dx0 = 250;
     const docs = [["map"], ["onduty"], ["offduty"], ["admin"], ["contact"]];
     const dh = column(dx0, 0, dw, docs, {});
     column(dx0, (H - dh) / 2, dw, docs, pos);
-    const px0 = dx0 + dw + G;
+    const px0 = dx0 + dw + G; // overlaps the sleeve edge so the portrait sits nearer the centre
     const plaque = byId("plaque");
     const ph = size.bio.h + G + plaque.h;
     pos.bio = [px0, (H - ph) / 2];
