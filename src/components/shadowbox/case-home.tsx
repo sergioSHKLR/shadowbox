@@ -10,7 +10,7 @@ import { RibbonArt } from "@/components/shadowbox/marks";
  */
 const PX = 96 / 25.4;
 type Item = {
-  id: string; src: string; w: number; h: number; view?: string; unit?: string; label: string; obj?: boolean; rack?: boolean; crop?: boolean; dev?: { src: string; h: number; label: string };
+  id: string; src: string; w: number; h: number; view?: string; unit?: string; label: string; obj?: boolean; rack?: boolean; crop?: boolean; gh?: number; dev?: { src: string; h: number; label: string };
   /** wide: centre x, y and tilt in degrees */ wide: [number, number, number]; z: number;
 };
 const mm = (px: number) => Math.round((px / PX) * 10) / 10;
@@ -36,9 +36,10 @@ const RACK_H = RACK_ROWS.length * RIBBON_H;
  * Shirt landmarks in mm from the art's top-left, measured on shirt-long.svg (Oct 12 2026). If Sergio's regenerated file
  * moves them, update these numbers only: the crop and the rack, pins and pocket follow.
  */
-const SHIRT = { buttons: [219.5, 323, 426, 529, 632], show: 3, pocket: { cx: 134.3, top: 231.5, flapCy: 260 } };
+const SHIRT_VB = [1455.118, 2437.795];
+const SHIRT = { buttons: [212.5, 316, 419, 522, 625], show: 3, pocket: { cx: 131.3, top: 224, flapCy: 255 } };
 // Crop (never scale) halfway between the last shown front button and the next one.
-const SHIRT_H = Math.round((SHIRT.buttons[SHIRT.show - 1] + (SHIRT.buttons[SHIRT.show] ?? mm(2532.283))) / 2);
+const SHIRT_H = Math.round((SHIRT.buttons[SHIRT.show - 1] + (SHIRT.buttons[SHIRT.show] ?? mm(SHIRT_VB[1]))) / 2);
 const QIN = 6.35; // 1/4 in
 const SWO_H = mm(90.7);
 const EXW_H = mm(98.3);
@@ -50,38 +51,38 @@ const ON_SHIRT: Record<string, [number, number]> = {
 };
 const ITEMS: Item[] = [
   // Shirt cropped (not scaled) to the top 478 mm so three front buttons show; flush top-left.
-  { id: "uniforms", src: "shirt-long.svg", crop: true, w: mm(1474.016), h: SHIRT_H, view: "uniforms", label: "Uniforms", wide: [mm(1474.016) / 2, SHIRT_H / 2, 0], z: 1 },
+  { id: "uniforms", src: "shirt-long.svg", crop: true, w: mm(SHIRT_VB[0]), h: SHIRT_H, gh: mm(SHIRT_VB[1]), view: "uniforms", label: "Uniforms", wide: [mm(SHIRT_VB[0]) / 2, SHIRT_H / 2, 0], z: 1 },
   { id: "decorations", src: "", rack: true, w: 3 * RIBBON_W, h: RACK_H, view: "decorations", label: "Decorations", wide: [0, 0, 0], z: 3 },
   { id: "swo", src: "surface-warfare.svg", w: PIN_W, h: SWO_H, view: "decorations", label: "Surface Warfare", wide: [0, 0, 0], z: 3 },
   { id: "exw", src: "expeditionary-warfare.svg", w: PIN_W, h: EXW_H, view: "decorations", label: "Expeditionary Warfare", wide: [0, 0, 0], z: 3 },
-  { id: "contact", src: "calling-card.svg", w: 85.6, h: 54, view: "contact", label: "Contact", wide: [215, 585, 12], z: 3 },
-  { id: "admin", src: "9527-card.svg", w: 85.6, h: 54, view: "admin", label: "Admin", wide: [395, 85, -15], z: 3 },
-  { id: "logbook", src: "green-notebook.svg", w: mm(359.055), h: mm(529.134), view: "logbook", label: "Logbook", wide: [440, 290, -30], z: 4 },
-  { id: "map", src: "passport-maroon.svg", w: mm(332.598), h: mm(472.441), view: "map", label: "Travel book", wide: [590, 160, -15], z: 3 },
-  { id: "onduty", src: "id-card.svg", obj: true, w: 54, h: 54 * (680.11 / 439.297), view: "onduty", label: "Identification card", wide: [700, 185, 15], z: 4 },
-  { id: "offduty", src: "liberty-card.svg", w: 85.6, h: 54, view: "offduty", label: "Off Duty", wide: [690, 395, 15], z: 3 },
-  { id: "timeline", src: "portrait-recruit.webp", w: 150, h: 150 * (625 / 640), view: "timeline", label: "Timeline", wide: [840, 110, -4], z: 2 },
-  { id: "bio", src: "portrait-chief.webp", w: 150, h: 150 * (625 / 640), view: "bio", label: "Biography", wide: [985, 135, 3], z: 2 },
-  { id: "plaque", src: "brass-plaque.svg", w: mm(264.567), h: mm(89.197), label: "", wide: [940, 255, 0], z: 3 },
-  { id: "guestbook", src: "black-pen.svg", w: mm(37.795), h: mm(536.693), view: "guestbook", label: "Guestbook", wide: [1035, 420, -14], z: 4 },
+  { id: "contact", src: "calling-card.svg", w: 85.6, h: 54, view: "contact", label: "Contact", wide: [120, 425, 10], z: 3 },
+  { id: "admin", src: "9527-card.svg", w: 85.6, h: 54, view: "admin", label: "Admin", wide: [460, 62, -12], z: 3 },
+  { id: "logbook", src: "green-notebook.svg", w: mm(359.055), h: mm(529.134), view: "logbook", label: "Logbook", wide: [478, 215, -25], z: 4 },
+  { id: "map", src: "passport-maroon.svg", w: mm(332.598), h: mm(472.441), view: "map", label: "Travel book", wide: [610, 135, -12], z: 3 },
+  { id: "onduty", src: "id-card.svg", obj: true, w: 54, h: 54 * (680.11 / 439.297), view: "onduty", label: "Identification card", wide: [712, 160, 12], z: 4 },
+  { id: "offduty", src: "liberty-card.svg", w: 85.6, h: 54, view: "offduty", label: "Off Duty", wide: [640, 292, 12], z: 3 },
+  { id: "timeline", src: "portrait-recruit.webp", w: 150, h: 150 * (625 / 640), view: "timeline", label: "Timeline", wide: [830, 92, -4], z: 2 },
+  { id: "bio", src: "portrait-chief.webp", w: 150, h: 150 * (625 / 640), view: "bio", label: "Biography", wide: [958, 108, 3], z: 2 },
+  { id: "plaque", src: "brass-plaque.svg", w: mm(264.567), h: mm(89.197), label: "", wide: [900, 222, 0], z: 3 },
+  { id: "guestbook", src: "black-pen.svg", w: mm(37.795), h: mm(536.693), view: "guestbook", label: "Guestbook", wide: [795, 292, -78], z: 4 },
 ];
 const CRESTS: Item[] = [
   crest("ncts", "ncts", "ncts-crest.svg", 1, 0, "NCTS", DEV.po3),
   crest("frank-cable", "frank-cable", "as40-crest.svg", 960 / 720, 0, "USS Frank Cable", DEV.po2),
   crest("eodmu5", "eodmu5", "eodmu5-crest.svg", 1, 0, "EODMU-5", DEV.po1),
-  crest("sercc", "sercc", "sercc-crest.svg", 341.781 / 298.482, 0, "SERCC", DEV.po1g),
+  crest("sercc", "sercc", "sercc-crest.svg", 341.781 / 298.482, 0, "SERCC", DEV.po1),
   crest("jcse", "jcse", "jcse-crest.svg", 1208.234 / 1700.204, 0, "JCSE", DEV.po1g),
   crest("navhosp", "navhosp", "nhjax-crest.svg", 298.611 / 295.308, 0, "NH Jacksonville", DEV.cpo),
 ];
 // Crest row: Sergio's span (x 301-883 of 960) scaled to the wide canvas, gutters evened out.
 {
-  const x0 = 345, x1 = 1000;
+  const x0 = 400, x1 = 1032;
   const gap = (x1 - x0 - CRESTS.reduce((s, c) => s + c.w, 0)) / (CRESTS.length - 1);
   let x = x0;
-  for (const c of CRESTS) { c.wide = [x + c.w / 2, 615, 0]; x += c.w + gap; }
+  for (const c of CRESTS) { c.wide = [x + c.w / 2, 500 - 6 - CREST_H / 2, 0]; x += c.w + gap; }
 }
 const ALL = [...ITEMS, ...CRESTS];
-const WIDE = { w: 1080, h: 675 };
+const WIDE = { w: 1040, h: 500 };
 const SHIRT_ITEM = ALL.find((i) => i.id === "uniforms")!;
 for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) {
   const it = ALL.find((i) => i.id === id)!;
@@ -90,25 +91,31 @@ for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) {
 
 // Upright grid for narrow screens, in nav order; rows are centred, items centred on the row's height.
 const G = 12;
-const GRID_W = 400;
-const GRID_ROWS = [["bio", "timeline"], ["plaque"], ["logbook", "map", "onduty", "guestbook"], ["uniforms"], ["offduty", "admin"], ["contact"], ["ncts", "frank-cable", "eodmu5"], ["sercc", "jcse", "navhosp"]];
+const GRID_W = 397;
+const GRID_ROWS = [["bio", "timeline", "plaque"], ["uniforms"], ["ncts", "frank-cable", "eodmu5"], ["sercc", "jcse", "navhosp"]];
 const GRID: Record<string, [number, number]> = {};
-let gridH = G;
+let gridH = 6;
+// Mobile: full-length shirt; other items rest on its lower area and the felt under the sleeve. Hit boxes never touch.
+const GRID_ON_SHIRT: Record<string, [number, number]> = {
+  logbook: [18, 392], map: [122, 400],
+  admin: [222, 452], offduty: [222, 512], contact: [222, 572], guestbook: [316, 452], onduty: [334, 452],
+};
 const placeOnShirt = () => {
   const [sx, sy] = GRID.uniforms;
+  for (const [id, [rx, ry]] of Object.entries(GRID_ON_SHIRT)) GRID[id] = [sx + rx, sy + ry];
   for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = ALL.find((i) => i.id === id)!; GRID[id] = [sx + rx - it.w / 2, sy + ry - it.h / 2]; }
 };
 for (const row of GRID_ROWS) {
   const items = row.map((id) => ALL.find((i) => i.id === id)!);
   const rw = items.reduce((s, i) => s + i.w, 0) + (items.length - 1) * G;
   const top = (i: Item) => (i.dev ? i.dev.h + DEV_GAP : 0);
-  const rh = Math.max(...items.map((i) => i.h + top(i)));
+  const rh = Math.max(...items.map((i) => (i.gh ?? i.h) + top(i)));
   let x = (GRID_W - rw) / 2;
-  for (const i of items) { GRID[i.id] = [x, gridH + (rh - i.h - top(i)) / 2 + top(i)]; x += i.w + G; }
+  for (const i of items) { GRID[i.id] = [x, gridH + (rh - (i.gh ?? i.h) - top(i)) / 2 + top(i)]; x += i.w + G; }
   gridH += rh + G;
 }
 placeOnShirt();
-const GRID_SIZE = { w: GRID_W, h: Math.ceil(gridH) };
+const GRID_SIZE = { w: GRID_W, h: Math.ceil(gridH - G + 6) };
 export const NARROW_QUERY = "(max-width: 768px), (orientation: portrait)";
 
 function Rack() {
@@ -134,6 +141,7 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
       const c = narrow ? GRID_SIZE : WIDE;
       const w = el.clientWidth;
       const k = narrow ? w / c.w : Math.min(w / c.w, el.clientHeight / c.h);
+      el.style.setProperty("--ratio", String(WIDE.w / WIDE.h));
       el.dataset.layout = narrow ? "grid" : "wide";
       if (narrow) el.style.height = `${c.h * k}px`; else el.style.removeProperty("height");
       el.style.setProperty("--k", String(k));
@@ -155,9 +163,9 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
           const [cx, cy, deg] = item.wide;
           const g = GRID[item.id];
           const style = {
-            width: item.w, height: item.h,
+            width: item.w,
             "--wx": `${cx - item.w / 2}px`, "--wy": `${cy - item.h / 2}px`, "--wr": `${deg}deg`, "--wz": item.z,
-            "--gx": `${g[0]}px`, "--gy": `${g[1]}px`,
+            "--gx": `${g[0]}px`, "--gy": `${g[1]}px`, "--wh": `${item.h}px`, "--gh": `${item.gh ?? item.h}px`,
           } as CSSProperties;
           const dev = item.dev ? (
             <span key={`${item.id}-dev`} className="cx-item cx-dev is-static" data-id={`${item.id}-dev`} aria-hidden="true" title={item.dev.label}

@@ -1455,9 +1455,9 @@ body[data-scroll-locked] .home-pin {
 
 /* Home shadowbox case, hybrid (Oct 12 2026): one mm canvas scaled by --k; thrown about when wide, upright grid when narrow. */
 .case-mat.case-mat-comp .cx-stage { width: 100%; }
-.cx-stage { position: relative; overflow: hidden; width: 100%; aspect-ratio: 1080 / 675; background-color: #09162c; background-size: cover; background-position: center; }
+.cx-stage { position: relative; overflow: hidden; width: 100%; aspect-ratio: 1040 / 500; background-color: #09162c; background-size: cover; background-position: center; }
 .cx-canvas { position: absolute; left: 0; top: 0; width: var(--cw, 1080px); height: var(--ch, 675px); transform-origin: 0 0; transform: translate(var(--ox, 0px), var(--oy, 0px)) scale(var(--k, 1)); }
-.cx-item { position: absolute; left: var(--wx); top: var(--wy); z-index: var(--wz); transform: rotate(var(--wr)); margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; display: block; }
+.cx-item { position: absolute; height: var(--wh); left: var(--wx); top: var(--wy); z-index: var(--wz); transform: rotate(var(--wr)); margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; display: block; }
 .cx-item.is-static { cursor: default; }
 .cx-art.is-crop { object-fit: cover; object-position: top left; }
 .cx-art { display: block; width: 100%; height: 100%; object-fit: fill; pointer-events: none; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)); }
@@ -1468,9 +1468,9 @@ button.cx-item:hover .cx-art, button.cx-item:focus-visible .cx-art { filter: dro
 .cx-rows { display: flex; flex-direction: column; align-items: center; }
 .cx-row { display: flex; flex-direction: row-reverse; justify-content: center; }
 .cx-ribbon.ribbon { width: 35px; }
-.case-frame:has(.cx-stage) { width: min(100%, calc((100dvh - 8rem) * 1080 / 675 + 2.7rem)); max-width: none; }
+.case-frame:has(.cx-stage) { width: min(100%, calc((100dvh - 7rem) * 1040 / 500 + 2.7rem)); max-width: none; }
 @media (max-width: 768px), (orientation: portrait) {
   .case-frame:has(.cx-stage) { width: 100%; padding: 0.6rem; }
   .cx-stage { aspect-ratio: auto; min-height: 0; }
-  .cx-item { left: var(--gx); top: var(--gy); transform: none; z-index: var(--wz); }
+  .cx-item { left: var(--gx); top: var(--gy); height: var(--gh); transform: none; z-index: var(--wz); }
 }
