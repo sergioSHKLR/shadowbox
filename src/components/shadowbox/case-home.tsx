@@ -286,15 +286,14 @@ const VARIANTS: Record<string, () => Variant> = {
     // Stack 1 over the pocket (Sergio): centred on it, starting below the EXW on the flap and running past the
     // pocket's bottom; the rack, ESWS and EXW stay uncovered.
     const pen = byId("guestbook"), s2w = maxW(["onduty", "map", "logbook"]);
-    // Portrait keeps E's start (overlapping the sleeve edge only, so the shirt stays mostly visible); pen and stack 2
-    // sit side by side, centred between stack 1 and the portrait.
+    // Pen plumb in the shirt's lower-left, between the button placket and stack 1, bottom-aligned (Sergio);
+    // stack 2 centred in the column between stack 1 and the portrait (which keeps E's start).
     const px0 = 346, x1 = SHIRT.pocket.cx - CARD.w / 2;
-    const free = px0 - (x1 + CARD.w), grp = pen.w + G + s2w;
-    const xp = x1 + CARD.w + (free - grp) / 2, x2 = xp + pen.w + G;
+    pos.guestbook = [40, H - G - pen.h];
+    const x2 = x1 + CARD.w + (px0 - (x1 + CARD.w) - s2w) / 2;
     const exwBottom = ON_SHIRT.exw[1] + EXW_H / 2;
     const s1 = ["admin", "offduty", "contact"], s1y = Math.max(exwBottom + G, H - G - (3 * CARD.h + 2 * G));
     s1.forEach((id, k) => { pos[id] = [x1, s1y + k * (CARD.h + G)]; });
-    pos.guestbook = [xp, (H - pen.h) / 2];
     spread(x2, s2w, ["onduty", "map", "logbook"]);
     const plaque = byId("plaque");
     const ph = size.bio.h + G + plaque.h;
