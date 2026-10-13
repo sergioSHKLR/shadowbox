@@ -30,13 +30,30 @@ const RACK_ROWS = ribbonRows(awards, 3);
 const RIBBON_W = 35; // 1 3/8 in
 const RIBBON_H = 9.5; // 3/8 in
 const PIN_W = 70;
-const RACK_H = Math.round(mm(90.7) + 4 + RACK_ROWS.length * RIBBON_H + 4 + mm(98.3));
+const RACK_H = RACK_ROWS.length * RIBBON_H;
 
-const SHIRT_H = 478;
+/**
+ * Shirt landmarks in mm from the art's top-left, measured on shirt-long.svg (Oct 12 2026). If Sergio's regenerated file
+ * moves them, update these numbers only: the crop and the rack, pins and pocket follow.
+ */
+const SHIRT = { buttons: [219.5, 323, 426, 529, 632], show: 3, pocket: { cx: 134.3, top: 231.5, flapCy: 260 } };
+// Crop (never scale) halfway between the last shown front button and the next one.
+const SHIRT_H = Math.round((SHIRT.buttons[SHIRT.show - 1] + (SHIRT.buttons[SHIRT.show] ?? mm(2532.283))) / 2);
+const QIN = 6.35; // 1/4 in
+const SWO_H = mm(90.7);
+const EXW_H = mm(98.3);
+/** Items worn on the shirt in both layouts: centre relative to the shirt's top-left. */
+const ON_SHIRT: Record<string, [number, number]> = {
+  decorations: [SHIRT.pocket.cx, SHIRT.pocket.top - QIN - RACK_H / 2],
+  swo: [SHIRT.pocket.cx, SHIRT.pocket.top - QIN - RACK_H - QIN - SWO_H / 2],
+  exw: [SHIRT.pocket.cx, SHIRT.pocket.flapCy],
+};
 const ITEMS: Item[] = [
   // Shirt cropped (not scaled) to the top 478 mm so three front buttons show; flush top-left.
   { id: "uniforms", src: "shirt-long.svg", crop: true, w: mm(1474.016), h: SHIRT_H, view: "uniforms", label: "Uniforms", wide: [mm(1474.016) / 2, SHIRT_H / 2, 0], z: 1 },
-  { id: "decorations", src: "", rack: true, w: 3 * RIBBON_W, h: RACK_H, view: "decorations", label: "Decorations", wide: [210, 270, 0], z: 3 },
+  { id: "decorations", src: "", rack: true, w: 3 * RIBBON_W, h: RACK_H, view: "decorations", label: "Decorations", wide: [0, 0, 0], z: 3 },
+  { id: "swo", src: "surface-warfare.svg", w: PIN_W, h: SWO_H, view: "decorations", label: "Surface Warfare", wide: [0, 0, 0], z: 3 },
+  { id: "exw", src: "expeditionary-warfare.svg", w: PIN_W, h: EXW_H, view: "decorations", label: "Expeditionary Warfare", wide: [0, 0, 0], z: 3 },
   { id: "contact", src: "calling-card.svg", w: 85.6, h: 54, view: "contact", label: "Contact", wide: [215, 585, 12], z: 3 },
   { id: "admin", src: "9527-card.svg", w: 85.6, h: 54, view: "admin", label: "Admin", wide: [395, 85, -15], z: 3 },
   { id: "logbook", src: "green-notebook.svg", w: mm(359.055), h: mm(529.134), view: "logbook", label: "Logbook", wide: [440, 290, -30], z: 4 },
@@ -65,13 +82,22 @@ const CRESTS: Item[] = [
 }
 const ALL = [...ITEMS, ...CRESTS];
 const WIDE = { w: 1080, h: 675 };
+const SHIRT_ITEM = ALL.find((i) => i.id === "uniforms")!;
+for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) {
+  const it = ALL.find((i) => i.id === id)!;
+  it.wide = [SHIRT_ITEM.wide[0] - SHIRT_ITEM.w / 2 + rx, SHIRT_ITEM.wide[1] - SHIRT_ITEM.h / 2 + ry, 0];
+}
 
 // Upright grid for narrow screens, in nav order; rows are centred, items centred on the row's height.
 const G = 12;
 const GRID_W = 400;
-const GRID_ROWS = [["bio", "timeline"], ["plaque"], ["logbook", "map", "onduty", "guestbook"], ["uniforms"], ["decorations", "offduty", "admin"], ["contact"], ["ncts", "frank-cable", "eodmu5"], ["sercc", "jcse", "navhosp"]];
+const GRID_ROWS = [["bio", "timeline"], ["plaque"], ["logbook", "map", "onduty", "guestbook"], ["uniforms"], ["offduty", "admin"], ["contact"], ["ncts", "frank-cable", "eodmu5"], ["sercc", "jcse", "navhosp"]];
 const GRID: Record<string, [number, number]> = {};
 let gridH = G;
+const placeOnShirt = () => {
+  const [sx, sy] = GRID.uniforms;
+  for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = ALL.find((i) => i.id === id)!; GRID[id] = [sx + rx - it.w / 2, sy + ry - it.h / 2]; }
+};
 for (const row of GRID_ROWS) {
   const items = row.map((id) => ALL.find((i) => i.id === id)!);
   const rw = items.reduce((s, i) => s + i.w, 0) + (items.length - 1) * G;
@@ -81,21 +107,18 @@ for (const row of GRID_ROWS) {
   for (const i of items) { GRID[i.id] = [x, gridH + (rh - i.h - top(i)) / 2 + top(i)]; x += i.w + G; }
   gridH += rh + G;
 }
+placeOnShirt();
 const GRID_SIZE = { w: GRID_W, h: Math.ceil(gridH) };
 export const NARROW_QUERY = "(max-width: 768px), (orientation: portrait)";
 
 function Rack() {
   return (
     <span className="cx-rack">
-      <img className="cx-pin" src={publicUrl("/case/surface-warfare.svg")} alt="" style={{ width: PIN_W }} />
-      <span className="cx-rows">
-        {RACK_ROWS.map((row) => (
-          <span key={row[0].id} className="cx-row">
-            {row.map((award) => <RibbonArt key={award.id} award={award} className="cx-ribbon" />)}
-          </span>
-        ))}
-      </span>
-      <img className="cx-pin" src={publicUrl("/case/expeditionary-warfare.svg")} alt="" style={{ width: PIN_W }} />
+      {RACK_ROWS.map((row) => (
+        <span key={row[0].id} className="cx-row">
+          {row.map((award) => <RibbonArt key={award.id} award={award} className="cx-ribbon" />)}
+        </span>
+      ))}
     </span>
   );
 }
