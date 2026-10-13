@@ -11,8 +11,9 @@ const UNIFORM_SECTIONS: { id: UniformGroup; label: string }[] = [
 
 export function Uniforms({ onOpen }: { onOpen: (k: Kind, id: string) => void }) {
   return (
-    <main className="sheet">
-      <UniformProgression />
+    <main className="sheet uniforms-split">
+      <div className="uniforms-player"><UniformProgression /></div>
+      <div className="uniforms-list">
       <h2>Uniforms</h2>
       <p>{uniforms.length} uniforms. {caseCopy.uniformsLead}</p>
       {UNIFORM_SECTIONS.map((group) => {
@@ -34,6 +35,7 @@ export function Uniforms({ onOpen }: { onOpen: (k: Kind, id: string) => void }) 
           </section>
         );
       })}
+      </div>
     </main>
   );
 }

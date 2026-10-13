@@ -1171,7 +1171,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 
 /* Guestbook / Contact (Oct 2026): Logbook card language. Panel surface + light border + 6px radius; inputs like the
    "In my own words" fields; goldenrod primary button (nav-btn on). No visible page headers (sr-only h1). */
-.site-page { --site-panel: color-mix(in srgb, var(--color-ivory) 88%, #fff); --site-border: var(--color-line); display: grid; gap: 0.9rem; max-width: 40rem; }
+.site-page { margin-inline: auto; --site-panel: color-mix(in srgb, var(--color-ivory) 88%, #fff); --site-border: var(--color-line); display: grid; gap: 0.9rem; max-width: 40rem; }
 [data-theme="dark"] .site-page { --site-panel: #1a2130; --site-border: #2a3344; }
 .site-card { margin: 0; padding: 0.9rem 1rem; border: 1px solid var(--site-border); border-radius: 6px; background: var(--site-panel); }
 .site-form { display: grid; gap: 0.75rem; }
@@ -1317,7 +1317,9 @@ body[data-scroll-locked] .home-pin {
 .timeline-scrub input::-webkit-slider-thumb { background: #daa520; }
 
 /* Home case fills the viewport, capped only by the 960×600 ratio. */
-.app-main:has(.case-home) { width: min(100%, calc(100vw - 1rem)); max-width: none; }
+/* Only while Home is the visible pane: every pane stays in the DOM, so the bare :has(.case-home) widened every page and
+   left their content hugging the left edge on wide screens. */
+.app-main:has(.view-pane:not(.screen-off) .case-home) { width: min(100%, calc(100vw - 1rem)); max-width: none; }
 .case-frame:has(.case-mat-comp) { width: min(100%, calc((100dvh - 8rem) * 960 / 600)); max-width: none; }
 .case-mat.case-mat-comp { display: block; justify-items: stretch; padding: 0; background: #09162c; box-shadow: inset 0 0 0 3px #c6a15b; }
 .case-mat.case-mat-comp .case-stage { width: 100%; }
@@ -1466,8 +1468,10 @@ body[data-scroll-locked] .home-pin {
 .cx-item.is-static { cursor: default; }
 .cx-art.is-crop { object-fit: cover; object-position: top left; }
 .cx-art { display: block; width: 100%; height: 100%; object-fit: fill; pointer-events: none; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)); }
-button.cx-item:hover .cx-art, button.cx-item:focus-visible .cx-art { filter: drop-shadow(0 0 4px rgba(228, 201, 138, 0.9)) drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)); }
-.cx-item:focus-visible { outline: 2px solid #e4c98a; outline-offset: 2px; }
+/* Target glow (Sergio): a white ring inside a navy ring. Gold measured about 1.1:1 against the khaki shirt; the navy
+   ring is about 9:1 on khaki and the white ring about 13:1 on the navy felt, so one of the two always reads. */
+button.cx-item:hover :is(.cx-art, .cx-rack), button.cx-item:focus-visible :is(.cx-art, .cx-rack) { filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff) drop-shadow(0 0 2px #0b1f3a) drop-shadow(0 0 2px #0b1f3a) drop-shadow(0 0 3px #0b1f3a) drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)); }
+.cx-item:focus-visible { outline: 2px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 5px #0b1f3a; }
 .cx-rack { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; width: 100%; height: 100%; pointer-events: none; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)); }
 .cx-pin { display: block; height: auto; }
 .cx-rows { display: flex; flex-direction: column; align-items: center; }
@@ -1492,7 +1496,7 @@ button.cx-item::after { content: ""; position: absolute; left: 50%; top: 50%; wi
 /* Onboarding (Oct 13 2026): "?" reopens it; while open (and ~2 s after) every link target glows on its own box. */
 .cx-help { position: absolute; right: 0.4rem; top: 0.4rem; z-index: 60; width: 1.7rem; height: 1.7rem; border-radius: 50%; border: 1px solid #c6a15b; background: rgba(9, 22, 44, 0.85); color: #e4c98a; font: 600 0.95rem/1 Georgia, serif; cursor: pointer; }
 .cx-help:focus-visible { outline: 2px solid #e4c98a; outline-offset: 2px; }
-.cx-hint button.cx-item { box-shadow: 0 0 0 1.5px rgba(228, 201, 138, 0.9), 0 0 10px 3px rgba(228, 201, 138, 0.55); border-radius: 2px; transition: box-shadow 300ms ease; }
+.cx-hint button.cx-item { box-shadow: 0 0 0 1.5px #fff, 0 0 0 3.5px #0b1f3a, 0 0 10px 3px rgba(255, 255, 255, 0.35); border-radius: 2px; transition: box-shadow 300ms ease; }
 .cx-intro { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 1rem; background: rgba(9, 22, 44, 0.35); }
 .cx-intro-box { position: relative; width: min(36rem, 100%); max-height: calc(100dvh - 2rem); overflow: auto; padding: 1.2rem 1.3rem 1.1rem; background: #f7f2e7; color: #14233a; border: 1px solid #c6a15b; border-radius: 6px; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45); font-size: 0.92rem; line-height: 1.45; }
 .cx-intro-box h2 { margin: 0 1.6rem 0.5rem 0; font: 600 1.15rem/1.25 Georgia, "Iowan Old Style", serif; }
@@ -1519,3 +1523,12 @@ button.cx-item::after { content: ""; position: absolute; left: 50%; top: 50%; wi
 /* Full-case button only on touch phones held sideways (Sergio); hidden everywhere else. */
 .app-end > .app-icon.app-full { display: none; }
 @media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) { .app-end > .app-icon.app-full { display: grid; } }
+
+/* Uniforms in two columns on wide and landscape-tablet screens (Sergio): the player stays put on the left, the uniform
+   cards scroll on their own on the right. Phones and portrait screens keep one column, player on top. */
+@media (min-width: 900px) and (orientation: landscape) {
+  .uniforms-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+  .uniforms-player { position: sticky; top: calc(var(--app-bar-h, 3.5rem) + 0.75rem); }
+  .uniforms-list { max-height: calc(100dvh - var(--app-bar-h, 3.5rem) - 2rem); overflow-y: auto; overscroll-behavior: contain; padding-right: 0.5rem; }
+  .uniforms-list > h2:first-child { margin-top: 0; }
+}
