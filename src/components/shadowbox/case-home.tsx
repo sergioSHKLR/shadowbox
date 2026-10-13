@@ -284,9 +284,12 @@ const LAYOUTS: Record<Mode, Layout> = {
   two: twoCol(),
   one: oneCol(),
 };
-/** Breakpoints on the window: 1 column under 640 px wide; 3 columns from 1024 px wide when the window is at least
- * 1.45 : 1 (landscape laptops and desktops); 2 columns otherwise (tablets, portrait and ~4:3 windows). */
-const modeFor = (w: number, h: number): Mode => (w < 640 ? "one" : w >= 1024 && w / h >= 1.45 ? "wide" : "two");
+/** Breakpoints on the window (Sergio, Oct 13: phone 1 column, tablet 2, laptop 3):
+ *  3 columns from 1200 px wide, or any landscape window of at least 640 px that is 1.6 : 1 or wider (phones held
+ *  sideways fit the whole case on screen);
+ *  1 column under 768 px wide otherwise (phones upright);
+ *  2 columns for everything between (tablets either way up, ~4:3 and small laptop windows). */
+const modeFor = (w: number, h: number): Mode => (w >= 1200 || (w >= 640 && w / h >= 1.6) ? "wide" : w < 768 ? "one" : "two");
 export const CASE_DIMS = { WIDE, LAYOUTS };
 
 function Rack() {
