@@ -281,6 +281,10 @@ const twoP = (): Layout => {
   bottom("logbook", memoBottom); bottom("admin", memoBottom);
   const devBottom = sy + G + 2 * DEV_H + 3 * G, passTop = base - byId("map").h;
   pos.onduty = [pos.onduty[0], (devBottom + passTop) / 2 - byId("onduty").h / 2];
+  // Memorandum's top level with the ID card's top (Sergio); 2M keeps its place.
+  pos.logbook = [pos.logbook[0], pos.onduty[1]];
+  // Memorandum's top level with the ID card's (Sergio); 2M keeps its place (bottom where the memo's used to be).
+  pos.logbook = [pos.logbook[0], pos.onduty[1]];
   return { pos, size, tilt: {}, w: W, h: sy + H0 };
 };
 const oneL = (): Layout => {
