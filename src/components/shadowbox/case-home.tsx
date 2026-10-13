@@ -267,15 +267,20 @@ const twoP = (): Layout => {
   let y = G;
   y += portraitsSide(pos, size, G, y, W - 2 * G) + 2 * G;
   crestGrid(pos, size, [R3x2[0]], c, 0, y - G, W, c + 2 * G); y += c + G;
-  const put = (id: string, x: number) => { size[id] = crestSize(id, c); pos[id] = [x, y]; };
-  const [c21, c22, c23] = R3x2[1];
-  put(c21, G + 10);
-  put(c22, LAPEL.w + G);
-  put(c23, W - G - crestSize(c23, c).w);
+  // Second row: each crest centred under the one above it (21 under 18, 22 under 19, 23 under 20).
+  R3x2[1].forEach((id, i) => { const top = R3x2[0][i], s2 = crestSize(id, c); size[id] = s2; pos[id] = [pos[top][0] + size[top].w / 2 - s2.w / 2, y]; });
+  const c22 = R3x2[1][1];
   const sy = y + c; // shirt top: collar just under crest 21
   const dx = pos[c22][0] + crestSize(c22, c).w + G;
   devGrid(pos, 3, dx, sy + G, W - G - dx, 2 * DEV_H + 3 * G);
   shirtBlock(pos, 0, sy, SHIRT_W + G);
+  // One baseline for pen, Liberty, USO and passport; 2M's bottom level with the memorandum's (Sergio).
+  const base = sy + H0 - G, bottom = (id: string, b: number) => { pos[id] = [pos[id][0], b - byId(id).h]; };
+  for (const id of ["guestbook", "offduty", "contact", "map"]) bottom(id, base);
+  const memoBottom = base - CARD.h - G;
+  bottom("logbook", memoBottom); bottom("admin", memoBottom);
+  const devBottom = sy + G + 2 * DEV_H + 3 * G, passTop = base - byId("map").h;
+  pos.onduty = [pos.onduty[0], (devBottom + passTop) / 2 - byId("onduty").h / 2];
   return { pos, size, tilt: {}, w: W, h: sy + H0 };
 };
 const oneL = (): Layout => {
