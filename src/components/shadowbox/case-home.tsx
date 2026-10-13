@@ -10,7 +10,7 @@ import { RibbonArt } from "@/components/shadowbox/marks";
  */
 const PX = 96 / 25.4;
 type Item = {
-  id: string; src: string; w: number; h: number; view?: string; unit?: string; label: string; obj?: boolean; rack?: boolean; crop?: boolean; lapel?: boolean; gh?: number; dev?: { src: string; h: number; w: number; label: string };
+  id: string; src: string; w: number; h: number; view?: string; unit?: string; label: string; obj?: boolean; rack?: boolean; crop?: boolean; only?: "wide" | "grid"; row?: boolean; lapel?: boolean; gh?: number; dev?: { src: string; h: number; w: number; label: string };
   /** wide: centre x, y and tilt in degrees */ wide: [number, number, number]; z: number;
 };
 const mm = (px: number) => Math.round((px / PX) * 10) / 10;
@@ -23,6 +23,11 @@ const DEV = {
   cpo: { src: "cpo-collar.svg", h: 44, w: 44 * 23 / 32.5, label: "CPO" },
 };
 const DEV_GAP = 5;
+const WIDE_H = 540;
+// Wide only: collar-device progression under the cards (one Timeline link), CPO collar art as the fouled-anchor decoration.
+const PROG = [DEV.po3, DEV.po2, DEV.po1, DEV.cpo];
+const PROG_GAP = 8;
+const PROG_W = PROG.reduce((s, d) => s + d.w, 0) + (PROG.length - 1) * PROG_GAP;
 const crest = (id: string, unit: string, file: string, aspect: number, cx: number, label: string, dev?: Item["dev"]): Item => ({
   id, src: file, dev, w: Math.round(CREST_H * aspect), h: CREST_H, view: "onduty", unit, label, wide: [cx, 600, 0], z: 5,
 });
@@ -62,17 +67,21 @@ const ITEMS: Item[] = [
   { id: "decorations", src: "", rack: true, w: 3 * RIBBON_W, h: RACK_H, view: "decorations", label: "Decorations", wide: [0, 0, 0], z: 3 },
   { id: "swo", src: "surface-warfare.svg", w: PIN_W, h: SWO_H, view: "decorations", label: "Surface Warfare", wide: [0, 0, 0], z: 3 },
   { id: "exw", src: "expeditionary-warfare.svg", w: PIN_W, h: EXW_H, view: "decorations", label: "Expeditionary Warfare", wide: [0, 0, 0], z: 3 },
-  { id: "contact", src: "calling-card.svg", w: 85.6, h: 54, view: "contact", label: "Contact", wide: [120, 425, 10], z: 3 },
-  { id: "admin", src: "9527-card.svg", w: 85.6, h: 54, view: "admin", label: "Admin", wide: [460, 62, -12], z: 3 },
-  { id: "logbook", src: "green-notebook.svg", w: mm(359.055), h: mm(529.134), view: "logbook", label: "Logbook", wide: [478, 215, -25], z: 4 },
-  { id: "map", src: "passport-maroon.svg", w: mm(332.598), h: mm(472.441), view: "map", label: "Travel book", wide: [610, 135, -12], z: 3 },
-  { id: "onduty", src: "id-card.svg", obj: true, w: 54, h: 54 * (680.11 / 439.297), view: "onduty", label: "Identification card", wide: [712, 160, 12], z: 4 },
-  { id: "offduty", src: "liberty-card.svg", w: 85.6, h: 54, view: "offduty", label: "Off Duty", wide: [640, 292, 12], z: 3 },
-  { id: "timeline", src: "portrait-recruit.webp", w: 150, h: 150 * (625 / 640), view: "timeline", label: "Timeline", wide: [830, 92, -4], z: 2 },
-  { id: "bio", src: "portrait-chief.webp", w: 150, h: 150 * (625 / 640), view: "bio", label: "Biography", wide: [958, 108, 3], z: 2 },
-  { id: "plaque", src: "brass-plaque.svg", w: mm(264.567), h: mm(89.197), label: "", wide: [900, 222, 0], z: 3 },
-  { id: "guestbook", src: "black-pen.svg", w: mm(37.795), h: mm(536.693), view: "guestbook", label: "Guestbook", wide: [795, 292, -78], z: 4 },
+  { id: "contact", src: "calling-card.svg", w: 85.6, h: 54, view: "contact", label: "Contact", wide: [573, 179, 0], z: 3 },
+  { id: "admin", src: "9527-card.svg", w: 85.6, h: 54, view: "admin", label: "Admin", wide: [470, 203, 0], z: 3 },
+  { id: "logbook", src: "green-notebook.svg", w: mm(359.055), h: mm(529.134), view: "logbook", label: "Logbook", wide: [62.5, 390, 0], z: 7 },
+  { id: "map", src: "passport-maroon.svg", w: mm(332.598), h: mm(472.441), view: "map", label: "Travel book", wide: [574, 76.5, 0], z: 3 },
+  { id: "onduty", src: "id-card.svg", obj: true, w: 54, h: 54 * (680.11 / 439.297), view: "onduty", label: "Identification card", wide: [470, 56, 0], z: 4 },
+  { id: "offduty", src: "liberty-card.svg", w: 85.6, h: 54, view: "offduty", label: "Off Duty", wide: [470, 137, 0], z: 3 },
+  { id: "timeline", src: "portrait-recruit.webp", w: 150, h: 150 * (625 / 640), view: "timeline", label: "Timeline", wide: [0, 0, 0], z: 2, only: "grid" },
+  { id: "bio", src: "portrait-chief.webp", w: 150, h: 150 * (625 / 640), view: "bio", label: "Biography", wide: [780, 87, 0], z: 2 },
+  { id: "plaque", src: "brass-plaque.svg", w: mm(264.567), h: mm(89.197), view: "bio", label: "Biography", wide: [780, 184, 0], z: 3 },
+  { id: "guestbook", src: "black-pen.svg", w: mm(37.795), h: mm(536.693), view: "guestbook", label: "Guestbook", wide: [122, 389, 0], z: 7 },
 ];
+ITEMS.push(
+  { id: "progression", src: "", row: true, w: PROG_W, h: 44, view: "timeline", label: "Timeline", wide: [427 + PROG_W / 2, 270, 0], z: 3, only: "wide" },
+  { id: "anchor", src: "cpo-collar.svg", w: DEV.cpo.w, h: DEV.cpo.h, label: "", wide: [427 + PROG_W + 14 + DEV.cpo.w / 2, 270, 0], z: 3, only: "wide" },
+);
 const CRESTS: Item[] = [
   crest("ncts", "ncts", "ncts-crest.svg", 1, 0, "NCTS", DEV.po3),
   crest("frank-cable", "frank-cable", "as40-crest.svg", 960 / 720, 0, "USS Frank Cable", DEV.po2),
@@ -83,13 +92,13 @@ const CRESTS: Item[] = [
 ];
 // Crest row: Sergio's span (x 301-883 of 960) scaled to the wide canvas, gutters evened out.
 {
-  const x0 = 400, x1 = 1032;
+  const x0 = 225, x1 = 885;
   const gap = (x1 - x0 - CRESTS.reduce((s, c) => s + c.w, 0)) / (CRESTS.length - 1);
   let x = x0;
-  for (const c of CRESTS) { c.wide = [x + c.w / 2, 500 - 6 - CREST_H / 2, 0]; x += c.w + gap; }
+  for (const c of CRESTS) { c.wide = [x + c.w / 2, WIDE_H - 6 - CREST_H / 2, 0]; x += c.w + gap; }
 }
 const ALL = [...ITEMS, ...CRESTS];
-const WIDE = { w: 1040, h: 500 };
+const WIDE = { w: 900, h: WIDE_H };
 const SHIRT_ITEM = ALL.find((i) => i.id === "uniforms")!;
 for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) {
   const it = ALL.find((i) => i.id === id)!;
@@ -168,29 +177,31 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
       <div className="cx-canvas">
         {ALL.map((item) => {
           const [cx, cy, deg] = item.wide;
-          const g = GRID[item.id];
+          const g = GRID[item.id] ?? [0, 0];
           const style = {
             width: item.w,
             "--wx": `${cx - item.w / 2}px`, "--wy": `${cy - item.h / 2}px`, "--wr": `${deg}deg`, "--wz": item.z,
             "--gx": `${g[0]}px`, "--gy": `${g[1]}px`, "--wh": `${item.h}px`, "--gh": `${item.gh ?? item.h}px`,
           } as CSSProperties;
           const dev = item.dev ? (
-            <span key={`${item.id}-dev`} className="cx-item cx-dev is-static" data-id={`${item.id}-dev`} aria-hidden="true" title={item.dev.label}
+            <span key={`${item.id}-dev`} className="cx-item cx-dev is-static" data-only="grid" data-id={`${item.id}-dev`} aria-hidden="true" title={item.dev.label}
               style={{ width: item.dev.w, height: item.dev.h, "--wx": `${cx - item.dev.w / 2}px`, "--wy": `${cy - item.h / 2 - DEV_GAP - item.dev.h}px`, "--wr": "0deg", "--wz": item.z,
                 "--gx": `${g[0] + item.w / 2 - item.dev.w / 2}px`, "--gy": `${g[1] - DEV_GAP - item.dev.h}px` } as CSSProperties}>
               <img className="cx-art" src={publicUrl(`/case/${item.dev.src}`)} alt="" draggable={false} />
             </span>
           ) : null;
-          const art = item.lapel
+          const art = item.row
+            ? <span className="cx-prog">{PROG.map((d) => <img key={d.src} src={publicUrl(`/case/${d.src}`)} alt="" draggable={false} style={{ width: d.w, height: d.h }} />)}</span>
+            : item.lapel
             ? <img className="cx-art cx-lapel" src={publicUrl(`/case/${item.src}`)} alt="" draggable={false} />
             : item.rack ? <Rack /> : item.obj
             ? <object className="cx-art" type="image/svg+xml" data={publicUrl(`/case/${item.src}`)} aria-hidden="true" tabIndex={-1} />
             : <img className={item.crop ? "cx-art is-crop" : "cx-art"} src={publicUrl(`/case/${item.src}`)} alt="" draggable={false} />;
           if (dev) return [dev, <CaseButton key={item.id} item={item} style={style} art={art} name={item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : item.label} go={() => onOpen?.("unit", item.unit!)} />];
-          if (!item.view) return <span key={item.id} className="cx-item is-static" data-id={item.id} style={style}>{art}</span>;
+          if (!item.view) return <span key={item.id} className="cx-item is-static" data-only={item.only} data-id={item.id} style={style}>{art}</span>;
           const name = item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : label(item.view) || item.label;
           return (
-            <button key={item.id} type="button" className="cx-item" data-id={item.id} style={style} aria-label={name} title={name}
+            <button key={item.id} type="button" className="cx-item" data-only={item.only} data-id={item.id} style={style} aria-label={name} title={name}
               onClick={() => (item.unit ? onOpen?.("unit", item.unit) : onGo?.(item.view!))}>
               {art}
             </button>

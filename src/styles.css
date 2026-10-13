@@ -1455,7 +1455,7 @@ body[data-scroll-locked] .home-pin {
 
 /* Home shadowbox case, hybrid (Oct 12 2026): one mm canvas scaled by --k; thrown about when wide, upright grid when narrow. */
 .case-mat.case-mat-comp .cx-stage { width: 100%; }
-.cx-stage { position: relative; overflow: hidden; width: 100%; aspect-ratio: 1040 / 500; background-color: #09162c; background-size: cover; background-position: center; }
+.cx-stage { position: relative; overflow: hidden; width: 100%; aspect-ratio: 900 / 540; background-color: #09162c; background-size: cover; background-position: center; }
 .cx-canvas { position: absolute; left: 0; top: 0; width: var(--cw, 1080px); height: var(--ch, 675px); transform-origin: 0 0; transform: translate(var(--ox, 0px), var(--oy, 0px)) scale(var(--k, 1)); }
 .cx-item { position: absolute; height: var(--wh); left: var(--wx); top: var(--wy); z-index: var(--wz); transform: rotate(var(--wr)); margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; display: block; }
 .cx-item.is-static { cursor: default; }
@@ -1468,7 +1468,7 @@ button.cx-item:hover .cx-art, button.cx-item:focus-visible .cx-art { filter: dro
 .cx-rows { display: flex; flex-direction: column; align-items: center; }
 .cx-row { display: flex; flex-direction: row-reverse; justify-content: center; }
 .cx-ribbon.ribbon { width: 35px; }
-.case-frame:has(.cx-stage) { width: min(100%, calc((100dvh - 7rem) * 1040 / 500 + 2.7rem)); max-width: none; }
+.case-frame:has(.cx-stage) { width: min(100%, calc((100dvh - 7rem) * 900 / 540 + 2.7rem)); max-width: none; }
 @media (max-width: 768px), (orientation: portrait) {
   .case-frame:has(.cx-stage) { width: 100%; padding: 0.6rem; }
   .cx-stage { aspect-ratio: auto; min-height: 0; }
@@ -1477,3 +1477,10 @@ button.cx-item:hover .cx-art, button.cx-item:focus-visible .cx-art { filter: dro
 .cx-lapel { display: block; width: 100%; height: 100%; overflow: hidden; pointer-events: none; filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.35)); }
 .cx-lapel img { display: block; max-width: none; }
 .cx-item[data-id="lapel"] { pointer-events: none; }
+.cx-item[data-only="grid"] { display: none; }
+.cx-prog { display: flex; align-items: flex-end; justify-content: space-between; width: 100%; height: 100%; pointer-events: none; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)); }
+.cx-prog img { display: block; }
+@media (max-width: 768px), (orientation: portrait) {
+  .cx-item[data-only="grid"] { display: block; }
+  .cx-item[data-only="wide"] { display: none; }
+}
