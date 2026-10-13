@@ -241,7 +241,7 @@ const VARIANTS: Record<string, () => Variant> = {
     const pos: Pos = { uniforms: [0, 0] }, tilt: Record<string, number> = {};
     const H = SHIRT_H;
     const size = { bio: { w: 200, h: 340 } };
-    byId("bio").src = "portrait-placeholder.svg"; // approved generic silhouette until a full-length photo exists
+    byId("bio").src = "portrait-full.webp"; // real full-length photo (background removed only)
     const memo = byId("logbook"), pen = byId("guestbook");
     pos.logbook = [G, H - G - memo.h]; tilt.logbook = -4;
     pos.guestbook = [G + memo.w + G + 4, H - G - pen.h]; tilt.guestbook = 4;
