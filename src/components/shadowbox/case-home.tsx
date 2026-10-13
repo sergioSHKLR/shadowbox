@@ -76,11 +76,11 @@ const ITEMS: Item[] = [
   { id: "timeline", src: "portrait-recruit.webp", w: 150, h: 150 * (625 / 640), view: "timeline", label: "Timeline", wide: [0, 0, 0], z: 2, only: "grid" },
   { id: "bio", src: "portrait-chief.webp", w: 150, h: 150 * (625 / 640), view: "bio", label: "Biography", wide: [780, 87, 0], z: 2 },
   { id: "plaque", src: "brass-plaque.svg", w: mm(264.567), h: mm(89.197), view: "bio", label: "Biography", wide: [780, 184, 0], z: 3 },
-  { id: "guestbook", src: "black-pen.svg", w: mm(37.795), h: mm(536.693), view: "guestbook", label: "Guestbook", wide: [122, 389, 0], z: 7 },
+  { id: "guestbook", src: "black-pen.svg", w: mm(37.795), h: mm(536.693), view: "guestbook", label: "Guestbook", wide: [872, 351, 0], z: 7 },
 ];
 ITEMS.push(
-  { id: "progression", src: "", row: true, w: PROG_W, h: 44, view: "timeline", label: "Timeline", wide: [427 + PROG_W / 2, 270, 0], z: 3, only: "wide" },
-  { id: "anchor", src: "cpo-collar.svg", w: DEV.cpo.w, h: DEV.cpo.h, label: "", wide: [427 + PROG_W + 14 + DEV.cpo.w / 2, 270, 0], z: 3, only: "wide" },
+  { id: "progression", src: "", row: true, w: PROG_W, h: 44, view: "timeline", label: "Timeline", wide: [520 + PROG_W / 2, 360, 0], z: 3, only: "wide" },
+  { id: "anchor", src: "cpo-collar.svg", w: DEV.cpo.w, h: DEV.cpo.h, label: "", wide: [520 + PROG_W + 18 + DEV.cpo.w / 2, 360, 0], z: 3, only: "wide" },
 );
 const CRESTS: Item[] = [
   crest("ncts", "ncts", "ncts-crest.svg", 1, 0, "NCTS", DEV.po3),
