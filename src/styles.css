@@ -1455,7 +1455,7 @@ body[data-scroll-locked] .home-pin {
 
 /* Home shadowbox case, hybrid (Oct 12 2026): one mm canvas scaled by --k; thrown about when wide, upright grid when narrow. */
 .case-mat.case-mat-comp .cx-stage { width: 100%; }
-.cx-stage { position: relative; overflow: hidden; width: 100%; aspect-ratio: 900 / 540; background-color: #09162c; background-size: cover; background-position: center; }
+.cx-stage { position: relative; overflow: hidden; width: 100%; aspect-ratio: var(--ratio, 789 / 470); background-color: #09162c; background-size: cover; background-position: center; }
 .cx-canvas { position: absolute; left: 0; top: 0; width: var(--cw, 1080px); height: var(--ch, 675px); transform-origin: 0 0; transform: translate(var(--ox, 0px), var(--oy, 0px)) scale(var(--k, 1)); }
 .cx-item { position: absolute; height: var(--wh); left: var(--wx); top: var(--wy); z-index: var(--wz); transform: rotate(var(--wr)); margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; display: block; }
 .cx-item.is-static { cursor: default; }
@@ -1468,7 +1468,7 @@ button.cx-item:hover .cx-art, button.cx-item:focus-visible .cx-art { filter: dro
 .cx-rows { display: flex; flex-direction: column; align-items: center; }
 .cx-row { display: flex; flex-direction: row-reverse; justify-content: center; }
 .cx-ribbon.ribbon { width: 35px; }
-.case-frame:has(.cx-stage) { width: min(100%, calc((100dvh - 7rem) * 900 / 540 + 2.7rem)); max-width: none; }
+.case-frame:has(.cx-stage) { width: min(100%, calc((100dvh - 7rem) * 789 / 470 + 2.7rem)); max-width: none; }
 @media (max-width: 768px), (orientation: portrait) {
   .case-frame:has(.cx-stage) { width: 100%; padding: 0.6rem; }
   .cx-stage { aspect-ratio: auto; min-height: 0; }
@@ -1484,3 +1484,20 @@ button.cx-item:hover .cx-art, button.cx-item:focus-visible .cx-art { filter: dro
   .cx-item[data-only="grid"] { display: block; }
   .cx-item[data-only="wide"] { display: none; }
 }
+/* Onboarding (Oct 13 2026): "?" reopens it; while open (and ~2 s after) every link target glows on its own box. */
+.cx-help { position: absolute; right: 0.4rem; top: 0.4rem; z-index: 60; width: 1.7rem; height: 1.7rem; border-radius: 50%; border: 1px solid #c6a15b; background: rgba(9, 22, 44, 0.85); color: #e4c98a; font: 600 0.95rem/1 Georgia, serif; cursor: pointer; }
+.cx-help:focus-visible { outline: 2px solid #e4c98a; outline-offset: 2px; }
+.cx-hint button.cx-item { box-shadow: 0 0 0 1.5px rgba(228, 201, 138, 0.9), 0 0 10px 3px rgba(228, 201, 138, 0.55); border-radius: 2px; transition: box-shadow 300ms ease; }
+.cx-intro { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 1rem; background: rgba(9, 22, 44, 0.35); }
+.cx-intro-box { position: relative; width: min(36rem, 100%); max-height: calc(100dvh - 2rem); overflow: auto; padding: 1.2rem 1.3rem 1.1rem; background: #f7f2e7; color: #14233a; border: 1px solid #c6a15b; border-radius: 6px; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45); font-size: 0.92rem; line-height: 1.45; }
+.cx-intro-box h2 { margin: 0 1.6rem 0.5rem 0; font: 600 1.15rem/1.25 Georgia, "Iowan Old Style", serif; }
+.cx-intro-box p { margin: 0 0 0.8rem; }
+.cx-intro-x { position: absolute; right: 0.5rem; top: 0.4rem; border: 0; background: transparent; font-size: 1.5rem; line-height: 1; cursor: pointer; color: #14233a; }
+.cx-why { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.cx-why caption { text-align: left; font-weight: 600; margin-bottom: 0.35rem; }
+.cx-why th, .cx-why td { padding: 0.3rem 0.4rem; border-top: 1px solid #d9cba8; text-align: left; vertical-align: top; }
+.cx-why thead th { border-top: 0; font-weight: 600; color: #5c4030; }
+.cx-why tbody th { font-weight: 600; white-space: nowrap; }
+.cx-intro-go { display: block; margin: 0.9rem 0 0 auto; padding: 0.45rem 0.9rem; border: 1px solid #8a6a3b; border-radius: 4px; background: #14233a; color: #f4efe4; cursor: pointer; }
+.cx-intro-x:focus-visible, .cx-intro-go:focus-visible { outline: 2px solid #c6a15b; outline-offset: 2px; }
+@media (max-width: 480px) { .cx-why tbody th { white-space: normal; } .cx-intro-box { font-size: 0.86rem; } }
