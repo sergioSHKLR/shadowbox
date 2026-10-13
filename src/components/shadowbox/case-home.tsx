@@ -256,6 +256,13 @@ function Rack() {
   );
 }
 
+/** Leaves the full case from inside it (the top bar is outside the fullscreen element). */
+const exitFull = () => {
+  const f = document.querySelector<HTMLElement>(".case-frame[data-cover]");
+  if (f) { delete f.dataset.cover; document.dispatchEvent(new Event("fullscreenchange")); }
+  if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
+};
+
 export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; label: (view: string) => string }) {
   const stage = useRef<HTMLDivElement | null>(null);
   const [intro, setIntro] = useState(false);
@@ -336,6 +343,7 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
           );
         })}
       </div>
+      <button type="button" className="cx-exit" aria-label="Exit full case" title="Exit full case" onClick={exitFull}>×</button>
       <button type="button" className="cx-help" aria-label="About this shadowbox" title="About this shadowbox" onClick={() => { setIntro(true); setHint(true); }}>?</button>
     </div>
     {intro ? <CaseIntro onClose={closeIntro} /> : null}

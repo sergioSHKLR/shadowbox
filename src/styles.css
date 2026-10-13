@@ -1329,6 +1329,11 @@ body[data-scroll-locked] .home-pin {
 .case-stage[data-cover="1"] { width: 100vw; height: 100dvh; background: #09162c; aspect-ratio: auto; }
 .case-stage:fullscreen .case-plate,
 .case-stage[data-cover="1"] .case-plate { object-fit: contain; }
+/* Full case: the framed CaseHome fills the screen (Fullscreen API, or a fixed cover where it is unavailable). */
+.case-frame:has(.cx-stage):fullscreen,
+.case-frame:has(.cx-stage)[data-cover="1"] { position: fixed; inset: 0; z-index: 900; display: flex; align-items: center; justify-content: center; width: 100vw; height: 100dvh; max-width: none; margin: 0; padding: 0.6rem; box-sizing: border-box; }
+.case-frame:has(.cx-stage):fullscreen > .case-mat,
+.case-frame:has(.cx-stage)[data-cover="1"] > .case-mat { width: min(100%, calc((100dvh - 1.2rem) * var(--cx-r, 1.679))); }
 
 /* Portrait and narrow: the case covers the viewport. */
 @media (max-width: 56rem), (orientation: portrait) {
@@ -1503,3 +1508,6 @@ button.cx-item:hover .cx-art, button.cx-item:focus-visible .cx-art { filter: dro
 @media (max-width: 480px) { .cx-why tbody th { white-space: normal; } .cx-intro-box { font-size: 0.86rem; } }
 .cx-art.is-cover { object-fit: cover; object-position: center top; }
 .cx-item > picture { display: block; width: 100%; height: 100%; }
+.cx-exit { display: none; position: absolute; right: 2.5rem; top: 0.4rem; z-index: 60; width: 1.7rem; height: 1.7rem; border-radius: 50%; border: 1px solid #c6a15b; background: rgba(9, 22, 44, 0.85); color: #e4c98a; font: 600 1.1rem/1 Georgia, serif; cursor: pointer; }
+.case-frame:fullscreen .cx-exit, .case-frame[data-cover="1"] .cx-exit { display: block; }
+.cx-exit::after { content: ""; position: absolute; inset: -0.5rem; }
