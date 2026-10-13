@@ -1474,11 +1474,11 @@ button.cx-item:hover .cx-art, button.cx-item:focus-visible .cx-art { filter: dro
 .cx-row { display: flex; flex-direction: row-reverse; justify-content: center; }
 .cx-ribbon.ribbon { width: 35px; }
 .case-frame:has(.cx-stage) { width: min(100%, calc((100dvh - 7rem) * var(--cx-r, 1.679) + 2.7rem)); max-width: none; }
-@media (max-width: 768px), (orientation: portrait) {
-  .case-frame:has(.cx-stage) { width: 100%; padding: 0.6rem; }
-  .cx-stage { aspect-ratio: auto; min-height: 0; }
-  .cx-item { left: var(--gx); top: var(--gy); width: var(--gw); height: var(--gh); transform: none; z-index: var(--wz); }
-}
+/* Two- and one-column home layouts scroll at full width (case-home.tsx modeFor). */
+.case-frame:has(.cx-stage[data-layout="two"]), .case-frame:has(.cx-stage[data-layout="one"]) { width: 100%; padding: 0.6rem; }
+.cx-stage[data-layout="two"], .cx-stage[data-layout="one"] { aspect-ratio: auto; min-height: 0; }
+/* Every tappable item gets at least a 44 x 44 px hit area, whatever its true size (the canvas is scaled by --k). */
+button.cx-item::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, calc(44px / var(--k, 1))); height: max(100%, calc(44px / var(--k, 1))); transform: translate(-50%, -50%); }
 .cx-lapel { display: block; width: 100%; height: 100%; overflow: hidden; pointer-events: none; filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.35)); }
 .cx-lapel img { display: block; max-width: none; }
 .cx-item[data-id="lapel"] { pointer-events: none; }

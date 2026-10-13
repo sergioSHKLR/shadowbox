@@ -5,7 +5,7 @@ import { RibbonArt } from "@/components/shadowbox/marks";
 /**
  * Home shadowbox case (Sergio, Oct 12 2026): single-item art from incoming/used, every item at its true size on one
  * canvas measured in millimetres (1 canvas unit = 1 mm), scaled by one factor --k. Wide/landscape: items thrown about
- * after shadowbox-case-cleaned.svg, shirt flush left. Narrow (<=768px or portrait): an upright square grid.
+ * after shadowbox-case-cleaned.svg, shirt flush left. Three layouts (wide, two-column, one-column): see LAYOUTS.
  * Google Drawings exports are 96 dpi, so mm = px / 3.7795 (CAC 323.5 px = 85.6 mm).
  */
 const PX = 96 / 25.4;
@@ -70,7 +70,7 @@ const ITEMS: Item[] = [
   { id: "guestbook", src: "black-pen.svg", w: mm(37.795), h: mm(536.693), view: "guestbook", label: "Guestbook", wide: [0, 0, 0], z: 7 },
   { id: "map", src: "passport-maroon.svg", w: mm(332.598), h: mm(472.441), view: "map", label: "Travel book", wide: [0, 0, 0], z: 3 },
   { id: "onduty", src: "id-card.svg", obj: true, w: 54, h: 54 * (680.11 / 439.297), view: "onduty", label: "Identification card", wide: [0, 0, 0], z: 4 },
-  { id: "bio", src: "portrait-chief.webp", ...PORTRAIT, view: "bio", label: "Biography", wide: [0, 0, 0], z: 2 },
+  { id: "bio", src: "portrait-full.webp", ...PORTRAIT, view: "bio", label: "Biography", wide: [0, 0, 0], z: 2 },
   { id: "plaque", src: "brass-plaque.svg", w: mm(264.567), h: mm(89.197), view: "bio", label: "Biography", wide: [0, 0, 0], z: 3 },
 ];
 const CRESTS: Item[] = [
@@ -208,41 +208,86 @@ const wideF = (): Variant => {
   Object.assign(WSIZE, v.size ?? {});
 }
 
-// ---- Grid (narrow)
-const GP: Pos = {};
-const GRID_W = Math.ceil(SHIRT_W + G);
-let gridH: number;
-{
-  const cb = crestBlock(0, 0, {});
-  const rows = [...BIO_ROWS, ["offduty"], ["admin"]];
-  const bh = column(0, 0, PORTRAIT.w, rows, {});
-  const x0 = (GRID_W - (cb.w + G + PORTRAIT.w)) / 2;
-  const top = Math.max(cb.h, bh);
-  crestBlock(x0, G + (top - cb.h) / 2, GP);
-  column(x0 + cb.w + G, G + (top - bh) / 2, PORTRAIT.w, rows, GP);
-  const sy = G + top + G;
-  GP.uniforms = [0, sy];
-  // On the felt under the sleeve, against the right edge and the bottom: [memorandum | pen] over the USO card.
-  const bottom = sy + SHIRT_FULL;
-  const memo = byId("logbook"), pen = byId("guestbook");
-  const rx = GRID_W - G;
-  GP.contact = [rx - CARD.w, bottom - G - CARD.h];
-  GP.guestbook = [rx - pen.w, bottom - G - CARD.h - G - pen.h];
-  GP.logbook = [rx - pen.w - G - memo.w, bottom - G - CARD.h - G - memo.h];
-  gridH = bottom;
-}
-const GRID_SIZE = { w: GRID_W, h: Math.ceil(gridH) };
-
-const GRID: Pos = GP;
-for (const [layout, pos] of [["wide", WP], ["grid", GP]] as const) {
-  const [sx, sy] = pos.uniforms;
+// ---- Layouts (Sergio, Oct 13). Every layout uses the same true-size items; only positions differ.
+//  wide (3 columns): shirt cropped at 3 buttons | full-length portrait + plaque | crests 2 x 3 (variant F).
+//  two  (2 columns): full-length shirt with the F overlays, documents above it | portrait + plaque over crests 3 x 2.
+//  one  (1 column):  portrait + plaque, crests 3 x 2, documents, full-length shirt with the F overlays.
+type Mode = "wide" | "two" | "one";
+type Layout = { pos: Pos; size: Record<string, { w: number; h: number }>; tilt: Record<string, number>; w: number; h: number };
+const BIO_FULL = { w: 420 * (687 / 1024), h: 420 }; // Sergio's official full-length portrait, 687 x 1024, shown whole
+const SHIRT_FULL_SIZE = { w: SHIRT_W, h: SHIRT_FULL };
+/** Worn items, then F's overlays on a full-length shirt at (sx, sy): [2M, Liberty, USO] over and under the pocket from
+ * just below the EXW, pen plumb in the lower-left between the placket and stack 1, bottom-aligned. */
+const onShirt = (pos: Pos, sx: number, sy: number, shirtH: number) => {
+  pos.uniforms = [sx, sy];
   for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = byId(id); pos[id] = [sx + rx - it.w / 2, sy + ry - it.h / 2]; }
-  if (layout === "wide") for (const it of ALL) { const p = pos[it.id]; if (p) { const z = layout === "wide" ? WSIZE[it.id] ?? it : it; it.wide = [p[0] + z.w / 2, p[1] + z.h / 2, TILT[it.id] ?? 0]; } }
-}
-export const CASE_DIMS = { WIDE, GRID_SIZE };
-export const NARROW_QUERY = "(max-width: 768px), (orientation: portrait)";
-/** Complement of NARROW_QUERY: the wide layout shows the full-length portrait (Sergio's official photo, 687 x 1024). */
-const WIDE_QUERY = "(min-width: 769px) and (orientation: landscape)";
+  const pen = byId("guestbook");
+  pos.guestbook = [sx + 40, sy + shirtH - G - pen.h];
+  const x1 = sx + SHIRT.pocket.cx - CARD.w / 2, exwBottom = ON_SHIRT.exw[1] + EXW_H / 2;
+  const s1y = sy + Math.max(exwBottom + G, Math.min(shirtH, SHIRT_H) - G - (3 * CARD.h + 2 * G));
+  ["admin", "offduty", "contact"].forEach((id, k) => { pos[id] = [x1, s1y + k * (CARD.h + G)]; });
+};
+/** Crests 3 x 2, read left to right then down in service order, each column on a shared centre axis. */
+const CREST_ROWS = [["ncts", "frank-cable", "eodmu5"], ["sercc", "jcse", "navhosp"]];
+const COLW = [0, 1, 2].map((i) => Math.max(...CREST_ROWS.map((r) => byId(r[i]).w)));
+const CREST3_W = COLW.reduce((s, w) => s + w, 0) + 2 * G;
+const CREST3_H = CREST_ROWS.length * (44 + DEV_GAP + CREST_H) + G;
+const crests3 = (pos: Pos, x0: number, y0: number) => {
+  CREST_ROWS.forEach((r, ri) => {
+    let x = x0;
+    r.forEach((id, i) => { const c = byId(id); pos[id] = [x + (COLW[i] - c.w) / 2, y0 + ri * (44 + DEV_GAP + CREST_H + G) + 44 + DEV_GAP]; x += COLW[i] + G; });
+  });
+};
+const DOCS = ["onduty", "map", "logbook"];
+const DOCS_H = Math.max(...DOCS.map((id) => byId(id).h));
+/** ID, passport, memorandum in a row spread over width w, bottoms aligned at y + DOCS_H. */
+const docRow = (pos: Pos, x0: number, y: number, w: number) => {
+  const its = DOCS.map(byId), gap = (w - its.reduce((s, i) => s + i.w, 0)) / (its.length + 1);
+  let x = x0 + gap;
+  for (const it of its) { pos[it.id] = [x, y + DOCS_H - it.h]; x += it.w + gap; }
+};
+const bioBlock = (pos: Pos, x0: number, y0: number, w: number) => {
+  const plaque = byId("plaque");
+  pos.bio = [x0 + (w - BIO_FULL.w) / 2, y0];
+  pos.plaque = [x0 + (w - plaque.w) / 2, y0 + BIO_FULL.h + G];
+  return BIO_FULL.h + G + plaque.h;
+};
+const BIO_H = BIO_FULL.h + G + byId("plaque").h;
+const twoCol = (): Layout => {
+  const pos: Pos = {};
+  const c2x = SHIRT_W + G, c2w = Math.max(CREST3_W, BIO_FULL.w);
+  const topH = DOCS_H + 2 * G; // documents on the felt above the shirt
+  const H = Math.max(topH + SHIRT_FULL, G + BIO_H + G + CREST3_H + G);
+  onShirt(pos, 0, H - SHIRT_FULL, SHIRT_FULL);
+  docRow(pos, 0, H - SHIRT_FULL - G - DOCS_H, SHIRT_W);
+  bioBlock(pos, c2x, G, c2w);
+  crests3(pos, c2x + (c2w - CREST3_W) / 2, H - G - CREST3_H);
+  return { pos, size: { bio: BIO_FULL, uniforms: SHIRT_FULL_SIZE }, tilt: {}, w: c2x + c2w + G, h: H };
+};
+const oneCol = (): Layout => {
+  const pos: Pos = {};
+  const W = SHIRT_W + G;
+  let y = G;
+  y += bioBlock(pos, 0, y, W) + G;
+  crests3(pos, (W - CREST3_W) / 2, y); y += CREST3_H + G;
+  docRow(pos, 0, y, W); y += DOCS_H + G;
+  onShirt(pos, 0, y, SHIRT_FULL);
+  return { pos, size: { bio: BIO_FULL, uniforms: SHIRT_FULL_SIZE }, tilt: {}, w: W, h: y + SHIRT_FULL };
+};
+const LAYOUTS: Record<Mode, Layout> = {
+  wide: (() => {
+    const pos: Pos = { ...WP };
+    const [sx, sy] = pos.uniforms;
+    for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = byId(id); pos[id] = [sx + rx - it.w / 2, sy + ry - it.h / 2]; }
+    return { pos, size: { ...WSIZE }, tilt: { ...TILT }, w: WIDE.w, h: WIDE.h };
+  })(),
+  two: twoCol(),
+  one: oneCol(),
+};
+/** Breakpoints on the window: 1 column under 640 px wide; 3 columns from 1024 px wide when the window is at least
+ * 1.45 : 1 (landscape laptops and desktops); 2 columns otherwise (tablets, portrait and ~4:3 windows). */
+const modeFor = (w: number, h: number): Mode => (w < 640 ? "one" : w >= 1024 && w / h >= 1.45 ? "wide" : "two");
+export const CASE_DIMS = { WIDE, LAYOUTS };
 
 function Rack() {
   return (
@@ -267,6 +312,7 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
   const stage = useRef<HTMLDivElement | null>(null);
   const [intro, setIntro] = useState(false);
   const [hint, setHint] = useState(false);
+  const [mode, setMode] = useState<Mode>("wide");
   useEffect(() => {
     let seen = true;
     try { seen = localStorage.getItem(INTRO_KEY) === "1"; } catch { /* storage blocked: treat as seen */ }
@@ -284,44 +330,41 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
   useEffect(() => {
     const el = stage.current;
     if (!el) return;
-    const mq = matchMedia(NARROW_QUERY);
     const fit = () => {
-      const narrow = mq.matches;
-      const c = narrow ? GRID_SIZE : WIDE;
+      const m = modeFor(window.innerWidth, window.innerHeight);
+      const c = LAYOUTS[m], scroll = m !== "wide";
+      el.dataset.layout = m;
+      setMode(m);
+      (el.closest(".case-frame") as HTMLElement | null)?.style.setProperty("--cx-r", String(c.w / c.h));
+      el.style.setProperty("--ratio", `${c.w} / ${c.h}`);
       const w = el.clientWidth;
-      const k = narrow ? w / c.w : Math.min(w / c.w, el.clientHeight / c.h);
-      el.dataset.layout = narrow ? "grid" : "wide";
-      (el.closest(".case-frame") as HTMLElement | null)?.style.setProperty("--cx-r", String(WIDE.w / WIDE.h));
-      if (narrow) el.style.height = `${c.h * k}px`; else el.style.removeProperty("height");
+      const k = scroll ? w / c.w : Math.min(w / c.w, el.clientHeight / c.h);
+      if (scroll) el.style.height = `${c.h * k}px`; else el.style.removeProperty("height");
       el.style.setProperty("--k", String(k));
       el.style.setProperty("--cw", `${c.w}px`);
       el.style.setProperty("--ch", `${c.h}px`);
-      el.style.setProperty("--ox", `${narrow ? 0 : (w - c.w * k) / 2}px`);
-      el.style.setProperty("--oy", `${narrow ? 0 : (el.clientHeight - c.h * k) / 2}px`);
+      el.style.setProperty("--ox", `${scroll ? 0 : (w - c.w * k) / 2}px`);
+      el.style.setProperty("--oy", `${scroll ? 0 : (el.clientHeight - c.h * k) / 2}px`);
     };
     fit();
     const ro = new ResizeObserver(fit);
     ro.observe(el);
-    mq.addEventListener?.("change", fit);
-    return () => { ro.disconnect(); mq.removeEventListener?.("change", fit); };
+    window.addEventListener("resize", fit);
+    return () => { ro.disconnect(); window.removeEventListener("resize", fit); };
   }, []);
+  const L = LAYOUTS[mode];
   return (
     <>
     <div ref={stage} className={hint ? "cx-stage cx-hint" : "cx-stage"} data-layout="wide" style={{ ["--ratio" as string]: `${WIDE.w} / ${WIDE.h}`, backgroundImage: `url("${publicUrl("/case/felt.svg")}")` }}>
       <div className="cx-canvas">
         {ALL.map((item) => {
-          const [cx, cy, deg] = item.wide;
-          const g = GRID[item.id] ?? [0, 0];
-          const ws = WSIZE[item.id] ?? item;
-          const style = {
-            "--ww": `${ws.w}px`, "--gw": `${item.w}px`,
-            "--wx": `${cx - ws.w / 2}px`, "--wy": `${cy - ws.h / 2}px`, "--wr": `${deg}deg`, "--wz": item.z,
-            "--gx": `${g[0]}px`, "--gy": `${g[1]}px`, "--wh": `${ws.h}px`, "--gh": `${item.gh ?? item.h}px`,
-          } as CSSProperties;
+          const p = L.pos[item.id] ?? [0, 0];
+          const s = L.size[item.id] ?? item;
+          const deg = L.tilt[item.id] ?? 0;
+          const style = { "--ww": `${s.w}px`, "--wh": `${s.h}px`, "--wx": `${p[0]}px`, "--wy": `${p[1]}px`, "--wr": `${deg}deg`, "--wz": item.z } as CSSProperties;
           const dev = item.dev ? (
             <button type="button" key={`${item.id}-dev`} className="cx-item cx-dev" data-id={`${item.id}-dev`} aria-label={`${item.dev.label}: ${label("timeline") || "Timeline"}`} title={`${item.dev.label}: Timeline`} onClick={() => onGo?.("timeline")}
-              style={{ width: item.dev.w, height: item.dev.h, "--wx": `${cx - item.dev.w / 2}px`, "--wy": `${cy - item.h / 2 - DEV_GAP - item.dev.h}px`, "--wr": "0deg", "--wz": item.z,
-                "--gx": `${g[0] + item.w / 2 - item.dev.w / 2}px`, "--gy": `${g[1] - DEV_GAP - item.dev.h}px` } as CSSProperties}>
+              style={{ "--ww": `${item.dev.w}px`, "--wh": `${item.dev.h}px`, "--wx": `${p[0] + s.w / 2 - item.dev.w / 2}px`, "--wy": `${p[1] - DEV_GAP - item.dev.h}px`, "--wr": "0deg", "--wz": item.z + 1 } as CSSProperties}>
               <img className="cx-art" src={publicUrl(`/case/${item.dev.src}`)} alt="" draggable={false} />
             </button>
           ) : null;
@@ -329,8 +372,6 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
             ? <img className="cx-art cx-lapel" src={publicUrl(`/case/${item.src}`)} alt="" draggable={false} />
             : item.rack ? <Rack /> : item.obj
             ? <object className="cx-art" type="image/svg+xml" data={publicUrl(`/case/${item.src}`)} aria-hidden="true" tabIndex={-1} />
-            : item.id === "bio"
-            ? <picture><source media={WIDE_QUERY} srcSet={publicUrl("/case/portrait-full.webp")} /><img className="cx-art is-cover" src={publicUrl(`/case/${item.src}`)} alt="" draggable={false} /></picture>
             : <img className={item.crop ? "cx-art is-crop" : "cx-art"} src={publicUrl(`/case/${item.src}`)} alt="" draggable={false} />;
           if (dev) return [dev, <CaseButton key={item.id} item={item} style={style} art={art} name={item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : item.label} go={() => onOpen?.("unit", item.unit!)} />];
           if (!item.view) return <span key={item.id} className="cx-item is-static" data-id={item.id} style={style}>{art}</span>;
