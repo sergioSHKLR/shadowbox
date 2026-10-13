@@ -1,3 +1,4 @@
+import type { Chrome } from "@/lib/shadowbox/copy";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { awards, publicUrl, ribbonRows, units, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
@@ -169,6 +170,15 @@ const spreadY = (pos: Pos, ids: string[], cx: number, y0: number, h: number, siz
   let y = y0 + gap;
   for (const id of ids) { const s = size(id); pos[id] = [cx - s.w / 2, y]; y += s.h + gap; }
 };
+/** Items spread down to yEnd: equal gaps above and between, the last item's bottom exactly on yEnd. */
+const spreadTo = (pos: Pos, ids: string[], cx: number, y0: number, yEnd: number) => {
+  const gap = (yEnd - y0 - ids.reduce((s, id) => s + byId(id).h, 0)) / ids.length;
+  let y = y0 + gap;
+  for (const id of ids) { const s = byId(id); pos[id] = [cx - s.w / 2, y]; y += s.h + gap; }
+};
+/** Padding line (Sergio): items that sit low keep this inset from the felt's bottom and right edges (the shirt itself
+ *  still touches the left and bottom edges). */
+const PAD = 22;
 /** Common shirt block (1-9): shirt at (sx, sy), worn awards, pen (1) left between the placket and the pocket, 2M (4) and
  * Liberty (5) over the pocket below the EXW, and the column ID (7), passport (8), memorandum (9), USO (6) over the
  * shirt's right side. split: ID and passport move off the shirt to a column at splitX (2-column portrait).
@@ -178,11 +188,11 @@ const shirtBlock = (pos: Pos, sx: number, sy: number, split?: number) => {
   const H = SHIRT_H;
   pos.uniforms = [sx, sy];
   for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = byId(id); pos[id] = [sx + rx - it.w / 2, sy + ry - it.h / 2]; }
-  pos.guestbook = [sx + 40, sy + (EXW_BOTTOM + H) / 2 - PEN.h / 2];
-  spreadY(pos, ["admin", "offduty"], sx + SHIRT.pocket.cx, sy + EXW_BOTTOM, H - EXW_BOTTOM);
-  if (split === undefined) spreadY(pos, ["onduty", "map", "logbook", "contact"], sx + DOC_X + DOC_W / 2, sy, H);
+  pos.guestbook = [sx + 40, sy + H - PAD - PEN.h];
+  spreadTo(pos, ["admin", "offduty"], sx + SHIRT.pocket.cx, sy + EXW_BOTTOM, sy + H - PAD);
+  if (split === undefined) spreadTo(pos, ["onduty", "map", "logbook", "contact"], sx + DOC_X + DOC_W / 2, sy, sy + H - PAD);
   else {
-    spreadY(pos, ["logbook", "contact"], sx + DOC_X + DOC_W / 2, sy + EXW_BOTTOM - 40, H - EXW_BOTTOM + 40);
+    spreadTo(pos, ["logbook", "contact"], sx + DOC_X + DOC_W / 2, sy + EXW_BOTTOM - 40, sy + H - PAD);
     spreadY(pos, ["onduty", "map"], split + byId("map").w / 2, sy + H / 3, (2 * H) / 3);
   }
   return sx + DOC_X + DOC_W;
@@ -278,7 +288,7 @@ const twoP = (): Layout => {
   devGrid(pos, 3, dx, sy + G, W - G - dx, 2 * DEV_H + 3 * G);
   shirtBlock(pos, 0, sy, SHIRT_W + G);
   // One baseline for pen, Liberty, USO and passport; 2M's bottom level with the memorandum's (Sergio).
-  const base = sy + H0 - G, bottom = (id: string, b: number) => { pos[id] = [pos[id][0], b - byId(id).h]; };
+  const base = sy + H0 - PAD, bottom = (id: string, b: number) => { pos[id] = [pos[id][0], b - byId(id).h]; };
   for (const id of ["guestbook", "offduty", "contact", "map"]) bottom(id, base);
   const memoBottom = base - CARD.h - G;
   bottom("logbook", memoBottom); bottom("admin", memoBottom);
@@ -290,7 +300,7 @@ const twoP = (): Layout => {
   // pen | 2M + Liberty | USO + memo | passport + ID; each item centred in its column, vertical positions kept.
   const dcols = [["guestbook"], ["admin", "offduty"], ["contact", "logbook"], ["map", "onduty"]];
   const dcw = dcols.map((ids) => Math.max(...ids.map((id) => byId(id).w)));
-  const left = pos.guestbook[0], right = W - G;
+  const left = pos.guestbook[0], right = W - PAD;
   const dgap = (right - left - dcw.reduce((t, v) => t + v, 0)) / (dcols.length - 1);
   let dx0 = left;
   dcols.forEach((ids, i) => { for (const id of ids) pos[id] = [dx0 + (dcw[i] - byId(id).w) / 2, pos[id][1]]; dx0 += dcw[i] + dgap; });
@@ -338,7 +348,7 @@ const exitFull = () => {
   if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
 };
 
-export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; label: (view: string) => string }) {
+export function CaseHome({ onOpen, onGo, label, copy }: { copy: Chrome["intro"]; onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; label: (view: string) => string }) {
   const stage = useRef<HTMLDivElement | null>(null);
   const [intro, setIntro] = useState(false);
   const [hint, setHint] = useState(false);
@@ -414,25 +424,18 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
           );
         })}
       </div>
-      <button type="button" className="cx-exit" aria-label="Exit full case" title="Exit full case" onClick={exitFull}>×</button>
-      <button type="button" className="cx-help" aria-label="About this shadowbox" title="About this shadowbox" onClick={() => { setIntro(true); setHint(true); }}>?</button>
+      <button type="button" className="cx-exit" aria-label={copy.exitFull} title={copy.exitFull} onClick={exitFull}>×</button>
+      <button type="button" className="cx-help" aria-label={copy.help} title={copy.help} onClick={() => { setIntro(true); setHint(true); }}>?</button>
     </div>
-    {intro ? <CaseIntro onClose={closeIntro} /> : null}
+    {intro ? <CaseIntro copy={copy} onClose={closeIntro} /> : null}
     </>
   );
 }
 
 const INTRO_KEY = "sb-case-intro-v1";
-const WHY: [string, string, string][] = [
-  ["Items", "Real medals, devices and uniforms are costly or hard to find", "Every item drawn to scale, at no cost"],
-  ["Condition", "Fades, tarnishes and gathers dust behind glass", "Does not deteriorate"],
-  ["Meaning", "Much stays unknown unless the owner or someone versed is there to explain", "Each item explains itself and opens its story"],
-  ["Access", "Seen only where it hangs", "Open on any device, shared by a link"],
-  ["Content", "Objects only", "Text and photos, with room for narrations and interviews"],
-];
 
 /** First-visit introduction (Oct 13 2026): Esc, the close button or the backdrop dismiss it; focus stays inside. */
-function CaseIntro({ onClose }: { onClose: () => void }) {
+function CaseIntro({ onClose, copy: c }: { onClose: () => void; copy: Chrome["intro"] }) {
   const box = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     const prev = document.activeElement as HTMLElement | null;
@@ -452,15 +455,15 @@ function CaseIntro({ onClose }: { onClose: () => void }) {
   return (
     <div className="cx-intro" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <div ref={box} className="cx-intro-box" role="dialog" aria-modal="true" aria-labelledby="cx-intro-title">
-        <button type="button" className="cx-intro-x" aria-label="Close" onClick={onClose}>×</button>
-        <h2 id="cx-intro-title">Welcome to the shadowbox</h2>
-        <p>This is a digital shadowbox: every item from a Navy career, drawn at its true size. Each one carries its own story, so nothing depends on someone being here to explain it. Items that glow are clickable; select one to open its page.</p>
+        <button type="button" className="cx-intro-x" aria-label={c.close} onClick={onClose}>×</button>
+        <h2 id="cx-intro-title">{c.title}</h2>
+        <p>{c.body}</p>
         <table className="cx-why">
-          <caption>Why a digital shadowbox beats a physical one</caption>
-          <thead><tr><th scope="col"></th><th scope="col">Physical case</th><th scope="col">This site</th></tr></thead>
-          <tbody>{WHY.map(([k, a, b]) => <tr key={k}><th scope="row">{k}</th><td>{a}</td><td>{b}</td></tr>)}</tbody>
+          <caption>{c.caption}</caption>
+          <thead><tr><th scope="col"></th><th scope="col">{c.physical}</th><th scope="col">{c.site}</th></tr></thead>
+          <tbody>{c.rows.map(([k, a, b]) => <tr key={k}><th scope="row">{k}</th><td>{a}</td><td>{b}</td></tr>)}</tbody>
         </table>
-        <button type="button" className="cx-intro-go" onClick={onClose}>View the case</button>
+        <button type="button" className="cx-intro-go" onClick={onClose}>{c.go}</button>
       </div>
     </div>
   );
