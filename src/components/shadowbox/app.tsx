@@ -244,8 +244,11 @@ export function ShadowboxApp() {
     setQuery("");
     window.scrollTo(0, 0);
   };
+  // The home case is the framed CaseHome (.case-frame around .cx-stage); .case-stage was the old plate home, which no
+  // longer renders, so the button found nothing and did nothing on any device (Sergio, Android, Oct 13).
+  const caseEl = () => document.querySelector<HTMLElement>(".case-frame:has(.cx-stage)") ?? document.querySelector<HTMLElement>(".case-stage");
   const toggleCaseFull = () => {
-    const stage = document.querySelector<HTMLElement>(".case-stage");
+    const stage = caseEl();
     if (!stage) return;
     if (document.fullscreenElement === stage || stage.dataset.cover === "1") {
       delete stage.dataset.cover;
@@ -273,7 +276,7 @@ export function ShadowboxApp() {
   const menuNext = menuAt >= 0 && menuAt < MENU.length - 1 ? MENU[menuAt + 1] : null;
   useEffect(() => {
     const sync = () => {
-      const stage = document.querySelector<HTMLElement>(".case-stage");
+      const stage = caseEl();
       setCaseFull(document.fullscreenElement === stage || stage?.dataset.cover === "1");
     };
     document.addEventListener("fullscreenchange", sync);
