@@ -244,14 +244,18 @@ const VARIANTS: Record<string, () => Variant> = {
     const size = { bio: { w: 420 * (687 / 1024), h: 420 } }; // official portrait, 687 x 1024, shown whole
     byId("bio").src = "portrait-full.webp"; // Sergio's official full-length portrait (portrait-cutout.webp kept, unused)
     const memo = byId("logbook"), pen = byId("guestbook");
-    pos.logbook = [G, H - G - memo.h]; tilt.logbook = -4;
-    pos.guestbook = [G + memo.w + G + 4, H - G - pen.h]; tilt.guestbook = 4;
+    pos.logbook = [G, H - G - memo.h]; // plumb (Sergio)
+    pos.guestbook = [G + memo.w + G, H - G - pen.h]; // plumb
+    const pass = byId("map"); // passport right of the pen, on the lower shirt front
+    pos.map = [G + memo.w + G + pen.w + G, H - G - pass.h];
     // Documents on the shirt (Sergio's mark-up, Oct 13): band between the lapel tip / pocket's right edge and the
     // shirt's right edge, clear of the lapel (x < 180 mm), rack, pins, memo and pen.
     const dw = 88, dx0 = 250;
-    const docs = [["map"], ["onduty"], ["offduty"], ["admin"], ["contact"]];
-    const dh = column(dx0, 0, dw, docs, {});
-    column(dx0, (H - dh) / 2, dw, docs, pos);
+    // Remaining stack spread evenly over the full height.
+    const docs = ["onduty", "offduty", "admin", "contact"].map(byId);
+    const gap = (H - docs.reduce((t, d) => t + d.h, 0)) / (docs.length + 1);
+    let dy = gap;
+    for (const d of docs) { pos[d.id] = [dx0 + (dw - d.w) / 2, dy]; dy += d.h + gap; }
     const px0 = dx0 + dw + G; // overlaps the sleeve edge so the portrait sits nearer the centre
     const plaque = byId("plaque");
     const ph = size.bio.h + G + plaque.h;
