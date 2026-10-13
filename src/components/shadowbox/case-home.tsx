@@ -70,8 +70,11 @@ const ITEMS: Item[] = [
   { id: "guestbook", src: "black-pen.svg", w: mm(37.795), h: mm(536.693), view: "guestbook", label: "Guestbook", wide: [0, 0, 0], z: 7 },
   { id: "map", src: "passport-maroon.svg", w: mm(332.598), h: mm(472.441), view: "map", label: "Travel book", wide: [0, 0, 0], z: 3 },
   { id: "onduty", src: "id-card.svg", obj: true, w: 54, h: 54 * (680.11 / 439.297), view: "onduty", label: "Identification card", wide: [0, 0, 0], z: 4 },
-  { id: "bio", src: "portrait-full.webp", ...PORTRAIT, view: "bio", label: "Biography", wide: [0, 0, 0], z: 2 },
-  { id: "plaque", src: "brass-plaque.svg", w: mm(264.567), h: mm(89.197), view: "bio", label: "Biography", wide: [0, 0, 0], z: 3 },
+  // Two portraits on one axis (Sergio, Oct 13): Seaman Recruit on top, Chief Petty Officer below, each with its plaque.
+  { id: "bio-sr", src: "portrait-recruit.webp", ...PORTRAIT, view: "bio", label: "Biography", wide: [0, 0, 0], z: 2 },
+  { id: "plaque-sr", src: "plaque-sr.svg", w: mm(264.567), h: mm(89.197), view: "bio", label: "Biography", wide: [0, 0, 0], z: 3 },
+  { id: "bio", src: "portrait-chief.webp", ...PORTRAIT, view: "bio", label: "Biography", wide: [0, 0, 0], z: 2 },
+  { id: "plaque", src: "plaque-cpo.svg", w: mm(264.567), h: mm(89.197), view: "bio", label: "Biography", wide: [0, 0, 0], z: 3 },
 ];
 const CRESTS: Item[] = [
   crest("ncts", "ncts", "ncts-crest.svg", 1, "NCTS", DEV.po3),
@@ -165,10 +168,21 @@ const WSIZE: Record<string, { w: number; h: number }> = {};
  * Wide home layout (Sergio's variant F, approved Oct 13): shirt with the pen in its lower-left and [2M, Liberty, USO]
  * over the pocket | [ID, passport, memorandum] | full-length portrait + plaque | crests 2 x 3 in chronological order.
  */
+/** SR portrait + plaque over CPO portrait + plaque, centred on one axis in a column of width w; returns its height. */
+const PLAQUE_H = mm(89.197);
+const BIO_H = 2 * (PORTRAIT.h + G + PLAQUE_H) + G;
+const bioStack = (pos: Pos, x0: number, y0: number, w: number) => {
+  let y = y0;
+  for (const [b, pl] of [["bio-sr", "plaque-sr"], ["bio", "plaque"]]) {
+    const plaque = byId(pl);
+    pos[b] = [x0 + (w - PORTRAIT.w) / 2, y]; y += PORTRAIT.h + G;
+    pos[pl] = [x0 + (w - plaque.w) / 2, y]; y += plaque.h + G;
+  }
+  return y - G - y0;
+};
 const wideF = (): Variant => {
   const pos: Pos = { uniforms: [0, 0] }, tilt: Record<string, number> = {};
   const H = SHIRT_H;
-  const size = { bio: { w: 420 * (687 / 1024), h: 420 } };
   const spread = (x0: number, w: number, ids: string[]) => {
     const its = ids.map(byId);
     const gap = (H - its.reduce((t, d) => t + d.h, 0)) / (its.length + 1);
@@ -186,17 +200,14 @@ const wideF = (): Variant => {
   const s1 = ["admin", "offduty", "contact"], s1y = Math.max(exwBottom + G, H - G - (3 * CARD.h + 2 * G));
   s1.forEach((id, k) => { pos[id] = [x1, s1y + k * (CARD.h + G)]; });
   spread(x2, s2w, ["onduty", "map", "logbook"]);
-  const plaque = byId("plaque");
-  const ph = size.bio.h + G + plaque.h;
-  pos.bio = [px0, (H - ph) / 2];
-  pos.plaque = [px0 + (size.bio.w - plaque.w) / 2, (H - ph) / 2 + size.bio.h + G];
+  bioStack(pos, px0, (H - BIO_H) / 2, PORTRAIT.w);
   const LE = ["ncts", "eodmu5", "jcse"], RE = ["frank-cable", "sercc", "navhosp"];
   const cw1 = maxW(LE), cw2 = maxW(RE);
-  const c1 = px0 + size.bio.w + G;
+  const c1 = px0 + PORTRAIT.w + G;
   crestCol(c1 + cw1 / 2, (H - crestColH(LE)) / 2, LE, pos);
   const c2 = c1 + cw1 + G;
   crestCol(c2 + cw2 / 2, (H - crestColH(RE)) / 2, RE, pos);
-  return { pos, tilt, w: c2 + cw2 + G, h: H, size };
+  return { pos, tilt, w: c2 + cw2 + G, h: H };
 };
 {
   const v = wideF();
@@ -209,24 +220,11 @@ const wideF = (): Variant => {
 }
 
 // ---- Layouts (Sergio, Oct 13). Every layout uses the same true-size items; only positions differ.
-//  wide (3 columns): shirt cropped at 3 buttons | full-length portrait + plaque | crests 2 x 3 (variant F).
-//  two  (2 columns): full-length shirt with the F overlays, documents above it | portrait + plaque over crests 3 x 2.
-//  one  (1 column):  portrait + plaque, crests 3 x 2, then the wide layout's first column unchanged.
+//  wide (3 columns): shirt cropped at 3 buttons with its overlays | SR + CPO portraits | crests 2 x 3 (variant F).
+//  two  (2 columns): crests 3 x 2 on top; the wide layout's first column | SR + CPO portraits.
+//  one  (1 column):  SR + CPO portraits, crests 3 x 2, then the wide layout's first column unchanged.
 type Mode = "wide" | "two" | "one";
 type Layout = { pos: Pos; size: Record<string, { w: number; h: number }>; tilt: Record<string, number>; w: number; h: number };
-const BIO_FULL = { w: 420 * (687 / 1024), h: 420 }; // Sergio's official full-length portrait, 687 x 1024, shown whole
-const SHIRT_FULL_SIZE = { w: SHIRT_W, h: SHIRT_FULL };
-/** Worn items, then F's overlays on a full-length shirt at (sx, sy): [2M, Liberty, USO] over and under the pocket from
- * just below the EXW, pen plumb in the lower-left between the placket and stack 1, bottom-aligned. */
-const onShirt = (pos: Pos, sx: number, sy: number, shirtH: number) => {
-  pos.uniforms = [sx, sy];
-  for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = byId(id); pos[id] = [sx + rx - it.w / 2, sy + ry - it.h / 2]; }
-  const pen = byId("guestbook");
-  pos.guestbook = [sx + 40, sy + shirtH - G - pen.h];
-  const x1 = sx + SHIRT.pocket.cx - CARD.w / 2, exwBottom = ON_SHIRT.exw[1] + EXW_H / 2;
-  const s1y = sy + Math.max(exwBottom + G, Math.min(shirtH, SHIRT_H) - G - (3 * CARD.h + 2 * G));
-  ["admin", "offduty", "contact"].forEach((id, k) => { pos[id] = [x1, s1y + k * (CARD.h + G)]; });
-};
 /** Crests 3 x 2, read left to right then down in service order, each column on a shared centre axis. */
 const CREST_ROWS = [["ncts", "frank-cable", "eodmu5"], ["sercc", "jcse", "navhosp"]];
 const COLW = [0, 1, 2].map((i) => Math.max(...CREST_ROWS.map((r) => byId(r[i]).w)));
@@ -237,32 +235,6 @@ const crests3 = (pos: Pos, x0: number, y0: number) => {
     let x = x0;
     r.forEach((id, i) => { const c = byId(id); pos[id] = [x + (COLW[i] - c.w) / 2, y0 + ri * (44 + DEV_GAP + CREST_H + G) + 44 + DEV_GAP]; x += COLW[i] + G; });
   });
-};
-const DOCS = ["onduty", "map", "logbook"];
-const DOCS_H = Math.max(...DOCS.map((id) => byId(id).h));
-/** ID, passport, memorandum in a row spread over width w, bottoms aligned at y + DOCS_H. */
-const docRow = (pos: Pos, x0: number, y: number, w: number) => {
-  const its = DOCS.map(byId), gap = (w - its.reduce((s, i) => s + i.w, 0)) / (its.length + 1);
-  let x = x0 + gap;
-  for (const it of its) { pos[it.id] = [x, y + DOCS_H - it.h]; x += it.w + gap; }
-};
-const bioBlock = (pos: Pos, x0: number, y0: number, w: number) => {
-  const plaque = byId("plaque");
-  pos.bio = [x0 + (w - BIO_FULL.w) / 2, y0];
-  pos.plaque = [x0 + (w - plaque.w) / 2, y0 + BIO_FULL.h + G];
-  return BIO_FULL.h + G + plaque.h;
-};
-const BIO_H = BIO_FULL.h + G + byId("plaque").h;
-const twoCol = (): Layout => {
-  const pos: Pos = {};
-  const c2x = SHIRT_W + G, c2w = Math.max(CREST3_W, BIO_FULL.w);
-  const topH = DOCS_H + 2 * G; // documents on the felt above the shirt
-  const H = Math.max(topH + SHIRT_FULL, G + BIO_H + G + CREST3_H + G);
-  onShirt(pos, 0, H - SHIRT_FULL, SHIRT_FULL);
-  docRow(pos, 0, H - SHIRT_FULL - G - DOCS_H, SHIRT_W);
-  bioBlock(pos, c2x, G, c2w);
-  crests3(pos, c2x + (c2w - CREST3_W) / 2, H - G - CREST3_H);
-  return { pos, size: { bio: BIO_FULL, uniforms: SHIRT_FULL_SIZE }, tilt: {}, w: c2x + c2w + G, h: H };
 };
 const WIDE_L: Layout = (() => {
     const pos: Pos = { ...WP };
@@ -276,11 +248,22 @@ const oneCol = (): Layout => {
   const pos: Pos = {};
   const W = SHIRT_W + G;
   let y = G;
-  y += bioBlock(pos, 0, y, W) + G;
+  y += bioStack(pos, 0, y, W) + G;
   crests3(pos, (W - CREST3_W) / 2, y); y += CREST3_H + G;
   // Last block identical to the wide layout's first column (Sergio), against the left and bottom edges.
   for (const id of COL1) { const [x, wy] = WIDE_L.pos[id]; pos[id] = [x, y + wy]; }
-  return { pos, size: { bio: BIO_FULL }, tilt: {}, w: W, h: y + SHIRT_H };
+  return { pos, size: {}, tilt: {}, w: W, h: y + SHIRT_H };
+};
+const twoCol = (): Layout => {
+  // Crests 3 x 2 across the top; below, the wide layout's first column (against the left and bottom edges) beside the
+  // SR / CPO portrait stack, which overlaps the sleeve edge as in the wide layout.
+  const pos: Pos = {};
+  const px0 = 346, W = px0 + PORTRAIT.w + G;
+  crests3(pos, (W - CREST3_W) / 2, G);
+  const y = G + CREST3_H + G;
+  for (const id of COL1) { const [x, wy] = WIDE_L.pos[id]; pos[id] = [x, y + wy]; }
+  bioStack(pos, px0, y + (SHIRT_H - BIO_H) / 2, PORTRAIT.w);
+  return { pos, size: {}, tilt: {}, w: W, h: y + SHIRT_H };
 };
 const LAYOUTS: Record<Mode, Layout> = {
   wide: WIDE_L,
