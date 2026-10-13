@@ -1031,7 +1031,8 @@
       "file": "https://commons.wikimedia.org/wiki/File%3AGreat_Lakes_Bldg_1.jpg",
       "creator": "Wikimedia Commons",
       "license": "CC BY-SA 3.0"
-    }
+    },
+    "hidden": true
   },
   {
     "id": "city-virginia-beach",
@@ -1046,7 +1047,48 @@
       "file": "https://commons.wikimedia.org/wiki/File%3ABeach_at_Virginia_Beach_Oceanfront_05.jpg",
       "creator": "Wikimedia Commons",
       "license": "CC BY-SA 4.0"
-    }
+    },
+    "hidden": true
+  },
+  {
+    "id": "city-chicago",
+    "group": "cities",
+    "order": 72,
+    "name": "Chicago",
+    "cutout": false,
+    "note": ""
+  },
+  {
+    "id": "city-san-diego",
+    "group": "cities",
+    "order": 73,
+    "name": "San Diego",
+    "cutout": false,
+    "note": ""
+  },
+  {
+    "id": "city-key-west",
+    "group": "cities",
+    "order": 74,
+    "name": "Key West",
+    "cutout": false,
+    "note": ""
+  },
+  {
+    "id": "city-jacksonville",
+    "group": "cities",
+    "order": 75,
+    "name": "Jacksonville",
+    "cutout": false,
+    "note": ""
+  },
+  {
+    "id": "city-tampa",
+    "group": "cities",
+    "order": 76,
+    "name": "Tampa",
+    "cutout": false,
+    "note": ""
   },
   {
     "id": "city-talofofo",
