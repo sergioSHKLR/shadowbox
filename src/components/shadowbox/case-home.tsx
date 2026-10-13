@@ -147,135 +147,174 @@ let WIDE_W = 0;
   WP.contact = [G + memo.w + G + pen.w + G, WIDE_H - G - CARD.h];
 }
 const WIDE = { w: WIDE_W, h: WIDE_H };
-const TILT: Record<string, number> = {};
-
-/** Crests stacked in one column on a shared centre axis; returns the height used. */
-const crestCol = (cx: number, y0: number, ids: string[], pos: Pos, gap = G) => {
-  let y = y0;
-  for (const id of ids) {
-    const c = byId(id);
-    pos[id] = [cx - c.w / 2, y + c.dev!.h + DEV_GAP];
-    y += c.dev!.h + DEV_GAP + CREST_H + gap;
-  }
-  return y - gap - y0;
-};
-const crestColH = (ids: string[], gap = G) => ids.reduce((s, id) => s + byId(id).dev!.h + DEV_GAP + CREST_H, 0) + gap * (ids.length - 1);
-const maxW = (ids: string[]) => Math.max(...ids.map((id) => byId(id).w));
-type Variant = { pos: Pos; tilt: Record<string, number>; w: number; h: number; size?: Record<string, { w: number; h: number }> };
-/** Wide-only size overrides (the full-length portrait's slot). */
-const WSIZE: Record<string, { w: number; h: number }> = {};
-/**
- * Wide home layout (Sergio's variant F, approved Oct 13): shirt with the pen in its lower-left and [2M, Liberty, USO]
- * over the pocket | [ID, passport, memorandum] | full-length portrait + plaque | crests 2 x 3 in chronological order.
- */
-/** SR portrait + plaque over CPO portrait + plaque, centred on one axis in a column of width w; returns its height. */
+// ---- Layouts (Sergio's proposal drawing, Oct 13). Portraits and crests may be resized; every other item keeps its true
+// size. Rank devices (12-17) are their own grid, no longer above the crests. Legend numbers refer to the drawing.
+//  wide  (3 columns): shirt block | SR over CPO | devices 3 x 2 over crests 2 x 3.
+//  twoL  (2 columns, landscape): shirt block | SR beside CPO over [devices 2 x 3 | crests 3 x 2].
+//  twoP  (2 columns, portrait): SR beside CPO, crests 3 x 2, devices in a row, shirt with ID and passport beside it.
+//  one   (1 column): SR beside CPO, crests 2 x 3, devices in a row, shirt block.
+//  menu  (?layout=menu, study only): the ten pages in menu order, left to right.
+type Mode = "wide" | "twoL" | "twoP" | "one" | "menu";
+type Size = { w: number; h: number };
+type Layout = { pos: Pos; size: Record<string, Size>; tilt: Record<string, number>; w: number; h: number };
 const PLAQUE_H = mm(89.197);
-const BIO_H = 2 * (PORTRAIT.h + G + PLAQUE_H) + G;
-const bioStack = (pos: Pos, x0: number, y0: number, w: number) => {
-  let y = y0;
-  for (const [b, pl] of [["bio-sr", "plaque-sr"], ["bio", "plaque"]]) {
-    const plaque = byId(pl);
-    pos[b] = [x0 + (w - PORTRAIT.w) / 2, y]; y += PORTRAIT.h + G;
-    pos[pl] = [x0 + (w - plaque.w) / 2, y]; y += plaque.h + G;
-  }
-  return y - G - y0;
+const PEN = byId("guestbook");
+const CRESTS_IN_ORDER = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"];
+const DEVS = CRESTS_IN_ORDER.map((id) => `${id}-dev`);
+const devOf = (id: string) => byId(id.replace(/-dev$/, "")).dev!;
+const EXW_BOTTOM = ON_SHIRT.exw[1] + EXW_H / 2;
+/** Items spread evenly (equal gaps, edges included) along one axis. */
+const spreadY = (pos: Pos, ids: string[], cx: number, y0: number, h: number, size: (id: string) => Size = (id) => byId(id)) => {
+  const gap = (h - ids.reduce((s, id) => s + size(id).h, 0)) / (ids.length + 1);
+  let y = y0 + gap;
+  for (const id of ids) { const s = size(id); pos[id] = [cx - s.w / 2, y]; y += s.h + gap; }
 };
-const wideF = (): Variant => {
-  const pos: Pos = { uniforms: [0, 0] }, tilt: Record<string, number> = {};
+/** Common shirt block (1-9): shirt at (sx, sy), worn awards, pen (1) left between the placket and the pocket, 2M (4) and
+ * Liberty (5) over the pocket below the EXW, and the column ID (7), passport (8), memorandum (9), USO (6) over the
+ * shirt's right side. split: ID and passport move off the shirt to a column at splitX (2-column portrait).
+ * Returns the right edge of the block's content. */
+const DOC_X = 212.5, DOC_W = 95;
+const shirtBlock = (pos: Pos, sx: number, sy: number, split?: number) => {
   const H = SHIRT_H;
-  const spread = (x0: number, w: number, ids: string[]) => {
-    const its = ids.map(byId);
-    const gap = (H - its.reduce((t, d) => t + d.h, 0)) / (its.length + 1);
-    let y = gap;
-    for (const d of its) { pos[d.id] = [x0 + (w - d.w) / 2, y]; y += d.h + gap; }
-  };
-  // Pen plumb in the shirt's lower-left, between the button placket and stack 1, bottom-aligned. Stack 1 over the
-  // pocket, starting below the EXW on the flap (rack, ESWS and EXW stay uncovered). Stack 2 centred between stack 1
-  // and the portrait, which starts just over the sleeve edge so the shirt stays mostly visible.
-  const pen = byId("guestbook"), s2w = maxW(["onduty", "map", "logbook"]);
-  const px0 = 346, x1 = SHIRT.pocket.cx - CARD.w / 2;
-  pos.guestbook = [40, H - G - pen.h];
-  const x2 = x1 + CARD.w + (px0 - (x1 + CARD.w) - s2w) / 2;
-  const exwBottom = ON_SHIRT.exw[1] + EXW_H / 2;
-  const s1 = ["admin", "offduty", "contact"], s1y = Math.max(exwBottom + G, H - G - (3 * CARD.h + 2 * G));
-  s1.forEach((id, k) => { pos[id] = [x1, s1y + k * (CARD.h + G)]; });
-  spread(x2, s2w, ["onduty", "map", "logbook"]);
-  bioStack(pos, px0, (H - BIO_H) / 2, PORTRAIT.w);
-  const LE = ["ncts", "eodmu5", "jcse"], RE = ["frank-cable", "sercc", "navhosp"];
-  const cw1 = maxW(LE), cw2 = maxW(RE);
-  const c1 = px0 + PORTRAIT.w + G;
-  crestCol(c1 + cw1 / 2, (H - crestColH(LE)) / 2, LE, pos);
-  const c2 = c1 + cw1 + G;
-  crestCol(c2 + cw2 / 2, (H - crestColH(RE)) / 2, RE, pos);
-  return { pos, tilt, w: c2 + cw2 + G, h: H };
+  pos.uniforms = [sx, sy];
+  for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = byId(id); pos[id] = [sx + rx - it.w / 2, sy + ry - it.h / 2]; }
+  pos.guestbook = [sx + 40, sy + (EXW_BOTTOM + H) / 2 - PEN.h / 2];
+  spreadY(pos, ["admin", "offduty"], sx + SHIRT.pocket.cx, sy + EXW_BOTTOM, H - EXW_BOTTOM);
+  if (split === undefined) spreadY(pos, ["onduty", "map", "logbook", "contact"], sx + DOC_X + DOC_W / 2, sy, H);
+  else {
+    spreadY(pos, ["logbook", "contact"], sx + DOC_X + DOC_W / 2, sy + EXW_BOTTOM - 40, H - EXW_BOTTOM + 40);
+    spreadY(pos, ["onduty", "map"], split + byId("map").w / 2, sy + H / 3, (2 * H) / 3);
+  }
+  return sx + DOC_X + DOC_W;
 };
-{
-  const v = wideF();
-  for (const k of Object.keys(WP)) delete WP[k];
-  Object.assign(WP, v.pos);
-  Object.assign(TILT, v.tilt);
-  WIDE.w = v.w;
-  WIDE.h = v.h;
-  Object.assign(WSIZE, v.size ?? {});
-}
-
-// ---- Layouts (Sergio, Oct 13). Every layout uses the same true-size items; only positions differ.
-//  wide (3 columns): shirt cropped at 3 buttons with its overlays | SR + CPO portraits | crests 2 x 3 (variant F).
-//  two  (2 columns): crests 3 x 2 on top; the wide layout's first column | SR + CPO portraits.
-//  one  (1 column):  SR + CPO portraits, crests 3 x 2, then the wide layout's first column unchanged.
-type Mode = "wide" | "two" | "one";
-type Layout = { pos: Pos; size: Record<string, { w: number; h: number }>; tilt: Record<string, number>; w: number; h: number };
-/** Crests 3 x 2, read left to right then down in service order, each column on a shared centre axis. */
-const CREST_ROWS = [["ncts", "frank-cable", "eodmu5"], ["sercc", "jcse", "navhosp"]];
-const COLW = [0, 1, 2].map((i) => Math.max(...CREST_ROWS.map((r) => byId(r[i]).w)));
-const CREST3_W = COLW.reduce((s, w) => s + w, 0) + 2 * G;
-const CREST3_H = CREST_ROWS.length * (44 + DEV_GAP + CREST_H) + G;
-const crests3 = (pos: Pos, x0: number, y0: number) => {
-  CREST_ROWS.forEach((r, ri) => {
-    let x = x0;
-    r.forEach((id, i) => { const c = byId(id); pos[id] = [x + (COLW[i] - c.w) / 2, y0 + ri * (44 + DEV_GAP + CREST_H + G) + 44 + DEV_GAP]; x += COLW[i] + G; });
+/** Two portraits, each with its plaque centred under it; portraits scaled to height ph. */
+const portraitSize = (ph: number): Size => ({ w: ph * (PORTRAIT.w / PORTRAIT.h), h: ph });
+const PAIRS = [["bio-sr", "plaque-sr"], ["bio", "plaque"]];
+const portraitsStacked = (pos: Pos, size: Record<string, Size>, cx: number, y0: number, ph: number) => {
+  const s = portraitSize(ph); let y = y0;
+  for (const [b, pl] of PAIRS) { size[b] = s; pos[b] = [cx - s.w / 2, y]; y += ph + G; pos[pl] = [cx - byId(pl).w / 2, y]; y += PLAQUE_H + G; }
+  return { w: s.w, h: y - G - y0 };
+};
+const portraitsSide = (pos: Pos, size: Record<string, Size>, x0: number, y0: number, w: number) => {
+  const s = portraitSize(((w - G) / 2) * (PORTRAIT.h / PORTRAIT.w));
+  PAIRS.forEach(([b, pl], i) => {
+    const cx = x0 + (w / 2) * i + (w / 2 - G / 2) / 2 + (i ? G / 2 : 0);
+    size[b] = s; pos[b] = [cx - s.w / 2, y0]; pos[pl] = [cx - byId(pl).w / 2, y0 + s.h + G];
   });
+  return s.h + G + PLAQUE_H;
 };
-const WIDE_L: Layout = (() => {
-    const pos: Pos = { ...WP };
-    const [sx, sy] = pos.uniforms;
-    for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = byId(id); pos[id] = [sx + rx - it.w / 2, sy + ry - it.h / 2]; }
-    return { pos, size: { ...WSIZE }, tilt: { ...TILT }, w: WIDE.w, h: WIDE.h };
-  })();
-/** The wide layout's first column (cropped shirt, awards, lapel, pen, stack 1 over the pocket, stack 2 beside it). */
-const COL1 = ["uniforms", "lapel", "decorations", "swo", "exw", "guestbook", "admin", "offduty", "contact", "onduty", "map", "logbook"];
-const oneCol = (): Layout => {
-  const pos: Pos = {};
-  const W = SHIRT_W + G;
+/** Crests at height c in a grid of rows (shared column axes), spread evenly over w x h. */
+const crestSize = (id: string, c: number): Size => ({ w: (byId(id).w / CREST_H) * c, h: c });
+const crestGrid = (pos: Pos, size: Record<string, Size>, rows: string[][], c: number, x0: number, y0: number, w: number, h: number) => {
+  const cols = rows[0].length;
+  const colW = [...Array(cols).keys()].map((i) => Math.max(...rows.map((r) => (r[i] ? crestSize(r[i], c).w : 0))));
+  const gx = (w - colW.reduce((s, v) => s + v, 0)) / (cols + 1), gy = (h - rows.length * c) / (rows.length + 1);
+  rows.forEach((r, ri) => {
+    let x = x0 + gx;
+    r.forEach((id, i) => { const s = crestSize(id, c); size[id] = s; pos[id] = [x + (colW[i] - s.w) / 2, y0 + gy + ri * (c + gy)]; x += colW[i] + gx; });
+  });
+  return colW.reduce((s, v) => s + v, 0);
+};
+/** Rank devices on a grid of cols x rows, each centred in its cell (true size). */
+const devGrid = (pos: Pos, cols: number, x0: number, y0: number, w: number, h: number) => {
+  const rows = Math.ceil(DEVS.length / cols), cw = w / cols, ch = h / rows;
+  DEVS.forEach((id, i) => { const d = devOf(id); pos[id] = [x0 + (i % cols) * cw + (cw - d.w) / 2, y0 + Math.floor(i / cols) * ch + (ch - d.h) / 2]; });
+};
+const DEV_H = 44;
+const R2x3 = [["ncts", "frank-cable"], ["eodmu5", "sercc"], ["jcse", "navhosp"]];
+const R3x2 = [["ncts", "frank-cable", "eodmu5"], ["sercc", "jcse", "navhosp"]];
+const H0 = SHIRT_H;
+/** Next column starts here: over the sleeve edge, leaving enough of the shirt visible. */
+const COL2_X = 360;
+
+const wideL = (): Layout => {
+  const pos: Pos = {}, size: Record<string, Size> = {};
+  const right = shirtBlock(pos, 0, 0);
+  const ph = (H0 - 2 * G - 2 * (PLAQUE_H + G) - G) / 2;
+  const x3 = Math.max(right + G, COL2_X), pw = portraitSize(ph).w, pcx = x3 + pw / 2;
+  portraitsStacked(pos, size, pcx, G, ph);
+  const x4 = x3 + pw + G, devH = 2 * DEV_H + 3 * G;
+  const c = (H0 - devH - 4 * G) / 3;
+  const cw = crestGrid(pos, size, R2x3, c, x4, devH, 0, H0 - devH);
+  const w4 = cw + 3 * G;
+  crestGrid(pos, size, R2x3, c, x4, devH, w4, H0 - devH);
+  devGrid(pos, 3, x4, G, w4, devH - G);
+  return { pos, size, tilt: {}, w: x4 + w4, h: H0 };
+};
+const twoL = (): Layout => {
+  const pos: Pos = {}, size: Record<string, Size> = {};
+  const right = shirtBlock(pos, 0, 0);
+  const x2 = Math.max(right + G, COL2_X);
+  // Devices get roomy cells (sideways phones still need 44 px taps); crests take the largest height that fits.
+  const devW = 140;
+  let c = 120, w2 = 0, top = 0;
+  for (; c > 60; c--) {
+    w2 = devW + crestGrid({}, {}, R3x2, c, 0, 0, 0, 0) + 4 * G;
+    top = (portraitSize(((w2 - G) / 2) * (PORTRAIT.h / PORTRAIT.w)).h) + G + PLAQUE_H;
+    if (G + top + 3 * G + 2 * c + 3 * G <= H0) break;
+  }
+  portraitsSide(pos, size, x2, G, w2);
+  const y2 = G + top + 3 * G, h2 = H0 - y2;
+  devGrid(pos, 2, x2, y2, devW, h2);
+  crestGrid(pos, size, R3x2, c, x2 + devW, y2, w2 - devW, h2);
+  return { pos, size, tilt: {}, w: x2 + w2 + G, h: H0 };
+};
+const twoP = (): Layout => {
+  const pos: Pos = {}, size: Record<string, Size> = {};
+  const W = SHIRT_W + G + byId("map").w + 2 * G, c = 110;
   let y = G;
-  y += bioStack(pos, 0, y, W) + G;
-  crests3(pos, (W - CREST3_W) / 2, y); y += CREST3_H + G;
-  // Last block identical to the wide layout's first column (Sergio), against the left and bottom edges.
-  for (const id of COL1) { const [x, wy] = WIDE_L.pos[id]; pos[id] = [x, y + wy]; }
-  return { pos, size: {}, tilt: {}, w: W, h: y + SHIRT_H };
+  y += portraitsSide(pos, size, G, y, W - 2 * G) + G;
+  const ch = 2 * c + 3 * G;
+  crestGrid(pos, size, R3x2, c, 0, y, W, ch); y += ch;
+  devGrid(pos, 6, G, y, W - 2 * G, DEV_H + 2 * G); y += DEV_H + 2 * G;
+  shirtBlock(pos, 0, y, SHIRT_W + G);
+  return { pos, size, tilt: {}, w: W, h: y + H0 };
 };
-const twoCol = (): Layout => {
-  // Crests 3 x 2 across the top; below, the wide layout's first column (against the left and bottom edges) beside the
-  // SR / CPO portrait stack, which overlaps the sleeve edge as in the wide layout.
-  const pos: Pos = {};
-  const px0 = 346, W = px0 + PORTRAIT.w + G;
-  crests3(pos, (W - CREST3_W) / 2, G);
-  const y = G + CREST3_H + G;
-  for (const id of COL1) { const [x, wy] = WIDE_L.pos[id]; pos[id] = [x, y + wy]; }
-  bioStack(pos, px0, y + (SHIRT_H - BIO_H) / 2, PORTRAIT.w);
-  return { pos, size: {}, tilt: {}, w: W, h: y + SHIRT_H };
+const oneL = (): Layout => {
+  const pos: Pos = {}, size: Record<string, Size> = {};
+  const W = SHIRT_W + G, c = 110;
+  let y = G;
+  y += portraitsSide(pos, size, G, y, W - 2 * G) + G;
+  const ch = 3 * c + 4 * G;
+  crestGrid(pos, size, R2x3, c, 0, y, W, ch); y += ch;
+  devGrid(pos, 6, G, y, W - 2 * G, DEV_H + 2 * G); y += DEV_H + 2 * G;
+  shirtBlock(pos, 0, y);
+  return { pos, size, tilt: {}, w: W, h: y + H0 };
 };
-const LAYOUTS: Record<Mode, Layout> = {
-  wide: WIDE_L,
-  two: twoCol(),
-  one: oneCol(),
+/** Study: the ten pages in menu order left to right (Biography, Logbook, Uniforms, Timeline, Travel Book, On Duty,
+ * Off Duty, Admin, Guestbook, Contact), each column centred vertically. Breaks the shirt-left rule by design. */
+const menuL = (): Layout => {
+  const pos: Pos = {}, size: Record<string, Size> = {};
+  let x = G;
+  const col = (w: number, place: (x: number) => void) => { place(x); x += w + G; };
+  const ph = 180, pw = portraitSize(ph).w;
+  col(pw, (x0) => portraitsStacked(pos, size, x0 + pw / 2, (H0 - 2 * (ph + G + PLAQUE_H) - G) / 2, ph));
+  col(byId("logbook").w, (x0) => { pos.logbook = [x0, (H0 - byId("logbook").h) / 2]; });
+  col(SHIRT_W, (x0) => {
+    pos.uniforms = [x0, 0];
+    for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = byId(id); pos[id] = [x0 + rx - it.w / 2, ry - it.h / 2]; }
+  });
+  col(31, (x0) => DEVS.forEach((id, i) => { const d = devOf(id); pos[id] = [x0 + (31 - d.w) / 2, G + i * ((H0 - 2 * G) / 6) + ((H0 - 2 * G) / 6 - d.h) / 2]; }));
+  col(byId("map").w, (x0) => { pos.map = [x0, (H0 - byId("map").h) / 2]; });
+  const c = 70, cw = Math.max(...CRESTS_IN_ORDER.map((id) => crestSize(id, c).w));
+  col(cw, (x0) => {
+    spreadY(pos, ["onduty", ...CRESTS_IN_ORDER], x0 + cw / 2, 0, H0, (id) => (id === "onduty" ? byId(id) : crestSize(id, c)));
+    for (const id of CRESTS_IN_ORDER) size[id] = crestSize(id, c);
+  });
+  for (const id of ["offduty", "admin"]) col(CARD.w, (x0) => { pos[id] = [x0, (H0 - CARD.h) / 2]; });
+  col(PEN.w, (x0) => { pos.guestbook = [x0, (H0 - PEN.h) / 2]; });
+  col(CARD.w, (x0) => { pos.contact = [x0, (H0 - CARD.h) / 2]; });
+  return { pos, size, tilt: {}, w: x, h: H0 };
 };
-/** Breakpoints on the window (Sergio, Oct 13: phone 1 column, tablet 2, laptop 3):
- *  3 columns from 1200 px wide, or from 1000 px when the window is 1.6 : 1 or wider (short laptop screens);
- *  phones held sideways (~900 x 400) get 2 columns, where every item keeps a 44 px tap area and stays visible;
- *  1 column under 768 px wide otherwise (phones upright);
- *  2 columns for everything between (tablets either way up, ~4:3 and small laptop windows). */
-const modeFor = (w: number, h: number): Mode => (w >= 1200 || (w >= 1000 && w / h >= 1.6) ? "wide" : w < 768 ? "one" : "two");
+const LAYOUTS: Record<Mode, Layout> = { wide: wideL(), twoL: twoL(), twoP: twoP(), one: oneL(), menu: menuL() };
+WIDE.w = LAYOUTS.wide.w; WIDE.h = LAYOUTS.wide.h;
+/** Breakpoints on the window (Sergio's proposal): laptops (1200 px and wider, or 1000+ px at 1.6 : 1) 3 columns;
+ *  phones upright (under 600 px wide) 1 column; other windows wider than tall (wide tablets, sideways phones) 2 columns
+ *  landscape; other windows taller than wide (tall tablets) 2 columns portrait. */
+const FORCE = typeof location !== "undefined" && new URLSearchParams(location.search).get("layout") === "menu";
+const modeFor = (w: number, h: number): Mode =>
+  FORCE ? "menu" : w >= 1200 || (w >= 1000 && w / h >= 1.6) ? "wide" : w < 600 && h > w ? "one" : w > h ? "twoL" : "twoP";
+const SCROLLS: Record<Mode, boolean> = { wide: false, twoL: false, menu: false, twoP: true, one: true };
 export const CASE_DIMS = { WIDE, LAYOUTS };
 
 function Rack() {
@@ -321,7 +360,7 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
     if (!el) return;
     const fit = () => {
       const m = modeFor(window.innerWidth, window.innerHeight);
-      const c = LAYOUTS[m], scroll = m !== "wide";
+      const c = LAYOUTS[m], scroll = SCROLLS[m];
       el.dataset.layout = m;
       setMode(m);
       (el.closest(".case-frame") as HTMLElement | null)?.style.setProperty("--cx-r", String(c.w / c.h));
@@ -353,7 +392,7 @@ export function CaseHome({ onOpen, onGo, label }: { onOpen?: (k: Kind, id: strin
           const style = { "--ww": `${s.w}px`, "--wh": `${s.h}px`, "--wx": `${p[0]}px`, "--wy": `${p[1]}px`, "--wr": `${deg}deg`, "--wz": item.z } as CSSProperties;
           const dev = item.dev ? (
             <button type="button" key={`${item.id}-dev`} className="cx-item cx-dev" data-id={`${item.id}-dev`} aria-label={`${item.dev.label}: ${label("timeline") || "Timeline"}`} title={`${item.dev.label}: Timeline`} onClick={() => onGo?.("timeline")}
-              style={{ "--ww": `${item.dev.w}px`, "--wh": `${item.dev.h}px`, "--wx": `${p[0] + s.w / 2 - item.dev.w / 2}px`, "--wy": `${p[1] - DEV_GAP - item.dev.h}px`, "--wr": "0deg", "--wz": item.z + 1 } as CSSProperties}>
+              style={{ "--ww": `${item.dev.w}px`, "--wh": `${item.dev.h}px`, "--wx": `${(L.pos[`${item.id}-dev`] ?? [0, 0])[0]}px`, "--wy": `${(L.pos[`${item.id}-dev`] ?? [0, 0])[1]}px`, "--wr": "0deg", "--wz": item.z + 1 } as CSSProperties}>
               <img className="cx-art" src={publicUrl(`/case/${item.dev.src}`)} alt="" draggable={false} />
             </button>
           ) : null;
