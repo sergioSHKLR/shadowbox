@@ -62,6 +62,17 @@ h1, h2, h3, .detail-title {
 .screen-off { display: none; }
 
 .app-shell { min-height: 100vh; min-height: 100dvh; min-width: 0; max-width: 100%; display: flex; flex-direction: column; overflow-x: clip; }
+/* Installed PWA (Sergio, Oct 2026): in standalone the vh/dvh units can resolve to the full screen (status bar included),
+   so a 100dvh shell came out a little taller than the window and scrolled. There the shell fills the real window through a
+   100% / flex chain instead, and the bars pad for the notch / gesture bar (viewport-fit=cover) inside that height. */
+@media (display-mode: standalone), (display-mode: fullscreen), (display-mode: minimal-ui) {
+  html { height: 100%; }
+  body { min-height: 100%; display: flex; flex-direction: column; }
+  #root { flex: 1 0 auto; display: flex; flex-direction: column; }
+  .app-shell { min-height: 0; flex: 1 0 auto; }
+  html .app-bar { padding-top: calc(0.35rem + env(safe-area-inset-top, 0px)); padding-left: calc(0.7rem + env(safe-area-inset-left, 0px)); padding-right: calc(0.7rem + env(safe-area-inset-right, 0px)); }
+  html .site-footer { padding-bottom: env(safe-area-inset-bottom, 0px); }
+}
 .app-bar {
   position: sticky;
   top: 0;
@@ -1700,7 +1711,7 @@ object.cx-art { color-scheme: light; }
 .cx-modal { position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center; padding: 1rem; background: rgba(4, 8, 16, 0.86); animation: cx-fade 160ms ease-out; }
 .cx-modal-box { position: relative; display: flex; flex-direction: column; align-items: center; width: min(40rem, 100%); max-height: calc(100dvh - 2rem); padding: 2.6rem 1.2rem 1rem; background: #f7f2e7; color: #14233a; border: 1px solid #c6a15b; border-radius: 6px; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55); box-sizing: border-box; overflow: auto; animation: cx-rise 180ms ease-out; }
 .cx-modal-art { display: grid; place-items: center; flex: none; width: 100%; height: min(58dvh, 30rem); min-height: 8rem; }
-.cx-modal-art { overflow: hidden; }
+.cx-modal-art { overflow: hidden; box-sizing: border-box; padding: 6px 12px 16px; } /* room for the drop shadow (Sergio, Oct 2026: it was clipped at the bottom) */
 .cx-modal-art img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.35)); }
 .cx-modal-rack { display: block; zoom: 3; }
 @media (max-width: 480px) { .cx-modal-rack { zoom: 2.4; } }
