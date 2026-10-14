@@ -326,7 +326,14 @@ const oneL = (): Layout => {
   shirtBlock(pos, 0, y);
   return { pos, size, tilt: {}, w: W, h: y + H0 };
 };
-const LAYOUTS: Record<Mode, Layout> = { wide: wideL(), twoL: twoL(), twoP: twoP(), one: oneL() };
+/** Sergio (Oct 14): the USO card (contact) and the pink 2M card (admin) trade places in every layout. Same card size, so
+ *  swapping their positions keeps every gap. */
+const swapCards = (l: Layout): Layout => {
+  const { contact, admin } = l.pos;
+  if (contact && admin) { l.pos.contact = admin; l.pos.admin = contact; }
+  return l;
+};
+const LAYOUTS: Record<Mode, Layout> = { wide: swapCards(wideL()), twoL: swapCards(twoL()), twoP: swapCards(twoP()), one: swapCards(oneL()) };
 WIDE.w = LAYOUTS.wide.w; WIDE.h = LAYOUTS.wide.h;
 /** Breakpoints on the window (Sergio's proposal): laptops (1200 px and wider, or 1000+ px at 1.6 : 1) 3 columns;
  *  phones upright (under 600 px wide) 1 column; other windows wider than tall (wide tablets, sideways phones) 2 columns
@@ -508,7 +515,7 @@ function ItemModal({ id, setId, copy: c, locale, label, go }: { id: string; setI
             // The ID card SVG pulls its photo, flag, barcode and seal from sibling files; an <img> blocks those, so it
             // shows as an <object> here, as on the case.
             : it?.obj ? <object type="image/svg+xml" data={caseUrl(src)} aria-hidden="true" tabIndex={-1} />
-            : <img src={caseUrl(src)} alt="" draggable={false} />}
+            : <img className={id === "bio" || id === "bio-sr" ? "cx-print" : undefined} src={caseUrl(src)} alt="" draggable={false} />}
         </div>
         <h2 id="cx-modal-title">{name}</h2>
         {note ? <p id="cx-modal-note">{note}</p> : null}
