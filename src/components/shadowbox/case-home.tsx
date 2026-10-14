@@ -22,11 +22,21 @@ type Item = {
 const mm = (px: number) => Math.round((px / PX) * 10) / 10;
 const CREST_H = 95;
 /** Collar device for the rank on arrival at each command (true size: 23 mm wide, art cropped to its own height). */
-const DEV = {
+/** The device SVGs carry a 9-unit margin round the art (Oct 14) so their own blurred shadow is not cut by the viewBox;
+ *  padDev grows the box by that margin about its centre, so the metal stays the same true size and place. */
+const DEV_M = 9;
+const padDev = (d: { src: string; h: number; w: number; label: string }, vh: number) => {
+  const k = d.h / vh; return { ...d, w: d.w + 2 * DEV_M * k, h: d.h + 2 * DEV_M * k };
+};
+const DEV0 = {
   // Cap-device heights (Sergio): PO3 32, PO2 38, PO1 44, CPO 44 mm; width follows each art's own aspect.
   po3: { src: "po3-silver-collar.svg", h: 32, w: 32 * 23 / 25, label: "PO3" }, po2: { src: "po2-silver-collar.svg", h: 38, w: 38 * 23 / 29.9, label: "PO2" },
   po1: { src: "po1-silver-collar.svg", h: 44, w: 44 * 23 / 32.5, label: "PO1" }, po1g: { src: "po1-gold-collar.svg", h: 44, w: 44 * 23 / 32.5, label: "PO1 (gold)" },
   cpo: { src: "cpo-collar.svg", h: 44, w: 44 * 23 / 32.5, label: "CPO" },
+};
+const DEV = {
+  po3: padDev(DEV0.po3, 94.5), po2: padDev(DEV0.po2, 113), po1: padDev(DEV0.po1, 122.835),
+  po1g: padDev(DEV0.po1g, 122.835), cpo: padDev(DEV0.cpo, 122.835),
 };
 const DEV_GAP = 5;
 const crest = (id: string, unit: string, file: string, aspect: number, label: string, dev?: Item["dev"]): Item => ({
