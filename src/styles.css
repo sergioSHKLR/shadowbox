@@ -1637,3 +1637,26 @@ object.cx-art { color-scheme: light; }
 
 /* Uniform mannequins (Sergio, Oct 14 2026): transparent cut-outs in /uniforms/v12/cut/, so no white box behind them. */
 .uniform-photo, .uniform-card--white .uniform-photo, img[src*="/uniforms/v12/cut/"] { background: transparent; }
+
+/* Award detail (Sergio, Oct 14 2026): medal and its ribbon side by side when both exist. */
+.medal-and-ribbon { display: flex; align-items: flex-end; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+.medal-and-ribbon .ribbon-hero { max-width: 9rem; height: auto; }
+
+/* Decorations mounted layouts (Sergio, Oct 14 2026). */
+.decor-page .decor-rack { width: max-content; margin-inline: auto; }
+.decor-worn { display: flex; justify-content: center; }
+.decor-two-col { display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); justify-content: center; align-items: start; gap: 2.5rem; }
+.decor-col { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+@media (max-width: 900px) { .decor-two-col { grid-template-columns: 1fr; justify-items: center; } }
+.decor-breast { display: flex; align-items: center; gap: calc(var(--in, 1rem) * 0.8); }
+.decor-left-breast { display: flex; flex-direction: column; align-items: center; gap: calc(var(--in, 1rem) * 0.25); }
+.decor-pin { width: calc(var(--in, 1rem) * 2.75); height: auto; display: block; }
+.decor-jcse { width: calc(var(--in, 1rem) * 1.6); height: auto; display: block; }
+.decor-two-note { grid-column: 1 / -1; text-align: center; max-width: 40rem; justify-self: center; }
+.decor-medal-grid { display: flex; flex-direction: column; gap: calc(var(--mi, 1rem) * 0.3); }
+.decor-medal-row { display: flex; justify-content: center; gap: calc(var(--mi, 1rem) * 0.08); }
+.decor-medal-btn { padding: 0; border: 0; background: none; cursor: pointer; width: calc(var(--mi, 1rem) * 1.375); }
+.decor-medal-btn .medal-art { display: block; width: 100%; }
+.decor-medal-btn img { width: 100%; height: auto; display: block; }
+.decor-medal-btn:focus-visible { outline: 2px solid var(--color-brass); }
+@media (max-width: 700px) { .decor-two-col { --mi: min(4.2rem, 15vw); } }

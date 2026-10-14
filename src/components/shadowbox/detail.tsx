@@ -495,7 +495,7 @@ export function DetailPanel({
               {!showAdmin ? (
               <>
               {/* (a) full-width graphic */}
-              {selection?.medal && selection.kind === "award" && medalFor(selection.id) ? (
+              {selection?.kind === "award" && medalFor(selection.id) ? (
                 <MedalHero key={selection.id} awardId={selection.id} />
               ) : subject.hero ? (
                 <>
@@ -707,7 +707,10 @@ function MedalHero({ awardId }: { awardId: string }) {
           <img className="medal-back" src={publicUrl(medal.back!)} alt={`${award.name}, reverse`} style={{ width: `calc(var(--mi) * ${medal.w})` }} />
         </div>
       ) : (
-        <MedalArt award={award} medal={medal} />
+        <div className="medal-and-ribbon">
+          <MedalArt award={award} medal={medal} />
+          <RibbonArt award={award} className="ribbon-hero" />
+        </div>
       )}
       {!medal.back ? <figcaption className="face-note">Reverse image not available</figcaption> : null}
     </figure>

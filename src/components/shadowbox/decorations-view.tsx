@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Chrome } from "@/lib/shadowbox/copy";
 import { awards, medalFor, medalRows, ribbonRows, type Award, type Kind } from "@/lib/shadowbox/model";
+import { publicUrl } from "@/lib/shadowbox/model";
 import { MedalArt, MedalBlock, RibbonArt, RibbonButton } from "@/components/shadowbox/marks";
 
 /**
@@ -60,19 +61,32 @@ function MedalsView({ mount, onOpen, t }: { mount: "mounted" | "unmounted"; onOp
   const ribbonOnly = ordered.filter((a) => !medalFor(a.id));
   const open = (a: Award) => onOpen("award", a.id);
   if (mount === "mounted") {
+    // Two columns (Sergio, Oct 14 2026): left, the full mounted ribbon rack; right, the mounted medals, five per row.
+    const five: Award[][] = [];
+    for (let i = 0; i < withMedal.length; i += 5) five.push(withMedal.slice(i, i + 5));
     return (
-      <div className="decor-medals">
-        <MedalBlock rows={medalRows(withMedal)} onOpen={open} />
-        {ribbonOnly.length ? (
-          <div className="decor-rack" aria-label={t.decor.ribbonOnlyNote}>
-            {ribbonRows(ribbonOnly, 3).map((row) => (
-              <div key={row.map((a) => a.id).join("-")} className="decor-rack-row">
-                {row.map((award) => <RibbonButton key={award.id} award={award} onOpen={() => open(award)} />)}
-              </div>
-            ))}
-            <p className="decor-soon">{t.decor.ribbonOnlyNote}</p>
-          </div>
-        ) : null}
+      <div className="decor-two-col">
+        <div className="decor-col">
+          <BreastLeft>
+            <Rack rows={ribbonRows(awards, 3)} onOpen={open} label={t.decor.mounted} />
+          </BreastLeft>
+        </div>
+        <div className="decor-col decor-medals">
+          <BreastLeft>
+            <div className="decor-medal-grid">
+              {five.map((row) => (
+                <div key={row.map((a) => a.id).join("-")} className="decor-medal-row">
+                  {row.map((award) => (
+                    <button key={award.id} type="button" className="decor-medal-btn" aria-label={award.name} onClick={() => open(award)}>
+                      <MedalArt award={award} medal={medalFor(award.id)!} />
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </BreastLeft>
+        </div>
+        {ribbonOnly.length ? <p className="decor-soon decor-two-note">{t.decor.ribbonOnlyNote}: {ribbonOnly.map((a) => a.name).join(", ")}</p> : null}
       </div>
     );
   }
@@ -90,5 +104,35 @@ function MedalsView({ mount, onOpen, t }: { mount: "mounted" | "unmounted"; onOp
         );
       })}
     </ol>
+  );
+}
+
+function Rack({ rows, onOpen, label }: { rows: Award[][]; onOpen: (a: Award) => void; label: string }) {
+  return (
+    <div className="decor-rack" aria-label={label}>
+      {rows.map((row) => (
+        <div key={row.map((a) => a.id).join("-")} className="decor-rack-row">
+          {row.map((award) => <RibbonButton key={award.id} award={award} onOpen={() => onOpen(award)} />)}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * Left breast as worn (Navy Uniform Regulations 5301/5302, Sergio Oct 14 2026): primary warfare pin (ESWS) centred
+ * 1/4 in above the ribbons or medals; secondary warfare pin (EXW) centred 1/4 in below them. The JCSE badge is a
+ * joint identification badge, worn on the right breast, so it sits beside the display on the wearer's right (viewer's left).
+ */
+function BreastLeft({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="decor-breast">
+      <img className="decor-jcse" src={publicUrl("/insignia/jcse-device.svg")} alt="JCSE identification badge (right breast)" />
+      <div className="decor-left-breast">
+        <img className="decor-pin" src={publicUrl("/case/esws-pin.svg")} alt="Enlisted Surface Warfare Specialist pin" />
+        {children}
+        <img className="decor-pin" src={publicUrl("/case/exw-pin.svg")} alt="Expeditionary Warfare Specialist pin" />
+      </div>
+    </div>
   );
 }
