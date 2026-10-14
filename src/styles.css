@@ -1660,3 +1660,6 @@ object.cx-art { color-scheme: light; }
 .decor-medal-btn img { width: 100%; height: auto; display: block; }
 .decor-medal-btn:focus-visible { outline: 2px solid var(--color-brass); }
 @media (max-width: 700px) { .decor-two-col { --mi: min(4.2rem, 15vw); } }
+/* Keep the rack/medals centred: the JCSE badge hangs off to the viewer's left without taking layout width. */
+.decor-breast { position: relative; }
+.decor-breast .decor-jcse { position: absolute; right: calc(100% + var(--in, 1rem) * 0.8); top: 50%; transform: translateY(-50%); }

@@ -32,12 +32,10 @@ export function Decorations({ onOpen, title, t }: { onOpen: (k: Kind, id: string
         </div>
       </div>
       {show === "medals" ? <MedalsView mount={mount} onOpen={onOpen} t={t} /> : mount === "mounted" ? (
-        <div className="decor-rack" aria-label={c.mounted}>
-          {rows.map((row) => (
-            <div key={row.map((a) => a.id).join("-")} className="decor-rack-row">
-              {row.map((award) => <RibbonButton key={award.id} award={award} onOpen={() => onOpen("award", award.id)} />)}
-            </div>
-          ))}
+        <div className="decor-worn">
+          <BreastLeft>
+            <Rack rows={rows} onOpen={(a) => onOpen("award", a.id)} label={c.mounted} />
+          </BreastLeft>
         </div>
       ) : (
         <ol className="decor-loose" aria-label={c.unmounted}>
