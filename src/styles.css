@@ -1618,3 +1618,6 @@ object.cx-art { color-scheme: light; }
 .cx-lens-inner { position: absolute; left: 0; top: 0; transform-origin: 0 0; background-size: 100% 100%; }
 .cx-loupe-on { cursor: zoom-in; -webkit-touch-callout: none; user-select: none; }
 @media (prefers-reduced-motion: reduce) { .cx-lens { transition: none; } }
+/* Dark-theme contrast fixes found by the audit (Oct 14 2026): gear card titles and the Uniform look buttons. */
+[data-theme="dark"] .equipment-card strong { color: var(--color-ivory); }
+[data-theme="dark"] .uprog-looks .nav-btn:not(.on) { color: var(--color-ivory); }
