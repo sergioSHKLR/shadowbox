@@ -103,7 +103,7 @@
     "id": "johnny",
     "order": 11,
     "group": "work",
-    "name": "Winter Blues",
+    "name": "Winter Working Blues",
     "branch": "USN",
     "context": "Black working uniform",
     "note": "The black winter working uniform, nicknamed the Johnny Cash because it was black shirt and black trousers.",
@@ -136,7 +136,7 @@
     "name": "Peanut Butters",
     "branch": "USN",
     "context": "Navy Service Uniform, E-6 and below",
-    "note": "The Navy Service Uniform that replaced the winter blues (the Johnny Cash) and the summer whites. Sailors called it peanut butters for the khaki shirt. Black trousers and a black garrison cap went with it. Worn until he made chief. A chief's khaki has khaki trousers, not these black ones.",
+    "note": "The Navy Service Uniform that replaced the winter working blues (the Johnny Cash) and the summer whites. Sailors called it peanut butters for the khaki shirt. Black trousers and a black garrison cap went with it. Worn until he made chief. A chief's khaki has khaki trousers, not these black ones.",
     "image": "/uniforms/v12/cut/10-nsu-peanut-butter.webp"
   },
   {
@@ -226,7 +226,7 @@
     "name": "ACU (Army)",
     "branch": "USA",
     "context": "Individual augmentee",
-    "note": "The Army Combat Uniform in the gray-green digital pattern, worn for the individual-augmentee tour. The record called it the Army AWU.",
+    "note": "The Army Combat Uniform in the gray-green digital pattern, worn with the Army during his individual-augmentee tour (second Iraq tour, 2008–09). The record called it the Army AWU.",
     "image": "/uniforms/v12/cut/21-army-acu.webp"
   },
   {
@@ -236,7 +236,7 @@
     "name": "Multicam (Army)",
     "branch": "USA",
     "context": "Afghanistan deployments, Operational Camouflage Pattern",
-    "note": "The Army's Multicam (Operational Camouflage Pattern) uniform, worn with the joint communications deployments to Afghanistan.",
+    "note": "The Army's Multicam (Operational Camouflage Pattern) uniform, worn on both Afghanistan deployments with JCSE.",
     "image": "/uniforms/v12/cut/22-army-ocp.webp"
   }
 ]
