@@ -295,8 +295,8 @@ export function Timeline({
   return (
     <main className="sheet">
       <div className="page-tracks">
-        {tracks.map(([label, items, color]) => (
-          <section key={label} className="page-track" style={{ color }} aria-label={label}>
+        {tracks.map(([label, items, color], i) => (
+          <section key={label} className="page-track" data-track={i} style={{ color }} aria-label={label}>
             <h3>{label}</h3>
             <div className="page-line">
               {items.map((item, index) => {

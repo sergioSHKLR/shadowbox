@@ -21,7 +21,7 @@ export function Schools({
     <main className="sheet">
       <h2>{title}</h2>
       <p>{lead}</p>
-      <ul className="stack">
+      <ul className="stack stack-divided">
         {courses.map((school) => {
           const place = placeById(school.placeId);
           return (
@@ -37,7 +37,7 @@ export function Schools({
       </ul>
       <h2>{necTitle}</h2>
       <p>{necLead}</p>
-      <ul className="stack">
+      <ul className="stack stack-divided">
         {specialties.map((nec) => (
           <li key={nec.id}>
             <button type="button" className="row-btn" onClick={() => onOpen("nec", nec.id)}>
