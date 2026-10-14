@@ -1569,3 +1569,39 @@ object.cx-art { color-scheme: light; }
 .decor-controls { position: relative; z-index: 5; }
 .decor-medals { padding-top: calc(var(--mi) * 1.1); }
 .decor-medals .medal-block { flex: none; }
+/* Timeline in the dark theme (Oct 2026): the navy headings, labels and Assignments line were navy on near-black (1.1:1).
+   Labels go ivory and headings brass (AA text); lane colors use light tints so lines and dots clear 3:1. */
+[data-theme="dark"] .page-track h3 { color: var(--color-brass-bright); }
+[data-theme="dark"] .page-stop em { color: var(--color-ivory); }
+[data-theme="dark"] .page-track[data-track="0"] { color: #e0868a !important; }
+[data-theme="dark"] .page-track[data-track="1"] { color: #a9c1e6 !important; }
+[data-theme="dark"] .page-track[data-track="2"] { color: #6fcf97 !important; }
+[data-theme="dark"] .page-track[data-track="3"] { color: #e4c77a !important; }
+[data-theme="dark"] .page-stop i { box-shadow: 0 0 0 3px #14181f; }
+
+/* Admin lists (Sergio): no box per row, only a divider under each row except the last. */
+.stack-divided { gap: 0; }
+.stack-divided > li > .row-btn, [data-theme="dark"] .stack-divided > li > .row-btn { background: transparent; border: 0; border-bottom: 1px solid rgba(20, 35, 58, 0.22); border-radius: 0; box-shadow: none; }
+[data-theme="dark"] .stack-divided > li > .row-btn { border-bottom-color: rgba(246, 241, 231, 0.22); }
+.stack-divided > li:last-child > .row-btn { border-bottom: 0; }
+
+/* Gear cards (Sergio): no white box behind the art on On Duty / Off Duty; ships and aircraft keep it. Art with a baked
+   white backdrop uses the transparent copies in /equipment/cut/. */
+.equipment-card .equipment-photo:not([data-group="ships"]):not([data-group="aircraft"]),
+[data-theme="dark"] .equipment-card .equipment-photo:not([data-group="ships"]):not([data-group="aircraft"]) { background: transparent; }
+
+/* Quiet Home shortcut centred in the footer (Sergio): site mark over the label, footer-link colours, 44px target.
+   Hidden on Home. Grid keeps it centred between Settings (left) and the page links (right); on phones it takes its
+   own centred row above them. */
+.site-footer:has(.footer-home) { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+.site-footer:has(.footer-home) .footer-nav { grid-column: 1; justify-self: start; }
+.site-footer:has(.footer-home) .footer-pager { grid-column: 3; justify-self: end; }
+.footer-home { grid-column: 2; flex-direction: column; justify-content: center; gap: 0.1rem; min-width: 44px; min-height: 44px; padding: 0.2rem 0.5rem; font-size: 0.75rem; line-height: 1.1; }
+.footer-home .app-mark { width: 18px; height: 18px; }
+.footer-home:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }
+@media (max-width: 599.98px) {
+  .site-footer:has(.footer-home) { grid-template-columns: 1fr 1fr; row-gap: 0.25rem; }
+  .footer-home { grid-column: 1 / -1; grid-row: 1; justify-self: center; }
+  .site-footer:has(.footer-home) .footer-nav { grid-column: 1; grid-row: 2; }
+  .site-footer:has(.footer-home) .footer-pager { grid-column: 2; grid-row: 2; }
+}
