@@ -46,15 +46,17 @@ const SHIRT_FULL = mm(SHIRT_VB[1]);
 // shirt-lapel.svg: Sergio's lapel-only drawing (local-case ff91302), 680.3 x 755.9 px = 180 x 200 mm, same origin as shirt-long.svg.
 const LAPEL = { w: mm(680.315), h: mm(755.906) };
 const QIN = 6.35; // 1/4 in
-const SWO_H = mm(90.7);
-const EXW_H = mm(98.3);
+// Sergio's pins (Oct 13 2026), tight viewBoxes: ESWS fills its box; the EXW metal spans 92.6% of its width and ends at
+// 86.5% of its height (soft shadow below), so the box is widened to keep the art 70 mm wide.
+const SWO_H = PIN_W * (35.3 / 100.501);
+const EXW_W = PIN_W / 0.926, EXW_H = EXW_W * (44.109 / 108.45), EXW_ART_BOTTOM = 0.865;
 /** Worn on the shirt in both layouts: centre relative to the shirt's top-left. */
 const ON_SHIRT: Record<string, [number, number]> = {
   lapel: [LAPEL.w / 2, LAPEL.h / 2],
   decorations: [SHIRT.pocket.cx, SHIRT.pocket.top - QIN - RACK_H / 2],
   swo: [SHIRT.pocket.cx, SHIRT.pocket.top - QIN - RACK_H - QIN - SWO_H / 2],
   // EXW centred on the flap, just above the flap button (button radius ~9 mm + 2 mm clearance).
-  exw: [SHIRT.pocket.cx, SHIRT.pocket.button - 11 - EXW_H / 2],
+  exw: [SHIRT.pocket.cx, SHIRT.pocket.button - 11 - EXW_ART_BOTTOM * EXW_H + EXW_H / 2],
 };
 const CARD = { w: 85.6, h: 54 };
 const PORTRAIT = { w: 150, h: 150 * (625 / 640) };
@@ -62,8 +64,8 @@ const ITEMS: Item[] = [
   { id: "uniforms", src: "shirt-long.svg", crop: true, w: SHIRT_W, h: SHIRT_H, gh: SHIRT_FULL, view: "uniforms", label: "Uniforms", wide: [0, 0, 0], z: 1 },
   { id: "lapel", src: "shirt-lapel.svg", lapel: true, w: LAPEL.w, h: LAPEL.h, label: "", wide: [0, 0, 0], z: 6 },
   { id: "decorations", src: "", rack: true, w: 3 * RIBBON_W, h: RACK_H, view: "decorations", label: "Decorations", wide: [0, 0, 0], z: 3 },
-  { id: "swo", src: "surface-warfare.svg", w: PIN_W, h: SWO_H, view: "decorations", label: "Surface Warfare", wide: [0, 0, 0], z: 3 },
-  { id: "exw", src: "expeditionary-warfare.svg", w: PIN_W, h: EXW_H, view: "decorations", label: "Expeditionary Warfare", wide: [0, 0, 0], z: 3 },
+  { id: "swo", src: "esws-pin.svg", w: PIN_W, h: SWO_H, view: "decorations", label: "Surface Warfare", wide: [0, 0, 0], z: 3 },
+  { id: "exw", src: "exw-pin.svg", w: EXW_W, h: EXW_H, view: "decorations", label: "Expeditionary Warfare", wide: [0, 0, 0], z: 3 },
   { id: "contact", src: "calling-card.svg", ...CARD, view: "contact", label: "Contact", wide: [0, 0, 0], z: 7 },
   { id: "admin", src: "9527-card.svg", ...CARD, view: "admin", label: "Admin", wide: [0, 0, 0], z: 7 },
   { id: "offduty", src: "liberty-card.svg", ...CARD, view: "offduty", label: "Off Duty", wide: [0, 0, 0], z: 7 },
@@ -163,7 +165,7 @@ const CRESTS_IN_ORDER = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navh
 // One PO1 silver device only (Sergio): five devices, PO3, PO2, PO1 silver, PO1 gold, CPO.
 const DEVS = CRESTS_IN_ORDER.filter((id) => byId(id).dev).map((id) => `${id}-dev`);
 const devOf = (id: string) => byId(id.replace(/-dev$/, "")).dev!;
-const EXW_BOTTOM = ON_SHIRT.exw[1] + EXW_H / 2;
+const EXW_BOTTOM = ON_SHIRT.exw[1] - EXW_H / 2 + EXW_ART_BOTTOM * EXW_H; // bottom of the EXW art (its soft shadow may overlap)
 /** Items spread evenly (equal gaps, edges included) along one axis. */
 const spreadY = (pos: Pos, ids: string[], cx: number, y0: number, h: number, size: (id: string) => Size = (id) => byId(id)) => {
   const gap = (h - ids.reduce((s, id) => s + size(id).h, 0)) / (ids.length + 1);

@@ -87,13 +87,13 @@ function useHomeFade(ref: RefObject<HTMLElement | null>) {
 function CaseRack() {
   return (
     <span className="case-ribbons">
-      <img className="case-pin" src={publicUrl("/insignia/esws.svg")} alt="Enlisted Surface Warfare Specialist" />
+      <img className="case-pin" src={publicUrl("/case/esws-pin.svg")} alt="Enlisted Surface Warfare Specialist" />
       {ribbonRows(awards, 3).map((row) => (
         <span key={row[0].id} className={row.length < 3 ? "case-ribbon-row is-short" : "case-ribbon-row"}>
           {row.map((award) => <RibbonArt key={award.id} award={award} className="case-ribbon" />)}
         </span>
       ))}
-      <img className="case-pin" src={publicUrl("/insignia/exw.svg")} alt="Enlisted Expeditionary Warfare Specialist" />
+      <img className="case-pin" src={publicUrl("/case/exw-pin.svg")} alt="Enlisted Expeditionary Warfare Specialist" />
     </span>
   );
 }
