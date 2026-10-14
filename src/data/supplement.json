@@ -359,7 +359,8 @@
       ],
       "Weapons": [
         "WEA-01: M4",
-        "WEA-02: M9A2"
+        "WEA-02: M9A2",
+        "WEA-05: M60"
       ],
       "Comms": [
         "COM-01: AN/PRC-117F",
@@ -679,8 +680,6 @@
       "Weapons": [
         "WEA-01: M4",
         "WEA-02: M9A2",
-        "WEA-03: M16A1",
-        "WEA-04: MK14",
         "WEA-05: M60"
       ],
       "Comms": [
