@@ -137,16 +137,17 @@ function inGroup(group: Equipment["group"]): Equipment[] {
 }
 
 /**
- * Off Duty city chips (Sergio, Oct 14 2026). Items are placed only where the record names the city: the city card
- * itself, or a POV whose note names that city. Notes that say only "Guam", "Tampa" or "Imperial Beach" are not placed.
+ * Off Duty city chips (Sergio, Oct 14 2026): his mapping, each city's own card included. Items can sit under more than
+ * one chip. Record notes are kept as written even where they name another place (Frontier: Imperial Beach). Orange Park
+ * covers both Jacksonville tours. Santa Rita has its city card only. The C-5/C-9 and the Ford Transit are not placed.
  */
 const OFF_CITIES: { id: string; label: string; items: string[] }[] = [
-  { id: "san-diego", label: "San Diego", items: ["city-san-diego"] },
-  { id: "tamuning", label: "Tamuning", items: ["city-tamuning"] },
-  { id: "talofofo", label: "Talofofo", items: ["city-talofofo"] },
+  { id: "san-diego", label: "San Diego", items: ["city-san-diego", "nissan-frontier"] },
+  { id: "tamuning", label: "Tamuning", items: ["city-tamuning", "xt225"] },
+  { id: "talofofo", label: "Talofofo", items: ["city-talofofo", "ford-ranger", "nissan-sentra-red", "nissan-sentra-silver"] },
   { id: "santa-rita", label: "Santa Rita", items: ["city-santa-rita"] },
-  { id: "orange-park", label: "Orange Park", items: ["city-orange-park", "chevy-spark-white", "mitsubishi-outlander"] },
-  { id: "south-tampa", label: "South Tampa", items: ["city-south-tampa"] },
+  { id: "orange-park", label: "Orange Park", items: ["city-orange-park", "buell-500", "mitsubishi-outlander", "chevy-spark-white"] },
+  { id: "south-tampa", label: "South Tampa", items: ["city-south-tampa", "buell-500", "sportster-1200", "chevy-spark-yellow", "mitsubishi-outlander"] },
 ];
 
 export function OffDuty({ onOpen, title }: { onOpen: (k: Kind, id: string) => void; title: string }) {
