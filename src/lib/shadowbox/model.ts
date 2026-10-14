@@ -31,10 +31,17 @@ import commandDutiesJson from "@/data/command-duties.json";
 import commandProfilesJson from "@/data/command-profiles.json";
 
 /** Public files are served from the base URL: the site root in dev and on https://shadowbox.shklr.org. */
+declare const __CASE_V__: Record<string, string> | undefined;
+const CASE_V: Record<string, string> = typeof __CASE_V__ === "undefined" ? {} : __CASE_V__;
+
+/** Public files are served from the base URL. Files in /case/ get a ?v= content hash so updated art is not served stale. */
 export function publicUrl(path: string): string {
   if (!path || /^(https?:|data:)/.test(path)) return path;
   const base = import.meta.env.BASE_URL || "/";
-  return `${base}${path.replace(/^\//, "")}`;
+  const clean = path.replace(/^\//, "");
+  const hit = /^case\/([^?#]+)$/.exec(clean);
+  const v = hit ? CASE_V[hit[1]] : undefined;
+  return `${base}${clean}${v ? `?v=${v}` : ""}`;
 }
 
 /** Base ribbon art. Device sheets overlay separately when present. */
