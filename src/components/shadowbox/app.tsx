@@ -564,6 +564,12 @@ export function ShadowboxApp() {
             </button>
           ) : null}
         </nav> : null}
+        {view !== "home" ? (
+          <button type="button" className="footer-link footer-home" onClick={() => go("home")}>
+            <Mark />
+            <span>{t.home}</span>
+          </button>
+        ) : null}
         {menuAt >= 0 && (menuPrev || menuNext) ? (
           <nav className="footer-pager" aria-label={t.pageNav}>
             {/* Spelled-out text links like the Settings link (Sergio, Oct 2026); the end without a target is hidden. */}
