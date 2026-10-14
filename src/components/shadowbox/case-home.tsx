@@ -9,10 +9,8 @@ import { RibbonArt } from "@/components/shadowbox/marks";
  * after shadowbox-case-cleaned.svg, shirt flush left. Three layouts (wide, two-column, one-column): see LAYOUTS.
  * Google Drawings exports are 96 dpi, so mm = px / 3.7795 (CAC 323.5 px = 85.6 mm).
  */
-declare const __CASE_V__: Record<string, string> | undefined;
-const CASE_V: Record<string, string> = typeof __CASE_V__ === "undefined" ? {} : __CASE_V__;
 /** Case art URL with its content hash (?v=), so a changed file is never served from a stale cache. */
-const caseUrl = (file: string) => publicUrl(`/case/${file}`) + (CASE_V[file] ? `?v=${CASE_V[file]}` : "");
+const caseUrl = (file: string) => publicUrl(`/case/${file}`);
 const PX = 96 / 25.4;
 type Item = {
   id: string; src: string; w: number; h: number; view?: string; unit?: string; label: string; obj?: boolean; rack?: boolean; crop?: boolean; lapel?: boolean; gh?: number; dev?: { src: string; h: number; w: number; label: string };
