@@ -1634,3 +1634,6 @@ object.cx-art { color-scheme: light; }
 .places-track .stop-list li.now button { border: 0; border-bottom: 1px solid rgba(20, 35, 58, 0.22); box-shadow: inset 4px 0 0 var(--color-navy); }
 [data-theme="dark"] .places-track .stop-list li.now button { border-bottom-color: rgba(246, 241, 231, 0.22); box-shadow: inset 4px 0 0 var(--color-goldenrod, #daa520); }
 .places-track .stop-list li.now:last-child button { border-bottom: 0; }
+
+/* Uniform mannequins (Sergio, Oct 14 2026): transparent cut-outs in /uniforms/v12/cut/, so no white box behind them. */
+.uniform-photo, .uniform-card--white .uniform-photo, img[src*="/uniforms/v12/cut/"] { background: transparent; }
