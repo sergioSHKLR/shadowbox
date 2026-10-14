@@ -9,6 +9,10 @@ import { RibbonArt } from "@/components/shadowbox/marks";
  * after shadowbox-case-cleaned.svg, shirt flush left. Three layouts (wide, two-column, one-column): see LAYOUTS.
  * Google Drawings exports are 96 dpi, so mm = px / 3.7795 (CAC 323.5 px = 85.6 mm).
  */
+declare const __CASE_V__: Record<string, string> | undefined;
+const CASE_V: Record<string, string> = typeof __CASE_V__ === "undefined" ? {} : __CASE_V__;
+/** Case art URL with its content hash (?v=), so a changed file is never served from a stale cache. */
+const caseUrl = (file: string) => publicUrl(`/case/${file}`) + (CASE_V[file] ? `?v=${CASE_V[file]}` : "");
 const PX = 96 / 25.4;
 type Item = {
   id: string; src: string; w: number; h: number; view?: string; unit?: string; label: string; obj?: boolean; rack?: boolean; crop?: boolean; lapel?: boolean; gh?: number; dev?: { src: string; h: number; w: number; label: string };
@@ -397,7 +401,7 @@ export function CaseHome({ onOpen, onGo, label, copy }: { copy: Chrome["intro"];
   const L = LAYOUTS[mode];
   return (
     <>
-    <div ref={stage} className={hint ? "cx-stage cx-hint" : "cx-stage"} data-layout="wide" style={{ ["--ratio" as string]: `${WIDE.w} / ${WIDE.h}`, backgroundImage: `url("${publicUrl("/case/felt.svg")}")` }}>
+    <div ref={stage} className={hint ? "cx-stage cx-hint" : "cx-stage"} data-layout="wide" style={{ ["--ratio" as string]: `${WIDE.w} / ${WIDE.h}`, backgroundImage: `url("${caseUrl("felt.svg")}")` }}>
       <div className="cx-canvas">
         {ALL.map((item) => {
           const p = L.pos[item.id] ?? [0, 0];
@@ -407,14 +411,14 @@ export function CaseHome({ onOpen, onGo, label, copy }: { copy: Chrome["intro"];
           const dev = item.dev ? (
             <button type="button" key={`${item.id}-dev`} className="cx-item cx-dev" data-id={`${item.id}-dev`} aria-label={`${item.dev.label}: ${label("timeline") || "Timeline"}`} title={`${item.dev.label}: Timeline`} onClick={() => onGo?.("timeline")}
               style={{ "--ww": `${item.dev.w}px`, "--wh": `${item.dev.h}px`, "--wx": `${(L.pos[`${item.id}-dev`] ?? [0, 0])[0]}px`, "--wy": `${(L.pos[`${item.id}-dev`] ?? [0, 0])[1]}px`, "--wr": "0deg", "--wz": item.z + 1 } as CSSProperties}>
-              <img className="cx-art" src={publicUrl(`/case/${item.dev.src}`)} alt="" draggable={false} />
+              <img className="cx-art" src={caseUrl(item.dev.src)} alt="" draggable={false} />
             </button>
           ) : null;
           const art = item.lapel
-            ? <img className="cx-art cx-lapel" src={publicUrl(`/case/${item.src}`)} alt="" draggable={false} />
+            ? <img className="cx-art cx-lapel" src={caseUrl(item.src)} alt="" draggable={false} />
             : item.rack ? <Rack /> : item.obj
-            ? <object className="cx-art" type="image/svg+xml" data={publicUrl(`/case/${item.src}`)} aria-hidden="true" tabIndex={-1} />
-            : <img className={item.crop ? "cx-art is-crop" : "cx-art"} src={publicUrl(`/case/${item.src}`)} alt="" draggable={false} />;
+            ? <object className="cx-art" type="image/svg+xml" data={caseUrl(item.src)} aria-hidden="true" tabIndex={-1} />
+            : <img className={item.crop ? "cx-art is-crop" : "cx-art"} src={caseUrl(item.src)} alt="" draggable={false} />;
           if (dev) return [dev, <CaseButton key={item.id} item={item} style={style} art={art} name={item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : item.label} go={() => onOpen?.("unit", item.unit!)} />];
           if (!item.view) return <span key={item.id} className="cx-item is-static" data-id={item.id} style={style}>{art}</span>;
           const name = item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : label(item.view) || item.label;

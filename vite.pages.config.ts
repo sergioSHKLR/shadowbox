@@ -1,5 +1,6 @@
 import { execSync } from "node:child_process";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
@@ -21,6 +22,16 @@ function buildVersion() {
   }
 }
 const BUILD = buildVersion();
+
+/** Cache-busting for the home case art (Sergio, Oct 13 2026): an 8-char content hash per public/case file, appended as ?v=. */
+function caseHashes() {
+  const dir = resolve(process.cwd(), "public/case");
+  const out: Record<string, string> = {};
+  for (const name of readdirSync(dir)) {
+    try { out[name] = createHash("sha256").update(readFileSync(resolve(dir, name))).digest("hex").slice(0, 8); } catch { /* skip folders */ }
+  }
+  return out;
+}
 
 /** Static build published at https://shadowbox.shklr.org/ (GitHub Pages custom domain, served from the root) */
 export default defineConfig({
@@ -106,6 +117,7 @@ export default defineConfig({
     }),
   ],
   define: {
+    __CASE_V__: JSON.stringify(caseHashes()),
     __APP_VERSION__: JSON.stringify(BUILD.version),
     __APP_COMMIT__: JSON.stringify(BUILD.hash),
     __APP_COMMIT_FULL__: JSON.stringify(BUILD.full),

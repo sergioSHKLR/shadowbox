@@ -700,13 +700,23 @@
     "type": "base"
   },
   {
-    "id": "tijuana",
-    "name": "Tijuana, MEX",
-    "locality": "Tijuana, MEX",
-    "lat": 32.525,
-    "lng": -117.033,
+    "id": "city-chicago",
+    "name": "Chicago, IL",
+    "locality": "Chicago, IL",
+    "lat": 41.8781,
+    "lng": -87.6298,
     "accuracy": "approximate",
-    "note": "Port visit to Tijuana, Mexico.",
-    "type": "visit"
+    "note": "City-level pin for Chicago.",
+    "type": "city"
+  },
+  {
+    "id": "mwtc",
+    "name": "MCMWTC, Bridgeport, CA",
+    "locality": "Pickel Meadow, Bridgeport, CA",
+    "lat": 38.3592,
+    "lng": -119.5125,
+    "accuracy": "public-site",
+    "note": "Marine Corps Mountain Warfare Training Center, Pickel Meadow, 21 miles northwest of Bridgeport.",
+    "type": "base"
   }
 ]

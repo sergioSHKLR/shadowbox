@@ -65,10 +65,6 @@ function commandPath(all: Stop[]): Stop[] {
 }
 
 const FIELD_ORDER = ["u-tapao", "shoalwater-bay", "mosul", "fob-sykes", "fob-tal-afar", "camp-blanding", "camp-bastion", "fob-delaram", "camp-blanding", "fob-sharana", "fob-orgun-e", "fob-patriot"];
-const INSTRUCTION_ORDER = ["rtc", "ntc-great-lakes", "keesler", "san-diego", "imperial-beach", "gryphon-school", "mayport"];
-const BASE_ORDER = ["little-creek", "nas-north-island", "san-diego", "guam", "city-yokosuka", "city-sasebo", "city-chinhae", "polaris-point", "whidbey", "fort-bliss", "macdill", "nas-jax"];
-const STOPOVER_ORDER = ["camp-arifjan", "al-udeid", "bagram", "nas-north-island"];
-const LAYOVER_ORDER = ["hickam", "travis", "bitburg", "ramstein", "leipzig", "city-baltimore"];
 function fieldPath(all: Stop[]): Stop[] {
   const sorted = [...all].sort((a, b) => (a.n ?? 0) - (b.n ?? 0));
   const used = new Set<number>();
@@ -81,25 +77,26 @@ function fieldPath(all: Stop[]): Stop[] {
   }
   return out.map((stop, index) => ({ ...stop, n: index + 1 }));
 }
-function orderedPath(all: Stop[], ids: string[], kind: StopLayer): Stop[] {
-  const sorted = [...all].sort((a, b) => (a.n ?? 0) - (b.n ?? 0));
-  const used = new Set<number>();
+/** One stop per place for a category, in sequence order, from the kinds in sequence.json (Sergio's stop list). */
+function kindPath(all: Stop[], kind: StopLayer): Stop[] {
+  const seen = new Set<string>();
   const out: Stop[] = [];
-  for (const id of ids) {
-    const stop = sorted.find((row) => !used.has(row.n) && (row.place.id === id || row.baseId === id || row.cityId === id || row.commandId === id));
-    if (!stop) continue;
-    used.add(stop.n);
-    out.push({ ...stop, kind });
+  for (const stop of [...all].sort((a, b) => (a.n ?? 0) - (b.n ?? 0))) {
+    if (stop.kind !== kind) continue;
+    const key = `${stop.place.id}|${stop.labels[0]}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(stop);
   }
   return out.map((stop, index) => ({ ...stop, n: index + 1 }));
 }
 function filterStops(all: Stop[], shown: StopLayer[] | null): Stop[] {
   if (shown && shown.length === 1 && shown[0] === "command") return commandPath(all);
   if (shown && shown.length === 1 && shown[0] === "field") return fieldPath(all);
-  if (shown && shown.length === 1 && shown[0] === "instruction") return orderedPath(all, INSTRUCTION_ORDER, "instruction");
-  if (shown && shown.length === 1 && shown[0] === "base") return orderedPath(all, BASE_ORDER, "base");
-  if (shown && shown.length === 1 && shown[0] === "stopover") return orderedPath(all, STOPOVER_ORDER, "stopover");
-  if (shown && shown.length === 1 && shown[0] === "layover") return orderedPath(all, LAYOVER_ORDER, "layover");
+  if (shown && shown.length === 1 && shown[0] === "instruction") return kindPath(all, "instruction");
+  if (shown && shown.length === 1 && shown[0] === "base") return kindPath(all, "base");
+  if (shown && shown.length === 1 && shown[0] === "stopover") return kindPath(all, "stopover");
+  if (shown && shown.length === 1 && shown[0] === "layover") return kindPath(all, "layover");
   const matched = all.filter((stop) => stopMatchesFilter(stop, shown));
   if (!shown) return matched;
   const seen = new Set<string>();
@@ -332,9 +329,9 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
         ))}
       </div>
 
-      <section className="places-track" aria-label="Places">
-        <h3>Places</h3>
-        <p className="quiet">The same order as the Map. Numbers do not change.</p>
+      <section className="places-track" aria-label={t.placesTitle}>
+        <h3>{t.placesTitle}</h3>
+        <p className="quiet">{t.placesLead}</p>
         {/* The list follows the chips, same filter as the map (Sergio); nothing selected = empty list with a note. */}
         {shown && shown.length === 0 ? <p className="quiet">{t.placesNone}</p> : null}
         <ol className="stop-list">
