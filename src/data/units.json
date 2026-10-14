@@ -82,7 +82,7 @@
     "placeId": "fisc-san-diego",
     "explanation": "A shore command that ran Navy computer and telecommunications services in San Diego. Signum lists the NEC for this tour as 1589, calibration.",
     "civilian": "A land-based communications station, not a ship.",
-    "image": "/incoming/ncts.webp"
+    "image": "/case/ncts-crest.svg"
   },
   {
     "id": "frank-cable",
@@ -99,7 +99,7 @@
     "placeId": "guam",
     "explanation": "A submarine tender: a ship that repairs, supplies, and houses the crews of submarines. In these years her home port was Guam. The NEC on Signum for this tour is 1589. The three Navy E awards dated 2001, 2002, and 2003 fall in this tour.",
     "civilian": "A repair ship for submarines, not a submarine itself.",
-    "image": "/incoming/as-40.webp"
+    "image": "/case/as40-crest.svg"
   },
   {
     "id": "eodmu5",
@@ -115,7 +115,7 @@
     "placeId": "guam",
     "explanation": "Explosive Ordnance Disposal Mobile Unit Five, a Navy bomb-disposal unit then based in Guam. Assignment to the unit is not the same as being a bomb-disposal technician. Signum lists the NEC as 9613, a communications specialty. The Royal Thai Navy hosted Cobra Gold in 2004 and 2005. An Australian CDT was the partner on Talisman Saber in 2005 and 2007.",
     "civilian": "The command's job was disposing of explosives. His recorded specialty there was communications.",
-    "image": "/incoming/eodmu5.webp"
+    "image": "/case/eodmu5-crest.svg"
   },
   {
     "id": "troy",
@@ -234,7 +234,7 @@
     "placeId": "nas-jax",
     "explanation": "The Navy's Southeast Regional Calibration Center, at Naval Air Station Jacksonville. A calibration center checks the test equipment other commands use. The NEC on this tour is 1589, which matches that work.",
     "civilian": "A laboratory that keeps measuring tools honest.",
-    "image": "/incoming/sercc.webp"
+    "image": "/case/sercc-crest.svg"
   },
   {
     "id": "ia-army",
@@ -336,7 +336,7 @@
     "placeId": "macdill",
     "explanation": "A joint unit, based at MacDill Air Force Base in Florida, that sends small communications teams out quickly for special operations and other joint commanders. Reported in 2009 and detached in 2014. Made Chief in the last year of this tour, 16 September 2014. The NEC listed for the tour is 9613. It included the two Afghanistan deployments.",
     "civilian": "A communications unit made of every branch, not a Navy ship.",
-    "image": "/incoming/jcse-device.svg",
+    "image": "/case/jcse-crest.svg",
     "extraImages": [
       {
         "src": "/incoming/jcse-3rd-sqd.webp",
@@ -431,7 +431,7 @@
     "placeId": "nh-jax",
     "explanation": "The Navy hospital at Jacksonville, Florida, and the last active-duty command. JCSE ended in 2014. He reported in 2015. Last duty assignment was Naval Hospital Jacksonville, with separation processing at the personnel support detachment on Naval Air Station Jacksonville.",
     "civilian": "A hospital, not a ship. An electronics technician there maintains medical and other electronic equipment. The day-to-day job is not further described.",
-    "image": "/incoming/nhjax.webp"
+    "image": "/case/nhjax-crest.svg"
   },
   {
     "id": "eodmu11",

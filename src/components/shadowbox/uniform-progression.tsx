@@ -48,10 +48,8 @@ export function UniformProgression({ tour }: { tour?: TourFocus | null }) {
   }, [tour?.kind, tour?.id, tour?.start]);
   useEffect(() => {
     if (!playing) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setPlaying(false);
-      return;
-    }
+    // Play is a timed step through stills, not motion, so it also runs under prefers-reduced-motion. That check used to
+    // cancel Play the moment it started, which looked like a stuck player on devices with Reduce Motion on.
     const id = window.setTimeout(() => {
       if (at >= last) setPlaying(false);
       else setIndex(at + 1);
