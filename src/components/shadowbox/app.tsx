@@ -566,7 +566,7 @@ export function ShadowboxApp() {
             </button>
           ) : null}
         </nav> : null}
-        {view !== "home" ? (
+        {view !== "home" && view !== "bio" ? (
           <button type="button" className="footer-link footer-home" onClick={() => go("home")}>
             <Mark />
             <span>{t.home}</span>
