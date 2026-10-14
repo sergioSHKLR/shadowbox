@@ -1621,3 +1621,6 @@ object.cx-art { color-scheme: light; }
 /* Dark-theme contrast fixes found by the audit (Oct 14 2026): gear card titles and the Uniform look buttons. */
 [data-theme="dark"] .equipment-card strong { color: var(--color-ivory); }
 [data-theme="dark"] .uprog-looks .nav-btn:not(.on) { color: var(--color-ivory); }
+/* Raster medals (ribbon included): one image, full ribbon width, sitting on the row line (Oct 14 2026). */
+.medal-art-raster { justify-content: flex-end; }
+.medal-raster { display: block; width: calc(var(--mi) * 1.375); height: auto; filter: saturate(0.85) contrast(0.95) drop-shadow(0 1px 1.5px rgba(0,0,0,0.55)); }
