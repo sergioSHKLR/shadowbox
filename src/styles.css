@@ -1697,3 +1697,15 @@ object.cx-art { color-scheme: light; }
 .decor-two-col { grid-template-columns: minmax(0, max-content); }
 .decor-combo { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: calc(var(--in, 1rem) * 1.2) calc(var(--in, 1rem) * 2); }
 @media (max-width: 900px) { .decor-combo { flex-direction: column; } }
+/* Mounted v4 (Sergio, Oct 14 2026): JCSE device centred below the EXW pin; Medals and ribbons shows the medals on the
+   left breast and the ribbon-only awards on the right breast (art. 5313), level with the lowest medal holding bar. */
+.decor-left-breast .decor-jcse { position: static; transform: none; margin-top: calc(var(--in, 1rem) * 0.25); }
+.decor-full-dress { display: flex; flex-direction: column; align-items: center; }
+.decor-medal-row { position: relative; }
+.decor-right-ribbons .decor-rack { --in: var(--mi); }
+.decor-right-ribbons--wide { position: absolute; top: 0; right: calc(100% + var(--mi, 1rem) * 1.2); transform: translateY(calc(-100% + var(--mi, 1rem) * 0.375)); }
+.decor-right-ribbons--narrow { display: none; }
+@media (max-width: 899.98px) {
+  .decor-right-ribbons--wide { display: none; }
+  .decor-right-ribbons--narrow { display: block; order: -1; margin-bottom: 1rem; }
+}
