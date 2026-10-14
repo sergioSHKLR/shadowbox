@@ -768,6 +768,16 @@ export function Logbook({
   const beats = useMemo(() => logbookBeats(), []);
   const narrow = useNarrow();
   const [active, setActive] = useState(0);
+  // Home modal crest button (Sergio, Oct 14 2026): opens the Logbook with that command selected.
+  useEffect(() => {
+    const pick = (e: Event) => {
+      const id = (e as CustomEvent<string>).detail;
+      const at = beats.findIndex((b) => b.stop.commandId === id);
+      if (at >= 0) setActive(at);
+    };
+    window.addEventListener("sb-logbook-command", pick);
+    return () => window.removeEventListener("sb-logbook-command", pick);
+  }, [beats]);
   const [mainTab, setMainTab] = useState<MainTab>("rank");
   const [asideTab, setAsideTab] = useState<AsideTab>("uniforms");
   const [phoneTab, setPhoneTab] = useState<PhoneTab>("crests");

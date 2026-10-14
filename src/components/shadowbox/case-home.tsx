@@ -437,7 +437,7 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en" }: { copy: C
     </div>
     {intro ? <CaseIntro copy={copy} onClose={closeIntro} /> : null}
     {view ? <ItemModal id={view} setId={setView} copy={copy} locale={locale} label={label}
-      go={(id) => { const t = targetOf(id); setView(null); if (t.unit) onOpen?.("unit", t.unit); else onGo?.(t.view); }} /> : null}
+      go={(id) => { const t = targetOf(id); setView(null); if (t.unit) { onGo?.("logbook"); window.dispatchEvent(new CustomEvent("sb-logbook-command", { detail: t.unit })); } else onGo?.(t.view); }} /> : null}
     </>
   );
 }
@@ -446,11 +446,11 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en" }: { copy: C
  *  its crest in service order, then the shirt (uniform, rack, pins) and the cards and documents on it. */
 const ORDER = ["bio-sr", "plaque-sr", "bio", "plaque", ...CRESTS_IN_ORDER.flatMap((id) => (byId(id).dev ? [`${id}-dev`, id] : [id])),
   "uniforms", "decorations", "swo", "exw", "onduty", "map", "logbook", "contact", "admin", "offduty", "guestbook"];
-/** Same targets the case items opened before: a crest its command, a device the Timeline, everything else its page. */
+/** Crests open the Logbook on that command (Sergio, Oct 14 2026; never a sidebar from Home); a device the Timeline, everything else its page. */
 const targetOf = (id: string): { view: string; unit?: string } => {
   if (id.endsWith("-dev")) return { view: "timeline" };
   const it = byId(id);
-  return it.unit ? { view: it.view ?? "onduty", unit: it.unit } : { view: it.view ?? "" };
+  return it.unit ? { view: "logbook", unit: it.unit } : { view: it.view ?? "" };
 };
 const nameOf = (id: string, label: (v: string) => string) => {
   if (id.endsWith("-dev")) return devOf(id).label;
@@ -496,7 +496,7 @@ function ItemModal({ id, setId, copy: c, locale, label, go }: { id: string; setI
   const name = nameOf(id, label);
   const note = caseNote(id, locale);
   const t = targetOf(id);
-  const page = t.unit ? (units.find((u) => u.id === t.unit)?.name ?? name) : label(t.view) || t.view;
+  const page = t.unit ? `${label("logbook") || "Logbook"} · ${units.find((u) => u.id === t.unit)?.abbreviation ?? name}` : label(t.view) || t.view;
   const src = dev ? devOf(id).src : it!.src;
   const ratio = dev ? devOf(id).w / devOf(id).h : it!.crop ? SHIRT_W / SHIRT_FULL : it!.w / it!.h;
   return createPortal(
