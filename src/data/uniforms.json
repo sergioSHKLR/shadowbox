@@ -126,7 +126,7 @@
     "name": "NWU Type III",
     "branch": "USN",
     "context": "Navy Working Uniform Type III",
-    "note": "The Navy’s green digital working uniform, the Type III.",
+    "note": "The Navy’s green digital working uniform, the Type III. Worn at JCSE and at NH Jacksonville.",
     "image": "/uniforms/v12/cut/23-nwu-type-iii.webp"
   },
   {
@@ -163,7 +163,7 @@
     "id": "dress-whites",
     "order": 17,
     "group": "dress",
-    "name": "Summer Whites",
+    "name": "Service Dress White",
     "branch": "USN",
     "context": "Dress uniform",
     "note": "The white jumper, the crackerjack, worn for inspections and ceremonies in summer whites season. The chief's version is a different coat.",
@@ -173,7 +173,7 @@
     "id": "dress-blues",
     "order": 18,
     "group": "dress",
-    "name": "Winter Blues",
+    "name": "Service Dress Blue",
     "branch": "USN",
     "context": "Dress uniform",
     "note": "The Navy dress blue jumper, the crackerjack, with the broad collar and white piping, for sailors below chief. The chief's dress blue is a coat, not this jumper.",
@@ -215,8 +215,8 @@
     "group": "battle",
     "name": "Desert DCU",
     "branch": "USN",
-    "context": "Iraq deployments",
-    "note": "Desert camouflage worn with the Iraq tours. The exact pattern, often the three-color desert uniform in that era, is not confirmed.",
+    "context": "CJTF Troy, Iraq, 2006",
+    "note": "Three-color desert camouflage (DCU), worn with CJTF Troy in Iraq in 2006.",
     "image": "/uniforms/v12/cut/20-desert-dcu.webp"
   },
   {
@@ -234,7 +234,7 @@
     "order": 24,
     "group": "battle",
     "name": "Multicam (Army)",
-    "branch": "JOINT",
+    "branch": "USA",
     "context": "Afghanistan deployments, Operational Camouflage Pattern",
     "note": "The Army's Multicam (Operational Camouflage Pattern) uniform, worn with the joint communications deployments to Afghanistan.",
     "image": "/uniforms/v12/cut/22-army-ocp.webp"
