@@ -686,6 +686,14 @@ const medalCutArt = import.meta.glob("../../../incoming/medals/cut/*.webp", {
   import: "default",
 }) as Record<string, string>;
 
+/** Medal sheet supplied by Sergio (Oct 14 2026), cut to transparent PNGs named by award id. Preferred over the rasters above in every mode. */
+const medalSheetArt = import.meta.glob("../../../incoming/medals/sheet/*.png", {
+  eager: true,
+  query: "?url",
+  import: "default",
+}) as Record<string, string>;
+const sheetArtFor = (id: string) => Object.entries(medalSheetArt).find(([path]) => path.endsWith(`/sheet/${id}.png`))?.[1];
+
 const MEDAL_FILE: Record<string, string> = {
   jscm: "JSCM.webp",
   ncm: "NC.webp",
@@ -720,6 +728,8 @@ function medalArtFor(id: string): string {
 export const medalFor = (awardId: string) => {
   const medal = medals.find((row) => row.id === awardId);
   if (!medal) return null;
+  const sheet = sheetArtFor(awardId);
+  if (sheet) return { ...medal, front: sheet, cut: sheet };
   const front = medalArtFor(awardId);
   if (!front) return null;
   const stem = Object.entries(medalArt).find(([, url]) => url === front)?.[0].split("/").pop();
