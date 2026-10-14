@@ -676,6 +676,12 @@ const medalArt = import.meta.glob("../../../incoming/medals/*.{png,svg,webp,jpg,
   query: "?url",
   import: "default",
 }) as Record<string, string>;
+/** Transparent, trimmed copies of the medal rasters (white backing removed), same stems. */
+const medalCutArt = import.meta.glob("../../../incoming/medals/cut/*.webp", {
+  eager: true,
+  query: "?url",
+  import: "default",
+}) as Record<string, string>;
 
 const MEDAL_FILE: Record<string, string> = {
   jscm: "JSCM.webp",
@@ -713,7 +719,9 @@ export const medalFor = (awardId: string) => {
   if (!medal) return null;
   const front = medalArtFor(awardId);
   if (!front) return null;
-  return { ...medal, front };
+  const stem = Object.entries(medalArt).find(([, url]) => url === front)?.[0].split("/").pop();
+  const cut = stem ? (Object.entries(medalCutArt).find(([path]) => path.endsWith(`/cut/${stem}`))?.[1] as string | undefined) : undefined;
+  return { ...medal, front, cut };
 };
 
 /** Rows of large medals per NAVPERS 15665J Table 5-3-1 (1-5 one row; 6 = 3+3 ... 13 = 3+5+5; top row first). */

@@ -70,6 +70,17 @@ export function MedalArt({
   visibleIn?: number;
 }) {
   if (!medal.front) return null;
+  // The medal rasters in incoming/medals already carry their own suspension ribbon; drawing a second drape behind
+  // them gave the pale double ribbon. Use the transparent copy (incoming/medals/cut/) as the whole medal, full
+  // ribbon width (1 3/8 in) and bottom-aligned in the 3 1/4 in medal box.
+  const cut = (medal as Medal & { cut?: string }).cut;
+  if (cut) {
+    return (
+      <span className="medal-art medal-art-raster">
+        <img className="medal-raster" src={publicUrl(cut)} alt="" />
+      </span>
+    );
+  }
   const glyphs = award.devices.reduce((n, d) => n + d.count, 0);
   const rowWidth = award.devices.reduce((w, d) => w + d.count * deviceWidthIn(d), 0) + Math.max(0, glyphs - 1) / 32;
   // Art. 5316.2.e: when medals overlap, attachments move to the wearer's left, centred on the visible part of the
