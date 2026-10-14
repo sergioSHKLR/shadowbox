@@ -504,7 +504,11 @@ function ItemModal({ id, setId, copy: c, locale, label, go }: { id: string; setI
       <div ref={box} className="cx-modal-box" role="dialog" aria-modal="true" aria-labelledby="cx-modal-title" aria-describedby={note ? "cx-modal-note" : undefined}>
         <button type="button" className="cx-modal-x" aria-label={c.close} title={c.close} onClick={close}>×</button>
         <div className="cx-modal-art" style={{ ["--ar" as string]: String(ratio) }}>
-          {it?.rack ? <span className="cx-modal-rack"><Rack /></span> : <img src={caseUrl(src)} alt="" draggable={false} />}
+          {it?.rack ? <span className="cx-modal-rack"><Rack /></span>
+            // The ID card SVG pulls its photo, flag, barcode and seal from sibling files; an <img> blocks those, so it
+            // shows as an <object> here, as on the case.
+            : it?.obj ? <object type="image/svg+xml" data={caseUrl(src)} aria-hidden="true" tabIndex={-1} />
+            : <img src={caseUrl(src)} alt="" draggable={false} />}
         </div>
         <h2 id="cx-modal-title">{name}</h2>
         {note ? <p id="cx-modal-note">{note}</p> : null}

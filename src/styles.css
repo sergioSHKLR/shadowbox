@@ -1724,3 +1724,9 @@ object.cx-art { color-scheme: light; }
 @keyframes cx-fade { from { opacity: 0; } }
 @keyframes cx-rise { from { opacity: 0; transform: translateY(8px); } }
 @media (prefers-reduced-motion: reduce) { .cx-modal, .cx-modal-box { animation: none; } }
+.cx-modal-art:has(object) { container-type: size; }
+.cx-modal-art object { display: block; width: min(100cqw, 100cqh * var(--ar)); height: min(100cqh, 100cqw / var(--ar)); pointer-events: none; filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.35)); color-scheme: light; }
+/* Mounted size (Sergio, Oct 14 2026): one unit U = 1 in on the mounted rack. A rack of three is 4.125 U wide, so
+   U = 18.5vw makes it at least 75vw on phones; capped at 5.5rem on desktop. Pins (ESWS 2.75 U, EXW, JCSE 1.6 U),
+   medals (--mi) and the right-chest ribbons use the same U, so everything stays in proportion. */
+.decor-page .decor-worn, .decor-page .decor-two-col, .decor-page .decor-two-col .decor-right-ribbons .decor-rack { --in: clamp(3rem, 18.5vw, 5.5rem); --mi: clamp(3rem, 18.5vw, 5.5rem); }
