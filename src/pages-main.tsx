@@ -9,6 +9,7 @@ import "./commands.css";
 import "./map-stage.css";
 import "./logbook.css";
 import "./print.css";
+import "./ui-standard.css";
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Missing #root");
