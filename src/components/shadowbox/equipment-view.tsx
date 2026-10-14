@@ -34,7 +34,6 @@ const CHIP_LABEL: Record<string, string> = {
   cjsotf: "OEF I",
   sojtf: "OEF II",
 };
-const UNLISTED = "unlisted";
 
 function ownerLabel(id: string): string {
   if (CHIP_LABEL[id]) return CHIP_LABEL[id];
@@ -58,8 +57,8 @@ const COMMANDS = [
   ...[...new Set(equipment.filter((item) => DUTY.includes(item.group)).flatMap((item) => ownersOf(item.id)))]
     .map((id) => ({ id, label: ownerLabel(id) }))
     .sort((a, b) => commandWhen(a.id).localeCompare(commandWhen(b.id)) || a.label.localeCompare(b.label)),
-  { id: UNLISTED, label: "Unlisted" },
 ];
+// The "Unlisted" chip is gone (Sergio, Oct 2026): it only ever showed an empty page. Items with no owner still show under All.
 
 export function OnDuty({ onOpen, title }: { onOpen: (k: Kind, id: string) => void; title: string }) {
   const [shown, setShown] = useState<string[] | null>(null);
@@ -75,7 +74,6 @@ export function OnDuty({ onOpen, title }: { onOpen: (k: Kind, id: string) => voi
     if (!DUTY.includes(item.group) || OFF_DUTY_IDS.has(item.id)) return false;
     if (!shown) return true;
     const owners = ownersOf(item.id);
-    if (!owners.length) return shown.includes(UNLISTED);
     return owners.some((id) => shown.includes(id));
   });
   return (
