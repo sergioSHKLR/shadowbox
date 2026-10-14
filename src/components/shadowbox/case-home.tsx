@@ -1,7 +1,10 @@
 import type { Chrome } from "@/lib/shadowbox/copy";
-import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { awards, publicUrl, ribbonRows, units, type Kind } from "@/lib/shadowbox/model";
+import { createPortal } from "react-dom";
 import { RibbonArt } from "@/components/shadowbox/marks";
+import { caseNote } from "@/lib/shadowbox/case-notes";
+import type { Locale } from "@/lib/shadowbox/prefs";
 
 /**
  * Home shadowbox case (Sergio, Oct 12 2026): single-item art from incoming/used, every item at its true size on one
@@ -352,11 +355,11 @@ const exitFull = () => {
   if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
 };
 
-export function CaseHome({ onOpen, onGo, label, copy }: { copy: Chrome["intro"]; onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; label: (view: string) => string }) {
+export function CaseHome({ onOpen, onGo, label, copy, locale = "en" }: { copy: Chrome["intro"]; locale?: Locale; onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; label: (view: string) => string }) {
   const stage = useRef<HTMLDivElement | null>(null);
   const [intro, setIntro] = useState(false);
   const [hint, setHint] = useState(false);
-  const [loupe, setLoupe] = useState(false);
+  const [view, setView] = useState<string | null>(null);
   const [mode, setMode] = useState<Mode>("wide");
   useEffect(() => {
     let seen = true;
@@ -408,7 +411,7 @@ export function CaseHome({ onOpen, onGo, label, copy }: { copy: Chrome["intro"];
           const deg = L.tilt[item.id] ?? 0;
           const style = { "--ww": `${s.w}px`, "--wh": `${s.h}px`, "--wx": `${p[0]}px`, "--wy": `${p[1]}px`, "--wr": `${deg}deg`, "--wz": item.z } as CSSProperties;
           const dev = item.dev ? (
-            <button type="button" key={`${item.id}-dev`} className="cx-item cx-dev" data-id={`${item.id}-dev`} aria-label={`${item.dev.label}: ${label("timeline") || "Timeline"}`} title={`${item.dev.label}: Timeline`} onClick={() => onGo?.("timeline")}
+            <button type="button" key={`${item.id}-dev`} className="cx-item cx-dev" data-id={`${item.id}-dev`} aria-label={`${item.dev.label}: ${label("timeline") || "Timeline"}`} title={`${item.dev.label}: Timeline`} onClick={() => setView(`${item.id}-dev`)}
               style={{ "--ww": `${item.dev.w}px`, "--wh": `${item.dev.h}px`, "--wx": `${(L.pos[`${item.id}-dev`] ?? [0, 0])[0]}px`, "--wy": `${(L.pos[`${item.id}-dev`] ?? [0, 0])[1]}px`, "--wr": "0deg", "--wz": item.z + 1 } as CSSProperties}>
               <img className="cx-art" src={caseUrl(item.dev.src)} alt="" draggable={false} />
             </button>
@@ -418,125 +421,101 @@ export function CaseHome({ onOpen, onGo, label, copy }: { copy: Chrome["intro"];
             : item.rack ? <Rack /> : item.obj
             ? <object className="cx-art" type="image/svg+xml" data={caseUrl(item.src)} aria-hidden="true" tabIndex={-1} />
             : <img className={item.crop ? "cx-art is-crop" : "cx-art"} src={caseUrl(item.src)} alt="" draggable={false} />;
-          if (dev) return [dev, <CaseButton key={item.id} item={item} style={style} art={art} name={item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : item.label} go={() => onOpen?.("unit", item.unit!)} />];
+          if (dev) return [dev, <CaseButton key={item.id} item={item} style={style} art={art} name={item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : item.label} go={() => setView(item.id)} />];
           if (!item.view) return <span key={item.id} className="cx-item is-static" data-id={item.id} style={style}>{art}</span>;
           const name = item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : label(item.view) || item.label;
           return (
             <button key={item.id} type="button" className="cx-item" data-id={item.id} style={style} aria-label={name} title={name}
-              onClick={() => (item.unit ? onOpen?.("unit", item.unit) : onGo?.(item.view!))}>
+              onClick={() => setView(item.id)}>
               {art}
             </button>
           );
         })}
       </div>
       <button type="button" className="cx-exit" aria-label={copy.exitFull} title={copy.exitFull} onClick={exitFull}>×</button>
-      <button type="button" className={loupe ? "cx-loupe-btn on" : "cx-loupe-btn"} aria-label={copy.loupe} title={copy.loupe} aria-pressed={loupe} onClick={() => setLoupe((v) => !v)}>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M15 15l5.5 5.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" /></svg>
-      </button>
-      {loupe ? <Loupe stage={stage} onOff={() => setLoupe(false)} /> : null}
       <button type="button" className="cx-help" aria-label={copy.help} title={copy.help} onClick={() => { setIntro(true); setHint(true); }}>?</button>
     </div>
     {intro ? <CaseIntro copy={copy} onClose={closeIntro} /> : null}
+    {view ? <ItemModal id={view} setId={setView} copy={copy} locale={locale} label={label}
+      go={(id) => { const t = targetOf(id); setView(null); if (t.unit) onOpen?.("unit", t.unit); else onGo?.(t.view); }} /> : null}
     </>
   );
 }
 
-const LENS = 180;
-const ZOOM = 2.5;
-/** Touch: hold this long before the lens appears, so a plain tap still opens the item and a swipe still scrolls. */
-const HOLD_MS = 320;
+/** Reading order for prev/next (Sergio, Oct 14 2026): portraits with their plaques, each command's arrival device then
+ *  its crest in service order, then the shirt (uniform, rack, pins) and the cards and documents on it. */
+const ORDER = ["bio-sr", "plaque-sr", "bio", "plaque", ...CRESTS_IN_ORDER.flatMap((id) => (byId(id).dev ? [`${id}-dev`, id] : [id])),
+  "uniforms", "decorations", "swo", "exw", "onduty", "map", "logbook", "contact", "admin", "offduty", "guestbook"];
+/** Same targets the case items opened before: a crest its command, a device the Timeline, everything else its page. */
+const targetOf = (id: string): { view: string; unit?: string } => {
+  if (id.endsWith("-dev")) return { view: "timeline" };
+  const it = byId(id);
+  return it.unit ? { view: it.view ?? "onduty", unit: it.unit } : { view: it.view ?? "" };
+};
+const nameOf = (id: string, label: (v: string) => string) => {
+  if (id.endsWith("-dev")) return devOf(id).label;
+  const it = byId(id);
+  if (it.unit) return units.find((u) => u.id === it.unit)?.name ?? it.label;
+  if (id === "swo" || id === "exw") return it.label;
+  if (id.startsWith("plaque") || id.startsWith("bio")) return `${label("bio") || it.label}${id.endsWith("-sr") ? " · SR" : id === "bio" || id === "plaque" ? " · CPO" : ""}`;
+  return label(it.view ?? "") || it.label;
+};
 
-/**
- * Opt-in loupe (Sergio, Oct 14 2026). The lens holds a live DOM clone of the case canvas scaled by ZOOM, so the art
- * stays vector-sharp (no raster screenshot). It ignores the pointer (pointer-events: none), so clicks fall through
- * to the real items. Desktop: follows the mouse. Touch: press and hold, the lens sits above the finger and follows
- * the drag; lifting after a hold does not open the item under it. Esc or the toggle removes it.
- */
-function Loupe({ stage, onOff }: { stage: RefObject<HTMLDivElement | null>; onOff: () => void }) {
-  const lens = useRef<HTMLDivElement | null>(null);
-  const inner = useRef<HTMLDivElement | null>(null);
+/** Item modal (Sergio, Oct 14 2026): the item in full over a dark backdrop, one sentence from the record, and a button to
+ *  its page. Arrows and Left/Right step through ORDER; Esc, the backdrop or X close; focus is trapped and returns to the
+ *  item that opened it. */
+function ItemModal({ id, setId, copy: c, locale, label, go }: { id: string; setId: (id: string | null) => void; copy: Chrome["intro"]; locale: Locale; label: (v: string) => string; go: (id: string) => void }) {
+  const box = useRef<HTMLDivElement | null>(null);
+  const opener = useRef<string>(id);
+  const at = ORDER.indexOf(id);
+  const step = useCallback((d: number) => setId(ORDER[(at + d + ORDER.length) % ORDER.length]), [at, setId]);
+  const close = useCallback(() => setId(null), [setId]);
   useEffect(() => {
-    const el = stage.current, box = lens.current, wrap = inner.current;
-    if (!el || !box || !wrap) return;
-    const canvas = el.querySelector(".cx-canvas");
-    if (canvas) {
-      const copy = canvas.cloneNode(true) as HTMLElement;
-      copy.querySelectorAll("[id]").forEach((n) => n.removeAttribute("id"));
-      copy.querySelectorAll("button, [tabindex]").forEach((n) => n.setAttribute("tabindex", "-1"));
-      wrap.replaceChildren(copy);
-    }
-    wrap.style.backgroundImage = el.style.backgroundImage;
-    // Performance (Oct 14 2026): the clone is built and scaled once (inner .cx-lens-art), and it sits on its own
-    // composited layer (will-change: transform). A move only changes the lens position and a translate3d on that
-    // layer, batched to one write per animation frame, so nothing re-lays out or re-rasterises while dragging.
-    let size = "";
-    let raf = 0, px = 0, py = 0, pcy = 0;
-    const apply = () => {
-      raf = 0;
-      const w = el.clientWidth, h = el.clientHeight, key = `${w}x${h}`;
-      if (key !== size) { size = key; wrap.style.width = `${w}px`; wrap.style.height = `${h}px`; }
-      box.style.transform = `translate3d(${px - LENS / 2}px, ${pcy - LENS / 2}px, 0)`;
-      wrap.style.transform = `translate3d(${LENS / 2 - px * ZOOM}px, ${LENS / 2 - py * ZOOM}px, 0) scale(${ZOOM})`;
-      if (box.hidden) box.hidden = false;
+    const back = opener.current;
+    return () => { document.querySelector<HTMLElement>(`.cx-item[data-id="${back}"]`)?.focus(); };
+  }, []);
+  useEffect(() => { opener.current = id; }, [id]);
+  useEffect(() => { box.current?.querySelector<HTMLElement>(".cx-modal-x")?.focus(); }, []);
+  useEffect(() => {
+    const key = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { e.preventDefault(); close(); return; }
+      if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); return; }
+      if (e.key === "ArrowRight") { e.preventDefault(); step(1); return; }
+      if (e.key !== "Tab" || !box.current) return;
+      const f = [...box.current.querySelectorAll<HTMLElement>("button:not([disabled])")];
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     };
-    const show = (x: number, y: number, cy: number) => {
-      px = x; py = y; pcy = cy;
-      if (!raf) raf = window.requestAnimationFrame(apply);
-    };
-    const hide = () => { if (raf) { window.cancelAnimationFrame(raf); raf = 0; } box.hidden = true; };
-    const at = (cx: number, cy: number) => { const r = el.getBoundingClientRect(); return [cx - r.left, cy - r.top] as const; };
-    const move = (e: PointerEvent) => { if (e.pointerType !== "touch") { const [x, y] = at(e.clientX, e.clientY); show(x, y, y); } };
-    const leave = (e: PointerEvent) => { if (e.pointerType !== "touch") hide(); };
-    let timer = 0, held = false, sx = 0, sy = 0;
-    const lift = (y: number) => Math.max(LENS / 2, y - LENS * 0.75);
-    const tStart = (e: TouchEvent) => {
-      if (e.touches.length !== 1) return;
-      const t = e.touches[0]; sx = t.clientX; sy = t.clientY; held = false;
-      window.clearTimeout(timer);
-      timer = window.setTimeout(() => { held = true; const [x, y] = at(sx, sy); show(x, y, lift(y)); }, HOLD_MS);
-    };
-    const tMove = (e: TouchEvent) => {
-      const t = e.touches[0];
-      if (!t) return;
-      if (!held) { if (Math.hypot(t.clientX - sx, t.clientY - sy) > 10) window.clearTimeout(timer); return; }
-      e.preventDefault();
-      const [x, y] = at(t.clientX, t.clientY); show(x, y, lift(y));
-    };
-    const swallow = (e: Event) => { e.preventDefault(); e.stopPropagation(); };
-    const tEnd = () => {
-      window.clearTimeout(timer);
-      if (held) { hide(); el.addEventListener("click", swallow, { capture: true, once: true }); window.setTimeout(() => el.removeEventListener("click", swallow, true), 500); }
-      held = false;
-    };
-    const menu = (e: Event) => e.preventDefault();
-    const key = (e: KeyboardEvent) => { if (e.key === "Escape") onOff(); };
-    el.addEventListener("pointermove", move);
-    el.addEventListener("pointerleave", leave);
-    el.addEventListener("touchstart", tStart, { passive: true });
-    el.addEventListener("touchmove", tMove, { passive: false });
-    el.addEventListener("touchend", tEnd);
-    el.addEventListener("touchcancel", tEnd);
-    el.addEventListener("contextmenu", menu);
     document.addEventListener("keydown", key);
-    el.classList.add("cx-loupe-on");
-    return () => {
-      window.clearTimeout(timer);
-      if (raf) window.cancelAnimationFrame(raf);
-      el.removeEventListener("pointermove", move);
-      el.removeEventListener("pointerleave", leave);
-      el.removeEventListener("touchstart", tStart);
-      el.removeEventListener("touchmove", tMove);
-      el.removeEventListener("touchend", tEnd);
-      el.removeEventListener("touchcancel", tEnd);
-      el.removeEventListener("contextmenu", menu);
-      document.removeEventListener("keydown", key);
-      el.classList.remove("cx-loupe-on");
-    };
-  }, [stage, onOff]);
-  return (
-    <div ref={lens} className="cx-lens" aria-hidden="true" hidden>
-      <div ref={inner} className="cx-lens-inner" />
-    </div>
+    return () => document.removeEventListener("keydown", key);
+  }, [close, step]);
+  const dev = id.endsWith("-dev");
+  const it = dev ? null : byId(id);
+  const name = nameOf(id, label);
+  const note = caseNote(id, locale);
+  const t = targetOf(id);
+  const page = t.unit ? (units.find((u) => u.id === t.unit)?.name ?? name) : label(t.view) || t.view;
+  const src = dev ? devOf(id).src : it!.src;
+  const ratio = dev ? devOf(id).w / devOf(id).h : it!.crop ? SHIRT_W / SHIRT_FULL : it!.w / it!.h;
+  return createPortal(
+    <div className="cx-modal" onClick={(e) => { if (e.target === e.currentTarget) close(); }}>
+      <div ref={box} className="cx-modal-box" role="dialog" aria-modal="true" aria-labelledby="cx-modal-title" aria-describedby={note ? "cx-modal-note" : undefined}>
+        <button type="button" className="cx-modal-x" aria-label={c.close} title={c.close} onClick={close}>×</button>
+        <div className="cx-modal-art" style={{ ["--ar" as string]: String(ratio) }}>
+          {it?.rack ? <span className="cx-modal-rack"><Rack /></span> : <img src={caseUrl(src)} alt="" draggable={false} />}
+        </div>
+        <h2 id="cx-modal-title">{name}</h2>
+        {note ? <p id="cx-modal-note">{note}</p> : null}
+        <div className="cx-modal-nav">
+          <button type="button" className="cx-modal-step" aria-label={c.prev} title={c.prev} onClick={() => step(-1)}>‹</button>
+          <button type="button" className="cx-modal-go" onClick={() => go(id)}>{c.openPage.replace("{page}", page)}</button>
+          <button type="button" className="cx-modal-step" aria-label={c.next} title={c.next} onClick={() => step(1)}>›</button>
+        </div>
+      </div>
+    </div>,
+    document.body,
   );
 }
 

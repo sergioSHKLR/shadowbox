@@ -139,7 +139,7 @@ function inGroup(group: Equipment["group"]): Equipment[] {
 /**
  * Off Duty city chips (Sergio, Oct 14 2026): his mapping, each city's own card included. Items can sit under more than
  * one chip. Record notes are kept as written even where they name another place (Frontier: Imperial Beach). Orange Park
- * covers both Jacksonville tours. Santa Rita has its city card only. The C-5/C-9 and the Ford Transit are not placed.
+ * covers both Jacksonville tours. Santa Rita has its city card only. The C-5/C-9 are not placed.
  */
 const OFF_CITIES: { id: string; label: string; items: string[] }[] = [
   { id: "san-diego", label: "San Diego", items: ["city-san-diego", "nissan-frontier"] },

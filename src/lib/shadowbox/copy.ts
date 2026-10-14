@@ -11,7 +11,7 @@ const PLACEHOLDER_BIO_PT = "{{h}}Treinamento de recrutas{{/h}}[Espaço reservado
 const en = {
   intro: {
     title: "Welcome to the shadowbox",
-    body: "This is a digital shadowbox: every item from a Navy career, drawn at its true size. Each one carries its own story, so nothing depends on someone being here to explain it. Items that glow are clickable; select one to open its page.",
+    body: "This is a digital shadowbox: every item from a Navy career, drawn at its true size. Each one carries its own story, so nothing depends on someone being here to explain it. Tap any item to see it up close.",
     caption: "Why a digital shadowbox beats a physical one",
     physical: "Physical case",
     site: "This site",
@@ -26,7 +26,9 @@ const en = {
     go: "View the case",
     close: "Close",
     help: "About this shadowbox",
-    loupe: "Magnifier",
+    prev: "Previous item",
+    next: "Next item",
+    openPage: "Open {page}",
     exitFull: "Exit full case",
   },
   title: "Shadowbox",
@@ -137,7 +139,7 @@ const en = {
 const pt: typeof en = {
   intro: {
     title: "Bem-vindo ao shadowbox",
-    body: "Este é um shadowbox digital: cada item de uma carreira na Marinha, desenhado em tamanho real. Cada um traz a sua própria história, então nada depende de alguém estar aqui para explicá-la. Os itens que brilham são clicáveis; selecione um para abrir a página dele.",
+    body: "Este é um shadowbox digital: cada item de uma carreira na Marinha, desenhado em tamanho real. Cada um traz a sua própria história, então nada depende de alguém estar aqui para explicá-la. Toque em qualquer item para vê-lo de perto.",
     caption: "Por que um shadowbox digital supera um físico",
     physical: "Quadro físico",
     site: "Este site",
@@ -152,7 +154,9 @@ const pt: typeof en = {
     go: "Ver o quadro",
     close: "Fechar",
     help: "Sobre este shadowbox",
-    loupe: "Lupa",
+    prev: "Item anterior",
+    next: "Próximo item",
+    openPage: "Abrir {page}",
     exitFull: "Sair da tela cheia",
   },
   title: "Shadowbox",
