@@ -120,7 +120,7 @@ function GearList({ label, items, onOpen }: { label: string; items: Equipment[];
         {ordered.map((item) => (
           <li key={item.id}>
             <button type="button" className="uniform-card equipment-card" onClick={() => onOpen("equipment", item.id)}>
-              {item.image ? <img className={item.cutout ? "equipment-photo" : "equipment-photo is-photo"} src={publicUrl(item.image)} alt="" loading="lazy" /> : null}
+              {item.image ? <img data-group={item.group} className={item.cutout ? "equipment-photo" : "equipment-photo is-photo"} src={publicUrl(item.image)} alt="" loading="lazy" /> : null}
               <strong>{item.name}</strong>
               {item.caption ? <span>{item.caption}</span> : null}
             </button>
