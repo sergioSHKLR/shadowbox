@@ -1539,3 +1539,33 @@ object.cx-art { color-scheme: light; }
 
 /* AI disclaimer in the welcome modal (Sergio): small muted note above the button. */
 .cx-intro-note { margin: 0.6rem 0 0.4rem; font-size: 0.78rem; line-height: 1.35; color: #5b6475; font-style: italic; }
+
+/* Decorations page (restored Oct 14 2026). */
+.decor-page { --in: 3rem; }
+.decor-controls { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin: 0.5rem 0 1.25rem; }
+.decor-seg { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
+.decor-seg-label { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-quiet); margin-right: 0.2rem; }
+.decor-seg .nav-btn { min-height: 44px; }
+.decor-seg .nav-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.decor-soon { font-size: 0.78rem; font-style: italic; color: var(--color-quiet); }
+.decor-rack { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.decor-rack-row { display: flex; justify-content: center; }
+.decor-rack .ribbon { width: calc(var(--in) * 1.375); display: block; padding: 0; border: 0; background: none; cursor: pointer; position: relative; }
+.decor-rack .ribbon img, .decor-loose .ribbon img { display: block; width: 100%; height: auto; }
+.decor-rack .ribbon:hover, .decor-rack .ribbon:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 1px; z-index: 1; }
+.decor-loose { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); gap: 0.75rem 1rem; }
+.decor-loose-btn { display: flex; align-items: center; gap: 0.75rem; width: 100%; min-height: 44px; padding: 0.35rem 0.2rem; border: 0; border-bottom: 1px solid var(--color-line); background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.decor-loose-btn .ribbon { position: relative; flex: none; width: calc(var(--in) * 1.375); }
+.decor-loose-btn:hover span:last-child, .decor-loose-btn:focus-visible span:last-child { text-decoration: underline; }
+.decor-rack .ribbon-device, .decor-loose .ribbon-device { position: absolute; inset: 0; width: 100%; height: 100%; }
+@media (max-width: 599.98px) { .decor-page { --in: 2.3rem; } }
+.decor-page { --mi: 4.2rem; }
+.decor-medals { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+.decor-medals .decor-soon { text-align: center; margin: 0.4rem 0 0; }
+.decor-loose-medals { grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); }
+.decor-one-medal { position: relative; flex: none; display: block; width: calc(var(--mi) * 1.375); height: calc(var(--mi) * 3.25); --mi: 2.4rem; }
+.decor-one-medal .medal-art { position: absolute; inset: 0; }
+@media (max-width: 599.98px) { .decor-page { --mi: 3rem; } }
+.decor-controls { position: relative; z-index: 5; }
+.decor-medals { padding-top: calc(var(--mi) * 1.1); }
+.decor-medals .medal-block { flex: none; }
