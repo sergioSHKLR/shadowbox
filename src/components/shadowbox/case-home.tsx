@@ -466,16 +466,24 @@ function Loupe({ stage, onOff }: { stage: RefObject<HTMLDivElement | null>; onOf
       wrap.replaceChildren(copy);
     }
     wrap.style.backgroundImage = el.style.backgroundImage;
-    const show = (x: number, y: number, cy: number) => {
-      const w = el.clientWidth, h = el.clientHeight;
-      wrap.style.width = `${w}px`;
-      wrap.style.height = `${h}px`;
-      box.style.left = `${x - LENS / 2}px`;
-      box.style.top = `${cy - LENS / 2}px`;
-      wrap.style.transform = `translate(${LENS / 2 - x * ZOOM}px, ${LENS / 2 - y * ZOOM}px) scale(${ZOOM})`;
-      box.hidden = false;
+    // Performance (Oct 14 2026): the clone is built and scaled once (inner .cx-lens-art), and it sits on its own
+    // composited layer (will-change: transform). A move only changes the lens position and a translate3d on that
+    // layer, batched to one write per animation frame, so nothing re-lays out or re-rasterises while dragging.
+    let size = "";
+    let raf = 0, px = 0, py = 0, pcy = 0;
+    const apply = () => {
+      raf = 0;
+      const w = el.clientWidth, h = el.clientHeight, key = `${w}x${h}`;
+      if (key !== size) { size = key; wrap.style.width = `${w}px`; wrap.style.height = `${h}px`; }
+      box.style.transform = `translate3d(${px - LENS / 2}px, ${pcy - LENS / 2}px, 0)`;
+      wrap.style.transform = `translate3d(${LENS / 2 - px * ZOOM}px, ${LENS / 2 - py * ZOOM}px, 0) scale(${ZOOM})`;
+      if (box.hidden) box.hidden = false;
     };
-    const hide = () => { box.hidden = true; };
+    const show = (x: number, y: number, cy: number) => {
+      px = x; py = y; pcy = cy;
+      if (!raf) raf = window.requestAnimationFrame(apply);
+    };
+    const hide = () => { if (raf) { window.cancelAnimationFrame(raf); raf = 0; } box.hidden = true; };
     const at = (cx: number, cy: number) => { const r = el.getBoundingClientRect(); return [cx - r.left, cy - r.top] as const; };
     const move = (e: PointerEvent) => { if (e.pointerType !== "touch") { const [x, y] = at(e.clientX, e.clientY); show(x, y, y); } };
     const leave = (e: PointerEvent) => { if (e.pointerType !== "touch") hide(); };
@@ -513,6 +521,7 @@ function Loupe({ stage, onOff }: { stage: RefObject<HTMLDivElement | null>; onOf
     el.classList.add("cx-loupe-on");
     return () => {
       window.clearTimeout(timer);
+      if (raf) window.cancelAnimationFrame(raf);
       el.removeEventListener("pointermove", move);
       el.removeEventListener("pointerleave", leave);
       el.removeEventListener("touchstart", tStart);

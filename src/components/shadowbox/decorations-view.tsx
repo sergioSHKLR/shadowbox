@@ -59,31 +59,31 @@ function MedalsView({ mount, onOpen, t }: { mount: "mounted" | "unmounted"; onOp
   const ribbonOnly = ordered.filter((a) => !medalFor(a.id));
   const open = (a: Award) => onOpen("award", a.id);
   if (mount === "mounted") {
-    // Two columns (Sergio, Oct 14 2026): left, the full mounted ribbon rack; right, the mounted medals, five per row.
+    // Mounted medals and ribbons: one display, rack beside the medals (five per row).
+    // Medals (v3): precedence runs highest to lowest from the top row, viewer's left (inboard) to right (outboard);
+    // each medal overlaps its outboard neighbour by half a width, the senior medal on top.
     const five: Award[][] = [];
     for (let i = 0; i < withMedal.length; i += 5) five.push(withMedal.slice(i, i + 5));
     return (
       <div className="decor-two-col">
-        <div className="decor-col">
-          <BreastLeft>
+        {/* One display (Sergio, Oct 14 2026): ribbon rack and mounted medals side by side (stacked on narrow
+            screens), with a single set of warfare pins and one JCSE badge. */}
+        <BreastLeft>
+          <div className="decor-combo">
             <Rack rows={ribbonRows(awards, 3)} onOpen={open} label={t.decor.mounted} />
-          </BreastLeft>
-        </div>
-        <div className="decor-col decor-medals">
-          <BreastLeft>
             <div className="decor-medal-grid">
               {five.map((row) => (
                 <div key={row.map((a) => a.id).join("-")} className="decor-medal-row">
-                  {row.map((award) => (
-                    <button key={award.id} type="button" className="decor-medal-btn" aria-label={award.name} onClick={() => open(award)}>
+                  {row.map((award, i) => (
+                    <button key={award.id} type="button" className="decor-medal-btn" style={{ zIndex: row.length - i }} aria-label={award.name} onClick={() => open(award)}>
                       <MedalArt award={award} medal={medalFor(award.id)!} />
                     </button>
                   ))}
                 </div>
               ))}
             </div>
-          </BreastLeft>
-        </div>
+          </div>
+        </BreastLeft>
         {ribbonOnly.length ? <p className="decor-soon decor-two-note">{t.decor.ribbonOnlyNote}: {ribbonOnly.map((a) => a.name).join(", ")}</p> : null}
       </div>
     );
@@ -125,12 +125,15 @@ function Rack({ rows, onOpen, label }: { rows: Award[][]; onOpen: (a: Award) => 
 function BreastLeft({ children }: { children: React.ReactNode }) {
   return (
     <div className="decor-breast">
-      <img className="decor-jcse" src={publicUrl("/insignia/jcse-device.svg")} alt="JCSE identification badge (right breast)" />
+      <div className="decor-right-breast">
+        <img className="decor-jcse" src={publicUrl("/insignia/jcse-device.svg")} alt="JCSE identification badge (right breast)" />
+      </div>
       <div className="decor-left-breast">
         <img className="decor-pin" src={publicUrl("/case/esws-pin.svg")} alt="Enlisted Surface Warfare Specialist pin" />
         {children}
         <img className="decor-pin" src={publicUrl("/case/exw-pin.svg")} alt="Expeditionary Warfare Specialist pin" />
       </div>
+      <div className="decor-breast-spacer" aria-hidden="true" />
     </div>
   );
 }
