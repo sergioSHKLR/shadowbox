@@ -1,5 +1,5 @@
 import type { Chrome } from "@/lib/shadowbox/copy";
-import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from "react";
 import { awards, publicUrl, ribbonRows, units, type Kind } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 
@@ -356,6 +356,7 @@ export function CaseHome({ onOpen, onGo, label, copy }: { copy: Chrome["intro"];
   const stage = useRef<HTMLDivElement | null>(null);
   const [intro, setIntro] = useState(false);
   const [hint, setHint] = useState(false);
+  const [loupe, setLoupe] = useState(false);
   const [mode, setMode] = useState<Mode>("wide");
   useEffect(() => {
     let seen = true;
@@ -429,10 +430,104 @@ export function CaseHome({ onOpen, onGo, label, copy }: { copy: Chrome["intro"];
         })}
       </div>
       <button type="button" className="cx-exit" aria-label={copy.exitFull} title={copy.exitFull} onClick={exitFull}>×</button>
+      <button type="button" className={loupe ? "cx-loupe-btn on" : "cx-loupe-btn"} aria-label={copy.loupe} title={copy.loupe} aria-pressed={loupe} onClick={() => setLoupe((v) => !v)}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M15 15l5.5 5.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" /></svg>
+      </button>
+      {loupe ? <Loupe stage={stage} onOff={() => setLoupe(false)} /> : null}
       <button type="button" className="cx-help" aria-label={copy.help} title={copy.help} onClick={() => { setIntro(true); setHint(true); }}>?</button>
     </div>
     {intro ? <CaseIntro copy={copy} onClose={closeIntro} /> : null}
     </>
+  );
+}
+
+const LENS = 180;
+const ZOOM = 2.5;
+/** Touch: hold this long before the lens appears, so a plain tap still opens the item and a swipe still scrolls. */
+const HOLD_MS = 320;
+
+/**
+ * Opt-in loupe (Sergio, Oct 14 2026). The lens holds a live DOM clone of the case canvas scaled by ZOOM, so the art
+ * stays vector-sharp (no raster screenshot). It ignores the pointer (pointer-events: none), so clicks fall through
+ * to the real items. Desktop: follows the mouse. Touch: press and hold, the lens sits above the finger and follows
+ * the drag; lifting after a hold does not open the item under it. Esc or the toggle removes it.
+ */
+function Loupe({ stage, onOff }: { stage: RefObject<HTMLDivElement | null>; onOff: () => void }) {
+  const lens = useRef<HTMLDivElement | null>(null);
+  const inner = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const el = stage.current, box = lens.current, wrap = inner.current;
+    if (!el || !box || !wrap) return;
+    const canvas = el.querySelector(".cx-canvas");
+    if (canvas) {
+      const copy = canvas.cloneNode(true) as HTMLElement;
+      copy.querySelectorAll("[id]").forEach((n) => n.removeAttribute("id"));
+      copy.querySelectorAll("button, [tabindex]").forEach((n) => n.setAttribute("tabindex", "-1"));
+      wrap.replaceChildren(copy);
+    }
+    wrap.style.backgroundImage = el.style.backgroundImage;
+    const show = (x: number, y: number, cy: number) => {
+      const w = el.clientWidth, h = el.clientHeight;
+      wrap.style.width = `${w}px`;
+      wrap.style.height = `${h}px`;
+      box.style.left = `${x - LENS / 2}px`;
+      box.style.top = `${cy - LENS / 2}px`;
+      wrap.style.transform = `translate(${LENS / 2 - x * ZOOM}px, ${LENS / 2 - y * ZOOM}px) scale(${ZOOM})`;
+      box.hidden = false;
+    };
+    const hide = () => { box.hidden = true; };
+    const at = (cx: number, cy: number) => { const r = el.getBoundingClientRect(); return [cx - r.left, cy - r.top] as const; };
+    const move = (e: PointerEvent) => { if (e.pointerType !== "touch") { const [x, y] = at(e.clientX, e.clientY); show(x, y, y); } };
+    const leave = (e: PointerEvent) => { if (e.pointerType !== "touch") hide(); };
+    let timer = 0, held = false, sx = 0, sy = 0;
+    const lift = (y: number) => Math.max(LENS / 2, y - LENS * 0.75);
+    const tStart = (e: TouchEvent) => {
+      if (e.touches.length !== 1) return;
+      const t = e.touches[0]; sx = t.clientX; sy = t.clientY; held = false;
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => { held = true; const [x, y] = at(sx, sy); show(x, y, lift(y)); }, HOLD_MS);
+    };
+    const tMove = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (!t) return;
+      if (!held) { if (Math.hypot(t.clientX - sx, t.clientY - sy) > 10) window.clearTimeout(timer); return; }
+      e.preventDefault();
+      const [x, y] = at(t.clientX, t.clientY); show(x, y, lift(y));
+    };
+    const swallow = (e: Event) => { e.preventDefault(); e.stopPropagation(); };
+    const tEnd = () => {
+      window.clearTimeout(timer);
+      if (held) { hide(); el.addEventListener("click", swallow, { capture: true, once: true }); window.setTimeout(() => el.removeEventListener("click", swallow, true), 500); }
+      held = false;
+    };
+    const menu = (e: Event) => e.preventDefault();
+    const key = (e: KeyboardEvent) => { if (e.key === "Escape") onOff(); };
+    el.addEventListener("pointermove", move);
+    el.addEventListener("pointerleave", leave);
+    el.addEventListener("touchstart", tStart, { passive: true });
+    el.addEventListener("touchmove", tMove, { passive: false });
+    el.addEventListener("touchend", tEnd);
+    el.addEventListener("touchcancel", tEnd);
+    el.addEventListener("contextmenu", menu);
+    document.addEventListener("keydown", key);
+    el.classList.add("cx-loupe-on");
+    return () => {
+      window.clearTimeout(timer);
+      el.removeEventListener("pointermove", move);
+      el.removeEventListener("pointerleave", leave);
+      el.removeEventListener("touchstart", tStart);
+      el.removeEventListener("touchmove", tMove);
+      el.removeEventListener("touchend", tEnd);
+      el.removeEventListener("touchcancel", tEnd);
+      el.removeEventListener("contextmenu", menu);
+      document.removeEventListener("keydown", key);
+      el.classList.remove("cx-loupe-on");
+    };
+  }, [stage, onOff]);
+  return (
+    <div ref={lens} className="cx-lens" aria-hidden="true" hidden>
+      <div ref={inner} className="cx-lens-inner" />
+    </div>
   );
 }
 
