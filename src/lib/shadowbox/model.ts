@@ -454,7 +454,7 @@ export const milestones = milestonesJson as Milestone[];
 export type Certificate = { id: string; name: string; explanation: string };
 export const certificates = certificatesJson as Certificate[];
 export const credits = creditsJson as Credit[];
-/** Items marked hidden in equipment.json (e.g. the Ford Transit Connect) stay in the data but never show on the site. */
+/** Items marked hidden in equipment.json stay in the data but never show on the site. */
 export const equipment = (equipmentJson as (Equipment & { hidden?: boolean })[]).filter((item) => !item.hidden) as Equipment[];
 export const branches = branchesJson as Record<string, string>;
 export const caseCopy = caseJson;

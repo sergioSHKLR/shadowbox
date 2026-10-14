@@ -942,23 +942,6 @@
     }
   },
   {
-    "id": "ford-transit",
-    "hidden": true,
-    "hiddenNote": "Removed from the POVs by Sergio (Oct 5, 2026). Record and image kept; hidden everywhere on the site.",
-    "group": "cars",
-    "order": 56,
-    "name": "Ford Transit Connect",
-    "cutout": false,
-    "note": "POV-07. Tampa. Photograph is of his own Transit Connect (confirmed by Sergio, Oct 5, 2026).",
-    "image": "/equipment/cut/offduty-ford-transit.webp",
-    "credit": {
-      "sourceUrl": "",
-      "file": "incoming/off-duty/ford-connect.webp",
-      "creator": "",
-      "license": "Supplied by the owner (uploaded to incoming/off-duty)."
-    }
-  },
-  {
     "id": "mitsubishi-outlander",
     "group": "cars",
     "order": 57,

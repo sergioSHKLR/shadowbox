@@ -1470,7 +1470,7 @@ body[data-scroll-locked] .home-pin {
 .cx-art { display: block; width: 100%; height: 100%; object-fit: fill; pointer-events: none; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)); }
 /* Target glow (Sergio): a white ring inside a navy ring. Gold measured about 1.1:1 against the khaki shirt; the navy
    ring is about 9:1 on khaki and the white ring about 13:1 on the navy felt, so one of the two always reads. */
-button.cx-item:hover :is(.cx-art, .cx-rack), button.cx-item:focus-visible :is(.cx-art, .cx-rack) { filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff) drop-shadow(0 0 2px #0b1f3a) drop-shadow(0 0 2px #0b1f3a) drop-shadow(0 0 3px #0b1f3a) drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)); }
+button.cx-item.cx-no-glow :is(.cx-art, .cx-rack) { filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff) drop-shadow(0 0 2px #0b1f3a) drop-shadow(0 0 2px #0b1f3a) drop-shadow(0 0 3px #0b1f3a) drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)); }
 .cx-item:focus-visible { outline: 2px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 5px #0b1f3a; }
 .cx-rack { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; width: 100%; height: 100%; pointer-events: none; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)); }
 .cx-pin { display: block; height: auto; }
@@ -1496,7 +1496,7 @@ button.cx-item::after { content: ""; position: absolute; left: 50%; top: 50%; wi
 /* Onboarding (Oct 13 2026): "?" reopens it; while open (and ~2 s after) every link target glows on its own box. */
 .cx-help { position: absolute; right: 0.4rem; top: 0.4rem; z-index: 60; width: 1.7rem; height: 1.7rem; border-radius: 50%; border: 1px solid #c6a15b; background: rgba(9, 22, 44, 0.85); color: #e4c98a; font: 600 0.95rem/1 Georgia, serif; cursor: pointer; }
 .cx-help:focus-visible { outline: 2px solid #e4c98a; outline-offset: 2px; }
-.cx-hint button.cx-item { box-shadow: 0 0 0 1.5px #fff, 0 0 0 3.5px #0b1f3a, 0 0 10px 3px rgba(255, 255, 255, 0.35); border-radius: 2px; transition: box-shadow 300ms ease; }
+.cx-hint button.cx-item.cx-no-glow { box-shadow: 0 0 0 1.5px #fff, 0 0 0 3.5px #0b1f3a, 0 0 10px 3px rgba(255, 255, 255, 0.35); border-radius: 2px; transition: box-shadow 300ms ease; }
 .cx-intro { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 1rem; background: rgba(9, 22, 44, 0.35); }
 .cx-intro-box { position: relative; width: min(36rem, 100%); max-height: calc(100dvh - 2rem); overflow: auto; padding: 1.2rem 1.3rem 1.1rem; background: #f7f2e7; color: #14233a; border: 1px solid #c6a15b; border-radius: 6px; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45); font-size: 0.92rem; line-height: 1.45; }
 .cx-intro-box h2 { margin: 0 1.6rem 0.5rem 0; font: 600 1.15rem/1.25 Georgia, "Iowan Old Style", serif; }
@@ -1606,18 +1606,6 @@ object.cx-art { color-scheme: light; }
   .site-footer:has(.footer-home) .footer-pager { grid-column: 2; grid-row: 2; }
 }
 
-/* Loupe (Sergio, Oct 14 2026): toggle sits left of "?" in the case controls; 44px target via ::after. */
-.cx-loupe-btn { position: absolute; right: 2.5rem; top: 0.4rem; z-index: 60; width: 1.7rem; height: 1.7rem; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 1px solid #c6a15b; background: rgba(9, 22, 44, 0.85); color: #e4c98a; cursor: pointer; }
-.cx-loupe-btn svg { width: 1rem; height: 1rem; }
-.cx-loupe-btn::after { content: ""; position: absolute; inset: calc((1.7rem - 44px) / 2); }
-.cx-loupe-btn.on { background: #e4c98a; color: #09162c; }
-.cx-loupe-btn:focus-visible { outline: 2px solid #e4c98a; outline-offset: 2px; }
-.case-frame:fullscreen .cx-loupe-btn, .case-frame[data-cover="1"] .cx-loupe-btn { right: 4.6rem; }
-.cx-lens { position: absolute; z-index: 70; width: 180px; height: 180px; border-radius: 50%; overflow: hidden; pointer-events: none; border: 2px solid #e4c98a; box-shadow: 0 0 0 3px #09162c, 0 10px 24px rgba(0, 0, 0, 0.55); background: #09162c; transition: opacity 120ms ease; }
-.cx-lens[hidden] { display: none; }
-.cx-lens-inner { position: absolute; left: 0; top: 0; transform-origin: 0 0; background-size: 100% 100%; }
-.cx-loupe-on { cursor: zoom-in; -webkit-touch-callout: none; user-select: none; }
-@media (prefers-reduced-motion: reduce) { .cx-lens { transition: none; } }
 /* Dark-theme contrast fixes found by the audit (Oct 14 2026): gear card titles and the Uniform look buttons. */
 [data-theme="dark"] .equipment-card strong { color: var(--color-ivory); }
 [data-theme="dark"] .uprog-looks .nav-btn:not(.on) { color: var(--color-ivory); }
@@ -1663,10 +1651,6 @@ object.cx-art { color-scheme: light; }
 /* Keep the rack/medals centred: the JCSE badge hangs off to the viewer's left without taking layout width. */
 .decor-breast { position: relative; }
 .decor-breast .decor-jcse { position: absolute; right: calc(100% + var(--in, 1rem) * 0.8); top: 50%; transform: translateY(-50%); }
-/* Loupe performance (Oct 14 2026): lens moves by transform only; the clone is its own layer. */
-.cx-lens { left: 0; top: 0; will-change: transform; contain: strict; transition: none; }
-.cx-lens-inner { will-change: transform; }
-.cx-lens-inner * { animation: none !important; transition: none !important; }
 /* Bio emphasis (Sergio, Oct 14 2026): {{b}} runs read as italics at normal weight, EN and PT. Headings unchanged. */
 .bio .bio-em, .bio strong { font-style: italic; font-weight: inherit; }
 /* Footer (Sergio, Oct 14 2026): the centre Home link is hidden on phones on every page (footer breakpoint 600px);
@@ -1709,3 +1693,34 @@ object.cx-art { color-scheme: light; }
   .decor-right-ribbons--wide { display: none; }
   .decor-right-ribbons--narrow { display: block; order: -1; margin-bottom: 1rem; }
 }
+
+/* Home item modal (Sergio, Oct 14 2026): no hover outline or glow on case items; keyboard focus keeps a visible ring. */
+.cx-item:focus { outline: none; }
+.cx-item:focus-visible { outline: 2px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 5px #0b1f3a; }
+.cx-modal { position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center; padding: 1rem; background: rgba(4, 8, 16, 0.86); animation: cx-fade 160ms ease-out; }
+.cx-modal-box { position: relative; display: flex; flex-direction: column; align-items: center; width: min(40rem, 100%); max-height: calc(100dvh - 2rem); padding: 2.6rem 1.2rem 1rem; background: #f7f2e7; color: #14233a; border: 1px solid #c6a15b; border-radius: 6px; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55); box-sizing: border-box; overflow: auto; animation: cx-rise 180ms ease-out; }
+.cx-modal-art { display: grid; place-items: center; flex: none; width: 100%; height: min(58dvh, 30rem); min-height: 8rem; }
+.cx-modal-art { overflow: hidden; }
+.cx-modal-art img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.35)); }
+.cx-modal-rack { display: block; zoom: 3; }
+@media (max-width: 480px) { .cx-modal-rack { zoom: 2.4; } }
+.cx-modal-box h2 { margin: 0.8rem 0 0.3rem; text-align: center; font: 600 1.15rem/1.25 Georgia, "Iowan Old Style", serif; }
+.cx-modal-box p { margin: 0 0 0.6rem; max-width: 34rem; text-align: center; font-size: 0.92rem; line-height: 1.45; }
+.cx-modal-nav { display: flex; align-items: center; justify-content: center; gap: 0.8rem; width: 100%; margin-top: 0.4rem; }
+.cx-modal-step { width: 44px; height: 44px; flex: none; border: 1px solid #8a6a3b; border-radius: 50%; background: transparent; color: #14233a; font: 600 1.5rem/1 Georgia, serif; cursor: pointer; }
+.cx-modal-go { min-height: 44px; padding: 0.45rem 1rem; border: 1px solid #8a6a3b; border-radius: 4px; background: #14233a; color: #f4efe4; cursor: pointer; font-size: 0.92rem; }
+.cx-modal-x { position: absolute; right: 0.3rem; top: 0.3rem; width: 44px; height: 44px; border: 0; background: transparent; color: #14233a; font-size: 1.8rem; line-height: 1; cursor: pointer; }
+.cx-modal-x:focus-visible, .cx-modal-go:focus-visible, .cx-modal-step:focus-visible { outline: 2px solid #c6a15b; outline-offset: 2px; }
+:root[data-theme="dark"] .cx-modal-box { background: #121a28; color: #e8e2d4; border-color: #8a6a3b; }
+:root[data-theme="dark"] .cx-modal-x, :root[data-theme="dark"] .cx-modal-step { color: #e8e2d4; }
+:root[data-theme="dark"] .cx-modal-go { background: #e4c98a; color: #09162c; }
+/* Phones: the box sits at the bottom so X, arrows and the button are in thumb reach; X moves to the bottom-right corner area. */
+@media (max-width: 599.98px) {
+  .cx-modal { place-items: end center; padding: 0.5rem; }
+  .cx-modal-box { padding: 1rem 0.8rem 3.6rem; }
+  .cx-modal-x { top: auto; bottom: 0.4rem; right: 0.4rem; }
+  .cx-modal-art { height: min(50dvh, 26rem); }
+}
+@keyframes cx-fade { from { opacity: 0; } }
+@keyframes cx-rise { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { .cx-modal, .cx-modal-box { animation: none; } }

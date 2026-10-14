@@ -136,7 +136,7 @@ export function Home({ locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, id: s
     <main className="sheet case-home">
       <section className="case-frame" aria-label="Shadowbox">
         <div className="case-mat case-mat-comp">
-          <CaseHome onOpen={onOpen} onGo={onGo} label={(view) => pageLabel(t, view)} copy={t.intro} />
+          <CaseHome onOpen={onOpen} onGo={onGo} label={(view) => pageLabel(t, view)} copy={t.intro} locale={locale} />
         </div>
       </section>
     </main>
