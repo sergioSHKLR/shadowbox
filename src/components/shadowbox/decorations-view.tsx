@@ -59,21 +59,22 @@ function MedalsView({ mount, onOpen, t }: { mount: "mounted" | "unmounted"; onOp
   const ribbonOnly = ordered.filter((a) => !medalFor(a.id));
   const open = (a: Award) => onOpen("award", a.id);
   if (mount === "mounted") {
-    // Mounted medals and ribbons: one display, rack beside the medals (five per row).
-    // Medals (v3): precedence runs highest to lowest from the top row, viewer's left (inboard) to right (outboard);
-    // each medal overlaps its outboard neighbour by half a width, the senior medal on top.
+    // Mounted medals and ribbons (Sergio, Oct 14 2026, v4), per NAVPERS 15665J art. 5313: large medals on the left
+    // breast, five per row, overlapping half a width with the senior (inboard, viewer's left) medal on top. Ribbons with
+    // no large medal go on the right breast, centred at the height of the lowest medal holding bar, in rows of three
+    // (art. 5312: top row holds the lesser number), precedence top down and inboard to outboard. On the right breast
+    // inboard is the viewer's right, so each row reads mirrored from the left-breast rack.
     const five: Award[][] = [];
     for (let i = 0; i < withMedal.length; i += 5) five.push(withMedal.slice(i, i + 5));
+    const right = ribbonOnly.length ? <Rack rows={ribbonRows(ribbonOnly, 3)} mirror onOpen={open} label={t.decor.ribbonOnlyNote} /> : null;
     return (
       <div className="decor-two-col">
-        {/* One display (Sergio, Oct 14 2026): ribbon rack and mounted medals side by side (stacked on narrow
-            screens), with a single set of warfare pins and one JCSE badge. */}
-        <BreastLeft>
-          <div className="decor-combo">
-            <Rack rows={ribbonRows(awards, 3)} onOpen={open} label={t.decor.mounted} />
+        <div className="decor-full-dress">
+          <BreastLeft>
             <div className="decor-medal-grid">
-              {five.map((row) => (
+              {five.map((row, r) => (
                 <div key={row.map((a) => a.id).join("-")} className="decor-medal-row">
+                  {r === five.length - 1 && right ? <div className="decor-right-ribbons decor-right-ribbons--wide">{right}</div> : null}
                   {row.map((award, i) => (
                     <button key={award.id} type="button" className="decor-medal-btn" style={{ zIndex: row.length - i }} aria-label={award.name} onClick={() => open(award)}>
                       <MedalArt award={award} medal={medalFor(award.id)!} />
@@ -82,9 +83,10 @@ function MedalsView({ mount, onOpen, t }: { mount: "mounted" | "unmounted"; onOp
                 </div>
               ))}
             </div>
-          </div>
-        </BreastLeft>
-        {ribbonOnly.length ? <p className="decor-soon decor-two-note">{t.decor.ribbonOnlyNote}: {ribbonOnly.map((a) => a.name).join(", ")}</p> : null}
+          </BreastLeft>
+          {right ? <div className="decor-right-ribbons decor-right-ribbons--narrow">{right}</div> : null}
+        </div>
+
       </div>
     );
   }
@@ -105,12 +107,12 @@ function MedalsView({ mount, onOpen, t }: { mount: "mounted" | "unmounted"; onOp
   );
 }
 
-function Rack({ rows, onOpen, label }: { rows: Award[][]; onOpen: (a: Award) => void; label: string }) {
+function Rack({ rows, onOpen, label, mirror = false }: { rows: Award[][]; onOpen: (a: Award) => void; label: string; mirror?: boolean }) {
   return (
     <div className="decor-rack" aria-label={label}>
       {rows.map((row) => (
         <div key={row.map((a) => a.id).join("-")} className="decor-rack-row">
-          {row.map((award) => <RibbonButton key={award.id} award={award} onOpen={() => onOpen(award)} />)}
+          {(mirror ? [...row].reverse() : row).map((award) => <RibbonButton key={award.id} award={award} onOpen={() => onOpen(award)} />)}
         </div>
       ))}
     </div>
@@ -118,22 +120,17 @@ function Rack({ rows, onOpen, label }: { rows: Award[][]; onOpen: (a: Award) => 
 }
 
 /**
- * Left breast as worn (Navy Uniform Regulations 5301/5302, Sergio Oct 14 2026): primary warfare pin (ESWS) centred
- * 1/4 in above the ribbons or medals; secondary warfare pin (EXW) centred 1/4 in below them. The JCSE badge is a
- * joint identification badge, worn on the right breast, so it sits beside the display on the wearer's right (viewer's left).
+ * Left breast as worn (Navy Uniform Regulations 5301/5302): primary warfare pin (ESWS) centred 1/4 in above the ribbons
+ * or medals; secondary warfare pin (EXW) centred 1/4 in below them. JCSE device centred below the EXW pin (Sergio,
+ * Oct 14 2026, v4).
  */
 function BreastLeft({ children }: { children: React.ReactNode }) {
   return (
-    <div className="decor-breast">
-      <div className="decor-right-breast">
-        <img className="decor-jcse" src={publicUrl("/insignia/jcse-device.svg")} alt="JCSE identification badge (right breast)" />
-      </div>
-      <div className="decor-left-breast">
-        <img className="decor-pin" src={publicUrl("/case/esws-pin.svg")} alt="Enlisted Surface Warfare Specialist pin" />
-        {children}
-        <img className="decor-pin" src={publicUrl("/case/exw-pin.svg")} alt="Expeditionary Warfare Specialist pin" />
-      </div>
-      <div className="decor-breast-spacer" aria-hidden="true" />
+    <div className="decor-left-breast">
+      <img className="decor-pin" src={publicUrl("/case/esws-pin.svg")} alt="Enlisted Surface Warfare Specialist pin" />
+      {children}
+      <img className="decor-pin" src={publicUrl("/case/exw-pin.svg")} alt="Expeditionary Warfare Specialist pin" />
+      <img className="decor-jcse" src={publicUrl("/insignia/jcse-device.svg")} alt="JCSE device" />
     </div>
   );
 }
