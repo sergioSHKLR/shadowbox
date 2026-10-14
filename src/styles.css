@@ -1624,3 +1624,13 @@ object.cx-art { color-scheme: light; }
 /* Raster medals (ribbon included): one image, full ribbon width, sitting on the row line (Oct 14 2026). */
 .medal-art-raster { justify-content: flex-end; }
 .medal-raster { display: block; width: calc(var(--mi) * 1.375); height: auto; filter: saturate(0.85) contrast(0.95) drop-shadow(0 1px 1.5px rgba(0,0,0,0.55)); }
+
+/* Travel Book stop list (Sergio, Oct 14 2026): like the Admin lists, no box per stop, only a divider under each stop
+   except the last. The current stop keeps its left bar and tint. */
+.places-track .stop-list li { margin: 0; }
+.places-track .stop-list button, [data-theme="dark"] .places-track .stop-list button { background: transparent; border: 0; border-bottom: 1px solid rgba(20, 35, 58, 0.22); border-radius: 0; box-shadow: none; }
+[data-theme="dark"] .places-track .stop-list button { border-bottom-color: rgba(246, 241, 231, 0.22); }
+.places-track .stop-list li:last-child button { border-bottom: 0; }
+.places-track .stop-list li.now button { border: 0; border-bottom: 1px solid rgba(20, 35, 58, 0.22); box-shadow: inset 4px 0 0 var(--color-navy); }
+[data-theme="dark"] .places-track .stop-list li.now button { border-bottom-color: rgba(246, 241, 231, 0.22); box-shadow: inset 4px 0 0 var(--color-goldenrod, #daa520); }
+.places-track .stop-list li.now:last-child button { border-bottom: 0; }
