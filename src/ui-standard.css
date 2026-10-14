@@ -98,4 +98,9 @@
 .logbook-own-crest { min-width: var(--ui-tap) !important; min-height: var(--ui-tap) !important; }
 /* Pills never wrap: the Logbook phone tab bar scrolls sideways instead of squeezing "On Duty" onto two lines. */
 .lb-tab, .nav-btn { white-space: nowrap; }
-.logbook-phone-tabs > .lb-tablist > .lb-tab { flex: none !important; padding: 0.25rem 0.8rem !important; font-size: 0.8rem !important; }
+/* Logbook tab rows sit 0.4rem above their panel. The phone bar is a 3-column grid of equal pills (two rows), so
+   all six tabs show at 390 with no sideways scroll. */
+.lb-tabbed { gap: 0 !important; }
+.lb-tablist { padding: 0 0 0.4rem !important; margin: 0 !important; }
+.logbook-phone-tabs > .lb-tablist { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.35rem !important; overflow: visible !important; }
+.logbook-phone-tabs > .lb-tablist > .lb-tab { flex: none !important; justify-content: center; min-width: 0; padding: 0.25rem 0.4rem !important; font-size: 0.82rem !important; }
