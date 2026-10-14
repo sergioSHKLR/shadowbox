@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { equipment, publicUrl, visits, type Equipment, type Kind } from "@/lib/shadowbox/model";
 
 type Mark = { src: string; alt: string };
@@ -135,18 +136,50 @@ function inGroup(group: Equipment["group"]): Equipment[] {
   return equipment.filter((item) => item.group === group);
 }
 
+/**
+ * Off Duty city chips (Sergio, Oct 14 2026). Items are placed only where the record names the city: the city card
+ * itself, or a POV whose note names that city. Notes that say only "Guam", "Tampa" or "Imperial Beach" are not placed.
+ */
+const OFF_CITIES: { id: string; label: string; items: string[] }[] = [
+  { id: "san-diego", label: "San Diego", items: ["city-san-diego"] },
+  { id: "tamuning", label: "Tamuning", items: ["city-tamuning"] },
+  { id: "talofofo", label: "Talofofo", items: ["city-talofofo"] },
+  { id: "santa-rita", label: "Santa Rita", items: ["city-santa-rita"] },
+  { id: "orange-park", label: "Orange Park", items: ["city-orange-park", "chevy-spark-white", "mitsubishi-outlander"] },
+  { id: "south-tampa", label: "South Tampa", items: ["city-south-tampa"] },
+];
+
 export function OffDuty({ onOpen, title }: { onOpen: (k: Kind, id: string) => void; title: string }) {
+  const [shown, setShown] = useState<string[] | null>(null);
+  const toggle = (id: string) =>
+    setShown((prev) => {
+      const cur = prev ?? [];
+      const next = cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id];
+      return next.length === 0 || next.length === OFF_CITIES.length ? null : next;
+    });
+  const keep = shown ? new Set(OFF_CITIES.filter((c) => shown.includes(c.id)).flatMap((c) => c.items)) : null;
+  const pick = (list: Equipment[]) => (keep ? list.filter((item) => keep.has(item.id)) : list);
   return (
     <main className="sheet">
       <h2>{title}</h2>
       <p>Cars, motorcycles, residences, cities, and the C-5 and C-9 from the USS Frank Cable tour. Hobbies have not been entered.</p>
-      <GearList label="Cars" items={inGroup("cars")} onOpen={onOpen} />
-      <GearList label="Motorcycles" items={inGroup("motorcycles")} onOpen={onOpen} />
-      <GearList label="Aircraft" items={inGroup("aircraft").filter((item) => item.id === "c-5" || item.id === "c-9")} onOpen={onOpen} />
-      <GearList label="Residences" items={inGroup("residences")} onOpen={onOpen} />
-      <GearList label="Cities" items={inGroup("cities")} onOpen={onOpen} />
-      <h3>Hobbies</h3>
-      <p className="quiet">None entered.</p>
+      <div className="map-filter" role="group" aria-label="Show by city">
+        <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>All</button>
+        {OFF_CITIES.map((c) => (
+          <button key={c.id} type="button" className={`nav-btn${shown?.includes(c.id) ? " on" : ""}`} aria-pressed={!!shown?.includes(c.id)} onClick={() => toggle(c.id)}>{c.label}</button>
+        ))}
+      </div>
+      <GearList label="Cars" items={pick(inGroup("cars"))} onOpen={onOpen} />
+      <GearList label="Motorcycles" items={pick(inGroup("motorcycles"))} onOpen={onOpen} />
+      <GearList label="Aircraft" items={pick(inGroup("aircraft").filter((item) => item.id === "c-5" || item.id === "c-9"))} onOpen={onOpen} />
+      <GearList label="Residences" items={pick(inGroup("residences"))} onOpen={onOpen} />
+      <GearList label="Cities" items={pick(inGroup("cities"))} onOpen={onOpen} />
+      {!shown ? (
+        <>
+          <h3>Hobbies</h3>
+          <p className="quiet">None entered.</p>
+        </>
+      ) : null}
     </main>
   );
 }
