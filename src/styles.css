@@ -1536,3 +1536,6 @@ button.cx-item::after { content: ""; position: absolute; left: 50%; top: 50%; wi
 /* Embedded SVG cards (ID card): match the embedded document's light scheme so the dark theme doesn't paint an opaque
    white backdrop behind the rounded corners. */
 object.cx-art { color-scheme: light; }
+
+/* AI disclaimer in the welcome modal (Sergio): small muted note above the button. */
+.cx-intro-note { margin: 0.6rem 0 0.4rem; font-size: 0.78rem; line-height: 1.35; color: #5b6475; font-style: italic; }

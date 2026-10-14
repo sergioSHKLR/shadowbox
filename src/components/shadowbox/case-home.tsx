@@ -467,6 +467,7 @@ function CaseIntro({ onClose, copy: c }: { onClose: () => void; copy: Chrome["in
           <thead><tr><th scope="col"></th><th scope="col">{c.physical}</th><th scope="col">{c.site}</th></tr></thead>
           <tbody>{c.rows.map(([k, a, b]) => <tr key={k}><th scope="row">{k}</th><td>{a}</td><td>{b}</td></tr>)}</tbody>
         </table>
+        <p className="cx-intro-note">{c.aiNote}</p>
         <button type="button" className="cx-intro-go" onClick={onClose}>{c.go}</button>
       </div>
     </div>
