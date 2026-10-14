@@ -4,7 +4,7 @@ type Mark = { src: string; alt: string };
 const DEPLOYMENTS: { id: string; campaign: string; name: string; phase: string; image: string; when: string; marks: Mark[] }[] = [
   {
     id: "troy",
-    campaign: "OIF I",
+    campaign: "First Iraq tour",
     name: "CJTF Troy",
     phase: "National Resolution",
     image: "/incoming/troy.webp",
@@ -17,7 +17,7 @@ const DEPLOYMENTS: { id: string; campaign: string; name: string; phase: string; 
   },
   {
     id: "ia-army",
-    campaign: "OIF II",
+    campaign: "Second Iraq tour",
     name: "Task Force Iron Shield",
     phase: "Iraq Sovereignty",
     image: "/incoming/cram.webp",
@@ -69,7 +69,7 @@ export function Ops({ onOpen, title }: { onOpen: (k: Kind, id: string) => void; 
   return (
     <main className="sheet">
       <h2>{title}</h2>
-      <p>Four deployments: OIF I with CJTF Troy, OIF II with Task Force Iron Shield, OEF I with CJSOTF-A, and OEF II with SOJTF-A. Marks are admin, sponsor, partner, and customer. Exercises are Cobra Gold, Talisman Saber, and the other recorded training.</p>
+      <p>Four deployments: the first Iraq tour with CJTF Troy, the second Iraq tour with Task Force Iron Shield, OEF I with CJSOTF-A, and OEF II with SOJTF-A. Marks are admin, sponsor, partner, and customer. Exercises are Cobra Gold, Talisman Saber, and the other recorded training.</p>
       <ol className="uniform-grid equipment-grid">
         {DEPLOYMENTS.map((force) => (
           <li key={force.id}>

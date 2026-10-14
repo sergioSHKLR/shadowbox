@@ -341,6 +341,9 @@ export type Warfare = {
   explanation: string;
   criteria: string;
   placeIds?: string[];
+  year?: number;
+  /** The year is approximate (no board date in the record). */
+  yearApprox?: boolean;
   related?: LinkRef[];
 };
 
@@ -1088,8 +1091,8 @@ function assignmentBars(): Omit<Bar, "lane" | "left" | "width">[] {
 }
 
 function opChipTitle(op: Operation): string {
-  if (op.id === "oif-2006") return "OIF I (National Resolution)";
-  if (op.id === "oif-2009") return "OIF II (Iraq Sovereignty)";
+  if (op.id === "oif-2006") return "First Iraq tour (National Resolution)";
+  if (op.id === "oif-2009") return "Second Iraq tour (Iraq Sovereignty)";
   if (op.id === "oef-2010") return "OEF I (Consolidation I)";
   if (op.id === "oef-2012") return "OEF II (Consolidation II)";
   return op.theater;
@@ -2087,7 +2090,10 @@ export function toSubject(sel: Selection): SubjectView | null {
       title: pin.name,
       explanation: pin.explanation,
       criteria: pin.criteria,
-      facts: [{ label: "Pin", value: pin.abbreviation }],
+      facts: [
+        { label: "Pin", value: pin.abbreviation },
+        ...(pin.year ? [{ label: "Earned", value: pin.yearApprox ? `about ${pin.year} (approximate)` : String(pin.year) }] : []),
+      ],
       placeIds: pin.placeIds ?? [],
       related: resolveLinks(pin.related),
       hero: pin.image ? { type: "image", src: pin.image, alt: `${pin.name} pin`, shape: "wide" } : undefined,
@@ -2427,7 +2433,7 @@ export type LogbookDeployment = {
   helmet: GearName | null;
   /** Camouflage pattern of the armor / helmet cover on this deployment (DCU, ACU (UCP), MultiCam). */
   pattern: string | null;
-  /** Units the deployment was attached to (OIF II: 11th ADA, 3-3 ADA), as abbreviations. */
+  /** Units the deployment was attached to (second Iraq tour: 11th ADA, 3-3 ADA), as abbreviations. */
   attachedTo: string[];
   note: string | null;
 };

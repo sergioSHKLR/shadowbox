@@ -556,7 +556,7 @@ export function DetailPanel({
                     <OperationMarks id={selection.id} />
                   </>
                 ) : null}
-                {editableInstances ? (
+                {editableInstances || (!hasAdmin && subject.instances?.length) ? (
                   <section>
                     <h3>Each award</h3>
                     <ul className="instance-list" data-edits={instanceEditTick}>

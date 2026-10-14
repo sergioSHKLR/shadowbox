@@ -214,7 +214,7 @@
     "name": "ACH / MICH, bare tan",
     "caption": "Tan shell, no cover",
     "cutout": false,
-    "note": "Advanced Combat Helmet (ACH), developed from the Special Operations MICH. PEO Soldier says it has been in use since 2002 and replaced the PASGT. It is lighter than the PASGT and gives better fragment, ballistic and impact protection. It has pad suspension and a pre-drilled hole for a night-vision mount. Shells were painted in several colors, including tan, and were often worn without a cover. Worn on OIF I, OIF II, OEF I, and OEF II.",
+    "note": "Advanced Combat Helmet (ACH), developed from the Special Operations MICH. PEO Soldier says it has been in use since 2002 and replaced the PASGT. It is lighter than the PASGT and gives better fragment, ballistic and impact protection. It has pad suspension and a pre-drilled hole for a night-vision mount. Shells were painted in several colors, including tan, and were often worn without a cover. Worn on the first and second Iraq tours, OEF I, and OEF II.",
     "image": "/equipment/ach-helmet-tan-b.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_100421-N-4965F-366_Master-at-Arms_3rd_Class_Jason_Henry,_assigned_to_Maritime_Expeditionary_Security_Squadron_(MSRON)_3,_takes_cover_behind_a_riot_shield.jpg",
@@ -230,7 +230,7 @@
     "name": "ACH / MICH, ACU cover",
     "caption": "UCP cover and night-vision mount",
     "cutout": true,
-    "note": "The Advanced Combat Helmet in the Universal Camouflage Pattern (UCP) cover of the Army Combat Uniform, with a night-vision mount bracket on the front. This was the standard Army helmet look of the ACU years, from the mid-2000s. Worn on OIF I, OIF II, OEF I, and OEF II.",
+    "note": "The Advanced Combat Helmet in the Universal Camouflage Pattern (UCP) cover of the Army Combat Uniform, with a night-vision mount bracket on the front. This was the standard Army helmet look of the ACU years, from the mid-2000s. Worn on the first and second Iraq tours, OEF I, and OEF II.",
     "image": "/equipment/cut/ach-helmet-acu-cover-c.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:ACH_side_view.jpg",
@@ -1203,7 +1203,7 @@
     "fullName": "Outer Tactical Vest (OTV)",
     "caption": "Interceptor OTV in UCP shown",
     "cutout": true,
-    "note": "The Outer Tactical Vest (OTV) of the Interceptor Body Armor system: soft armor that carries front and back ballistic plates. The Improved Outer Tactical Vest (IOTV) replaced it from 2007. Worn on OIF II (SERCC individual augmentee, attached to 11th ADA and 3-3 ADA) in ACU (UCP), with the ACH (deployment-gear.json). Card photo: an Interceptor OTV in UCP on a plain background.",
+    "note": "The Outer Tactical Vest (OTV) of the Interceptor Body Armor system: soft armor that carries front and back ballistic plates. The Improved Outer Tactical Vest (IOTV) replaced it from 2007. Worn on the second Iraq tour (SERCC individual augmentee, attached to 11th ADA and 3-3 ADA) in ACU (UCP), with the ACH (deployment-gear.json). Card photo: an Interceptor OTV in UCP on a plain background.",
     "image": "/equipment/otv-ucp.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Interceptor_Body_Armor_vests.png",
@@ -1220,7 +1220,7 @@
     "fullName": "Improved Outer Tactical Vest (IOTV)",
     "caption": "IOTV in UCP shown",
     "cutout": true,
-    "note": "The Improved Outer Tactical Vest (IOTV) carries front, back and side ballistic plates over soft armor. Worn on OIF I with EODMU 5 in DCU, and on OEF I and OEF II with JCSE in MultiCam, each time with the ECH (deployment-gear.json). Card photo: an Army IOTV in UCP, 2008, not the pattern he wore.",
+    "note": "The Improved Outer Tactical Vest (IOTV) carries front, back and side ballistic plates over soft armor. Worn on the first Iraq tour with EODMU 5 in DCU (issued through Navy EOD, EODMU-5), and on OEF I and OEF II with JCSE in MultiCam, each time with the ECH (deployment-gear.json). Card photo: an Army IOTV in UCP, 2008, not the pattern he wore.",
     "image": "/equipment/cut/iotv-ucp.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Specialist_Kachinski%27s_IOTV_vest_in_UCP_camo.jpg",
@@ -1237,7 +1237,7 @@
     "fullName": "Advanced Combat Helmet (ACH)",
     "caption": "ACH with OCP cover and night-vision mount shown",
     "cutout": false,
-    "note": "The Advanced Combat Helmet (ACH), developed from the Special Operations MICH; PEO Soldier says it has been in use since 2002 and replaced the PASGT. Worn on OIF II (SERCC individual augmentee, attached to 11th ADA and 3-3 ADA) with an ACU (UCP) cover and the OTV (deployment-gear.json). Card photo: U.S. Army, DA PAM 600-5 standards, with an OCP cover.",
+    "note": "The Advanced Combat Helmet (ACH), developed from the Special Operations MICH; PEO Soldier says it has been in use since 2002 and replaced the PASGT. Worn on the second Iraq tour (SERCC individual augmentee, attached to 11th ADA and 3-3 ADA) with an ACU (UCP) cover and the OTV (deployment-gear.json). Card photo: U.S. Army, DA PAM 600-5 standards, with an OCP cover.",
     "image": "/equipment/ach-pam-600-5.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:ACH_helmet_FD_PAM_600-5_-_Standards_-014.png",
@@ -1254,7 +1254,7 @@
     "fullName": "Enhanced Combat Helmet (ECH)",
     "caption": "PEO Soldier product photo",
     "cutout": true,
-    "note": "The Enhanced Combat Helmet (ECH), a thermoplastic combat helmet (PEO Soldier). Worn on OIF I with EODMU 5 (DCU) and on OEF I and OEF II with JCSE (MultiCam), each time with the IOTV (deployment-gear.json).",
+    "note": "The Enhanced Combat Helmet (ECH), a thermoplastic combat helmet (PEO Soldier). Worn on the first Iraq tour with EODMU 5 (DCU) and on OEF I and OEF II with JCSE (MultiCam), each time with the IOTV (deployment-gear.json).",
     "image": "/equipment/cut/ech-peo.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:PEO_Soldier_Enhanced_Combat_Helmet_profile.jpg",

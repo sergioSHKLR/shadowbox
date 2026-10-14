@@ -29,8 +29,8 @@ function ownersOf(id: string): string[] {
 const CHIP_LABEL: Record<string, string> = {
   "oef-2010": "OEF I",
   "oef-2012": "OEF II",
-  troy: "OIF I",
-  "ia-army": "OIF II",
+  troy: "First Iraq tour",
+  "ia-army": "Second Iraq tour",
   cjsotf: "OEF I",
   sojtf: "OEF II",
 };

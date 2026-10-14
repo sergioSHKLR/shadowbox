@@ -164,7 +164,7 @@
     "end": "2006-06",
     "precision": "month",
     "placeId": "mosul",
-    "explanation": "A U.S. Army explosive ordnance disposal group. Sponsor of the CJTF Troy deployment. Linked up in OIF I, January to June 2006, at Mosul.",
+    "explanation": "A U.S. Army explosive ordnance disposal group. Sponsor of the CJTF Troy deployment. Linked up on the first Iraq tour, January to June 2006, at Mosul.",
     "civilian": "An Army bomb-disposal headquarters.",
     "onCase": false,
     "image": "/incoming/52nd-eod.webp"
@@ -181,7 +181,7 @@
     "end": "2006",
     "precision": "year",
     "placeId": "fob-sykes",
-    "explanation": "A U.S. Army engineer brigade. Sponsor of the CJTF Troy deployment. Linked up in OIF I at FOB Sykes.",
+    "explanation": "A U.S. Army engineer brigade. Sponsor of the CJTF Troy deployment. Linked up on the first Iraq tour at FOB Sykes.",
     "civilian": "An Army engineer headquarters.",
     "onCase": false,
     "image": "/incoming/16th-en.webp"
@@ -282,7 +282,7 @@
     "end": "2009",
     "precision": "month",
     "placeId": "fort-bliss",
-    "explanation": "U.S. Army air-defense brigade at Fort Bliss. Over-arching parent (admin) for the OIF II individual-augmentee tour. HHB 3-3 ADA, of 3rd Battalion, 3rd Air Defense Artillery Regiment, fell under this brigade.",
+    "explanation": "U.S. Army air-defense brigade at Fort Bliss. Over-arching parent (admin) for the second Iraq tour (individual augmentee). HHB 3-3 ADA, of 3rd Battalion, 3rd Air Defense Artillery Regiment, fell under this brigade.",
     "civilian": "The Army brigade that owned the C-RAM deployment on paper.",
     "onCase": false,
     "image": "/incoming/11th-ada.webp"
@@ -299,7 +299,7 @@
     "end": "2009",
     "precision": "month",
     "placeId": "fort-bliss",
-    "explanation": "Headquarters and Headquarters Battery, 3rd Battalion, 3rd Air Defense Artillery Regiment. Partner on the OIF II individual-augmentee tour: five months of training at Fort Bliss from October 2008, then the rest of the tour in country at Joint Base Balad under Task Force Iron Shield. Fell under 11th ADA.",
+    "explanation": "Headquarters and Headquarters Battery, 3rd Battalion, 3rd Air Defense Artillery Regiment. Partner on the second Iraq tour (individual augmentee): five months of training at Fort Bliss from October 2008, then the rest of the tour in country at Joint Base Balad under Task Force Iron Shield. Fell under 11th ADA.",
     "civilian": "The Army air-defense battery that trained with him at Fort Bliss and partnered on the C-RAM tour.",
     "onCase": false,
     "image": "/incoming/3-3ada.webp"
@@ -316,7 +316,7 @@
     "end": "2009",
     "precision": "year",
     "placeId": "jb-balad",
-    "explanation": "U.S. Air Force wing at Joint Base Balad. Customer (endpoint) of the OIF II C-RAM tour.",
+    "explanation": "U.S. Air Force wing at Joint Base Balad. Customer (endpoint) of the second Iraq tour (C-RAM).",
     "civilian": "The Air Force wing the C-RAM mission protected.",
     "onCase": false,
     "image": "/incoming/332nd-aew.webp"
@@ -444,7 +444,7 @@
     "end": null,
     "precision": "",
     "placeId": null,
-    "explanation": "Partner unit of the CJTF Troy deployment in OIF I, 2006, during the EODMU 5 tour.",
+    "explanation": "Partner unit of the CJTF Troy deployment on the first Iraq tour, 2006, during the EODMU 5 tour.",
     "civilian": "",
     "onCase": false,
     "image": "/incoming/eodmu11.webp",
