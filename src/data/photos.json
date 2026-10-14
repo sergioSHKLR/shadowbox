@@ -21,7 +21,7 @@
     "id": "m4-rack-2006-03-18",
     "src": "/equipment/m4-carbine-photo.webp",
     "alt": "M4 carbine labeled SCHICKLER on an armory rack, Beretta on the right, overlay stamp MAR 18 2006",
-    "caption": "M4 rack, 18 March 2006, OIF I",
+    "caption": "M4 rack, 18 March 2006, first Iraq tour",
     "subjects": [
       { "kind": "equipment", "id": "beretta-m9" },
       { "kind": "unit", "id": "troy" },
@@ -34,7 +34,7 @@
     "id": "m4-kit-2006-03-03",
     "src": "/equipment/m4-carbine-2.webp",
     "alt": "M4 carbine slung on desert camouflage kit, his personal-issue helmet with desert cover, overlay stamp MAR 3 2006",
-    "caption": "M4 carbine in kit, personal-issue helmet, 3 March 2006, OIF I",
+    "caption": "M4 carbine in kit, personal-issue helmet, 3 March 2006, first Iraq tour",
     "subjects": [
       { "kind": "equipment", "id": "m4-carbine" },
       { "kind": "equipment", "id": "beretta-m9" },
@@ -91,7 +91,7 @@
     "id": "m16a1-iotv-2009-01-12",
     "src": "/equipment/m16a1-3.webp",
     "alt": "M16A1 with IOTV in UCP and ACH with ACU cover, overlay stamp 01/12/09 06:04",
-    "caption": "M16A1, IOTV and ACH, 12 January 2009, OIF II",
+    "caption": "M16A1, IOTV and ACH, 12 January 2009, second Iraq tour",
     "subjects": [
       { "kind": "equipment", "id": "m16a1" },
       { "kind": "equipment", "id": "iotv-ucp" },
@@ -124,7 +124,7 @@
     "id": "mk14-pair-2006-03-18",
     "src": "/equipment/mk14-photo.webp",
     "alt": "Two Mk 14 rifles on a floor, overlay stamp MAR 18 2006",
-    "caption": "Two Mk 14s, 18 March 2006, OIF I",
+    "caption": "Two Mk 14s, 18 March 2006, first Iraq tour",
     "subjects": [
       { "kind": "unit", "id": "troy" },
       { "kind": "operation", "id": "oif-2006" },
@@ -135,7 +135,7 @@
     "id": "mk14-2006-03-29",
     "src": "/equipment/mk14-2.webp",
     "alt": "Mk 14 held in an armory with M4s and a Beretta M9 on the rack, overlay stamp MAR 29 2006",
-    "caption": "Mk 14, 29 March 2006, OIF I",
+    "caption": "Mk 14, 29 March 2006, first Iraq tour",
     "subjects": [
       { "kind": "equipment", "id": "mk14" },
       { "kind": "equipment", "id": "beretta-m9" },
@@ -224,7 +224,7 @@
     "id": "iotv-2008-12-29",
     "src": "/equipment/iotv-ucp-2.webp",
     "alt": "IOTV in UCP, overlay stamp 12/29/08 08:21",
-    "caption": "IOTV, 29 December 2008, OIF II",
+    "caption": "IOTV, 29 December 2008, second Iraq tour",
     "subjects": [
       { "kind": "equipment", "id": "iotv-ucp" },
       { "kind": "uniform", "id": "awu" },
@@ -256,7 +256,7 @@
     "id": "helmet-2006-03-03",
     "src": "/equipment/helmet-2006-03-03.webp",
     "alt": "His personal-issue helmet with desert cover, overlay stamp MAR 3 2006",
-    "caption": "Personal-issue helmet, 3 March 2006, OIF I",
+    "caption": "Personal-issue helmet, 3 March 2006, first Iraq tour",
     "subjects": [
       { "kind": "unit", "id": "troy" },
       { "kind": "operation", "id": "oif-2006" }
@@ -266,7 +266,7 @@
     "id": "ach-tan-2006-08-13",
     "src": "/equipment/ach-helmet-tan.webp",
     "alt": "Bare tan ACH, overlay stamp 13-Aug-06 07:03",
-    "caption": "Tan ACH, 13 August 2006, OIF I",
+    "caption": "Tan ACH, 13 August 2006, first Iraq tour",
     "subjects": [
       { "kind": "unit", "id": "troy" },
       { "kind": "operation", "id": "oif-2006" },
@@ -372,7 +372,7 @@
     "id": "m-gator-c-17-2006-02-21",
     "src": "/equipment/m-gator-photo.webp",
     "alt": "John Deere M-Gator and HMMWV cargo on a C-17 deck, overlay stamp 21-Feb-06 15:44",
-    "caption": "M-Gator on a C-17, 21 February 2006, OIF I",
+    "caption": "M-Gator on a C-17, 21 February 2006, first Iraq tour",
     "subjects": [
       { "kind": "equipment", "id": "c-17" },
       { "kind": "unit", "id": "troy" },
@@ -384,7 +384,7 @@
     "id": "c-17-0106-2006-02-22",
     "src": "/equipment/c-17-photo.webp",
     "alt": "C-17 0106, 437th Airlift Wing, overlay stamp 22-Feb-06 04:07",
-    "caption": "0106, 437th Airlift Wing, 22 February 2006, OIF I",
+    "caption": "0106, 437th Airlift Wing, 22 February 2006, first Iraq tour",
     "subjects": [
       { "kind": "unit", "id": "troy" },
       { "kind": "operation", "id": "oif-2006" },
@@ -395,7 +395,7 @@
     "id": "c-17-hmmwv-cargo-2006-08-21",
     "src": "/equipment/c-17-2.webp",
     "alt": "Tan HMMWV chained on a C-17 cargo deck, overlay stamp 21-Aug-06 12:13",
-    "caption": "HMMWV cargo on a C-17, 21 August 2006, OIF I",
+    "caption": "HMMWV cargo on a C-17, 21 August 2006, first Iraq tour",
     "subjects": [
       { "kind": "equipment", "id": "c-17" },
       { "kind": "unit", "id": "troy" },
@@ -406,7 +406,7 @@
     "id": "c-17-cargo-deck-2006-02-21",
     "src": "/equipment/c-17-3.webp",
     "alt": "C-17 cargo deck with a tan HMMWV and sleeping pallets, overlay stamp 21-Feb-06 16:35",
-    "caption": "C-17 cargo deck, 21 February 2006, OIF I",
+    "caption": "C-17 cargo deck, 21 February 2006, first Iraq tour",
     "subjects": [
       { "kind": "equipment", "id": "c-17" },
       { "kind": "unit", "id": "troy" },
@@ -417,7 +417,7 @@
     "id": "c-17-mcm-02-2006-08-21",
     "src": "/equipment/c-17-4.webp",
     "alt": "Tan MCM-02 container on a C-17 cargo deck, overlay stamp 21-Aug-06 12:14",
-    "caption": "C-17 cargo, MCM-02 container, 21 August 2006, OIF I",
+    "caption": "C-17 cargo, MCM-02 container, 21 August 2006, first Iraq tour",
     "subjects": [
       { "kind": "equipment", "id": "c-17" },
       { "kind": "unit", "id": "troy" },
@@ -457,7 +457,7 @@
     "id": "c-17-seats-2006-03-03",
     "src": "/equipment/c-17-8.webp",
     "alt": "C-17 sidewall seats with red cargo nets, overlay stamp MAR 3 2006",
-    "caption": "C-17 seats, 3 March 2006, OIF I",
+    "caption": "C-17 seats, 3 March 2006, first Iraq tour",
     "subjects": [
       { "kind": "equipment", "id": "c-17" },
       { "kind": "unit", "id": "troy" },
@@ -507,7 +507,7 @@
     "id": "eodmu5-flag-2006-03-18",
     "src": "/photos/eodmu5-flag.webp",
     "alt": "Yellow Explosive Ordnance Disposal Mobile Unit Five flag, overlay stamp MAR 18 2006",
-    "caption": "EODMU 5 flag, 18 March 2006, OIF I",
+    "caption": "EODMU 5 flag, 18 March 2006, first Iraq tour",
     "subjects": [
       { "kind": "unit", "id": "eodmu5" },
       { "kind": "unit", "id": "troy" },

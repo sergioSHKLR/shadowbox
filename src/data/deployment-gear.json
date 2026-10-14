@@ -1,9 +1,9 @@
 {
-  "_note": "Deployment body armor, helmet and camouflage pattern per campaign, as stated by Sergio (Oct 6, 2026; replaces the Oct 5 list, where helmets were not assigned). OIF I with EODMU 5: IOTV + ECH, DCU. OIF II under SERCC as an individual augmentee (IA) attached to 11th ADA and 3-3 ADA: OTV + ACH, ACU (UCP). OEF I and OEF II with JCSE: IOTV + ECH, MultiCam (he wrote 'Multicam UCP'). Each item links to its On Duty card (equipmentId).",
+  "_note": "Deployment body armor, helmet and camouflage pattern per campaign, as stated by Sergio (Oct 6, 2026; replaces the Oct 5 list, where helmets were not assigned). First Iraq tour with EODMU 5: IOTV + ECH, DCU. Second Iraq tour under SERCC as an individual augmentee (IA) attached to 11th ADA and 3-3 ADA: OTV + ACH, ACU (UCP). OEF I and OEF II with JCSE: IOTV + ECH, MultiCam (he wrote 'Multicam UCP'). Each item links to its On Duty card (equipmentId).",
   "deployments": [
     {
       "unitId": "troy",
-      "label": "OIF I",
+      "label": "First Iraq tour",
       "bodyArmor": {
         "short": "IOTV",
         "name": "Improved Outer Tactical Vest",
@@ -18,7 +18,7 @@
     },
     {
       "unitId": "ia-army",
-      "label": "OIF II",
+      "label": "Second Iraq tour",
       "bodyArmor": {
         "short": "OTV",
         "name": "Outer Tactical Vest",

@@ -472,7 +472,7 @@
   },
   {
     "order": 52,
-    "label": "Forward Operation Base Sykes, Tal Afar, IRQ",
+    "label": "Forward Operating Base Sykes, Tal Afar, IRQ",
     "cityId": null,
     "baseId": "fob-sykes",
     "commandId": "troy",
@@ -481,7 +481,7 @@
   },
   {
     "order": 53,
-    "label": "Forward Operation Base Tal Afar, Tal Afar, IRQ",
+    "label": "Forward Operating Base Tal Afar, Tal Afar, IRQ",
     "cityId": null,
     "baseId": "fob-tal-afar",
     "commandId": null,
@@ -490,7 +490,7 @@
   },
   {
     "order": 54,
-    "label": "Forward Operation Base Sykes, Tal Afar, IRQ",
+    "label": "Forward Operating Base Sykes, Tal Afar, IRQ",
     "cityId": null,
     "baseId": "fob-sykes",
     "commandId": null,
@@ -625,7 +625,7 @@
   },
   {
     "order": 69,
-    "label": "Joint Balad Balad, Balad, IRQ",
+    "label": "Joint Base Balad, Balad, IRQ",
     "cityId": null,
     "baseId": "jb-balad",
     "commandId": "ia-army",
@@ -733,7 +733,7 @@
   },
   {
     "order": 81,
-    "label": "Forward Operation Base Delaram, Delaram, AFG",
+    "label": "Forward Operating Base Delaram, Delaram, AFG",
     "cityId": null,
     "baseId": "fob-delaram",
     "commandId": "cjsotf",
@@ -841,7 +841,7 @@
   },
   {
     "order": 93,
-    "label": "Forward Operation Base Sharana, Sharana, AFG",
+    "label": "Forward Operating Base Sharana, Sharana, AFG",
     "cityId": null,
     "baseId": "fob-sharana",
     "commandId": null,
@@ -850,7 +850,7 @@
   },
   {
     "order": 94,
-    "label": "Forward Operation Base Orgun-E, Orgun, AFG",
+    "label": "Forward Operating Base Orgun-E, Orgun, AFG",
     "cityId": null,
     "baseId": "fob-orgun-e",
     "commandId": "sojtf",
@@ -859,7 +859,7 @@
   },
   {
     "order": 95,
-    "label": "Forward Operation Base Sharana, Sharana, AFG",
+    "label": "Forward Operating Base Sharana, Sharana, AFG",
     "cityId": null,
     "baseId": "fob-sharana",
     "commandId": null,
@@ -913,7 +913,7 @@
   },
   {
     "order": 101,
-    "label": "Forward Operation Base Patriot, Fayetteville, NC",
+    "label": "Forward Operating Base Patriot, Fayetteville, NC",
     "cityId": "city-fayetteville",
     "baseId": "fob-patriot",
     "commandId": null,

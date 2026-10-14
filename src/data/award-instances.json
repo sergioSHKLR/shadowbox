@@ -11,9 +11,9 @@
     "id": "jscm-2014-12",
     "awardId": "jscm",
     "year": 2014,
-    "unitId": null,
+    "unitId": "jcse",
     "operationId": null,
-    "note": "December 2014"
+    "note": "End of Tour award, December 2014"
   },
   {
     "id": "ncm-2018",
@@ -21,7 +21,7 @@
     "year": 2018,
     "unitId": null,
     "operationId": null,
-    "note": null
+    "note": "Retirement award"
   },
   {
     "id": "arcom-2009",
@@ -266,10 +266,10 @@
   {
     "id": "hsm-2003",
     "awardId": "hsm",
-    "year": 2003,
+    "year": 2002,
     "unitId": null,
     "operationId": null,
-    "note": "Typhoon Pongsona."
+    "note": "Typhoon Pongsona, Guam, Dec 2002"
   },
   {
     "id": "ssdr-2001",
@@ -386,10 +386,10 @@
   {
     "id": "rifle-2001",
     "awardId": "rifle",
-    "year": 2001,
-    "unitId": "frank-cable",
+    "year": null,
+    "unitId": "jcse",
     "operationId": null,
-    "note": "First on Frank Cable. NCTS was CONUS."
+    "note": "Year not in the record (JCSE tour, 2009–2014)."
   },
   {
     "id": "pistol-2000",
