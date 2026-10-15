@@ -261,6 +261,13 @@ const COL2_X = 360;
 const wideL = (): Layout => {
   const pos: Pos = {}, size: Record<string, Size> = {};
   const right = shirtBlock(pos, 0, 0);
+  // Oct 15 (Sergio): as on the phone, the ID card moves onto the pocket below the EXW (ID, then the USO and Liberty
+  // slots), and the document column (passport, memorandum, pink 2M slot) stacks up from the bottom padding with the
+  // pocket column's gap, so both columns share one gap and nothing overlaps.
+  const pocketIds = ["onduty", "admin", "offduty"], docIds = ["map", "logbook", "contact"];
+  spreadTo(pos, pocketIds, SHIRT.pocket.cx, EXW_BOTTOM, H0 - PAD);
+  { const bot = H0 - PAD, pgap = (bot - EXW_BOTTOM - pocketIds.reduce((t, id) => t + byId(id).h, 0)) / pocketIds.length;
+    let yy = bot; for (const id of [...docIds].reverse()) { const it = byId(id); yy -= it.h; pos[id] = [DOC_X + DOC_W / 2 - it.w / 2, yy]; yy -= pgap; } }
   const ph = (H0 - 2 * G - 2 * (PLAQUE_H + G) - G) / 2;
   const x3 = Math.max(right + G, COL2_X), pw = portraitSize(ph).w, pcx = x3 + pw / 2;
   portraitsStacked(pos, size, pcx, G, ph);
