@@ -164,10 +164,10 @@ export type Unit = {
   months?: number;
 };
 
-export const DESIGNATORS = ["Instruction", "Assigned", "Deployed", "Assisting", "Parent", "TAD"] as const;
-export type Designator = (typeof DESIGNATORS)[number];
+const DESIGNATORS = ["Instruction", "Assigned", "Deployed", "Assisting", "Parent", "TAD"] as const;
+type Designator = (typeof DESIGNATORS)[number];
 
-export type ExtraImage = { src: string; alt: string; caption: string };
+type ExtraImage = { src: string; alt: string; caption: string };
 
 export type Operation = {
   id: string;
@@ -226,14 +226,6 @@ export type Nec = {
 };
 
 export type UniformGroup = "pt" | "organizational" | "work" | "dress" | "battle";
-
-export const UNIFORM_GROUPS: { id: UniformGroup; label: string }[] = [
-  { id: "pt", label: "PT" },
-  { id: "organizational", label: "Organizational" },
-  { id: "work", label: "Work" },
-  { id: "dress", label: "Dress" },
-  { id: "battle", label: "Battle" },
-];
 
 export type Uniform = {
   id: string;
@@ -312,7 +304,7 @@ export type Visit = {
 };
 export const visits = visitsJson as Visit[];
 
-export type PhotoSubject = { kind: Kind; id: string };
+type PhotoSubject = { kind: Kind; id: string };
 
 export type Photo = {
   id: string;
@@ -330,7 +322,7 @@ export type Reflection = {
   text: string;
 };
 
-export type LinkRef = { kind: Kind; id: string };
+type LinkRef = { kind: Kind; id: string };
 
 export type Warfare = {
   id: string;
@@ -445,7 +437,6 @@ export const uniforms = (uniformsJson as Uniform[]).map((uniform) => ({
   image: UNIFORM_FIGURINE[uniform.id] ?? uniform.image,
 }));
 export const places = placesJson as Place[];
-export const bases = places.filter((place) => place.type === "base");
 export const photos = photosJson as Photo[];
 export const reflections = reflectionsJson as Reflection[];
 export const warfare = warfareJson as Warfare[];
@@ -456,35 +447,9 @@ export const certificates = certificatesJson as Certificate[];
 export const credits = creditsJson as Credit[];
 /** Items marked hidden in equipment.json stay in the data but never show on the site. */
 export const equipment = (equipmentJson as (Equipment & { hidden?: boolean })[]).filter((item) => !item.hidden) as Equipment[];
-export const branches = branchesJson as Record<string, string>;
+const branches = branchesJson as Record<string, string>;
 export const caseCopy = caseJson;
-export const medals = medalsJson as Medal[];
-
-const decorationSlideArt = import.meta.glob("../../art/decorations/*.{png,svg,webp,jpg,jpeg}", {
-  eager: true,
-  query: "?url",
-  import: "default",
-}) as Record<string, string>;
-
-export type DecorationSlide = { src: string; file: string; from: string | null; month: number | null; caption: string };
-
-function slideFromPath(path: string, src: string): DecorationSlide {
-  const file = path.split("/").pop() ?? path;
-  const stem = file.replace(/\.[^.]+$/, "");
-  const match = stem.match(/(\d{4})(?:-(\d{2}))?/);
-  const from = match ? (match[2] ? `${match[1]}-${match[2]}` : match[1]) : null;
-  const month = match ? Number(match[1]) * 12 + (match[2] ? Number(match[2]) - 1 : 0) : null;
-  return { src, file, from, month, caption: stem.replace(/[-_]/g, " ") };
-}
-
-export const decorationSlides: DecorationSlide[] = Object.entries(decorationSlideArt)
-  .map(([path, src]) => slideFromPath(path, src))
-  .sort((a, b) => (a.month ?? 1e9) - (b.month ?? 1e9) || a.file.localeCompare(b.file));
-
-export function decorationSlideAt(month: number): DecorationSlide | null {
-  const dated = decorationSlides.filter((slide) => slide.month != null && slide.month <= month);
-  return dated.at(-1) ?? decorationSlides[0] ?? null;
-}
+const medals = medalsJson as Medal[];
 
 const uniformSlideArt = import.meta.glob("../../art/plates/*.{png,svg,webp,jpg,jpeg}", {
   eager: true,
@@ -580,20 +545,16 @@ function uniformFromPath(path: string, src: string): UniformSlide {
   return { src, file, look, from, month, caption: stem.replace(/[-_]/g, " ") };
 }
 
-export const uniformSlides: UniformSlide[] = Object.entries(uniformSlideArt)
+const uniformSlides: UniformSlide[] = Object.entries(uniformSlideArt)
   .map(([path, src]) => uniformFromPath(path, src))
   .sort((a, b) => (a.month ?? 1e9) - (b.month ?? 1e9) || a.file.localeCompare(b.file));
-
-export const uniformLooks: UniformLook[] = (["blue", "white", "khaki"] as const).filter((look) =>
-  uniformSlides.some((slide) => slide.look === look),
-);
 
 export function uniformSlideAt(month: number, look: UniformLook): UniformSlide | null {
   const dated = uniformSlides.filter((slide) => slide.look === look && slide.month != null && slide.month <= month);
   return dated.at(-1) ?? null;
 }
 
-export function firstUniformSlide(look: UniformLook): UniformSlide | null {
+function firstUniformSlide(look: UniformLook): UniformSlide | null {
   return uniformSlides.find((slide) => slide.look === look && slide.month != null) ?? null;
 }
 
@@ -669,10 +630,6 @@ export const uniformSteps: UniformStep[] = UNIFORM_STEP_PLATES.flatMap(({ unitId
     month: plate.y * 12 + (plate.m - 1),
   }];
 });
-
-export function uniformStepsForLook(look: UniformLook): UniformStep[] {
-  return uniformSteps.filter((step) => uniformSlideAt(step.month, look));
-}
 
 const medalArt = import.meta.glob("../../art/medals/*.{png,svg,webp,jpg,jpeg}", {
   eager: true,
@@ -753,7 +710,7 @@ export function medalRows(list: Award[]): Award[][] {
   return rows;
 }
 
-export function branchName(code: string): string {
+function branchName(code: string): string {
   return branches[code] ?? code;
 }
 
@@ -787,67 +744,6 @@ export type TourFocus = {
   start: string;
   end: string;
 };
-
-function dayKey(value: string): string {
-  const [y, m, d] = value.split("-");
-  return `${y}-${(m ?? "01").padStart(2, "0")}-${(d ?? "01").padStart(2, "0")}`;
-}
-
-export function tourFocus(kind: Kind, id: string): TourFocus | null {
-  if (kind === "rank") {
-    const dated = ranks.filter((rank): rank is Rank & { date: string } => Boolean(rank.date));
-    const index = dated.findIndex((rank) => rank.id === id);
-    if (index < 0) return null;
-    const rank = dated[index];
-    return {
-      kind: "rank",
-      id,
-      label: `${rank.abbreviation} · ${rank.grade}`,
-      start: rank.date,
-      end: dated[index + 1]?.date ?? profile.serviceEnd,
-    };
-  }
-  if (kind === "unit") {
-    const unit = units.find((entry) => entry.id === id);
-    if (!unit?.start) return null;
-    return {
-      kind: "unit",
-      id,
-      label: unit.abbreviation,
-      start: unit.start,
-      end: unit.end ?? profile.serviceEnd,
-    };
-  }
-  if (kind === "operation") {
-    const op = operations.find((entry) => entry.id === id);
-    if (!op) return null;
-    return {
-      kind: "operation",
-      id,
-      label: opChipTitle(op),
-      start: op.start,
-      end: op.end ?? op.start,
-    };
-  }
-  return null;
-}
-
-export function tourItems(tour: TourFocus) {
-  const y0 = Number(tour.start.slice(0, 4));
-  const y1 = Number(tour.end.slice(0, 4));
-  const a = dayKey(tour.start);
-  const b = dayKey(tour.end);
-  const awardHits = instances
-    .filter((row) => row.year != null && row.year >= y0 && row.year <= y1)
-    .map((row) => {
-      const award = awards.find((entry) => entry.id === row.awardId);
-      return award ? { instance: row, award } : null;
-    })
-    .filter((row): row is { instance: Instance; award: Award } => Boolean(row));
-  const deviceHits = awards.filter((award) => award.devices.length && awardHits.some((hit) => hit.award.id === award.id));
-  const schoolHits = schools.filter((school) => school.start && dayKey(school.start) >= a && dayKey(school.start) <= b);
-  return { awardHits, deviceHits, schoolHits };
-}
 
 export function ribbonRows(list: Award[], columns = profile.rackColumns || 3): Award[][] {
   const sorted = [...list].sort((a, b) => a.precedence - b.precedence);
@@ -886,10 +782,10 @@ function byId<T extends { id: string }>(list: T[], id: string | null | undefined
 export const unitById = (id: string | null) => byId(units, id);
 export const placeById = (id: string | null) => byId(places, id);
 export const necById = (id: string | null) => byId(necs, id);
-export const awardById = (id: string) => byId(awards, id);
+const awardById = (id: string) => byId(awards, id);
 
 const serviceYear = (value: string) => Number(value.slice(0, 4));
-export function pct(ms: number): number {
+function pct(ms: number): number {
   return ((ms - SCALE_START) / (SCALE_END - SCALE_START)) * 100;
 }
 
@@ -920,7 +816,7 @@ export type Rank = {
 };
 
 export type PlateEntry = { id: string; count: number; campaignStars?: number };
-export type PlateExtra = {
+type PlateExtra = {
   src: string;
   title: string;
   /** This unit's role for this command (shown on the Logbook crest instead of the unit's own designator), e.g. "TAD". */
@@ -985,8 +881,6 @@ export function plateAwards(entries: PlateEntry[]): Award[] {
   });
 }
 export const ranks = ranksJson as Rank[];
-/** Grades shown as worn badges in the case, Seaman Recruit through Chief. */
-export const caseRanks = ranks;
 
 export type Bar = {
   key: string;
@@ -1182,7 +1076,7 @@ function supplementLabel(value: string): string {
 }
 
 /** Crosswalk rows from src/data/supplement.csv. Dated JSON still wins; this only adds fields the record did not have. */
-export function supplementFacts(kind: string, id: string): { label: string; value: string }[] {
+function supplementFacts(kind: string, id: string): { label: string; value: string }[] {
   const blocks = supplementJson as unknown as { kind: string | null; id: string | null; lists: Record<string, string[]> }[];
   return blocks
     .filter((block) => block.kind === kind && block.id === id)
@@ -1195,7 +1089,7 @@ export function supplementFacts(kind: string, id: string): { label: string; valu
 }
 
 /** One row of Sergio's ordered place sequence. */
-export type SequenceEntry = {
+type SequenceEntry = {
   order: number;
   label: string;
   cityId: string | null;
@@ -1211,8 +1105,6 @@ export type SequenceEntry = {
 /** Map pin categories. One stop, one primary kind — except San Diego (instruction + command host). */
 export type StopLayer = "command" | "instruction" | "base" | "field" | "port" | "layover" | "stopover";
 
-export const STOP_LAYERS: StopLayer[] = ["command", "instruction", "base", "field", "port", "layover", "stopover"];
-
 /** n: fixed sequence order (1-based). Never renumbered when categories are filtered. */
 export type Stop = {
   place: Place;
@@ -1227,7 +1119,7 @@ export type Stop = {
   layers: StopLayer[];
 };
 
-export const sequence = sequenceJson as SequenceEntry[];
+const sequence = sequenceJson as SequenceEntry[];
 
 function schoolById(id: string | null | undefined) {
   if (!id) return undefined;
@@ -1235,7 +1127,7 @@ function schoolById(id: string | null | undefined) {
 }
 
 /** Pin place for a sequence row: base, else city, else the command's recorded place. */
-export function sequencePinPlace(entry: Pick<SequenceEntry, "cityId" | "baseId" | "commandId">): Place | undefined {
+function sequencePinPlace(entry: Pick<SequenceEntry, "cityId" | "baseId" | "commandId">): Place | undefined {
   if (entry.baseId) return placeById(entry.baseId);
   if (entry.cityId) return placeById(entry.cityId);
   if (entry.commandId) {
@@ -1257,11 +1149,6 @@ export function mapPlaceLabel(placeId: string | null | undefined): string {
   const rows = sequence.filter((row) => row.baseId === placeId || (!row.baseId && row.cityId === placeId));
   const own = rows.find((row) => !row.commandId || unitById(row.commandId)) ?? rows[0];
   return own?.label ?? placeById(placeId)?.name ?? "";
-}
-
-/** Pin place is fixed per stop. Filters hide whole stops; they do not swap the pin. */
-export function stopPlaceForLayers(stop: Stop, _shown: StopLayer[] | null): Place {
-  return stop.place;
 }
 
 export function careerStops(): Stop[] {
@@ -1313,7 +1200,7 @@ const LOGBOOK_UNIT_IDS = [...LOGBOOK_PIPELINE_UNIT_IDS, ...PLATE_UNIT_IDS] as co
 /** Customers/partners kept off the Map inset (still OK as unit chips from structured data). */
 const MAP_EXCLUDED_UNIT_IDS = new Set(["52nd-ordnance", "3rd-sfg", "75th-ranger", "eodmu11", "rtn", "auscdt", "acu4"]);
 
-export type LogbookUnitChip = {
+type LogbookUnitChip = {
   id: string;
   name: string;
   abbreviation: string;
@@ -1323,7 +1210,7 @@ export type LogbookUnitChip = {
   plateOnly?: boolean;
 };
 
-export type LogbookAdminFact = {
+type LogbookAdminFact = {
   kind: "school" | "nec" | "rank" | "milestone";
   id: string;
   label: string;
@@ -1438,37 +1325,6 @@ function milestonesForBeat(when: string): Milestone[] {
   const key = dateKey(when);
   if (!key) return [];
   return milestones.filter((row) => dateKey(row.date) === key || (key.length >= 7 && dateKey(row.date).startsWith(key.slice(0, 7))));
-}
-
-function unitsForBeat(stop: Stop, plate: CommandPlate | null, when: string): LogbookUnitChip[] {
-  const out: LogbookUnitChip[] = [];
-  const seen = new Set<string>();
-  const add = (unit: Unit | undefined) => {
-    if (!unit || seen.has(unit.id)) return;
-    seen.add(unit.id);
-    out.push(unitChip(unit));
-  };
-  if (stop.commandId) add(unitById(stop.commandId));
-  if (plate) add(unitById(plate.unitId));
-  if (plate?.extras) {
-    for (const extra of plate.extras) {
-      if (extra.kind !== "unit") continue;
-      add(unitById(extra.id));
-    }
-  }
-  const key = dateKey(when);
-  const placeIds = new Set([stop.place.id, stop.cityId, stop.baseId].filter(Boolean) as string[]);
-  for (const unit of units) {
-    if (seen.has(unit.id)) continue;
-    if (unit.placeId && placeIds.has(unit.placeId)) {
-      const start = dateKey(unit.start);
-      const end = dateKey(unit.end ?? unit.start);
-      if (!key || !start || (start <= key && (!end || key <= end || unit.end?.length === 4))) {
-        add(unit);
-      }
-    }
-  }
-  return out;
 }
 
 /** Uniform slide tied to a command plate stem (Commands / Timeline walk). */
@@ -1684,7 +1540,6 @@ export function isMapExcludedUnit(unitId: string): boolean {
   return MAP_EXCLUDED_UNIT_IDS.has(unitId);
 }
 
-
 let pinNumbers: Map<string, number[]> | undefined;
 /** The map-pin number(s) of a place, matching the Map tab's pins and list. Empty if the place is not a stop. */
 export function pinNumbersFor(placeId: string): number[] {
@@ -1728,17 +1583,17 @@ export type SubjectView = {
   usedHere?: UsedItem[];
 };
 
-export type UsedItem = { kind: "uniform" | "equipment"; id: string; name: string; image: string; group: string };
+type UsedItem = { kind: "uniform" | "equipment"; id: string; name: string; image: string; group: string };
 
 /**
  * What was used where. One line per unit, school or deployment id, listing
  * uniform and equipment ids (see the cheat sheet codes). Edit src/data/used-here.json.
  */
-export const usedHere = usedHereJson as Record<string, string[]>;
+const usedHere = usedHereJson as Record<string, string[]>;
 
 const USED_ORDER = ["uniform", "armor", "helmets", "weapons", "comms", "vehicles", "ships", "aircraft", "cars", "motorcycles", "cities", "residences"];
 
-export function usedHereFor(subjectId: string): UsedItem[] {
+function usedHereFor(subjectId: string): UsedItem[] {
   const items: UsedItem[] = [];
   for (const id of usedHere[subjectId] ?? []) {
     const uniform = uniforms.find((entry) => entry.id === id);
@@ -1767,7 +1622,7 @@ function usedAt(itemId: string) {
     .filter((link): link is ReturnType<typeof rel> => Boolean(link));
 }
 
-export type Hero =
+type Hero =
   | { type: "ribbon"; award: Award }
   | { type: "image"; src: string; alt: string; shape: "tall" | "square" | "wide" | "photo" | "landscape" };
 
@@ -1800,21 +1655,6 @@ function resolveLinks(links: LinkRef[] | undefined) {
     const label = linkLabel(link);
     return label ? [rel(link.kind, link.id, label)] : [];
   });
-}
-
-export function openRecord(): string[] {
-  const lines: string[] = [];
-  for (const award of awards) {
-    const missing = instances.filter((item) => item.awardId === award.id && item.year == null).length;
-    if (missing) lines.push(`${missing} of ${award.count} ${award.abbreviation} have no year.`);
-  }
-  for (const item of [...awards, ...units, ...schools, ...operations]) {
-    if ("open" in item && item.open) lines.push(item.open);
-  }
-  if (!reflections.length) lines.push("No personal note has been written yet.");
-  if (!photos.length) lines.push("No photograph is in the case.");
-  else if (photos.length === 1) lines.push("One photograph is in the case.");
-  return lines;
 }
 
 export function toSubject(sel: Selection): SubjectView | null {
@@ -2299,7 +2139,7 @@ export function uniformPlatesForCommand(unitId: string | null | undefined): Unif
 export type WardrobeItem = { uniform: Uniform; via: string[] };
 
 /** A chief's uniform (E7 khaki / whites / dress): never shown before the first E-7 date of rank. */
-export function isChiefUniform(uniform: Pick<Uniform, "id" | "context">): boolean {
+function isChiefUniform(uniform: Pick<Uniform, "id" | "context">): boolean {
   return uniform.id.startsWith("cpo-") || /chief petty officer|after promotion/i.test(uniform.context ?? "");
 }
 
@@ -2339,13 +2179,6 @@ export function wardrobeForBeat(beat: LogbookBeat): { items: WardrobeItem[]; wit
     .filter((uniform) => chief || !isChiefUniform(uniform))
     .map((uniform) => ({ uniform, via: own.has(uniform.id) ? [] : [...via.get(uniform.id)!] }));
   return { items, withheld };
-}
-
-/** uniforms.json entries whose recorded context names this command. */
-export function uniformsNamingCommand(unitId: string | null | undefined) {
-  const unit = unitId ? units.find((row) => row.id === unitId) : undefined;
-  if (!unit) return [];
-  return uniforms.filter((uniform) => (uniform.context ?? "").includes(unit.name));
 }
 
 /**
@@ -2473,7 +2306,7 @@ export function deploymentsForCommand(unitId: string | null | undefined): Logboo
 }
 
 /* ---------- Logbook Admin: collateral duties and watch stations (command-duties.json) ---------- */
-export type CommandDuty = { label: string; abbreviation?: string };
+type CommandDuty = { label: string; abbreviation?: string };
 export type CommandDuties = { titles: CommandDuty[]; departments: CommandDuty[]; divisions: CommandDuty[]; collateralDuties: CommandDuty[]; watches: CommandDuty[] };
 export function commandDutiesFor(unitId: string | null | undefined): CommandDuties {
   const row = unitId ? (commandDutiesJson as unknown as Record<string, Partial<CommandDuties> | string>)[unitId] : undefined;
@@ -2485,7 +2318,7 @@ export function commandDutiesFor(unitId: string | null | undefined): CommandDuti
 const dayPrecision = (date: string | null | undefined) => /^\d{4}-\d{2}-\d{2}$/.test(date ?? "");
 /** Time from this date of rate to the next one (or retirement), in months, or years + months from one year up.
  *  "~" when either date is recorded to the month (or year) only; the day is never invented. */
-export function timeInRate(from: string | null | undefined, to: string | null | undefined): string | null {
+function timeInRate(from: string | null | undefined, to: string | null | undefined): string | null {
   const parse = (d: string) => /^(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?$/.exec(d);
   const a = from ? parse(from) : null;
   const b = to ? parse(to) : null;
@@ -2508,7 +2341,7 @@ const POV_YEAR = /,\s*(?:19|20)\d{2}(?:\s+or\s+(?:19|20)\d{2})?$/i;
 export function povLabel(name: string): string {
   return name.replace(POV_YEAR, "").trim() || name;
 }
-export const isPovGroup = (group: string) => POV_GROUPS.has(group);
+const isPovGroup = (group: string) => POV_GROUPS.has(group);
 export const displayEquipmentName = (item: { group: string; name: string }) => (isPovGroup(item.group) ? povLabel(item.name) : item.name);
 
 /* ---------- Logbook: official name, purpose and short history per command (command-profiles.json, sourced) ---------- */
