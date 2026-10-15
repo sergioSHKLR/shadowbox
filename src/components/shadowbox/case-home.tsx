@@ -323,15 +323,25 @@ const oneL = (): Layout => {
   let y = G;
   y += portraitsSide(pos, size, G, y, W - 2 * G) + G;
   const ch = 3 * c + 4 * G;
-  crestGrid(pos, size, R2x3, c, 0, y, W, ch); y += ch;
-  devGrid(pos, 5, G, y, W - 2 * G, DEV_H + 2 * G); y += DEV_H + 2 * G;
+  crestGrid(pos, size, R2x3, c, 0, y, W, ch);
+  // Phone v2 (Sergio, Oct 15): each crest column centred under its portrait (SR left, ETC/CPO right), and the five rank
+  // devices as one column (PO3 at the top to CPO) centred in the gap between the crest columns, spread over the crest rows.
+  const pcx = (id: string) => pos[id][0] + size[id].w / 2;
+  R2x3.forEach((r) => r.forEach((id, i) => { pos[id] = [pcx(i ? "bio" : "bio-sr") - size[id].w / 2, pos[id][1]]; }));
+  const colR = (i: number) => Math.max(...R2x3.map((r) => pos[r[i]][0] + (i ? 0 : size[r[i]].w)));
+  const gapL = colR(0), gapR = Math.min(...R2x3.map((r) => pos[r[1]][0])), dcx = (gapL + gapR) / 2;
+  const dgap = (ch - DEVS.reduce((t, id) => t + devOf(id).h, 0)) / (DEVS.length + 1);
+  let dy = y + dgap;
+  for (const id of DEVS) { const d = devOf(id); pos[id] = [dcx - d.w / 2, dy]; dy += d.h + dgap; }
+  y += ch;
   shirtBlock(pos, 0, y);
-  // Phone only (Sergio, Oct 15): the right crest column shares the ID / passport column's centre line, and the pen stands
-  // upright in the gap between the pocket cards (the USO card after swapCards) and the memorandum.
-  const docCx = DOC_X + DOC_W / 2;
-  for (const r of R2x3) if (r[1]) pos[r[1]] = [docCx - size[r[1]].w / 2, pos[r[1]][1]];
-  const cardR = pos.admin[0] + CARD.w, memoL = pos.logbook[0];
-  pos.guestbook = [(cardR + memoL) / 2 - PEN.w / 2, pos.guestbook[1]];
+  // Bottom (Sergio): Liberty above the USO card in the pocket column (swapCards puts the USO in admin's slot, so the two
+  // slots trade here), and the pink 2M (contact's slot before the swap) above the memorandum in the document column.
+  { const ay = pos.admin[1]; pos.admin = [pos.admin[0], pos.offduty[1]]; pos.offduty = [pos.offduty[0], ay]; }
+  { const memoY = pos.logbook[1], cardY = pos.contact[1];
+    pos.contact = [pos.contact[0], memoY]; pos.logbook = [pos.logbook[0], memoY + CARD.h + (cardY - memoY - byId("logbook").h)]; }
+  // Pen upright beside the pocket's left edge, its top level with the pocket top (the pocket is 142 mm tall, the pen 142).
+  pos.guestbook = [SHIRT.pocket.cx - (744.5 - 245.5) / PX / 2 - 6 - PEN.w, y + SHIRT.pocket.top];
   return { pos, size, tilt: {}, w: W, h: y + H0 };
 };
 /** Sergio (Oct 14): the USO card (contact) and the pink 2M card (admin) trade places in every layout. Same card size, so
