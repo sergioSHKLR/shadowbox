@@ -451,7 +451,7 @@ const branches = branchesJson as Record<string, string>;
 export const caseCopy = caseJson;
 const medals = medalsJson as Medal[];
 
-const uniformSlideArt = import.meta.glob("../../art/plates/*.{png,svg,webp,jpg,jpeg}", {
+const uniformSlideArt = import.meta.glob("../../art/plates/*.svg", {
   eager: true,
   query: "?url",
   import: "default",
@@ -631,7 +631,7 @@ export const uniformSteps: UniformStep[] = UNIFORM_STEP_PLATES.flatMap(({ unitId
   }];
 });
 
-const medalArt = import.meta.glob("../../art/medals/*.{png,svg,webp,jpg,jpeg}", {
+const medalArt = import.meta.glob("../../art/medals/*.webp", {
   eager: true,
   query: "?url",
   import: "default",
