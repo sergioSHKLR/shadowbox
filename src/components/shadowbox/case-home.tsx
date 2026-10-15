@@ -23,9 +23,10 @@ const CREST_H = 95;
 /** Collar device for the rank on arrival at each command (true size: 23 mm wide, art cropped to its own height). */
 const DEV = {
   // Cap-device heights (Sergio): PO3 32, PO2 38, PO1 44, CPO 44 mm; width follows each art's own aspect.
-  po3: { src: "po3-silver-collar.svg", h: 32, w: 32 * 266.443 / 245.879, label: "PO3" }, po2: { src: "po2-silver-collar.svg", h: 38, w: 38 * 266.443 / 305.783, label: "PO2" },
-  po1: { src: "po1-silver-collar.svg", h: 44, w: 44 * 266.442 / 362.045, label: "PO1" }, po1g: { src: "po1-gold-collar.svg", h: 44, w: 44 * 266.442 / 362.189, label: "PO1 (gold)" },
-  cpo: { src: "cpo-collar.svg", h: 44, w: 44 * 228.414 / 366.279, label: "CPO" },
+  // Home-art set (Sergio, Oct 15 2026): po3.svg, po2.svg, po1-silver.svg, po1-gold.svg, cpo-anchor.svg; aspects from their viewBoxes.
+  po3: { src: "po3-silver-collar.svg", h: 32, w: 32 * 298.512 / 273.135, label: "PO3" }, po2: { src: "po2-silver-collar.svg", h: 38, w: 38 * 298.176 / 345.115, label: "PO2" },
+  po1: { src: "po1-silver-collar.svg", h: 44, w: 44 * 278.076 / 376.851, label: "PO1" }, po1g: { src: "po1-gold-collar.svg", h: 44, w: 44 * 278.077 / 376.851, label: "PO1 (gold)" },
+  cpo: { src: "cpo-collar.svg", h: 44, w: 44 * 240.838 / 366.897, label: "CPO" },
 };
 const DEV_GAP = 5;
 const crest = (id: string, unit: string, file: string, aspect: number, label: string, dev?: Item["dev"]): Item => ({
@@ -45,21 +46,29 @@ const SHIRT_VB = [1455.118, 2437.795];
 // Re-measured on Sergio's flat khakis.svg (Oct 14 2026, the old numbers were for the previous drawing): front buttons below
 // the collar one, pocket edges 245.5-744.5 px, top 678.5 px, flap seam 892.5 px, flap button 826.5 px. His
 // khakis-with-ribbons.svg puts the rack 105 mm wide centred on the pocket with its bottom ~1/4 in above the pocket top.
-const SHIRT = { buttons: [215.4, 295.7, 375.8, 456, 536.2], show: 4, pocket: { cx: 131, top: 179.5, flapCy: 236.1, button: 218.7 } };
+// Re-measured again on the home-art khakis-no-lapel.svg (Oct 15 2026, same 1455 x 2438 canvas): front buttons 817.5,
+// 1120.5, 1423.5, 1726.5, 2029.5 px; pocket body edges 249-748 px, flap edges 236-761 px (the flap now overhangs the
+// pocket), flap top 669.5 px, flap V point 885.3 px, flap button 831 px.
+const SHIRT = { buttons: [mm(817.5), mm(1120.5), mm(1423.5), mm(1726.5), mm(2029.5)], show: 4, pocket: { cx: mm(498.5), top: mm(669.5), flapCy: mm(885.3), button: mm(831), flapL: mm(236), flapR: mm(761) } };
 // Crop (never scale) halfway between the last shown front button and the next one.
 const SHIRT_H = Math.round((SHIRT.buttons[SHIRT.show - 1] + (SHIRT.buttons[SHIRT.show] ?? mm(SHIRT_VB[1]))) / 2);
 const SHIRT_W = mm(SHIRT_VB[0]);
 const SHIRT_FULL = mm(SHIRT_VB[1]);
-// shirt-lapel.svg: Sergio's lapel-only drawing (local-case ff91302), 680.3 x 755.9 px = 180 x 200 mm, same origin as shirt-long.svg.
-const LAPEL = { w: mm(680.315), h: mm(755.906) };
+// shirt-lapel.svg: Sergio's home-art lapel.svg, drawn on the shirt's own 1455 x 2438 canvas (bare shirt + lapel = his
+// khakis.svg). Its art ends at 525 px, so the overlay is cropped (never scaled) to the shirt's width x 540 px.
+const LAPEL = { w: SHIRT_W, h: mm(540) };
+// CPO collar anchor on the lapel (the old lapel had it drawn in; now cpo-anchor.svg is placed): fitted to the old
+// drawing's anchor, 112 px tall, centred at (437, 281) px on the shirt, rotated -54 degrees.
+const ANCHOR = { h: mm(112), w: mm(112) * 240.838 / 366.897, cx: mm(437), cy: mm(281), tilt: -54 };
 const QIN = 6.35; // 1/4 in
 // Sergio's pins (Oct 13 2026), tight viewBoxes: ESWS fills its box; the EXW metal spans 92.6% of its width and ends at
 // 86.5% of its height (soft shadow below), so the box is widened to keep the art 70 mm wide.
-const SWO_H = PIN_W * (130.76 / 377.953);
-const EXW_W = PIN_W * 0.942 / 0.926, EXW_H = EXW_W * (133.632 / 377.953), EXW_ART_BOTTOM = 0.995;
+const SWO_H = PIN_W * (129.012 / 377.953);
+const EXW_W = PIN_W * 0.942 / 0.926, EXW_H = EXW_W * (134.144 / 377.953), EXW_ART_BOTTOM = 0.995;
 /** Worn on the shirt in both layouts: centre relative to the shirt's top-left. */
 const ON_SHIRT: Record<string, [number, number]> = {
   lapel: [LAPEL.w / 2, LAPEL.h / 2],
+  anchor: [ANCHOR.cx, ANCHOR.cy],
   decorations: [SHIRT.pocket.cx, SHIRT.pocket.top - QIN - RACK_H / 2],
   swo: [SHIRT.pocket.cx, SHIRT.pocket.top - QIN - RACK_H - QIN - SWO_H / 2],
   // EXW centred on the flap, just above the flap button (button radius ~9 mm + 2 mm clearance).
@@ -70,6 +79,7 @@ const PORTRAIT = { w: 150, h: 150 * (625 / 640) };
 const ITEMS: Item[] = [
   { id: "uniforms", src: "shirt-long.svg", crop: true, w: SHIRT_W, h: SHIRT_H, gh: SHIRT_FULL, view: "uniforms", label: "Uniforms", wide: [0, 0, 0], z: 1 },
   { id: "lapel", src: "shirt-lapel.svg", lapel: true, w: LAPEL.w, h: LAPEL.h, label: "", wide: [0, 0, 0], z: 6 },
+  { id: "anchor", src: "cpo-collar.svg", w: ANCHOR.w, h: ANCHOR.h, label: "", wide: [0, 0, 0], z: 7 },
   { id: "decorations", src: "", rack: true, w: 3 * RIBBON_W, h: RACK_H, view: "decorations", label: "Decorations", wide: [0, 0, 0], z: 3 },
   { id: "swo", src: "esws-pin.svg", w: PIN_W, h: SWO_H, view: "decorations", label: "Surface Warfare", wide: [0, 0, 0], z: 3 },
   { id: "exw", src: "exw-pin.svg", w: EXW_W, h: EXW_H, view: "decorations", label: "Expeditionary Warfare", wide: [0, 0, 0], z: 3 },
@@ -77,7 +87,7 @@ const ITEMS: Item[] = [
   { id: "admin", src: "9527-card.svg", ...CARD, view: "admin", label: "Admin", wide: [0, 0, 0], z: 7 },
   { id: "offduty", src: "liberty-card.svg", ...CARD, view: "offduty", label: "Off Duty", wide: [0, 0, 0], z: 7 },
   { id: "logbook", src: "green-notebook.svg", w: mm(359.055), h: mm(529.134), view: "logbook", label: "Logbook", wide: [0, 0, 0], z: 7 },
-  { id: "guestbook", src: "black-pen.svg", w: mm(37.795), h: mm(536.693), view: "guestbook", label: "Guestbook", wide: [0, 0, 0], z: 7 },
+  { id: "guestbook", src: "black-pen.svg", w: mm(37.795), h: mm(517.795), view: "guestbook", label: "Guestbook", wide: [0, 0, 0], z: 7 },
   { id: "map", src: "passport-maroon.svg", w: mm(332.598), h: mm(472.441), view: "map", label: "Travel book", wide: [0, 0, 0], z: 3 },
   { id: "onduty", src: "id-card.svg", obj: true, w: 54, h: 54 * (680.11 / 439.297), view: "onduty", label: "Identification card", wide: [0, 0, 0], z: 4 },
   // Two portraits on one axis (Sergio, Oct 13): Seaman Recruit on top, Chief Petty Officer below, each with its plaque.
@@ -89,7 +99,7 @@ const ITEMS: Item[] = [
 const CRESTS: Item[] = [
   crest("ncts", "ncts", "ncts-crest.svg", 1, "NCTS", DEV.po3),
   crest("frank-cable", "frank-cable", "as40-crest.svg", 960 / 720, "USS Frank Cable", DEV.po2),
-  crest("eodmu5", "eodmu5", "eodmu5-crest.svg", 1, "EODMU-5", DEV.po1),
+  crest("eodmu5", "eodmu5", "eodmu5-crest.svg", 719.152 / 717.977, "EODMU-5", DEV.po1),
   crest("sercc", "sercc", "sercc-crest.svg", 341.781 / 298.482, "SERCC"),
   crest("jcse", "jcse", "jcse-crest.svg", 1208.234 / 1693.748, "JCSE", DEV.po1g),
   crest("navhosp", "navhosp", "nhjax-crest.svg", 298.611 / 295.308, "NH Jacksonville", DEV.cpo),
@@ -345,7 +355,7 @@ const oneL = (): Layout => {
     const pgap = (bot - y - EXW_BOTTOM - ["onduty", "offduty", "admin"].reduce((t, id) => t + byId(id).h, 0)) / 3;
     let yy = bot; for (const id of [...ids].reverse()) { const it = byId(id); yy -= it.h; pos[id] = [DOC_X + DOC_W / 2 - it.w / 2, yy]; yy -= pgap; } }
   // Pen upright beside the pocket's left edge, its top level with the pocket top (the pocket is 142 mm tall, the pen 142).
-  pos.guestbook = [SHIRT.pocket.cx - (744.5 - 245.5) / PX / 2 - 6 - PEN.w, y + SHIRT.pocket.top];
+  pos.guestbook = [SHIRT.pocket.flapL - 6 - PEN.w, y + SHIRT.pocket.top];
   return { pos, size, tilt: {}, w: W, h: y + H0 };
 };
 /** Sergio (Oct 14): the USO card (contact) and the pink 2M card (admin) trade places in every layout. Same card size, so
@@ -353,6 +363,7 @@ const oneL = (): Layout => {
 const swapCards = (l: Layout): Layout => {
   const { contact, admin } = l.pos;
   if (contact && admin) { l.pos.contact = admin; l.pos.admin = contact; }
+  l.tilt.anchor = ANCHOR.tilt; // the collar anchor lies along the lapel in every layout
   return l;
 };
 const LAYOUTS: Record<Mode, Layout> = { wide: swapCards(wideL()), twoL: swapCards(twoL()), twoP: swapCards(twoP()), one: swapCards(oneL()) };
@@ -442,7 +453,7 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en" }: { copy: C
             </button>
           ) : null;
           const art = item.lapel
-            ? <img className="cx-art cx-lapel" src={caseUrl(item.src)} alt="" draggable={false} />
+            ? <img className="cx-art cx-lapel is-crop" src={caseUrl(item.src)} alt="" draggable={false} />
             : item.rack ? <Rack /> : item.obj
             ? <object className="cx-art" type="image/svg+xml" data={caseUrl(item.src)} aria-hidden="true" tabIndex={-1} />
             : <img className={item.crop ? "cx-art is-crop" : "cx-art"} src={caseUrl(item.src)} alt="" draggable={false} />;
