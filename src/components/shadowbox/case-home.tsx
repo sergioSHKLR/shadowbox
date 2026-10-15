@@ -2,7 +2,6 @@ import type { Chrome } from "@/lib/shadowbox/copy";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { awards, publicUrl, ribbonRows, units, type Kind } from "@/lib/shadowbox/model";
 import { createPortal } from "react-dom";
-import { RibbonArt } from "@/components/shadowbox/marks";
 import { caseNote } from "@/lib/shadowbox/case-notes";
 import type { Locale } from "@/lib/shadowbox/prefs";
 
@@ -24,9 +23,9 @@ const CREST_H = 95;
 /** Collar device for the rank on arrival at each command (true size: 23 mm wide, art cropped to its own height). */
 const DEV = {
   // Cap-device heights (Sergio): PO3 32, PO2 38, PO1 44, CPO 44 mm; width follows each art's own aspect.
-  po3: { src: "po3-silver-collar.svg", h: 32, w: 32 * 23 / 25, label: "PO3" }, po2: { src: "po2-silver-collar.svg", h: 38, w: 38 * 23 / 29.9, label: "PO2" },
-  po1: { src: "po1-silver-collar.svg", h: 44, w: 44 * 23 / 32.5, label: "PO1" }, po1g: { src: "po1-gold-collar.svg", h: 44, w: 44 * 23 / 32.5, label: "PO1 (gold)" },
-  cpo: { src: "cpo-collar.svg", h: 44, w: 44 * 23 / 32.5, label: "CPO" },
+  po3: { src: "po3-silver-collar.svg", h: 32, w: 32 * 266.443 / 245.879, label: "PO3" }, po2: { src: "po2-silver-collar.svg", h: 38, w: 38 * 266.443 / 305.783, label: "PO2" },
+  po1: { src: "po1-silver-collar.svg", h: 44, w: 44 * 266.442 / 362.045, label: "PO1" }, po1g: { src: "po1-gold-collar.svg", h: 44, w: 44 * 266.442 / 362.189, label: "PO1 (gold)" },
+  cpo: { src: "cpo-collar.svg", h: 44, w: 44 * 228.414 / 366.279, label: "CPO" },
 };
 const DEV_GAP = 5;
 const crest = (id: string, unit: string, file: string, aspect: number, label: string, dev?: Item["dev"]): Item => ({
@@ -53,8 +52,8 @@ const LAPEL = { w: mm(680.315), h: mm(755.906) };
 const QIN = 6.35; // 1/4 in
 // Sergio's pins (Oct 13 2026), tight viewBoxes: ESWS fills its box; the EXW metal spans 92.6% of its width and ends at
 // 86.5% of its height (soft shadow below), so the box is widened to keep the art 70 mm wide.
-const SWO_H = PIN_W * (35.3 / 100.501);
-const EXW_W = PIN_W / 0.926, EXW_H = EXW_W * (44.109 / 108.45), EXW_ART_BOTTOM = 0.865;
+const SWO_H = PIN_W * (130.76 / 377.953);
+const EXW_W = PIN_W * 0.942 / 0.926, EXW_H = EXW_W * (133.632 / 377.953), EXW_ART_BOTTOM = 0.995;
 /** Worn on the shirt in both layouts: centre relative to the shirt's top-left. */
 const ON_SHIRT: Record<string, [number, number]> = {
   lapel: [LAPEL.w / 2, LAPEL.h / 2],
@@ -89,7 +88,7 @@ const CRESTS: Item[] = [
   crest("frank-cable", "frank-cable", "as40-crest.svg", 960 / 720, "USS Frank Cable", DEV.po2),
   crest("eodmu5", "eodmu5", "eodmu5-crest.svg", 1, "EODMU-5", DEV.po1),
   crest("sercc", "sercc", "sercc-crest.svg", 341.781 / 298.482, "SERCC"),
-  crest("jcse", "jcse", "jcse-crest.svg", 1208.234 / 1700.204, "JCSE", DEV.po1g),
+  crest("jcse", "jcse", "jcse-crest.svg", 1208.234 / 1693.748, "JCSE", DEV.po1g),
   crest("navhosp", "navhosp", "nhjax-crest.svg", 298.611 / 295.308, "NH Jacksonville", DEV.cpo),
 ];
 const ALL = [...ITEMS, ...CRESTS];
@@ -346,11 +345,7 @@ export const CASE_DIMS = { WIDE, LAYOUTS };
 function Rack() {
   return (
     <span className="cx-rack">
-      {RACK_ROWS.map((row) => (
-        <span key={row[0].id} className="cx-row">
-          {row.map((award) => <RibbonArt key={award.id} award={award} className="cx-ribbon" />)}
-        </span>
-      ))}
+      <img className="cx-rack-img" src={caseUrl("ribbon-rack.svg")} alt="" draggable={false} />
     </span>
   );
 }
