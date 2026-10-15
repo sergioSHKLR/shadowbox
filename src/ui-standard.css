@@ -76,8 +76,7 @@
 /* The item modal is ivory in light and navy in dark, so the theme ring already contrasts. */
 
 /* ---- Cards (image tiles) ---- */
-.uniform-card, .used-here button, .logbook-wardrobe-item, .logbook-gear-item, .cx-modal-box, .cx-intro-box, .settings-modal, .lb-tabpanel,
-.contact-card, .guest-card, .logbook-rank, .logbook-crest, .logbook-deploy, .logbook-soon {
+.uniform-card, .used-here button, .logbook-wardrobe-item, .logbook-gear-item, .cx-modal-box, .cx-intro-box, .settings-modal, .lb-tabpanel, .guest-card, .logbook-rank, .logbook-crest, .logbook-deploy, .logbook-soon {
   border-radius: var(--ui-radius-card) !important;
 }
 .uniform-card, .used-here button { border: 1px solid var(--ui-line) !important; }
@@ -110,5 +109,4 @@
 .cx-item[data-id="bio"] .cx-art, .cx-item[data-id="bio-sr"] .cx-art { box-sizing: border-box; padding: 3.5%; background: #fff; object-fit: cover; }
 .cx-modal-art:has(img.cx-print) { container-type: size; }
 .cx-modal-art img.cx-print { box-sizing: border-box; width: min(100cqw, 100cqh * var(--ar)); height: min(100cqh, 100cqw / var(--ar)); padding: calc(min(100cqw, 100cqh * var(--ar)) * 0.035); background: #fff; object-fit: cover; }
-.intro-portrait-img { box-sizing: border-box; padding: 3.5%; background: #fff; }
 .cx-rack-img { display: block; width: 100%; height: 100%; object-fit: contain; }
