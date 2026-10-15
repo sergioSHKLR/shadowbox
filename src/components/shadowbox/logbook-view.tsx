@@ -603,7 +603,7 @@ function OnDutyPanel({ beat, onOpen, empty }: { beat: LogbookBeat; onOpen: Open;
                 ) : null}
                 {(() => {
                   // Same vest or helmet on a later tour of this command is not shown again.
-                  const cards = [gearCard(dep.bodyArmor), gearCard(dep.helmet)].filter((card): card is NonNullable<typeof card> => Boolean(card) && !seen.has(card.id));
+                  const cards = [gearCard(dep.bodyArmor), gearCard(dep.helmet)].filter((card): card is NonNullable<typeof card> => card != null && !seen.has(card.id));
                   cards.forEach((card) => seen.add(card.id));
                   return cards.length ? (
                     <ul className="logbook-gear-list logbook-deploy-gear" aria-label={`Gear recorded for ${dep.label}`}>
