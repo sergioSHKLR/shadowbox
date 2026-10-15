@@ -301,59 +301,9 @@
   }
 }
 html.map-cover-lock, html.map-cover-lock body { overflow: hidden; }
-.map-filter + .map-legend, .map-stage + .map-filter { margin-top: 0.8rem; }
+.map-stage + .map-filter { margin-top: 0.8rem; }
 
 /* Collapsible map intro — closed by default. */
-.map-about {
-  margin: 0 0 0.85rem;
-  border: 1px solid var(--color-line, #c4b8a6);
-  border-radius: 0.35rem;
-  background: color-mix(in srgb, var(--color-ivory) 88%, var(--color-navy) 4%);
-  padding: 0;
-}
-[data-theme="dark"] .map-about {
-  border-color: #2a3344;
-  background: #161c28;
-}
-.map-about > summary {
-  list-style: none;
-  cursor: pointer;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.45rem 0.75rem;
-  font-weight: 600;
-  color: var(--color-navy);
-  user-select: none;
-}
-.map-about > summary::-webkit-details-marker { display: none; }
-.map-about > summary::before {
-  content: "";
-  width: 0.45rem;
-  height: 0.45rem;
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  transform: rotate(-45deg);
-  transition: transform 0.15s ease;
-  flex: 0 0 auto;
-}
-.map-about[open] > summary::before { transform: rotate(45deg); }
-[data-theme="dark"] .map-about > summary { color: var(--color-ivory); }
-.map-about > summary:focus-visible {
-  outline: 2px solid var(--color-navy);
-  outline-offset: 2px;
-  border-radius: 0.25rem;
-}
-[data-theme="dark"] .map-about > summary:focus-visible { outline-color: var(--color-ivory); }
-.map-about > p {
-  margin: 0;
-  padding: 0 0.75rem 0.75rem;
-  color: var(--color-quiet);
-  font-size: 0.95rem;
-  line-height: 1.45;
-}
-[data-theme="dark"] .map-about > p { color: #c4b8a6; }
 
 /* Tabs / chips / player (Oct 2026): ACTIVE = goldenrod + navy text; INACTIVE = navy + light text (was outline / map blue). */
 .nav-btn, .map-play .nav-btn.icon-btn, [data-theme="dark"] .map-play .nav-btn.icon-btn { background: var(--color-navy); color: var(--color-ivory, #f4efe4); border-color: var(--color-navy); }
