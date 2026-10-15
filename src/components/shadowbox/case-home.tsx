@@ -328,8 +328,8 @@ const oneL = (): Layout => {
   // devices as one column (PO3 at the top to CPO) centred in the gap between the crest columns, spread over the crest rows.
   const pcx = (id: string) => pos[id][0] + size[id].w / 2;
   R2x3.forEach((r) => r.forEach((id, i) => { pos[id] = [pcx(i ? "bio" : "bio-sr") - size[id].w / 2, pos[id][1]]; }));
-  const colR = (i: number) => Math.max(...R2x3.map((r) => pos[r[i]][0] + (i ? 0 : size[r[i]].w)));
-  const gapL = colR(0), gapR = Math.min(...R2x3.map((r) => pos[r[1]][0])), dcx = (gapL + gapR) / 2;
+  // v3 (Sergio): the column is centred on the gap between the two portraits.
+  const dcx = (pos["bio-sr"][0] + size["bio-sr"].w + pos.bio[0]) / 2;
   const dgap = (ch - DEVS.reduce((t, id) => t + devOf(id).h, 0)) / (DEVS.length + 1);
   let dy = y + dgap;
   for (const id of DEVS) { const d = devOf(id); pos[id] = [dcx - d.w / 2, dy]; dy += d.h + dgap; }
@@ -337,9 +337,10 @@ const oneL = (): Layout => {
   shirtBlock(pos, 0, y);
   // Bottom (Sergio): Liberty above the USO card in the pocket column (swapCards puts the USO in admin's slot, so the two
   // slots trade here), and the pink 2M (contact's slot before the swap) above the memorandum in the document column.
-  { const ay = pos.admin[1]; pos.admin = [pos.admin[0], pos.offduty[1]]; pos.offduty = [pos.offduty[0], ay]; }
-  { const memoY = pos.logbook[1], cardY = pos.contact[1];
-    pos.contact = [pos.contact[0], memoY]; pos.logbook = [pos.logbook[0], memoY + CARD.h + (cardY - memoY - byId("logbook").h)]; }
+  // v3 (Sergio, Oct 15): the ID card moves onto the pocket below the EXW, Liberty below it (between the pocket and the
+  // USO card), USO at the bottom; the document column re-spreads passport, pink 2M, memorandum with even gaps.
+  spreadTo(pos, ["onduty", "offduty", "admin"], SHIRT.pocket.cx, y + EXW_BOTTOM, y + H0 - PAD);
+  spreadTo(pos, ["map", "contact", "logbook"], DOC_X + DOC_W / 2, y, y + H0 - PAD);
   // Pen upright beside the pocket's left edge, its top level with the pocket top (the pocket is 142 mm tall, the pen 142).
   pos.guestbook = [SHIRT.pocket.cx - (744.5 - 245.5) / PX / 2 - 6 - PEN.w, y + SHIRT.pocket.top];
   return { pos, size, tilt: {}, w: W, h: y + H0 };
