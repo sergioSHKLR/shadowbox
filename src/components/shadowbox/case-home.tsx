@@ -45,7 +45,7 @@ const SHIRT_VB = [1455.118, 2437.795];
 // Re-measured on Sergio's flat khakis.svg (Oct 14 2026, the old numbers were for the previous drawing): front buttons below
 // the collar one, pocket edges 245.5-744.5 px, top 678.5 px, flap seam 892.5 px, flap button 826.5 px. His
 // khakis-with-ribbons.svg puts the rack 105 mm wide centred on the pocket with its bottom ~1/4 in above the pocket top.
-const SHIRT = { buttons: [215.4, 295.7, 375.8, 456, 536.2], show: 3, pocket: { cx: 131, top: 179.5, flapCy: 236.1, button: 218.7 } };
+const SHIRT = { buttons: [215.4, 295.7, 375.8, 456, 536.2], show: 4, pocket: { cx: 131, top: 179.5, flapCy: 236.1, button: 218.7 } };
 // Crop (never scale) halfway between the last shown front button and the next one.
 const SHIRT_H = Math.round((SHIRT.buttons[SHIRT.show - 1] + (SHIRT.buttons[SHIRT.show] ?? mm(SHIRT_VB[1]))) / 2);
 const SHIRT_W = mm(SHIRT_VB[0]);
