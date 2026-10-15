@@ -1,64 +1,43 @@
 name: Pages
 
+# Builds the static site and deploys dist/pages with actions/deploy-pages. Nothing is committed back onto main, so
+# only the build output is public. Requires Settings -> Pages -> Source: "GitHub Actions" (custom domain kept there).
 on:
-  # Manual rebuild (Actions tab, or: gh workflow run Pages --ref main).
   workflow_dispatch:
   push:
     branches: [main]
-    paths-ignore:
-      - "index.html"
-      - "404.html"
-      - ".nojekyll"
-      - "favicon.svg"
-      - "og.jpg"
-      - "assets/**"
-      - "photos/**"
-      - "ribbons/**"
-      - "case/**"
-      - "uniforms/**"
-      - "crests/**"
-      - "insignia/**"
-      - "devices/**"
-      - "equipment/**"
-      - "icons/**"
-      - "medals/**"
-      - "shadowbox-cheat-sheet.pdf"
-      - "manifest.webmanifest"
-      - "sw.js"
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
       - run: npm ci
       - run: npm run build:pages
-      - run: node scripts/place-pages-site.mjs
-      - name: Commit the site onto main
-        run: |
-          git config user.name "sergioSHKLR"
-          git config user.email "107352082+sergioSHKLR@users.noreply.github.com"
-          for p in index.html 404.html .nojekyll favicon.svg og.jpg CNAME assets photos ribbons case uniforms crests insignia devices equipment icons medals manifest.webmanifest sw.js shadowbox-cheat-sheet.pdf; do
-            if [ -e "$p" ]; then
-              git add "$p"
-            elif git ls-files --error-unmatch "$p" >/dev/null 2>&1; then
-              git add -u -- "$p"
-            fi
-          done
-          if git diff --cached --quiet; then
-            echo "Site already matches this commit."
-            exit 0
-          fi
-          git commit -m "Publish the shadowbox site [skip ci]"
-          git push
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/pages
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
