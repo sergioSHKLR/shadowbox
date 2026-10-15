@@ -1,126 +1,9 @@
-import { useEffect, type ReactNode, type RefObject } from "react";
-import { awards, photos, profile, publicUrl, ribbonRows, timeline, units, type Kind } from "@/lib/shadowbox/model";
-import { RibbonArt } from "@/components/shadowbox/marks";
+import { profile, timeline, type Kind } from "@/lib/shadowbox/model";
 import { chrome } from "@/lib/shadowbox/copy";
 import type { Locale } from "@/lib/shadowbox/prefs";
 import { CaseHome } from "@/components/shadowbox/case-home";
 import { RedactionSample } from "@/components/shadowbox/redaction-sample";
 
-const ASSIGNED = ["ncts", "frank-cable", "eodmu5", "sercc", "jcse", "navhosp"];
-const PARTNERS = units.filter((unit) => unit.image && !ASSIGNED.includes(unit.id) && !["rtc", "tortuga", "ntc-great-lakes", "local-hires"].includes(unit.id));
-const CHIEF_PORTRAIT = photos.find((photo) => photo.src === profile.portrait);
-const SN_PORTRAIT = photos.find((photo) => photo.id === "recruit-portrait-1997");
-
-/**
- * Home portrait crossfade (Sergio, Oct 2026): one frame holds both portraits stacked (same size, opaque). As the reader
- * scrolls through the bio, the End of Career portrait fades in over Boot Camp; the fade follows scroll progress and is
- * complete at the bottom of the page (the end of the bio and stamps). A page too short to scroll shows End of Career.
- * prefers-reduced-motion: no gradual fade, an instant swap at the halfway point.
- */
-function useHomeFade(ref: RefObject<HTMLElement | null>) {
-  useEffect(() => {
-    const root = ref.current;
-    if (!root) return;
-    const reduce = typeof matchMedia === "function" ? matchMedia("(prefers-reduced-motion: reduce)") : null;
-    const narrow = typeof matchMedia === "function" ? matchMedia("(max-width: 959.98px)") : null;
-    const sheet = root.querySelector<HTMLElement>(".home-sheet");
-    const frameEl = root.querySelector<HTMLElement>(".home-fade");
-    const pins = root.querySelector<HTMLElement>(".home-pins");
-    // Zero movement while pinned: the sticky offset must equal the frame's own resting position (top bar + page
-    // padding, a fractional height), so the frame never travels before it pins. Measured on load and resize only.
-    let pinPx = "";
-    const measurePin = () => {
-      if (!pins) return;
-      const next = `${pins.getBoundingClientRect().top + scrollY}px`;
-      if (next !== pinPx) { pinPx = next; root.style.setProperty("--pin-top", next); }
-    };
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const max = document.documentElement.scrollHeight - innerHeight;
-      let p = max <= 1 ? 1 : Math.min(1, Math.max(0, scrollY / max));
-      if (reduce?.matches) p = p >= 0.5 ? 1 : 0;
-      root.style.setProperty("--fade", p.toFixed(4));
-      root.classList.toggle("is-late", p >= 0.5);
-      if (p >= 0.92) root.classList.add("is-end");
-      else if (p < 0.8) root.classList.remove("is-end");
-      // Phone: the frame starts pinned under the bar. Once the bio card has slid fully over it, the frame moves (unseen)
-      // to its spot after the stamps, so it scrolls in there, all End of Career, with no empty band below it.
-      // A bio card shorter than the frame can't hide it, so a short page falls back to plain flow (frame, then bio).
-      let glued = false;
-      let short = false;
-      if (narrow?.matches && sheet && frameEl) {
-        short = sheet.offsetHeight < frameEl.offsetHeight;
-        if (!short) {
-          const pinTop = parseFloat(getComputedStyle(frameEl).top) || 0;
-          // Relocate only once the opaque sheet has fully covered the pinned frame (it should move unseen).
-          // Using sheet.top <= pinTop alone fired as soon as covering began, so the portrait jumped to the
-          // bottom mid-fade on phone and left a blank band while the user was still reading.
-          const frameH = frameEl.getBoundingClientRect().height;
-          glued = sheet.getBoundingClientRect().top <= pinTop - frameH + 1;
-        }
-      }
-      root.classList.toggle("is-short", short);
-      root.classList.toggle("is-glued", glued);
-    };
-    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
-    const relayout = () => { measurePin(); schedule(); };
-    measurePin();
-    update();
-    addEventListener("scroll", schedule, { passive: true });
-    addEventListener("resize", relayout);
-    reduce?.addEventListener?.("change", schedule);
-    narrow?.addEventListener?.("change", relayout);
-    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(relayout) : null;
-    ro?.observe(document.body);
-    return () => {
-      cancelAnimationFrame(frame);
-      removeEventListener("scroll", schedule);
-      removeEventListener("resize", relayout);
-      reduce?.removeEventListener?.("change", schedule);
-      narrow?.removeEventListener?.("change", relayout);
-      ro?.disconnect();
-    };
-  }, [ref]);
-}
-
-function CaseRack() {
-  return (
-    <span className="case-ribbons">
-      <img className="case-pin" src={publicUrl("/case/esws-pin.svg")} alt="Enlisted Surface Warfare Specialist" />
-      {ribbonRows(awards, 3).map((row) => (
-        <span key={row[0].id} className={row.length < 3 ? "case-ribbon-row is-short" : "case-ribbon-row"}>
-          {row.map((award) => <RibbonArt key={award.id} award={award} className="case-ribbon" />)}
-        </span>
-      ))}
-      <img className="case-pin" src={publicUrl("/case/exw-pin.svg")} alt="Enlisted Expeditionary Warfare Specialist" />
-    </span>
-  );
-}
-
-function CaseTracks() {
-  const bars = timeline();
-  const tracks = [
-    ["rank", bars.rank, "#7d1c20"],
-    ["duty", bars.duty, "#14233a"],
-    ["ops", bars.ops, "#1e6b3c"],
-    ["world", bars.world, "#c6a15b"],
-  ] as const;
-  return (
-    <span className="case-tracks" aria-hidden="true">
-      {tracks.map(([id, items, color]) => (
-        <span key={id} className="case-track" style={{ color }}>
-          {items.map((item, index) => (
-            <span key={item.key} className={`case-stop${id === "ops" && index === 0 ? " is-start" : ""}${id === "ops" && index === items.length - 1 ? " is-end" : ""}`}>
-              <i />
-              <em>{id === "ops" ? item.title.replace(/ \(.*\)$/, "") : item.title}</em>
-            </span>
-          ))}
-        </span>
-      ))}
-    </span>
-  );
-}
 
 function pageLabel(t: ReturnType<typeof chrome>, view: string) {
   if (view === "bio") return t.bioTitle;
@@ -160,28 +43,6 @@ export function BioPage({ bio, locale = "en" }: { bio: string; locale?: Locale }
         </div>
       </div>
     </main>
-  );
-}
-
-type Shot = { src: string; alt: string; caption: string };
-
-/** One frame, two stacked portraits; the second fades in with --fade (0..1) set on .home-scroll. */
-function FadePortrait({ first, last }: { first: Shot; last: Shot; onOpen?: (k: Kind, id: string) => void }) {
-  return (
-    <figure className="intro-solo home-pin home-fade">
-      <div className="wood-frame">
-        <div className="wood-mat">
-          <div className="mat-opening home-fade-stack">
-            <img className="intro-portrait-img home-fade-first" src={publicUrl(first.src)} alt={first.alt} />
-            <img className="intro-portrait-img home-fade-last" src={publicUrl(last.src)} alt={last.alt} />
-          </div>
-        </div>
-      </div>
-      <figcaption className="quiet home-fade-caps">
-        <span className="home-fade-cap-first">{first.caption}</span>
-        <span className="home-fade-cap-last">{last.caption}</span>
-      </figcaption>
-    </figure>
   );
 }
 
