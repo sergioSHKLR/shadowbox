@@ -15,13 +15,8 @@
   --color-brass-bright: #e4c77a;
   /* The brand mark is goldenrod. Selected chips use this flat, with no plate. */
   --color-goldenrod: #daa520;
-  /* Oxidized brushed brass for the plaques: fine horizontal brushing over a muted
-     #b8912f / #d4af37 / #a8801f gradient, with a faint matte haze instead of a polished highlight. Black text is 6-8:1 behind
-     the lettering and 4.9:1 even at the darkest bottom edge (#a8801f under the haze), so AA throughout. */
-  --brass-plate:
-    repeating-linear-gradient(180deg, rgba(255, 240, 200, 0.05) 0 1px, rgba(60, 40, 10, 0.05) 1px 2px, transparent 2px 3px),
-    linear-gradient(180deg, rgba(70, 60, 40, 0.10), rgba(70, 60, 40, 0.10)),
-    linear-gradient(180deg, #b8912f 0%, #d4af37 45%, #c29b32 62%, #a8801f 100%);
+  /* Brass for the plaques, flat (Sergio, Oct 15 2026): one solid colour, engraved text, only the outer shadow. */
+  --brass-plate: #bf9000;
   --color-felt: #0c0c0d;
   --card-radius: 4px;
   --crest-shadow: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.22));
@@ -1362,7 +1357,7 @@ body[data-scroll-locked] .home-pin {
 .home-sections { display: grid; justify-items: stretch; gap: 0.45rem; width: 100%; margin: 0 auto; }
 .home-section-head { display: flex; align-items: center; justify-content: center; gap: 0.35rem; margin: 0; padding: 0; width: 100%; background: transparent; color: #14233a; border: 0; font-family: Palatino, "Palatino Linotype", "Iowan Old Style", Georgia, serif; letter-spacing: 0.03em; font-size: 0.95rem; font-weight: 500; line-height: 1.2; text-align: center; }
 .home-section-head svg { width: 0.95rem; height: 0.95rem; flex: none; }
-.home-panel { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 2.7rem; max-width: 100%; background: linear-gradient(180deg, #e4c98a, #c6a15b 45%, #8a6a3b); color: #14233a; border: 1px solid #8a6a3b; padding: 0.55rem 0.7rem; cursor: pointer; font: inherit; text-align: center; box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 #f3e2b8; }
+.home-panel { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 2.7rem; max-width: 100%; background: #bf9000; color: #14233a; border: 1px solid #8a6a3b; padding: 0.55rem 0.7rem; cursor: pointer; font: inherit; text-align: center; box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4); }
 .home-panel-art { width: 100%; flex: 1; min-height: 0; object-fit: contain; background: transparent; }
 .case-uniform-cut { display: block; width: min(100%, 22rem); margin: 0 auto; padding: 0; border: 10px solid #f4f4f4; border-top-color: #ffffff; border-left-color: #f7f7f7; border-right-color: #d5d5d5; border-bottom-color: #cfcfcf; background: #fff; cursor: pointer; box-shadow: 0 12px 18px rgba(0, 0, 0, 0.5); }
 .case-uniform-cut img { display: none; width: 100%; height: auto; object-fit: contain; background: #fff; }
@@ -1395,7 +1390,7 @@ body[data-scroll-locked] .home-pin {
 .case-slot-uniforms { grid-area: uniforms; }
 .case-uniform { display: block; width: 100%; height: auto; }
 
-.case-plaque { display: block; width: var(--plaque); max-width: 100%; margin: 0 auto; padding: 0.35rem 0.7rem; background: linear-gradient(180deg, #e4c98a, #c6a15b 45%, #8a6a3b); color: #14233a; border: 1px solid #8a6a3b; font-family: Palatino, "Palatino Linotype", "Iowan Old Style", Georgia, serif; letter-spacing: 0.04em; font-size: 0.82rem; font-weight: 500; text-align: center; line-height: 1.35; cursor: default; box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 #f3e2b8; }
+.case-plaque { display: block; width: var(--plaque); max-width: 100%; margin: 0 auto; padding: 0.35rem 0.7rem; background: #bf9000; color: #14233a; border: 1px solid #8a6a3b; font-family: Palatino, "Palatino Linotype", "Iowan Old Style", Georgia, serif; letter-spacing: 0.04em; font-size: 0.82rem; font-weight: 500; text-align: center; line-height: 1.35; cursor: default; box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4); }
 .case-plaque-name { white-space: nowrap; display: block; }
 .case-plaque-rank, .case-plaque-dates { display: block; }
 .case-flag-cut { display: none; }
@@ -1408,8 +1403,8 @@ body[data-scroll-locked] .home-pin {
 .case-tray {
   width: 100%; color: #14233a; text-align: center; padding: 0.8rem; cursor: pointer; font: inherit;
   border: 1px solid #8a6a3b;
-  background: linear-gradient(180deg, #e4c98a, #c6a15b 45%, #8a6a3b);
-  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 #f3e2b8;
+  background: #bf9000;
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4);
 }
 .case-slot-uniforms { color: #14233a; padding: 0.8rem; }
 .case-slot-uniforms .case-kicker { color: #14233a; }
