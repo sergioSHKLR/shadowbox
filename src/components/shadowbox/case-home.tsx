@@ -340,7 +340,10 @@ const oneL = (): Layout => {
   // v3 (Sergio, Oct 15): the ID card moves onto the pocket below the EXW, Liberty below it (between the pocket and the
   // USO card), USO at the bottom; the document column re-spreads passport, pink 2M, memorandum with even gaps.
   spreadTo(pos, ["onduty", "offduty", "admin"], SHIRT.pocket.cx, y + EXW_BOTTOM, y + H0 - PAD);
-  spreadTo(pos, ["map", "contact", "logbook"], DOC_X + DOC_W / 2, y, y + H0 - PAD);
+  // v4: pink 2M, passport, memorandum, stacked up from the bottom padding with the pocket column's card gap.
+  { const ids = ["contact", "map", "logbook"], bot = y + H0 - PAD;
+    const pgap = (bot - y - EXW_BOTTOM - ["onduty", "offduty", "admin"].reduce((t, id) => t + byId(id).h, 0)) / 3;
+    let yy = bot; for (const id of [...ids].reverse()) { const it = byId(id); yy -= it.h; pos[id] = [DOC_X + DOC_W / 2 - it.w / 2, yy]; yy -= pgap; } }
   // Pen upright beside the pocket's left edge, its top level with the pocket top (the pocket is 142 mm tall, the pen 142).
   pos.guestbook = [SHIRT.pocket.cx - (744.5 - 245.5) / PX / 2 - 6 - PEN.w, y + SHIRT.pocket.top];
   return { pos, size, tilt: {}, w: W, h: y + H0 };
