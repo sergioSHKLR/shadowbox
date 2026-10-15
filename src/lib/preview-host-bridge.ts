@@ -6,7 +6,8 @@
  */
 
 import { z } from "zod";
-import { CONNECTOR_TOKEN_READY_EVENT } from "./app-data/types";
+/** Fired by the Grok preview host when a connector token is ready (was in the removed app-data template). */
+const CONNECTOR_TOKEN_READY_EVENT = "grok:connector-token-ready";
 import { resolveParentEmbedderOrigin } from "./preview-embedder-origin";
 
 export {
