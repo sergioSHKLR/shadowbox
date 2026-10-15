@@ -1707,7 +1707,7 @@ object.cx-art { color-scheme: light; }
 .cx-modal-box { position: relative; display: flex; flex-direction: column; align-items: center; width: min(40rem, 100%); max-height: calc(100dvh - 2rem); padding: 2.6rem 1.2rem 1rem; background: #f7f2e7; color: #14233a; border: 1px solid #c6a15b; border-radius: 6px; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55); box-sizing: border-box; overflow: auto; animation: cx-rise 180ms ease-out; }
 .cx-modal-art { display: grid; place-items: center; flex: none; width: 100%; height: min(58dvh, 30rem); min-height: 8rem; }
 .cx-modal-art { overflow: hidden; box-sizing: border-box; padding: 6px 12px 16px; } /* room for the drop shadow (Sergio, Oct 2026: it was clipped at the bottom) */
-.cx-modal-art img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.35)); }
+.cx-modal-art img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.7)); }
 .cx-modal-rack { display: block; zoom: 3; }
 @media (max-width: 480px) { .cx-modal-rack { zoom: 2.4; } }
 .cx-modal-box h2 { margin: 0.8rem 0 0.3rem; text-align: center; font: 600 1.15rem/1.25 Georgia, "Iowan Old Style", serif; }
@@ -1731,7 +1731,7 @@ object.cx-art { color-scheme: light; }
 @keyframes cx-rise { from { opacity: 0; transform: translateY(8px); } }
 @media (prefers-reduced-motion: reduce) { .cx-modal, .cx-modal-box { animation: none; } }
 .cx-modal-art:has(object) { container-type: size; }
-.cx-modal-art object { display: block; width: min(100cqw, 100cqh * var(--ar)); height: min(100cqh, 100cqw / var(--ar)); pointer-events: none; filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.35)); color-scheme: light; }
+.cx-modal-art object { display: block; width: min(100cqw, 100cqh * var(--ar)); height: min(100cqh, 100cqw / var(--ar)); pointer-events: none; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.7)); color-scheme: light; }
 /* Mounted size (Sergio, Oct 14 2026): one unit U = 1 in on the mounted rack. A rack of three is 4.125 U wide, so
    U = 18.5vw makes it at least 75vw on phones; capped at 5.5rem on desktop. Pins (ESWS 2.75 U, EXW, JCSE 1.6 U),
    medals (--mi) and the right-chest ribbons use the same U, so everything stays in proportion. */
