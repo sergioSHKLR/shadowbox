@@ -460,7 +460,7 @@ export const branches = branchesJson as Record<string, string>;
 export const caseCopy = caseJson;
 export const medals = medalsJson as Medal[];
 
-const decorationSlideArt = import.meta.glob("../../../incoming/decorations/*.{png,svg,webp,jpg,jpeg}", {
+const decorationSlideArt = import.meta.glob("../../art/decorations/*.{png,svg,webp,jpg,jpeg}", {
   eager: true,
   query: "?url",
   import: "default",
@@ -486,7 +486,7 @@ export function decorationSlideAt(month: number): DecorationSlide | null {
   return dated.at(-1) ?? decorationSlides[0] ?? null;
 }
 
-const uniformSlideArt = import.meta.glob("../../../incoming/plates/*.{png,svg,webp,jpg,jpeg}", {
+const uniformSlideArt = import.meta.glob("../../art/plates/*.{png,svg,webp,jpg,jpeg}", {
   eager: true,
   query: "?url",
   import: "default",
@@ -674,20 +674,20 @@ export function uniformStepsForLook(look: UniformLook): UniformStep[] {
   return uniformSteps.filter((step) => uniformSlideAt(step.month, look));
 }
 
-const medalArt = import.meta.glob("../../../incoming/medals/*.{png,svg,webp,jpg,jpeg}", {
+const medalArt = import.meta.glob("../../art/medals/*.{png,svg,webp,jpg,jpeg}", {
   eager: true,
   query: "?url",
   import: "default",
 }) as Record<string, string>;
 /** Transparent, trimmed copies of the medal rasters (white backing removed), same stems. */
-const medalCutArt = import.meta.glob("../../../incoming/medals/cut/*.webp", {
+const medalCutArt = import.meta.glob("../../art/medals/cut/*.webp", {
   eager: true,
   query: "?url",
   import: "default",
 }) as Record<string, string>;
 
 /** Medal sheet supplied by Sergio (Oct 14 2026), cut to transparent PNGs named by award id. Preferred over the rasters above in every mode. */
-const medalSheetArt = import.meta.glob("../../../incoming/medals/sheet/*.png", {
+const medalSheetArt = import.meta.glob("../../art/medals/sheet/*.png", {
   eager: true,
   query: "?url",
   import: "default",
@@ -722,7 +722,7 @@ function medalArtFor(id: string): string {
     if (aliases.has(stem)) return url;
   }
   const file = MEDAL_FILE[id];
-  return file ? `/incoming/medals/${file}` : "";
+  return file ? "" : "";
 }
 
 export const medalFor = (awardId: string) => {
@@ -2004,7 +2004,7 @@ export function toSubject(sel: Selection): SubjectView | null {
         ...(op.placeId ? [rel("place", op.placeId, placeById(op.placeId)?.name ?? "Place")] : []),
         ...opBases.map((place) => rel("place", place.id, place.name)),
       ],
-      usedHere: usedHereFor(op.id).length ? usedHereFor(op.id) : usedHereFor(op.unitId),
+      usedHere: usedHereFor(op.id).length ? usedHereFor(op.id) : op.unitId ? usedHereFor(op.unitId) : [],
     };
   }
 
