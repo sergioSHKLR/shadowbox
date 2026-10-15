@@ -326,6 +326,12 @@ const oneL = (): Layout => {
   crestGrid(pos, size, R2x3, c, 0, y, W, ch); y += ch;
   devGrid(pos, 5, G, y, W - 2 * G, DEV_H + 2 * G); y += DEV_H + 2 * G;
   shirtBlock(pos, 0, y);
+  // Phone only (Sergio, Oct 15): the right crest column shares the ID / passport column's centre line, and the pen stands
+  // upright in the gap between the pocket cards (the USO card after swapCards) and the memorandum.
+  const docCx = DOC_X + DOC_W / 2;
+  for (const r of R2x3) if (r[1]) pos[r[1]] = [docCx - size[r[1]].w / 2, pos[r[1]][1]];
+  const cardR = pos.admin[0] + CARD.w, memoL = pos.logbook[0];
+  pos.guestbook = [(cardR + memoL) / 2 - PEN.w / 2, pos.guestbook[1]];
   return { pos, size, tilt: {}, w: W, h: y + H0 };
 };
 /** Sergio (Oct 14): the USO card (contact) and the pink 2M card (admin) trade places in every layout. Same card size, so
