@@ -14,7 +14,7 @@ type Lang = "en" | "pt";
 const COPY = {
   en: {
     title: "Gallery",
-    lead: "Every photo on the site in one place: Sergio's own and the credited photos of the ships, aircraft, gear and towns from the record. Filter by command, operation or city.",
+    lead: "Sergio's own photos in one place. Filter by command, operation or city.",
     groups: { command: "Command", operation: "Operation", city: "City" } as Record<TagGroup, string>,
     clear: "Clear all",
     shown: (n: number, total: number) => (n === total ? `${total} photos` : `${n} of ${total} photos`),
@@ -30,7 +30,7 @@ const COPY = {
   },
   pt: {
     title: "Galeria",
-    lead: "Todas as fotos do site num só lugar: as do próprio Sergio e as fotos creditadas dos navios, aeronaves, equipamentos e cidades do registro. Filtre por comando, operação ou cidade.",
+    lead: "As fotos do próprio Sergio num só lugar. Filtre por comando, operação ou cidade.",
     groups: { command: "Comando", operation: "Operação", city: "Cidade" } as Record<TagGroup, string>,
     clear: "Limpar tudo",
     shown: (n: number, total: number) => (n === total ? `${total} fotos` : `${n} de ${total} fotos`),
@@ -75,7 +75,7 @@ export function Gallery({ locale = "en" }: { locale?: string }) {
       <h2>{c.title}</h2>
       <p>{c.lead}</p>
       <section className="gallery-filters" aria-label={c.filters}>
-        {TAG_GROUPS.map((g) => (
+        {TAG_GROUPS.filter((g) => tags[g].length).map((g) => (
           <div key={g} className="gallery-group" role="group" aria-labelledby={`gallery-g-${g}`}>
             <h3 id={`gallery-g-${g}`}>{c.groups[g]}</h3>
             <div className="gallery-chips">
