@@ -96,6 +96,30 @@ const en = {
   logbookLead: "Step through the commands with the arrows. Rank & Awards and Admin show each command as of its end; Decorations, Uniforms, On Duty, and Off Duty, the unit crests, and the map follow the active command. Labels and dates come from the record — blank beats a guess.",
   mapAbout: "About this map",
   wardrobe: "Wardrobe",
+  lb: {
+    rank: "Rank", pins: "Pins", ribbons: "Ribbons", rankInsignia: "Rank insignia", pinsAria: "Warfare and qualification pins",
+    ribbonsAria: "Ribbons, unmounted, in order of precedence",
+    awardOf: (i: number, n: number) => `award ${i} of ${n}`, awards: (n: number) => `${n} awards`,
+    noDevice: "no device",
+    device: (count: number, metal: string, kind: string, letter?: string) => {
+      const what = kind === "letter" ? `letter ${letter}` : kind === "oak" ? "oak leaf" : "star";
+      const plural = count === 1 ? what : kind === "oak" ? "oak leaves" : `${what}s`;
+      return `${count} ${metal} ${plural}`;
+    },
+    arrived: "Arrived", promoted: "Promoted", transferred: "Transferred", dateNotEntered: "Date not entered",
+    noRank: "No rank recorded for this command.", rankPath: "Rank on arrival, promotions, and rank at transfer",
+    duties: "Duties", dutiesAria: "Duties this tour", dutyTitle: "Title", dutyDept: "Dept", dutyDivision: "Division", dutyCollateral: "Collateral Duty", dutyWatch: "Watch",
+    school: "School", billetNec: ", this tour's billet NEC", gainedTour: ", gained this tour",
+    comingSoon: "Coming soon", noneYet: (what: string) => `No ${what} recorded for this command yet.`,
+    map: "Map", enlargeMap: "Enlarge map", enlargePlate: "Enlarge plate", uniformPlates: "Uniform plates", notAvailable: "Not available",
+    noPlate: (look: string, where: string) => `No ${look} plate for ${where}.`,
+    deployments: "Deployments", attachedTo: (list: string[]) => `attached to ${list.join(" and ")}`, pattern: "Pattern", gearFor: (what: string) => `Gear recorded for ${what}`,
+    prevCommand: "Previous command", nextCommand: "Next command", firstCommand: "First command", lastCommand: "Last command",
+    prev: "Previous", next: "Next", commands: "Commands", stepThrough: "Step through the commands", arrowsHint: "Arrow keys step between commands.",
+    mainTabs: "Rank and awards, or admin, for this command", about: "About", source: "Source", sources: "Sources", noPlates: "No command plates to drive the logbook.",
+    khakisFrom: "Khakis from", khakisChief: "Khakis are a chief's uniform", beforeChief: "before Chief",
+    looks: { white: "Whites", blue: "Blues", khaki: "Khakis" } as Record<string, string>,
+  },
   rankAwards: "Rank & Awards",
   crests: "Crests",
   unitCrests: "Unit crests",
@@ -226,6 +250,30 @@ const pt: typeof en = {
   logbookLead: "Avance pelos comandos com as setas. Posto e condecorações e Admin mostram cada comando ao seu término; condecorações, uniformes, serviço, folga, brasões e o mapa acompanham o comando ativo. Rótulos e datas vêm do registro — em branco vale mais que um palpite.",
   mapAbout: "Sobre este mapa",
   wardrobe: "Guarda-roupa",
+  lb: {
+    rank: "Posto", pins: "Distintivos", ribbons: "Fitas", rankInsignia: "Insígnia do posto", pinsAria: "Distintivos de guerra e de qualificação",
+    ribbonsAria: "Fitas, soltas, em ordem de precedência",
+    awardOf: (i: number, n: number) => `condecoração ${i} de ${n}`, awards: (n: number) => `${n} condecorações`,
+    noDevice: "sem dispositivo",
+    device: (count: number, metal: string, kind: string, letter?: string) => {
+      const m = metal === "silver" ? "prata" : metal === "gold" ? "ouro" : metal === "bronze" ? "bronze" : metal;
+      const what = kind === "letter" ? (count === 1 ? `letra ${letter}` : `letras ${letter}`) : kind === "oak" ? (count === 1 ? "folha de carvalho" : "folhas de carvalho") : count === 1 ? "estrela" : "estrelas";
+      return `${count} ${what} de ${m}`;
+    },
+    arrived: "Chegada", promoted: "Promovido", transferred: "Transferido", dateNotEntered: "Data não informada",
+    noRank: "Nenhum posto registrado para este comando.", rankPath: "Posto na chegada, promoções e posto na transferência",
+    duties: "Funções", dutiesAria: "Funções nesta comissão", dutyTitle: "Cargo", dutyDept: "Depto.", dutyDivision: "Divisão", dutyCollateral: "Função colateral", dutyWatch: "Serviço de quarto",
+    school: "Escola", billetNec: ", NEC do cargo nesta comissão", gainedTour: ", obtido nesta comissão",
+    comingSoon: "Em breve", noneYet: (what: string) => `Nada registrado para este comando ainda (${what}).`,
+    map: "Mapa", enlargeMap: "Ampliar o mapa", enlargePlate: "Ampliar a placa", uniformPlates: "Placas de uniforme", notAvailable: "Não disponível",
+    noPlate: (look: string, where: string) => `Nenhuma placa (${look}) para ${where}.`,
+    deployments: "Desdobramentos", attachedTo: (list: string[]) => `adido a ${list.join(" e ")}`, pattern: "Padrão", gearFor: (what: string) => `Equipamento registrado para ${what}`,
+    prevCommand: "Comando anterior", nextCommand: "Próximo comando", firstCommand: "Primeiro comando", lastCommand: "Último comando",
+    prev: "Anterior", next: "Próximo", commands: "Comandos", stepThrough: "Percorrer os comandos", arrowsHint: "As setas percorrem os comandos.",
+    mainTabs: "Posto e condecorações, ou administração, deste comando", about: "Sobre", source: "Fonte", sources: "Fontes", noPlates: "Nenhuma placa de comando para o diário.",
+    khakisFrom: "Cáquis a partir de", khakisChief: "Cáquis são o uniforme de chief", beforeChief: "antes de Chief",
+    looks: { white: "Brancos", blue: "Azuis", khaki: "Cáquis" } as Record<string, string>,
+  },
   rankAwards: "Posto e condecorações",
   crests: "Brasões",
   unitCrests: "Brasões de unidade",
