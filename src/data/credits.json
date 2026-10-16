@@ -163,7 +163,7 @@
   },
   {
     "id": "rifle",
-    "title": "Navy Rifle Marksmanship Ribbon",
+    "title": "Navy Expert Rifleman Medal (ribbon)",
     "file": "/ribbons/rifle.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S._Navy_Rifle_Marksmanship_Ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
@@ -172,7 +172,7 @@
   },
   {
     "id": "pistol",
-    "title": "Navy Pistol Marksmanship Ribbon",
+    "title": "Navy Expert Pistol Shot Medal (ribbon)",
     "file": "/ribbons/pistol.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S._Navy_Pistol_Marksmanship_Ribbon.svg",
     "creator": "Wikimedia Commons contributors, after the United States military award design",
