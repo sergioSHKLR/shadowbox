@@ -12,7 +12,15 @@ import {
 } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 
-const rankLong = (id?: string) => { const r = ranks.find((row) => row.id === id); return r ? `${r.name} (${r.abbreviation})` : ""; };
+/** Long form only on a rank's first mention in this view (Oct 16); later rows use the abbreviation. */
+const seen = new Set<string>();
+const rankFirst = (id?: string) => {
+  const r = ranks.find((row) => row.id === id);
+  if (!r) return "";
+  if (seen.has(r.id)) return r.abbreviation;
+  seen.add(r.id);
+  return `${r.name} (${r.abbreviation})`;
+};
 function Pin({ id, onOpen }: { id: string; onOpen: (k: Kind, id: string) => void }) {
   const pin = warfare.find((row) => row.id === id);
   if (!pin?.image) return null;
@@ -85,6 +93,7 @@ export function Commands({ onOpen, title, lead }: { onOpen: (k: Kind, id: string
       <h2>{title}</h2>
       <p>{lead}</p>
       <ol className="command-list">
+        {(() => { seen.clear(); return null; })()}
         {commandPlates.filter((plate) => !(LOGBOOK_PIPELINE_UNIT_IDS as readonly string[]).includes(plate.unitId)).map((plate) => {
           const unit = units.find((row) => row.id === plate.unitId);
           if (!unit) return null;
@@ -103,9 +112,9 @@ export function Commands({ onOpen, title, lead }: { onOpen: (k: Kind, id: string
                   {unit.start ? formatSpan(unit.start, unit.end) : ""}
                   {" · "}
                   {/* Civilian readability (Sergio, Oct 16): long form first, the badges below then use the abbreviation. */}
-                  {rankLong(plate.inRank)} in
+                  {rankFirst(plate.inRank)} in
                   {" · "}
-                  {plate.outRank === plate.inRank ? ranks.find((row) => row.id === plate.outRank)?.abbreviation : rankLong(plate.outRank)} out
+                  {rankFirst(plate.outRank)} out
                 </p>
               </header>
               <div className="command-scroller" aria-label={`${unit.abbreviation} command row`}>
