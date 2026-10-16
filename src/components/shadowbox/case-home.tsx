@@ -441,6 +441,95 @@ function ModalGroup() {
   );
 }
 
+/** Touch pinch-zoom on the case (Oct 16 2026). Touch pointers only, so mouse and desktop are untouched.
+ *  - Two fingers pinch between 1x and 4x around their midpoint; one finger pans while zoomed.
+ *  - At 1x the browser keeps one-finger page scroll (touch-action: pan-x pan-y); zoomed, the case takes all touches.
+ *  - A double tap on the felt zooms to 2.5x there, or resets when zoomed. A tap on an item still opens it; a tap that
+ *    ended a pan or pinch is swallowed so it doesn't open anything.
+ *  The transform is on .cx-zoom, so the layout script (--k, --ox, --oy on .cx-canvas) is untouched. */
+const ZMIN = 1, ZMAX = 4;
+function usePinchZoom(stage: React.RefObject<HTMLDivElement | null>, layer: React.RefObject<HTMLDivElement | null>) {
+  useEffect(() => {
+    const el = stage.current, zl = layer.current;
+    if (!el || !zl) return;
+    let z = 1, tx = 0, ty = 0;
+    const pts = new Map<number, { x: number; y: number }>();
+    let start: { z: number; tx: number; ty: number; d: number; mx: number; my: number } | null = null;
+    let moved = false, lastTap = { t: 0, x: 0, y: 0 }, downAt = { x: 0, y: 0 };
+    const apply = (animate = false) => {
+      const w = el.clientWidth, h = el.clientHeight;
+      z = Math.min(ZMAX, Math.max(ZMIN, z));
+      tx = Math.min(0, Math.max(w - w * z, tx));
+      ty = Math.min(0, Math.max(h - h * z, ty));
+      zl.style.transition = animate ? "transform 0.2s ease-out" : "";
+      zl.style.transform = z === 1 ? "" : `translate(${tx}px, ${ty}px) scale(${z})`;
+      el.classList.toggle("is-zoomed", z > 1);
+    };
+    const local = (e: { clientX: number; clientY: number }) => { const r = el.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+    const zoomAt = (nz: number, px: number, py: number) => { nz = Math.min(ZMAX, Math.max(ZMIN, nz)); tx = px - ((px - tx) / z) * nz; ty = py - ((py - ty) / z) * nz; z = nz; };
+    const begin = () => {
+      const [a, b] = [...pts.values()];
+      if (b) start = { z, tx, ty, d: Math.hypot(a.x - b.x, a.y - b.y) || 1, mx: (a.x + b.x) / 2, my: (a.y + b.y) / 2 };
+      else start = { z, tx, ty, d: 1, mx: a.x, my: a.y };
+    };
+    const down = (e: PointerEvent) => {
+      if (e.pointerType !== "touch") return;
+      pts.set(e.pointerId, local(e));
+      if (pts.size === 1) { moved = false; downAt = local(e); }
+      if (pts.size === 2 || z > 1) { el.setPointerCapture?.(e.pointerId); }
+      begin();
+    };
+    const move = (e: PointerEvent) => {
+      if (e.pointerType !== "touch" || !pts.has(e.pointerId) || !start) return;
+      pts.set(e.pointerId, local(e));
+      const [a, b] = [...pts.values()];
+      if (b) {
+        const d = Math.hypot(a.x - b.x, a.y - b.y), mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+        const nz = Math.min(ZMAX, Math.max(ZMIN, start.z * (d / start.d)));
+        // Keep the canvas point under the start midpoint under the current midpoint.
+        tx = mx - ((start.mx - start.tx) / start.z) * nz; ty = my - ((start.my - start.ty) / start.z) * nz; z = nz;
+        moved = true; apply(); e.preventDefault();
+      } else if (z > 1) {
+        const dx = a.x - start.mx, dy = a.y - start.my;
+        if (Math.hypot(a.x - downAt.x, a.y - downAt.y) > 8) moved = true;
+        tx = start.tx + dx; ty = start.ty + dy; apply(); e.preventDefault();
+      } else if (Math.hypot(a.x - downAt.x, a.y - downAt.y) > 8) moved = true;
+    };
+    const up = (e: PointerEvent) => {
+      if (e.pointerType !== "touch" || !pts.has(e.pointerId)) return;
+      const p = local(e);
+      const wasMulti = pts.size > 1;
+      pts.delete(e.pointerId);
+      if (pts.size) { begin(); return; }
+      start = null;
+      if (e.type === "pointercancel" || moved || wasMulti) { lastTap.t = 0; return; }
+      // Double tap on the felt (not on an item): zoom in there, or reset.
+      const onItem = (e.target as Element | null)?.closest?.(".cx-item");
+      const now = performance.now();
+      if (!onItem && now - lastTap.t < 320 && Math.hypot(p.x - lastTap.x, p.y - lastTap.y) < 30) {
+        if (z > 1) { z = 1; tx = 0; ty = 0; } else zoomAt(2.5, p.x, p.y);
+        // The browser hit-tests the click after this jump, so swallow it or it opens whatever is now under the finger.
+        apply(true); lastTap.t = 0; moved = true; return;
+      }
+      lastTap = { t: now, x: p.x, y: p.y };
+    };
+    // A tap that ended a pan or pinch must not open the item under the finger.
+    const click = (e: MouseEvent) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } };
+    const resize = () => { if (z > 1) apply(); };
+    el.addEventListener("pointerdown", down);
+    el.addEventListener("pointermove", move, { passive: false });
+    el.addEventListener("pointerup", up);
+    el.addEventListener("pointercancel", up);
+    el.addEventListener("click", click, true);
+    window.addEventListener("resize", resize);
+    return () => {
+      el.removeEventListener("pointerdown", down); el.removeEventListener("pointermove", move);
+      el.removeEventListener("pointerup", up); el.removeEventListener("pointercancel", up);
+      el.removeEventListener("click", click, true); window.removeEventListener("resize", resize);
+    };
+  }, [stage, layer]);
+}
+
 /** Leaves the full case from inside it (the top bar is outside the fullscreen element). */
 const exitFull = () => {
   const f = document.querySelector<HTMLElement>(".case-frame[data-cover]");
@@ -493,10 +582,13 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en" }: { copy: C
     window.addEventListener("resize", fit);
     return () => { ro.disconnect(); window.removeEventListener("resize", fit); };
   }, []);
+  const zoomLayer = useRef<HTMLDivElement | null>(null);
+  usePinchZoom(stage, zoomLayer);
   const L = LAYOUTS[mode];
   return (
     <>
     <div ref={stage} className={hint ? "cx-stage cx-hint" : "cx-stage"} data-layout="wide" style={{ ["--ratio" as string]: `${WIDE.w} / ${WIDE.h}`, backgroundImage: `url("${caseUrl("felt.svg")}")` }}>
+      <div ref={zoomLayer} className="cx-zoom">
       <div className="cx-canvas">
         {ALL.map((item) => {
           const p = L.pos[item.id] ?? [0, 0];
@@ -536,6 +628,7 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en" }: { copy: C
             </button>
           );
         })}
+      </div>
       </div>
       <button type="button" className="cx-exit" aria-label={copy.exitFull} title={copy.exitFull} onClick={exitFull}>×</button>
       <button type="button" className="cx-help" aria-label={copy.help} title={copy.help} onClick={() => { setIntro(true); setHint(true); }}>?</button>
