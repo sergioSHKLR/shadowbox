@@ -31,6 +31,7 @@ import {
   type LogbookGearGroup,
   type Stop,
   type UniformSlide,
+  singleCopyDevices,
 } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
 import { RibbonArt } from "@/components/shadowbox/marks";
@@ -137,15 +138,21 @@ function RankAwards({ beat, beats, onOpen, t }: { beat: LogbookBeat; beats: Logb
         <Kicker>Ribbons</Kicker>
         {ribbons.length ? (
           <ol className="logbook-ribbons-flat" aria-label="Ribbons, unmounted, in order of precedence">
-            {ribbons.map((award) => {
-              const label = ribbonLabel(award);
-              return (
-                <li key={award.id}>
-                  <button type="button" className="logbook-ribbon-btn" onClick={() => onOpen("award", award.id)} aria-label={label} title={label}>
-                    <RibbonArt award={award} />
-                  </button>
-                </li>
-              );
+            {ribbons.flatMap((award) => {
+              // One ribbon per award, side by side (Sergio, Oct 16 2026): three Battle E's are three ribbons. The count is
+              // the plate's own `count` for this command (command-plates.json); each copy drops the additional-award devices.
+              const n = Math.max(1, award.count || 1);
+              const copy = n > 1 ? { ...award, count: 1, devices: singleCopyDevices(award.id) } : award;
+              return Array.from({ length: n }, (_, i) => {
+                const label = n > 1 ? `${award.name} · award ${i + 1} of ${n}` : ribbonLabel(award);
+                return (
+                  <li key={`${award.id}-${i}`}>
+                    <button type="button" className="logbook-ribbon-btn" onClick={() => onOpen("award", award.id)} aria-label={label} title={label}>
+                      <RibbonArt award={copy} />
+                    </button>
+                  </li>
+                );
+              });
             })}
           </ol>
         ) : (
