@@ -9,6 +9,7 @@ import { ranks, units, warfare } from "@/lib/shadowbox/model";
  */
 const first = (text: string | undefined) => (text ?? "").match(/^.*?[.!?](?=\s|$)/)?.[0] ?? "";
 const unitS = (id: string) => first(units.find((u) => u.id === id)?.explanation);
+const lower = (t: string) => (t ? t[0].toLowerCase() + t.slice(1) : t);
 const warS = (id: string) => first(warfare.find((w) => w.id === id)?.explanation);
 const rankS = (id: string, n = 0) => ((ranks.find((r) => r.id === id) as { explanation?: string } | undefined)?.explanation ?? "").split(/(?<=[.!?])\s+/)[n] ?? "";
 
@@ -33,7 +34,11 @@ const NOTES: Record<string, () => Note> = {
   guestbook: () => ({ en: "Sign the guestbook.", pt: "Assine o livro de visitas." }),
   "plaque-sr": () => ({ en: "The name plate under the Seaman Recruit portrait.", pt: "A placa sob o retrato de Seaman Recruit." }),
   plaque: () => ({ en: "The name plate under the Chief Petty Officer portrait.", pt: "A placa sob o retrato de Chief Petty Officer." }),
-  decorations: () => ({ en: "The ribbons as worn, in order of precedence.", pt: "As fitas como usadas, em ordem de precedência." }),
+  // Rack + pins are one target on the case (Oct 16 2026), so this note carries the pins too.
+  decorations: () => ({
+    en: `The ribbons as worn, in order of precedence. Above them, the Enlisted Surface Warfare Specialist (ESWS) pin: ${lower(warS("esws"))} Below, the Enlisted Expeditionary Warfare Specialist (EXW) pin: ${lower(warS("exw"))}`,
+    pt: "As fitas como usadas, em ordem de precedência. Acima delas, o distintivo de Enlisted Surface Warfare Specialist (ESWS): um distintivo de qualificação para marinheiros de navios de superfície. Abaixo, o de Enlisted Expeditionary Warfare Specialist (EXW): a versão expedicionária de um distintivo de guerra, para marinheiros de unidades que atuam em terra ou a partir do mar, e não como tripulação de um navio.",
+  }),
   uniforms: () => ({ en: "Uniforms worn across the career.", pt: "Uniformes usados na carreira." }),
   onduty: () => ({ en: "Equipment, gear, vehicles, ships, and aircraft.", pt: "Equipamento, viaturas, navios e aeronaves." }),
   offduty: () => ({ en: "Cars, motorcycles, residences, cities, and hobbies.", pt: "Carros, motos, residências, cidades e passatempos." }),
