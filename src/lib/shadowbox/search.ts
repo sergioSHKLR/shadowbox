@@ -41,6 +41,8 @@ const PAGES: Hit[] = [
   { title: "Em serviço", kindLabel: "Página", snippet: "Equipamento, viaturas, navios e aeronaves", open: { view: "onduty" } },
   { title: "Off Duty", kindLabel: "Page", snippet: "Cars, motorcycles, residences, cities, and hobbies", open: { view: "offduty" } },
   { title: "Fora de serviço", kindLabel: "Página", snippet: "Carros, motos, residências, cidades e passatempos", open: { view: "offduty" } },
+  { title: "Gallery", kindLabel: "Page", snippet: "Every photo, filtered by command, operation and city", open: { view: "gallery" } },
+  { title: "Galeria", kindLabel: "Página", snippet: "Todas as fotos, por comando, operação e cidade", open: { view: "gallery" } },
   { title: "Operations", kindLabel: "Page", snippet: "Deployments and exercises", open: { view: "ops" } },
   { title: "Operações", kindLabel: "Página", snippet: "Deslocamentos e exercícios", open: { view: "ops" } },
   { title: "Map", kindLabel: "Page", snippet: "Stations and deployments", open: { view: "map" } },
