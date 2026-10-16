@@ -391,6 +391,34 @@ function Rack() {
   );
 }
 
+/** The pins that share the rack's tap target. */
+const GROUP_PINS = ["swo", "exw"];
+const GROUP_IDS = ["decorations", ...GROUP_PINS];
+
+/** Ribbon rack + warfare pins as one button (Oct 16 2026). The button spans the union of the three boxes; each art keeps
+ *  its exact layout position, offset by the union's top-left. The ID card (z 4) still sits above and takes its own taps. */
+function RackGroup({ L, rack, name, go }: { L: Layout; rack: ReactNode; name: string; go: () => void }) {
+  const boxes = GROUP_IDS.map((id) => {
+    const it = byId(id);
+    const p = L.pos[id] ?? [0, 0];
+    const s = L.size[id] ?? it;
+    return { id, x: p[0], y: p[1], w: s.w, h: s.h, it };
+  });
+  const x0 = Math.min(...boxes.map((b) => b.x)), y0 = Math.min(...boxes.map((b) => b.y));
+  const x1 = Math.max(...boxes.map((b) => b.x + b.w)), y1 = Math.max(...boxes.map((b) => b.y + b.h));
+  const style = { "--ww": `${x1 - x0}px`, "--wh": `${y1 - y0}px`, "--wx": `${x0}px`, "--wy": `${y0}px`, "--wr": "0deg", "--wz": 3 } as CSSProperties;
+  return (
+    <button type="button" className="cx-item cx-group" data-id="decorations" style={style} aria-label={name} title={name} onClick={go}>
+      {boxes.map((b) => (
+        <span key={b.id} className="cx-group-part" data-part={b.id}
+          style={{ "--ww": `${b.w}px`, "--wh": `${b.h}px`, "--wx": `${b.x - x0}px`, "--wy": `${b.y - y0}px` } as CSSProperties}>
+          {b.id === "decorations" ? rack : <img className="cx-art" src={caseUrl(b.it.src)} alt="" draggable={false} />}
+        </span>
+      ))}
+    </button>
+  );
+}
+
 /** Leaves the full case from inside it (the top bar is outside the fullscreen element). */
 const exitFull = () => {
   const f = document.querySelector<HTMLElement>(".case-frame[data-cover]");
@@ -475,6 +503,9 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en" }: { copy: C
               />;
           if (dev) return [dev, <CaseButton key={item.id} item={item} style={style} art={art} name={item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : item.label} go={() => setView(item.id)} />];
           if (!item.view) return <span key={item.id} className="cx-item is-static" data-id={item.id} style={style}>{art}</span>;
+          // Rack + ESWS + EXW are one target (Sergio, Oct 16 2026): the pins render inside the rack's group button.
+          if (GROUP_PINS.includes(item.id)) return null;
+          if (item.id === "decorations") return <RackGroup key={item.id} L={L} rack={art} name={copy.rackGroup} go={() => setView("decorations")} />;
           const name = item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : label(item.view) || item.label;
           return (
             <button key={item.id} type="button" className="cx-item" data-id={item.id} style={style} aria-label={name} title={name}
@@ -497,7 +528,7 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en" }: { copy: C
 /** Reading order for prev/next (Sergio, Oct 14 2026): portraits with their plaques, each command's arrival device then
  *  its crest in service order, then the shirt (uniform, rack, pins) and the cards and documents on it. */
 const ORDER = ["bio-sr", "plaque-sr", "bio", "plaque", ...CRESTS_IN_ORDER.flatMap((id) => (byId(id).dev ? [`${id}-dev`, id] : [id])),
-  "uniforms", "decorations", "swo", "exw", "onduty", "map", "logbook", "contact", "admin", "offduty", "guestbook"];
+  "uniforms", "decorations", "onduty", "map", "logbook", "contact", "admin", "offduty", "guestbook"];
 /** Crests open the Logbook on that command (Sergio, Oct 14 2026; never a sidebar from Home); a device the Timeline, everything else its page. */
 const targetOf = (id: string): { view: string; unit?: string } => {
   if (id.endsWith("-dev")) return { view: "timeline" };
@@ -545,7 +576,7 @@ function ItemModal({ id, setId, copy: c, locale, label, go }: { id: string; setI
   }, [close, step]);
   const dev = id.endsWith("-dev");
   const it = dev ? null : byId(id);
-  const name = nameOf(id, label);
+  const name = id === "decorations" ? c.rackGroup : nameOf(id, label);
   const note = caseNote(id, locale);
   const t = targetOf(id);
   const page = t.unit ? `${label("logbook") || "Logbook"} · ${units.find((u) => u.id === t.unit)?.abbreviation ?? name}` : label(t.view) || t.view;
@@ -556,7 +587,13 @@ function ItemModal({ id, setId, copy: c, locale, label, go }: { id: string; setI
       <div ref={box} className="cx-modal-box" role="dialog" aria-modal="true" aria-labelledby="cx-modal-title" aria-describedby={note ? "cx-modal-note" : undefined}>
         <button type="button" className="cx-modal-x" aria-label={c.close} title={c.close} onClick={close}>×</button>
         <div className="cx-modal-art" style={{ ["--ar" as string]: String(ratio) }}>
-          {it?.rack ? <span className="cx-modal-rack"><Rack /></span>
+          {it?.rack ? (
+            <span className="cx-modal-group">
+              <img className="cx-modal-pin" src={caseUrl("esws-pin.svg")} alt="" draggable={false} />
+              <span className="cx-modal-rack"><Rack /></span>
+              <img className="cx-modal-pin" src={caseUrl("exw-pin.svg")} alt="" draggable={false} />
+            </span>
+          )
             // The ID card SVG pulls its photo, flag, barcode and seal from sibling files; an <img> blocks those, so it
             // shows as an <object> here, as on the case.
             : it?.obj ? <object type="image/svg+xml" data={caseUrl(src)} aria-hidden="true" tabIndex={-1} />
