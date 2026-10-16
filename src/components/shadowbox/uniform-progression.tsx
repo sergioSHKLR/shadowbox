@@ -107,7 +107,7 @@ export function UniformProgression({ tour }: { tour?: TourFocus | null }) {
               onChange={(e) => { setPlaying(false); setIndex(Number(e.target.value)); }}
             />
           </label>
-          <output className="uprog-date">{label}{rank ? ` · ${rank.abbreviation}` : ""}</output>
+          <output className="uprog-date">{label}{rank ? ` · ${rank.name} (${rank.abbreviation})` : ""}</output>
         </div>
       ) : null}
       <div className="uprog-stage">

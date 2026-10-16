@@ -1038,7 +1038,7 @@ export function timeline(): { duty: Bar[]; ops: Bar[]; study: Bar[]; rank: Bar[]
       key: `rank-${r.id}`,
       kind: "rank" as const,
       id: r.id,
-      title: r.abbreviation,
+      title: `${r.name} (${r.abbreviation})`,
       detail: `${r.name} (${r.grade})`,
       start: bound(r.date, "start"),
       end: dated[i + 1] ? bound(dated[i + 1].date, "start") : bound(profile.serviceEnd, "end"),
@@ -1515,7 +1515,7 @@ export function logbookBeats(): LogbookBeat[] {
         .join(" · "),
       command?.designator ? command.designator : null,
       command?.name && command.name !== command.abbreviation ? command.name : null,
-      rank ? `${rank.abbreviation} · ${rank.name}` : null,
+      rank ? `${rank.name} (${rank.abbreviation})` : null,
     ].filter((line): line is string => Boolean(line && line.trim()));
     return {
       index,

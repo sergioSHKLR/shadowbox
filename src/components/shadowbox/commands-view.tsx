@@ -12,6 +12,7 @@ import {
 } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 
+const rankLong = (id?: string) => { const r = ranks.find((row) => row.id === id); return r ? `${r.name} (${r.abbreviation})` : ""; };
 function Pin({ id, onOpen }: { id: string; onOpen: (k: Kind, id: string) => void }) {
   const pin = warfare.find((row) => row.id === id);
   if (!pin?.image) return null;
@@ -57,7 +58,7 @@ function RankMark({
   if (!rank) return null;
   const src = patchFor(id, year);
   return (
-    <button type="button" className="command-rank" onClick={() => onOpen("rank", rank.id)} aria-label={`${rank.abbreviation}, ${side}`}>
+    <button type="button" className="command-rank" onClick={() => onOpen("rank", rank.id)} aria-label={`${rank.name} (${rank.abbreviation}), ${side}`}>
       {src ? <img src={publicUrl(src)} alt="" /> : <strong>{rank.abbreviation}</strong>}
       <span>{rank.abbreviation}</span>
       <em>{side}</em>
@@ -101,15 +102,16 @@ export function Commands({ onOpen, title, lead }: { onOpen: (k: Kind, id: string
                 <p>
                   {unit.start ? formatSpan(unit.start, unit.end) : ""}
                   {" · "}
-                  {ranks.find((row) => row.id === plate.inRank)?.abbreviation} in
+                  {/* Civilian readability (Sergio, Oct 16): long form first, the badges below then use the abbreviation. */}
+                  {rankLong(plate.inRank)} in
                   {" · "}
-                  {ranks.find((row) => row.id === plate.outRank)?.abbreviation} out
+                  {plate.outRank === plate.inRank ? ranks.find((row) => row.id === plate.outRank)?.abbreviation : rankLong(plate.outRank)} out
                 </p>
               </header>
               <div className="command-scroller" aria-label={`${unit.abbreviation} command row`}>
                 <div className="command-plate">
                   <button type="button" className="command-crest" onClick={() => onOpen("unit", unit.id)} aria-label={unit.name}>
-                    {unit.image ? <img src={publicUrl(unit.image)} alt="" /> : <strong>{unit.abbreviation}</strong>}
+                    {unit.image ? <img loading="lazy" src={publicUrl(unit.image)} alt="" /> : <strong>{unit.abbreviation}</strong>}
                   </button>
                   <RankMark id={plate.inRank} side="in" year={yearOf(unit.start)} onOpen={onOpen} />
                   <div className="command-dress">

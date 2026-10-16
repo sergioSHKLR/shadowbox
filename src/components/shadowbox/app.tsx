@@ -238,6 +238,20 @@ export function ShadowboxApp() {
   // Page hits for hidden pages are dropped so search can't reach them either.
   const hits = useMemo(() => searchRecord(query).filter((hit) => !("view" in hit.open) || asView(hit.open.view) !== "home" || hit.open.view === "home"), [query]);
   const pane = (id: View) => (view === id ? "view-pane" : "view-pane screen-off");
+  // Lazy views (QA Oct 16): only Home and the open view are mounted at first; a view stays mounted once opened, and the
+  // rest mount on the first interaction (or after a few idle seconds), so the first load stays light.
+  const [warm, setWarm] = useState(false);
+  const [seenViews, setSeenViews] = useState<Set<View>>(() => new Set<View>(["home"]));
+  useEffect(() => { setSeenViews((s) => (s.has(view) ? s : new Set(s).add(view))); }, [view]);
+  useEffect(() => {
+    if (warm) return;
+    const wake = () => setWarm(true);
+    const opts = { once: true, passive: true } as const;
+    for (const ev of ["pointerdown", "keydown", "touchstart", "wheel"]) window.addEventListener(ev, wake, opts);
+    const t = window.setTimeout(wake, 8000);
+    return () => { window.clearTimeout(t); for (const ev of ["pointerdown", "keydown", "touchstart", "wheel"]) window.removeEventListener(ev, wake); };
+  }, [warm]);
+  const mounted = (id: View) => warm || view === id || seenViews.has(id);
   const go = (next: View) => {
     setView(asView(next));
     setMenu(false);
@@ -423,7 +437,7 @@ export function ShadowboxApp() {
   return (
     <div className="app-shell">
       <header className="app-bar">
-        <button type="button" className="app-home" onClick={() => go("home")} aria-label={t.home}>
+        <button type="button" className="app-home" onClick={() => go("home")} aria-label={`${t.title}, ${t.home}`}>
           <Mark />
           <span className="app-title">{t.title}</span>
         </button>
@@ -500,31 +514,31 @@ export function ShadowboxApp() {
       </header>
       <div className="app-main">
         <div className={pane("home")}><Home onOpen={open} onGo={(next) => go(next as View)} locale={locale} bio={BIO_PLACEHOLDER ? t.bioPlaceholder : t.bio} /></div>
-        <div className={pane("bio")}><BioPage locale={locale} bio={BIO_PLACEHOLDER ? t.bioPlaceholder : t.bio} /></div>
-        <div className={pane("uniforms")}><Uniforms onOpen={open} /></div>
-        <div className={pane("onduty")}><OnDuty onOpen={open} title={t.onduty} /></div>
-        <div className={pane("offduty")}><OffDuty onOpen={open} title={t.offduty} /></div>
-        <div className={pane("ops")}><Ops onOpen={open} title={t.ops} /></div>
-        <div className={pane("map")}><Boundary label="map" resetKey={view}><Stations stops={stops} onOpen={open} aboutLabel={t.mapAbout} title={t.map} locale={locale} t={t} /></Boundary></div>
-        <div className={pane("timeline")}>
+        <div className={pane("bio")}>{mounted("bio") ? (<><BioPage locale={locale} bio={BIO_PLACEHOLDER ? t.bioPlaceholder : t.bio} /></>) : null}</div>
+        <div className={pane("uniforms")}>{mounted("uniforms") ? (<><Uniforms onOpen={open} /></>) : null}</div>
+        <div className={pane("onduty")}>{mounted("onduty") ? (<><OnDuty onOpen={open} title={t.onduty} /></>) : null}</div>
+        <div className={pane("offduty")}>{mounted("offduty") ? (<><OffDuty onOpen={open} title={t.offduty} /></>) : null}</div>
+        <div className={pane("ops")}>{mounted("ops") ? (<><Ops onOpen={open} title={t.ops} /></>) : null}</div>
+        <div className={pane("map")}>{mounted("map") ? (<><Boundary label="map" resetKey={view}><Stations stops={stops} onOpen={open} aboutLabel={t.mapAbout} title={t.map} locale={locale} t={t} /></Boundary></>) : null}</div>
+        <div className={pane("timeline")}>{mounted("timeline") ? (<>
           <Timeline bars={bars} onOpen={open} title={t.pathTitle} lead={t.pathLead} />
-        </div>
-        <div className={pane("logbook")}>
+        </>) : null}</div>
+        <div className={pane("logbook")}>{mounted("logbook") ? (<>
           <Boundary label="logbook" resetKey={view}>
             <Logbook onOpen={open} title={t.logbook} lead={t.logbookLead} platesLabel={t.decorations} wardrobeLabel={t.uniforms} t={t} />
           </Boundary>
-        </div>
-        <div className={pane("decorations")}><Decorations onOpen={open} title={t.decorations} t={t} /></div>
-        <div className={pane("admin")}>
+        </>) : null}</div>
+        <div className={pane("decorations")}>{mounted("decorations") ? (<><Decorations onOpen={open} title={t.decorations} t={t} /></>) : null}</div>
+        <div className={pane("admin")}>{mounted("admin") ? (<>
           <Schools onOpen={open} title={t.schools} lead={t.schoolsLead} necTitle={t.necs} necLead={t.necsLead} dateNeeded={t.dateNeeded} />
-        </div>
-        <div className={pane("commands")}>
+        </>) : null}</div>
+        <div className={pane("commands")}>{mounted("commands") ? (<>
           <Commands onOpen={open} title={t.commands} lead={t.commandsLead} />
-        </div>
-        <div className={`${pane("sources")} no-book`}><Sources /></div>
-        <div className={`${pane("guestbook")} no-book`}><Guestbook locale={locale} onContact={() => go("contact")} /></div>
-        <div className={`${pane("contact")} no-book`}><Contact locale={locale} /></div>
-        <div className={`${pane("memories")} no-book`}><Memories /></div>
+        </>) : null}</div>
+        <div className={`${pane("sources")} no-book`}>{mounted("sources") ? (<><Sources /></>) : null}</div>
+        <div className={`${pane("guestbook")} no-book`}>{mounted("guestbook") ? (<><Guestbook locale={locale} onContact={() => go("contact")} /></>) : null}</div>
+        <div className={`${pane("contact")} no-book`}>{mounted("contact") ? (<><Contact locale={locale} /></>) : null}</div>
+        <div className={`${pane("memories")} no-book`}>{mounted("memories") ? (<><Memories /></>) : null}</div>
         {showPager && FOOTER_PAGER_ENABLED ? (
           <nav className="page-pager" aria-label={t.pageNav}>
             {prevView && PrevIcon ? (

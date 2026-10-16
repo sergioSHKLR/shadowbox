@@ -73,7 +73,7 @@ export function Memories() {
   return (
     <main className="sheet">
       <h2>Memories</h2>
-      <p className="quiet">Notes and photos stay in this browser. They are not on the public site until you upload them to incoming/.</p>
+      <p className="quiet">Notes and photos stay in this browser. They are not on the public site until they are added to it.</p>
       <form className="guest-form" onSubmit={(e) => { e.preventDefault(); void add((e.currentTarget.elements.namedItem("photos") as HTMLInputElement).files); }}>
         <label>Title <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={80} /></label>
         <label>Command
@@ -91,7 +91,7 @@ export function Memories() {
         {items.map((item) => (
           <li key={item.id}>
             <button type="button" className="memory-card" onClick={() => setOpen(item)}>
-              {item.photos[0] ? <img src={item.photos[0].src} alt="" /> : <span className="memory-empty">No photo</span>}
+              {item.photos[0] ? <img loading="lazy" src={item.photos[0].src} alt="" /> : <span className="memory-empty">No photo</span>}
               <strong>{item.title}</strong>
               <span>{item.at.slice(0, 10)}</span>
             </button>
@@ -104,7 +104,7 @@ export function Memories() {
           <p>{open.text || "No note."}</p>
           <ul className="memory-grid">
             {open.photos.map((photo) => (
-              <li key={photo.id}><img src={photo.src} alt="" /></li>
+              <li key={photo.id}><img loading="lazy" src={photo.src} alt="" /></li>
             ))}
           </ul>
           <button type="button" className="nav-btn" onClick={() => remove(open.id)}>Delete</button>

@@ -38,6 +38,18 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    // QA Oct 16: preload the home LCP art (shirt, both portraits) with the same ?v= hash publicUrl adds.
+    {
+      name: "shadowbox-preload-case-art",
+      transformIndexHtml() {
+        const v = caseHashes();
+        return ["shirt-long.svg", "portrait-chief.webp", "portrait-recruit.webp"].filter((n) => v[n]).map((n) => ({
+          tag: "link",
+          attrs: { rel: "preload", as: "image", href: `/case/${n}?v=${v[n]}`, fetchpriority: "high", ...(n.endsWith(".webp") ? { type: "image/webp", imagesrcset: `/case/${n.replace(".webp", "-320.webp")}?v=${v[n.replace(".webp", "-320.webp")]} 320w, /case/${n}?v=${v[n]} 640w`, imagesizes: "(max-width: 700px) 40vw, 18vw" } : {}) },
+          injectTo: "head" as const,
+        }));
+      },
+    },
     // Installable PWA: manifest + Workbox service worker at the site root (scope "/").
     // autoUpdate + skipWaiting/clientsClaim: a new deploy takes over on the next load, nobody is stuck on an old build.
     VitePWA({
@@ -50,13 +62,13 @@ export default defineConfig({
         id: "/",
         name: "Shadowbox",
         short_name: "Shadowbox",
-        description: "Zero gawking, All instructing",
+        description: "To honor & instruct",
         start_url: "/",
         scope: "/",
         display: "standalone",
         orientation: "any",
         // Top-bar navy (src/styles.css --color-navy): the app icon is the goldenrod shield on this navy, in light and dark alike.
-        theme_color: "#14233a",
+        theme_color: "#14181f", // matches the page theme-color (dark) so the installed title bar does not flash
         background_color: "#14233a",
         icons: [
           { src: "/icons/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },

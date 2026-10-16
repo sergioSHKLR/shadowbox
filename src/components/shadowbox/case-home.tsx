@@ -24,9 +24,9 @@ const CREST_H = 95;
 const DEV = {
   // Cap-device heights (Sergio): PO3 32, PO2 38, PO1 44, CPO 44 mm; width follows each art's own aspect.
   // Home-art set (Sergio, Oct 15 2026): po3.svg, po2.svg, po1-silver.svg, po1-gold.svg, cpo-anchor.svg; aspects from their viewBoxes.
-  po3: { src: "po3-silver-collar.svg", h: 32, w: 32 * 298.512 / 273.135, label: "PO3" }, po2: { src: "po2-silver-collar.svg", h: 38, w: 38 * 298.176 / 345.115, label: "PO2" },
-  po1: { src: "po1-silver-collar.svg", h: 44, w: 44 * 278.076 / 376.851, label: "PO1" }, po1g: { src: "po1-gold-collar.svg", h: 44, w: 44 * 278.077 / 376.851, label: "PO1 (gold)" },
-  cpo: { src: "cpo-collar.svg", h: 44, w: 44 * 240.838 / 366.897, label: "CPO" },
+  po3: { src: "po3-silver-collar.svg", h: 32, w: 32 * 298.512 / 273.135, label: "Petty Officer Third Class (PO3)" }, po2: { src: "po2-silver-collar.svg", h: 38, w: 38 * 298.176 / 345.115, label: "Petty Officer Second Class (PO2)" },
+  po1: { src: "po1-silver-collar.svg", h: 44, w: 44 * 278.076 / 376.851, label: "Petty Officer First Class (PO1)" }, po1g: { src: "po1-gold-collar.svg", h: 44, w: 44 * 278.077 / 376.851, label: "Petty Officer First Class (PO1), gold" },
+  cpo: { src: "cpo-collar.svg", h: 44, w: 44 * 240.838 / 366.897, label: "Chief Petty Officer (CPO)" },
 };
 const DEV_GAP = 5;
 const crest = (id: string, unit: string, file: string, aspect: number, label: string, dev?: Item["dev"]): Item => ({
@@ -98,7 +98,7 @@ const ITEMS: Item[] = [
 ];
 const CRESTS: Item[] = [
   crest("ncts", "ncts", "ncts-crest.svg", 1, "NCTS", DEV.po3),
-  crest("frank-cable", "frank-cable", "as40-crest.svg", 960 / 720, "USS Frank Cable", DEV.po2),
+  crest("frank-cable", "frank-cable", "as40-crest.svg", 710.007 / 710.963, "USS Frank Cable", DEV.po2),
   crest("eodmu5", "eodmu5", "eodmu5-crest.svg", 719.152 / 717.977, "EODMU-5", DEV.po1),
   crest("sercc", "sercc", "sercc-crest.svg", 341.781 / 298.482, "SERCC"),
   crest("jcse", "jcse", "jcse-crest.svg", 1208.234 / 1693.748, "JCSE", DEV.po1g),
@@ -463,7 +463,16 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en" }: { copy: C
             ? <img className="cx-art cx-lapel is-crop" src={caseUrl(item.src)} alt="" draggable={false} />
             : item.rack ? <Rack /> : item.obj
             ? <object className="cx-art" type="image/svg+xml" data={caseUrl(item.src)} aria-hidden="true" tabIndex={-1} />
-            : <img className={item.crop ? "cx-art is-crop" : "cx-art"} src={caseUrl(item.src)} alt="" draggable={false} />;
+            : <img
+                className={item.crop ? "cx-art is-crop" : "cx-art"}
+                src={caseUrl(item.src)}
+                // QA Oct 16: the portraits get a 320 px copy for small screens; the shirt and portraits load first (LCP).
+                srcSet={item.src.startsWith("portrait-") ? `${caseUrl(item.src.replace(".webp", "-320.webp"))} 320w, ${caseUrl(item.src)} 640w` : undefined}
+                sizes={item.src.startsWith("portrait-") ? "(max-width: 700px) 40vw, 18vw" : undefined}
+                fetchPriority={item.id === "uniforms" || item.src.startsWith("portrait-") ? "high" : undefined}
+                alt=""
+                draggable={false}
+              />;
           if (dev) return [dev, <CaseButton key={item.id} item={item} style={style} art={art} name={item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : item.label} go={() => setView(item.id)} />];
           if (!item.view) return <span key={item.id} className="cx-item is-static" data-id={item.id} style={style}>{art}</span>;
           const name = item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : label(item.view) || item.label;
@@ -500,7 +509,7 @@ const nameOf = (id: string, label: (v: string) => string) => {
   const it = byId(id);
   if (it.unit) return units.find((u) => u.id === it.unit)?.name ?? it.label;
   if (id === "swo" || id === "exw") return it.label;
-  if (id.startsWith("plaque") || id.startsWith("bio")) return `${label("bio") || it.label}${id.endsWith("-sr") ? " · SR" : id === "bio" || id === "plaque" ? " · CPO" : ""}`;
+  if (id.startsWith("plaque") || id.startsWith("bio")) return `${label("bio") || it.label}${id.endsWith("-sr") ? " · Seaman Recruit (SR)" : id === "bio" || id === "plaque" ? " · Chief Petty Officer (CPO)" : ""}`;
   return label(it.view ?? "") || it.label;
 };
 

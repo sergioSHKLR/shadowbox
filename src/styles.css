@@ -1232,7 +1232,8 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
    ring is about 9:1 on khaki and the white ring about 13:1 on the navy felt, so one of the two always reads. */
 .cx-item:focus-visible { outline: 2px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 5px #0b1f3a; }
 .cx-rack { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; width: 100%; height: 100%; pointer-events: none; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)); }
-.case-frame:has(.cx-stage) { width: min(100%, calc((100dvh - 7rem) * var(--cx-r, 1.679) + 2.7rem)); max-width: none; }
+/* Fits the window height too (QA Oct 16): top bar + frame margin (85 px) + frame padding top and bottom (~46 px) + a small gap = 9rem; the old 7rem left the case's bottom edge below the fold on every desktop size. */
+.case-frame:has(.cx-stage) { width: min(100%, calc((100dvh - 9rem) * var(--cx-r, 1.679) + 2.7rem)); max-width: none; }
 /* Two- and one-column home layouts scroll at full width (case-home.tsx modeFor). */
 .case-frame:has(.cx-stage[data-layout="twoP"]), .case-frame:has(.cx-stage[data-layout="one"]) { width: 100%; padding: 0.6rem; }
 .cx-stage[data-layout="twoP"], .cx-stage[data-layout="one"] { aspect-ratio: auto; min-height: 0; }
@@ -1575,3 +1576,9 @@ object.cx-art { color-scheme: light; }
 .cx-modal-art:has(img.cx-print) { container-type: size; }
 .cx-modal-art img.cx-print { box-sizing: border-box; width: min(100cqw, 100cqh * var(--ar)); height: min(100cqh, 100cqw / var(--ar)); padding: calc(min(100cqw, 100cqh * var(--ar)) * 0.035); background: #fff; object-fit: cover; }
 .cx-rack-img { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+/* QA Oct 16, tap targets: bigger hit areas without moving any art or text. */
+.site-card a:not([class]) { display: inline-block; padding-block: 0.7rem; margin-block: -0.7rem; }
+.guest-form input[type="checkbox"] { width: 1.375rem; height: 1.375rem; }
+.map-pin::after { content: ""; position: absolute; inset: -11px; }
+.cx-item[data-id="guestbook"]::after { content: ""; position: absolute; inset: -4px -14px; }
