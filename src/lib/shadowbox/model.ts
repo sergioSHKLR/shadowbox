@@ -868,6 +868,12 @@ function devicesForPlate(id: string, count: number, campaignStars?: number): Dev
   return devices;
 }
 
+/** Devices for ONE copy of a ribbon when repeats are shown side by side (Logbook, Oct 16 2026): no additional-award
+ *  stars or oak leaves (the extra ribbons stand for those); a Battle E copy carries one E. */
+export function singleCopyDevices(id: string, campaignStars?: number): Device[] {
+  return devicesForPlate(id, 1, campaignStars);
+}
+
 /** A command's ending rack, with devices for that tour's counts rather than the career rack. */
 export function plateAwards(entries: PlateEntry[]): Award[] {
   return entries.flatMap((entry) => {
