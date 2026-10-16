@@ -17,6 +17,7 @@ export function Home({ locale = "en", onOpen, onGo }: { onOpen?: (k: Kind, id: s
   const t = chrome(locale);
   return (
     <main className="sheet case-home">
+      <h1 className="sr-only">{locale === "pt" ? "Shadowbox: a carreira na Marinha do Chief Petty Officer Sergio Schickler" : "Shadowbox: the Navy career of Chief Petty Officer Sergio Schickler"}</h1>
       <section className="case-frame" aria-label="Shadowbox">
         <div className="case-mat case-mat-comp">
           <CaseHome onOpen={onOpen} onGo={onGo} label={(view) => pageLabel(t, view)} copy={t.intro} locale={locale} />

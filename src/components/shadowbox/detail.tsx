@@ -579,7 +579,7 @@ export function DetailPanel({
               </div>
               {subject.extraImages?.filter((extra) => extra.src).map((extra) => (
                 <figure key={extra.src} className="detail-hero hero-extra">
-                  <img src={publicUrl(extra.src)} alt={extra.alt} />
+                  <img loading="lazy" src={publicUrl(extra.src)} alt={extra.alt} />
                   <figcaption>{extra.caption}</figcaption>
                 </figure>
               ))}
@@ -676,7 +676,7 @@ function Photographs({ photos, onSelect, prominent = false }: { photos: Photo[];
           {photos.map((photo) => (
             <li key={photo.id}>
               <button type="button" className="gallery-open" onClick={() => onSelect({ kind: "photo", id: photo.id })}>
-                <img src={publicUrl(photo.src)} alt={photo.alt} />
+                <img loading="lazy" src={publicUrl(photo.src)} alt={photo.alt} />
               </button>
               <p>{photo.caption}</p>
               <PhotoRemarks src={photo.src} />

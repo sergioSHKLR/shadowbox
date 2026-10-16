@@ -613,3 +613,12 @@
 .logbook-look-set + .logbook-look-set { margin-top: 0.35rem; }
 .logbook-look-head { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-quiet); }
 [data-theme="dark"] .logbook-look-head { color: #c4b8a6; }
+
+/* Dress blues on the dark page (QA Oct 16): the black-and-navy plates read as a silhouette on the near-black felt, so
+   blues plates sit on a lighter slate panel in dark mode (light mode keeps the page behind them). */
+[data-theme="dark"] :is(.uprog-slide, .logbook-mannequin, .detail-hero, .cx-modal-art) :is(img[src*="blues"], img[src*="-sdb-"]) {
+  background: radial-gradient(ellipse at 50% 40%, #6b7689 0%, #4a5466 60%, #3a4353 100%);
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding: 4px;
+}

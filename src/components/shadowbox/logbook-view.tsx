@@ -84,8 +84,8 @@ function RankChip({ rank, tag, onOpen }: { rank: NonNullable<LogbookBeat["rank"]
       {RANK_COLLAR_ON_CARDS && rank.collar ? <img className="logbook-rank-collar" src={publicUrl(rank.collar)} alt="" /> : null}
       <span>
         {tag ? <em className="logbook-rank-tag">{tag}</em> : null}
-        <strong>{rank.abbreviation}</strong>
-        <small>{[rank.grade, rank.name].filter(Boolean).join(" · ")}</small>
+        <strong>{rank.name} ({rank.abbreviation})</strong>
+        {rank.grade ? <small>{rank.grade}</small> : null}
       </span>
     </button>
   );
@@ -419,7 +419,7 @@ function isChiefBeat(beat: LogbookBeat): boolean {
   return gradeNumber(beat.rank?.grade) >= 7;
 }
 const KHAKI_NOTE = CHIEF_RANK
-  ? `Khakis from ${CHIEF_RANK.abbreviation}${CHIEF_RANK.date ? `, ${formatWhen(CHIEF_RANK.date.slice(0, 7))}` : ""}`
+  ? `Khakis from ${CHIEF_RANK.name} (${CHIEF_RANK.abbreviation})${CHIEF_RANK.date ? `, ${formatWhen(CHIEF_RANK.date.slice(0, 7))}` : ""}`
   : "Khakis are a chief's uniform";
 
 /** The active command's own plate for a uniform (command-plates.json + its ready plates). Never another command's. */
@@ -954,7 +954,7 @@ export function Logbook({
               </button>
               {unit?.image ? (
                 <button type="button" className="logbook-own-crest" onClick={() => onOpen("unit", unit.id)} aria-label={`${unit.name} (unit details)`} title={unit.name}>
-                  <img src={publicUrl(unit.image)} alt="" onError={(event) => { event.currentTarget.hidden = true; }} />
+                  <img loading="lazy" src={publicUrl(unit.image)} alt="" onError={(event) => { event.currentTarget.hidden = true; }} />
                 </button>
               ) : null}
               <div className="logbook-beat-title">
