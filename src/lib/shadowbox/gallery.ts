@@ -3,8 +3,8 @@
  *
  * Sources
  *  - photos.json: Sergio's own photos (portraits, deployment shots, the *-wear uniform photos).
- *  - equipment.json entries with `cutout: false`: photo crops of ships, aircraft, vehicles, comms gear, cities and
- *    residences (stock photos credited in the record, or Sergio's own). Cut-outs on white (`cutout: true`), the
+ *  - equipment.json photo crops credited to Sergio himself (his C-5, C-9, C-130 and C-17 shots). Stock, Wikimedia and
+ *    DVIDS photos stay on their own pages but are not in the Gallery (Sergio, Oct 16 2026). Cut-outs on white (`cutout: true`), the
  *    mannequin renders, crests, ribbons and drawings are art, not photos, so they stay out.
  *  - Memories are not included: they live only in the visitor's own browser.
  *
@@ -131,7 +131,8 @@ function creditOf(c: { sourceUrl: string; creator: string; license: string } | u
 
 function fromEquipment(): GalleryPhoto[] {
   return equipment
-    .filter((e) => e.image && !e.cutout && !e.image.includes("/cut/"))
+    // Sergio's own only (Oct 16 2026): credited to him, no stock / Wikimedia / DVIDS source.
+    .filter((e) => e.image && !e.cutout && !e.image.includes("/cut/") && !e.credit?.sourceUrl && /schickler/i.test(e.credit?.creator ?? ""))
     .map((e) => {
       const tags: GalleryTag[] = [];
       const sources: TagSource[] = [];
