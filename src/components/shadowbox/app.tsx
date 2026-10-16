@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Medal, Anchor, Backpack, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, Maximize2, MessageCircle, Minimize2, Monitor, Moon, NotebookText, PenLine, Radio, Settings, ScrollText, Share2, Shirt, Sun, X } from "lucide-react";
+import { Images, Medal, Anchor, Backpack, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, Maximize2, MessageCircle, Minimize2, Monitor, Moon, NotebookText, PenLine, Radio, Settings, ScrollText, Share2, Shirt, Sun, X } from "lucide-react";
 import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
 import { BIO_PLACEHOLDER, chrome, type Chrome } from "@/lib/shadowbox/copy";
@@ -35,13 +35,14 @@ import { Sources } from "@/components/shadowbox/sources-view";
 import { Contact, Guestbook } from "@/components/shadowbox/footer-pages";
 import { BUILD_COMMIT, BUILD_VERSION, COMMIT_URL } from "@/lib/build-info";
 import { Memories } from "@/components/shadowbox/memories-view";
+import { Gallery } from "@/components/shadowbox/gallery-view";
 import { Schools } from "@/components/shadowbox/schools-view";
 import { Commands } from "@/components/shadowbox/commands-view";
 import { Logbook } from "@/components/shadowbox/logbook-view";
 import { Decorations } from "@/components/shadowbox/decorations-view";
 import { Boundary } from "@/components/shadowbox/boundary";
 
-type View = "home" | "bio" | "uniforms" | "decorations" | "onduty" | "offduty" | "ops" | "map" | "timeline" | "logbook" | "admin" | "commands" | "sources" | "contact" | "guestbook" | "memories";
+type View = "home" | "bio" | "uniforms" | "decorations" | "onduty" | "offduty" | "ops" | "map" | "timeline" | "logbook" | "admin" | "commands" | "sources" | "contact" | "guestbook" | "memories" | "gallery";
 
 const ALL_NAV = ["commands", "timeline", "logbook", "ops", "map", "uniforms", "onduty", "admin", "offduty"] as const;
 // Sergio: only Home and Logbook are public for now. The other pages keep their code and data but are unlinked
@@ -51,9 +52,9 @@ type PageId = "home" | (typeof ALL_NAV)[number];
 const NAV_ICON = { commands: Anchor, uniforms: Shirt, onduty: Radio, offduty: Car, ops: Flag, map: Map, timeline: ChartGantt, logbook: NotebookText, admin: ClipboardList };
 const PAGE_ICON: Record<PageId, typeof House> = { home: House, ...NAV_ICON };
 /** Top-bar menu follows the case: Home, Bio, Logbook, Uniforms, Timeline, Travelbook, then Guestbook and Contact. */
-const MENU = ["home", "bio", "logbook", "decorations", "uniforms", "timeline", "map", "onduty", "offduty", "admin", "guestbook", "contact"] as const;
+const MENU = ["home", "bio", "logbook", "decorations", "uniforms", "timeline", "map", "onduty", "offduty", "gallery", "admin", "guestbook", "contact"] as const;
 /** Menu and footer-pager icons (Sergio, Oct 2026): Home Anchor, Logbook BookOpen, Travel Book Map, Guestbook PenLine, Contact MessageCircle. */
-const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: Anchor, bio: ScrollText, timeline: ChartGantt, logbook: BookOpen, decorations: Medal, uniforms: Shirt, admin: ClipboardList, guestbook: PenLine, contact: MessageCircle, map: Map, onduty: Backpack, offduty: Car };
+const MENU_ICON: Record<(typeof MENU)[number], typeof House> = { home: Anchor, bio: ScrollText, timeline: ChartGantt, logbook: BookOpen, decorations: Medal, uniforms: Shirt, admin: ClipboardList, guestbook: PenLine, contact: MessageCircle, map: Map, onduty: Backpack, offduty: Car, gallery: Images };
 /** Footer pager icon, same size and stroke as the Settings gear. */
 function PagerIcon({ id }: { id: string }) {
   const Icon = (MENU_ICON as Record<string, typeof House>)[id];
@@ -309,7 +310,7 @@ export function ShadowboxApp() {
     };
     const onEnd = (event: TouchEvent) => {
       const target = event.target as Element | null;
-      if (target?.closest("input, textarea, .map-stage, .chart-scroll, .leaflet-container, .detail-overlay")) return;
+      if (target?.closest("input, textarea, .map-stage, .chart-scroll, .leaflet-container, .detail-overlay, .gallery-lightbox")) return;
       const touch = event.changedTouches[0];
       const dx = touch.clientX - startX;
       const dy = touch.clientY - startY;
@@ -538,6 +539,7 @@ export function ShadowboxApp() {
         <div className={`${pane("sources")} no-book`}>{mounted("sources") ? (<><Sources /></>) : null}</div>
         <div className={`${pane("guestbook")} no-book`}>{mounted("guestbook") ? (<><Guestbook locale={locale} onContact={() => go("contact")} /></>) : null}</div>
         <div className={`${pane("contact")} no-book`}>{mounted("contact") ? (<><Contact locale={locale} /></>) : null}</div>
+        <div className={pane("gallery")}>{mounted("gallery") ? (<><Gallery locale={locale} /></>) : null}</div>
         <div className={`${pane("memories")} no-book`}>{mounted("memories") ? (<><Memories /></>) : null}</div>
         {showPager && FOOTER_PAGER_ENABLED ? (
           <nav className="page-pager" aria-label={t.pageNav}>
