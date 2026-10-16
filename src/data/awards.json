@@ -381,14 +381,14 @@
     "countStatus": "confirmed",
     "devices": [],
     "deviceExplanation": "One NATO medal. The ribbon shown is the Non-Article 5 ribbon used for ISAF. The ISAF clasp is noted in the record; it is not drawn as a separate device here.",
-    "explanation": "A foreign award, from NATO rather than the United States, for service with the International Security Assistance Force in Afghanistan. Foreign awards are worn after U.S. service ribbons and before marksmanship ribbons.",
+    "explanation": "A foreign award, from NATO rather than the United States, for service with the International Security Assistance Force in Afghanistan. Foreign awards are worn after U.S. service awards and before the marksmanship awards.",
     "criteria": "Service with ISAF under the rules NATO set for the medal. Worksheet: 2013, Non-Article 5, Afghanistan.",
     "sourceNote": "NATO Medal, one award.",
     "commonsFile": "NATO_Medal_ribbon_(Non-Article_5).svg"
   },
   {
     "id": "rifle",
-    "name": "Navy Rifle Marksmanship Ribbon",
+    "name": "Navy Expert Rifleman Medal",
     "abbreviation": "Rifle",
     "branch": "navy",
     "precedence": 800,
@@ -405,15 +405,15 @@
         "style": "expert"
       }
     ],
-    "deviceExplanation": "Expert is the top of three levels: Marksman, Sharpshooter, Expert. Shown with the 1/4 in silver Expert E, a heavy slab-serif letter that differs from the Battle E. A sharpshooter ribbon would carry a bronze S instead.",
-    "explanation": "Shows the score fired with the service rifle on the Navy qualification course. It is a skill badge in ribbon form, worn at the very end of the rack, after every decoration and every foreign award.",
+    "deviceExplanation": "Expert is the top of three levels: Marksman, Sharpshooter, Expert. The ribbon carries the 1/4 in silver Expert E, a heavy slab-serif letter that differs from the Battle E.",
+    "explanation": "The Navy's medal for Expert qualification with the service rifle on the Navy qualification course, the highest of the three levels. Its ribbon carries the Expert E and is worn at the very end of the rack, after every decoration and every foreign award.",
     "criteria": "Expert qualification on the rifle course. Worksheet year: 2001.",
-    "sourceNote": "Navy Rifle Expert Medal.",
+    "sourceNote": "Navy Expert Rifleman Medal.",
     "commonsFile": "U.S._Navy_Rifle_Marksmanship_Ribbon.svg"
   },
   {
     "id": "pistol",
-    "name": "Navy Pistol Marksmanship Ribbon",
+    "name": "Navy Expert Pistol Shot Medal",
     "abbreviation": "Pistol",
     "branch": "navy",
     "precedence": 810,
@@ -431,9 +431,9 @@
       }
     ],
     "deviceExplanation": "Expert with the service pistol, shown with the 1/4 in silver Expert E (slab-serif, larger than the Battle E).",
-    "explanation": "The pistol version of the marksmanship ribbon. Same three levels. Expert is the highest. It is worn after the rifle ribbon.",
+    "explanation": "The pistol counterpart of the Expert Rifleman Medal: Expert qualification with the service pistol, the highest of the three levels. Its ribbon carries the Expert E and is worn after the rifle award.",
     "criteria": "Expert qualification on the pistol course. Worksheet year: 2000.",
-    "sourceNote": "Navy Pistol Expert Medal.",
+    "sourceNote": "Navy Expert Pistol Shot Medal.",
     "commonsFile": "U.S._Navy_Pistol_Marksmanship_Ribbon.svg"
   }
 ]
