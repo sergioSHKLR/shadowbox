@@ -419,6 +419,28 @@ function RackGroup({ L, rack, name, go }: { L: Layout; rack: ReactNode; name: st
   );
 }
 
+/** The rack and both pins in the modal (Oct 16 2026): laid out from the wide case's own boxes, so their spacing and
+ *  relative sizes are the real ones, then scaled as one block to fit the art area (nothing clipped at any width). */
+function ModalGroup() {
+  const L = LAYOUTS.wide;
+  const boxes = GROUP_IDS.map((id) => {
+    const p = L.pos[id] ?? [0, 0];
+    const sz = L.size[id] ?? byId(id);
+    return { id, x: p[0], y: p[1], w: sz.w, h: sz.h };
+  });
+  const x0 = Math.min(...boxes.map((b) => b.x)), y0 = Math.min(...boxes.map((b) => b.y));
+  const W = Math.max(...boxes.map((b) => b.x + b.w)) - x0, H = Math.max(...boxes.map((b) => b.y + b.h)) - y0;
+  const pct = (v: number, of: number) => `${(v / of) * 100}%`;
+  return (
+    <span className="cx-modal-group" style={{ ["--gar" as string]: String(W / H) }}>
+      {boxes.map((b) => (
+        <img key={b.id} className="cx-modal-part" data-part={b.id} src={caseUrl(b.id === "decorations" ? "ribbon-rack.svg" : byId(b.id).src)} alt="" draggable={false}
+          style={{ left: pct(b.x - x0, W), top: pct(b.y - y0, H), width: pct(b.w, W), height: pct(b.h, H) }} />
+      ))}
+    </span>
+  );
+}
+
 /** Leaves the full case from inside it (the top bar is outside the fullscreen element). */
 const exitFull = () => {
   const f = document.querySelector<HTMLElement>(".case-frame[data-cover]");
@@ -587,13 +609,7 @@ function ItemModal({ id, setId, copy: c, locale, label, go }: { id: string; setI
       <div ref={box} className="cx-modal-box" role="dialog" aria-modal="true" aria-labelledby="cx-modal-title" aria-describedby={note ? "cx-modal-note" : undefined}>
         <button type="button" className="cx-modal-x" aria-label={c.close} title={c.close} onClick={close}>×</button>
         <div className="cx-modal-art" style={{ ["--ar" as string]: String(ratio) }}>
-          {it?.rack ? (
-            <span className="cx-modal-group">
-              <img className="cx-modal-pin" src={caseUrl("esws-pin.svg")} alt="" draggable={false} />
-              <span className="cx-modal-rack"><Rack /></span>
-              <img className="cx-modal-pin" src={caseUrl("exw-pin.svg")} alt="" draggable={false} />
-            </span>
-          )
+          {it?.rack ? <ModalGroup />
             // The ID card SVG pulls its photo, flag, barcode and seal from sibling files; an <img> blocks those, so it
             // shows as an <object> here, as on the case.
             : it?.obj ? <object type="image/svg+xml" data={caseUrl(src)} aria-hidden="true" tabIndex={-1} />

@@ -1588,5 +1588,6 @@ object.cx-art { color-scheme: light; }
 .cx-group-part[data-part="decorations"] { z-index: 0; }
 .cx-group-part[data-part="swo"], .cx-group-part[data-part="exw"] { z-index: 1; }
 @media (hover: hover) { .cx-group:hover .cx-group-part { filter: brightness(1.15) drop-shadow(0 0 4px rgba(255, 230, 150, 0.9)); } }
-.cx-modal-group { display: flex; flex-direction: column; align-items: center; gap: 0.9rem; }
-.cx-modal-group .cx-modal-pin { width: auto; height: clamp(2.5rem, 9dvh, 4.5rem); max-width: 70%; object-fit: contain; }
+.cx-modal-art:has(.cx-modal-group) { container-type: size; }
+.cx-modal-group { position: relative; display: block; width: min(100cqw, 100cqh * var(--gar)); height: min(100cqh, 100cqw / var(--gar)); }
+.cx-modal-art img.cx-modal-part { position: absolute; display: block; min-height: 0; object-fit: contain; }
