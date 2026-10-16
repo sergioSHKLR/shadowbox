@@ -31,13 +31,18 @@ import {
   type LogbookGearGroup,
   type Stop,
   type UniformSlide,
-  singleCopyDevices,
+  plainCopyDevices,
 } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { Boundary } from "@/components/shadowbox/boundary";
 import { EnlargeButton, EnlargeDialog, PlateViewer } from "@/components/shadowbox/enlarge";
-import type { Chrome } from "@/lib/shadowbox/copy";
+import { chrome as chromeFor, type Chrome } from "@/lib/shadowbox/copy";
+import { createContext, useContext } from "react";
+
+/** Logbook strings for the active locale (Oct 16 2026: PT had English left in the Logbook). */
+const LbCtx = createContext<Chrome["lb"]>(chromeFor("en").lb);
+const useLb = () => useContext(LbCtx);
 
 type Open = (k: Kind, id: string) => void;
 type MainTab = "rank" | "admin";
@@ -67,10 +72,10 @@ function unmountedRibbons(list: LogbookBeat["rack"]): LogbookBeat["rack"] {
 }
 
 /** Name, plus count and devices only when the plate data carries them. */
-function ribbonLabel(award: LogbookBeat["rack"][number]): string {
+function ribbonLabel(award: LogbookBeat["rack"][number], lb: Chrome["lb"]): string {
   const bits = [award.name];
-  if (award.count > 1) bits.push(`${award.count} awards`);
-  if (award.devices?.length) bits.push(deviceSummary(award));
+  if (award.count > 1) bits.push(lb.awards(award.count));
+  if (award.devices?.length) bits.push(award.devices.map((d) => lb.device(d.count, d.metal, d.kind, "letter" in d ? (d as { letter?: string }).letter : undefined)).join(", "));
   return bits.join(" · ");
 }
 
@@ -94,21 +99,22 @@ function RankChip({ rank, tag, onOpen }: { rank: NonNullable<LogbookBeat["rank"]
 
 /** Arrived → (promotion date) → … → Transferred, when the command saw a promotion; else the single rank. */
 function RankPath({ beat, beats, onOpen }: { beat: LogbookBeat; beats: LogbookBeat[]; onOpen: Open }) {
+  const lb = useLb();
   const { arrival, promotions } = logbookRankPath(beats, beat.index);
   const rank = beat.rank;
   if (!promotions.length || !arrival) {
-    return rank ? <RankChip rank={rank} onOpen={onOpen} /> : <p className="quiet">No rank recorded for this command.</p>;
+    return rank ? <RankChip rank={rank} onOpen={onOpen} /> : <p className="quiet">{lb.noRank}</p>;
   }
   return (
-    <ol className="logbook-rank-path" aria-label="Rank on arrival, promotions, and rank at transfer">
+    <ol className="logbook-rank-path" aria-label={lb.rankPath}>
       <li>
-        <RankChip rank={arrival} tag="Arrived" onOpen={onOpen} />
+        <RankChip rank={arrival} tag={lb.arrived} onOpen={onOpen} />
       </li>
       {promotions.map((step, i) => (
         <li key={step.id} className="logbook-rank-step">
           <span className="logbook-rank-arrow" aria-hidden="true">→</span>
-          <span className="logbook-rank-when">{step.date ? formatWhen(step.date) : "Date not entered"}</span>
-          <RankChip rank={step} tag={i === promotions.length - 1 ? "Transferred" : "Promoted"} onOpen={onOpen} />
+          <span className="logbook-rank-when">{step.date ? formatWhen(step.date) : lb.dateNotEntered}</span>
+          <RankChip rank={step} tag={i === promotions.length - 1 ? lb.transferred : lb.promoted} onOpen={onOpen} />
         </li>
       ))}
     </ol>
@@ -117,16 +123,17 @@ function RankPath({ beat, beats, onOpen }: { beat: LogbookBeat; beats: LogbookBe
 
 function RankAwards({ beat, beats, onOpen, t }: { beat: LogbookBeat; beats: LogbookBeat[]; onOpen: Open; t: Chrome }) {
   const ribbons = unmountedRibbons(beat.rack);
+  const lb = useLb();
   const pins = [...beat.pinsAbove, ...beat.pinsBelow];
   return (
     <div className="logbook-ra">
-      <section className="logbook-ra-rank" aria-label="Rank insignia">
-        <Kicker>Rank</Kicker>
+      <section className="logbook-ra-rank" aria-label={lb.rankInsignia}>
+        <Kicker>{lb.rank}</Kicker>
         <RankPath beat={beat} beats={beats} onOpen={onOpen} />
       </section>
       {pins.length ? (
-        <section aria-label="Warfare and qualification pins">
-          <Kicker>Pins</Kicker>
+        <section aria-label={lb.pinsAria}>
+          <Kicker>{lb.pins}</Kicker>
           <div className="logbook-pins">
             {pins.map((id) => (
               <PinMark key={id} id={id} onOpen={onOpen} />
@@ -134,17 +141,21 @@ function RankAwards({ beat, beats, onOpen, t }: { beat: LogbookBeat; beats: Logb
           </div>
         </section>
       ) : null}
-      <section aria-label="Ribbons" className="logbook-ribbons-sec">
-        <Kicker>Ribbons</Kicker>
+      <section aria-label={lb.ribbons} className="logbook-ribbons-sec">
+        <Kicker>{lb.ribbons}</Kicker>
         {ribbons.length ? (
-          <ol className="logbook-ribbons-flat" aria-label="Ribbons, unmounted, in order of precedence">
+          <ol className="logbook-ribbons-flat" aria-label={lb.ribbonsAria}>
             {ribbons.flatMap((award) => {
               // One ribbon per award, side by side (Sergio, Oct 16 2026): three Battle E's are three ribbons. The count is
               // the plate's own `count` for this command (command-plates.json); each copy drops the additional-award devices.
-              const n = Math.max(1, award.count || 1);
-              const copy = n > 1 ? { ...award, count: 1, devices: singleCopyDevices(award.id) } : award;
+              // Logbook rule (Sergio, Oct 16 2026): each award is its own plain ribbon, no stars, oak leaves or numerals. The
+              // ACM / ICM repeat once per campaign star on this command's plate (each phase is a star; no bare ribbon). Kept:
+              // the E on the Battle E and the Expert E on rifle/pistol, which are part of the ribbon, not repeat devices.
+              const stars = award.devices.filter((d) => d.kind === "star").reduce((sum, d) => sum + d.count, 0);
+              const n = award.id === "acm" || award.id === "icm" ? Math.max(1, stars) : Math.max(1, award.count || 1);
+              const copy = { ...award, count: 1, devices: plainCopyDevices(award.id) };
               return Array.from({ length: n }, (_, i) => {
-                const label = n > 1 ? `${award.name} · award ${i + 1} of ${n}` : ribbonLabel(award);
+                const label = n > 1 ? `${award.name} · ${lb.awardOf(i + 1, n)}` : ribbonLabel(copy, lb);
                 return (
                   <li key={`${award.id}-${i}`}>
                     <button type="button" className="logbook-ribbon-btn" onClick={() => onOpen("award", award.id)} aria-label={label} title={label}>
@@ -169,23 +180,24 @@ function necCode(nec: { code: string }): string {
 }
 
 /** "School: COMSEC · NS San Diego, San Diego, CA" from the NEC's linked school(s) and its place, when the data has them. */
-function necSchoolLine(nec: { schoolIds?: string[]; placeId?: string }): string {
+function necSchoolLine(nec: { schoolIds?: string[]; placeId?: string }, school = "School"): string {
   const names = (nec.schoolIds ?? []).map((id) => schools.find((school) => school.id === id)?.abbreviation).filter(Boolean);
   const place = nec.placeId ? mapPlaceLabel(nec.placeId) || undefined : undefined;
   if (!names.length && !place) return "";
-  return `School: ${[names.join(", "), place].filter(Boolean).join(" · ")}`;
+  return `${school}: ${[names.join(", "), place].filter(Boolean).join(" · ")}`;
 }
 
 /** Admin as of the end of this command: NECs held and schools (necs.json / schools.json). */
 function AdminAsOf({ beat, onOpen, t }: { beat: LogbookBeat; onOpen: Open; t: Chrome }) {
   const { necsHeld, schoolsThisTour } = logbookAdminAsOf(beat);
   const duties = commandDutiesFor(beat.stop.commandId);
+  const lb = useLb();
   const dutyRows = [
-    { id: "title", label: "Title", items: duties.titles },
-    { id: "department", label: "Dept", items: duties.departments },
-    { id: "division", label: "Division", items: duties.divisions },
-    { id: "collateral", label: "Collateral Duty", items: duties.collateralDuties },
-    { id: "watch", label: "Watch", items: duties.watches },
+    { id: "title", label: lb.dutyTitle, items: duties.titles },
+    { id: "department", label: lb.dutyDept, items: duties.departments },
+    { id: "division", label: lb.dutyDivision, items: duties.divisions },
+    { id: "collateral", label: lb.dutyCollateral, items: duties.collateralDuties },
+    { id: "watch", label: lb.dutyWatch, items: duties.watches },
   ].filter((row) => row.items.length);
   const schoolBtn = (school: (typeof schoolsThisTour)[number]) => (
     <li key={school.id}>
@@ -210,9 +222,9 @@ function AdminAsOf({ beat, onOpen, t }: { beat: LogbookBeat; onOpen: Open; t: Ch
                     `NEC ${necCode(nec)}`,
                     isNew && nec.billetLabel ? nec.billetLabel : nec.name,
                     !(isNew && nec.billetLabel) && nec.awarded ? formatWhen(nec.awarded) : "",
-                    !(isNew && nec.billetLabel) ? necSchoolLine(nec) ?? "" : "",
+                    !(isNew && nec.billetLabel) ? necSchoolLine(nec, lb.school) ?? "" : "",
                   ].filter(Boolean).join("\n")}
-                  aria-label={`NEC ${necCode(nec)}, ${isNew && nec.billetLabel ? nec.billetLabel : nec.name}${isNew ? ", this tour's billet NEC" : ""}${gained ? ", gained this tour" : ""}`}
+                  aria-label={`NEC ${necCode(nec)}, ${isNew && nec.billetLabel ? nec.billetLabel : nec.name}${isNew ? lb.billetNec : ""}${gained ? lb.gainedTour : ""}`}
                 >
                   <strong>
                     NEC {necCode(nec)}
@@ -221,7 +233,7 @@ function AdminAsOf({ beat, onOpen, t }: { beat: LogbookBeat; onOpen: Open; t: Ch
                   </strong>
                   <span className="logbook-nec-name">{isNew && nec.billetLabel ? (nec.billetLabel === "No NEC billet" ? t.noNecBillet : nec.billetLabel) : nec.name}</span>
                   {!(isNew && nec.billetLabel) && nec.awarded ? <span className="logbook-nec-date">{formatWhen(nec.awarded)}</span> : null}
-                  {!(isNew && nec.billetLabel) && necSchoolLine(nec) ? <small className="logbook-nec-place">{necSchoolLine(nec)}</small> : null}
+                  {!(isNew && nec.billetLabel) && necSchoolLine(nec, lb.school) ? <small className="logbook-nec-place">{necSchoolLine(nec, lb.school)}</small> : null}
                 </button>
               </li>
             ))}
@@ -235,8 +247,8 @@ function AdminAsOf({ beat, onOpen, t }: { beat: LogbookBeat; onOpen: Open; t: Ch
         {schoolsThisTour.length ? <ul className="logbook-admin-list">{schoolsThisTour.map(schoolBtn)}</ul> : <p className="quiet">{t.noSchools}</p>}
       </section>
       {dutyRows.length ? (
-        <section aria-label="Duties this tour">
-          <Kicker>Duties</Kicker>
+        <section aria-label={lb.dutiesAria}>
+          <Kicker>{lb.duties}</Kicker>
           <dl className="logbook-duties">
             {dutyRows.map((row) => (
               <div key={row.id} className="logbook-duty-row">
@@ -328,6 +340,7 @@ function MapInset({
   beat: LogbookBeat;
   onOpen: (k: Kind, id: string) => void;
 }) {
+  const lb = useLb();
   // Excluded customer units never become map pins here (their places are not added as extras).
   void isMapExcludedUnit;
   // Each command's mini map shows the sequence rows that belong to it (see stopBeatOwners) and fits to them.
@@ -353,7 +366,7 @@ function MapInset({
         onSelect={(id) => onOpen("place", id)}
       />
       </Boundary>
-      <EnlargeButton ref={bigButton} open={big} label={`Enlarge map: ${beat.stop.labels[0]}`} onClick={() => setBig(true)} />
+      <EnlargeButton ref={bigButton} open={big} label={`${lb.enlargeMap}: ${beat.stop.labels[0]}`} onClick={() => setBig(true)} />
       <EnlargeDialog open={big} onOpenChange={setBig} title={beat.stop.labels[0]} subtitle="Map" className="enlarge-map" returnFocus={bigButton}>
         {big ? (
           <Boundary label="logbook map (large)" fallback={<p className="quiet">Map unavailable right now.</p>}>
@@ -377,10 +390,11 @@ function MapInset({
 }
 
 function ComingSoon({ what, message }: { what: string; message?: string }) {
+  const lb = useLb();
   return (
     <div className="logbook-soon">
-      <strong>Coming soon</strong>
-      <span className="quiet">{message ?? `No ${what} recorded for this command yet.`}</span>
+      <strong>{lb.comingSoon}</strong>
+      <span className="quiet">{message ?? lb.noneYet(what)}</span>
     </div>
   );
 }
@@ -425,9 +439,9 @@ const CHIEF_RANK = ranks.find((rank) => gradeNumber(rank.grade) >= 7) ?? null;
 function isChiefBeat(beat: LogbookBeat): boolean {
   return gradeNumber(beat.rank?.grade) >= 7;
 }
-const KHAKI_NOTE = CHIEF_RANK
-  ? `Khakis from ${CHIEF_RANK.name} (${CHIEF_RANK.abbreviation})${CHIEF_RANK.date ? `, ${formatWhen(CHIEF_RANK.date.slice(0, 7))}` : ""}`
-  : "Khakis are a chief's uniform";
+const khakiNote = (lb: Chrome["lb"]) => CHIEF_RANK
+  ? `${lb.khakisFrom} ${CHIEF_RANK.name} (${CHIEF_RANK.abbreviation})${CHIEF_RANK.date ? `, ${formatWhen(CHIEF_RANK.date.slice(0, 7))}` : ""}`
+  : lb.khakisChief;
 
 /** The active command's own plate for a uniform (command-plates.json + its ready plates). Never another command's. */
 function plateFor(beat: LogbookBeat, look: Look): UniformSlide | null {
@@ -481,6 +495,7 @@ function UniformsPanel({
   onLook: (look: Look) => void;
   onOpen: Open;
 }) {
+  const lb = useLb();
   const radioName = `logbook-look-${useId()}`;
   const chief = isChiefBeat(beat);
   const look: Look = chosen === "khaki" && !chief ? fallback : chosen;
@@ -519,7 +534,7 @@ function UniformsPanel({
     const off = row.id === "khaki" && !chief;
     const checked = setId == null ? look === row.id : plate?.file != null && shownGroup === setId && plate.look === row.id;
     return (
-      <label key={`${setId ?? ""}-${row.id}`} className={off ? "logbook-look is-off" : "logbook-look"} title={off ? `${KHAKI_NOTE} (${beatTitle(beat)}: ${beat.rank?.abbreviation ?? "before Chief"})` : undefined}>
+      <label key={`${setId ?? ""}-${row.id}`} className={off ? "logbook-look is-off" : "logbook-look"} title={off ? `${khakiNote(lb)} (${beatTitle(beat)}: ${beat.rank?.abbreviation ?? lb.beforeChief})` : undefined}>
         <input
           type="radio"
           name={radioName}
@@ -528,7 +543,7 @@ function UniformsPanel({
           disabled={off}
           onChange={() => { if (setId) setPickedGroup(setId); onLook(row.id); }}
         />
-        <span>{head ? <span className="sr-only">{head} </span> : null}{row.label}</span>
+        <span>{head ? <span className="sr-only">{head} </span> : null}{lb.looks[row.id] ?? row.label}</span>
       </label>
     );
   };
@@ -553,15 +568,15 @@ function UniformsPanel({
       {plate ? (
         <figure className="logbook-mannequin">
           {/* Tapping the plate enlarges it (Sergio, Oct 2026); the rank cards still open the rank. */}
-          <button type="button" className="logbook-plate-art" onClick={openBig} aria-label={`Enlarge plate: ${plate.caption}`} aria-haspopup="dialog">
+          <button type="button" className="logbook-plate-art" onClick={openBig} aria-label={`${lb.enlargePlate}: ${plate.caption}`} aria-haspopup="dialog">
             <img key={plate.file} src={publicUrl(plate.src)} alt="" />
           </button>
-          <EnlargeButton ref={bigButton} open={bigIndex != null} label={`Enlarge plate: ${plate.caption}`} onClick={openBig} />
+          <EnlargeButton ref={bigButton} open={bigIndex != null} label={`${lb.enlargePlate}: ${plate.caption}`} onClick={openBig} />
           <EnlargeDialog
             open={bigIndex != null}
             onOpenChange={(next) => { if (!next) setBigIndex(null); }}
             title={beatTitle(beat)}
-            subtitle="Uniform plates"
+            subtitle={lb.uniformPlates}
             className="enlarge-plate"
             returnFocus={bigButton}
           >
@@ -576,8 +591,8 @@ function UniformsPanel({
         </figure>
       ) : (
         <div className="logbook-soon logbook-mannequin-empty">
-          <strong>Not available</strong>
-          <span className="quiet">No {LOOKS.find((row) => row.id === look)?.label.toLowerCase()} plate for {beatTitle(beat)}.</span>
+          <strong>{lb.notAvailable}</strong>
+          <span className="quiet">{lb.noPlate((lb.looks[look] ?? look).toLowerCase(), beatTitle(beat))}</span>
         </div>
       )}
     </div>
@@ -587,14 +602,15 @@ function UniformsPanel({
 /** On Duty: deployment body armor + helmets (deployment-gear.json), then the command's other duty gear
  *  (equipment.json + used-here.json). Armor and helmets come only from deployment-gear.json. */
 function OnDutyPanel({ beat, onOpen, empty }: { beat: LogbookBeat; onOpen: Open; empty?: string }) {
+  const lb = useLb();
   const deployments = deploymentsForCommand(beat.stop.commandId);
   const groups = onDutyForCommand(beat.stop.commandId).filter((group) => group.id !== "armor" && group.id !== "helmets");
   if (!deployments.length && !groups.length) return <ComingSoon what="duty gear" message={empty} />;
   return (
     <div className="logbook-gear">
       {deployments.length ? (
-        <section aria-label="Deployments">
-          <Kicker>Deployments</Kicker>
+        <section aria-label={lb.deployments}>
+          <Kicker>{lb.deployments}</Kicker>
           <ul className="logbook-deploys">
             {(() => { const seen = new Set<string>(); return deployments.map((dep) => (
               <li key={dep.unitId} className="logbook-deploy">
@@ -604,8 +620,8 @@ function OnDutyPanel({ beat, onOpen, empty }: { beat: LogbookBeat; onOpen: Open;
                 <span className="quiet">{[dep.theater, dep.span].filter(Boolean).join(" · ")}</span>
                 {dep.pattern || dep.attachedTo.length || dep.note ? (
                   <span className="quiet logbook-deploy-meta">
-                    {[dep.note, dep.attachedTo.length ? `attached to ${dep.attachedTo.join(" and ")}` : null].filter(Boolean).join(", ")}
-                    {dep.pattern ? <>{dep.note || dep.attachedTo.length ? " · " : null}Pattern: <b>{dep.pattern}</b></> : null}
+                    {[dep.note, dep.attachedTo.length ? lb.attachedTo(dep.attachedTo) : null].filter(Boolean).join(", ")}
+                    {dep.pattern ? <>{dep.note || dep.attachedTo.length ? " · " : null}{lb.pattern}: <b>{dep.pattern}</b></> : null}
                   </span>
                 ) : null}
                 {(() => {
@@ -613,7 +629,7 @@ function OnDutyPanel({ beat, onOpen, empty }: { beat: LogbookBeat; onOpen: Open;
                   const cards = [gearCard(dep.bodyArmor), gearCard(dep.helmet)].filter((card): card is NonNullable<typeof card> => card != null && !seen.has(card.id));
                   cards.forEach((card) => seen.add(card.id));
                   return cards.length ? (
-                    <ul className="logbook-gear-list logbook-deploy-gear" aria-label={`Gear recorded for ${dep.label}`}>
+                    <ul className="logbook-gear-list logbook-deploy-gear" aria-label={lb.gearFor(dep.label)}>
                       {cards.map((card) => (
                         <li key={card.id}>
                           <button type="button" className="logbook-gear-item" onClick={() => onOpen("equipment", card.id)} aria-label={`${card.name}${dep.pattern ? `, ${dep.pattern}` : ""}`} title={`${card.name}${dep.pattern ? ` (${dep.pattern})` : ""}`}>
@@ -772,6 +788,7 @@ export function Logbook({
   wardrobeLabel?: string;
   t: Chrome;
 }) {
+  const lb = t.lb;
   const beats = useMemo(() => logbookBeats(), []);
   const narrow = useNarrow();
   const [active, setActive] = useState(0);
@@ -890,7 +907,7 @@ export function Logbook({
     return (
       <main className="sheet logbook">
         <h2>{title}</h2>
-        <p>No command plates to drive the logbook.</p>
+        <p>{lb.noPlates}</p>
       </main>
     );
   }
@@ -912,7 +929,7 @@ export function Logbook({
       <GearPanel groups={offDutyForCommand(beat.stop.commandId)} what="off-duty life" onOpen={onOpen} empty={t.noDutyGear} />
     );
   const mapRegion = (hidden: boolean) => (
-    <div className="logbook-map-tab" hidden={hidden} role="group" aria-label={`Map: ${mapBeat.stop.labels[0]}`}>
+    <div className="logbook-map-tab" hidden={hidden} role="group" aria-label={`${lb.map}: ${mapBeat.stop.labels[0]}`}>
       <MapInset beats={beats} beat={mapBeat} onOpen={onOpen} />
     </div>
   );
@@ -922,10 +939,10 @@ export function Logbook({
   const atStart = beat.index <= 0;
   const atEnd = beat.index >= beats.length - 1;
   const main = (
-    <section className="logbook-main" aria-label="Commands" onKeyDown={onMainKey}>
+    <section className="logbook-main" aria-label={lb.commands} onKeyDown={onMainKey}>
       <Tabbed
         idBase="logbook-main"
-        label="Rank and awards, or admin, for this command"
+        label={lb.mainTabs}
         tabs={[
           { id: "rank", label: t.rankAwards },
           { id: "admin", label: t.admin },
@@ -939,7 +956,7 @@ export function Logbook({
           <article
             ref={cardRef}
             tabIndex={0}
-            aria-label={`${beatTitle(beat)}. Arrow keys step between commands.`}
+            aria-label={`${beatTitle(beat)}. ${lb.arrowsHint}`}
             id={`logbook-beat-${beat.stop.n}`}
             data-beat={beat.index}
             className="logbook-beat is-active"
@@ -948,12 +965,12 @@ export function Logbook({
             {/* One bordered header block (Sergio, Oct 2026): ‹ crest, name, place/dates › and the About row; grows with About. */}
             <div className="logbook-head-box">
             {/* Prev / next live in the card's title row: "‹ NH Jacksonville ›". */}
-            <header className="logbook-beat-head logbook-stepper" ref={stepperRef} role="group" aria-label="Step through the commands">
+            <header className="logbook-beat-head logbook-stepper" ref={stepperRef} role="group" aria-label={lb.stepThrough}>
               <button
                 type="button"
                 className="logbook-step-btn"
-                aria-label="Previous command"
-                title={atStart ? "First command" : `Previous: ${beatTitle(beats[beat.index - 1])}`}
+                aria-label={lb.prevCommand}
+                title={atStart ? lb.firstCommand : `${lb.prev}: ${beatTitle(beats[beat.index - 1])}`}
                 onClick={() => step(-1)}
                 disabled={atStart}
               >
@@ -974,8 +991,8 @@ export function Logbook({
               <button
                 type="button"
                 className="logbook-step-btn"
-                aria-label="Next command"
-                title={atEnd ? "Last command" : `Next: ${beatTitle(beats[beat.index + 1])}`}
+                aria-label={lb.nextCommand}
+                title={atEnd ? lb.lastCommand : `${lb.next}: ${beatTitle(beats[beat.index + 1])}`}
                 onClick={() => step(1)}
                 disabled={atEnd}
               >
@@ -984,11 +1001,11 @@ export function Logbook({
             </header>
             {profile ? (
               <details className="logbook-about" key={beat.index}>
-                <summary>About</summary>
+                <summary>{lb.about}</summary>
                 <p>{profile.purpose}</p>
                 {profile.history ? <p>{profile.history}</p> : null}
                 <p className="logbook-about-src quiet">
-                  {profile.sources.length > 1 ? "Sources: " : "Source: "}
+                  {`${profile.sources.length > 1 ? lb.sources : lb.source}: `}
                   {profile.sources.map((src, i) => (
                     <span key={src.url}>
                       {i ? "; " : ""}
@@ -1009,6 +1026,7 @@ export function Logbook({
   );
 
   return (
+    <LbCtx.Provider value={lb}>
     <main className={`sheet logbook${narrow ? " is-narrow" : ""}`} ref={rootRef}>
       {/* Sergio: no visible page title or intro on the Logbook; the heading stays for screen readers. The lead copy stays in copy.ts. */}
       <h1 className="sr-only">{title}</h1>
@@ -1051,5 +1069,6 @@ export function Logbook({
         </div>
       )}
     </main>
+    </LbCtx.Provider>
   );
 }

@@ -874,6 +874,11 @@ export function singleCopyDevices(id: string, campaignStars?: number): Device[] 
   return devicesForPlate(id, 1, campaignStars);
 }
 
+/** Logbook copy of one award: only the letter devices that are part of the ribbon (Battle E, Expert E); nothing else. */
+export function plainCopyDevices(id: string): Device[] {
+  return devicesForPlate(id, 1, 0).filter((d) => d.kind === "letter");
+}
+
 /** A command's ending rack, with devices for that tour's counts rather than the career rack. */
 export function plateAwards(entries: PlateEntry[]): Award[] {
   return entries.flatMap((entry) => {
