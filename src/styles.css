@@ -1581,7 +1581,10 @@ object.cx-art { color-scheme: light; }
 .site-card a:not([class]) { display: inline-block; padding-block: 0.7rem; margin-block: -0.7rem; }
 .guest-form input[type="checkbox"] { width: 1.375rem; height: 1.375rem; }
 .map-pin::after { content: ""; position: absolute; inset: -11px; }
-.cx-item[data-id="guestbook"]::after { content: ""; position: absolute; inset: -4px -14px; }
+/* The pen is ~9-19 px wide on phones: widen its button (not the art) to at least 44 screen px, centred on the pen.
+   Canvas units are scaled by --k; the art keeps its own width in the middle, so nothing moves. */
+.cx-item[data-id="guestbook"] { --hitw: max(var(--ww), 44px / var(--k, 1)); width: var(--hitw); left: calc(var(--wx) - (var(--hitw) - var(--ww)) / 2); }
+.cx-item[data-id="guestbook"] > .cx-art { width: var(--ww); margin-inline: auto; }
 
 /* Rack + ESWS + EXW as one target on the case (Oct 16 2026): each part keeps its own layout box inside the group. */
 .cx-group-part { position: absolute; display: block; width: var(--ww); height: var(--wh); left: var(--wx); top: var(--wy); pointer-events: none; }
@@ -1591,3 +1594,11 @@ object.cx-art { color-scheme: light; }
 .cx-modal-art:has(.cx-modal-group) { container-type: size; }
 .cx-modal-group { position: relative; display: block; width: min(100cqw, 100cqh * var(--gar)); height: min(100cqh, 100cqw / var(--gar)); }
 .cx-modal-art img.cx-modal-part { position: absolute; display: block; min-height: 0; object-fit: contain; }
+
+/* Touch pinch-zoom on the case (Oct 16 2026): the zoom layer fills the stage and carries the felt so it zooms too.
+   At 1x the page still scrolls with one finger; zoomed, the case takes every touch. */
+.cx-zoom { position: absolute; inset: 0; transform-origin: 0 0; background: inherit; will-change: auto; }
+@media (pointer: coarse) {
+  .cx-stage { touch-action: pan-x pan-y; }
+  .cx-stage.is-zoomed { touch-action: none; }
+}
