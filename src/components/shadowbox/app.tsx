@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Images, Medal, Anchor, Backpack, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, Maximize2, MessageCircle, Minimize2, Monitor, Moon, NotebookText, PenLine, Radio, Settings, ScrollText, Share2, Shirt, Sun, X } from "lucide-react";
 import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
@@ -380,6 +380,16 @@ export function ShadowboxApp() {
     media.addEventListener("change", apply);
     return () => media.removeEventListener("change", apply);
   }, [prefsReady, locale, theme, fontSize]);
+  // The open menu fits under the header: its top (header height, safe area included) feeds the CSS max-height cap.
+  useLayoutEffect(() => {
+    const el = menuRef.current;
+    if (!menu || !el) return;
+    const place = () => el.style.setProperty("--app-menu-top", `${Math.max(0, el.getBoundingClientRect().top)}px`);
+    place();
+    window.addEventListener("resize", place);
+    window.visualViewport?.addEventListener("resize", place);
+    return () => { window.removeEventListener("resize", place); window.visualViewport?.removeEventListener("resize", place); };
+  }, [menu]);
   useEffect(() => {
     if (!menu) return;
     const close = (event: PointerEvent) => {
