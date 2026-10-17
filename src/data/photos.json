@@ -738,5 +738,85 @@
     "subjects": [
       { "kind": "equipment", "id": "sportster-1200" }
     ]
+  },
+  {
+    "id": "album-rifle-satellite-dish",
+    "src": "/photos/album/rifle-satellite-dish.webp",
+    "alt": "Sergio in a boonie hat, tan T-shirt and woodland camouflage trousers, holding a rifle in front of a large satellite dish",
+    "caption": "Rifle by a satellite dish. Film scan, date not recorded",
+    "subjects": [
+      { "kind": "uniform", "id": "green-camo" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-nwu-type-i",
+    "src": "/photos/album/nwu-type-i.webp",
+    "alt": "Sergio standing in the blue NWU Type I, full length",
+    "caption": "NWU Type I, full length. Date not recorded",
+    "subjects": [
+      { "kind": "uniform", "id": "nwu" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-color-guard",
+    "src": "/photos/album/color-guard.webp",
+    "alt": "Sergio in Chief Petty Officer dress blues and sunglasses in a color guard, flags behind him",
+    "caption": "Color guard, CPO dress blues. Date not recorded",
+    "subjects": [
+      { "kind": "uniform", "id": "cpo-sdb" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-veterans-day-2023-11-11-ribbons",
+    "src": "/photos/album/veterans-day-2023-11-11-ribbons.webp",
+    "alt": "Sergio in Chief Petty Officer dress blues with ribbons, standing by grey doors",
+    "caption": "Veterans Day, Fort Bend County, TX, 11 November 2023. Ribbons",
+    "subjects": [
+      { "kind": "uniform", "id": "cpo-sdb" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false,
+    "city": "Fort Bend County, TX"
+  },
+  {
+    "id": "album-veterans-day-2023-11-11-medals",
+    "src": "/photos/album/veterans-day-2023-11-11-medals.webp",
+    "alt": "Sergio in Chief Petty Officer dress blues with full-size medals, standing by grey doors",
+    "caption": "Veterans Day, Fort Bend County, TX, 11 November 2023. Full-size medals",
+    "subjects": [
+      { "kind": "uniform", "id": "cpo-sdb" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false,
+    "city": "Fort Bend County, TX"
+  },
+  {
+    "id": "album-memorial-day-2025-05-26",
+    "src": "/photos/album/memorial-day-2025-05-26.webp",
+    "alt": "Sergio in Chief Petty Officer dress blues with ribbons on a balcony with bunting",
+    "caption": "Memorial Day, Richmond, TX, 26 May 2025",
+    "subjects": [
+      { "kind": "uniform", "id": "cpo-sdb" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false,
+    "city": "Richmond, TX"
+  },
+  {
+    "id": "album-ribbon-rack-2025-11-09",
+    "src": "/photos/album/ribbon-rack-2025-11-09.webp",
+    "alt": "Close-up of the ribbon rack, warfare pins and rating badge on Sergio's Chief Petty Officer dress blues",
+    "caption": "Ribbon rack, warfare pins and rating badge, 9 November 2025",
+    "subjects": [
+      { "kind": "uniform", "id": "cpo-sdb" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
   }
 ]

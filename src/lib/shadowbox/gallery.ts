@@ -16,7 +16,8 @@
  *    uniform subjects at one and the same command (or operation), and no other in common, it takes that tag.
  *    Commands and operations are judged separately; when two or more remain in common (e.g. multicam -> OEF 2010
  *    and OEF 2012) that group stays untagged.
- *  - City: only a city or residence photo (places.json, else the record's name). Commands do not give a city: a unit's
+ *  - City: a photos.json `city` (from the photo's own EXIF location, e.g. the 2023+ album photos), or a city or
+ *    residence photo (places.json, else the record's name). Commands do not give a city: a unit's
  *    home base says nothing about where a given photo was taken (EODMU 5 photos are from Guam and from Iraq).
  *  - Date: an ISO date in the photo id (e.g. m4-rack-2006-03-18), else a full date or a year in the caption.
  */
@@ -105,7 +106,8 @@ function fromPhotos(): GalleryPhoto[] {
       const e = equipment.find((x) => x.id === s.id);
       if (e && CITY_GROUPS.has(e.group)) add(tags, sources, cityTagFromPlace(e.id) ?? { group: "city", id: e.id, label: e.name, title: e.name }, "photos.json subject (city)");
     }
-    if (!subs.some((s) => s.kind === "unit" || s.kind === "operation")) {
+    if (p.city) add(tags, sources, { group: "city", id: `city-${p.city.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`, label: p.city, title: p.city }, "photos.json city (EXIF location)");
+    if (p.infer !== false && !subs.some((s) => s.kind === "unit" || s.kind === "operation")) {
       // Commands and operations are judged separately, each with the other folded in (an operation counts as its
       // deployment command and vice versa), so a C-17 used with CJTF Troy and in both OEF tours stays untagged.
       const cmdsOf = (id: string) => [...new Set(usedAt(id).flatMap((k) => (unitById.has(k) ? [k] : [opById.get(k)?.unitId ?? ""])).filter(Boolean))];
@@ -117,7 +119,7 @@ function fromPhotos(): GalleryPhoto[] {
         add(tags, sources, isOp ? opTag(common[0]) : commandTag(common[0]), `used-here.json (only ${common[0]} in common for ${subs.map((x) => x.id).join(" + ")})`);
       }
     }
-    return { id: p.id, src: publicUrl(p.src), alt: p.alt, caption: p.caption, date: dateOf(p.id, p.caption), origin: "photo" as const, tags, sources };
+    return { id: p.id, src: publicUrl(p.src), alt: p.alt, caption: p.caption, date: dateOf(p.id, p.caption), credit: p.credit ? { text: `Photo: ${p.credit}` } : undefined, origin: "photo" as const, tags, sources };
   });
 }
 

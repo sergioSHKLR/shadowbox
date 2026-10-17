@@ -313,6 +313,12 @@ export type Photo = {
   caption: string;
   /** One still can list several On Duty, Off Duty, command, operation, or uniform records. */
   subjects: PhotoSubject[];
+  /** Photographer, shown in the Gallery lightbox as "Photo: …" (album photos, Oct 17 2026). */
+  credit?: string;
+  /** City from the photo's own EXIF location (Gallery City chip), e.g. "Richmond, TX". Never inferred. */
+  city?: string;
+  /** false: Gallery takes only the explicit subjects; no used-here.json command/operation inference (post-retirement photos). */
+  infer?: boolean;
 };
 
 export type Reflection = {
