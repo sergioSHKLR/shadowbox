@@ -1303,5 +1303,591 @@
     ],
     "credit": "Sergio Schickler",
     "infer": false
+  },
+  {
+    "id": "album-woodland-rifle-2004-09-01",
+    "src": "/photos/album/woodland-rifle-2004-09-01.webp",
+    "alt": "Sergio in woodland camouflage and a boonie hat holding a rifle beside a table",
+    "caption": "Rifle, beside a table, woodland camouflage, 1 September 2004",
+    "subjects": [
+      { "kind": "uniform", "id": "green-camo" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-telehandler-containers-2005-05-13",
+    "src": "/photos/album/telehandler-containers-2005-05-13.webp",
+    "alt": "A green military telehandler and equipment containers in a parking lot",
+    "caption": "Telehandler and equipment containers, 13 May 2005",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-pistol-range-2005-06-16",
+    "src": "/photos/album/pistol-range-2005-06-16.webp",
+    "alt": "Sergio in woodland camouflage firing a pistol at targets on a range",
+    "caption": "Firing a pistol at the range, woodland camouflage, 16 June 2005",
+    "subjects": [
+      { "kind": "uniform", "id": "green-camo" },
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-pistol-aim-2005-06-16",
+    "src": "/photos/album/pistol-aim-2005-06-16.webp",
+    "alt": "Over-the-shoulder view of Sergio aiming a pistol at range targets",
+    "caption": "Aiming a pistol at the range, woodland camouflage, 16 June 2005",
+    "subjects": [
+      { "kind": "uniform", "id": "green-camo" },
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-pistol-line-2005-06-16",
+    "src": "/photos/album/pistol-line-2005-06-16.webp",
+    "alt": "A line of shooters firing pistols on a range, Sergio among them",
+    "caption": "Pistol line at the range, woodland camouflage, 16 June 2005",
+    "subjects": [
+      { "kind": "uniform", "id": "green-camo" },
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-equipment-shelter-van-2005-06-22",
+    "src": "/photos/album/equipment-shelter-van-2005-06-22.webp",
+    "alt": "Sergio in woodland camouflage kneeling at electronic equipment by a shelter van",
+    "caption": "At electronic equipment by a shelter van, woodland camouflage, 22 June 2005",
+    "subjects": [
+      { "kind": "uniform", "id": "green-camo" },
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-green-humvee-2005-07-21",
+    "src": "/photos/album/green-humvee-2005-07-21.webp",
+    "alt": "A green Humvee parked by a building",
+    "caption": "Green Humvee by a building, 21 July 2005",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-display-table-2005-07-21",
+    "src": "/photos/album/display-table-2005-07-21.webp",
+    "alt": "Men in woodland camouflage behind an equipment display table",
+    "caption": "Equipment display table, 21 July 2005",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-display-room-bomb-suit-2005-07-21",
+    "src": "/photos/album/display-room-bomb-suit-2005-07-21.webp",
+    "alt": "People in woodland camouflage and a bomb-suit wearer in a display room",
+    "caption": "Display room with a bomb suit, 21 July 2005",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-display-table-equipment-2005-07-21",
+    "src": "/photos/album/display-table-equipment-2005-07-21.webp",
+    "alt": "Two men behind a display table with equipment",
+    "caption": "Display table with equipment, 21 July 2005",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-bomb-suit-2005-07-21",
+    "src": "/photos/album/bomb-suit-2005-07-21.webp",
+    "alt": "A person wearing an EOD bomb suit and helmet",
+    "caption": "EOD bomb suit, 21 July 2005",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-weapons-display-2005-07-21",
+    "src": "/photos/album/weapons-display-2005-07-21.webp",
+    "alt": "Rifles, a shotgun and a pistol displayed on a camouflage-covered table",
+    "caption": "Weapons on a display table, 21 July 2005",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "equipment", "id": "mk14" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-ordnance-display-2005-07-21",
+    "src": "/photos/album/ordnance-display-2005-07-21.webp",
+    "alt": "People in uniform looking at ordnance displayed on the floor",
+    "caption": "Ordnance display, 21 July 2005",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-shotgun-range-2005-11-10",
+    "src": "/photos/album/shotgun-range-2005-11-10.webp",
+    "alt": "Sergio in a tan T-shirt and ear protection firing a shotgun at a range",
+    "caption": "Firing a shotgun at the range, 10 November 2005",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-dress-blues-memorial-2006-02-05",
+    "src": "/photos/album/dress-blues-memorial-2006-02-05.webp",
+    "alt": "Sergio with a group of sailors in dress blues in front of a memorial wall",
+    "caption": "Dress blues, with a group of sailors in front of a memorial wall, 5 February 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "dress-blues" },
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-m-gator-aircraft-2006-02-21",
+    "src": "/photos/album/m-gator-aircraft-2006-02-21.webp",
+    "alt": "A green M-Gator utility vehicle loaded inside an aircraft",
+    "caption": "M-Gator loaded in an aircraft, 21 February 2006",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "equipment", "id": "m-gator" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-doorway-kneeling-2006-03-01",
+    "src": "/photos/album/doorway-kneeling-2006-03-01.webp",
+    "alt": "Sergio in desert camouflage, helmet and goggles kneeling in a doorway with a pistol",
+    "caption": "Kneeling in a doorway, desert camouflage, 1 March 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" },
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "troy" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-doorway-rifle-2006-03-01",
+    "src": "/photos/album/doorway-rifle-2006-03-01.webp",
+    "alt": "Sergio in desert camouflage, helmet and goggles aiming a rifle in a doorway",
+    "caption": "Rifle, in a doorway, desert camouflage, 1 March 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" },
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "troy" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-desert-body-armor-2006-05-05",
+    "src": "/photos/album/desert-body-armor-2006-05-05.webp",
+    "alt": "Sergio in desert camouflage and body armor beside a Humvee",
+    "caption": "Body armor, beside a Humvee, desert camouflage, 5 May 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" },
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "troy" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-helmet-field-2006-05-29",
+    "src": "/photos/album/helmet-field-2006-05-29.webp",
+    "alt": "Sergio in desert camouflage and a helmet working on equipment on the ground",
+    "caption": "Working on equipment in a field, desert camouflage, 29 May 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" },
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "troy" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-jerrv-antennas-2006-06-04",
+    "src": "/photos/album/jerrv-antennas-2006-06-04.webp",
+    "alt": "Sergio in desert camouflage beside a tan 6x6 vehicle with antennas",
+    "caption": "Beside a 6x6 vehicle, desert camouflage, 4 June 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" },
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "equipment", "id": "jerrv-6x6" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-dcu-selfie-2006-06-18",
+    "src": "/photos/album/dcu-selfie-2006-06-18.webp",
+    "alt": "Selfie of Sergio in sunglasses and a desert uniform",
+    "caption": "Selfie, desert camouflage, 18 June 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" },
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-eodmu5-cap-2006-08-21",
+    "src": "/photos/album/eodmu5-cap-2006-08-21.webp",
+    "alt": "Sergio in an EOD Mobile Unit Five cap, ear protection and a desert uniform",
+    "caption": "EOD Mobile Unit Five cap, desert camouflage, 21 August 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" },
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-cafe-laptop-2007-06-20",
+    "src": "/photos/album/cafe-laptop-2007-06-20.webp",
+    "alt": "Sergio in a brown hat and jacket at a cafe table with a laptop",
+    "caption": "At a cafe table with a laptop, 20 June 2007",
+    "subjects": [],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-c-ram-formation-2008-11-27",
+    "src": "/photos/album/c-ram-formation-2008-11-27.webp",
+    "alt": "Sergio in ACU in a formation in front of a C-RAM system",
+    "caption": "In formation by a C-RAM system, ACU, 27 November 2008",
+    "subjects": [
+      { "kind": "uniform", "id": "awu" },
+      { "kind": "unit", "id": "ia-army" },
+      { "kind": "equipment", "id": "centurion-c-ram" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-acu-desert-rifle-2009-01-14",
+    "src": "/photos/album/acu-desert-rifle-2009-01-14.webp",
+    "alt": "Sergio in ACU, helmet and body armor with a rifle in a desert landscape",
+    "caption": "Rifle, in a desert landscape, ACU, 14 January 2009",
+    "subjects": [
+      { "kind": "uniform", "id": "awu" },
+      { "kind": "equipment", "id": "ach-acu-cover" },
+      { "kind": "unit", "id": "ia-army" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-acu-rifles-2009-01-16",
+    "src": "/photos/album/acu-rifles-2009-01-16.webp",
+    "alt": "Sergio in ACU, helmet and body armor holding a rifle by sandbags",
+    "caption": "Rifle, by sandbags, ACU, 16 January 2009",
+    "subjects": [
+      { "kind": "uniform", "id": "awu" },
+      { "kind": "equipment", "id": "ach-acu-cover" },
+      { "kind": "unit", "id": "ia-army" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-boonie-pirate-statue-2009-04-17",
+    "src": "/photos/album/boonie-pirate-statue-2009-04-17.webp",
+    "alt": "Selfie of Sergio in an ACU boonie hat and goggles next to a pirate statue",
+    "caption": "Selfie by a pirate statue, ACU, 17 April 2009",
+    "subjects": [
+      { "kind": "uniform", "id": "awu" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-rucksack-march-2010-03-28",
+    "src": "/photos/album/rucksack-march-2010-03-28.webp",
+    "alt": "Sergio in ACU walking with a large rucksack and trekking poles",
+    "caption": "Rucksack march, ACU, 28 March 2010",
+    "subjects": [
+      { "kind": "uniform", "id": "awu" },
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-snow-mountain-water-2010-03-28",
+    "src": "/photos/album/snow-mountain-water-2010-03-28.webp",
+    "alt": "Sergio in ACU drinking water beside a rucksack on a snowy mountain",
+    "caption": "Water break beside a rucksack on a snowy mountain, ACU, 28 March 2010",
+    "subjects": [
+      { "kind": "uniform", "id": "awu" },
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-snow-trail-rucksack-2010-03-28",
+    "src": "/photos/album/snow-trail-rucksack-2010-03-28.webp",
+    "alt": "A soldier with a rucksack and trekking poles on a snowy mountain trail",
+    "caption": "Rucksack on a snowy mountain trail, 28 March 2010",
+    "subjects": [
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-snow-tent-2010-03-31",
+    "src": "/photos/album/snow-tent-2010-03-31.webp",
+    "alt": "Two soldiers standing by a snow-covered tent",
+    "caption": "Snow-covered tent, 31 March 2010",
+    "subjects": [
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-cargo-aircraft-troops-2010-08-19",
+    "src": "/photos/album/cargo-aircraft-troops-2010-08-19.webp",
+    "alt": "Troops seated and resting inside a military cargo aircraft",
+    "caption": "Inside a cargo aircraft, 19 August 2010",
+    "subjects": [
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-plaque-handshake-2010-10-19",
+    "src": "/photos/album/plaque-handshake-2010-10-19.webp",
+    "alt": "Sergio shaking hands and receiving a plaque in a large room",
+    "caption": "Receiving a plaque, 19 October 2010",
+    "subjects": [
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-acu-cot-bicycle-2011-06-23",
+    "src": "/photos/album/acu-cot-bicycle-2011-06-23.webp",
+    "alt": "Sergio in ACU standing beside a cot and a bicycle",
+    "caption": "ACU, beside a cot and a bicycle, Clay County, FL, 23 June 2011",
+    "subjects": [
+      { "kind": "uniform", "id": "awu" },
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false,
+    "city": "Clay County, FL"
+  },
+  {
+    "id": "album-multicam-wall-2012-09-23",
+    "src": "/photos/album/multicam-wall-2012-09-23.webp",
+    "alt": "Sergio in MultiCam with a rifle standing on a wall",
+    "caption": "Rifle, on a wall, MultiCam, 23 September 2012",
+    "subjects": [
+      { "kind": "uniform", "id": "multicam" },
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-rifle-aim-shoulder-2012-09-23",
+    "src": "/photos/album/rifle-aim-shoulder-2012-09-23.webp",
+    "alt": "Over-the-shoulder view of a soldier aiming a rifle with a holographic sight",
+    "caption": "Rifle with a holographic sight, 23 September 2012",
+    "subjects": [
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-rifle-flag-2012-09-23",
+    "src": "/photos/album/rifle-flag-2012-09-23.webp",
+    "alt": "Sergio in MultiCam aiming a rifle in front of a US flag",
+    "caption": "Rifle, in front of a US flag, MultiCam, 23 September 2012",
+    "subjects": [
+      { "kind": "uniform", "id": "multicam" },
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-truck-rifle-2012-09-23",
+    "src": "/photos/album/truck-rifle-2012-09-23.webp",
+    "alt": "Sergio in MultiCam with a rifle standing in the bed of a pickup truck",
+    "caption": "Rifle, in a pickup truck bed, MultiCam, 23 September 2012",
+    "subjects": [
+      { "kind": "uniform", "id": "multicam" },
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-two-pistols-2012-09-23",
+    "src": "/photos/album/two-pistols-2012-09-23.webp",
+    "alt": "Sergio in MultiCam holding two pistols overhead",
+    "caption": "Two pistols overhead, MultiCam, 23 September 2012",
+    "subjects": [
+      { "kind": "uniform", "id": "multicam" },
+      { "kind": "equipment", "id": "beretta-m9" },
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-pistols-truck-2012-09-23",
+    "src": "/photos/album/pistols-truck-2012-09-23.webp",
+    "alt": "Sergio in MultiCam aiming two pistols from a pickup truck",
+    "caption": "Aiming two pistols from a pickup truck, MultiCam, 23 September 2012",
+    "subjects": [
+      { "kind": "uniform", "id": "multicam" },
+      { "kind": "equipment", "id": "beretta-m9" },
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-sunglasses-sky-2012-09-23",
+    "src": "/photos/album/sunglasses-sky-2012-09-23.webp",
+    "alt": "Sergio in sunglasses and MultiCam against a blue sky",
+    "caption": "Sunglasses and MultiCam against a blue sky, 23 September 2012",
+    "subjects": [
+      { "kind": "uniform", "id": "multicam" },
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-cpo-dress-blues-ceremony-2019-11-22",
+    "src": "/photos/album/cpo-dress-blues-ceremony-2019-11-22.webp",
+    "alt": "Sergio seated in Chief Petty Officer dress blues and white cover beside flags",
+    "caption": "CPO dress blues, white cover, beside flags, 22 November 2019",
+    "subjects": [
+      { "kind": "uniform", "id": "cpo-sdb" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-cpo-dress-blues-handshake-2019-11-22",
+    "src": "/photos/album/cpo-dress-blues-handshake-2019-11-22.webp",
+    "alt": "Sergio in Chief Petty Officer dress blues shaking hands with a sailor",
+    "caption": "CPO dress blues, shaking hands, 22 November 2019",
+    "subjects": [
+      { "kind": "uniform", "id": "cpo-sdb" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-gryphon-group-sign",
+    "src": "/photos/album/gryphon-group-sign.webp",
+    "alt": "Sergio kneeling with a group in body armor in front of a Gryphon Group sign",
+    "caption": "Group photo at a Gryphon Group sign. Date not recorded",
+    "subjects": [],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-gym-leg-hold",
+    "src": "/photos/album/gym-leg-hold.webp",
+    "alt": "Sergio in a brown T-shirt and camouflage trousers in a gym, holding another person's leg",
+    "caption": "In a gym. Date not recorded",
+    "subjects": [],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-woodland-face-paint",
+    "src": "/photos/album/woodland-face-paint.webp",
+    "alt": "Sergio in woodland camouflage and face paint with a rifle in a room",
+    "caption": "Rifle, face paint, woodland camouflage. Date not recorded",
+    "subjects": [
+      { "kind": "uniform", "id": "green-camo" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-toc-group-rifles",
+    "src": "/photos/album/toc-group-rifles.webp",
+    "alt": "Sergio with a group holding rifles in front of a building marked T.O.C.",
+    "caption": "Group with rifles outside a TOC. Date not recorded",
+    "subjects": [],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-woodland-picnic-table",
+    "src": "/photos/album/woodland-picnic-table.webp",
+    "alt": "Sergio in woodland camouflage and face paint with a rifle by a picnic table",
+    "caption": "Rifle, by a picnic table, woodland camouflage. Date not recorded",
+    "subjects": [
+      { "kind": "uniform", "id": "green-camo" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-tent-waypoints-board",
+    "src": "/photos/album/tent-waypoints-board.webp",
+    "alt": "Sergio in a brown T-shirt with a rifle in a tent in front of a waypoints board",
+    "caption": "Rifle, in a tent by a waypoints board. Date not recorded",
+    "subjects": [],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-group-boonie-outdoors",
+    "src": "/photos/album/group-boonie-outdoors.webp",
+    "alt": "Sergio in a boonie hat smiling with a group in camouflage outdoors",
+    "caption": "With a group in camouflage outdoors. Date not recorded",
+    "subjects": [],
+    "credit": "Sergio Schickler",
+    "infer": false
   }
 ]
