@@ -1603,3 +1603,17 @@ object.cx-art { color-scheme: light; }
   .cx-stage { touch-action: pan-x pan-y; }
   .cx-stage.is-zoomed { touch-action: none; }
 }
+
+/* Medal photos (Oct 17 2026): photo sets in the sidebar; mounted photo fronts on Decorations, 3 rows of 5, each upper
+   row overlapping the suspension ribbons of the row below. Ribbon-only awards get their own section below. */
+.medal-hero-photo { padding: 0.8rem 0.5rem; }
+.medal-hero-photo .medal-set { display: block; width: min(100%, 26rem); height: auto; margin: 0 auto; }
+.decor-medal-grid--photo { gap: 0; }
+.decor-medal-grid--photo .decor-medal-row { position: relative; }
+.decor-medal-grid--photo .decor-medal-row + .decor-medal-row { margin-top: calc(var(--mi, 1rem) * -1.15); }
+.decor-medal-grid--photo .medal-raster { filter: drop-shadow(0 1px 1.5px rgba(0,0,0,0.55)); }
+.decor-photo-wrap { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+.decor-ribbon-only { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; border-top: 1px solid var(--color-line); padding-top: 1.25rem; width: min(100%, 36rem); }
+.decor-ribbon-only h3 { margin: 0; }
+.decor-ribbon-only .decor-rack { --in: clamp(3rem, 18.5vw, 5.5rem); }
+.decor-loose-medals .medal-raster { filter: drop-shadow(0 1px 1.5px rgba(0,0,0,0.55)); }

@@ -696,6 +696,14 @@ function MedalHero({ awardId }: { awardId: string }) {
   const medal = medalFor(awardId);
   if (!award || !medal) return null;
   const showBack = face === "back" && medal.back;
+  // Photo set (Oct 17 2026): ribbon bar, front and reverse in one photo; no vector ribbon beside it.
+  if (medal.set) {
+    return (
+      <figure className="detail-hero medal-hero medal-hero-photo">
+        <img className="medal-set" src={publicUrl(medal.set)} alt={`${award.name}: ribbon bar, medal front and reverse`} width={700} height={790} decoding="async" />
+      </figure>
+    );
+  }
   return (
     <figure className="detail-hero medal-hero">
       <div className="rack-toggle" role="group" aria-label="Medal side">
