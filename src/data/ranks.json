@@ -43,6 +43,7 @@
     "grade": "E-6",
     "abbreviation": "ET1",
     "image": "/incoming/patch-e6-red.svg",
+    "imageGold": "/incoming/patch-e6-gold.svg",
     "collar": "/incoming/collar-po1.webp",
     "name": "Electronics Technician First Class",
     "date": "2003-06",

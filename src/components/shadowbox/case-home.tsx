@@ -99,8 +99,8 @@ const ITEMS: Item[] = [
 const CRESTS: Item[] = [
   crest("ncts", "ncts", "ncts-crest.svg", 1, "NCTS", DEV.po3),
   crest("frank-cable", "frank-cable", "as40-crest.svg", 710.007 / 710.963, "USS Frank Cable", DEV.po2),
-  crest("eodmu5", "eodmu5", "eodmu5-crest.svg", 719.152 / 717.977, "EODMU-5", DEV.po1),
-  crest("sercc", "sercc", "sercc-crest.svg", 341.781 / 298.482, "SERCC"),
+  crest("eodmu5", "eodmu5", "eodmu5-crest.svg", 719.152 / 717.977, "EODMU 5", DEV.po1),
+  crest("sercc", "sercc", "sercc-crest.svg", 341.781 / 298.482, "SERCC", DEV.po1),
   crest("jcse", "jcse", "jcse-crest.svg", 1208.234 / 1693.748, "JCSE", DEV.po1g),
   crest("navhosp", "navhosp", "nhjax-crest.svg", 298.611 / 295.308, "NH Jacksonville", DEV.cpo),
 ];

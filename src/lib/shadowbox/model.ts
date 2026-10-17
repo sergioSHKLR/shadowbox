@@ -573,7 +573,7 @@ function firstUniformSlide(look: UniformLook): UniformSlide | null {
   return uniformSlides.find((slide) => slide.look === look && slide.month != null) ?? null;
 }
 
-/** Command walk on Timeline. SR/RTC opens; CPO plates are JCSE last year, then NAVHOSP. */
+/** Command walk on Timeline. SR/RTC opens; CPO plates are JCSE last year, then NH Jacksonville. */
 const UNIFORM_STEP_PLATES: { unitId: string; stem: string; id?: string; label?: string; span?: string }[] = [
   { unitId: "rtc", stem: "e1-blues" },
   { unitId: "ncts", stem: "e5-blues" },
@@ -839,6 +839,8 @@ export type Rank = {
   image?: string;
   /** Metal collar device in public/incoming. */
   collar?: string;
+  /** Gold rating badge (12 years from 30 Jun 1997 = 30 Jun 2009): same art the Commands page uses from 2009. */
+  imageGold?: string;
   explanation: string;
   note?: string;
 };
@@ -866,6 +868,11 @@ export type CommandPlate = {
   extras?: PlateExtra[];
   note?: string;
   rankNote?: string;
+  /** Rating-badge metal on arrival / at transfer. "gold" from 30 Jun 2009 (12 years); default red (silver collar era). */
+  inBadge?: "red" | "gold";
+  outBadge?: "red" | "gold";
+  /** Date the badge went gold during this tour (same rank in and out, e.g. SERCC). */
+  badgeChange?: string;
 };
 export const commandPlates = commandPlatesJson as CommandPlate[];
 
@@ -1509,7 +1516,7 @@ export function logbookBeats(): LogbookBeat[] {
     const plateWhen = command?.end || when;
     const month = monthKey(plateWhen) ?? monthKey(when);
     const plate = commandPlates.find((row) => row.unitId === stop.commandId) ?? plateForStop(stop, when);
-    const outRank = plate ? ranks.find((row) => row.id === plate.outRank) ?? null : null;
+    const outRank = plate ? withBadge(ranks.find((row) => row.id === plate.outRank) ?? null, plate.outBadge) : null;
     const rank = outRank ?? rankAt(plateWhen) ?? rankAt(when);
     const look = lookForRank(rank);
     const uniform =
@@ -2220,6 +2227,12 @@ export function wardrobeForBeat(beat: LogbookBeat): { items: WardrobeItem[]; wit
   return { items, withheld };
 }
 
+/** Rank with its gold rating badge when the plate says gold and gold art exists. */
+function withBadge(rank: Rank | null | undefined, badge?: "red" | "gold"): Rank | null {
+  if (!rank) return null;
+  return badge === "gold" && rank.imageGold ? { ...rank, image: rank.imageGold } : rank;
+}
+
 /**
  * Rank path for one Logbook command. Arrival and transfer ranks come from command-plates.json (inRank / outRank);
  * the promotions shown are the ranks.json steps after the arrival rank through the transfer rank, with their dates.
@@ -2233,7 +2246,12 @@ export function logbookRankPath(beats: LogbookBeat[], index: number): { arrival:
   if (plate) {
     const from = order.indexOf(plate.inRank);
     const to = order.indexOf(plate.outRank);
-    const arrival = ranks[from] ?? null;
+    const arrival = withBadge(ranks[from] ?? null, plate.inBadge);
+    // Same rank in and out, but the badge went gold during the tour (SERCC, 30 Jun 2009): show it as a step.
+    if (from >= 0 && from === to && plate.badgeChange && (plate.inBadge ?? "red") !== (plate.outBadge ?? "red")) {
+      const out = withBadge(ranks[to], plate.outBadge);
+      return { arrival, promotions: out ? [{ ...out, date: plate.badgeChange }] : [] };
+    }
     if (from < 0 || to < 0 || to <= from) return { arrival: arrival ?? beat?.rank ?? null, promotions: [] };
     return { arrival, promotions: ranks.slice(from + 1, to + 1) };
   }

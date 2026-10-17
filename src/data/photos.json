@@ -469,8 +469,8 @@
   {
     "id": "sentra-grey-2007-02-01",
     "src": "/equipment/nissan-sentra-silver-2.webp",
-    "alt": "Grey Nissan Sentra beside a sailor in summer whites, overlay stamp FEB 1 2007",
-    "caption": "Grey Sentra, 1 February 2007, EODMU 5",
+    "alt": "Gray Nissan Sentra beside a sailor in summer whites, overlay stamp FEB 1 2007",
+    "caption": "Gray Sentra, 1 February 2007, EODMU 5",
     "subjects": [
       { "kind": "equipment", "id": "nissan-sentra-silver" },
       { "kind": "uniform", "id": "working-whites" },
@@ -717,8 +717,8 @@
   {
     "id": "nissan-sentra-silver",
     "src": "/equipment/nissan-sentra-silver-photo.webp",
-    "alt": "Nissan Sentra, grey, 2007. Grey Sentra, Guam, 23 December 2006",
-    "caption": "Grey Sentra, Guam, 23 December 2006",
+    "alt": "Nissan Sentra, gray, 2007. Gray Sentra, Guam, 23 December 2006",
+    "caption": "Gray Sentra, Guam, 23 December 2006",
     "subjects": [
       { "kind": "equipment", "id": "nissan-sentra-silver" }
     ]
@@ -777,7 +777,7 @@
   {
     "id": "album-veterans-day-2023-11-11-ribbons",
     "src": "/photos/album/veterans-day-2023-11-11-ribbons.webp",
-    "alt": "Sergio in Chief Petty Officer dress blues with ribbons, standing by grey doors",
+    "alt": "Sergio in Chief Petty Officer dress blues with ribbons, standing by gray doors",
     "caption": "Veterans Day, Fort Bend County, TX, 11 November 2023. Ribbons",
     "subjects": [
       { "kind": "uniform", "id": "cpo-sdb" }
@@ -789,7 +789,7 @@
   {
     "id": "album-veterans-day-2023-11-11-medals",
     "src": "/photos/album/veterans-day-2023-11-11-medals.webp",
-    "alt": "Sergio in Chief Petty Officer dress blues with full-size medals, standing by grey doors",
+    "alt": "Sergio in Chief Petty Officer dress blues with full-size medals, standing by gray doors",
     "caption": "Veterans Day, Fort Bend County, TX, 11 November 2023. Full-size medals",
     "subjects": [
       { "kind": "uniform", "id": "cpo-sdb" }
@@ -931,7 +931,8 @@
     "caption": "Desert camouflage, on a road by containers, at EODMU 11 before deploying to Iraq, 14 February 2006",
     "subjects": [
       { "kind": "uniform", "id": "desert" },
-      { "kind": "unit", "id": "eodmu5" }
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "eodmu11" }
     ],
     "credit": "Sergio Schickler",
     "infer": false

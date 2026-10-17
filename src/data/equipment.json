@@ -250,7 +250,7 @@
     "image": "/equipment/jerrv-cougar-6x6.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cougar_type_JERRVs_in_Iraq.jpg",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Cougar_type_JERRVs_in_Iraq.jpg",
+      "file": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Cougar_type_JERRVs_in_Iraq.jpg",
       "creator": "Michael B. Lavender, U.S. Navy (2008)",
       "license": "Public domain (U.S. federal government work)"
     }
@@ -324,9 +324,9 @@
     "group": "ships",
     "order": 30,
     "name": "RHIB (rigid-hull inflatable boat)",
-    "caption": "EODMU-5 dive RHIB, about this size",
+    "caption": "EODMU 5 dive RHIB, about this size",
     "cutout": false,
-    "note": "Rigid-hull inflatable boat: a solid hull with inflatable tubes around it, used by Navy EOD mobile units as a dive and work boat. Sergio used an EODMU-5 center-console dive RHIB of about this size; the exact length and maker are not confirmed. Card photo: EODMU-5 Detachment Japan tending divers from a RHIB, 2005.",
+    "note": "Rigid-hull inflatable boat: a solid hull with inflatable tubes around it, used by Navy EOD mobile units as a dive and work boat. Sergio used an EODMU 5 center-console dive RHIB of about this size; the exact length and maker are not confirmed. Card photo: EODMU 5 Detachment Japan tending divers from a RHIB, 2005.",
     "image": "/equipment/rhib-eodmu5.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_051119-N-9851B-013_Members_of_Explosive_Ordnance_Disposal_Mobile_Unit_Five_(EODMU-5),_Detachment_Japan,_tend_to_divers_from_their_position_on_a_Rigid_Hull_Inflatable_Boat_(RHIB).jpg",
@@ -885,9 +885,9 @@
     "id": "nissan-sentra-silver",
     "group": "cars",
     "order": 52,
-    "name": "Nissan Sentra, grey, 2007",
+    "name": "Nissan Sentra, gray, 2007",
     "cutout": false,
-    "note": "POV-03. A 2007, grey. Guam. The card photo was supplied by Sergio. His Sentra is also in the photographs.",
+    "note": "POV-03. A 2007, gray. Guam. The card photo was supplied by Sergio. His Sentra is also in the photographs.",
     "image": "/equipment/cut/nissan-sentra-silver-own.webp",
     "credit": {
       "sourceUrl": "",
@@ -1203,7 +1203,7 @@
     "fullName": "Improved Outer Tactical Vest (IOTV)",
     "caption": "IOTV in UCP shown",
     "cutout": true,
-    "note": "The Improved Outer Tactical Vest (IOTV) carries front, back and side ballistic plates over soft armor. Worn on the first Iraq tour with EODMU 5 in DCU (issued through Navy EOD, EODMU-5), and on OEF I and OEF II with JCSE in MultiCam, each time with the ECH (deployment-gear.json). Card photo: an Army IOTV in UCP, 2008, not the pattern he wore.",
+    "note": "The Improved Outer Tactical Vest (IOTV) carries front, back and side ballistic plates over soft armor. Worn on the first Iraq tour with EODMU 5 in DCU (issued through Navy EOD, EODMU 5), and on OEF I and OEF II with JCSE in MultiCam, each time with the ECH (deployment-gear.json). Card photo: an Army IOTV in UCP, 2008, not the pattern he wore.",
     "image": "/equipment/cut/iotv-ucp.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Specialist_Kachinski%27s_IOTV_vest_in_UCP_camo.jpg",

@@ -69,7 +69,7 @@
     "year": 2005,
     "unitId": "eodmu5",
     "operationId": null,
-    "note": "Second EODMU-5 NAM (approximate year)"
+    "note": "Second EODMU 5 NAM (approximate year)"
   },
   {
     "id": "nam-2006",
@@ -123,9 +123,9 @@
     "id": "nmuc-2000",
     "awardId": "nmuc",
     "year": null,
-    "unitId": null,
+    "unitId": "frank-cable",
     "operationId": null,
-    "note": "One of five awards. The worksheet named 2000; NCTS was CONUS, so that year is not used."
+    "note": "Inferred (Oct 17 2026): USS Frank Cable MUC, August 2001 to July 2003. The worksheet named 2000; NCTS (shore) is not used."
   },
   {
     "id": "nmuc-u2",
@@ -133,31 +133,31 @@
     "year": null,
     "unitId": "frank-cable",
     "operationId": null,
-    "note": "USS Frank Cable (AS-40). Year not entered."
+    "note": "Inferred (Oct 17 2026): USS Frank Cable MUC, July 2002 to January 2003."
   },
   {
     "id": "nmuc-u3",
     "awardId": "nmuc",
     "year": null,
-    "unitId": null,
+    "unitId": "frank-cable",
     "operationId": null,
-    "note": "Year not on the worksheet."
+    "note": "Inferred (Oct 17 2026): USS Frank Cable MUC, August 2003 to July 2005 (aboard until 2004)."
   },
   {
     "id": "nmuc-u4",
     "awardId": "nmuc",
     "year": null,
-    "unitId": null,
+    "unitId": "eodmu5",
     "operationId": null,
-    "note": "Year not on the worksheet."
+    "note": "Inferred (Oct 17 2026): EODMU 5; no public citation found."
   },
   {
     "id": "nmuc-u5",
     "awardId": "nmuc",
     "year": null,
-    "unitId": null,
+    "unitId": "eodmu5",
     "operationId": null,
-    "note": "Year not on the worksheet."
+    "note": "Inferred (Oct 17 2026): EODMU 5; no public citation found."
   },
   {
     "id": "navy-e-2001",
@@ -275,7 +275,7 @@
     "id": "ssdr-2001",
     "awardId": "ssdr",
     "year": 2001,
-    "unitId": null,
+    "unitId": "frank-cable",
     "operationId": null,
     "note": null
   },
@@ -283,7 +283,7 @@
     "id": "ssdr-2002",
     "awardId": "ssdr",
     "year": 2002,
-    "unitId": null,
+    "unitId": "frank-cable",
     "operationId": null,
     "note": null
   },
@@ -291,7 +291,7 @@
     "id": "ssdr-2003",
     "awardId": "ssdr",
     "year": 2003,
-    "unitId": null,
+    "unitId": "frank-cable",
     "operationId": null,
     "note": null
   },
@@ -299,39 +299,39 @@
     "id": "ssdr-u4",
     "awardId": "ssdr",
     "year": null,
-    "unitId": null,
-    "operationId": null,
-    "note": "Year not entered. EOD, IA, and JCSE were sea duty."
+    "unitId": "eodmu5",
+    "operationId": "oif-2006",
+    "note": "Inferred (Oct 17 2026): OIF 2006 deployment, February to August 2006, with EODMU 5."
   },
   {
     "id": "ssdr-u5",
     "awardId": "ssdr",
     "year": null,
-    "unitId": null,
-    "operationId": null,
-    "note": "Year not on the worksheet."
+    "unitId": "ia-army",
+    "operationId": "oif-2009",
+    "note": "Inferred (Oct 17 2026): IA tour, October 2008 to October 2009 (Joint Base Balad)."
   },
   {
     "id": "ssdr-u6",
     "awardId": "ssdr",
     "year": null,
-    "unitId": null,
-    "operationId": null,
-    "note": "Year not on the worksheet."
+    "unitId": "jcse",
+    "operationId": "oef-2010",
+    "note": "Inferred (Oct 17 2026): OEF deployment 2010–11 with JCSE."
   },
   {
     "id": "ssdr-u7",
     "awardId": "ssdr",
     "year": null,
-    "unitId": null,
-    "operationId": null,
-    "note": "Year not on the worksheet."
+    "unitId": "jcse",
+    "operationId": "oef-2012",
+    "note": "Inferred (Oct 17 2026): OEF deployment 2012–13 with JCSE."
   },
   {
     "id": "osr-2001",
     "awardId": "osr",
     "year": 2001,
-    "unitId": null,
+    "unitId": "frank-cable",
     "operationId": null,
     "note": null
   },
@@ -339,7 +339,7 @@
     "id": "osr-2002",
     "awardId": "osr",
     "year": 2002,
-    "unitId": null,
+    "unitId": "frank-cable",
     "operationId": null,
     "note": null
   },
@@ -347,7 +347,7 @@
     "id": "osr-2003",
     "awardId": "osr",
     "year": 2003,
-    "unitId": null,
+    "unitId": "frank-cable",
     "operationId": null,
     "note": null
   },
@@ -355,25 +355,25 @@
     "id": "osr-u4",
     "awardId": "osr",
     "year": null,
-    "unitId": null,
+    "unitId": "eodmu5",
     "operationId": null,
-    "note": "Year not entered. Six years at Guam, plus time in the Middle East."
+    "note": "Inferred (Oct 17 2026): Guam overseas duty with EODMU 5; six years at Guam in all."
   },
   {
     "id": "osr-u5",
     "awardId": "osr",
     "year": null,
-    "unitId": null,
+    "unitId": "eodmu5",
     "operationId": null,
-    "note": "Year not on the worksheet."
+    "note": "Inferred (Oct 17 2026): Guam overseas duty with EODMU 5."
   },
   {
     "id": "osr-u6",
     "awardId": "osr",
     "year": null,
-    "unitId": null,
+    "unitId": "eodmu5",
     "operationId": null,
-    "note": "Year not on the worksheet."
+    "note": "Inferred (Oct 17 2026): Guam overseas duty with EODMU 5."
   },
   {
     "id": "nato-2013",

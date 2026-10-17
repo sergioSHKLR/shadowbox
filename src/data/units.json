@@ -162,15 +162,15 @@
     "branch": "USA",
     "designator": "Assisting",
     "necId": null,
-    "start": "2006-01",
-    "end": "2006-06",
+    "start": "2006-02",
+    "end": "2006-08",
     "precision": "month",
     "placeId": "mosul",
-    "explanation": "A U.S. Army explosive ordnance disposal group. Sponsor of the CJTF Troy deployment. Linked up on the first Iraq tour, January to June 2006, at Mosul.",
+    "explanation": "A U.S. Army explosive ordnance disposal group. Sponsor of the CJTF Troy deployment. Linked up on the first Iraq tour, February to August 2006, at Mosul.",
     "civilian": "An Army bomb-disposal headquarters.",
     "onCase": false,
     "image": "/incoming/52nd-eod.webp",
-    "open": "FLAG (Oct 17 2026), not changed: 2006-01 to 2006-06 starts before he deployed. Phone-dated photos put him stateside at EODMU 11 on 14 February 2006 and on the C-17 out on 21 and 22 February 2006, and in country to about August 2006 (Sergio). Confirm the months with Sergio."
+    "note": "First Iraq tour dates confirmed by Sergio (Oct 17 2026): February to August 2006, same as CJTF Troy and oif-2006."
   },
   {
     "id": "16th-engineer",
@@ -430,7 +430,7 @@
   {
     "id": "navhosp",
     "name": "Naval Hospital Jacksonville",
-    "abbreviation": "NAVHOSP",
+    "abbreviation": "NH Jacksonville",
     "patch": "NAVHOSP",
     "branch": "USN",
     "designator": "Assigned",

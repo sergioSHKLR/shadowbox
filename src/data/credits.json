@@ -393,7 +393,7 @@
     "sourceUrl": null,
     "creator": "Photograph supplied for Signum",
     "license": "The veteran's own item and photograph. Not for reuse outside this record.",
-    "notes": "Coin cut out from its grey background onto transparency, resized to about 500 px, saved as WebP."
+    "notes": "Coin cut out from its gray background onto transparency, resized to about 500 px, saved as WebP."
   },
   {
     "id": "crest-3-3ada",
@@ -438,7 +438,7 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cougar_type_JERRVs_in_Iraq.jpg",
     "creator": "Michael B. Lavender, U.S. Navy (2008)",
     "license": "Public domain. Work of the U.S. federal government (U.S. Navy photo, VIRIN 081107-N-1120L-072).",
-    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/9/9d/Cougar_type_JERRVs_in_Iraq.jpg . Not hotlinked."
+    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/4/4e/Cougar_type_JERRVs_in_Iraq.jpg . Not hotlinked."
   },
   {
     "id": "equipment-m-gator",
@@ -478,7 +478,7 @@
   },
   {
     "id": "equipment-rhib-eodmu5",
-    "title": "RHIB (rigid-hull inflatable boat) (EODMU-5 dive RHIB, about this size)",
+    "title": "RHIB (rigid-hull inflatable boat) (EODMU 5 dive RHIB, about this size)",
     "file": "/equipment/rhib-eodmu5.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_051119-N-9851B-013_Members_of_Explosive_Ordnance_Disposal_Mobile_Unit_Five_(EODMU-5),_Detachment_Japan,_tend_to_divers_from_their_position_on_a_Rigid_Hull_Inflatable_Boat_(RHIB).jpg",
     "creator": "Photographer's Mate 2nd Class John L. Beeman, U.S. Navy (2005)",
@@ -775,7 +775,7 @@
   },
   {
     "id": "equipment-nissan-sentra-silver",
-    "title": "Nissan Sentra, grey, 2007",
+    "title": "Nissan Sentra, gray, 2007",
     "file": "/equipment/nissan-sentra-silver-own.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
@@ -784,7 +784,7 @@
   },
   {
     "id": "equipment-nissan-sentra-silver-usage",
-    "title": "Nissan Sentra, grey, 2007 (Grey Sentra, Guam, 23 December 2006)",
+    "title": "Nissan Sentra, gray, 2007 (Gray Sentra, Guam, 23 December 2006)",
     "file": "/equipment/nissan-sentra-silver-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",
