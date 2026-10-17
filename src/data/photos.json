@@ -1889,5 +1889,16 @@
     "subjects": [],
     "credit": "Sergio Schickler",
     "infer": false
+  },
+  {
+    "id": "album-sercc-group-lawn",
+    "src": "/photos/album/sercc-group-lawn.webp",
+    "alt": "Sergio in a light blue working shirt with a group of sailors on a lawn",
+    "caption": "SERCC group photo. Date not recorded",
+    "subjects": [
+      { "kind": "unit", "id": "sercc" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
   }
 ]
