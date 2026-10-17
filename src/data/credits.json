@@ -1357,5 +1357,50 @@
     "creator": "Medals of America (medalsofamerica.com)",
     "license": "Retailer product photo; rights belong to Medals of America. No license or permission is recorded.",
     "notes": "Medals of America product photo (image https://www.medalsofamerica.com/media/catalog/product/a/-/a-b01u.jpg): the upper of the two loose clusters, separated from the lower one, background removed, turned 14 degrees to lie horizontally (stem to the wearer's right) and scaled to 7/16 in (large-medal size) against the 1 3/8 in suspension ribbon. On the JSCM and ArCOM medal drapes. Not hotlinked."
+  },
+  {
+    "id": "equipment-city-chicago",
+    "title": "Chicago skyline (Off Duty, Cities: Chicago)",
+    "file": "/equipment/city-chicago.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chicago_September_2016-23.jpg",
+    "creator": "Alvesgaspar",
+    "license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)",
+    "notes": "Cropped to 4:3 and resized to 1200 x 900 for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/a/aa/Chicago_September_2016-23.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-city-san-diego",
+    "title": "San Diego skyline from Coronado (Off Duty, Cities: San Diego)",
+    "file": "/equipment/city-san-diego.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:San_Diego_skyline_at_dusk_from_Coronado_2015.jpg",
+    "creator": "russellstreet",
+    "license": "CC BY-SA 2.0 (https://creativecommons.org/licenses/by-sa/2.0)",
+    "notes": "Cropped to 4:3 and resized to 1200 x 900 for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/b/bb/San_Diego_skyline_at_dusk_from_Coronado_2015.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-city-key-west",
+    "title": "Southernmost Point buoy, Key West (Off Duty, Cities: Key West)",
+    "file": "/equipment/city-key-west.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Southernmost_point_buoy,_NE_view.jpg",
+    "creator": "Radomianin",
+    "license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)",
+    "notes": "Cropped to 4:3 and resized to 1200 x 900 for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/3/37/Southernmost_point_buoy%2C_NE_view.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-city-jacksonville",
+    "title": "Jacksonville skyline and St. Johns River (Off Duty, Cities: Jacksonville)",
+    "file": "/equipment/city-jacksonville.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jacksonville,_Florida_skyline.jpg",
+    "creator": "Matthew T Rader",
+    "license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)",
+    "notes": "Cropped to 4:3 and resized to 1200 x 900 for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/3/3c/Jacksonville%2C_Florida_skyline.jpg . Not hotlinked."
+  },
+  {
+    "id": "equipment-city-tampa",
+    "title": "Downtown Tampa and the Hillsborough River (Off Duty, Cities: Tampa)",
+    "file": "/equipment/city-tampa.webp",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Downtown_Tampa,_Florida.jpg",
+    "creator": "Clément Bardot",
+    "license": "CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)",
+    "notes": "Cropped to 4:3 and resized to 1200 x 900 for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/b/bf/Downtown_Tampa%2C_Florida.jpg . Not hotlinked."
   }
 ]
