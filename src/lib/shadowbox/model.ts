@@ -304,7 +304,8 @@ export type Visit = {
 };
 export const visits = visitsJson as Visit[];
 
-type PhotoSubject = { kind: Kind; id: string };
+/** likely: tagged from Sergio's own date ranges, not confirmed per photo (e.g. JCSE photos -> OEF, Oct 17 2026). Internal only. */
+type PhotoSubject = { kind: Kind; id: string; likely?: boolean };
 
 export type Photo = {
   id: string;
@@ -315,8 +316,11 @@ export type Photo = {
   subjects: PhotoSubject[];
   /** Photographer, shown in the Gallery lightbox as "Photo: …" (album photos, Oct 17 2026). */
   credit?: string;
-  /** City from the photo's own EXIF location (Gallery City chip), e.g. "Richmond, TX". Never inferred. */
+  /** Gallery City chip: from the photo's own EXIF location (e.g. "Richmond, TX"), or from Sergio's own account of where he was (Camp Arifjan, Fort Bliss). Never guessed. */
   city?: string;
+  /** true: pre-deployment training at home (e.g. Fort Bliss, Oct 2008 to Mar 2009). The command stays, but its
+   *  deployment (operations.json unitId) does not make this an operation photo. */
+  stateside?: boolean;
   /** false: Gallery takes only the explicit subjects; no used-here.json command/operation inference (post-retirement photos). */
   infer?: boolean;
 };
