@@ -818,5 +818,490 @@
     ],
     "credit": "Sergio Schickler",
     "infer": false
+  },
+  {
+    "id": "album-woodland-dog-2005-05-21",
+    "src": "/photos/album/woodland-dog-2005-05-21.webp",
+    "alt": "Sergio in woodland camouflage and sunglasses, a brown dog beside him",
+    "caption": "Woodland camouflage, with a dog, 21 May 2005",
+    "subjects": [
+      { "kind": "uniform", "id": "green-camo" },
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-humvee-dog-2005-05-30",
+    "src": "/photos/album/humvee-dog-2005-05-30.webp",
+    "alt": "A brown dog sitting in the back of an open green Humvee",
+    "caption": "Dog in the back of an open Humvee, 30 May 2005",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-range-rest-2005-06-16",
+    "src": "/photos/album/range-rest-2005-06-16.webp",
+    "alt": "Sergio in woodland camouflage resting at a range",
+    "caption": "Resting at the range, woodland camouflage, 16 June 2005",
+    "subjects": [
+      { "kind": "uniform", "id": "green-camo" },
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-range-phone-2005-06-16",
+    "src": "/photos/album/range-phone-2005-06-16.webp",
+    "alt": "Sergio in woodland camouflage on a phone at a range",
+    "caption": "On the phone at the range, woodland camouflage, 16 June 2005",
+    "subjects": [
+      { "kind": "uniform", "id": "green-camo" },
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-equipment-shelter-2005-06-22",
+    "src": "/photos/album/equipment-shelter-2005-06-22.webp",
+    "alt": "Sergio in woodland camouflage inside an equipment shelter",
+    "caption": "Inside an equipment shelter, woodland camouflage, 22 June 2005",
+    "subjects": [
+      { "kind": "uniform", "id": "green-camo" },
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-humvee-boat-2005-07-21",
+    "src": "/photos/album/humvee-boat-2005-07-21.webp",
+    "alt": "A green Humvee towing an inflatable boat by a building",
+    "caption": "Humvee towing an inflatable boat, 21 July 2005",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-rifle-display-2005-07-21",
+    "src": "/photos/album/rifle-display-2005-07-21.webp",
+    "alt": "Rifles and a pistol displayed on a camouflage-covered table",
+    "caption": "Rifles on a display table, 21 July 2005",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-rifle-display-optics-2005-07-21",
+    "src": "/photos/album/rifle-display-optics-2005-07-21.webp",
+    "alt": "Rifles with optics and a pistol displayed on a camouflage-covered table",
+    "caption": "Rifles with optics on a display table, 21 July 2005",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-rifle-display-room-2005-07-21",
+    "src": "/photos/album/rifle-display-room-2005-07-21.webp",
+    "alt": "Rifles on a camouflage-covered display table in a room",
+    "caption": "Rifles on a display table, 21 July 2005",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-dcu-road-2006-02-14",
+    "src": "/photos/album/dcu-road-2006-02-14.webp",
+    "alt": "Sergio in desert camouflage walking on a road by green containers",
+    "caption": "Desert camouflage, on a road by containers, 14 February 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" },
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-tan-vehicles-racks-2006-02-23",
+    "src": "/photos/album/tan-vehicles-racks-2006-02-23.webp",
+    "alt": "Two desert-tan vehicles with roof racks",
+    "caption": "Desert-tan vehicles with roof racks, 23 February 2006",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "troy" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-tan-humvee-trailers-2006-02-23",
+    "src": "/photos/album/tan-humvee-trailers-2006-02-23.webp",
+    "alt": "A desert-tan Humvee and trailers by a building",
+    "caption": "Desert-tan Humvee and trailers, 23 February 2006",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "troy" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-aircraft-cargo-net-2006-03-03",
+    "src": "/photos/album/aircraft-cargo-net-2006-03-03.webp",
+    "alt": "Sergio in desert camouflage seated inside an aircraft with red cargo netting",
+    "caption": "Seated in an aircraft by cargo netting, desert camouflage, 3 March 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" },
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "troy" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-bunk-room-2006-03-03",
+    "src": "/photos/album/bunk-room-2006-03-03.webp",
+    "alt": "Sergio in desert camouflage and gear in a room with bunk beds",
+    "caption": "Room with bunk beds, desert camouflage, 3 March 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" },
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "troy" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-tan-vehicles-building-2006-03-18",
+    "src": "/photos/album/tan-vehicles-building-2006-03-18.webp",
+    "alt": "Desert-tan vehicles parked by a tan building",
+    "caption": "Desert-tan vehicles by a tan building, 18 March 2006",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "troy" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-weapons-rack-2006-03-29",
+    "src": "/photos/album/weapons-rack-2006-03-29.webp",
+    "alt": "Sergio in desert camouflage holding a rifle in front of a weapons rack",
+    "caption": "Rifle, in front of a weapons rack, desert camouflage, 29 March 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" },
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "troy" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-body-armor-vehicle-2006-04-17",
+    "src": "/photos/album/body-armor-vehicle-2006-04-17.webp",
+    "alt": "Sergio in desert camouflage and body armor beside a vehicle",
+    "caption": "Body armor, beside a vehicle, desert camouflage, 17 April 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" },
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "troy" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-body-armor-humvee-2006-05-05",
+    "src": "/photos/album/body-armor-humvee-2006-05-05.webp",
+    "alt": "Sergio in desert camouflage, body armor and helmet in front of a Humvee",
+    "caption": "Body armor, in front of a Humvee, desert camouflage, 5 May 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" },
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "troy" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-selfie-vehicle-2006-05-05",
+    "src": "/photos/album/selfie-vehicle-2006-05-05.webp",
+    "alt": "Sergio in sunglasses and desert camouflage in front of a vehicle",
+    "caption": "Selfie in front of a vehicle, desert camouflage, 5 May 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" },
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "troy" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-rooftop-2006-05-07",
+    "src": "/photos/album/rooftop-2006-05-07.webp",
+    "alt": "Sergio in desert camouflage crouching on a rooftop",
+    "caption": "Crouching on a rooftop, desert camouflage, 7 May 2006",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" },
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "troy" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-dark-uniform-portrait-2006-12-06",
+    "src": "/photos/album/dark-uniform-portrait-2006-12-06.webp",
+    "alt": "Sergio in a dark uniform and cover",
+    "caption": "Portrait in a dark uniform and cover, 6 December 2006",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-pier-2007-02-26",
+    "src": "/photos/album/pier-2007-02-26.webp",
+    "alt": "Sergio in camouflage walking on a pier by turquoise water",
+    "caption": "Walking on a pier by turquoise water, 26 February 2007",
+    "subjects": [],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-acu-room-2008-11-14",
+    "src": "/photos/album/acu-room-2008-11-14.webp",
+    "alt": "Sergio in ACU camouflage standing in a room",
+    "caption": "ACU, standing in a room, 14 November 2008",
+    "subjects": [
+      { "kind": "uniform", "id": "awu" },
+      { "kind": "unit", "id": "ia-army" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-helmet-headset-2008-12-11",
+    "src": "/photos/album/helmet-headset-2008-12-11.webp",
+    "alt": "Sergio in ACU camouflage, helmet and headset inside a vehicle",
+    "caption": "Helmet and headset inside a vehicle, ACU, 11 December 2008",
+    "subjects": [
+      { "kind": "uniform", "id": "awu" },
+      { "kind": "equipment", "id": "ach-acu-cover" },
+      { "kind": "unit", "id": "ia-army" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-helmet-mirror-2008-12-11",
+    "src": "/photos/album/helmet-mirror-2008-12-11.webp",
+    "alt": "Sergio in ACU camouflage and helmet beside a vehicle mirror",
+    "caption": "Helmet, beside a vehicle mirror, ACU, 11 December 2008",
+    "subjects": [
+      { "kind": "uniform", "id": "awu" },
+      { "kind": "equipment", "id": "ach-acu-cover" },
+      { "kind": "unit", "id": "ia-army" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-tan-cap-2008-12-29",
+    "src": "/photos/album/tan-cap-2008-12-29.webp",
+    "alt": "Close-up of Sergio in a tan cap and ACU top",
+    "caption": "Close-up in a tan cap, ACU, 29 December 2008",
+    "subjects": [
+      { "kind": "uniform", "id": "awu" },
+      { "kind": "unit", "id": "ia-army" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-tracked-snow-building-2010-03-26",
+    "src": "/photos/album/tracked-snow-building-2010-03-26.webp",
+    "alt": "Tracked over-snow vehicles parked by a building",
+    "caption": "Tracked over-snow vehicles by a building, 26 March 2010",
+    "subjects": [
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-barracks-hallway-2010-03-28",
+    "src": "/photos/album/barracks-hallway-2010-03-28.webp",
+    "alt": "Sergio in a barracks hallway",
+    "caption": "Selfie in a barracks hallway, 28 March 2010",
+    "subjects": [
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-tracked-snow-forest-2010-03-30",
+    "src": "/photos/album/tracked-snow-forest-2010-03-30.webp",
+    "alt": "Tracked vehicles in a snowy forest",
+    "caption": "Tracked vehicles in a snowy forest, 30 March 2010",
+    "subjects": [
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-acu-bicycle-2011-06-23",
+    "src": "/photos/album/acu-bicycle-2011-06-23.webp",
+    "alt": "Sergio in ACU camouflage in a room with a bicycle",
+    "caption": "ACU, in a room with a bicycle, Clay County, FL, 23 June 2011",
+    "subjects": [
+      { "kind": "uniform", "id": "awu" },
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false,
+    "city": "Clay County, FL"
+  },
+  {
+    "id": "album-plate-carrier-2011-12-01",
+    "src": "/photos/album/plate-carrier-2011-12-01.webp",
+    "alt": "Sergio in a plate carrier",
+    "caption": "Selfie in a plate carrier, Tampa, FL, 1 December 2011",
+    "subjects": [
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false,
+    "city": "Tampa, FL"
+  },
+  {
+    "id": "album-plate-carrier-sunglasses-2011-12-01",
+    "src": "/photos/album/plate-carrier-sunglasses-2011-12-01.webp",
+    "alt": "Sergio in sunglasses and a plate carrier",
+    "caption": "Selfie in sunglasses and a plate carrier, Tampa, FL, 1 December 2011",
+    "subjects": [
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false,
+    "city": "Tampa, FL"
+  },
+  {
+    "id": "album-gym-cap-2012-05-31",
+    "src": "/photos/album/gym-cap-2012-05-31.webp",
+    "alt": "Sergio in an ACU cap and sunglasses in a gym",
+    "caption": "Selfie in a cap and sunglasses, gym, Polk County, FL, 31 May 2012",
+    "subjects": [
+      { "kind": "uniform", "id": "awu" },
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false,
+    "city": "Polk County, FL"
+  },
+  {
+    "id": "album-atvs-barriers-2012-09-23",
+    "src": "/photos/album/atvs-barriers-2012-09-23.webp",
+    "alt": "Sergio on an ATV by barriers",
+    "caption": "ATVs by barriers, 23 September 2012",
+    "subjects": [
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-rifle-rooftop-2012-09-23",
+    "src": "/photos/album/rifle-rooftop-2012-09-23.webp",
+    "alt": "Sergio in MultiCam with a rifle on a rooftop",
+    "caption": "Rifle, on a rooftop, MultiCam, 23 September 2012",
+    "subjects": [
+      { "kind": "uniform", "id": "multicam" },
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-mrap-snow-2012-12-27",
+    "src": "/photos/album/mrap-snow-2012-12-27.webp",
+    "alt": "An MRAP vehicle in the snow",
+    "caption": "MRAP vehicle in the snow, 27 December 2012",
+    "subjects": [
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-khaki-shirt-2013-03-20",
+    "src": "/photos/album/khaki-shirt-2013-03-20.webp",
+    "alt": "Sergio in a khaki shirt and blue trousers in a room",
+    "caption": "Khaki shirt and blue trousers, Tampa, FL, 20 March 2013",
+    "subjects": [
+      { "kind": "unit", "id": "jcse" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false,
+    "city": "Tampa, FL"
+  },
+  {
+    "id": "album-cpo-dress-blues-flags-2019-11-22",
+    "src": "/photos/album/cpo-dress-blues-flags-2019-11-22.webp",
+    "alt": "Sergio in Chief Petty Officer dress blues and white cover in front of flags",
+    "caption": "CPO dress blues, white cover, in front of flags, 22 November 2019",
+    "subjects": [
+      { "kind": "uniform", "id": "cpo-sdb" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-dcu-tent",
+    "src": "/photos/album/dcu-tent.webp",
+    "alt": "Sergio in desert camouflage and gear with a rifle in a tent",
+    "caption": "Rifle, in a tent, desert camouflage. Date not recorded",
+    "subjects": [
+      { "kind": "uniform", "id": "desert" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-cpo-dress-blues-yard",
+    "src": "/photos/album/cpo-dress-blues-yard.webp",
+    "alt": "Sergio in Chief Petty Officer dress blues standing in a yard",
+    "caption": "CPO dress blues, in a yard. Date not recorded",
+    "subjects": [
+      { "kind": "uniform", "id": "cpo-sdb" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-acu-airliner",
+    "src": "/photos/album/acu-airliner.webp",
+    "alt": "Sergio in ACU camouflage in front of an airliner",
+    "caption": "Selfie in ACU in front of an airliner. Date not recorded",
+    "subjects": [
+      { "kind": "uniform", "id": "awu" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
   }
 ]
