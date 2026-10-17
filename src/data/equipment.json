@@ -1039,7 +1039,14 @@
     "order": 72,
     "name": "Chicago",
     "cutout": false,
-    "note": ""
+    "note": "Chicago skyline from near the Adler Planetarium, Willis Tower at center, September 2016. Stock photograph, not his own.",
+    "image": "/equipment/city-chicago.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chicago_September_2016-23.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:Chicago_September_2016-23.jpg",
+      "creator": "Alvesgaspar",
+      "license": "CC BY-SA 4.0"
+    }
   },
   {
     "id": "city-san-diego",
@@ -1047,7 +1054,14 @@
     "order": 73,
     "name": "San Diego",
     "cutout": false,
-    "note": ""
+    "note": "Downtown San Diego across San Diego Bay at dusk, seen from Coronado, March 2015. Stock photograph, not his own.",
+    "image": "/equipment/city-san-diego.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:San_Diego_skyline_at_dusk_from_Coronado_2015.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:San_Diego_skyline_at_dusk_from_Coronado_2015.jpg",
+      "creator": "russellstreet",
+      "license": "CC BY-SA 2.0"
+    }
   },
   {
     "id": "city-key-west",
@@ -1055,7 +1069,14 @@
     "order": 74,
     "name": "Key West",
     "cutout": false,
-    "note": ""
+    "note": "The Southernmost Point buoy, Key West, August 2018. Stock photograph, not his own.",
+    "image": "/equipment/city-key-west.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Southernmost_point_buoy,_NE_view.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:Southernmost_point_buoy,_NE_view.jpg",
+      "creator": "Radomianin",
+      "license": "CC BY-SA 4.0"
+    }
   },
   {
     "id": "city-jacksonville",
@@ -1063,7 +1084,14 @@
     "order": 75,
     "name": "Jacksonville",
     "cutout": false,
-    "note": ""
+    "note": "Downtown Jacksonville at night across the St. Johns River, with the Main Street Bridge, December 2014. Stock photograph, not his own.",
+    "image": "/equipment/city-jacksonville.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jacksonville,_Florida_skyline.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:Jacksonville,_Florida_skyline.jpg",
+      "creator": "Matthew T Rader",
+      "license": "CC BY-SA 4.0"
+    }
   },
   {
     "id": "city-tampa",
@@ -1071,7 +1099,14 @@
     "order": 76,
     "name": "Tampa",
     "cutout": false,
-    "note": ""
+    "note": "Downtown Tampa across the Hillsborough River, May 2015. Stock photograph, not his own.",
+    "image": "/equipment/city-tampa.webp",
+    "credit": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Downtown_Tampa,_Florida.jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:Downtown_Tampa,_Florida.jpg",
+      "creator": "Clément Bardot",
+      "license": "CC BY-SA 4.0"
+    }
   },
   {
     "id": "city-talofofo",
