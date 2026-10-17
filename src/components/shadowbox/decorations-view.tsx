@@ -64,17 +64,17 @@ function MedalsView({ mount, onOpen, t }: { mount: "mounted" | "unmounted"; onOp
     // no large medal go on the right breast, centred at the height of the lowest medal holding bar, in rows of three
     // (art. 5312: top row holds the lesser number), precedence top down and inboard to outboard. On the right breast
     // inboard is the viewer's right, so each row reads mirrored from the left-breast rack.
+    // Photos (Oct 17 2026): 3 rows of 5, senior at the wearer's right (viewer's left) of the top row, each upper row
+    // overlapping the row below. Ribbon-only awards (no medal photo) sit in their own section below, not beside photos.
     const five: Award[][] = [];
     for (let i = 0; i < withMedal.length; i += 5) five.push(withMedal.slice(i, i + 5));
-    const right = ribbonOnly.length ? <Rack rows={ribbonRows(ribbonOnly, 3)} mirror onOpen={open} label={t.decor.ribbonOnlyNote} /> : null;
     return (
-      <div className="decor-two-col">
+      <div className="decor-photo-wrap">
         <div className="decor-full-dress">
           <BreastLeft>
-            <div className="decor-medal-grid">
+            <div className="decor-medal-grid decor-medal-grid--photo">
               {five.map((row, r) => (
-                <div key={row.map((a) => a.id).join("-")} className="decor-medal-row">
-                  {r === five.length - 1 && right ? <div className="decor-right-ribbons decor-right-ribbons--wide">{right}</div> : null}
+                <div key={row.map((a) => a.id).join("-")} className="decor-medal-row" style={{ zIndex: five.length - r }}>
                   {row.map((award, i) => (
                     <button key={award.id} type="button" className="decor-medal-btn" style={{ zIndex: row.length - i }} aria-label={award.name} onClick={() => open(award)}>
                       <MedalArt award={award} medal={medalFor(award.id)!} />
@@ -84,26 +84,40 @@ function MedalsView({ mount, onOpen, t }: { mount: "mounted" | "unmounted"; onOp
               ))}
             </div>
           </BreastLeft>
-          {right ? <div className="decor-right-ribbons decor-right-ribbons--narrow">{right}</div> : null}
         </div>
-
+        <RibbonOnly list={ribbonOnly} open={open} t={t} />
       </div>
     );
   }
   return (
+    <>
     <ol className="decor-loose decor-loose-medals" aria-label={t.decor.unmounted}>
-      {ordered.map((award) => {
+      {withMedal.map((award) => {
         const medal = medalFor(award.id);
         return (
           <li key={award.id}>
             <button type="button" className="decor-loose-btn" onClick={() => open(award)}>
-              {medal ? <span className="decor-one-medal"><MedalArt award={award} medal={medal} /></span> : <RibbonArt award={award} />}
+              <span className="decor-one-medal"><MedalArt award={award} medal={medal!} /></span>
               <span>{award.name}</span>
             </button>
           </li>
         );
       })}
     </ol>
+    <RibbonOnly list={ribbonOnly} open={open} t={t} />
+    </>
+  );
+}
+
+/** Awards with no medal photo yet (unit awards, Navy E, service ribbons): their own section, apart from the photos. */
+function RibbonOnly({ list, open, t }: { list: Award[]; open: (a: Award) => void; t: Chrome }) {
+  if (!list.length) return null;
+  return (
+    <section className="decor-ribbon-only" aria-labelledby="decor-ribbon-only-h">
+      <h3 id="decor-ribbon-only-h">{t.decor.ribbonOnlyHead}</h3>
+      <p className="quiet">{t.decor.ribbonOnlyNote}</p>
+      <Rack rows={ribbonRows(list, 3)} onOpen={open} label={t.decor.ribbonOnlyHead} />
+    </section>
   );
 }
 

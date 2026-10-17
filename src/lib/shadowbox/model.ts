@@ -390,6 +390,8 @@ export type Medal = {
   h: number;
   drape: "flat" | "v";
   clasp?: string;
+  /** Photo set (ribbon bar, front, reverse in one image), public/medals/photo/<id>-set.webp. */
+  set?: string;
 };
 
 export const profile = profileJson;
@@ -688,9 +690,16 @@ function medalArtFor(id: string): string {
   return file ? "" : "";
 }
 
+/** Color-matched photo sets (Sergio, Oct 17 2026): /workspace/medals/sergio/sets/<id>-matched.png -> public/medals/photo/. */
+const MEDAL_PHOTOS = new Set(["pistol", "rifle", "jscm", "nam", "acm", "ngcm", "arcom", "jsam", "ncm", "ndsm", "aam", "hsm", "gwotsm", "icm", "nato"]);
+
 export const medalFor = (awardId: string) => {
   const medal = medals.find((row) => row.id === awardId);
   if (!medal) return null;
+  if (MEDAL_PHOTOS.has(awardId)) {
+    const front = `/medals/photo/${awardId}-front.webp`;
+    return { ...medal, front, cut: front, set: `/medals/photo/${awardId}-set.webp`, photo: true };
+  }
   const sheet = sheetArtFor(awardId);
   if (sheet) return { ...medal, front: sheet, cut: sheet };
   const front = medalArtFor(awardId);
