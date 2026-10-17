@@ -53,35 +53,37 @@ export function Decorations({ onOpen, title, t }: { onOpen: (k: Kind, id: string
   );
 }
 
-/** Mounted photo fronts (Oct 17 2026), matched to Sergio's own mount (album PXL_20231111_234949714): only the top row's
- *  suspension ribbons show; each lower row shows its pendants only, hung from the same line, with the upper row's
- *  pendants covering their tops. Per photo: [y of the suspension ring (the ribbon ends above it), image height], in px
- *  of the 360 px wide -front.webp. Measured from the files (medals/sergio/overlap/front-metrics.json). */
+/** Mounted photo fronts (Oct 17 2026), matched to Sergio's own mount (album PXL_20231111_234949714). Every row hangs
+ *  from its own ring line, 0.85 of a pendant height below the row above; all suspension ribbons are cropped at the top
+ *  to the shortest drape, so the upper medals hide most of each lower drape and only slivers show in the gaps (v2,
+ *  after Sergio's feedback: lower drapes are no longer cut away). Per photo: [y of the suspension ring, image height],
+ *  in px of the 360 px wide -front.webp (medals/sergio/overlap/front-metrics.json). */
 const HANG: Record<string, [number, number]> = {
   aam: [347, 771], acm: [351, 748], arcom: [312, 769], gwotsm: [361, 759], hsm: [352, 757], icm: [352, 745],
   jsam: [358, 758], jscm: [364, 764], nam: [341, 751], nato: [379, 753], ncm: [358, 744], ndsm: [371, 761],
   ngcm: [343, 762], pistol: [355, 753], rifle: [326, 755],
 };
+/** Medals whose drape devices sit on the visible part of the ribbon when overlapped (art. 5316.2.e): <id>-mount.webp. */
+const MOUNT_VARIANT = new Set(["arcom", "nam", "ngcm", "acm", "icm"]);
 const PHOTO_W = 360;
 /** Reference: rows hang 0.85 of a pendant height apart (mean pendant body 351 px). */
 const ROW_STEP = 299;
-/** Lower rows are cut just below the ring, so no part of their ribbon can show between the medals above. */
-const CUT_BELOW_RING = 4;
 const BTN_MI = 1.375; // button width in --mi (1 3/8 in ribbon)
 function mountLayout(rows: Award[][]) {
   const px = (v: number) => (v / PHOTO_W) * BTN_MI; // image px -> --mi
-  const top = rows[0] ?? [];
-  // Top row: ribbons cropped at the top to the shortest drape, so ribbon tops and rings both line up.
-  const drape = Math.min(...top.map((a) => HANG[a.id]?.[0] ?? 0));
+  const drape = Math.min(...rows.flat().map((a) => HANG[a.id]?.[0] ?? PHOTO_W));
   return rows.map((row, r) => {
-    const items = row.map((award) => {
+    const items = row.map((award, i) => {
       const [ring, h] = HANG[award.id] ?? [drape, PHOTO_W * 2];
-      const from = r === 0 ? ring - drape : ring + CUT_BELOW_RING;
+      // Lower rows: ribbon cropped to start at the ring line of the row above (as if tucked under its holding bar).
+      const from = r === 0 ? ring - drape : ring - ROW_STEP;
+      const src = i > 0 && MOUNT_VARIANT.has(award.id) ? `/medals/photo/${award.id}-mount.webp` : medalFor(award.id)!.front!;
       // marginTop is a % of the button width; clip-path inset is a % of the image height.
-      return { award, src: medalFor(award.id)!.front!, top: (from / PHOTO_W) * 100, clip: (from / h) * 100, rest: h - from };
+      return { award, src, top: (from / PHOTO_W) * 100, clip: (from / h) * 100, rest: h - from };
     });
-    const last = r === rows.length - 1;
-    const height = last ? px(Math.max(...items.map((i) => i.rest)) + 4) : r === 0 ? px(drape + ROW_STEP + CUT_BELOW_RING) : px(ROW_STEP);
+    // Row boxes: the top row's starts at the top of its cropped drapes, each lower row's at the ring line above, so a
+    // row's box height is the distance from its top to its own ring line (the next row starts there).
+    const height = r === rows.length - 1 ? px(Math.max(...items.map((i) => i.rest)) + 4) : px(r === 0 ? drape : ROW_STEP);
     return { row, height, items };
   });
 }

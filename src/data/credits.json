@@ -1311,7 +1311,7 @@
     "sourceUrl": "https://www.medalsofamerica.com/4-bronze-star-device-unmounted",
     "creator": "Medals of America (medalsofamerica.com)",
     "license": "Retailer product photo; rights belong to Medals of America. No license or permission is recorded.",
-    "notes": "Medals of America product photo of 4 bronze stars (image https://www.medalsofamerica.com/media/catalog/product/a/-/a-bs4u_1.jpg), background removed and scaled to true size (3/16 in on a 1 3/8 in ribbon). Used on the NMUC ribbon photo (4 stars) and, as one star mirrored about its axis, on the SSDR ribbon photo. Not hotlinked."
+    "notes": "Medals of America product photo of 4 bronze stars (image https://www.medalsofamerica.com/media/catalog/product/a/-/a-bs4u_1.jpg), background removed and scaled to true size (3/16 in on a 1 3/8 in ribbon). Used on the NMUC ribbon photo (4 stars) and, as one star mirrored about its axis, on the SSDR ribbon photo. Not hotlinked. Also used, two per drape, on the ACM and ICM medal suspension ribbons (-front/-mount/-set.webp)."
   },
   {
     "id": "device-silver-star-photo",
@@ -1320,7 +1320,7 @@
     "sourceUrl": "https://www.medalsofamerica.com/silver-star-device-unmounted",
     "creator": "Medals of America (medalsofamerica.com)",
     "license": "Retailer product photo; rights belong to Medals of America. No license or permission is recorded.",
-    "notes": "Medals of America product photo (image https://www.medalsofamerica.com/media/catalog/product/a/s/ass_1.jpg), background removed and scaled to true size (3/16 in on a 1 3/8 in ribbon). Used on the SSDR and OSR ribbon photos. Not hotlinked."
+    "notes": "Medals of America product photo (image https://www.medalsofamerica.com/media/catalog/product/a/s/ass_1.jpg), background removed and scaled to true size (3/16 in on a 1 3/8 in ribbon). Used on the SSDR and OSR ribbon photos. Not hotlinked. Also used on the NGCM medal suspension ribbon (-front/-mount/-set.webp)."
   },
   {
     "id": "device-bronze-oak-leaf-photo",
@@ -1330,5 +1330,23 @@
     "creator": "Medals of America (medalsofamerica.com)",
     "license": "Retailer product photo; rights belong to Medals of America. No license or permission is recorded.",
     "notes": "Medals of America product photo (image https://www.medalsofamerica.com/media/catalog/product/a/_/a_bo2u.jpg), background removed and scaled so each leaf is 5/16 in against the 1 3/8 in ribbon inside the frame. Used on the JMUA ribbon photo. Not hotlinked."
+  },
+  {
+    "id": "device-gold-star-photo",
+    "title": "Gold 5/16 in star (device photo)",
+    "file": "/medals/photo/nam-front.webp",
+    "sourceUrl": "https://www.medalsofamerica.com/gold-star-device-single-unmounted-1-pair",
+    "creator": "Medals of America (medalsofamerica.com)",
+    "license": "Retailer product photo; rights belong to Medals of America. No license or permission is recorded.",
+    "notes": "Medals of America product photo (SKU A GSU; image https://www.medalsofamerica.com/media/catalog/product/a/g/ags_1.jpg), background removed and scaled to 5/16 in against the 1 3/8 in suspension ribbon. Four on the NAM medal drape (-front/-mount/-set.webp). Not hotlinked."
+  },
+  {
+    "id": "device-bronze-oak-leaf-single-photo",
+    "title": "Bronze oak leaf cluster, single (device photo)",
+    "file": "/medals/photo/jscm-front.webp",
+    "sourceUrl": "https://www.medalsofamerica.com/1-bronze-oak-leaf-unmounted",
+    "creator": "Medals of America (medalsofamerica.com)",
+    "license": "Retailer product photo; rights belong to Medals of America. No license or permission is recorded.",
+    "notes": "Medals of America product photo (image https://www.medalsofamerica.com/media/catalog/product/a/-/a-b01u.jpg): the upper of the two loose clusters, separated from the lower one, background removed, turned 14 degrees to lie horizontally (stem to the wearer's right) and scaled to 7/16 in (large-medal size) against the 1 3/8 in suspension ribbon. On the JSCM and ArCOM medal drapes. Not hotlinked."
   }
 ]
