@@ -34,8 +34,10 @@ export function BioPage({ bio, locale = "en" }: { bio: string; locale?: Locale }
     <main className="sheet">
       <div className="home-sheet case-bio">
         <div className="intro-copy">
-          <p className="kicker">{t.navyRetired}</p>
+          {/* Title order as profile.json headerLines (Sergio, Oct 17 2026): name, then "United States Navy, Retired", then the service dates. */}
           <h2>{profile.headerLines[0]}</h2>
+          <p className="kicker">{t.navyRetired}</p>
+          <p className="kicker bio-span">{t.serviceSpan}</p>
         </div>
         <div className="bio-wrap">
           {paragraphs.map((paragraph) => (

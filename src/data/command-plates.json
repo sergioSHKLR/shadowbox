@@ -52,7 +52,7 @@
     "pinsBelow": [],
     "rack": [
       { "id": "nam", "count": 2 },
-      { "id": "nmuc", "count": 1 },
+      { "id": "nmuc", "count": 3 },
       { "id": "navy-e", "count": 3 },
       { "id": "ngcm", "count": 2 },
       { "id": "ndsm", "count": 1 },
@@ -62,7 +62,7 @@
       { "id": "rifle", "count": 1 },
       { "id": "pistol", "count": 1 }
     ],
-    "note": "ESWS, 2003, year only. The second NAM is 2004. The HSM is 2003, Typhoon Pongsona."
+    "note": "ESWS, 2003, year only. The second NAM is 2004. The HSM is 2003, Typhoon Pongsona. SSDR 3 and OSR 3 for the 2001, 2002 and 2003 worksheet years: overseas-homeported ship, one SSDR per 12 months accumulated (no 90-day deployment needed) and, for Navy units after 1 Oct 1999, the OSR for the same period. MUC 3 (inferred): the ship's MUC periods Aug 2001–Jul 2003, Jul 2002–Jan 2003 and Aug 2003–Jul 2005 fall in this tour."
   },
   {
     "unitId": "eodmu5",
@@ -73,19 +73,19 @@
     "rack": [
       { "id": "nam", "count": 4 },
       { "id": "aam", "count": 1 },
-      { "id": "nmuc", "count": 1 },
+      { "id": "nmuc", "count": 5 },
       { "id": "navy-e", "count": 3 },
       { "id": "ngcm", "count": 3 },
       { "id": "ndsm", "count": 1 },
       { "id": "icm", "count": 1, "campaignStars": 1 },
       { "id": "gwotsm", "count": 1 },
       { "id": "hsm", "count": 1 },
-      { "id": "ssdr", "count": 3 },
-      { "id": "osr", "count": 3 },
+      { "id": "ssdr", "count": 4 },
+      { "id": "osr", "count": 6 },
       { "id": "rifle", "count": 1 },
       { "id": "pistol", "count": 1 }
     ],
-    "note": "Added on this tour: NAM 2005, NAM 2006, AAM 2006, ICM 2006 with one campaign star (National Resolution; each phase is a star, no bare ribbon), GWOTSM 2005, GCM 2006. JMUA awards sit on the JCSE plate.",
+    "note": "Added on this tour: NAM 2005, NAM 2006, AAM 2006, ICM 2006 with one campaign star (National Resolution; each phase is a star, no bare ribbon), GWOTSM 2005, GCM 2006. JMUA awards sit on the JCSE plate. SSDR +1 (inferred): OIF 2006, February to August 2006, a deployment of over 90 consecutive days. OSR +3 (inferred): three more years of Guam overseas duty, six in all with USS Frank Cable. MUC +2 (inferred): no public citation found; placed here as the remaining sea-duty command.",
     "extras": [
       { "src": "/incoming/talisman-saber.webp", "title": "Exercise", "unit": "Talisman Saber", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay" },
       { "src": "/incoming/auscdt-1.webp", "title": "Foreign Partner", "unit": "Australian CDT", "date": "2005 and 2007", "kind": "place", "id": "shoalwater-bay", "role": "Foreign Partner", "unitId": "auscdt" },
@@ -101,25 +101,28 @@
     "unitId": "sercc",
     "inRank": "et1",
     "outRank": "et1",
+    "inBadge": "red",
+    "outBadge": "gold",
+    "badgeChange": "2009-06-30",
     "pinsAbove": ["esws"],
     "pinsBelow": [],
     "rack": [
       { "id": "arcom", "count": 1 },
       { "id": "nam", "count": 5 },
       { "id": "aam", "count": 1 },
-      { "id": "nmuc", "count": 1 },
+      { "id": "nmuc", "count": 5 },
       { "id": "navy-e", "count": 3 },
       { "id": "ngcm", "count": 4 },
       { "id": "ndsm", "count": 1 },
       { "id": "icm", "count": 1, "campaignStars": 2 },
       { "id": "gwotsm", "count": 1 },
       { "id": "hsm", "count": 1 },
-      { "id": "ssdr", "count": 3 },
-      { "id": "osr", "count": 3 },
+      { "id": "ssdr", "count": 5 },
+      { "id": "osr", "count": 6 },
       { "id": "rifle", "count": 1 },
       { "id": "pistol", "count": 1 }
     ],
-    "note": "Added: ARCOM 2009, NAM 2009, GCM 2009. Second ICM campaign star (Iraq Sovereignty) on this plate. The IA is not a command plate.",
+    "note": "Added: ARCOM 2009, NAM 2009, GCM 2009. Second ICM campaign star (Iraq Sovereignty) on this plate. The IA is not a command plate. SSDR +1 (inferred): the IA tour, October 2008 to October 2009, including about 7 months in country at Joint Base Balad.",
     "extras": [
       { "src": "/incoming/11th-ada.webp", "title": "Admin", "unit": "11th ADA", "date": "Oct 2008–2009", "kind": "unit", "id": "11th-ada" },
       { "src": "/incoming/3-3ada.webp", "title": "Partner", "unit": "3-3 ADA", "date": "Oct 2008–2009", "kind": "unit", "id": "3-3-ada" },
@@ -131,6 +134,7 @@
     "unitId": "jcse",
     "inRank": "et1",
     "outRank": "etc",
+    "inBadge": "gold",
     "pinsAbove": ["esws"],
     "pinsBelow": ["exw"],
     "rack": [
@@ -140,7 +144,7 @@
       { "id": "nam", "count": 5 },
       { "id": "aam", "count": 1 },
       { "id": "jmua", "count": 3 },
-      { "id": "nmuc", "count": 1 },
+      { "id": "nmuc", "count": 5 },
       { "id": "navy-e", "count": 3 },
       { "id": "ngcm", "count": 5 },
       { "id": "ndsm", "count": 1 },
@@ -148,13 +152,13 @@
       { "id": "icm", "count": 1, "campaignStars": 2 },
       { "id": "gwotsm", "count": 1 },
       { "id": "hsm", "count": 1 },
-      { "id": "ssdr", "count": 3 },
-      { "id": "osr", "count": 3 },
+      { "id": "ssdr", "count": 7 },
+      { "id": "osr", "count": 6 },
       { "id": "nato", "count": 1 },
       { "id": "rifle", "count": 1 },
       { "id": "pistol", "count": 1 }
     ],
-    "note": "EXW, 2014, year only. Made Chief in the last year at JCSE; date of rank is 16 September 2014. ACM wears two campaign stars (each OEF phase is a star, no bare ribbon). All three JMUA sit on this plate; 2009 is the dated one. Added: JSCM 2013, JSCM December 2014, ARCOM 2011, JSAM 2013, ACM 2011, NATO 2013, GCM 2012.",
+    "note": "EXW, 2014, year only. Made Chief in the last year at JCSE; date of rank is 16 September 2014. ACM wears two campaign stars (each OEF phase is a star, no bare ribbon). All three JMUA sit on this plate; 2009 is the dated one. Added: JSCM 2013, JSCM December 2014, ARCOM 2011, JSAM 2013, ACM 2011, NATO 2013, GCM 2012. SSDR +2 (inferred): one each for the OEF deployments of 2010–11 and 2012–13, both over 90 consecutive days.",
     "extras": [
       { "src": "/incoming/jcse-3rd-sqd.webp", "title": "Squadron", "unit": "3rd Squadron", "date": "2009–2014", "kind": "unit", "id": "jcse" },
       { "src": "/incoming/cjsotf-a.webp", "title": "In theater", "unit": "CJSOTF-A", "date": "2010–2011", "kind": "unit", "id": "cjsotf" },
@@ -196,6 +200,6 @@
       { "id": "rifle", "count": 1 },
       { "id": "pistol", "count": 1 }
     ],
-    "note": "NH starts in 2015. End-state rack matches the DD-214: MUC (5), SSDR (7), OSR (6). The December 2014 JSCM sits on the JCSE out plate. NCM 2018 and GCM 2015 are added here."
+    "note": "NH starts in 2015. End-state rack matches the DD-214: MUC (5), SSDR (7), OSR (6). The December 2014 JSCM sits on the JCSE out plate. NCM 2018 and GCM 2015 are added here. No SSDR, OSR or MUC was earned here (shore duty); the counts carry over from earlier plates."
   }
 ]
