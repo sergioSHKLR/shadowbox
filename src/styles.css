@@ -156,6 +156,16 @@ h1, h2, h3, .detail-title {
   min-width: 12rem;
   z-index: 40;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+  /* Phones sideways (Sergio, Oct 17): the panel hangs from the sticky header, so anything below the viewport could not be
+     reached (scrolling moved the page, not the panel). Cap it at the space under the header (--app-menu-top is set from
+     the panel's own top when it opens) and let it scroll on its own. On taller windows the cap is never reached. */
+  max-height: calc(100vh - var(--app-menu-top, 3.5rem) - 0.5rem);
+  max-height: calc(100dvh - var(--app-menu-top, 3.5rem) - env(safe-area-inset-bottom, 0px) - 0.5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  box-sizing: border-box;
 }
 .app-menu button {
   width: 100%;
