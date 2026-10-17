@@ -97,9 +97,10 @@
       { "kind": "equipment", "id": "iotv-ucp" },
       { "kind": "equipment", "id": "ach-acu-cover" },
       { "kind": "uniform", "id": "awu" },
-      { "kind": "unit", "id": "ia-army" },
-      { "kind": "operation", "id": "oif-2009" }
-    ]
+      { "kind": "unit", "id": "ia-army" }
+    ],
+    "city": "Fort Bliss, TX",
+    "stateside": true
   },
   {
     "id": "m16a1-hmmwv-rack",
@@ -228,9 +229,10 @@
     "subjects": [
       { "kind": "equipment", "id": "iotv-ucp" },
       { "kind": "uniform", "id": "awu" },
-      { "kind": "unit", "id": "ia-army" },
-      { "kind": "operation", "id": "oif-2009" }
-    ]
+      { "kind": "unit", "id": "ia-army" }
+    ],
+    "city": "Fort Bliss, TX",
+    "stateside": true
   },
   {
     "id": "plate-carrier-ranger",
@@ -1077,7 +1079,9 @@
     "src": "/photos/album/pier-2007-02-26.webp",
     "alt": "Sergio in camouflage walking on a pier by turquoise water",
     "caption": "Walking on a pier by turquoise water, 26 February 2007",
-    "subjects": [],
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
     "credit": "Sergio Schickler",
     "infer": false
   },
@@ -1090,6 +1094,8 @@
       { "kind": "uniform", "id": "awu" },
       { "kind": "unit", "id": "ia-army" }
     ],
+    "city": "Fort Bliss, TX",
+    "stateside": true,
     "credit": "Sergio Schickler",
     "infer": false
   },
@@ -1103,6 +1109,8 @@
       { "kind": "equipment", "id": "ach-acu-cover" },
       { "kind": "unit", "id": "ia-army" }
     ],
+    "city": "Fort Bliss, TX",
+    "stateside": true,
     "credit": "Sergio Schickler",
     "infer": false
   },
@@ -1116,6 +1124,8 @@
       { "kind": "equipment", "id": "ach-acu-cover" },
       { "kind": "unit", "id": "ia-army" }
     ],
+    "city": "Fort Bliss, TX",
+    "stateside": true,
     "credit": "Sergio Schickler",
     "infer": false
   },
@@ -1128,6 +1138,8 @@
       { "kind": "uniform", "id": "awu" },
       { "kind": "unit", "id": "ia-army" }
     ],
+    "city": "Fort Bliss, TX",
+    "stateside": true,
     "credit": "Sergio Schickler",
     "infer": false
   },
@@ -1220,7 +1232,8 @@
     "alt": "Sergio on an ATV by barriers",
     "caption": "ATVs by barriers, 23 September 2012",
     "subjects": [
-      { "kind": "unit", "id": "jcse" }
+      { "kind": "unit", "id": "jcse" },
+      { "kind": "operation", "id": "oef-2012", "likely": true }
     ],
     "credit": "Sergio Schickler",
     "infer": false
@@ -1232,7 +1245,8 @@
     "caption": "Rifle, on a rooftop, MultiCam, 23 September 2012",
     "subjects": [
       { "kind": "uniform", "id": "multicam" },
-      { "kind": "unit", "id": "jcse" }
+      { "kind": "unit", "id": "jcse" },
+      { "kind": "operation", "id": "oef-2012", "likely": true }
     ],
     "credit": "Sergio Schickler",
     "infer": false
@@ -1243,7 +1257,8 @@
     "alt": "An MRAP vehicle in the snow",
     "caption": "MRAP vehicle in the snow, 27 December 2012",
     "subjects": [
-      { "kind": "unit", "id": "jcse" }
+      { "kind": "unit", "id": "jcse" },
+      { "kind": "operation", "id": "oef-2012", "likely": true }
     ],
     "credit": "Sergio Schickler",
     "infer": false
@@ -1547,7 +1562,8 @@
     "subjects": [
       { "kind": "uniform", "id": "desert" },
       { "kind": "unit", "id": "eodmu5" },
-      { "kind": "equipment", "id": "jerrv-6x6" }
+      { "kind": "equipment", "id": "jerrv-6x6" },
+      { "kind": "unit", "id": "troy" }
     ],
     "credit": "Sergio Schickler",
     "infer": false
@@ -1571,7 +1587,8 @@
     "caption": "EOD Mobile Unit Five cap, desert camouflage, 21 August 2006",
     "subjects": [
       { "kind": "uniform", "id": "desert" },
-      { "kind": "unit", "id": "eodmu5" }
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "unit", "id": "troy" }
     ],
     "credit": "Sergio Schickler",
     "infer": false
@@ -1595,6 +1612,8 @@
       { "kind": "unit", "id": "ia-army" },
       { "kind": "equipment", "id": "centurion-c-ram" }
     ],
+    "city": "Fort Bliss, TX",
+    "stateside": true,
     "credit": "Sergio Schickler",
     "infer": false
   },
@@ -1608,6 +1627,8 @@
       { "kind": "equipment", "id": "ach-acu-cover" },
       { "kind": "unit", "id": "ia-army" }
     ],
+    "city": "Fort Bliss, TX",
+    "stateside": true,
     "credit": "Sergio Schickler",
     "infer": false
   },
@@ -1621,6 +1642,8 @@
       { "kind": "equipment", "id": "ach-acu-cover" },
       { "kind": "unit", "id": "ia-army" }
     ],
+    "city": "Fort Bliss, TX",
+    "stateside": true,
     "credit": "Sergio Schickler",
     "infer": false
   },
@@ -1687,7 +1710,8 @@
     "alt": "Troops seated and resting inside a military cargo aircraft",
     "caption": "Inside a cargo aircraft, 19 August 2010",
     "subjects": [
-      { "kind": "unit", "id": "jcse" }
+      { "kind": "unit", "id": "jcse" },
+      { "kind": "operation", "id": "oef-2010", "likely": true }
     ],
     "credit": "Sergio Schickler",
     "infer": false
@@ -1698,7 +1722,8 @@
     "alt": "Sergio shaking hands and receiving a plaque in a large room",
     "caption": "Receiving a plaque, 19 October 2010",
     "subjects": [
-      { "kind": "unit", "id": "jcse" }
+      { "kind": "unit", "id": "jcse" },
+      { "kind": "operation", "id": "oef-2010", "likely": true }
     ],
     "credit": "Sergio Schickler",
     "infer": false
@@ -1723,7 +1748,8 @@
     "caption": "Rifle, on a wall, MultiCam, 23 September 2012",
     "subjects": [
       { "kind": "uniform", "id": "multicam" },
-      { "kind": "unit", "id": "jcse" }
+      { "kind": "unit", "id": "jcse" },
+      { "kind": "operation", "id": "oef-2012", "likely": true }
     ],
     "credit": "Sergio Schickler",
     "infer": false
@@ -1734,7 +1760,8 @@
     "alt": "Over-the-shoulder view of a soldier aiming a rifle with a holographic sight",
     "caption": "Rifle with a holographic sight, 23 September 2012",
     "subjects": [
-      { "kind": "unit", "id": "jcse" }
+      { "kind": "unit", "id": "jcse" },
+      { "kind": "operation", "id": "oef-2012", "likely": true }
     ],
     "credit": "Sergio Schickler",
     "infer": false
@@ -1746,7 +1773,8 @@
     "caption": "Rifle, in front of a US flag, MultiCam, 23 September 2012",
     "subjects": [
       { "kind": "uniform", "id": "multicam" },
-      { "kind": "unit", "id": "jcse" }
+      { "kind": "unit", "id": "jcse" },
+      { "kind": "operation", "id": "oef-2012", "likely": true }
     ],
     "credit": "Sergio Schickler",
     "infer": false
@@ -1758,7 +1786,8 @@
     "caption": "Rifle, in a pickup truck bed, MultiCam, 23 September 2012",
     "subjects": [
       { "kind": "uniform", "id": "multicam" },
-      { "kind": "unit", "id": "jcse" }
+      { "kind": "unit", "id": "jcse" },
+      { "kind": "operation", "id": "oef-2012", "likely": true }
     ],
     "credit": "Sergio Schickler",
     "infer": false
@@ -1771,7 +1800,8 @@
     "subjects": [
       { "kind": "uniform", "id": "multicam" },
       { "kind": "equipment", "id": "beretta-m9" },
-      { "kind": "unit", "id": "jcse" }
+      { "kind": "unit", "id": "jcse" },
+      { "kind": "operation", "id": "oef-2012", "likely": true }
     ],
     "credit": "Sergio Schickler",
     "infer": false
@@ -1784,7 +1814,8 @@
     "subjects": [
       { "kind": "uniform", "id": "multicam" },
       { "kind": "equipment", "id": "beretta-m9" },
-      { "kind": "unit", "id": "jcse" }
+      { "kind": "unit", "id": "jcse" },
+      { "kind": "operation", "id": "oef-2012", "likely": true }
     ],
     "credit": "Sergio Schickler",
     "infer": false
@@ -1796,7 +1827,8 @@
     "caption": "Sunglasses and MultiCam against a blue sky, 23 September 2012",
     "subjects": [
       { "kind": "uniform", "id": "multicam" },
-      { "kind": "unit", "id": "jcse" }
+      { "kind": "unit", "id": "jcse" },
+      { "kind": "operation", "id": "oef-2012", "likely": true }
     ],
     "credit": "Sergio Schickler",
     "infer": false
@@ -1894,22 +1926,9 @@
     "id": "album-sercc-group-lawn",
     "src": "/photos/album/sercc-group-lawn.webp",
     "alt": "Sergio in a light blue working shirt with a group of sailors on a lawn",
-    "caption": "SERCC group photo. Date not recorded",
+    "caption": "SERCC group photo, about 2008",
     "subjects": [
       { "kind": "unit", "id": "sercc" }
-    ],
-    "credit": "Sergio Schickler",
-    "infer": false
-  },
-  {
-    "id": "album-eodmu5-aam-ceremony-trio",
-    "src": "/photos/album/eodmu5-aam-ceremony-trio.webp",
-    "alt": "Sergio in summer whites holding an award certificate, standing with two other sailors",
-    "caption": "Receiving the Army Achievement Medal after the first Iraq tour, EODMU 5. Date not recorded",
-    "subjects": [
-      { "kind": "unit", "id": "eodmu5" },
-      { "kind": "award", "id": "aam" },
-      { "kind": "uniform", "id": "working-whites" }
     ],
     "credit": "Sergio Schickler",
     "infer": false
@@ -1943,8 +1962,8 @@
   {
     "id": "album-arifjan-mcdonalds-2009-03-20",
     "src": "/photos/album/arifjan-mcdonalds-2009-03-20.webp",
-    "alt": "Sergio in the Navy PT uniform making an M with his arms under a McDonald\u2019s sign",
-    "caption": "McDonald\u2019s at Camp Arifjan, Kuwait, en route to the second Iraq tour, 20 March 2009",
+    "alt": "Sergio in the Navy PT uniform making an M with his arms under a McDonald’s sign",
+    "caption": "McDonald’s at Camp Arifjan, Kuwait, en route to the second Iraq tour, 20 March 2009",
     "city": "Camp Arifjan, Kuwait",
     "subjects": [
       { "kind": "unit", "id": "ia-army" },

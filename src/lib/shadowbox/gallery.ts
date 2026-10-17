@@ -11,12 +11,14 @@
  * Tags (nothing is invented; every tag traces to a record)
  *  - Command: photos.json `unit` subjects; equipment `unitId`; used-here.json lists (command -> items used there).
  *  - Operation: photos.json `operation` subjects; used-here.json operation lists; and a command whose record IS the
- *    deployment (operations.json `unitId`, e.g. CJTF Troy -> OIF 2006), both ways.
+ *    deployment (operations.json `unitId`, e.g. CJTF Troy -> OIF 2006), both ways. A `stateside` photo (training at
+ *    home before the deployment, e.g. TF Iron Shield photos at Fort Bliss) keeps the command but not that operation.
  *  - A photo of Sergio's with no command or operation subject: if used-here.json records every one of its gear and
  *    uniform subjects at one and the same command (or operation), and no other in common, it takes that tag.
  *    Commands and operations are judged separately; when two or more remain in common (e.g. multicam -> OEF 2010
  *    and OEF 2012) that group stays untagged.
- *  - City: a photos.json `city` (from the photo's own EXIF location, e.g. the 2023+ album photos), or a city or
+ *  - City: a photos.json `city` (from the photo's own EXIF location, e.g. the 2023+ album photos, or from Sergio's
+ *    own account, e.g. Camp Arifjan and Fort Bliss), or a city or
  *    residence photo (places.json, else the record's name). Commands do not give a city: a unit's
  *    home base says nothing about where a given photo was taken (EODMU 5 photos are from Guam and from Iraq).
  *  - Date: an ISO date in the photo id (e.g. m4-rack-2006-03-18), else a full date or a year in the caption.
@@ -98,8 +100,8 @@ function fromPhotos(): GalleryPhoto[] {
     const sources: TagSource[] = [];
     const subs = p.subjects ?? [];
     for (const s of subs) if (s.kind === "unit") add(tags, sources, commandTag(s.id), "photos.json subject");
-    for (const s of subs) if (s.kind === "operation") add(tags, sources, opTag(s.id), "photos.json subject");
-    for (const s of subs) if (s.kind === "unit") for (const op of opsOfUnit(s.id)) add(tags, sources, opTag(op), `operations.json unitId (${s.id})`);
+    for (const s of subs) if (s.kind === "operation") add(tags, sources, opTag(s.id), s.likely ? "photos.json subject (likely: from Sergio's date range)" : "photos.json subject");
+    if (!p.stateside) for (const s of subs) if (s.kind === "unit") for (const op of opsOfUnit(s.id)) add(tags, sources, opTag(op), `operations.json unitId (${s.id})`);
     for (const s of subs) if (s.kind === "operation") add(tags, sources, commandTag(opById.get(s.id)?.unitId ?? ""), `operations.json unitId (${s.id})`);
     for (const s of subs) {
       if (s.kind !== "equipment") continue;
