@@ -693,6 +693,12 @@ function medalArtFor(id: string): string {
 /** Color-matched photo sets (Sergio, Oct 17 2026): /workspace/medals/sergio/sets/<id>-matched.png -> public/medals/photo/. */
 const MEDAL_PHOTOS = new Set(["pistol", "rifle", "jscm", "nam", "acm", "ngcm", "arcom", "jsam", "ncm", "ndsm", "aam", "hsm", "gwotsm", "icm", "nato"]);
 
+/** Ribbon-only awards photographed (Oct 17 2026, Medals of America product photos; credits.json). The Navy E photo
+ *  carries three cloned copies of its own photographed E (career count 3). No other devices are drawn on these. */
+const RIBBON_PHOTOS = new Set(["jmua", "nmuc", "navy-e", "ssdr", "osr"]);
+export const ribbonPhotoFor = (awardId: string) =>
+  RIBBON_PHOTOS.has(awardId) ? { src: `/medals/photo/${awardId}-ribbon.webp`, small: `/medals/photo/${awardId}-ribbon-sm.webp` } : null;
+
 export const medalFor = (awardId: string) => {
   const medal = medals.find((row) => row.id === awardId);
   if (!medal) return null;

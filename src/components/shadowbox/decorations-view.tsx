@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Chrome } from "@/lib/shadowbox/copy";
-import { awards, medalFor, medalRows, ribbonRows, type Award, type Kind } from "@/lib/shadowbox/model";
+import { awards, medalFor, medalRows, ribbonPhotoFor, ribbonRows, type Award, type Kind } from "@/lib/shadowbox/model";
 import { publicUrl } from "@/lib/shadowbox/model";
 import { MedalArt, MedalBlock, RibbonArt, RibbonButton } from "@/components/shadowbox/marks";
 
@@ -116,7 +116,22 @@ function RibbonOnly({ list, open, t }: { list: Award[]; open: (a: Award) => void
     <section className="decor-ribbon-only" aria-labelledby="decor-ribbon-only-h">
       <h3 id="decor-ribbon-only-h">{t.decor.ribbonOnlyHead}</h3>
       <p className="quiet">{t.decor.ribbonOnlyNote}</p>
-      <Rack rows={ribbonRows(list, 3)} onOpen={open} label={t.decor.ribbonOnlyHead} />
+      {list.every((a) => ribbonPhotoFor(a.id)) ? (
+        // Photos (Oct 17 2026): same 2-over-3 rack layout as the vector rack, precedence top down.
+        <div className="decor-rack decor-rack--photo" aria-label={t.decor.ribbonOnlyHead}>
+          {ribbonRows(list, 3).map((row) => (
+            <div key={row.map((a) => a.id).join("-")} className="decor-rack-row">
+              {row.map((award) => (
+                <button key={award.id} type="button" className="ribbon ribbon-photo-btn" aria-label={`${award.name}. Open the explanation.`} title={award.name} onClick={() => open(award)}>
+                  <img src={publicUrl(ribbonPhotoFor(award.id)!.small)} alt="" width={300} height={82} loading="lazy" decoding="async" />
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <Rack rows={ribbonRows(list, 3)} onOpen={open} label={t.decor.ribbonOnlyHead} />
+      )}
     </section>
   );
 }

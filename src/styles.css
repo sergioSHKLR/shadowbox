@@ -1617,3 +1617,11 @@ object.cx-art { color-scheme: light; }
 .decor-ribbon-only h3 { margin: 0; }
 .decor-ribbon-only .decor-rack { --in: clamp(3rem, 18.5vw, 5.5rem); }
 .decor-loose-medals .medal-raster { filter: drop-shadow(0 1px 1.5px rgba(0,0,0,0.55)); }
+
+/* Ribbon photos (Oct 17 2026): the five ribbon-only awards, sidebar hero and Decorations section. */
+.ribbon-photo { display: block; width: min(100%, 22rem); height: auto; margin: 0 auto; }
+.decor-rack--photo { display: flex; flex-direction: column; align-items: center; gap: 2px; --rw: clamp(5.5rem, 26vw, 8.5rem); }
+.decor-rack--photo .decor-rack-row { display: flex; gap: 2px; justify-content: center; }
+.ribbon-photo-btn { padding: 0; border: 0; background: none; cursor: pointer; width: var(--rw); line-height: 0; }
+.ribbon-photo-btn img { width: 100%; height: auto; display: block; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.45)); }
+.ribbon-photo-btn:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }
