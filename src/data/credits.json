@@ -1258,5 +1258,50 @@
     "creator": "U.S. government / Wikimedia Commons (Flag of the United States; Army; Air Force; Navy; Marine Corps)",
     "license": "Public domain. Works of the U.S. federal government; vector files from Wikimedia Commons.",
     "notes": "Local Commons copies in incoming/service-flags/; composed strip in incoming/joint-flags.*. Not currently shown under the Home portrait (embossed seal restored pending Sergio's own graphic). Public domain. Not hotlinked. Also https://commons.wikimedia.org/wiki/File:Flag_of_the_United_States.svg"
+  },
+  {
+    "id": "jmua-ribbon-photo",
+    "title": "Joint Meritorious Unit Award (ribbon photo)",
+    "file": "/medals/photo/jmua-ribbon.webp",
+    "sourceUrl": "https://www.medalsofamerica.com/joint-meritorious-unit-award-air-force-navy-coast-guard-marine-corps",
+    "creator": "Medals of America (medalsofamerica.com)",
+    "license": "Retailer product photo; rights belong to Medals of America. No license or permission is recorded.",
+    "notes": "Medals of America product photo (SKU R848S), background removed and cut to 600x163; image https://www.medalsofamerica.com/media/catalog/product/r/8/r848s_6.jpg. Shown on Decorations (ribbon-only awards) and the award sidebar. Not hotlinked."
+  },
+  {
+    "id": "nmuc-ribbon-photo",
+    "title": "Navy Meritorious Unit Commendation (ribbon photo)",
+    "file": "/medals/photo/nmuc-ribbon.webp",
+    "sourceUrl": "https://www.medalsofamerica.com/meritorious-unit-commendation-ribbon",
+    "creator": "Medals of America (medalsofamerica.com)",
+    "license": "Retailer product photo; rights belong to Medals of America. No license or permission is recorded.",
+    "notes": "Medals of America product photo (SKU R824), background removed and cut to 600x163; image https://www.medalsofamerica.com/media/catalog/product/r/8/r824_6.jpg. Shown on Decorations (ribbon-only awards) and the award sidebar. Not hotlinked."
+  },
+  {
+    "id": "navy-e-ribbon-photo",
+    "title": "Navy E Ribbon (ribbon photo)",
+    "file": "/medals/photo/navy-e-ribbon.webp",
+    "sourceUrl": "https://www.medalsofamerica.com/navy-e-ribbon",
+    "creator": "Medals of America (medalsofamerica.com)",
+    "license": "Retailer product photo; rights belong to Medals of America. No license or permission is recorded.",
+    "notes": "Medals of America product photo (SKU R851), background removed and cut to 600x163; image https://www.medalsofamerica.com/media/catalog/product/r/8/r851_5.jpg. Shown on Decorations (ribbon-only awards) and the award sidebar. Not hotlinked. The photo shows one silver E; the three-E version clones that same photographed E (no drawn art) for the three Battle E awards."
+  },
+  {
+    "id": "ssdr-ribbon-photo",
+    "title": "Navy Sea Service Deployment Ribbon (ribbon photo)",
+    "file": "/medals/photo/ssdr-ribbon.webp",
+    "sourceUrl": "https://www.medalsofamerica.com/navy-sea-service-deployment-ribbon",
+    "creator": "Medals of America (medalsofamerica.com)",
+    "license": "Retailer product photo; rights belong to Medals of America. No license or permission is recorded.",
+    "notes": "Medals of America product photo (SKU R852), background removed and cut to 600x163; image https://www.medalsofamerica.com/media/catalog/product/r/8/r852_6.jpg. Shown on Decorations (ribbon-only awards) and the award sidebar. Not hotlinked."
+  },
+  {
+    "id": "osr-ribbon-photo",
+    "title": "Navy and Marine Corps Overseas Service Ribbon (ribbon photo)",
+    "file": "/medals/photo/osr-ribbon.webp",
+    "sourceUrl": "https://www.medalsofamerica.com/navy-and-marine-corps-overseas-service-ribbon",
+    "creator": "Medals of America (medalsofamerica.com)",
+    "license": "Retailer product photo; rights belong to Medals of America. No license or permission is recorded.",
+    "notes": "Medals of America product photo (SKU R859), background removed and cut to 600x163; image https://www.medalsofamerica.com/media/catalog/product/r/8/r859_1_1.jpg. Shown on Decorations (ribbon-only awards) and the award sidebar. Not hotlinked."
   }
 ]

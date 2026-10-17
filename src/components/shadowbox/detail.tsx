@@ -18,6 +18,7 @@ import {
   schools,
   formatSpan,
   medalFor,
+  ribbonPhotoFor,
   necById,
   operations,
   placeById,
@@ -500,7 +501,9 @@ export function DetailPanel({
               ) : subject.hero ? (
                 <>
                 <figure className={`detail-hero hero-${subject.hero.type === "ribbon" ? "ribbon" : subject.hero.shape}${showUsage && gallery.length ? " hero-with-shots" : ""}`}>
-                  {subject.hero.type === "ribbon" ? (
+                  {subject.hero.type === "ribbon" && ribbonPhotoFor(subject.hero.award.id) ? (
+                    <img className="ribbon-hero ribbon-photo" src={publicUrl(ribbonPhotoFor(subject.hero.award.id)!.src)} alt={`${subject.hero.award.name} ribbon`} width={600} height={163} />
+                  ) : subject.hero.type === "ribbon" ? (
                     <RibbonArt award={subject.hero.award} className="ribbon-hero" />
                   ) : subject.hero.src ? (
                     <img src={publicUrl(subject.hero.src)} alt={subject.hero.alt} />
