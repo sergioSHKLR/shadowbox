@@ -632,11 +632,20 @@
   {
     "id": "crest-jcse-ssi",
     "title": "Joint Communications Support Element shoulder sleeve insignia with AIRBORNE tab",
-    "file": "/crests/jcse-ssi-airborne.svg",
+    "file": "/case/jcse-crest.svg",
     "sourceUrl": null,
     "creator": "Vector supplied by the veteran",
     "license": "Vector drawing supplied by the veteran of a U.S. military insignia. Use of military insignia is restricted by law independently of copyright.",
-    "notes": "Cropped to the patch and optimized with SVGO. The JCSE seal is shown in the popup."
+    "notes": "New vector from the veteran (Oct 17 2026), used as drawn; SVGO with the viewBox kept. The JCSE seal is shown in the popup."
+  },
+  {
+    "id": "insignia-jcse-device",
+    "title": "Joint Communications Support Element shoulder sleeve insignia (shield, no tab)",
+    "file": "/insignia/jcse-device.svg",
+    "sourceUrl": null,
+    "creator": "Vector supplied by the veteran",
+    "license": "Vector drawing supplied by the veteran of a U.S. military insignia. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "New vector from the veteran (Oct 17 2026), used as drawn; SVGO with the viewBox kept. Worn below the medals on the Decorations mount."
   },
   {
     "id": "equipment-an-prc-150",
