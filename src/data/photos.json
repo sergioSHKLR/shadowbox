@@ -1900,5 +1900,57 @@
     ],
     "credit": "Sergio Schickler",
     "infer": false
+  },
+  {
+    "id": "album-eodmu5-aam-ceremony-trio",
+    "src": "/photos/album/eodmu5-aam-ceremony-trio.webp",
+    "alt": "Sergio in summer whites holding an award certificate, standing with two other sailors",
+    "caption": "Receiving the Army Achievement Medal after the first Iraq tour, EODMU 5. Date not recorded",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "award", "id": "aam" },
+      { "kind": "uniform", "id": "working-whites" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-eodmu5-aam-ceremony-2006-12-01",
+    "src": "/photos/album/eodmu5-aam-ceremony-2006-12-01.webp",
+    "alt": "Sergio smiling in summer whites holding an award certificate, other sailors behind, overlay stamp DEC 1 2006",
+    "caption": "Receiving the Army Achievement Medal after the first Iraq tour, EODMU 5, 1 December 2006",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" },
+      { "kind": "award", "id": "aam" },
+      { "kind": "uniform", "id": "working-whites" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-arifjan-starbucks-2009-03-20",
+    "src": "/photos/album/arifjan-starbucks-2009-03-20.webp",
+    "alt": "Sergio in the Navy PT uniform in front of a Starbucks Coffee building",
+    "caption": "Starbucks at Camp Arifjan, Kuwait, en route to the second Iraq tour, 20 March 2009",
+    "city": "Camp Arifjan, Kuwait",
+    "subjects": [
+      { "kind": "unit", "id": "ia-army" },
+      { "kind": "uniform", "id": "navy-ptu" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
+  },
+  {
+    "id": "album-arifjan-mcdonalds-2009-03-20",
+    "src": "/photos/album/arifjan-mcdonalds-2009-03-20.webp",
+    "alt": "Sergio in the Navy PT uniform making an M with his arms under a McDonald\u2019s sign",
+    "caption": "McDonald\u2019s at Camp Arifjan, Kuwait, en route to the second Iraq tour, 20 March 2009",
+    "city": "Camp Arifjan, Kuwait",
+    "subjects": [
+      { "kind": "unit", "id": "ia-army" },
+      { "kind": "uniform", "id": "navy-ptu" }
+    ],
+    "credit": "Sergio Schickler",
+    "infer": false
   }
 ]
