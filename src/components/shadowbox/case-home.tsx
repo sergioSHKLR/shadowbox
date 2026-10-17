@@ -360,7 +360,10 @@ const oneL = (): Layout => {
   // v4: pink 2M, passport, memorandum, stacked up from the bottom padding with the pocket column's card gap.
   { const ids = ["contact", "map", "logbook"], bot = y + H0 - PAD;
     const pgap = (bot - y - EXW_BOTTOM - ["onduty", "offduty", "admin"].reduce((t, id) => t + byId(id).h, 0)) / 3;
-    let yy = bot; for (const id of [...ids].reverse()) { const it = byId(id); yy -= it.h; pos[id] = [DOC_X + DOC_W / 2 - it.w / 2, yy]; yy -= pgap; } }
+    // v5 (Sergio, Oct 17): the column is centred on the right crest column's axis (SERCC, NH Jacksonville), not the shirt's
+    // document column; phone portrait only. True sizes and vertical positions unchanged.
+    const docCx = pcx("bio");
+    let yy = bot; for (const id of [...ids].reverse()) { const it = byId(id); yy -= it.h; pos[id] = [docCx - it.w / 2, yy]; yy -= pgap; } }
   // Pen upright beside the pocket's left edge, its top level with the pocket top (the pocket is 142 mm tall, the pen 142).
   pos.guestbook = [SHIRT.pocket.flapL - 6 - PEN.w, y + SHIRT.pocket.top];
   return { pos, size, tilt: {}, w: W, h: y + H0 };
