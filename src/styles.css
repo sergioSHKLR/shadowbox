@@ -1610,7 +1610,12 @@ object.cx-art { color-scheme: light; }
 .medal-hero-photo .medal-set { display: block; width: min(100%, 26rem); height: auto; margin: 0 auto; }
 .decor-medal-grid--photo { gap: 0; }
 .decor-medal-grid--photo .decor-medal-row { position: relative; }
-.decor-medal-grid--photo .decor-medal-row + .decor-medal-row { margin-top: calc(var(--mi, 1rem) * -1.15); }
+/* Overlap matched to Sergio's mount (Oct 17 2026): medal centres 0.64 of a pendant width apart (pendants are 0.956 of
+   the 1 3/8 in button, so the step is 0.612 of it); row heights and crops come from mountLayout() in decorations-view. */
+.decor-medal-grid--photo .decor-medal-row { align-items: stretch; }
+.decor-medal-grid--photo .decor-medal-btn + .decor-medal-btn { margin-left: calc(var(--mi, 1rem) * -0.5335); }
+.decor-medal-grid--photo .decor-medal-btn { display: flex; align-items: flex-start; }
+.decor-medal-grid--photo .medal-art { display: flex; flex-direction: column; justify-content: flex-start; height: auto; }
 .decor-medal-grid--photo .medal-raster { filter: drop-shadow(0 1px 1.5px rgba(0,0,0,0.55)); }
 .decor-photo-wrap { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
 .decor-ribbon-only { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; border-top: 1px solid var(--color-line); padding-top: 1.25rem; width: min(100%, 36rem); }

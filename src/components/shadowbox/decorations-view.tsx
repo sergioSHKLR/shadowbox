@@ -53,6 +53,39 @@ export function Decorations({ onOpen, title, t }: { onOpen: (k: Kind, id: string
   );
 }
 
+/** Mounted photo fronts (Oct 17 2026), matched to Sergio's own mount (album PXL_20231111_234949714): only the top row's
+ *  suspension ribbons show; each lower row shows its pendants only, hung from the same line, with the upper row's
+ *  pendants covering their tops. Per photo: [y of the suspension ring (the ribbon ends above it), image height], in px
+ *  of the 360 px wide -front.webp. Measured from the files (medals/sergio/overlap/front-metrics.json). */
+const HANG: Record<string, [number, number]> = {
+  aam: [347, 771], acm: [351, 748], arcom: [312, 769], gwotsm: [361, 759], hsm: [352, 757], icm: [352, 745],
+  jsam: [358, 758], jscm: [364, 764], nam: [341, 751], nato: [379, 753], ncm: [358, 744], ndsm: [371, 761],
+  ngcm: [343, 762], pistol: [355, 753], rifle: [326, 755],
+};
+const PHOTO_W = 360;
+/** Reference: rows hang 0.85 of a pendant height apart (mean pendant body 351 px). */
+const ROW_STEP = 299;
+/** Lower rows are cut just below the ring, so no part of their ribbon can show between the medals above. */
+const CUT_BELOW_RING = 4;
+const BTN_MI = 1.375; // button width in --mi (1 3/8 in ribbon)
+function mountLayout(rows: Award[][]) {
+  const px = (v: number) => (v / PHOTO_W) * BTN_MI; // image px -> --mi
+  const top = rows[0] ?? [];
+  // Top row: ribbons cropped at the top to the shortest drape, so ribbon tops and rings both line up.
+  const drape = Math.min(...top.map((a) => HANG[a.id]?.[0] ?? 0));
+  return rows.map((row, r) => {
+    const items = row.map((award) => {
+      const [ring, h] = HANG[award.id] ?? [drape, PHOTO_W * 2];
+      const from = r === 0 ? ring - drape : ring + CUT_BELOW_RING;
+      // marginTop is a % of the button width; clip-path inset is a % of the image height.
+      return { award, src: medalFor(award.id)!.front!, top: (from / PHOTO_W) * 100, clip: (from / h) * 100, rest: h - from };
+    });
+    const last = r === rows.length - 1;
+    const height = last ? px(Math.max(...items.map((i) => i.rest)) + 4) : r === 0 ? px(drape + ROW_STEP + CUT_BELOW_RING) : px(ROW_STEP);
+    return { row, height, items };
+  });
+}
+
 function MedalsView({ mount, onOpen, t }: { mount: "mounted" | "unmounted"; onOpen: (k: Kind, id: string) => void; t: Chrome }) {
   const ordered = [...awards].sort((a, b) => a.precedence - b.precedence);
   const withMedal = ordered.filter((a) => medalFor(a.id));
@@ -73,11 +106,13 @@ function MedalsView({ mount, onOpen, t }: { mount: "mounted" | "unmounted"; onOp
         <div className="decor-full-dress">
           <BreastLeft>
             <div className="decor-medal-grid decor-medal-grid--photo">
-              {five.map((row, r) => (
-                <div key={row.map((a) => a.id).join("-")} className="decor-medal-row" style={{ zIndex: five.length - r }}>
-                  {row.map((award, i) => (
+              {mountLayout(five).map(({ row, height, items }, r) => (
+                <div key={row.map((a) => a.id).join("-")} className="decor-medal-row" style={{ zIndex: five.length - r, height: `calc(var(--mi) * ${height})` }}>
+                  {items.map(({ award, src, top, clip }, i) => (
                     <button key={award.id} type="button" className="decor-medal-btn" style={{ zIndex: row.length - i }} aria-label={award.name} onClick={() => open(award)}>
-                      <MedalArt award={award} medal={medalFor(award.id)!} />
+                      <span className="medal-art medal-art-raster">
+                        <img className="medal-raster" src={publicUrl(src)} alt="" style={{ marginTop: `${-top}%`, clipPath: `inset(${clip}% 0 0 0)` }} />
+                      </span>
                     </button>
                   ))}
                 </div>
