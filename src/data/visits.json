@@ -125,7 +125,8 @@
     "when": "c. 2004 (year not recorded; before EODMU 5)",
     "sort": "2004",
     "prio": -1,
-    "approximate": true
+    "approximate": true,
+    "note": "Sergio (Oct 17 2026): Silver Strand, Imperial Beach, the Elephant Cage (the Imperial Beach antenna array), 2004."
   },
   {
     "id": "cobra-gold",
@@ -156,7 +157,8 @@
     "trips": [
       "2005",
       "2007"
-    ]
+    ],
+    "note": "Sergio (Oct 17 2026): the second Talisman Saber was June 2007 (Gallery photo of 20 June 2007, with EODMU 5)."
   },
   {
     "id": "whidbey-visit",

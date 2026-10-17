@@ -183,6 +183,9 @@ export type Operation = {
   baseIds?: string[];
   /** Boots-on-ground length in months when start/end are year-only. */
   months?: number;
+  /** In-theater start (YYYY-MM) when the tour began with training at home (oif-2009: Fort Bliss Oct 2008, Balad from Mar 2009).
+   *  The Gallery operation chip is labeled from this year. */
+  theaterStart?: string;
   explanation: string;
   open?: string;
 };
@@ -1845,7 +1848,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       facts: [
         ...(unit.designator ? [{ label: "Designator", value: unit.designator }] : []),
         { label: "When", value: formatSpan(unit.start, unit.end) },
-        ...(unit.start ? [{ label: "Precision", value: unit.precision === "year" ? "Years only — months were not recorded" : "Month recorded" }] : []),
+        ...(unit.start ? [{ label: "Precision", value: unit.precision === "year" ? "Years only — months were not recorded" : unit.precision === "month-likely" ? "Months likely (Sergio’s estimate)" : "Month recorded" }] : []),
         ...(nec ? [{ label: "NEC on this tour", value: `${nec.code} · ${nec.name}` }] : []),
         ...(unit.workcenter ? [{ label: "Workcenter", value: unit.workcenter }] : []),
         ...supplementFacts("unit", unit.id),

@@ -49,12 +49,12 @@ const unitById = new Map(units.map((u) => [u.id, u]));
 const opById = new Map(operations.map((o) => [o.id, o]));
 const placeById = new Map(places.map((p) => [p.id, p]));
 
-/** "Operation Iraqi Freedom" + 2008-10 -> "OIF 2008". */
+/** "Operation Iraqi Freedom" + 2006-02 -> "OIF 2006". The year is the in-theater start when one is recorded (oif-2009: theaterStart 2009-03 -> "OIF 2009", not the Fort Bliss start). */
 function opShort(id: string): string {
   const o = opById.get(id);
   if (!o) return id;
   const initials = o.name.split(/\s+/).map((w) => w[0]).join("").toUpperCase();
-  return `${initials} ${o.start.slice(0, 4)}`;
+  return `${initials} ${(o.theaterStart ?? o.start).slice(0, 4)}`;
 }
 const commandTag = (id: string): GalleryTag | null => {
   const u = unitById.get(id);

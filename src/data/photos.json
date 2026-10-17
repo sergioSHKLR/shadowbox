@@ -928,7 +928,7 @@
     "id": "album-dcu-road-2006-02-14",
     "src": "/photos/album/dcu-road-2006-02-14.webp",
     "alt": "Sergio in desert camouflage walking on a road by green containers",
-    "caption": "Desert camouflage, on a road by containers, 14 February 2006",
+    "caption": "Desert camouflage, on a road by containers, at EODMU 11 before deploying to Iraq, 14 February 2006",
     "subjects": [
       { "kind": "uniform", "id": "desert" },
       { "kind": "unit", "id": "eodmu5" }
@@ -1320,13 +1320,15 @@
     "infer": false
   },
   {
-    "id": "album-woodland-rifle-2004-09-01",
+    "id": "album-silver-strand-2004",
     "src": "/photos/album/woodland-rifle-2004-09-01.webp",
     "alt": "Sergio in woodland camouflage and a boonie hat holding a rifle beside a table",
-    "caption": "Rifle, beside a table, woodland camouflage, 1 September 2004",
+    "caption": "At Silver Strand, Imperial Beach, during NEC 9613 school, 2004",
     "subjects": [
-      { "kind": "uniform", "id": "green-camo" }
+      { "kind": "uniform", "id": "green-camo" },
+      { "kind": "school", "id": "nsw-comms-school" }
     ],
+    "city": "Imperial Beach, CA",
     "credit": "Sergio Schickler",
     "infer": false
   },
@@ -1597,8 +1599,10 @@
     "id": "album-cafe-laptop-2007-06-20",
     "src": "/photos/album/cafe-laptop-2007-06-20.webp",
     "alt": "Sergio in a brown hat and jacket at a cafe table with a laptop",
-    "caption": "At a cafe table with a laptop, 20 June 2007",
-    "subjects": [],
+    "caption": "In Australia for Talisman Saber, June 2007",
+    "subjects": [
+      { "kind": "unit", "id": "eodmu5" }
+    ],
     "credit": "Sergio Schickler",
     "infer": false
   },
@@ -1651,10 +1655,13 @@
     "id": "album-boonie-pirate-statue-2009-04-17",
     "src": "/photos/album/boonie-pirate-statue-2009-04-17.webp",
     "alt": "Selfie of Sergio in an ACU boonie hat and goggles next to a pirate statue",
-    "caption": "Selfie by a pirate statue, ACU, 17 April 2009",
+    "caption": "On guard duty at Joint Base Balad, Iraq, 17 April 2009",
     "subjects": [
-      { "kind": "uniform", "id": "awu" }
+      { "kind": "uniform", "id": "awu" },
+      { "kind": "unit", "id": "ia-army" },
+      { "kind": "operation", "id": "oif-2009" }
     ],
+    "city": "Joint Base Balad, Iraq",
     "credit": "Sergio Schickler",
     "infer": false
   },
