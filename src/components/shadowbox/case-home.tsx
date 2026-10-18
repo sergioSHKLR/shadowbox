@@ -99,7 +99,11 @@ const ITEMS: Item[] = [
 const CRESTS: Item[] = [
   crest("ncts", "ncts", "ncts-crest.svg", 1, "NCTS", DEV.po3),
   crest("frank-cable", "frank-cable", "as40-crest.svg", 710.007 / 710.963, "USS Frank Cable", DEV.po2),
-  crest("eodmu5", "eodmu5", "eodmu5-crest.svg", 719.152 / 717.977, "EODMU 5", DEV.po1),
+  // Master EOD badge on the crest (Sergio, Oct 18 2026): eodmu5-crest-master-eod.svg is eodmu5-crest.svg unchanged with
+  // eod-master-badge.svg nested in it, centred on the hub where the map's eight grid lines meet (632.95, 302.15 in the
+  // crest's units: the western Pacific, about Guam), 15% of the crest's width (Sergio, Oct 18: the smallest preview size), drawn over the map and under the "5" and
+  // the lettering. Baked into one file so it scales with the crest in every layout and in the crest pop-up.
+  crest("eodmu5", "eodmu5", "eodmu5-crest-master-eod.svg", 719.152 / 717.977, "EODMU 5", DEV.po1),
   crest("sercc", "sercc", "sercc-crest.svg", 341.781 / 298.482, "SERCC", DEV.po1),
   crest("jcse", "jcse", "jcse-crest.svg", 1208.234 / 1693.748, "JCSE", DEV.po1g),
   crest("navhosp", "navhosp", "nhjax-crest.svg", 298.611 / 295.308, "NH Jacksonville", DEV.cpo),
