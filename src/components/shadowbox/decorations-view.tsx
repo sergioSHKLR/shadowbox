@@ -229,8 +229,11 @@ function BreastLeft({ children }: { children: React.ReactNode }) {
       <img className="decor-pin decor-pin-photo" src={publicUrl("/decorations/photo/esws-pin.webp")} alt="Enlisted Surface Warfare Specialist pin" />
       {children}
       <img className="decor-pin decor-pin-photo" src={publicUrl("/decorations/photo/exw-pin.webp")} alt="Expeditionary Warfare Specialist pin" />
-      {/* No photo of the JCSE device yet (Oct 18 2026): stays the SVG. */}
-      <img className="decor-jcse" src={publicUrl("/insignia/jcse-device.svg")} alt="JCSE device" />
+      {/* JCSE badge: Sergio's photo (Oct 18 2026), transparent background, same 1.6 in width as the SVG it replaced. */}
+      <picture>
+        <source srcSet={publicUrl("/decorations/photo/jcse-badge.avif")} type="image/avif" />
+        <img className="decor-jcse decor-jcse-photo" src={publicUrl("/decorations/photo/jcse-badge.webp")} width={350} height={404} alt="JCSE identification badge" />
+      </picture>
     </div>
   );
 }
