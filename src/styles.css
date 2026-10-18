@@ -1651,14 +1651,22 @@ object.cx-art { color-scheme: light; }
 /* Ribbon weave (Sergio, Oct 18 2026): one shared overlay, /ribbons/weave-mask.svg (incoming/ribbons/ribbon-weave-mask.svg,
    15 thin 15%-black stripes at ribbon proportions), stretched to each drawn ribbon's box so every ribbon keeps the same
    stripe count. It sits above the ribbon colours and below the devices (stars, E, oak leaves). Drawings only: the photo
-   Decorations page and the sidebars keep their photos, so the overlay is off there. */
+   Decorations page and the sidebars keep their photos, so the overlay is off there.
+   Small sizes: off when the ribbon is under 30 device px tall (15 stripes would alias into moire). A ribbon is 11:3, so
+   that is a box under 110 device px wide; each .ribbon is its own inline-size container, so its ::after tests its own
+   width, against 110 px divided by the lowest device-pixel ratio of each resolution band. */
 .ribbon:has(> img:not(.ribbon-device))::after {
-  content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   background: url("/ribbons/weave-mask.svg") center / 100% 100% no-repeat;
 }
+@media (resolution < 1.25dppx) { @container (width >= 110px) { .ribbon:has(> img:not(.ribbon-device))::after { content: ""; } } }
+@media (1.25dppx <= resolution < 1.5dppx) { @container (width >= 88px) { .ribbon:has(> img:not(.ribbon-device))::after { content: ""; } } }
+@media (1.5dppx <= resolution < 2dppx) { @container (width >= 73.4px) { .ribbon:has(> img:not(.ribbon-device))::after { content: ""; } } }
+@media (2dppx <= resolution < 2.5dppx) { @container (width >= 55px) { .ribbon:has(> img:not(.ribbon-device))::after { content: ""; } } }
+@media (2.5dppx <= resolution < 3dppx) { @container (width >= 44px) { .ribbon:has(> img:not(.ribbon-device))::after { content: ""; } } }
+@media (resolution >= 3dppx) { @container (width >= 36.7px) { .ribbon:has(> img:not(.ribbon-device))::after { content: ""; } } }
 .ribbon > img.ribbon-device { z-index: 2; }
-.detail-hero .ribbon::after, .detail-panel .ribbon::after, [role="dialog"] .ribbon::after, .decor-page .ribbon::after { content: none; }
+.detail-hero .ribbon::after, .detail-panel .ribbon::after, [role="dialog"] .ribbon::after, .decor-page .ribbon::after { content: none !important; }
