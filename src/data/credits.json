@@ -639,6 +639,15 @@
     "notes": "New vector from the veteran (Oct 17 2026), used as drawn; SVGO with the viewBox kept. The JCSE seal is shown in the popup."
   },
   {
+    "id": "case-eod-master-badge",
+    "title": "Master Explosive Ordnance Disposal (EOD) badge (Home case, on the EODMU 5 crest)",
+    "file": "/case/eod-master-badge.svg",
+    "sourceUrl": null,
+    "creator": "Art supplied by the veteran",
+    "license": "Art supplied by the veteran of a U.S. military insignia. Use of military insignia is restricted by law independently of copyright.",
+    "notes": "The veteran's grayscale line art (eod-master-badge.jpg, 1144 x 928 px, Oct 18 2026), design unchanged: the white background removed and the drawing traced to vector (two tones, black #000 and gray #B7B7B7, as in the JPG) at 3x, VTracer cutout mode, SVGO. Traced edges stay within about 1 px of the JPG's. On the Home case it is nested in /case/eodmu5-crest-master-eod.svg (the EODMU 5 crest, unchanged), centred where the map's grid lines meet, about Guam, at 15% of the crest's width."
+  },
+  {
     "id": "insignia-jcse-device",
     "title": "Joint Communications Support Element shoulder sleeve insignia (shield, no tab)",
     "file": "/insignia/jcse-device.svg",

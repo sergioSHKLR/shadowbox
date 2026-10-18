@@ -17,7 +17,8 @@ type Note = { en: string; pt: string };
 const NOTES: Record<string, () => Note> = {
   ncts: () => ({ en: unitS("ncts"), pt: "Um comando em terra que operava os serviços de computação e telecomunicações da Marinha em San Diego." }),
   "frank-cable": () => ({ en: unitS("frank-cable"), pt: "Um tênder de submarinos: um navio que repara, abastece e aloja as tripulações de submarinos." }),
-  eodmu5: () => ({ en: unitS("eodmu5"), pt: "Explosive Ordnance Disposal Mobile Unit Five, uma unidade de desativação de explosivos da Marinha, então baseada em Guam." }),
+  // The crest carries the Master EOD badge over the western Pacific (Guam) on its map (Oct 18 2026): one neutral sentence added, EN and PT.
+  eodmu5: () => ({ en: `${unitS("eodmu5")} The Master Explosive Ordnance Disposal (EOD) badge is set on the crest's map, over the western Pacific.`, pt: "Explosive Ordnance Disposal Mobile Unit Five, uma unidade de desativação de explosivos da Marinha, então baseada em Guam. O distintivo de Master Explosive Ordnance Disposal (EOD) está sobre o mapa do brasão, no Pacífico ocidental." }),
   sercc: () => ({ en: unitS("sercc"), pt: "O Centro Regional de Calibração do Sudeste da Marinha, na Naval Air Station Jacksonville." }),
   jcse: () => ({ en: unitS("jcse"), pt: "Uma unidade conjunta, sediada na MacDill Air Force Base, na Flórida, que envia rapidamente pequenas equipes de comunicações para operações especiais e outros comandantes conjuntos." }),
   navhosp: () => ({ en: unitS("navhosp"), pt: "O hospital da Marinha em Jacksonville, na Flórida, e o último comando na ativa." }),
