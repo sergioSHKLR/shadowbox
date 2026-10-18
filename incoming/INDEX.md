@@ -28,7 +28,7 @@ Plate check against it (Oct 18): every plate keeps this relative order and devic
 - **superseded**: duplicates, smaller near-duplicates and older versions (kept, not deleted), incl. the previous home-art 077b1f8 set under `_superseded/home-art-077b1f8/`.
 - `CATALOG.csv` has the same rows with byte size and SHA-256.
 
-Counts: _superseded 80, case-items 18, crests 31, devices 15, medals 15, misc 9, photos 246, plates 22, ribbons 21, uniform-items 18 (total 475).
+Counts: _superseded 84, case-items 18, crests 31, devices 15, medals 15, misc 9, photos 246, plates 22, ribbons 21, uniform-items 18 (total 479).
 
 ## Files
 
@@ -123,7 +123,7 @@ Counts: _superseded 80, case-items 18, crests 31, devices 15, medals 15, misc 9,
 | misc/navy-emblem.svg | none | Sergio upload | illustration | vb 660x520 | Navy emblem (ship/eagle/anchor) in a large viewBox (was esa.svg); not the navy-dept-seal; upload path case-items/esa.svg |
 | misc/sand-sailor.jpg | none | Sergio upload | photo | 4657x3435 | sand sailor certificate; JPEG data (was .png); upload path sand-sailor.png |
 | photos/album/acu-room-2008-11-14.jpg | public/photos/album/acu-room-2008-11-14.webp (source photo; never-in-set category) | Sergio upload | photo | 1224x1632 | upload path photos/ img-06062.jpg; original of the live image |
-| photos/album/arifjan-starbucks-2009-03-20.jpg | public/photos/album/arifjan-starbucks-2009-03-20.webp (source photo; never-in-set category) | Sergio upload | photo | 1280x1024 | upload path photos/ img-04973.jpg; original of the live image |
+| photos/album/arifjan-starbucks-2009-03-20.jpg | public/photos/album/arifjan-starbucks-2009-03-20.webp (source photo; never-in-set category) | Sergio upload | photo | 1280x1024 | upload path photos/ img-04973.jpg; original of the live image; Sergio caption (Oct 18 2026): Camp Arifjan, en route to OIF II |
 | photos/album/bunk-room-2006-03-03.jpg | public/photos/album/bunk-room-2006-03-03.webp (source photo; never-in-set category) | Sergio upload | photo | 2304x1728 | upload path photos/ img-03205.jpg; original of the live image |
 | photos/album/dark-uniform-portrait-2006-12-06.jpg | public/photos/album/dark-uniform-portrait-2006-12-06.webp (source photo; never-in-set category) | Sergio upload | photo | 1224x1632 | upload path photos/ img-05447.jpg; original of the live image |
 | photos/album/dcu-selfie-2006-06-18.jpg | public/photos/album/dcu-selfie-2006-06-18.webp (source photo; never-in-set category) | Sergio upload | photo | 1728x2304 | upload path photos/ img-03048.jpg; original of the live image |
@@ -161,11 +161,11 @@ Counts: _superseded 80, case-items 18, crests 31, devices 15, medals 15, misc 9,
 | photos/equipment/jerrv-6x6-6.jpg | public/equipment/jerrv-6x6-6.webp (source photo; never-in-set category) | Sergio upload | photo | 1728x2304 | upload path photos/ img-02742.jpg; original of the live image |
 | photos/equipment/jerrv-6x6-7.jpg | public/equipment/jerrv-6x6-7.webp (source photo; never-in-set category) | Sergio upload | photo | 1600x1200 | upload path photos/ img-05169.jpg; original of the live image |
 | photos/equipment/jerrv-cougar-6x6-photo.jpg | public/equipment/jerrv-cougar-6x6-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 2304x1728 | upload path photos/ img-03209.jpg; original of the live image |
-| photos/equipment/m16a1-2.jpg | public/equipment/m16a1-2.webp (source photo; never-in-set category) | Sergio upload | photo | 799x1065 | upload path photos/ img-05077.jpg; original of the live image |
+| photos/equipment/m16a1-2.jpg | public/equipment/m16a1-2.webp (source photo; never-in-set category) | Sergio upload | photo | 799x1065 | upload path photos/ img-05077.jpg; original of the live image; Sergio caption (Oct 18 2026): Fort Bliss |
 | photos/equipment/m16a1-3.jpg | public/equipment/m16a1-3.webp (source photo; never-in-set category) | Sergio upload | photo | 926x1237 | upload path photos/ img-05020.jpg; original of the live image |
 | photos/equipment/m16a1-4.jpg | public/equipment/m16a1-4.webp (source photo; never-in-set category) | Sergio upload | photo | 799x1065 | upload path photos/ img-02784.jpg; original of the live image |
 | photos/equipment/m4-carbine-3.jpg | public/equipment/m4-carbine-3.webp (source photo; never-in-set category) | Sergio upload | photo | 1200x1600 | upload path photos/ img-01032.jpg; original of the live image |
-| photos/equipment/m4-carbine-4.jpg | public/equipment/m4-carbine-4.webp (source photo; never-in-set category) | Sergio upload | photo | 1024x768 | upload path photos/ img-04864.jpg; original of the live image |
+| photos/equipment/m4-carbine-4.jpg | public/equipment/m4-carbine-4.webp (source photo; never-in-set category) | Sergio upload | photo | 1024x768 | upload path photos/ img-04864.jpg; original of the live image; Sergio caption (Oct 18 2026): FOB Delaram |
 | photos/equipment/m4-carbine-5.jpg | public/equipment/m4-carbine-5.webp (source photo; never-in-set category) | Sergio upload | photo | 795x1065 | upload path photos/ img-02939.jpg; original of the live image |
 | photos/equipment/m4-carbine-photo.jpg | public/equipment/m4-carbine-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 1200x1600 | upload path photos/ img-00053.jpg; original of the live image |
 | photos/equipment/mk14-2.jpg | public/equipment/mk14-2.webp (source photo; never-in-set category) | Sergio upload | photo | 2304x1728 | upload path photos/ img-03253.jpg; original of the live image |
@@ -174,7 +174,7 @@ Counts: _superseded 80, case-items 18, crests 31, devices 15, medals 15, misc 9,
 | photos/equipment/nissan-sentra-silver-photo.jpg | public/equipment/nissan-sentra-silver-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 2048x1536 | upload path photos/ img-02710.jpg; original of the live image |
 | photos/equipment/plate-carrier-multicam-photo.jpg | public/equipment/plate-carrier-multicam-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 806x1079 | upload path photos/ img-03851 (1).jpg; original of the live image |
 | photos/equipment/polaris-ranger-utv-photo.jpg | public/equipment/polaris-ranger-utv-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 2592x1936 | upload path photos/ img-03185.jpg; original of the live image |
-| photos/equipment/sportster-1200-2.jpg | public/equipment/sportster-1200-2.webp (source photo; never-in-set category) | Sergio upload | photo | 640x478 | upload path photos/ img-00212.jpg; original of the live image |
+| photos/equipment/sportster-1200-2.jpg | public/equipment/sportster-1200-2.webp (source photo; never-in-set category) | Sergio upload | photo | 640x478 | upload path photos/ img-00212.jpg; original of the live image; Sergio caption (Oct 18 2026): South Tampa, JCSE |
 | photos/equipment/sportster-1200-3.jpg | public/equipment/sportster-1200-3.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x408 | upload path photos/ img-06544.jpg; original of the live image |
 | photos/equipment/sportster-1200-photo.jpg | public/equipment/sportster-1200-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x718 | upload path photos/ img-00202.jpg; original of the live image |
 | photos/equipment/swe-dish-flyaway-photo.jpg | public/equipment/swe-dish-flyaway-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x954 | upload path photos/ img-03157.jpg; original of the live image |
@@ -253,14 +253,13 @@ Counts: _superseded 80, case-items 18, crests 31, devices 15, medals 15, misc 9,
 | photos/uniforms/22-army-ocp.png | public/uniforms/v12/22-army-ocp.webp (uniform card; never-in-set category) | Sergio upload | photo | 1080x1920 | upload path mannequins/ battle-multicam.png; newer version of the live image |
 | photos/uniforms/23-nwu-type-iii.png | public/uniforms/v12/23-nwu-type-iii.webp (uniform card; never-in-set category) | Sergio upload | photo | 1080x1920 | upload path mannequins/ battle-green-camo.png; newer version of the live image |
 | photos/uniforms/24-afg-civilian-attire-c.webp | public/uniforms/v12/24-afg-civilian-attire-c.webp (uniform card; never-in-set category) | Sergio upload | photo | 720x1280 | identical to live public/uniforms/v12/cut/24-afg-civilian-attire-c.webp; upload name organizational-contractor.webp; upload path mannequins/organizational-contractor.webp |
-| photos/unmatched/1000w_q95-1.webp | none (not on the live site) | Sergio upload | photo | 1000x666 | upload path photos/ 1000w_q95 (1).webp |
 | photos/unmatched/full.jpg | none (not on the live site) | Sergio upload | photo | 1280x853 | upload path photos/ full.jpg |
 | photos/unmatched/images-6.jpg | none (not on the live site) | Sergio upload | photo | 343x583 | upload path photos/ images (6).jpeg |
 | photos/unmatched/images-7.jpg | none (not on the live site) | Sergio upload | photo | 547x365 | upload path photos/ images (7).jpeg |
 | photos/unmatched/images-8.jpg | none (not on the live site) | Sergio upload | photo | 455x439 | upload path photos/ images (8).jpeg |
 | photos/unmatched/img-00045.jpg | none (not on the live site) | Sergio upload | photo | 1200x1600 | upload path photos/ img-00045.jpg |
-| photos/unmatched/img-00064.jpg | none (not on the live site) | Sergio upload | photo | 1200x1600 | upload path photos/ img-00064.jpg |
-| photos/unmatched/img-00117.jpg | none (not on the live site) | Sergio upload | photo | 1280x1024 | upload path photos/ img-00117.jpg |
+| photos/unmatched/img-00064.jpg | none (not on the live site) | Sergio upload | photo | 1200x1600 | upload path photos/ img-00064.jpg; Sergio caption (Oct 18 2026): outside the chow hall blown up in a green-on-blue attack, Mosul, OIF I (note: the Marez memorial) |
+| photos/unmatched/img-00117.jpg | none (not on the live site) | Sergio upload | photo | 1280x1024 | upload path photos/ img-00117.jpg; Sergio caption (Oct 18 2026): CHU (containerized housing unit) at JB Balad, under TF Iron Shield (OIF II, 2009) |
 | photos/unmatched/img-00127.jpg | none (not on the live site) | Sergio upload | photo | 1036x1382 | upload path photos/ img-00127.jpg |
 | photos/unmatched/img-00700.jpg | none (not on the live site) | Sergio upload | photo | 1277x639 | upload path photos/ img-00700.jpg |
 | photos/unmatched/img-00766.jpg | none (not on the live site) | Sergio upload | photo | 4160x3120 | upload path photos/ img-00766.jpg |
@@ -269,16 +268,16 @@ Counts: _superseded 80, case-items 18, crests 31, devices 15, medals 15, misc 9,
 | photos/unmatched/img-01048.jpg | none (not on the live site) | Sergio upload | photo | 360x480 | upload path photos/ img-01048.jpg |
 | photos/unmatched/img-01053.jpg | none (not on the live site) | Sergio upload | photo | 1303x1304 | upload path photos/ img-01053.jpg |
 | photos/unmatched/img-01059.jpg | none (not on the live site) | Sergio upload | photo | 1277x958 | upload path photos/ img-01059.jpg |
-| photos/unmatched/img-01061.jpg | none (not on the live site) | Sergio upload | photo | 1277x958 | upload path photos/ img-01061.jpg |
+| photos/unmatched/img-01061.jpg | none (not on the live site) | Sergio upload | photo | 1277x958 | upload path photos/ img-01061.jpg; Sergio caption (Oct 18 2026): FOB Sykes (OIF I 2006) |
 | photos/unmatched/img-01067.jpg | none (not on the live site) | Sergio upload | photo | 1600x1200 | upload path photos/ img-01067.jpg |
 | photos/unmatched/img-01069-1.jpg | none (not on the live site) | Sergio upload | photo | 1600x1200 | upload path photos/ img-01069 (1).jpg |
 | photos/unmatched/img-01078.jpg | none (not on the live site) | Sergio upload | photo | 1536x2048 | upload path photos/ img-01078.jpg |
 | photos/unmatched/img-02168.jpg | none (not on the live site) | Sergio upload | photo | 1544x1024 | upload path photos/ img-02168.jpg |
-| photos/unmatched/img-02222.jpg | none (not on the live site) | Sergio upload | photo | 1544x1024 | upload path photos/ img-02222.jpg |
+| photos/unmatched/img-02222.jpg | none (not on the live site) | Sergio upload | photo | 1544x1024 | upload path photos/ img-02222.jpg; Sergio caption (Oct 18 2026): San Diego, downtown carrier museum (USS Midway) |
 | photos/unmatched/img-02257.jpg | none (not on the live site) | Sergio upload | photo | 2128x2832 | upload path photos/ img-02257.JPG |
 | photos/unmatched/img-02335.jpg | none (not on the live site) | Sergio upload | photo | 2048x1536 | upload path photos/ img-02335.JPG |
 | photos/unmatched/img-02540.jpg | none (not on the live site) | Sergio upload | photo | 2304x1728 | upload path photos/ img-02540.JPG |
-| photos/unmatched/img-02615.jpg | none (not on the live site) | Sergio upload | photo | 2113x1413 | upload path photos/ img-02615.JPG |
+| photos/unmatched/img-02615.jpg | none (not on the live site) | Sergio upload | photo | 2113x1413 | upload path photos/ img-02615.JPG; Sergio caption (Oct 18 2026): OIF I, Duhok, Kurdistan, by giant flag at the dam |
 | photos/unmatched/img-02625.jpg | none (not on the live site) | Sergio upload | photo | 1536x2048 | upload path photos/ img-02625.JPG |
 | photos/unmatched/img-02636.jpg | none (not on the live site) | Sergio upload | photo | 1536x2048 | upload path photos/ img-02636.JPG |
 | photos/unmatched/img-02684.jpg | none (not on the live site) | Sergio upload | photo | 1536x2048 | upload path photos/ img-02684.JPG |
@@ -296,15 +295,15 @@ Counts: _superseded 80, case-items 18, crests 31, devices 15, medals 15, misc 9,
 | photos/unmatched/img-03302.jpg | none (not on the live site) | Sergio upload | photo | 2304x1728 | upload path photos/ img-03302.jpg |
 | photos/unmatched/img-03325.jpg | none (not on the live site) | Sergio upload | photo | 1728x2304 | upload path photos/ img-03325.jpg |
 | photos/unmatched/img-03367.jpg | none (not on the live site) | Sergio upload | photo | 1277x954 | upload path photos/ img-03367.jpg |
-| photos/unmatched/img-03377.jpg | none (not on the live site) | Sergio upload | photo | 2592x1936 | upload path photos/ img-03377.jpg |
+| photos/unmatched/img-03377.jpg | none (not on the live site) | Sergio upload | photo | 2592x1936 | upload path photos/ img-03377.jpg; Sergio caption (Oct 18 2026): FOB Orgun-E |
 | photos/unmatched/img-03442.jpg | none (not on the live site) | Sergio upload | photo | 2592x1944 | upload path photos/ img-03442.jpg |
 | photos/unmatched/img-03771.jpg | none (not on the live site) | Sergio upload | photo | 2592x1944 | upload path photos/ img-03771.jpg |
 | photos/unmatched/img-03793.jpg | none (not on the live site) | Sergio upload | photo | 1277x954 | upload path photos/ img-03793.jpg |
 | photos/unmatched/img-03867.jpg | none (not on the live site) | Sergio upload | photo | 1277x954 | upload path photos/ img-03867.jpg |
 | photos/unmatched/img-03883-1.jpg | none (not on the live site) | Sergio upload | photo | 1445x1079 | upload path photos/ img-03883 (1).jpg |
-| photos/unmatched/img-03911.jpg | none (not on the live site) | Sergio upload | photo | 1277x851 | upload path photos/ img-03911.jpg |
-| photos/unmatched/img-03936.jpg | none (not on the live site) | Sergio upload | photo | 2160x1440 | upload path photos/ img-03936.jpg |
-| photos/unmatched/img-03981.jpg | none (not on the live site) | Sergio upload | photo | 2160x1440 | upload path photos/ img-03981.jpg |
+| photos/unmatched/img-03911.jpg | none (not on the live site) | Sergio upload | photo | 1277x851 | upload path photos/ img-03911.jpg; Sergio caption (Oct 18 2026): needs a larger photo (Sergio to supply) |
+| photos/unmatched/img-03936.jpg | none (not on the live site) | Sergio upload | photo | 2160x1440 | upload path photos/ img-03936.jpg; Sergio caption (Oct 18 2026): JCSE, MacDill AFB |
+| photos/unmatched/img-03981.jpg | none (not on the live site) | Sergio upload | photo | 2160x1440 | upload path photos/ img-03981.jpg; Sergio caption (Oct 18 2026): JCSE, MacDill AFB |
 | photos/unmatched/img-04342.jpg | none (not on the live site) | Sergio upload | photo | 1134x907 | upload path photos/ img-04342.jpg |
 | photos/unmatched/img-04372.jpg | none (not on the live site) | Sergio upload | photo | 480x640 | upload path photos/ img-04372.jpg |
 | photos/unmatched/img-04378.jpg | none (not on the live site) | Sergio upload | photo | 480x640 | upload path photos/ img-04378.jpg |
@@ -313,38 +312,38 @@ Counts: _superseded 80, case-items 18, crests 31, devices 15, medals 15, misc 9,
 | photos/unmatched/img-04470.jpg | none (not on the live site) | Sergio upload | photo | 1280x1024 | upload path photos/ img-04470.jpg |
 | photos/unmatched/img-04510.jpg | none (not on the live site) | Sergio upload | photo | 1280x1024 | upload path photos/ img-04510.jpg |
 | photos/unmatched/img-04539.jpg | none (not on the live site) | Sergio upload | photo | 480x640 | upload path photos/ img-04539.jpg |
-| photos/unmatched/img-04694.jpg | none (not on the live site) | Sergio upload | photo | 984x1311 | upload path photos/ img-04694.jpg |
+| photos/unmatched/img-04694.jpg | none (not on the live site) | Sergio upload | photo | 984x1311 | upload path photos/ img-04694.jpg; Sergio caption (Oct 18 2026): unknown |
 | photos/unmatched/img-04716.jpg | none (not on the live site) | Sergio upload | photo | 768x1024 | upload path photos/ img-04716.jpg |
 | photos/unmatched/img-04722.jpg | none (not on the live site) | Sergio upload | photo | 1280x1024 | upload path photos/ img-04722.jpg |
 | photos/unmatched/img-04790.jpg | none (not on the live site) | Sergio upload | photo | 1280x1024 | upload path photos/ img-04790.jpg |
 | photos/unmatched/img-04922.jpg | none (not on the live site) | Sergio upload | photo | 1205x1600 | upload path photos/ img-04922.jpg |
 | photos/unmatched/img-05011.png | none (not on the live site) | Sergio upload | photo | 1057x599 | upload path photos/ img-05011.jpg; extension fixed |
-| photos/unmatched/img-05055.jpg | none (not on the live site) | Sergio upload | photo | 902x1354 | upload path photos/ img-05055.jpg |
+| photos/unmatched/img-05055.jpg | none (not on the live site) | Sergio upload | photo | 902x1354 | upload path photos/ img-05055.jpg; Sergio caption (Oct 18 2026): EODMU 11, prior to OIF I |
 | photos/unmatched/img-05080.jpg | none (not on the live site) | Sergio upload | photo | 1277x958 | upload path photos/ img-05080.jpg |
-| photos/unmatched/img-05262.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-05262.jpg |
-| photos/unmatched/img-05296.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-05296.jpg |
-| photos/unmatched/img-05300.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-05300.jpg |
+| photos/unmatched/img-05262.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-05262.jpg; Sergio caption (Oct 18 2026): receiving AAM for OIF I at EODMU 5 |
+| photos/unmatched/img-05296.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-05296.jpg; Sergio caption (Oct 18 2026): same AAM ceremony at EODMU 5; Sergio is last on the right |
+| photos/unmatched/img-05300.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-05300.jpg; Sergio caption (Oct 18 2026): same AAM ceremony, EODMU 5 |
 | photos/unmatched/img-05314.jpg | none (not on the live site) | Sergio upload | photo | 1632x1224 | upload path photos/ img-05314.jpg |
 | photos/unmatched/img-05398.jpg | none (not on the live site) | Sergio upload | photo | 1224x1632 | upload path photos/ img-05398.jpg |
 | photos/unmatched/img-05401.jpg | none (not on the live site) | Sergio upload | photo | 1224x1632 | upload path photos/ img-05401.jpg |
 | photos/unmatched/img-05420.jpg | none (not on the live site) | Sergio upload | photo | 1085x725 | upload path photos/ img-05420.jpg |
-| photos/unmatched/img-05459.jpg | none (not on the live site) | Sergio upload | photo | 1277x964 | upload path photos/ img-05459.jpg |
+| photos/unmatched/img-05459.jpg | none (not on the live site) | Sergio upload | photo | 1277x964 | upload path photos/ img-05459.jpg; Sergio caption (Oct 18 2026): U-Tapao base, Cobra Gold 06 |
 | photos/unmatched/img-05468.jpg | none (not on the live site) | Sergio upload | photo | 1277x964 | upload path photos/ img-05468.jpg |
-| photos/unmatched/img-05543.jpg | none (not on the live site) | Sergio upload | photo | 1024x768 | upload path photos/ img-05543.jpg |
+| photos/unmatched/img-05543.jpg | none (not on the live site) | Sergio upload | photo | 1024x768 | upload path photos/ img-05543.jpg; Sergio caption (Oct 18 2026): NEC 9613 school, San Diego |
 | photos/unmatched/img-05575.jpg | none (not on the live site) | Sergio upload | photo | 1632x1224 | upload path photos/ img-05575.jpg |
-| photos/unmatched/img-05576.jpg | none (not on the live site) | Sergio upload | photo | 799x1065 | upload path photos/ img-05576.jpg |
+| photos/unmatched/img-05576.jpg | none (not on the live site) | Sergio upload | photo | 799x1065 | upload path photos/ img-05576.jpg; Sergio caption (Oct 18 2026): Fort Bliss |
 | photos/unmatched/img-05579.jpg | none (not on the live site) | Sergio upload | photo | 1200x1600 | upload path photos/ img-05579.jpg |
 | photos/unmatched/img-05597.jpg | none (not on the live site) | Sergio upload | photo | 799x1065 | upload path photos/ img-05597.jpg |
-| photos/unmatched/img-05629.jpg | none (not on the live site) | Sergio upload | photo | 1632x1224 | upload path photos/ img-05629.jpg |
+| photos/unmatched/img-05629.jpg | none (not on the live site) | Sergio upload | photo | 1632x1224 | upload path photos/ img-05629.jpg; Sergio caption (Oct 18 2026): sometime during OIF I |
 | photos/unmatched/img-05659.jpg | none (not on the live site) | Sergio upload | photo | 1277x964 | upload path photos/ img-05659.jpg |
-| photos/unmatched/img-05705.jpg | none (not on the live site) | Sergio upload | photo | 799x1065 | upload path photos/ img-05705.jpg |
+| photos/unmatched/img-05705.jpg | none (not on the live site) | Sergio upload | photo | 799x1065 | upload path photos/ img-05705.jpg; Sergio caption (Oct 18 2026): inside a C-17, en route to OIF I at Mosul |
 | photos/unmatched/img-05759.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-05759.jpg |
 | photos/unmatched/img-05767.jpg | none (not on the live site) | Sergio upload | photo | 1632x1224 | upload path photos/ img-05767.jpg |
 | photos/unmatched/img-05783.jpg | none (not on the live site) | Sergio upload | photo | 1283x1008 | upload path photos/ img-05783.jpg |
 | photos/unmatched/img-05802.jpg | none (not on the live site) | Sergio upload | photo | 799x1065 | upload path photos/ img-05802.jpg |
 | photos/unmatched/img-05816.jpg | none (not on the live site) | Sergio upload | photo | 1277x958 | upload path photos/ img-05816.jpg |
 | photos/unmatched/img-05822.jpg | none (not on the live site) | Sergio upload | photo | 960x1280 | upload path photos/ img-05822.jpg |
-| photos/unmatched/img-05868.jpg | none (not on the live site) | Sergio upload | photo | 1632x1224 | upload path photos/ img-05868.jpg |
+| photos/unmatched/img-05868.jpg | none (not on the live site) | Sergio upload | photo | 1632x1224 | upload path photos/ img-05868.jpg; Sergio caption (Oct 18 2026): Yokosuka CFA, visiting a JSDF ship to survey SATCOM capabilities, while at EODMU 5 |
 | photos/unmatched/img-05880.jpg | none (not on the live site) | Sergio upload | photo | 1224x1632 | upload path photos/ img-05880.jpg |
 | photos/unmatched/img-05895.jpg | none (not on the live site) | Sergio upload | photo | 1632x1224 | upload path photos/ img-05895.jpg |
 | photos/unmatched/img-05897.jpg | none (not on the live site) | Sergio upload | photo | 1277x958 | upload path photos/ img-05897.jpg |
@@ -352,8 +351,8 @@ Counts: _superseded 80, case-items 18, crests 31, devices 15, medals 15, misc 9,
 | photos/unmatched/img-05922.jpg | none (not on the live site) | Sergio upload | photo | 1632x1224 | upload path photos/ img-05922.jpg |
 | photos/unmatched/img-05925.jpg | none (not on the live site) | Sergio upload | photo | 1632x1224 | upload path photos/ img-05925.jpg |
 | photos/unmatched/img-05932.jpg | none (not on the live site) | Sergio upload | photo | 1632x1224 | upload path photos/ img-05932.jpg |
-| photos/unmatched/img-05965.jpg | none (not on the live site) | Sergio upload | photo | 1277x958 | upload path photos/ img-05965.jpg |
-| photos/unmatched/img-05980.jpg | none (not on the live site) | Sergio upload | photo | 1632x1224 | upload path photos/ img-05980.jpg |
+| photos/unmatched/img-05965.jpg | none (not on the live site) | Sergio upload | photo | 1277x958 | upload path photos/ img-05965.jpg; Sergio caption (Oct 18 2026): en route to OIF I, C-17 |
+| photos/unmatched/img-05980.jpg | none (not on the live site) | Sergio upload | photo | 1632x1224 | upload path photos/ img-05980.jpg; Sergio caption (Oct 18 2026): hiking at Fort Bliss |
 | photos/unmatched/img-06017.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-06017.jpg |
 | photos/unmatched/img-06046.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-06046.jpg |
 | photos/unmatched/img-06068.jpg | none (not on the live site) | Sergio upload | photo | 809x1079 | upload path photos/ img-06068.jpg |
@@ -361,12 +360,12 @@ Counts: _superseded 80, case-items 18, crests 31, devices 15, medals 15, misc 9,
 | photos/unmatched/img-06140.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-06140.jpg |
 | photos/unmatched/img-06294.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-06294.jpg |
 | photos/unmatched/img-06373.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-06373.jpg |
-| photos/unmatched/img-06385.jpg | none (not on the live site) | Sergio upload | photo | 799x1065 | upload path photos/ img-06385.jpg |
+| photos/unmatched/img-06385.jpg | none (not on the live site) | Sergio upload | photo | 799x1065 | upload path photos/ img-06385.jpg; Sergio caption (Oct 18 2026): Pattaya, during the second Cobra Gold |
 | photos/unmatched/img-06456.jpg | none (not on the live site) | Sergio upload | photo | 1277x958 | upload path photos/ img-06456.jpg |
 | photos/unmatched/img-06473.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-06473.jpg |
 | photos/unmatched/img-06523.jpg | none (not on the live site) | Sergio upload | photo | 1105x1918 | upload path photos/ img-06523.jpg |
 | photos/unmatched/img-06818.jpg | none (not on the live site) | Sergio upload | photo | 1277x958 | upload path photos/ img-06818.jpg |
-| photos/unmatched/img-06894.jpg | none (not on the live site) | Sergio upload | photo | 799x1065 | upload path photos/ img-06894.jpg |
+| photos/unmatched/img-06894.jpg | none (not on the live site) | Sergio upload | photo | 799x1065 | upload path photos/ img-06894.jpg; Sergio caption (Oct 18 2026): OEF I or II, C-17 |
 | photos/unmatched/img-07870.jpg | none (not on the live site) | Sergio upload | photo | 720x1280 | upload path photos/ img-07870.jpg |
 | photos/unmatched/img_20250709_184532_792.jpg | none (not on the live site) | Sergio upload | photo | 812x1079 | upload path photos/ IMG_20250709_184532_792.jpg |
 | plates/blues/e7/e7-blues-jcse.svg | src/art/plates/e7-blues-jcse.svg | Sergio upload | illustration | vb 1285x2268 | identical to home-art 077b1f8 incoming/plates/blues/e7/e7-1.svg; upload path plates/blues/e7/e7-1.svg |
@@ -508,6 +507,10 @@ Counts: _superseded 80, case-items 18, crests 31, devices 15, medals 15, misc 9,
 | _superseded/home-art-077b1f8/uniform-items/po2.svg | – | superseded (home-art 077b1f8) | illustration | vb 298x345 | byte-identical duplicate of the upload file now in incoming/; was incoming/uniform-items/po2.svg |
 | _superseded/home-art-077b1f8/uniform-items/po3.svg | – | superseded (home-art 077b1f8) | illustration | vb 299x273 | byte-identical duplicate of the upload file now in incoming/; was incoming/uniform-items/po3.svg |
 | _superseded/home-art-077b1f8/uniform-items/ribbon-devices.svg | – | superseded (home-art 077b1f8) | illustration | vb 189x38 | byte-identical duplicate of the upload file now in incoming/; was incoming/uniform-items/ribbon-devices.svg |
+| _superseded/photos/unmatched/1000w_q95-1.webp | – | superseded (stock, not Sergio's) | photo | 1000x666 | stock, not Sergio's (Sergio, Oct 18 2026); was photos/unmatched/1000w_q95-1.webp; upload path photos/ 1000w_q95 (1).webp |
+| _superseded/ribbons/ribbon mask.svg | – | superseded (duplicate) | illustration | vb 51.78x13.98 | byte-identical duplicate of ribbons/ribbon-weave-mask.svg; Sergio upload a040f71 (Upload graphics v2) as incoming/ribbons/ribbon mask.svg |
+| _superseded/ribbons/ribbon-rack.avif | – | superseded (duplicate) | photo | 672x427 | byte-identical duplicate of photos/rack/ribbon-rack-final.avif; Sergio upload a040f71 (Upload graphics v2) as incoming/ribbons/ribbon-rack.avif |
+| _superseded/ribbons/ribbon-rack.png | – | superseded (duplicate) | photo | 2229x1421 | byte-identical duplicate of photos/rack/ribbon-rack-final.png; Sergio upload a040f71 (Upload graphics v2) as incoming/ribbons/ribbon-rack.png |
 | _superseded/uniform-items/esws.png | – | superseded (duplicate) | photo | 868x303 | exact duplicate of uniform-items/esws-pin-photo.png; upload path uniform-items/esws.png |
 | _superseded/uniform-items/exw.png | – | superseded (duplicate) | photo | 744x240 | exact duplicate of uniform-items/exw-pin-photo.png; upload path uniform-items/exw.png |
 
