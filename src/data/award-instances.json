@@ -101,7 +101,7 @@
     "year": 2009,
     "unitId": "jcse",
     "operationId": null,
-    "note": "JCSE. Wikipedia lists a Joint Meritorious Unit Award in 2009. One of three awards."
+    "note": "Headquarters, U.S. Joint Forces Command JMUA, 1 February 2008 to 6 August 2010, to include the Joint Communications Support Element (JCSE) by name. Source: Army General Orders 2013-11, https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/go1311.pdf."
   },
   {
     "id": "jmua-u2",
@@ -109,7 +109,7 @@
     "year": null,
     "unitId": "jcse",
     "operationId": null,
-    "note": "JCSE. Year not entered."
+    "note": "Headquarters, Combined Joint Special Operations Task Force-Afghanistan (CJSOTF-A) JMUA, 1 April 2010 to 15 May 2011; OEF tour August 2010 to February 2011 from JCSE. Source: Army General Orders 2013-11, https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/go1311.pdf."
   },
   {
     "id": "jmua-u3",
@@ -117,7 +117,7 @@
     "year": null,
     "unitId": "jcse",
     "operationId": null,
-    "note": "JCSE. Year not entered."
+    "note": "Headquarters, Special Operations Joint Task Force-Afghanistan (SOJTF-A) JMUA, 26 July 2012 to 14 June 2013; OEF tour August 2012 to February 2013 from JCSE. Source: Army General Orders 2016-02, https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/go1602.pdf."
   },
   {
     "id": "nmuc-2000",
@@ -125,7 +125,7 @@
     "year": null,
     "unitId": "frank-cable",
     "operationId": null,
-    "note": "Inferred (Oct 17 2026): USS Frank Cable MUC, August 2001 to July 2003. The worksheet named 2000; NCTS (shore) is not used."
+    "note": "USS Frank Cable MUC, July 1999 to July 2001 (unit citation period; he reported aboard before July 2001, per Sergio, Oct 18 2026). The worksheet named 2000, which falls in this period. Sources: https://en.wikipedia.org/wiki/USS_Frank_Cable_(AS-40); https://www.navsource.org/archives/09/36/3640.htm."
   },
   {
     "id": "nmuc-u2",
@@ -133,7 +133,7 @@
     "year": null,
     "unitId": "frank-cable",
     "operationId": null,
-    "note": "Inferred (Oct 17 2026): USS Frank Cable MUC, July 2002 to January 2003."
+    "note": "USS Frank Cable MUC, August 2001 to July 2003 (unit citation period). Sources: https://en.wikipedia.org/wiki/USS_Frank_Cable_(AS-40); https://www.navsource.org/archives/09/36/3640.htm."
   },
   {
     "id": "nmuc-u3",
@@ -141,15 +141,15 @@
     "year": null,
     "unitId": "frank-cable",
     "operationId": null,
-    "note": "Inferred (Oct 17 2026): USS Frank Cable MUC, August 2003 to July 2005 (aboard until 2004)."
+    "note": "USS Frank Cable MUC, July 2002 to January 2003 (unit citation period). Sources: https://en.wikipedia.org/wiki/USS_Frank_Cable_(AS-40); https://www.navsource.org/archives/09/36/3640.htm."
   },
   {
     "id": "nmuc-u4",
     "awardId": "nmuc",
     "year": null,
-    "unitId": "eodmu5",
+    "unitId": "frank-cable",
     "operationId": null,
-    "note": "Inferred (Oct 17 2026): EODMU 5; no public citation found."
+    "note": "USS Frank Cable MUC, August 2003 to July 2005 (unit citation period; aboard until 2004). Sources: https://en.wikipedia.org/wiki/USS_Frank_Cable_(AS-40); https://www.navsource.org/archives/09/36/3640.htm."
   },
   {
     "id": "nmuc-u5",
@@ -157,7 +157,7 @@
     "year": null,
     "unitId": "eodmu5",
     "operationId": null,
-    "note": "Inferred (Oct 17 2026): EODMU 5; no public citation found."
+    "note": "EODMU 5; no public citation found. Count from the DD-214."
   },
   {
     "id": "navy-e-2001",

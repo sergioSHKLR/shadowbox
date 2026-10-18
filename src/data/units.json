@@ -82,7 +82,8 @@
     "placeId": "fisc-san-diego",
     "explanation": "A shore command that ran Navy computer and telecommunications services in San Diego. Signum lists the NEC for this tour as 1589, calibration.",
     "civilian": "A land-based communications station, not a ship.",
-    "image": "/case/ncts-crest.svg"
+    "image": "/case/ncts-crest.svg",
+    "open": "Left before July 2001 (per Sergio, Oct 18 2026, reported aboard USS Frank Cable before then); exact date not entered."
   },
   {
     "id": "frank-cable",
@@ -99,7 +100,8 @@
     "placeId": "guam",
     "explanation": "A submarine tender: a ship that repairs, supplies, and houses the crews of submarines. In these years her home port was Guam. The NEC on Signum for this tour is 1589. The three Navy E awards dated 2001, 2002, and 2003 fall in this tour.",
     "civilian": "A repair ship for submarines, not a submarine itself.",
-    "image": "/case/as40-crest.svg"
+    "image": "/case/as40-crest.svg",
+    "open": "Reported aboard before July 2001 (per Sergio, Oct 18 2026); exact date not entered."
   },
   {
     "id": "eodmu5",
