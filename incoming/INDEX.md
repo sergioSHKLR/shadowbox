@@ -28,7 +28,7 @@ Plate check against it (Oct 18): every plate keeps this relative order and devic
 - **superseded**: duplicates, smaller near-duplicates and older versions (kept, not deleted), incl. the previous home-art 077b1f8 set under `_superseded/home-art-077b1f8/`.
 - `CATALOG.csv` has the same rows with byte size and SHA-256.
 
-Counts: _superseded 91, _unsorted 1, case-items 18, crests 31, devices 15, medals 15, misc 9, photos 276, plates 22, ribbons 20, uniform-items 18 (total 516).
+Counts: _superseded 80, case-items 18, crests 31, devices 15, medals 15, misc 9, photos 246, plates 22, ribbons 20, uniform-items 18 (total 474).
 
 ## Files
 
@@ -122,21 +122,13 @@ Counts: _superseded 91, _unsorted 1, case-items 18, crests 31, devices 15, medal
 | misc/mockup-2.jpg | none | Sergio upload | illustration | 1168x784 | site/shadowbox mockup; upload path mockup-2.jpg |
 | misc/navy-emblem.svg | none | Sergio upload | illustration | vb 660x520 | Navy emblem (ship/eagle/anchor) in a large viewBox (was esa.svg); not the navy-dept-seal; upload path case-items/esa.svg |
 | misc/sand-sailor.jpg | none | Sergio upload | photo | 4657x3435 | sand sailor certificate; JPEG data (was .png); upload path sand-sailor.png |
-| photos/album/acu-airliner.jpg | public/photos/album/acu-airliner.webp (source photo; never-in-set category) | Sergio upload | photo | 640x480 | upload path photos/ img-01152.jpg; original of the live image |
-| photos/album/acu-rifles-2009-01-16.jpg | public/photos/album/acu-rifles-2009-01-16.webp (source photo; never-in-set category) | Sergio upload | photo | 1224x918 | upload path photos/ img-05197.jpg; original of the live image |
 | photos/album/acu-room-2008-11-14.jpg | public/photos/album/acu-room-2008-11-14.webp (source photo; never-in-set category) | Sergio upload | photo | 1224x1632 | upload path photos/ img-06062.jpg; original of the live image |
 | photos/album/arifjan-starbucks-2009-03-20.jpg | public/photos/album/arifjan-starbucks-2009-03-20.webp (source photo; never-in-set category) | Sergio upload | photo | 1280x1024 | upload path photos/ img-04973.jpg; original of the live image |
-| photos/album/barracks-hallway-2010-03-28.jpg | public/photos/album/barracks-hallway-2010-03-28.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x1022 | upload path photos/ img-04832.jpg; original of the live image |
-| photos/album/boonie-pirate-statue-2009-04-17.jpg | public/photos/album/boonie-pirate-statue-2009-04-17.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x1022 | upload path photos/ img-00120.jpg; original of the live image |
 | photos/album/bunk-room-2006-03-03.jpg | public/photos/album/bunk-room-2006-03-03.webp (source photo; never-in-set category) | Sergio upload | photo | 2304x1728 | upload path photos/ img-03205.jpg; original of the live image |
-| photos/album/c-ram-formation-2008-11-27.jpg | public/photos/album/c-ram-formation-2008-11-27.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x961 | upload path photos/ img-06876.jpg; original of the live image |
 | photos/album/dark-uniform-portrait-2006-12-06.jpg | public/photos/album/dark-uniform-portrait-2006-12-06.webp (source photo; never-in-set category) | Sergio upload | photo | 1224x1632 | upload path photos/ img-05447.jpg; original of the live image |
 | photos/album/dcu-selfie-2006-06-18.jpg | public/photos/album/dcu-selfie-2006-06-18.webp (source photo; never-in-set category) | Sergio upload | photo | 1728x2304 | upload path photos/ img-03048.jpg; original of the live image |
-| photos/album/desert-body-armor-2006-05-05.jpg | public/photos/album/desert-body-armor-2006-05-05.webp (source photo; never-in-set category) | Sergio upload | photo | 1728x2304 | upload path photos/ img-03335.jpg; original of the live image |
-| photos/album/dress-blues-memorial-2006-02-05.jpg | public/photos/album/dress-blues-memorial-2006-02-05.webp (source photo; never-in-set category) | Sergio upload | photo | 2072x1438 | upload path photos/ img-00822.jpg; original of the live image |
-| photos/album/eodmu5-aam-ceremony-2006-12-01.jpg | public/photos/album/eodmu5-aam-ceremony-2006-12-01.webp (source photo; never-in-set category) | Sergio upload | photo | 1536x2048 | upload path photos/ img-02593.jpg; original of the live image |
 | photos/album/eodmu5-cap-2006-08-21.jpg | public/photos/album/eodmu5-cap-2006-08-21.webp (source photo; never-in-set category) | Sergio upload | photo | 1224x1632 | upload path photos/ img-05506.jpg; original of the live image |
-| photos/album/m-gator-aircraft-2006-02-21.jpg | public/photos/album/m-gator-aircraft-2006-02-21.webp (source photo; never-in-set category) | Sergio upload | photo | 1439x1079 | upload path photos/ img-06015.jpg; original of the live image |
+| photos/album/memorial-day-2025-05-26.png | public/photos/album/memorial-day-2025-05-26.webp (source photo; never-in-set category) | Sergio upload | photo | 1220x2712 | original of the live image (live is a crop of this phone screenshot); upload path photos/Screenshot_20260612-093204_Photos.png |
 | photos/album/plate-carrier-2011-12-01.jpg | public/photos/album/plate-carrier-2011-12-01.webp (source photo; never-in-set category) | Sergio upload | photo | 480x640 | upload path photos/ img-04492.jpg; original of the live image |
 | photos/album/rooftop-2006-05-07.jpg | public/photos/album/rooftop-2006-05-07.webp (source photo; never-in-set category) | Sergio upload | photo | 1876x1253 | upload path photos/ img-02341.jpg; original of the live image |
 | photos/album/tracked-snow-building-2010-03-26.jpg | public/photos/album/tracked-snow-building-2010-03-26.webp (source photo; never-in-set category) | Sergio upload | photo | 1280x1024 | upload path photos/ img-04867.jpg; original of the live image |
@@ -150,10 +142,7 @@ Counts: _superseded 91, _unsorted 1, case-items 18, crests 31, devices 15, medal
 | photos/equipment/bobcat-skid-steer-photo.jpg | public/equipment/bobcat-skid-steer-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 1445x1079 | upload path photos/ img-00152 (1).jpg; original of the live image |
 | photos/equipment/buell-500-photo.jpg | public/equipment/buell-500-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x958 | upload path photos/ img-02376.JPG; original of the live image |
 | photos/equipment/c-17-2.jpg | public/equipment/c-17-2.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x958 | upload path photos/ img-00065.jpg; original of the live image |
-| photos/equipment/c-17-3.jpg | public/equipment/c-17-3.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x958 | upload path photos/ img-05969.jpg; original of the live image |
 | photos/equipment/c-17-4.jpg | public/equipment/c-17-4.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x958 | upload path photos/ img-05987.jpg; original of the live image |
-| photos/equipment/c-17-5.jpg | public/equipment/c-17-5.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x384 | upload path photos/ img-02166.jpg; original of the live image |
-| photos/equipment/c-17-6.jpg | public/equipment/c-17-6.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x954 | upload path photos/ img-03462.jpg; original of the live image |
 | photos/equipment/c-17-7.jpg | public/equipment/c-17-7.webp (source photo; never-in-set category) | Sergio upload | photo | 1066x1600 | upload path photos/ img-01030.jpg; original of the live image |
 | photos/equipment/c-17-photo.jpg | public/equipment/c-17-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x958 | upload path photos/ img-05137.jpg; original of the live image |
 | photos/equipment/centurion-c-ram-2.jpg | public/equipment/centurion-c-ram-2.webp (source photo; never-in-set category) | Sergio upload | photo | 1600x1071 | upload path photos/ img-00091.jpg; original of the live image |
@@ -161,11 +150,9 @@ Counts: _superseded 91, _unsorted 1, case-items 18, crests 31, devices 15, medal
 | photos/equipment/centurion-c-ram-4.jpg | public/equipment/centurion-c-ram-4.webp (source photo; never-in-set category) | Sergio upload | photo | 1280x1024 | upload path photos/ img-04405.jpg; original of the live image |
 | photos/equipment/centurion-c-ram.jpg | public/equipment/centurion-c-ram.webp (source photo; never-in-set category) | Sergio upload | photo | 2896x1944 | upload path photos/ img-00973.jpg; original of the live image |
 | photos/equipment/chevy-spark-yellow-photo.jpg | public/equipment/chevy-spark-yellow-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 478x640 | upload path photos/ img-04465.jpg; original of the live image |
-| photos/equipment/helmet-2006-03-03.jpg | public/equipment/helmet-2006-03-03.webp (source photo; never-in-set category) | Sergio upload | photo | 640x480 | upload path photos/ img-01038.jpg; original of the live image |
 | photos/equipment/helmet-jerrv.jpg | public/equipment/helmet-jerrv.webp (source photo; never-in-set category) | Sergio upload | photo | 2304x1728 | upload path photos/ img-03293.jpg; original of the live image |
 | photos/equipment/hmmwv-up-armored-photo.jpg | public/equipment/hmmwv-up-armored-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 2304x1728 | upload path photos/ img-02258.jpg; original of the live image |
 | photos/equipment/iotv-ucp-2.jpg | public/equipment/iotv-ucp-2.webp (source photo; never-in-set category) | Sergio upload | photo | 799x1065 | upload path photos/ img-05593.jpg; original of the live image |
-| photos/equipment/iotv-ucp-photo.jpg | public/equipment/iotv-ucp-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 575x768 | upload path photos/ img-04264.jpg; original of the live image |
 | photos/equipment/jblox.webp | public/equipment/jblox.webp (source photo; never-in-set category) | Sergio upload | photo | 1000x858 | upload path photos/ 1000w_q95.webp; original of the live image |
 | photos/equipment/jerrv-6x6-2.jpg | public/equipment/jerrv-6x6-2.webp (source photo; never-in-set category) | Sergio upload | photo | 2304x1728 | upload path photos/ img-03095.jpg; original of the live image |
 | photos/equipment/jerrv-6x6-3.jpg | public/equipment/jerrv-6x6-3.webp (source photo; never-in-set category) | Sergio upload | photo | 799x1065 | upload path photos/ img-03059.jpg; original of the live image |
@@ -173,30 +160,25 @@ Counts: _superseded 91, _unsorted 1, case-items 18, crests 31, devices 15, medal
 | photos/equipment/jerrv-6x6-5.jpg | public/equipment/jerrv-6x6-5.webp (source photo; never-in-set category) | Sergio upload | photo | 2304x1728 | upload path photos/ img-03199.jpg; original of the live image |
 | photos/equipment/jerrv-6x6-6.jpg | public/equipment/jerrv-6x6-6.webp (source photo; never-in-set category) | Sergio upload | photo | 1728x2304 | upload path photos/ img-02742.jpg; original of the live image |
 | photos/equipment/jerrv-6x6-7.jpg | public/equipment/jerrv-6x6-7.webp (source photo; never-in-set category) | Sergio upload | photo | 1600x1200 | upload path photos/ img-05169.jpg; original of the live image |
-| photos/equipment/jerrv-6x6-8.jpg | public/equipment/jerrv-6x6-8.webp (source photo; never-in-set category) | Sergio upload | photo | 1433x949 | upload path photos/ img-06687.jpg; original of the live image |
 | photos/equipment/jerrv-cougar-6x6-photo.jpg | public/equipment/jerrv-cougar-6x6-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 2304x1728 | upload path photos/ img-03209.jpg; original of the live image |
-| photos/equipment/m-gator-photo.jpg | public/equipment/m-gator-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x958 | upload path photos/ img-06112.jpg; original of the live image |
 | photos/equipment/m16a1-2.jpg | public/equipment/m16a1-2.webp (source photo; never-in-set category) | Sergio upload | photo | 799x1065 | upload path photos/ img-05077.jpg; original of the live image |
 | photos/equipment/m16a1-3.jpg | public/equipment/m16a1-3.webp (source photo; never-in-set category) | Sergio upload | photo | 926x1237 | upload path photos/ img-05020.jpg; original of the live image |
 | photos/equipment/m16a1-4.jpg | public/equipment/m16a1-4.webp (source photo; never-in-set category) | Sergio upload | photo | 799x1065 | upload path photos/ img-02784.jpg; original of the live image |
-| photos/equipment/m16a1.jpg | public/equipment/m16a1.webp (source photo; never-in-set category) | Sergio upload | photo | 709x947 | upload path photos/ img-04728.jpg; original of the live image |
-| photos/equipment/m4-carbine-2.jpg | public/equipment/m4-carbine-2.webp (source photo; never-in-set category) | Sergio upload | photo | 1200x1600 | upload path photos/ img-01028.jpg; original of the live image |
 | photos/equipment/m4-carbine-3.jpg | public/equipment/m4-carbine-3.webp (source photo; never-in-set category) | Sergio upload | photo | 1200x1600 | upload path photos/ img-01032.jpg; original of the live image |
 | photos/equipment/m4-carbine-4.jpg | public/equipment/m4-carbine-4.webp (source photo; never-in-set category) | Sergio upload | photo | 1024x768 | upload path photos/ img-04864.jpg; original of the live image |
 | photos/equipment/m4-carbine-5.jpg | public/equipment/m4-carbine-5.webp (source photo; never-in-set category) | Sergio upload | photo | 795x1065 | upload path photos/ img-02939.jpg; original of the live image |
 | photos/equipment/m4-carbine-photo.jpg | public/equipment/m4-carbine-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 1200x1600 | upload path photos/ img-00053.jpg; original of the live image |
-| photos/equipment/m60-photo.jpg | public/equipment/m60-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 2048x1536 | upload path photos/ img-02668.JPG; original of the live image |
 | photos/equipment/mk14-2.jpg | public/equipment/mk14-2.webp (source photo; never-in-set category) | Sergio upload | photo | 2304x1728 | upload path photos/ img-03253.jpg; original of the live image |
 | photos/equipment/mk14-photo.jpg | public/equipment/mk14-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 2304x1728 | upload path photos/ img-03145.jpg; original of the live image |
 | photos/equipment/nissan-sentra-silver-2.jpg | public/equipment/nissan-sentra-silver-2.webp (source photo; never-in-set category) | Sergio upload | photo | 2592x1944 | upload path photos/ img-03568.jpg; original of the live image |
 | photos/equipment/nissan-sentra-silver-photo.jpg | public/equipment/nissan-sentra-silver-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 2048x1536 | upload path photos/ img-02710.jpg; original of the live image |
 | photos/equipment/plate-carrier-multicam-photo.jpg | public/equipment/plate-carrier-multicam-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 806x1079 | upload path photos/ img-03851 (1).jpg; original of the live image |
 | photos/equipment/polaris-ranger-utv-photo.jpg | public/equipment/polaris-ranger-utv-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 2592x1936 | upload path photos/ img-03185.jpg; original of the live image |
-| photos/equipment/polaris-sportsman-atv-photo.jpg | public/equipment/polaris-sportsman-atv-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x954 | upload path photos/ img-03332.jpg; original of the live image |
 | photos/equipment/sportster-1200-2.jpg | public/equipment/sportster-1200-2.webp (source photo; never-in-set category) | Sergio upload | photo | 640x478 | upload path photos/ img-00212.jpg; original of the live image |
 | photos/equipment/sportster-1200-3.jpg | public/equipment/sportster-1200-3.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x408 | upload path photos/ img-06544.jpg; original of the live image |
 | photos/equipment/sportster-1200-photo.jpg | public/equipment/sportster-1200-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x718 | upload path photos/ img-00202.jpg; original of the live image |
 | photos/equipment/swe-dish-flyaway-photo.jpg | public/equipment/swe-dish-flyaway-photo.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x954 | upload path photos/ img-03157.jpg; original of the live image |
+| photos/equipment/taclane-kg-175.jpg | public/equipment/taclane-kg-175.webp (source photo; never-in-set category) | Sergio upload | photo | 3840x1880 | original of the live image (live is a crop); upload path photos/KG-175A_&_KG-175_TACLANE_In-Line_Network_Encryptors_-_National_Cryptologic_Museum_-_DSC07957.JPG |
 | photos/equipment/toyota-hilux.jpg | public/equipment/toyota-hilux.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x954 | upload path photos/ img-00151.jpg; original of the live image |
 | photos/insignia/collar-cpo.webp | public/incoming/collar-cpo.webp (rank collar; currently not displayed, RANK_COLLAR_ON_CARDS=false) | live site (main 2ce3fa6) | photo | 1568x1264 | byte-identical copy of public/incoming/collar-cpo.webp |
 | photos/insignia/collar-po1.webp | public/incoming/collar-po1.webp (rank collar; currently not displayed, RANK_COLLAR_ON_CARDS=false) | live site (main 2ce3fa6) | photo | 1192x1600 | byte-identical copy of public/incoming/collar-po1.webp |
@@ -238,17 +220,14 @@ Counts: _superseded 91, _unsorted 1, case-items 18, crests 31, devices 15, medal
 | photos/sidebar/rifle.png | medal rifle: ribbon bar + front + reverse sheet (format of live photo/<id>-set.webp; not wired) | Sergio upload | photo | 1322x1510 | identical to home-art 077b1f8 incoming/medals/sidebar/all-rifle.png; upload path medals/sidebar/all-rifle.png |
 | photos/site/eodmu5-flag.jpg | public/photos/eodmu5-flag.webp (source photo; never-in-set category) | Sergio upload | photo | 1600x1200 | upload path photos/ img-00052.jpg; original of the live image |
 | photos/uniforms-wear/afg-civilian-wear.jpg | public/uniforms/v12/afg-civilian-wear.webp (source photo; never-in-set category) | Sergio upload | photo | 1277x954 | upload path photos/ img-01077.jpg; original of the live image |
-| photos/uniforms-wear/army-acu-wear.jpg | public/uniforms/v12/army-acu-wear.webp (source photo; never-in-set category) | Sergio upload | photo | 1536x2048 | upload path photos/ img-02148.JPG; original of the live image |
-| photos/uniforms-wear/coveralls-wear.jpg | public/uniforms/v12/coveralls-wear.webp (source photo; never-in-set category) | Sergio upload | photo | 1427x910 | upload path photos/ img-05066 (1).jpg; original of the live image |
 | photos/uniforms-wear/cpo-sdw-wear.jpg | public/uniforms/v12/cpo-sdw-wear.webp (source photo; never-in-set category) | Sergio upload | photo | 645x1280 | upload path photos/ img-08083.jpg; original of the live image |
 | photos/uniforms-wear/cpo-working-khaki-wear.jpg | public/uniforms/v12/cpo-working-khaki-wear.webp (source photo; never-in-set category) | Sergio upload | photo | 1944x2592 | upload path photos/ img-00898.jpg; original of the live image |
 | photos/uniforms-wear/desert-dcu-wear.jpg | public/uniforms/v12/desert-dcu-wear.webp (source photo; never-in-set category) | Sergio upload | photo | 2016x1341 | upload path photos/ img-02266.JPG; original of the live image |
-| photos/uniforms-wear/navy-ptu-wear.jpg | public/uniforms/v12/navy-ptu-wear.webp (source photo; never-in-set category) | Sergio upload | photo | 389x517 | upload path photos/ img-07530.jpg; original of the live image |
 | photos/uniforms-wear/nsu-peanut-butter-wear.jpg | public/uniforms/v12/nsu-peanut-butter-wear.webp (source photo; never-in-set category) | Sergio upload | photo | 795x1065 | upload path photos/ img-00308.jpg; original of the live image |
 | photos/uniforms-wear/nwu-type-i-wear.jpg | public/uniforms/v12/nwu-type-i-wear.webp (source photo; never-in-set category) | Sergio upload | photo | 704x960 | upload path photos/ img-08009.jpg; original of the live image |
+| photos/uniforms-wear/sdb-crackerjack-wear.jpg | public/uniforms/v12/sdb-crackerjack-wear.webp (source photo; never-in-set category) | Sergio upload | photo | 4000x2250 | original of the live image (live is rotated/cropped); upload path photos/img-02369.jpg |
 | photos/uniforms-wear/sdw-crackerjack-wear.jpg | public/uniforms/v12/sdw-crackerjack-wear.webp (source photo; never-in-set category) | Sergio upload | photo | 1198x1600 | upload path photos/ img-05191.jpg; original of the live image |
 | photos/uniforms-wear/summer-white-wear.jpg | public/uniforms/v12/summer-white-wear.webp (source photo; never-in-set category) | Sergio upload | photo | 1944x2592 | upload path photos/ img-03483.jpg; original of the live image |
-| photos/uniforms-wear/winter-blue-wear.jpg | public/uniforms/v12/winter-blue-wear.webp (source photo; never-in-set category) | Sergio upload | photo | 1451x971 | upload path photos/ img-05273.jpg; original of the live image |
 | photos/uniforms/01-smurfs-boot-camp.png | public/uniforms/v12/01-smurfs-boot-camp.webp (uniform card; never-in-set category) | Sergio upload | photo | 1080x1920 | upload path mannequins/ pt-1.png; newer version of the live image |
 | photos/uniforms/02-navy-ptu.png | public/uniforms/v12/02-navy-ptu.webp (uniform card; never-in-set category) | Sergio upload | photo | 1080x1920 | upload path mannequins/ pt-2.png; newer version of the live image |
 | photos/uniforms/03-eodmu-5-pt-2-b.png | public/uniforms/v12/03-eodmu-5-pt-2-b.webp (uniform card; never-in-set category) | Sergio upload | photo | 1080x1920 | upload path mannequins/ pt-3.png; newer version of the live image |
@@ -284,8 +263,6 @@ Counts: _superseded 91, _unsorted 1, case-items 18, crests 31, devices 15, medal
 | photos/unmatched/img-00127.jpg | none (not on the live site) | Sergio upload | photo | 1036x1382 | upload path photos/ img-00127.jpg |
 | photos/unmatched/img-00700.jpg | none (not on the live site) | Sergio upload | photo | 1277x639 | upload path photos/ img-00700.jpg |
 | photos/unmatched/img-00766.jpg | none (not on the live site) | Sergio upload | photo | 4160x3120 | upload path photos/ img-00766.jpg |
-| photos/unmatched/img-00830.jpg | none (not on the live site) | Sergio upload | photo | 480x640 | upload path photos/ img-00830.jpg |
-| photos/unmatched/img-01035.jpg | none (not on the live site) | Sergio upload | photo | 1253x1253 | upload path photos/ img-01035.jpg |
 | photos/unmatched/img-01037.jpg | none (not on the live site) | Sergio upload | photo | 1536x2048 | upload path photos/ img-01037.jpg |
 | photos/unmatched/img-01045.jpg | none (not on the live site) | Sergio upload | photo | 1536x2048 | upload path photos/ img-01045.jpg |
 | photos/unmatched/img-01048.jpg | none (not on the live site) | Sergio upload | photo | 360x480 | upload path photos/ img-01048.jpg |
@@ -299,7 +276,6 @@ Counts: _superseded 91, _unsorted 1, case-items 18, crests 31, devices 15, medal
 | photos/unmatched/img-02222.jpg | none (not on the live site) | Sergio upload | photo | 1544x1024 | upload path photos/ img-02222.jpg |
 | photos/unmatched/img-02257.jpg | none (not on the live site) | Sergio upload | photo | 2128x2832 | upload path photos/ img-02257.JPG |
 | photos/unmatched/img-02335.jpg | none (not on the live site) | Sergio upload | photo | 2048x1536 | upload path photos/ img-02335.JPG |
-| photos/unmatched/img-02369.jpg | none (not on the live site) | Sergio upload | photo | 4000x2250 | upload path photos/ img-02369.jpg |
 | photos/unmatched/img-02540.jpg | none (not on the live site) | Sergio upload | photo | 2304x1728 | upload path photos/ img-02540.JPG |
 | photos/unmatched/img-02615.jpg | none (not on the live site) | Sergio upload | photo | 2113x1413 | upload path photos/ img-02615.JPG |
 | photos/unmatched/img-02625.jpg | none (not on the live site) | Sergio upload | photo | 1536x2048 | upload path photos/ img-02625.JPG |
@@ -345,7 +321,6 @@ Counts: _superseded 91, _unsorted 1, case-items 18, crests 31, devices 15, medal
 | photos/unmatched/img-05055.jpg | none (not on the live site) | Sergio upload | photo | 902x1354 | upload path photos/ img-05055.jpg |
 | photos/unmatched/img-05080.jpg | none (not on the live site) | Sergio upload | photo | 1277x958 | upload path photos/ img-05080.jpg |
 | photos/unmatched/img-05262.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-05262.jpg |
-| photos/unmatched/img-05265.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-05265.jpg |
 | photos/unmatched/img-05296.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-05296.jpg |
 | photos/unmatched/img-05300.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-05300.jpg |
 | photos/unmatched/img-05314.jpg | none (not on the live site) | Sergio upload | photo | 1632x1224 | upload path photos/ img-05314.jpg |
@@ -387,17 +362,12 @@ Counts: _superseded 91, _unsorted 1, case-items 18, crests 31, devices 15, medal
 | photos/unmatched/img-06373.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-06373.jpg |
 | photos/unmatched/img-06385.jpg | none (not on the live site) | Sergio upload | photo | 799x1065 | upload path photos/ img-06385.jpg |
 | photos/unmatched/img-06456.jpg | none (not on the live site) | Sergio upload | photo | 1277x958 | upload path photos/ img-06456.jpg |
-| photos/unmatched/img-06465.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-06465.jpg |
 | photos/unmatched/img-06473.jpg | none (not on the live site) | Sergio upload | photo | 1280x960 | upload path photos/ img-06473.jpg |
 | photos/unmatched/img-06523.jpg | none (not on the live site) | Sergio upload | photo | 1105x1918 | upload path photos/ img-06523.jpg |
-| photos/unmatched/img-06683.jpg | none (not on the live site) | Sergio upload | photo | 3000x1366 | upload path photos/ img-06683.jpg |
 | photos/unmatched/img-06818.jpg | none (not on the live site) | Sergio upload | photo | 1277x958 | upload path photos/ img-06818.jpg |
 | photos/unmatched/img-06894.jpg | none (not on the live site) | Sergio upload | photo | 799x1065 | upload path photos/ img-06894.jpg |
 | photos/unmatched/img-07870.jpg | none (not on the live site) | Sergio upload | photo | 720x1280 | upload path photos/ img-07870.jpg |
 | photos/unmatched/img_20250709_184532_792.jpg | none (not on the live site) | Sergio upload | photo | 812x1079 | upload path photos/ IMG_20250709_184532_792.jpg |
-| photos/unmatched/kg-175a_-_kg-175_taclane_in-line_network_encryptors_-_national_cryptologic_museum_-_dsc07957.jpg | none (not on the live site) | Sergio upload | photo | 3840x1880 | upload path photos/ KG-175A_&_KG-175_TACLANE_In-Line_Network_Encryptors_-_National_Cryptologic_Museum_-_DSC07957.JPG |
-| photos/unmatched/screenshot_20260612-093130_photos.png | none (not on the live site) | Sergio upload | photo | 479x1065 | upload path photos/ Screenshot_20260612-093130_Photos.png |
-| photos/unmatched/screenshot_20260612-093204_photos.png | none (not on the live site) | Sergio upload | photo | 1220x2712 | upload path photos/ Screenshot_20260612-093204_Photos.png |
 | plates/blues/e7/e7-blues-jcse.svg | src/art/plates/e7-blues-jcse.svg | Sergio upload | illustration | vb 1285x2268 | identical to home-art 077b1f8 incoming/plates/blues/e7/e7-1.svg; upload path plates/blues/e7/e7-1.svg |
 | plates/blues/e7/e7-blues-nh.svg | src/art/plates/e7-blues-nh.svg | Sergio upload | illustration | vb 1285x2268 | identical to home-art 077b1f8 incoming/plates/blues/e7/e7-2.svg; upload path plates/blues/e7/e7-2.svg |
 | plates/blues/up-to-e6/e1-blues.svg | src/art/plates/e1-blues.svg | Sergio upload | illustration | vb 1261x2268 | identical to home-art 077b1f8 incoming/plates/blues/up-to-e6/sr.svg; upload path plates/blues/up-to-e6/sr.svg |
@@ -536,26 +506,14 @@ Counts: _superseded 91, _unsorted 1, case-items 18, crests 31, devices 15, medal
 | _superseded/home-art-077b1f8/uniform-items/po2.svg | – | superseded (home-art 077b1f8) | illustration | vb 298x345 | byte-identical duplicate of the upload file now in incoming/; was incoming/uniform-items/po2.svg |
 | _superseded/home-art-077b1f8/uniform-items/po3.svg | – | superseded (home-art 077b1f8) | illustration | vb 299x273 | byte-identical duplicate of the upload file now in incoming/; was incoming/uniform-items/po3.svg |
 | _superseded/home-art-077b1f8/uniform-items/ribbon-devices.svg | – | superseded (home-art 077b1f8) | illustration | vb 189x38 | byte-identical duplicate of the upload file now in incoming/; was incoming/uniform-items/ribbon-devices.svg |
-| _superseded/photos/ach-helmet-acu-cover-img-04721.jpg | public/equipment/ach-helmet-acu-cover.webp | superseded | photo | 1277x1022 | smaller near-duplicate of photos/equipment/ach-helmet-acu-cover.jpg; upload path photos/img-04721.jpg |
-| _superseded/photos/apc-photo-img-03037-1.jpg | public/equipment/apc-photo.webp | superseded | photo | 809x1079 | smaller near-duplicate of photos/equipment/apc-photo.jpg; upload path photos/img-03037 (1).jpg |
-| _superseded/photos/bobcat-skid-steer-photo-img-00152.jpg | public/equipment/bobcat-skid-steer-photo.webp | superseded | photo | 1277x954 | smaller near-duplicate of photos/equipment/bobcat-skid-steer-photo.jpg; upload path photos/img-00152.jpg |
-| _superseded/photos/centurion-c-ram-img-01010.jpg | public/equipment/centurion-c-ram.webp | superseded | photo | 1600x1074 | smaller near-duplicate of photos/equipment/centurion-c-ram.jpg; upload path photos/img-01010.jpg |
-| _superseded/photos/centurion-c-ram-img-05184.jpg | public/equipment/centurion-c-ram.webp | superseded | photo | 1600x1074 | smaller near-duplicate of photos/equipment/centurion-c-ram.jpg; upload path photos/img-05184.jpg |
-| _superseded/photos/coveralls-wear-img-05066.jpg | public/uniforms/v12/coveralls-wear.webp | superseded (duplicate) | photo | 1427x910 | exact duplicate of photos/uniforms-wear/coveralls-wear.jpg; upload path photos/img-05066.jpg |
-| _superseded/photos/img-01069.jpg | – | superseded | photo | 1277x958 | smaller near-duplicate of photos/unmatched/img-01069-1.jpg (dHash 1); upload path photos/img-01069.jpg |
-| _superseded/photos/img-03883.jpg | – | superseded | photo | 266x198 | smaller near-duplicate of photos/unmatched/img-03883-1.jpg (dHash 9); upload path photos/img-03883.jpg |
-| _superseded/photos/jerrv-6x6-4-img-04045.jpg | public/equipment/jerrv-6x6-4.webp | superseded | photo | 1277x958 | smaller near-duplicate of photos/equipment/jerrv-6x6-4.jpg; upload path photos/img-04045.jpg |
-| _superseded/photos/plate-carrier-multicam-photo-img-03851.jpg | public/equipment/plate-carrier-multicam-photo.webp | superseded | photo | 795x1065 | smaller near-duplicate of photos/equipment/plate-carrier-multicam-photo.jpg; upload path photos/img-03851.jpg |
-| _superseded/photos/polaris-ranger-utv-photo-img-03185-1.jpg | public/equipment/polaris-ranger-utv-photo.webp | superseded | photo | 1445x1079 | smaller near-duplicate of photos/equipment/polaris-ranger-utv-photo.jpg; upload path photos/img-03185 (1).jpg |
 | _superseded/uniform-items/esws.png | – | superseded (duplicate) | photo | 868x303 | exact duplicate of uniform-items/esws-pin-photo.png; upload path uniform-items/esws.png |
 | _superseded/uniform-items/exw.png | – | superseded (duplicate) | photo | 744x240 | exact duplicate of uniform-items/exw-pin-photo.png; upload path uniform-items/exw.png |
-| _unsorted/crests/ntc.png | ? | Sergio upload (unsorted) | illustration | 936x927 | named ntc but shows the RTC Great Lakes crest without the anchor; live ntc.webp is the Naval Station Great Lakes crest; upload path crests/ntc.png |
 
 ## Slots still missing
 
 - None among the slots the live site uses outside the never-in-set categories (portraits, medal photos, unit logos, uniforms/v12, equipment, album); gaps were filled from live main 2ce3fa6.
 - Not filled, by design: `src/art/medals/*.webp`, `cut/*.webp`, `sheet/*.png` and `public/medals/sheet/*.png` (built into the site but never displayed; every medal on the live site is a photo); `public/insignia/esws.svg` and `exw.svg` (in public/ but referenced nowhere); `public/incoming/placeholder-crest.svg` (unit-logo category).
-- Unit logos (never-in-set) with no upload version: ntc (see open questions), 2nd-marines, 3-3ada, joint-flags, the four service emblem/seal SVGs, placeholder-crest.
+- Unit logos (never-in-set) with no upload version: ntc, 2nd-marines, 3-3ada, joint-flags, the four service emblem/seal SVGs, placeholder-crest.
 
 ## Files with no site slot
 
@@ -569,9 +527,57 @@ Counts: _superseded 91, _unsorted 1, case-items 18, crests 31, devices 15, medal
 
 ## Open questions
 
-1. `_unsorted/crests/ntc.png` is named ntc but shows the RTC Great Lakes crest without the anchor; the live ntc.webp is the Naval Station Great Lakes crest. Which slot, if any?
+1. Resolved (Sergio, Oct 18): `ntc.png` was his no-anchor RTC variant and was deleted; NTC and RTC have different crests, so the NTC crest is still only the live ntc.webp.
 2. crests/290jcss: kept the vector `290jcss.svg` (upload `crests/290th-jcss.svg`) over the PNG (in _superseded). Confirm.
 3. Rule exceptions to confirm: `case-items/id-photo.webp` is a photo used on the Home case ID card; `photos/insignia/collar-*.webp` are photo-realistic rank collars (live, currently not displayed: RANK_COLLAR_ON_CARDS = false).
 4. Decorations "Ribbons only" view currently uses ribbons/*.svg + devices/*.svg; under the rule it would become the photo rack. Wiring is a later step.
-5. The uploaded personal photos are originals: live versions blur some faces, these do not. Keep them out of public/ unless reviewed.
+5. Blur rule (Sergio): non-Sergio faces are blurred. Where the live site has a blurred version, the non-blurred original was removed from incoming/; the remaining unblurred photos with non-Sergio (or uncertain) faces are listed in `UNBLURRED.md`.
 6. mannequins were placed in photos/uniforms/ under the uniforms/v12 stems they match (never-in-set category); two are byte-identical to live cut/ files.
+
+
+## Removed (Sergio, Oct 18 2026, git rm)
+
+| Path | Reason |
+|---|---|
+| _superseded/photos/ach-helmet-acu-cover-img-04721.jpg | duplicate of a kept photo |
+| _superseded/photos/apc-photo-img-03037-1.jpg | duplicate of a kept photo |
+| _superseded/photos/bobcat-skid-steer-photo-img-00152.jpg | duplicate of a kept photo |
+| _superseded/photos/centurion-c-ram-img-01010.jpg | duplicate of a kept photo |
+| _superseded/photos/centurion-c-ram-img-05184.jpg | duplicate of a kept photo |
+| _superseded/photos/coveralls-wear-img-05066.jpg | non-blurred original of live uniforms/v12/coveralls-wear.webp (live has faces blurred) |
+| _superseded/photos/img-01069.jpg | duplicate of a kept photo |
+| _superseded/photos/img-03883.jpg | duplicate of a kept photo |
+| _superseded/photos/jerrv-6x6-4-img-04045.jpg | duplicate of a kept photo |
+| _superseded/photos/plate-carrier-multicam-photo-img-03851.jpg | duplicate of a kept photo |
+| _superseded/photos/polaris-ranger-utv-photo-img-03185-1.jpg | duplicate of a kept photo |
+| _unsorted/crests/ntc.png | deleted (Sergio): his no-anchor RTC variant; NTC and RTC have different crests |
+| photos/album/acu-airliner.jpg | non-blurred original of live photos/album/acu-airliner.webp (live has faces blurred) |
+| photos/album/acu-rifles-2009-01-16.jpg | non-blurred original of live photos/album/acu-rifles-2009-01-16.webp (live has faces blurred) |
+| photos/album/barracks-hallway-2010-03-28.jpg | non-blurred original of live photos/album/barracks-hallway-2010-03-28.webp (live has faces blurred) |
+| photos/album/boonie-pirate-statue-2009-04-17.jpg | non-blurred original of live photos/album/boonie-pirate-statue-2009-04-17.webp (live has faces blurred) |
+| photos/album/c-ram-formation-2008-11-27.jpg | non-blurred original of live photos/album/c-ram-formation-2008-11-27.webp (live has faces blurred) |
+| photos/album/desert-body-armor-2006-05-05.jpg | non-blurred original of live photos/album/desert-body-armor-2006-05-05.webp (live has faces blurred) |
+| photos/album/dress-blues-memorial-2006-02-05.jpg | non-blurred original of live photos/album/dress-blues-memorial-2006-02-05.webp (live has faces blurred) |
+| photos/album/eodmu5-aam-ceremony-2006-12-01.jpg | non-blurred original of live photos/album/eodmu5-aam-ceremony-2006-12-01.webp (live has faces blurred) |
+| photos/album/m-gator-aircraft-2006-02-21.jpg | non-blurred original of live photos/album/m-gator-aircraft-2006-02-21.webp (live has faces blurred) |
+| photos/equipment/c-17-3.jpg | non-blurred original of live equipment/c-17-3.webp (live has faces blurred) |
+| photos/equipment/c-17-5.jpg | non-blurred original of live equipment/c-17-5.webp (live has faces blurred) |
+| photos/equipment/c-17-6.jpg | non-blurred original of live equipment/c-17-6.webp (live has faces blurred) |
+| photos/equipment/helmet-2006-03-03.jpg | non-blurred original of live equipment/helmet-2006-03-03.webp (live has faces blurred) |
+| photos/equipment/iotv-ucp-photo.jpg | non-blurred original of live equipment/iotv-ucp-photo.webp (live has faces blurred) |
+| photos/equipment/jerrv-6x6-8.jpg | non-blurred original of live equipment/jerrv-6x6-8.webp (live has faces blurred) |
+| photos/equipment/m-gator-photo.jpg | non-blurred original of live equipment/m-gator-photo.webp (live has faces blurred) |
+| photos/equipment/m16a1.jpg | non-blurred original of live equipment/m16a1.webp (live has faces blurred) |
+| photos/equipment/m4-carbine-2.jpg | non-blurred original of live equipment/m4-carbine-2.webp (live has faces blurred) |
+| photos/equipment/m60-photo.jpg | non-blurred original of live equipment/m60-photo.webp (live has faces blurred) |
+| photos/equipment/polaris-sportsman-atv-photo.jpg | non-blurred original of live equipment/polaris-sportsman-atv-photo.webp (live has faces blurred) |
+| photos/uniforms-wear/army-acu-wear.jpg | non-blurred original of live uniforms/v12/army-acu-wear.webp (live has faces blurred) |
+| photos/uniforms-wear/coveralls-wear.jpg | non-blurred original of live uniforms/v12/coveralls-wear.webp (live has faces blurred) |
+| photos/uniforms-wear/navy-ptu-wear.jpg | non-blurred original of live uniforms/v12/navy-ptu-wear.webp (live has faces blurred) |
+| photos/uniforms-wear/winter-blue-wear.jpg | non-blurred original of live uniforms/v12/winter-blue-wear.webp (live has faces blurred) |
+| photos/unmatched/img-00830.jpg | near duplicate inside photos/unmatched; kept img-04922.jpg (larger) |
+| photos/unmatched/img-01035.jpg | near duplicate inside photos/unmatched; kept img-01037.jpg (larger) |
+| photos/unmatched/img-05265.jpg | near duplicate inside photos/unmatched; kept img-05262.jpg (sharper, same size) |
+| photos/unmatched/img-06465.jpg | near duplicate inside photos/unmatched; kept img-06473.jpg (sharper, same size) |
+| photos/unmatched/img-06683.jpg | non-blurred original of live photos/album/sercc-group-lawn.webp (live has faces blurred) |
+| photos/unmatched/screenshot_20260612-093130_photos.png | non-blurred original of live photos/album/gryphon-group-sign.webp (live has faces blurred) |
