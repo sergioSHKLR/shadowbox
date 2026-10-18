@@ -706,6 +706,13 @@ const RIBBON_PHOTOS = new Set(["jmua", "nmuc", "navy-e", "ssdr", "osr"]);
 export const ribbonPhotoFor = (awardId: string) =>
   RIBBON_PHOTOS.has(awardId) ? { src: `/medals/photo/${awardId}-ribbon.webp`, small: `/medals/photo/${awardId}-ribbon-sm.webp` } : null;
 
+/** Per-ribbon crops of Sergio's final rack photo (Oct 18 2026), devices as worn: public/decorations/photo/ribbon-<id>.webp. */
+export const rackPhotoFor = (awardId: string) => `/decorations/photo/ribbon-${awardId}.webp`;
+/** Plain ribbon photo for sidebars (Oct 18 2026): the ribbon bar cut from the medal photo set (<id>-bar.webp), or the
+ *  ribbon photo for the ribbon-only awards. Null when no photo exists. */
+export const ribbonBarPhotoFor = (awardId: string): string | null =>
+  MEDAL_PHOTOS.has(awardId) ? `/medals/photo/${awardId}-bar.webp` : RIBBON_PHOTOS.has(awardId) ? `/medals/photo/${awardId}-ribbon-sm.webp` : null;
+
 export const medalFor = (awardId: string) => {
   const medal = medals.find((row) => row.id === awardId);
   if (!medal) return null;

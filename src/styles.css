@@ -1640,3 +1640,11 @@ object.cx-art { color-scheme: light; }
 .ribbon-photo-btn { padding: 0; border: 0; background: none; cursor: pointer; width: var(--rw); line-height: 0; }
 .ribbon-photo-btn img { width: 100%; height: auto; display: block; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.45)); }
 .ribbon-photo-btn:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }
+
+/* Decorations, Ribbons only (Oct 18 2026): Sergio's rack photo with one hit area per ribbon; loose list uses its crops. */
+.decor-rack-photo { position: relative; width: calc(var(--in) * 4.125); line-height: 0; }
+.decor-rack-photo img { width: 100%; height: auto; display: block; filter: drop-shadow(0 1px 1.5px rgba(0,0,0,0.45)); }
+.decor-rack-hit { position: absolute; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.decor-rack-hit:hover, .decor-rack-hit:focus-visible { outline: 2px solid var(--color-brass); outline-offset: -1px; z-index: 1; }
+.decor-loose-btn .ribbon-photo-crop img { filter: drop-shadow(0 1px 1px rgba(0,0,0,0.4)); }
+.decor-pin-photo { filter: drop-shadow(0 1px 1px rgba(0,0,0,0.35)); }

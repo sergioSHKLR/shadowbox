@@ -1,8 +1,8 @@
 import { useState } from "react";
 import type { Chrome } from "@/lib/shadowbox/copy";
-import { awards, medalFor, medalRows, ribbonPhotoFor, ribbonRows, type Award, type Kind } from "@/lib/shadowbox/model";
+import { awards, deviceSummary, countPhrase, medalFor, medalRows, rackPhotoFor, ribbonPhotoFor, ribbonRows, type Award, type Kind } from "@/lib/shadowbox/model";
 import { publicUrl } from "@/lib/shadowbox/model";
-import { MedalArt, MedalBlock, RibbonArt, RibbonButton } from "@/components/shadowbox/marks";
+import { MedalArt, MedalBlock, RibbonButton } from "@/components/shadowbox/marks";
 
 /**
  * Decorations (restored Oct 14 2026). Two segmented controls: Display (Ribbons only / Medals and ribbons) and
@@ -34,7 +34,7 @@ export function Decorations({ onOpen, title, t }: { onOpen: (k: Kind, id: string
       {show === "medals" ? <MedalsView mount={mount} onOpen={onOpen} t={t} /> : mount === "mounted" ? (
         <div className="decor-worn">
           <BreastLeft>
-            <Rack rows={rows} onOpen={(a) => onOpen("award", a.id)} label={c.mounted} />
+            <RackPhoto rows={rows} onOpen={(a) => onOpen("award", a.id)} label={c.mounted} />
           </BreastLeft>
         </div>
       ) : (
@@ -42,7 +42,7 @@ export function Decorations({ onOpen, title, t }: { onOpen: (k: Kind, id: string
           {ordered.map((award) => (
             <li key={award.id}>
               <button type="button" className="decor-loose-btn" onClick={() => onOpen("award", award.id)}>
-                <RibbonArt award={award} />
+                <span className="ribbon ribbon-photo-crop"><img src={publicUrl(rackPhotoFor(award.id))} alt="" width={372} height={102} loading="lazy" decoding="async" /></span>
                 <span>{award.name}</span>
               </button>
             </li>
@@ -185,6 +185,39 @@ function Rack({ rows, onOpen, label, mirror = false }: { rows: Award[][]; onOpen
   );
 }
 
+/** Ribbons only, mounted (Sergio, Oct 18 2026): his final woven rack photo (incoming/photos/rack/ribbon-rack-final.png,
+ *  the order and device reference) as one image, AVIF with a WebP fallback, 1114 x 710. Each ribbon is a transparent button
+ *  over its place in the photo: 7 rows of 203 px in the 2229 x 1421 original, 743 px per ribbon, the top row of two
+ *  centred (starts at x 371, half a ribbon in). */
+const RACK_W = 2229;
+function RackPhoto({ rows, onOpen, label }: { rows: Award[][]; onOpen: (a: Award) => void; label: string }) {
+  const n = rows.length;
+  return (
+    <div className="decor-rack-photo" aria-label={label}>
+      <picture>
+        <source srcSet={publicUrl("/decorations/photo/rack.avif")} type="image/avif" />
+        <img src={publicUrl("/decorations/photo/rack.webp")} alt="" width={1114} height={710} decoding="async" />
+      </picture>
+      {rows.map((row, r) =>
+        row.map((award, i) => {
+          const x0 = row.length < 3 ? ((3 - row.length) / 2) * (RACK_W / 3) : 0;
+          return (
+            <button
+              key={award.id}
+              type="button"
+              className="decor-rack-hit"
+              aria-label={`${award.name}. ${countPhrase(award)}. ${deviceSummary(award)}. Open the explanation.`}
+              title={award.name}
+              onClick={() => onOpen(award)}
+              style={{ left: `${((x0 + (i * RACK_W) / 3) / RACK_W) * 100}%`, top: `${(r / n) * 100}%`, width: `${100 / 3}%`, height: `${100 / n}%` }}
+            />
+          );
+        }),
+      )}
+    </div>
+  );
+}
+
 /**
  * Left breast as worn (Navy Uniform Regulations 5301/5302): primary warfare pin (ESWS) centred 1/4 in above the ribbons
  * or medals; secondary warfare pin (EXW) centred 1/4 in below them. JCSE device centred below the EXW pin (Sergio,
@@ -193,9 +226,10 @@ function Rack({ rows, onOpen, label, mirror = false }: { rows: Award[][]; onOpen
 function BreastLeft({ children }: { children: React.ReactNode }) {
   return (
     <div className="decor-left-breast">
-      <img className="decor-pin" src={publicUrl("/case/esws-pin.svg")} alt="Enlisted Surface Warfare Specialist pin" />
+      <img className="decor-pin decor-pin-photo" src={publicUrl("/decorations/photo/esws-pin.webp")} alt="Enlisted Surface Warfare Specialist pin" />
       {children}
-      <img className="decor-pin" src={publicUrl("/case/exw-pin.svg")} alt="Expeditionary Warfare Specialist pin" />
+      <img className="decor-pin decor-pin-photo" src={publicUrl("/decorations/photo/exw-pin.webp")} alt="Expeditionary Warfare Specialist pin" />
+      {/* No photo of the JCSE device yet (Oct 18 2026): stays the SVG. */}
       <img className="decor-jcse" src={publicUrl("/insignia/jcse-device.svg")} alt="JCSE device" />
     </div>
   );
