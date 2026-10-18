@@ -1648,3 +1648,17 @@ object.cx-art { color-scheme: light; }
 .decor-rack-hit:hover, .decor-rack-hit:focus-visible { outline: 2px solid var(--color-brass); outline-offset: -1px; z-index: 1; }
 .decor-loose-btn .ribbon-photo-crop img { filter: drop-shadow(0 1px 1px rgba(0,0,0,0.4)); }
 .decor-pin-photo { filter: drop-shadow(0 1px 1px rgba(0,0,0,0.35)); }
+/* Ribbon weave (Sergio, Oct 18 2026): one shared overlay, /ribbons/weave-mask.svg (incoming/ribbons/ribbon-weave-mask.svg,
+   15 thin 15%-black stripes at ribbon proportions), stretched to each drawn ribbon's box so every ribbon keeps the same
+   stripe count. It sits above the ribbon colours and below the devices (stars, E, oak leaves). Drawings only: the photo
+   Decorations page and the sidebars keep their photos, so the overlay is off there. */
+.ribbon:has(> img:not(.ribbon-device))::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: url("/ribbons/weave-mask.svg") center / 100% 100% no-repeat;
+}
+.ribbon > img.ribbon-device { z-index: 2; }
+.detail-hero .ribbon::after, .detail-panel .ribbon::after, [role="dialog"] .ribbon::after, .decor-page .ribbon::after { content: none; }
