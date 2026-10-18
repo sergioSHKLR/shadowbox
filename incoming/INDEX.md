@@ -28,7 +28,7 @@ Plate check against it (Oct 18): every plate keeps this relative order and devic
 - **superseded**: duplicates, smaller near-duplicates and older versions (kept, not deleted), incl. the previous home-art 077b1f8 set under `_superseded/home-art-077b1f8/`.
 - `CATALOG.csv` has the same rows with byte size and SHA-256.
 
-Counts: _superseded 80, case-items 18, crests 31, devices 15, medals 15, misc 9, photos 246, plates 22, ribbons 20, uniform-items 18 (total 474).
+Counts: _superseded 80, case-items 18, crests 31, devices 15, medals 15, misc 9, photos 246, plates 22, ribbons 21, uniform-items 18 (total 475).
 
 ## Files
 
@@ -410,6 +410,7 @@ Counts: _superseded 80, case-items 18, crests 31, devices 15, medals 15, misc 9,
 | ribbons/pistol.svg | public/ribbons/pistol.svg | Sergio upload | illustration | vb 132x36 | identical to live public/ribbons/pistol.svg; upload path ribbons/PISTOL.svg |
 | ribbons/rifle.svg | public/ribbons/rifle.svg | Sergio upload | illustration | vb 132x36 | identical to live public/ribbons/rifle.svg; upload path ribbons/RIFLE.svg |
 | ribbons/ssdr.svg | public/ribbons/ssdr.svg | Sergio upload | illustration | vb 132x36 | identical to live public/ribbons/ssdr.svg; upload path ribbons/SSDR.svg |
+| ribbons/ribbon-weave-mask.svg | none yet (shared overlay for drawn ribbons; not wired on main) | Sergio upload | illustration | vb 51.78x13.98 | weave texture overlay at ribbon proportions (transparent; 15 horizontal 15%-black stripes, edge stripes offset half a pitch); for the drawn ribbons only (Logbook, Uniforms, Home), never the photo Decorations/sidebars; Sergio Oct 18 2026; upload name ribbon-mask.svg |
 | uniform-items/collar-chief.svg | public/insignia/collar-chief.svg (insignia pages) | live site (main 2ce3fa6) | illustration | vb 96x96 | byte-identical copy of public/insignia/collar-chief.svg |
 | uniform-items/cpo-collar.svg | public/case/cpo-collar.svg (CPO collar anchor) | Sergio upload | illustration | vb 378x378 | identical to home-art 077b1f8 incoming/uniform-items/cpo-anchor.svg; upload path uniform-items/drawings/cpo-anchor.svg |
 | uniform-items/e3-stripes.svg | public/incoming/e3-stripes.svg (Ranks: rank image on Logbook rank cards / Commands) | live site (main 2ce3fa6) | illustration | vb 336x349 | byte-identical copy of public/incoming/e3-stripes.svg |
