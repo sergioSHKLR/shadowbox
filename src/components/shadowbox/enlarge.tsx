@@ -101,6 +101,10 @@ export function PlateViewer({
     return () => window.removeEventListener("keydown", onKey);
   }, []);
   const touch = useRef<{ x: number; y: number } | null>(null);
+  // Ribbon weave on the enlarged plate, phones only (Sergio, Oct 18 2026): at 1x on desktop the 12 px ribbons can't
+  // hold the stripes, so it reads as a dull cast. The plate SVG shows its weave only when addressed as #weave
+  // (:root:target) and drawn at least 336 x 590 px; SVG-as-image can't see the device-pixel ratio, so the page decides.
+  const weaveOn = typeof window !== "undefined" && window.matchMedia("(pointer: coarse) and (min-resolution: 2dppx)").matches;
   if (!plate) return null;
   return (
     <div
@@ -119,7 +123,7 @@ export function PlateViewer({
       }}
     >
       <figure className="plate-viewer-figure">
-        <img key={plate.file} src={plate.src} alt={plate.caption} />
+        <img key={plate.file} src={weaveOn ? `${plate.src}#weave` : plate.src} alt={plate.caption} />
       </figure>
       {count > 1 ? (
         <div className="plate-viewer-nav">
