@@ -49,14 +49,17 @@ const SHIRT_VB = [1455.118, 2437.795];
 // Re-measured again on the home-art khakis-no-lapel.svg (Oct 15 2026, same 1455 x 2438 canvas): front buttons 817.5,
 // 1120.5, 1423.5, 1726.5, 2029.5 px; pocket body edges 249-748 px, flap edges 236-761 px (the flap now overhangs the
 // pocket), flap top 669.5 px, flap V point 885.3 px, flap button 831 px.
-const SHIRT = { buttons: [mm(817.5), mm(1120.5), mm(1423.5), mm(1726.5), mm(2029.5)], show: 4, pocket: { cx: mm(498.5), top: mm(669.5), flapCy: mm(885.3), button: mm(831), flapL: mm(236), flapR: mm(761) } };
+// Case shirt preview (Sergio, Oct 18 2026, new incoming/ set 1e20d4c): incoming/plates/khakis/khakis-case.svg, the case
+// khaki with the sleeve attached and the collar drawn in (no rack, pins or anchor), same 1455 x 2438 canvas. Measured on
+// it: pocket body 249-748 px (centre 498.5), flap edges 238-759 px, flap top 754 px, flap V point ~969 px, flap button
+// ~921 px; front buttons 823, 1127, 1429.5, 1734, 2038 px. The buttons below keep the old numbers so the slot height
+// (crop between the 4th and 5th button) stays exactly as on main; the new 4th/5th buttons sit 7.5-8.5 px lower.
+const SHIRT = { buttons: [mm(817.5), mm(1120.5), mm(1423.5), mm(1726.5), mm(2029.5)], show: 4, pocket: { cx: mm(498.5), top: mm(754), flapCy: mm(969), button: mm(921), flapL: mm(238), flapR: mm(759) } };
 // Crop (never scale) halfway between the last shown front button and the next one.
 const SHIRT_H = Math.round((SHIRT.buttons[SHIRT.show - 1] + (SHIRT.buttons[SHIRT.show] ?? mm(SHIRT_VB[1]))) / 2);
 const SHIRT_W = mm(SHIRT_VB[0]);
 const SHIRT_FULL = mm(SHIRT_VB[1]);
-// shirt-lapel.svg: Sergio's home-art lapel.svg, drawn on the shirt's own 1455 x 2438 canvas (bare shirt + lapel = his
-// khakis.svg). Its art ends at 525 px, so the overlay is cropped (never scaled) to the shirt's width x 540 px.
-const LAPEL = { w: SHIRT_W, h: mm(540) };
+// The separate lapel overlay (shirt-lapel.svg) is not placed: khakis-case.svg has its own collar.
 // CPO collar anchor on the lapel (the old lapel had it drawn in; now cpo-anchor.svg is placed): fitted to the old
 // drawing's anchor, 112 px tall, centred at (437, 281) px on the shirt, rotated -54 degrees.
 const ANCHOR = { h: mm(112), w: mm(112) * 240.838 / 366.897, cx: mm(437), cy: mm(281), tilt: -54 };
@@ -67,7 +70,6 @@ const SWO_H = PIN_W * (129.012 / 377.953);
 const EXW_W = PIN_W * 0.942 / 0.926, EXW_H = EXW_W * (134.144 / 377.953), EXW_ART_BOTTOM = 0.995;
 /** Worn on the shirt in both layouts: centre relative to the shirt's top-left. */
 const ON_SHIRT: Record<string, [number, number]> = {
-  lapel: [LAPEL.w / 2, LAPEL.h / 2],
   anchor: [ANCHOR.cx, ANCHOR.cy],
   decorations: [SHIRT.pocket.cx, SHIRT.pocket.top - QIN - RACK_H / 2],
   swo: [SHIRT.pocket.cx, SHIRT.pocket.top - QIN - RACK_H - QIN - SWO_H / 2],
@@ -77,8 +79,7 @@ const ON_SHIRT: Record<string, [number, number]> = {
 const CARD = { w: 85.6, h: 54 };
 const PORTRAIT = { w: 150, h: 150 * (625 / 640) };
 const ITEMS: Item[] = [
-  { id: "uniforms", src: "shirt-long.svg", crop: true, w: SHIRT_W, h: SHIRT_H, gh: SHIRT_FULL, view: "uniforms", label: "Uniforms", wide: [0, 0, 0], z: 1 },
-  { id: "lapel", src: "shirt-lapel.svg", lapel: true, w: LAPEL.w, h: LAPEL.h, label: "", wide: [0, 0, 0], z: 6 },
+  { id: "uniforms", src: "shirt-khakis-case.svg", crop: true, w: SHIRT_W, h: SHIRT_H, gh: SHIRT_FULL, view: "uniforms", label: "Uniforms", wide: [0, 0, 0], z: 1 },
   { id: "anchor", src: "cpo-collar.svg", w: ANCHOR.w, h: ANCHOR.h, label: "", wide: [0, 0, 0], z: 7 },
   { id: "decorations", src: "", rack: true, w: 3 * RIBBON_W, h: RACK_H, view: "decorations", label: "Decorations", wide: [0, 0, 0], z: 3 },
   { id: "swo", src: "esws-pin.svg", w: PIN_W, h: SWO_H, view: "decorations", label: "Surface Warfare", wide: [0, 0, 0], z: 3 },
