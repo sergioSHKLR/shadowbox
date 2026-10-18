@@ -19,6 +19,7 @@ import {
   formatSpan,
   medalFor,
   ribbonPhotoFor,
+  ribbonBarPhotoFor,
   necById,
   operations,
   placeById,
@@ -284,8 +285,9 @@ function UnitDossier({ id, part, hideUniforms = false, cardNames = [] }: { id: s
   const sponsorShots = list(id, "Sponsor").map((name) => ({ name, src: crestFor(name) }));
   const uniformShots = list(id, "Uniforms").map((name) => ({ name, src: UNIFORM_IMAGE[name] }));
   const awardShots = list(id, "Awards").map((name) => {
-    const award = awards.find((item) => item.abbreviation === name || item.name.startsWith(name));
-    return { name, src: award?.ribbon };
+    const award = awards.find((item) => item.abbreviation === name || item.name.startsWith(name)) ?? awards.find((item) => item.name.toLowerCase().startsWith(name.toLowerCase()));
+    // Sidebars use photos only (Sergio, Oct 18 2026): the ribbon photo, else the vector ribbon.
+    return { name, src: award ? ribbonBarPhotoFor(award.id) ?? award.ribbon : undefined };
   });
   const customers = id === "jcse" ? ["3rd SFG (ODA 3213)", "75th Rangers"] : list(id, "Customer");
   const customerShots = customers.map((name) => ({ name, src: crestFor(name) }));
