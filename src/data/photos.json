@@ -1702,17 +1702,6 @@
     "infer": false
   },
   {
-    "id": "album-snow-tent-2010-03-31",
-    "src": "/photos/album/snow-tent-2010-03-31.webp",
-    "alt": "Two soldiers standing by a snow-covered tent",
-    "caption": "Snow-covered tent, 31 March 2010",
-    "subjects": [
-      { "kind": "unit", "id": "jcse" }
-    ],
-    "credit": "Sergio Schickler",
-    "infer": false
-  },
-  {
     "id": "album-cargo-aircraft-troops-2010-08-19",
     "src": "/photos/album/cargo-aircraft-troops-2010-08-19.webp",
     "alt": "Troops seated and resting inside a military cargo aircraft",
