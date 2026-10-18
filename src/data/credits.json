@@ -639,6 +639,15 @@
     "notes": "New vector from the veteran (Oct 17 2026), used as drawn; SVGO with the viewBox kept. The JCSE seal is shown in the popup."
   },
   {
+    "id": "case-shirt-khakis-case",
+    "title": "Chief Petty Officer khaki shirt, case version with attached sleeve and collar (Home case, preview)",
+    "file": "/case/shirt-khakis-case.svg",
+    "sourceUrl": null,
+    "creator": "Vector supplied by the veteran",
+    "license": "Vector drawing supplied by the veteran.",
+    "notes": "The veteran's case khaki (incoming/plates/khakis/khakis-case.svg, new art set of Oct 18 2026), drawing unchanged; SVGO with the viewBox kept. Its own collar replaces the separate lapel overlay."
+  },
+  {
     "id": "case-eod-master-badge",
     "title": "Master Explosive Ordnance Disposal (EOD) badge (Home case, on the EODMU 5 crest)",
     "file": "/case/eod-master-badge.svg",
