@@ -326,6 +326,8 @@ export type Photo = {
   stateside?: boolean;
   /** false: Gallery takes only the explicit subjects; no used-here.json command/operation inference (post-retirement photos). */
   infer?: boolean;
+  /** true: no date, even though the id / file name still carries one (Sergio said the camera date is probably wrong). */
+  undated?: boolean;
 };
 
 export type Reflection = {
@@ -1972,7 +1974,8 @@ export function toSubject(sel: Selection): SubjectView | null {
       explanation: item.note,
       facts: [
         ...(item.caption ? [{ label: "Shown", value: item.caption }] : []),
-        { label: "Photo", value: `${item.credit.creator}. ${item.credit.license}.` },
+        // Uncredited art (Sergio, Oct 19 2026): an empty credit (no creator, licence or source) shows no Photo line.
+        ...(item.credit.creator || item.credit.license ? [{ label: "Photo", value: [item.credit.creator, item.credit.license].filter(Boolean).map((x) => (/[.!?]$/.test(x) ? x : `${x}.`)).join(" ") }] : []),
       ],
       placeIds: unit?.placeId ? [unit.placeId] : [],
       related: [

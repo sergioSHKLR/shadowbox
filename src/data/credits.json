@@ -504,15 +504,6 @@
     "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/1/1c/Setting_up_communications_Royal_Air_Force_Fairford_USAF_040401-F-5098W-001.jpg . Not hotlinked."
   },
   {
-    "id": "equipment-an-prc-148",
-    "title": "AN/PRC-148 MBITR (Thales handheld radio)",
-    "file": "/equipment/an-prc-148-mbitr.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:AN_PRC-148_(cropped).jpg",
-    "creator": "U.S. Marine Corps",
-    "license": "Public domain. Work of the U.S. federal government (DoD photo).",
-    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/b/b7/AN_PRC-148_%28cropped%29.jpg . Not hotlinked."
-  },
-  {
     "id": "equipment-iridium-9505",
     "title": "Iridium 9505 satellite phone (Handheld satellite phone)",
     "file": "/equipment/iridium-9505.webp",
@@ -520,15 +511,6 @@
     "creator": "Romeo (Wikimedia Commons user), released into the public domain",
     "license": "Public domain (released by the author)",
     "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/9/9e/Motorola-Iridium-9505.jpg . Not hotlinked."
-  },
-  {
-    "id": "equipment-ste",
-    "title": "STE secure telephone (Secure Terminal Equipment)",
-    "file": "/equipment/ste-secure-telephone.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:STE_secure_telephone_-_National_Cryptologic_Museum_-_DSC07960.JPG",
-    "creator": "Daderot, National Cryptologic Museum exhibit",
-    "license": "CC0 (public domain dedication)",
-    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/1/1d/STE_secure_telephone_-_National_Cryptologic_Museum_-_DSC07960.JPG . Not hotlinked."
   },
   {
     "id": "equipment-swe-dish",
@@ -540,51 +522,6 @@
     "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/7/70/SWE-DISH_Satellite_Systems_AB_-_FA150T_Mil_Fly-Away_systems_2.png . Not hotlinked."
   },
   {
-    "id": "equipment-koi-18",
-    "title": "KOI-18 (General purpose tape reader (fill device))",
-    "file": "/equipment/koi-18.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:KOI-18_General_Purpose_Tape_Reader_-_National_Cryptologic_Museum_-_DSC07990.JPG",
-    "creator": "Daderot, National Cryptologic Museum exhibit",
-    "license": "CC0 (public domain dedication)",
-    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/b/b0/KOI-18_General_Purpose_Tape_Reader_-_National_Cryptologic_Museum_-_DSC07990.JPG . Not hotlinked."
-  },
-  {
-    "id": "equipment-kyk-13",
-    "title": "KYK-13 (Electronic transfer device (fill device))",
-    "file": "/equipment/kyk-13.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:KYK-13_Electronic_Transfer_Device,_holds_six_cryptographic_keys_-_National_Cryptologic_Museum_-_DSC07989.JPG",
-    "creator": "Daderot, National Cryptologic Museum exhibit",
-    "license": "CC0 (public domain dedication)",
-    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/6/65/KYK-13_Electronic_Transfer_Device%2C_holds_six_cryptographic_keys_-_National_Cryptologic_Museum_-_DSC07989.JPG . Not hotlinked."
-  },
-  {
-    "id": "equipment-an-cyz-10",
-    "title": "AN/CYZ-10 DTD (Data transfer device (fill device))",
-    "file": "/equipment/an-cyz-10.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:AN-CYZ-10_Data_Transfer_Device_-_National_Cryptologic_Museum_-_DSC07945.JPG",
-    "creator": "Daderot, National Cryptologic Museum exhibit",
-    "license": "CC0 (public domain dedication)",
-    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/b/bb/AN-CYZ-10_Data_Transfer_Device_-_National_Cryptologic_Museum_-_DSC07945.JPG . Not hotlinked."
-  },
-  {
-    "id": "equipment-kl-43",
-    "title": "KL-43 (TRW keyboard crypto terminal; he used the KL-43C)",
-    "file": "/equipment/kl-43.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:KL-43_Off-line_and_On-line_Digital_Encryption_(Adaptation_of_language_translator_technology),_late_70s-80s_-_National_Cryptologic_Museum_-_DSC07943.JPG",
-    "creator": "Daderot, National Cryptologic Museum exhibit",
-    "license": "CC0 (public domain dedication)",
-    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/6/61/KL-43_Off-line_and_On-line_Digital_Encryption_%28Adaptation_of_language_translator_technology%29%2C_late_70s-80s_-_National_Cryptologic_Museum_-_DSC07943.JPG . Not hotlinked."
-  },
-  {
-    "id": "equipment-taclane",
-    "title": "TACLANE KG-175 / KG-175A (General Dynamics in-line network encryptor)",
-    "file": "/equipment/taclane-kg-175.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:KG-175A_%26_KG-175_TACLANE_In-Line_Network_Encryptors_-_National_Cryptologic_Museum_-_DSC07957.JPG",
-    "creator": "Daderot, National Cryptologic Museum exhibit",
-    "license": "CC0 (public domain dedication)",
-    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/a/a2/KG-175A_%26_KG-175_TACLANE_In-Line_Network_Encryptors_-_National_Cryptologic_Museum_-_DSC07957.JPG . Not hotlinked."
-  },
-  {
     "id": "equipment-kg-84",
     "title": "KG-84 / KG-84A (Dedicated loop encryption device)",
     "file": "/equipment/kg-84.webp",
@@ -592,15 +529,6 @@
     "creator": "Daderot, National Cryptologic Museum exhibit",
     "license": "CC0 (public domain dedication)",
     "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/c/c6/KG-84_Dedicated_Loop_Encryption_Device_-_National_Cryptologic_Museum_-_DSC08015.JPG . Not hotlinked."
-  },
-  {
-    "id": "equipment-ky-99a",
-    "title": "KY-99A (KY-99 shown)",
-    "file": "/equipment/ky-99.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:KY-99_Secure_Voice_Equipment,_1990s_onward_-_National_Cryptologic_Museum_-_DSC08021.JPG",
-    "creator": "Daderot, National Cryptologic Museum exhibit",
-    "license": "CC0 (public domain dedication)",
-    "notes": "Cropped and resized for this project, saved as WebP. Original file: https://upload.wikimedia.org/wikipedia/commons/c/c8/KY-99_Secure_Voice_Equipment%2C_1990s_onward_-_National_Cryptologic_Museum_-_DSC08021.JPG . Not hotlinked."
   },
   {
     "id": "equipment-an-pyq-10",
@@ -745,42 +673,6 @@
     "creator": "Sergio Schickler",
     "license": "Personal photograph",
     "notes": "Photograph from his own collection. Shown in the sidebar with the other usage stills, not as the card."
-  },
-  {
-    "id": "equipment-c-5",
-    "title": "C-5",
-    "file": "/equipment/c-5-own.webp",
-    "sourceUrl": "",
-    "creator": "Sergio Schickler",
-    "license": "Supplied photograph",
-    "notes": "Supplied by Sergio (Oct 2026) and used as the card. Replaces the earlier stock photograph."
-  },
-  {
-    "id": "equipment-c-130",
-    "title": "C-130",
-    "file": "/equipment/c-130-own.webp",
-    "sourceUrl": "",
-    "creator": "Sergio Schickler",
-    "license": "Supplied photograph",
-    "notes": "Supplied by Sergio (Oct 2026) and used as the card. Replaces the earlier stock photograph."
-  },
-  {
-    "id": "equipment-c-9",
-    "title": "C-9",
-    "file": "/equipment/c-9-own.webp",
-    "sourceUrl": "",
-    "creator": "Sergio Schickler",
-    "license": "Supplied photograph",
-    "notes": "Supplied by Sergio (Oct 2026) and used as the card. Replaces the earlier stock photograph."
-  },
-  {
-    "id": "equipment-c-17",
-    "title": "C-17",
-    "file": "/equipment/c-17-own.webp",
-    "sourceUrl": "",
-    "creator": "Sergio Schickler",
-    "license": "Supplied photograph",
-    "notes": "Supplied by Sergio (Oct 2026) and used as the card. Replaces the earlier stock photograph."
   },
   {
     "id": "equipment-c-17-usage",

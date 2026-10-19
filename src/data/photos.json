@@ -1460,13 +1460,15 @@
     "id": "album-dress-blues-memorial-2006-02-05",
     "src": "/photos/album/dress-blues-memorial-2006-02-05.webp",
     "alt": "Sergio with a group of sailors in dress blues in front of a memorial wall",
-    "caption": "Dress blues, with a group of sailors in front of a memorial wall, 5 February 2006",
+    "caption": "Dress blues, with a group of sailors in front of a memorial wall, Jacksonville",
     "subjects": [
       { "kind": "uniform", "id": "dress-blues" },
       { "kind": "unit", "id": "sercc" }
     ],
+    "city": "Jacksonville, FL",
     "credit": "Sergio Schickler",
-    "infer": false
+    "infer": false,
+    "undated": true
   },
   {
     "id": "album-m-gator-aircraft-2006-02-21",
