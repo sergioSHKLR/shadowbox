@@ -8,7 +8,7 @@
  *  2. A photo with no command tag at all: its full date (YYYY-MM-DD) must fall inside exactly one command's tour
  *     (units.json start/end). A year-only date, a date on a tour boundary shared by two commands, or a date outside
  *     every tour (after retirement) maps nowhere; those are listed for Sergio, not placed.
- * On-hold photos never show, even if a record comes back before Sergio clears it.
+ * On-hold photos never show, even if a record comes back before Sergio clears it; nor do the stock aircraft shots.
  */
 import { galleryPhotos, type GalleryPhoto } from "@/lib/shadowbox/gallery";
 import { commandPlates, logbookBeats, units, type LogbookBeat } from "@/lib/shadowbox/model";
@@ -16,6 +16,14 @@ import { commandPlates, logbookBeats, units, type LogbookBeat } from "@/lib/shad
 /** Held for Sergio (Oct 18 2026; UNBLURRED #15, #25, #26-29) and the removed snow-tent photo: never shown. */
 const ON_HOLD = ["img-05459", "img-00064", "arifjan-starbucks-2009-03-20", "m16a1-2", "m4-carbine-4", "sportster-1200-2", "snow-tent-2010-03-31"];
 const held = (p: GalleryPhoto) => ON_HOLD.some((k) => p.src.includes(k) || p.id.includes(k));
+
+/**
+ * Stock aircraft shots kept off the Photos tabs (Sergio, Oct 19 2026: "Remove aircraft stock photos from Photo tabs").
+ * These four equipment.json images (c-5-own, c-9-own, c-130-own, c-17-own) are air-to-air stock-style shots credited
+ * as supplied photographs; they stay on the On/Off Duty cards and in the Gallery. Sergio's own aircraft photos
+ * (C-17 cargo and seats, M-Gator loading, cargo net, cargo aircraft 2010) stay.
+ */
+const STOCK_AIRCRAFT = new Set(["eq-c-5", "eq-c-9", "eq-c-130", "eq-c-17"]);
 
 const unitById = new Map(units.map((u) => [u.id, u]));
 
@@ -51,7 +59,7 @@ export function logbookPhotoIndex(beats: LogbookBeat[] = logbookBeats()): Logboo
   const byCommand = new Map<string, GalleryPhoto[]>(commandIds.map((id) => [id, []]));
   const unplaced: GalleryPhoto[] = [];
   for (const p of galleryPhotos) {
-    if (held(p)) continue;
+    if (held(p) || STOCK_AIRCRAFT.has(p.id)) continue;
     const tagged = p.tags.filter((t) => t.group === "command").map((t) => t.id);
     let homes: string[];
     if (tagged.length) homes = commandIds.filter((id) => tagged.some((t) => links.get(id)!.has(t)));

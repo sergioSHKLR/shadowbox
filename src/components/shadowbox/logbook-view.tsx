@@ -869,7 +869,9 @@ export function Logbook({
           (shell ? parseFloat(getComputedStyle(shell).paddingBottom) + parseFloat(getComputedStyle(shell).borderBottomWidth) : 0)
         : 0;
       const below = footer ? footer.getBoundingClientRect().bottom + (tail || 0) - box.bottom : 0;
-      const chrome = Math.max(0, Math.round(box.top + window.scrollY + below));
+      // The sheet is lifted by --lb-lift (room for the tab pills' rings) and is that much taller in CSS; measure from the unlifted top.
+      const lift = parseFloat(getComputedStyle(main).getPropertyValue("--lb-lift")) || 0;
+      const chrome = Math.max(0, Math.round(box.top + lift + window.scrollY + below));
       main.style.setProperty("--lb-chrome", `${chrome}px`);
     };
     const queue = () => {
