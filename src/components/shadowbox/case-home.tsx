@@ -59,7 +59,12 @@ const SHIRT = { buttons: [mm(817.5), mm(1120.5), mm(1423.5), mm(1726.5), mm(2029
 const SHIRT_H = Math.round((SHIRT.buttons[SHIRT.show - 1] + (SHIRT.buttons[SHIRT.show] ?? mm(SHIRT_VB[1]))) / 2);
 const SHIRT_W = mm(SHIRT_VB[0]);
 const SHIRT_FULL = mm(SHIRT_VB[1]);
-// The separate lapel overlay (shirt-lapel.svg) is not placed: khakis-case.svg has its own collar.
+// Collar over the awards (Sergio, Oct 19 2026: "place lapel over the awards so esws has small parts obscured"): the collar
+// leaf of khakis-case.svg (its last path, the point at 587, 385 px) reaches down onto the ESWS's right wing, but the shirt
+// is drawn under the pins. shirt-collar.svg is that one path copied verbatim on the shirt's own 1455 x 2438 canvas, laid
+// above the rack and pins at the shirt's origin, so the point covers a little of the pin; elsewhere it lies exactly on
+// the shirt's own collar. The leaf ends at 520 px, so the overlay is cropped (never scaled) to the shirt's width x 540 px.
+const LAPEL = { w: SHIRT_W, h: mm(540) };
 // CPO collar anchor on the lapel (the old lapel had it drawn in; now cpo-anchor.svg is placed): fitted to the old
 // drawing's anchor, 112 px tall, centred at (437, 281) px on the shirt, rotated -54 degrees.
 const ANCHOR = { h: mm(112), w: mm(112) * 240.838 / 366.897, cx: mm(437), cy: mm(281), tilt: -54 };
@@ -70,6 +75,7 @@ const SWO_H = PIN_W * (129.012 / 377.953);
 const EXW_W = PIN_W * 0.942 / 0.926, EXW_H = EXW_W * (134.144 / 377.953), EXW_ART_BOTTOM = 0.995;
 /** Worn on the shirt in both layouts: centre relative to the shirt's top-left. */
 const ON_SHIRT: Record<string, [number, number]> = {
+  lapel: [LAPEL.w / 2, LAPEL.h / 2],
   anchor: [ANCHOR.cx, ANCHOR.cy],
   decorations: [SHIRT.pocket.cx, SHIRT.pocket.top - QIN - RACK_H / 2],
   swo: [SHIRT.pocket.cx, SHIRT.pocket.top - QIN - RACK_H - QIN - SWO_H / 2],
@@ -80,6 +86,7 @@ const CARD = { w: 85.6, h: 54 };
 const PORTRAIT = { w: 150, h: 150 * (625 / 640) };
 const ITEMS: Item[] = [
   { id: "uniforms", src: "shirt-khakis-case.svg", crop: true, w: SHIRT_W, h: SHIRT_H, gh: SHIRT_FULL, view: "uniforms", label: "Uniforms", wide: [0, 0, 0], z: 1 },
+  { id: "lapel", src: "shirt-collar.svg", lapel: true, w: LAPEL.w, h: LAPEL.h, label: "", wide: [0, 0, 0], z: 4 },
   { id: "anchor", src: "cpo-collar.svg", w: ANCHOR.w, h: ANCHOR.h, label: "", wide: [0, 0, 0], z: 7 },
   { id: "decorations", src: "", rack: true, w: 3 * RIBBON_W, h: RACK_H, view: "decorations", label: "Decorations", wide: [0, 0, 0], z: 3 },
   { id: "swo", src: "esws-pin.svg", w: PIN_W, h: SWO_H, view: "decorations", label: "Surface Warfare", wide: [0, 0, 0], z: 3 },
@@ -212,7 +219,9 @@ const shirtBlock = (pos: Pos, sx: number, sy: number, split?: number) => {
   const H = SHIRT_H;
   pos.uniforms = [sx, sy];
   for (const [id, [rx, ry]] of Object.entries(ON_SHIRT)) { const it = byId(id); pos[id] = [sx + rx - it.w / 2, sy + ry - it.h / 2]; }
-  pos.guestbook = [sx + 40, sy + H - PAD - PEN.h];
+  // Pen (Sergio, Oct 19 2026): raised to the left of the pocket, upright beside its left edge with its top level with
+  // the pocket top, as on the phone.
+  pos.guestbook = [sx + SHIRT.pocket.flapL - 6 - PEN.w, sy + SHIRT.pocket.top];
   spreadTo(pos, ["admin", "offduty"], sx + SHIRT.pocket.cx, sy + EXW_BOTTOM, sy + H - PAD);
   if (split === undefined) spreadTo(pos, ["onduty", "map", "logbook", "contact"], sx + DOC_X + DOC_W / 2, sy, sy + H - PAD);
   else {
@@ -318,6 +327,7 @@ const twoP = (): Layout => {
   const dx = pos[c22][0] + crestSize(c22, c).w + G;
   devGrid(pos, 3, dx, sy + G, W - G - dx, 2 * DEV_H + 3 * G);
   shirtBlock(pos, 0, sy, SHIRT_W + G);
+  pos.guestbook = [40, pos.guestbook[1]]; // twoP keeps its pen column (bottom row), unchanged by the Oct 19 pen move
   // One baseline for pen, Liberty, USO and passport; 2M's bottom level with the memorandum's (Sergio).
   const base = sy + H0 - PAD, bottom = (id: string, b: number) => { pos[id] = [pos[id][0], b - byId(id).h]; };
   for (const id of ["guestbook", "offduty", "contact", "map"]) bottom(id, base);
@@ -373,12 +383,25 @@ const oneL = (): Layout => {
   pos.guestbook = [SHIRT.pocket.flapL - 6 - PEN.w, y + SHIRT.pocket.top];
   return { pos, size, tilt: {}, w: W, h: y + H0 };
 };
+const LOWERED = ["onduty", "contact", "offduty", "logbook", "admin"];
+const LOWER_BY = 12;
+const CREST_SCALE = 0.8;
 /** Sergio (Oct 14): the USO card (contact) and the pink 2M card (admin) trade places in every layout. Same card size, so
  *  swapping their positions keeps every gap. */
 const swapCards = (l: Layout): Layout => {
   const { contact, admin } = l.pos;
   if (contact && admin) { l.pos.contact = admin; l.pos.admin = contact; }
   l.tilt.anchor = ANCHOR.tilt; // the collar anchor lies along the lapel in every layout
+  // Sergio (Oct 19 2026): "lower all marked by red by about 20px": the ID card, the USO and Liberty cards, the memorandum
+  // and the pink 2M card drop 12 case units (about 20 px at the desktop case scale), the same proportion in every layout.
+  for (const id of LOWERED) if (l.pos[id]) l.pos[id] = [l.pos[id][0], l.pos[id][1] + LOWER_BY];
+  // "Shrink all crests by about 20%": each command crest at 80%, centred where it was.
+  for (const id of CRESTS_IN_ORDER) {
+    const s = l.size[id] ?? byId(id), p = l.pos[id];
+    if (!p) continue;
+    const n = { w: s.w * CREST_SCALE, h: s.h * CREST_SCALE };
+    l.size[id] = n; l.pos[id] = [p[0] + (s.w - n.w) / 2, p[1] + (s.h - n.h) / 2];
+  }
   return l;
 };
 const LAYOUTS: Record<Mode, Layout> = { wide: swapCards(wideL()), twoL: swapCards(twoL()), twoP: swapCards(twoP()), one: swapCards(oneL()) };
