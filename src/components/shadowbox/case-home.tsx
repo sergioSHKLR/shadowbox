@@ -599,6 +599,11 @@ function usePinchZoom(stage: React.RefObject<HTMLDivElement | null>, layer: Reac
   }, [stage, layer]);
 }
 
+/** Pop-ups mount inside the fullscreen element while the full case is open: under the Fullscreen API only that element
+ *  is drawn, so a modal on document.body stayed invisible and swallowed every tap except the case's own × (Sergio, phone
+ *  landscape, Oct 19 2026). */
+const layerRoot = (): Element => document.fullscreenElement ?? document.body;
+
 /** Leaves the full case from inside it (the top bar is outside the fullscreen element). */
 const exitFull = () => {
   const f = document.querySelector<HTMLElement>(".case-frame[data-cover]");
@@ -702,9 +707,9 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en" }: { copy: C
       <button type="button" className="cx-exit" aria-label={copy.exitFull} title={copy.exitFull} onClick={exitFull}>×</button>
       <button type="button" className="cx-help" aria-label={copy.help} title={copy.help} onClick={() => { setIntro(true); setHint(true); }}>?</button>
     </div>
-    {intro ? <CaseIntro copy={copy} onClose={closeIntro} /> : null}
+    {intro ? createPortal(<CaseIntro copy={copy} onClose={closeIntro} />, layerRoot()) : null}
     {view ? <ItemModal id={view} setId={setView} copy={copy} locale={locale} label={label}
-      go={(id) => { const t = targetOf(id); setView(null); if (t.unit) { onGo?.("logbook"); window.dispatchEvent(new CustomEvent("sb-logbook-command", { detail: t.unit })); } else onGo?.(t.view); }} /> : null}
+      go={(id) => { const t = targetOf(id); setView(null); exitFull(); if (t.unit) { onGo?.("logbook"); window.dispatchEvent(new CustomEvent("sb-logbook-command", { detail: t.unit })); } else onGo?.(t.view); }} /> : null}
     </>
   );
 }
@@ -786,7 +791,7 @@ function ItemModal({ id, setId, copy: c, locale, label, go }: { id: string; setI
         </div>
       </div>
     </div>,
-    document.body,
+    layerRoot(),
   );
 }
 
