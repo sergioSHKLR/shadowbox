@@ -56,15 +56,6 @@
     ]
   },
   {
-    "id": "m4-range",
-    "src": "/equipment/m4-carbine-4.webp",
-    "alt": "M4 carbine fired from a kneeling position on a gravel range, target 25",
-    "caption": "M4 carbine on the range",
-    "subjects": [
-      { "kind": "equipment", "id": "m4-carbine" }
-    ]
-  },
-  {
     "id": "m4-plate-carrier-silhouette",
     "src": "/equipment/m4-carbine-5.webp",
     "alt": "Silhouette holding an M4 carbine in a MultiCam plate carrier on a rooftop",
@@ -73,18 +64,6 @@
       { "kind": "equipment", "id": "m4-carbine" },
       { "kind": "equipment", "id": "plate-carrier-multicam" },
       { "kind": "uniform", "id": "multicam" }
-    ]
-  },
-  {
-    "id": "m16a1-sandbags",
-    "src": "/equipment/m16a1-2.webp",
-    "alt": "M16A1 held behind green sandbags, ACH with ACU cover",
-    "caption": "M16A1 behind sandbags",
-    "subjects": [
-      { "kind": "equipment", "id": "m16a1" },
-      { "kind": "equipment", "id": "ach-acu-cover" },
-      { "kind": "equipment", "id": "iotv-ucp" },
-      { "kind": "uniform", "id": "awu" }
     ]
   },
   {
@@ -485,15 +464,6 @@
     "subjects": [
       { "kind": "uniform", "id": "nwu-type-iii" },
       { "kind": "equipment", "id": "chevy-spark-yellow" }
-    ]
-  },
-  {
-    "id": "sportster-1200-street",
-    "src": "/equipment/sportster-1200-2.webp",
-    "alt": "Black Harley-Davidson Sportster 1200 on a wet residential street",
-    "caption": "Sportster 1200",
-    "subjects": [
-      { "kind": "equipment", "id": "sportster-1200" }
     ]
   },
   {
@@ -1939,19 +1909,6 @@
       { "kind": "unit", "id": "eodmu5" },
       { "kind": "award", "id": "aam" },
       { "kind": "uniform", "id": "working-whites" }
-    ],
-    "credit": "Sergio Schickler",
-    "infer": false
-  },
-  {
-    "id": "album-arifjan-starbucks-2009-03-20",
-    "src": "/photos/album/arifjan-starbucks-2009-03-20.webp",
-    "alt": "Sergio in the Navy PT uniform in front of a Starbucks Coffee building",
-    "caption": "Starbucks at Camp Arifjan, Kuwait, en route to the second Iraq tour, 20 March 2009",
-    "city": "Camp Arifjan, Kuwait",
-    "subjects": [
-      { "kind": "unit", "id": "ia-army" },
-      { "kind": "uniform", "id": "navy-ptu" }
     ],
     "credit": "Sergio Schickler",
     "infer": false
