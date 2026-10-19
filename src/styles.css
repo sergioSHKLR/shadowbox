@@ -1251,6 +1251,8 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 button.cx-item::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, calc(46px / var(--k, 1))); height: max(100%, calc(46px / var(--k, 1))); transform: translate(-50%, -50%); }
 .cx-lapel { display: block; width: 100%; height: 100%; overflow: hidden; pointer-events: none; filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.35)); }
 .cx-lapel img { display: block; max-width: none; }
+/* The collar overlay (shirt-collar.svg) lies exactly on the shirt's own collar: no extra shadow, so the shirt is unchanged. */
+.cx-item[data-id="lapel"] .cx-lapel { filter: none; }
 .cx-item[data-id="lapel"] { pointer-events: none; }
 .cx-item[data-only="grid"] { display: none; }
 @media (max-width: 768px), (orientation: portrait) {
