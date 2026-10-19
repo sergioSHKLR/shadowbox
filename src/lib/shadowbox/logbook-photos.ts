@@ -19,8 +19,8 @@ const held = (p: GalleryPhoto) => ON_HOLD.some((k) => p.src.includes(k) || p.id.
 
 /**
  * Stock aircraft shots kept off the Photos tabs (Sergio, Oct 19 2026: "Remove aircraft stock photos from Photo tabs").
- * These four equipment.json images (c-5-own, c-9-own, c-130-own, c-17-own) are air-to-air stock-style shots credited
- * as supplied photographs; they stay on the On/Off Duty cards and in the Gallery. Sergio's own aircraft photos
+ * These four equipment.json images (c-5-own, c-9-own, c-130-own, c-17-own) are uncredited art; they stay on the On/Off
+ * Duty cards and have also left the Gallery (gallery.ts), so this list is now a safeguard. Sergio's own aircraft photos
  * (C-17 cargo and seats, M-Gator loading, cargo net, cargo aircraft 2010) stay.
  */
 const STOCK_AIRCRAFT = new Set(["eq-c-5", "eq-c-9", "eq-c-130", "eq-c-17"]);
