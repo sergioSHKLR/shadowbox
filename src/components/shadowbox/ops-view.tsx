@@ -144,7 +144,8 @@ function inGroup(group: Equipment["group"]): Equipment[] {
 const OFF_CITIES: { id: string; label: string; items: string[] }[] = [
   { id: "san-diego", label: "San Diego", items: ["city-san-diego", "nissan-frontier"] },
   { id: "tamuning", label: "Tamuning", items: ["city-tamuning", "xt225"] },
-  { id: "talofofo", label: "Talofofo", items: ["city-talofofo", "ford-ranger", "nissan-sentra-red", "nissan-sentra-silver"] },
+  // XT225 under Talofofo too (Sergio, Oct 19 2026: "if Talofofo is selected, XT225 should show"); it stays under Tamuning.
+  { id: "talofofo", label: "Talofofo", items: ["city-talofofo", "ford-ranger", "nissan-sentra-red", "nissan-sentra-silver", "xt225"] },
   { id: "santa-rita", label: "Santa Rita", items: ["city-santa-rita"] },
   { id: "orange-park", label: "Orange Park", items: ["city-orange-park", "buell-500", "mitsubishi-outlander", "chevy-spark-white"] },
   { id: "south-tampa", label: "South Tampa", items: ["city-south-tampa", "buell-500", "sportster-1200", "chevy-spark-yellow", "mitsubishi-outlander"] },
