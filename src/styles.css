@@ -1613,6 +1613,18 @@ object.cx-art { color-scheme: light; }
    all six tabs show at 390 with no sideways scroll. */
 .lb-tabbed { gap: 0 !important; }
 .lb-tablist { padding: 0 0 0.4rem !important; margin: 0 !important; }
+/* Tab rows scroll sideways (overflow-x: auto clips both axes), so give the pills room for their 1px outline, the 2px hover
+   ring and the 2px+2px focus ring on every side, and take the same room back with a negative margin so nothing moves
+   (Sergio, Oct 19 2026: pill outlines cut off at the top and bottom). */
+.lb-tablist { padding: 5px 5px 0.4rem !important; margin: -5px -5px 0 !important; scroll-padding-inline: 5px; }
+/* The Logbook sheet clips (overflow: hidden) and the tab rows sit on its top and side edges: 5px of room above and beside them,
+   taken back with negative margins, and 5px more height so the bottom edge stays put (logbook-view measures --lb-chrome from the unlifted top). */
+.sheet.logbook {
+  --lb-lift: 5px;
+  padding: var(--lb-lift) var(--lb-lift) 0; margin-top: calc(-1 * var(--lb-lift)); margin-inline: calc(-1 * var(--lb-lift));
+  width: calc(100% + 2 * var(--lb-lift)); max-width: none;
+  height: calc(100vh - var(--lb-chrome, 170px) + var(--lb-lift)); height: calc(100dvh - var(--lb-chrome, 170px) + var(--lb-lift));
+}
 .logbook-phone-tabs > .lb-tablist { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.35rem !important; overflow: visible !important; }
 .logbook-phone-tabs > .lb-tablist > .lb-tab { flex: none !important; justify-content: center; min-width: 0; padding: 0.25rem 0.4rem !important; font-size: 0.82rem !important; }
 

@@ -513,7 +513,8 @@
     "alt": "Sergio Schickler in shipboard coveralls",
     "caption": "Coveralls",
     "subjects": [
-      { "kind": "uniform", "id": "coveralls" }
+      { "kind": "uniform", "id": "coveralls" },
+      { "kind": "unit", "id": "sercc" }
     ]
   },
   {
@@ -1462,7 +1463,7 @@
     "caption": "Dress blues, with a group of sailors in front of a memorial wall, 5 February 2006",
     "subjects": [
       { "kind": "uniform", "id": "dress-blues" },
-      { "kind": "unit", "id": "eodmu5" }
+      { "kind": "unit", "id": "sercc" }
     ],
     "credit": "Sergio Schickler",
     "infer": false
