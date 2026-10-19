@@ -618,9 +618,9 @@
     "id": "apc",
     "group": "vehicles",
     "order": 31,
-    "name": "APC",
+    "name": "M113",
     "cutout": false,
-    "note": "Representative M113. The record says APC and does not name the model.",
+    "note": "Representative M113. The record says APC; Sergio's photo from Tal Afar shows an M113.",
     "image": "/equipment/apc.webp",
     "credit": {
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:M113_APC_production_model.jpg",
@@ -630,9 +630,24 @@
     }
   },
   {
+    "id": "stryker",
+    "group": "vehicles",
+    "order": 32,
+    "name": "M1126 Stryker",
+    "cutout": false,
+    "note": "Representative M1126 Stryker Infantry Carrier Vehicle in desert tan.",
+    "image": "/equipment/apc.webp",
+    "credit": {
+      "sourceUrl": "",
+      "file": "",
+      "creator": "",
+      "license": ""
+    }
+  },
+  {
     "id": "mk14",
     "group": "weapons",
-    "order": 32,
+    "order": 33,
     "name": "Mk 14",
     "cutout": false,
     "note": "Mk 14 Enhanced Battle Rifle.",
@@ -647,7 +662,7 @@
   {
     "id": "m60",
     "group": "weapons",
-    "order": 33,
+    "order": 34,
     "name": "M60",
     "cutout": false,
     "note": "7.62 mm M60 machine gun.",
@@ -662,7 +677,7 @@
   {
     "id": "magnetometer",
     "group": "weapons",
-    "order": 34,
+    "order": 35,
     "name": "Magnetometer",
     "cutout": false,
     "note": "CSV EQU-02. EOD search magnetometer. Model not named.",
@@ -677,7 +692,7 @@
   {
     "id": "jcse-eep",
     "group": "comms",
-    "order": 35,
+    "order": 36,
     "name": "JCSE EEP kit",
     "cutout": false,
     "note": "CSV COM-16. Named separately from the IEP kit.",
@@ -692,7 +707,7 @@
   {
     "id": "an-fcc-100",
     "group": "comms",
-    "order": 36,
+    "order": 37,
     "name": "AN/FCC-100",
     "cutout": false,
     "note": "FCC-100 circuit card at Balad, 2008. The set itself is not shown.",
@@ -707,7 +722,7 @@
   {
     "id": "an-wsc-3",
     "group": "comms",
-    "order": 37,
+    "order": 38,
     "name": "AN/WSC-3",
     "cutout": false,
     "note": "RT-1107/WSC-3. The only public photograph is this small manual figure.",
@@ -722,7 +737,7 @@
   {
     "id": "c-5",
     "group": "aircraft",
-    "order": 40,
+    "order": 41,
     "name": "C-5",
     "caption": "Off duty · AS-40",
     "cutout": false,
@@ -733,7 +748,7 @@
   {
     "id": "c-130",
     "group": "aircraft",
-    "order": 41,
+    "order": 42,
     "name": "C-130",
     "cutout": false,
     "note": "C-130 Hercules.",
@@ -743,7 +758,7 @@
   {
     "id": "c-9",
     "group": "aircraft",
-    "order": 42,
+    "order": 43,
     "name": "C-9",
     "caption": "Off duty · AS-40",
     "cutout": false,
@@ -754,7 +769,7 @@
   {
     "id": "black-hawk",
     "group": "aircraft",
-    "order": 43,
+    "order": 44,
     "name": "Black Hawk",
     "cutout": false,
     "note": "UH-60 Black Hawk.",
@@ -769,7 +784,7 @@
   {
     "id": "mi-17",
     "group": "aircraft",
-    "order": 44,
+    "order": 45,
     "name": "Mi-17",
     "cutout": false,
     "note": "Mi-17. Not the airframe from the tour.",
@@ -784,7 +799,7 @@
   {
     "id": "c-17",
     "group": "aircraft",
-    "order": 45,
+    "order": 46,
     "name": "C-17",
     "cutout": false,
     "note": "C-17 Globemaster III.",
@@ -794,7 +809,7 @@
   {
     "id": "nissan-frontier",
     "group": "cars",
-    "order": 50,
+    "order": 51,
     "name": "Nissan Frontier, silver, 1997",
     "cutout": false,
     "note": "POV-01. Silver, a 1997. His truck at Imperial Beach. Model card, not a photo of that truck. Photograph is of the model, not his own.",
@@ -809,7 +824,7 @@
   {
     "id": "ford-ranger",
     "group": "cars",
-    "order": 51,
+    "order": 52,
     "name": "Ford Ranger, green, 1995 or 1996",
     "cutout": false,
     "note": "POV-02. Green, a 1995 or 1996. Guam. Model card. Photograph is of the model, not his own.",
@@ -824,7 +839,7 @@
   {
     "id": "nissan-sentra-silver",
     "group": "cars",
-    "order": 52,
+    "order": 53,
     "name": "Nissan Sentra, gray, 2007",
     "cutout": false,
     "note": "POV-03. A 2007, gray. Guam. The card photo was supplied by Sergio. His Sentra is also in the photographs.",
@@ -839,7 +854,7 @@
   {
     "id": "nissan-sentra-red",
     "group": "cars",
-    "order": 53,
+    "order": 54,
     "name": "Nissan Sentra, red, 1991",
     "cutout": false,
     "note": "POV-04. A 1991, red. Guam. Model card.",
@@ -854,7 +869,7 @@
   {
     "id": "chevy-spark-yellow",
     "group": "cars",
-    "order": 54,
+    "order": 55,
     "name": "Chevy Spark, yellow",
     "cutout": false,
     "note": "POV-05. Tampa. The card is a stock photograph of the model. His yellow Spark is in the photographs.",
@@ -869,7 +884,7 @@
   {
     "id": "chevy-spark-white",
     "group": "cars",
-    "order": 55,
+    "order": 56,
     "name": "Chevy Spark, white",
     "cutout": false,
     "note": "POV-06. Orange Park, during the NH Jacksonville tour. Model card.",
@@ -884,7 +899,7 @@
   {
     "id": "mitsubishi-outlander",
     "group": "cars",
-    "order": 57,
+    "order": 58,
     "name": "Mitsubishi Outlander",
     "cutout": false,
     "note": "POV-08. Tampa and Orange Park. Model card.",
@@ -899,7 +914,7 @@
   {
     "id": "xt225",
     "group": "motorcycles",
-    "order": 60,
+    "order": 61,
     "name": "Yamaha XT225, white and blue, 2001",
     "cutout": false,
     "note": "A 2001 Yamaha XT225, white and blue. The photograph shows another XT225, not his bike.",
@@ -914,7 +929,7 @@
   {
     "id": "buell-500",
     "group": "motorcycles",
-    "order": 61,
+    "order": 62,
     "name": "Buell 500, black",
     "cutout": false,
     "note": "Buell Blast, the 500, in black. The card is a stock photograph of another Blast. His bike is in the photographs.",
@@ -929,7 +944,7 @@
   {
     "id": "sportster-1200",
     "group": "motorcycles",
-    "order": 62,
+    "order": 63,
     "name": "Sportster 1200",
     "cutout": false,
     "note": "Sportster 1200. The card photo was supplied by Sergio. His bike is also in the photographs.",
@@ -944,7 +959,7 @@
   {
     "id": "city-great-lakes",
     "group": "cities",
-    "order": 70,
+    "order": 71,
     "name": "Great Lakes",
     "cutout": false,
     "note": "CIT-01. Boot camp and NTC. Photograph is of the model, not his own.",
@@ -960,7 +975,7 @@
   {
     "id": "city-virginia-beach",
     "group": "cities",
-    "order": 71,
+    "order": 72,
     "name": "Virginia Beach",
     "cutout": false,
     "note": "CIT-02. Tortuga. Photograph is of the model, not his own.",
@@ -976,7 +991,7 @@
   {
     "id": "city-chicago",
     "group": "cities",
-    "order": 72,
+    "order": 73,
     "name": "Chicago",
     "cutout": false,
     "note": "Chicago skyline from near the Adler Planetarium, Willis Tower at center, September 2016. Stock photograph, not his own.",
@@ -991,7 +1006,7 @@
   {
     "id": "city-san-diego",
     "group": "cities",
-    "order": 73,
+    "order": 74,
     "name": "San Diego",
     "cutout": false,
     "note": "Downtown San Diego across San Diego Bay at dusk, seen from Coronado, March 2015. Stock photograph, not his own.",
@@ -1006,7 +1021,7 @@
   {
     "id": "city-key-west",
     "group": "cities",
-    "order": 74,
+    "order": 75,
     "name": "Key West",
     "cutout": false,
     "note": "The Southernmost Point buoy, Key West, August 2018. Stock photograph, not his own.",
@@ -1021,7 +1036,7 @@
   {
     "id": "city-jacksonville",
     "group": "cities",
-    "order": 75,
+    "order": 76,
     "name": "Jacksonville",
     "cutout": false,
     "note": "Downtown Jacksonville at night across the St. Johns River, with the Main Street Bridge, December 2014. Stock photograph, not his own.",
@@ -1036,7 +1051,7 @@
   {
     "id": "city-tampa",
     "group": "cities",
-    "order": 76,
+    "order": 77,
     "name": "Tampa",
     "cutout": false,
     "note": "Downtown Tampa across the Hillsborough River, May 2015. Stock photograph, not his own.",
@@ -1051,7 +1066,7 @@
   {
     "id": "city-talofofo",
     "group": "residences",
-    "order": 72,
+    "order": 73,
     "name": "Talofofo",
     "cutout": false,
     "note": "Talofofo, the church.",
@@ -1066,7 +1081,7 @@
   {
     "id": "city-imperial-beach",
     "group": "residences",
-    "order": 73,
+    "order": 74,
     "name": "Imperial Beach",
     "cutout": false,
     "note": "CIT-04. NCTS. Photograph is of the model, not his own.",
@@ -1081,7 +1096,7 @@
   {
     "id": "city-orange-park",
     "group": "residences",
-    "order": 74,
+    "order": 75,
     "name": "Orange Park, FL",
     "cutout": false,
     "note": "CIT-06. Orange Park, Florida. SERCC and the hospital. Photograph is of the model, not his own.",
@@ -1096,7 +1111,7 @@
   {
     "id": "city-south-tampa",
     "group": "residences",
-    "order": 75,
+    "order": 76,
     "name": "South Tampa",
     "cutout": false,
     "note": "CIT-07. JCSE and both Afghanistan tours. Photograph is of the model, not his own.",
@@ -1111,7 +1126,7 @@
   {
     "id": "city-santa-rita",
     "group": "residences",
-    "order": 76,
+    "order": 77,
     "name": "Santa Rita, GU",
     "cutout": false,
     "note": "CIT-08. Santa Rita, Guam. The Eye, the Fish Eye observatory at Piti Bomb Holes. Photograph is of the dive site, not the residence.",
@@ -1126,7 +1141,7 @@
   {
     "id": "city-tamuning",
     "group": "residences",
-    "order": 77,
+    "order": 78,
     "name": "Tamuning, GU",
     "cutout": false,
     "note": "Tamuning, Guam. Street view from the front of the Outrigger Guam Resort. Oka Towers itself is not in this photograph.",
@@ -1141,7 +1156,7 @@
   {
     "id": "city-biloxi",
     "group": "residences",
-    "order": 78,
+    "order": 79,
     "name": "Biloxi",
     "cutout": false,
     "note": "CIT-09. Keesler. Photograph is of the model, not his own.",
