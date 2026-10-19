@@ -3,6 +3,12 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.0.2] - 2026-10-19
+
+### Changed
+- **Home case pen:** a new vector drawing of the pen in every layout.
+- **Home case (upright screens):** the pen is turned to point the other way.
+
 ## [1.0.1] - 2026-10-19
 
 ### Changed

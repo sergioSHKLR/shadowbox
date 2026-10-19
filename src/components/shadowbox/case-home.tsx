@@ -396,7 +396,7 @@ const portraitSketch = (): Layout => {
   set("contact", dcx - CARD.w / 2, yy); yy += CARD.h + gap;
   set("offduty", dcx - CARD.w / 2, yy); yy += CARD.h + gap;
   pos.guestbook = [dcx - PEN.w / 2, yy + PEN.w / 2 - PEN.h / 2];
-  tilt.guestbook = -90;
+  tilt.guestbook = 90; // Sergio, Oct 19 2026: "on portrait, rotate pen 180" (was -90); centre unchanged
   // Felt column right of the shirt: passport top level with the ID's, memorandum's bottom on the line.
   const m = byId("map"), n = byId("logbook"), fx = W - PAD - m.w / 2;
   set("map", fx - m.w / 2, T);
