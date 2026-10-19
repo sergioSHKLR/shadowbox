@@ -590,6 +590,41 @@ a { color: var(--color-navy); }
 .page-stop.is-end { align-items: flex-end; }
 .page-stop i { width: 1.15rem; height: 1.15rem; border-radius: 50%; background: currentColor; flex: none; box-shadow: 0 0 0 3px #fff; }
 .page-stop em { font-style: normal; font-size: 0.84rem; line-height: 1.2; color: #14233a; }
+/* Timeline portrait (Sergio, Oct 19 2026): push Events toward the right edge and space all four
+   lanes evenly. Landscape/desktop keep the Rank-narrow grid above. Labels stay inside their lane. */
+@media (max-width: 1100px) and (orientation: portrait) {
+  .app-main:has(.view-pane:not(.screen-off) .page-tracks) {
+    width: min(72rem, calc(100% - 1rem));
+  }
+  .page-tracks {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 0.5rem;
+  }
+  .page-track h3 {
+    font-size: clamp(0.7rem, 2.35vw, 0.95rem);
+    min-height: 2.1rem;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+  .page-stop {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .page-stop em {
+    min-width: 0;
+    font-size: clamp(0.68rem, 2.05vw, 0.84rem);
+    overflow-wrap: anywhere;
+  }
+  /* Events: spine against the right edge of its (equal) lane; short labels grow left. */
+  .page-track[data-track="3"] h3 { text-align: right; }
+  .page-track[data-track="3"] .page-line::before { left: auto; right: 0.5rem; }
+  .page-track[data-track="3"] .page-stop {
+    flex-direction: row-reverse;
+    text-align: right;
+    justify-content: flex-start;
+  }
+}
 .chart-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
 .track { margin: 0.8rem 0 1.2rem; width: 100%; }
 .chart-scroll .track h3 { position: sticky; left: 0; width: max-content; }
