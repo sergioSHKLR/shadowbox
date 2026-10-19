@@ -36,6 +36,8 @@ import {
   povLabel,
 } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
+import { Lightbox } from "@/components/shadowbox/gallery-view";
+import { galleryPhotos } from "@/lib/shadowbox/gallery";
 import { MedalArt, RibbonArt } from "@/components/shadowbox/marks";
 
 type Mark = { src: string; alt: string };
@@ -533,7 +535,7 @@ export function DetailPanel({
                 )}
               </div>
               {/* (c) cards, photos and inputs */}
-              {showUsage ? <Photographs photos={gallery} onSelect={onSelect} prominent /> : null}
+              {selection?.kind === "uniform" ? <UniformGallery key={selection.id} ids={new Set(gallery.map((photo) => photo.id))} /> : showUsage ? <Photographs photos={gallery} onSelect={onSelect} prominent /> : null}
                 {subject.usedHere?.length ? (
                   <section className="used-here used-here-top">
                     <h3>Used here</h3>
@@ -669,6 +671,33 @@ export function DetailPanel({
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
+  );
+}
+
+/** Uniform sidebar (Oct 19 2026, Sergio): every Gallery photo tagged with this uniform (photos.json subjects), opening the Gallery lightbox. */
+function UniformGallery({ ids }: { ids: Set<string> }) {
+  const [at, setAt] = useState<number | null>(null);
+  const lang = typeof document !== "undefined" && document.documentElement.lang.startsWith("pt") ? "pt" : "en";
+  const shots = galleryPhotos.filter((photo) => ids.has(photo.id));
+  const pt = lang === "pt";
+  return (
+    <section className="usage-shots uniform-gallery">
+      <h3>{pt ? "Fotografias" : "Photographs"}{shots.length ? <span className="quiet"> · {shots.length}</span> : null}</h3>
+      {shots.length ? (
+        <ul className="uniform-gallery-grid">
+          {shots.map((photo, i) => (
+            <li key={photo.id}>
+              <button type="button" onClick={() => setAt(i)} aria-label={(pt ? "Abrir foto: " : "Open photo: ") + photo.caption} title={photo.caption}>
+                <img loading="lazy" src={photo.src} alt={photo.alt} />
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="quiet">{pt ? "Ainda não há fotos deste uniforme na Galeria." : "No Gallery photos of this uniform yet."}</p>
+      )}
+      <Lightbox photos={shots} at={at} setAt={setAt} lang={lang} />
+    </section>
   );
 }
 
