@@ -624,19 +624,19 @@
     "id": "equipment-apc",
     "title": "M113",
     "file": "/equipment/apc.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:M113_APC_production_model.jpg",
-    "creator": "U.S. Department of the Army",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:USAF_M113_APC_at_Camp_Bucca,_Iraq_(cropped).jpg",
+    "creator": "Capt. Jason McCree, U.S. Air Force",
     "license": "Public domain (U.S. federal government work)",
-    "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked."
+    "notes": "Stock photograph of this kind of gear, used as the card. Camp Bucca, Iraq, 2008; crew faces blurred. Not hotlinked."
   },
   {
     "id": "equipment-stryker",
     "title": "M1126 Stryker",
     "file": "/equipment/stryker.webp",
-    "sourceUrl": "",
-    "creator": "",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Stryker_25th_ID_Iraq_DF-SD-05-12693.JPEG",
+    "creator": "TSgt Mike Buytas, U.S. Air Force",
     "license": "Public domain (U.S. federal government work)",
-    "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked. Pending Sergio's pick."
+    "notes": "Stock photograph of this kind of gear (25th Infantry Division, Iraq, 2005), used as the card. Cropped; crew faces blurred. Not hotlinked."
   },
   {
     "id": "equipment-apc-usage",
@@ -669,8 +669,8 @@
     "id": "equipment-m60",
     "title": "M60",
     "file": "/equipment/m60.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Machine_Gun,_M60.jpg",
-    "creator": "U.S. Department of the Army",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:M60_Medium_Machine_Gun_(7414626098).jpg",
+    "creator": "U.S. Air Force",
     "license": "Public domain (U.S. federal government work)",
     "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked."
   },

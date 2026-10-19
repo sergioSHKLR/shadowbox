@@ -623,9 +623,9 @@
     "note": "Representative M113. The record says APC; Sergio's photo from Tal Afar shows an M113.",
     "image": "/equipment/apc.webp",
     "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:M113_APC_production_model.jpg",
-      "file": "https://commons.wikimedia.org/wiki/File:M113_APC_production_model.jpg",
-      "creator": "U.S. Department of the Army",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:USAF_M113_APC_at_Camp_Bucca,_Iraq_(cropped).jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:USAF_M113_APC_at_Camp_Bucca,_Iraq_(cropped).jpg",
+      "creator": "Capt. Jason McCree, U.S. Air Force",
       "license": "Public domain (U.S. federal government work)"
     }
   },
@@ -636,12 +636,12 @@
     "name": "M1126 Stryker",
     "cutout": false,
     "note": "Representative M1126 Stryker Infantry Carrier Vehicle in desert tan.",
-    "image": "/equipment/apc.webp",
+    "image": "/equipment/stryker.webp",
     "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "",
-      "license": ""
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Stryker_25th_ID_Iraq_DF-SD-05-12693.JPEG",
+      "file": "https://commons.wikimedia.org/wiki/File:Stryker_25th_ID_Iraq_DF-SD-05-12693.JPEG",
+      "creator": "TSgt Mike Buytas, U.S. Air Force",
+      "license": "Public domain (U.S. federal government work)"
     }
   },
   {
@@ -668,9 +668,9 @@
     "note": "7.62 mm M60 machine gun.",
     "image": "/equipment/m60.webp",
     "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Machine_Gun,_M60.jpg",
-      "file": "https://commons.wikimedia.org/wiki/File:Machine_Gun,_M60.jpg",
-      "creator": "U.S. Department of the Army",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:M60_Medium_Machine_Gun_(7414626098).jpg",
+      "file": "https://commons.wikimedia.org/wiki/File:M60_Medium_Machine_Gun_(7414626098).jpg",
+      "creator": "U.S. Air Force",
       "license": "Public domain (U.S. federal government work)"
     }
   },
