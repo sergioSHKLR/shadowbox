@@ -349,6 +349,12 @@ const twoL = (): Layout => {
  * + 142 mm, less G), and the ID and passport tops sit 3 G below the shirt top. Everything below that line is bare shirt.
  */
 const POCKET_LEN = 142;
+/** Portrait shirt length (Sergio, Oct 19 2026: "remove one or two buttons of length from shirt on portrait"): the same
+ *  art cropped higher (object-fit cover from the top, never scaled), so the bare lower shirt goes and the case gets
+ *  shorter. One button less: halfway between the 3rd and 4th front buttons, the wide shirt's own crop rule. */
+// Two buttons less (about 1.75 spacings): cropped PAD below the line the USO, pen and memorandum end on (pocket top +
+// 142 mm, less G), clear of the 3rd front button.
+const PORTRAIT_SHIRT_H = Math.round(SHIRT.pocket.top + POCKET_LEN - G + PAD);
 const portraitSketch = (): Layout => {
   const pos: Pos = {}, size: Record<string, Size> = {}, tilt: Record<string, number> = {};
   const W = SHIRT_W + G + byId("map").w + 2 * G, c = 100;
@@ -389,7 +395,8 @@ const portraitSketch = (): Layout => {
   const m = byId("map"), n = byId("logbook"), fx = W - PAD - m.w / 2;
   set("map", fx - m.w / 2, T);
   set("logbook", fx - n.w / 2, B - n.h);
-  return { pos, size, tilt, w: W, h: sy + H0 };
+  size.uniforms = { w: SHIRT_W, h: PORTRAIT_SHIRT_H };
+  return { pos, size, tilt, w: W, h: sy + PORTRAIT_SHIRT_H };
 };
 const LOWERED = ["onduty", "contact", "offduty", "logbook", "admin"];
 const LOWER_BY = 12;
