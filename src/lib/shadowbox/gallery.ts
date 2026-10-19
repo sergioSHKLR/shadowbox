@@ -121,22 +121,26 @@ function fromPhotos(): GalleryPhoto[] {
         add(tags, sources, isOp ? opTag(common[0]) : commandTag(common[0]), `used-here.json (only ${common[0]} in common for ${subs.map((x) => x.id).join(" + ")})`);
       }
     }
-    return { id: p.id, src: publicUrl(p.src), alt: p.alt, caption: p.caption, date: dateOf(p.id, p.caption), credit: p.credit ? { text: `Photo: ${p.credit}` } : undefined, origin: "photo" as const, tags, sources };
+    return { id: p.id, src: publicUrl(p.src), alt: p.alt, caption: p.caption, date: p.undated ? undefined : dateOf(p.id, p.caption), credit: p.credit ? { text: `Photo: ${p.credit}` } : undefined, origin: "photo" as const, tags, sources };
   });
 }
 
 function creditOf(c: { sourceUrl: string; creator: string; license: string } | undefined) {
-  if (!c) return undefined;
+  if (!c || (!c.sourceUrl && !c.creator && !c.license)) return undefined; // uncredited art: no credit line
   if (!c.sourceUrl) return { text: c.creator ? `Photo: ${c.creator}` : "Photo" };
   const host = (() => { try { return new URL(c.sourceUrl).hostname.replace(/^www\./, ""); } catch { return ""; } })();
   const where = host.includes("wikimedia") ? "Wikimedia Commons" : host.includes("dvidshub") ? "DVIDS" : host;
   return { text: [c.creator, where, c.license].filter(Boolean).join(" · "), href: c.sourceUrl };
 }
 
+const UNCREDITED_AIRCRAFT = new Set(["c-5", "c-9", "c-130", "c-17"]);
+
 function fromEquipment(): GalleryPhoto[] {
   return equipment
     // Sergio's own only (Oct 16 2026): credited to him, no stock / Wikimedia / DVIDS source.
-    .filter((e) => e.image && !e.cutout && !e.image.includes("/cut/") && !e.credit?.sourceUrl && /schickler/i.test(e.credit?.creator ?? ""))
+    // The C-5, C-9, C-130 and C-17 cards were credited to him until Sergio marked them uncredited art (Oct 19 2026); they keep
+    // their Gallery place (kept off the Logbook Photos tabs, logbook-photos.ts).
+    .filter((e) => e.image && !e.cutout && !e.image.includes("/cut/") && !e.credit?.sourceUrl && (/schickler/i.test(e.credit?.creator ?? "") || UNCREDITED_AIRCRAFT.has(e.id)))
     .map((e) => {
       const tags: GalleryTag[] = [];
       const sources: TagSource[] = [];

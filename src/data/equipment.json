@@ -376,12 +376,7 @@
     "cutout": true,
     "note": "Thales AN/PRC-148 Multiband Inter/Intra Team Radio (MBITR): a handheld radio covering 30–512 MHz with embedded encryption, widely used by U.S. special operations forces.",
     "image": "/equipment/cut/an-prc-148-mbitr.webp",
-    "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:AN_PRC-148_(cropped).jpg",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/b/b7/AN_PRC-148_%28cropped%29.jpg",
-      "creator": "U.S. Marine Corps",
-      "license": "Public domain (U.S. federal government work)"
-    }
+    "credit": { "sourceUrl": "", "file": "", "creator": "", "license": "" }
   },
   {
     "id": "iridium-9505",
@@ -406,14 +401,9 @@
     "name": "STE secure telephone",
     "caption": "Secure Terminal Equipment",
     "cutout": false,
-    "note": "Secure Terminal Equipment (STE): the U.S. government secure desk telephone that replaced the STU-III, encrypting calls with a Fortezza crypto card. Card photo: National Cryptologic Museum.",
+    "note": "Secure Terminal Equipment (STE): the U.S. government secure desk telephone that replaced the STU-III, encrypting calls with a Fortezza crypto card.",
     "image": "/equipment/ste-secure-telephone.webp",
-    "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:STE_secure_telephone_-_National_Cryptologic_Museum_-_DSC07960.JPG",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/1/1d/STE_secure_telephone_-_National_Cryptologic_Museum_-_DSC07960.JPG",
-      "creator": "Daderot, National Cryptologic Museum exhibit",
-      "license": "CC0 (public domain dedication)"
-    }
+    "credit": { "sourceUrl": "", "file": "", "creator": "", "license": "" }
   },
   {
     "id": "swe-dish",
@@ -438,14 +428,9 @@
     "name": "KOI-18",
     "caption": "General purpose tape reader (fill device)",
     "cutout": false,
-    "note": "KOI-18: a hand-held reader that pulls punched paper key tape through by hand and loads the key into crypto equipment. Card photo: National Cryptologic Museum.",
+    "note": "KOI-18: a hand-held reader that pulls punched paper key tape through by hand and loads the key into crypto equipment.",
     "image": "/equipment/koi-18.webp",
-    "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KOI-18_General_Purpose_Tape_Reader_-_National_Cryptologic_Museum_-_DSC07990.JPG",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/b/b0/KOI-18_General_Purpose_Tape_Reader_-_National_Cryptologic_Museum_-_DSC07990.JPG",
-      "creator": "Daderot, National Cryptologic Museum exhibit",
-      "license": "CC0 (public domain dedication)"
-    }
+    "credit": { "sourceUrl": "", "file": "", "creator": "", "license": "" }
   },
   {
     "id": "kyk-13",
@@ -454,14 +439,9 @@
     "name": "KYK-13",
     "caption": "Electronic transfer device (fill device)",
     "cutout": false,
-    "note": "KYK-13: an electronic transfer device that holds up to six cryptographic keys and loads them into crypto equipment. Card photo: National Cryptologic Museum.",
+    "note": "KYK-13: an electronic transfer device that holds up to six cryptographic keys and loads them into crypto equipment.",
     "image": "/equipment/kyk-13.webp",
-    "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KYK-13_Electronic_Transfer_Device,_holds_six_cryptographic_keys_-_National_Cryptologic_Museum_-_DSC07989.JPG",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/6/65/KYK-13_Electronic_Transfer_Device%2C_holds_six_cryptographic_keys_-_National_Cryptologic_Museum_-_DSC07989.JPG",
-      "creator": "Daderot, National Cryptologic Museum exhibit",
-      "license": "CC0 (public domain dedication)"
-    }
+    "credit": { "sourceUrl": "", "file": "", "creator": "", "license": "" }
   },
   {
     "id": "an-cyz-10",
@@ -470,14 +450,9 @@
     "name": "AN/CYZ-10 DTD",
     "caption": "Data transfer device (fill device)",
     "cutout": false,
-    "note": "AN/CYZ-10 Data Transfer Device, the “crazy 10”: a hand-held key-management device that stores and loads electronic keys, replacing the KYK-13 and KOI-18. Card photo: National Cryptologic Museum.",
+    "note": "AN/CYZ-10 Data Transfer Device, the “crazy 10”: a hand-held key-management device that stores and loads electronic keys, replacing the KYK-13 and KOI-18.",
     "image": "/equipment/an-cyz-10.webp",
-    "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:AN-CYZ-10_Data_Transfer_Device_-_National_Cryptologic_Museum_-_DSC07945.JPG",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/b/bb/AN-CYZ-10_Data_Transfer_Device_-_National_Cryptologic_Museum_-_DSC07945.JPG",
-      "creator": "Daderot, National Cryptologic Museum exhibit",
-      "license": "CC0 (public domain dedication)"
-    }
+    "credit": { "sourceUrl": "", "file": "", "creator": "", "license": "" }
   },
   {
     "id": "kl-43",
@@ -486,14 +461,9 @@
     "name": "KL-43",
     "caption": "TRW keyboard crypto terminal; he used the KL-43C",
     "cutout": false,
-    "note": "KL-43: a small TRW battery-powered keyboard terminal that encrypts text messages off-line and sends them over a phone line or radio. He used the KL-43C version; the card photo shows a KL-43 at the National Cryptologic Museum.",
+    "note": "KL-43: a small TRW battery-powered keyboard terminal that encrypts text messages off-line and sends them over a phone line or radio. He used the KL-43C version.",
     "image": "/equipment/kl-43.webp",
-    "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KL-43_Off-line_and_On-line_Digital_Encryption_(Adaptation_of_language_translator_technology),_late_70s-80s_-_National_Cryptologic_Museum_-_DSC07943.JPG",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/6/61/KL-43_Off-line_and_On-line_Digital_Encryption_%28Adaptation_of_language_translator_technology%29%2C_late_70s-80s_-_National_Cryptologic_Museum_-_DSC07943.JPG",
-      "creator": "Daderot, National Cryptologic Museum exhibit",
-      "license": "CC0 (public domain dedication)"
-    }
+    "credit": { "sourceUrl": "", "file": "", "creator": "", "license": "" }
   },
   {
     "id": "taclane",
@@ -502,14 +472,9 @@
     "name": "TACLANE KG-175 / KG-175A",
     "caption": "General Dynamics in-line network encryptor",
     "cutout": false,
-    "note": "TACLANE (KG-175): the General Dynamics in-line network encryptor (INE) that secures IP traffic across untrusted networks. Card photo: a KG-175A and KG-175 at the National Cryptologic Museum.",
+    "note": "TACLANE (KG-175): the General Dynamics in-line network encryptor (INE) that secures IP traffic across untrusted networks.",
     "image": "/equipment/taclane-kg-175.webp",
-    "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KG-175A_%26_KG-175_TACLANE_In-Line_Network_Encryptors_-_National_Cryptologic_Museum_-_DSC07957.JPG",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/a/a2/KG-175A_%26_KG-175_TACLANE_In-Line_Network_Encryptors_-_National_Cryptologic_Museum_-_DSC07957.JPG",
-      "creator": "Daderot, National Cryptologic Museum exhibit",
-      "license": "CC0 (public domain dedication)"
-    }
+    "credit": { "sourceUrl": "", "file": "", "creator": "", "license": "" }
   },
   {
     "id": "kg-84",
@@ -532,16 +497,11 @@
     "group": "comms",
     "order": 13,
     "name": "KY-99A",
-    "caption": "Secure voice equipment (KY-99 shown)",
+    "caption": "Secure voice equipment",
     "cutout": false,
-    "note": "KY-99A: a green, ruggedized narrowband and wideband voice and data encryptor used with tactical radios, with audio, fill/data and radio ports on the front. It belongs to the same family as the KY-100. Card photo: the earlier KY-99 at the National Cryptologic Museum.",
+    "note": "KY-99A: a green, ruggedized narrowband and wideband voice and data encryptor used with tactical radios, with audio, fill/data and radio ports on the front. It belongs to the same family as the KY-100.",
     "image": "/equipment/ky-99.webp",
-    "credit": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:KY-99_Secure_Voice_Equipment,_1990s_onward_-_National_Cryptologic_Museum_-_DSC08021.JPG",
-      "file": "https://upload.wikimedia.org/wikipedia/commons/c/c8/KY-99_Secure_Voice_Equipment%2C_1990s_onward_-_National_Cryptologic_Museum_-_DSC08021.JPG",
-      "creator": "Daderot, National Cryptologic Museum exhibit",
-      "license": "CC0 (public domain dedication)"
-    }
+    "credit": { "sourceUrl": "", "file": "", "creator": "", "license": "" }
   },
   {
     "id": "an-pyq-10",
@@ -768,12 +728,7 @@
     "cutout": false,
     "note": "C-5 Galaxy. Off duty during the AS-40 tour.",
     "image": "/equipment/c-5-own.webp",
-    "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "Sergio Schickler",
-      "license": "Supplied photograph"
-    }
+    "credit": { "sourceUrl": "", "file": "", "creator": "", "license": "" }
   },
   {
     "id": "c-130",
@@ -783,12 +738,7 @@
     "cutout": false,
     "note": "C-130 Hercules.",
     "image": "/equipment/c-130-own.webp",
-    "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "Sergio Schickler",
-      "license": "Supplied photograph"
-    }
+    "credit": { "sourceUrl": "", "file": "", "creator": "", "license": "" }
   },
   {
     "id": "c-9",
@@ -799,12 +749,7 @@
     "cutout": false,
     "note": "Navy C-9B Skytrain II, the C-9 the fleet flew. Off duty during the AS-40 tour.",
     "image": "/equipment/c-9-own.webp",
-    "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "Sergio Schickler",
-      "license": "Supplied photograph"
-    }
+    "credit": { "sourceUrl": "", "file": "", "creator": "", "license": "" }
   },
   {
     "id": "black-hawk",
@@ -844,12 +789,7 @@
     "cutout": false,
     "note": "C-17 Globemaster III.",
     "image": "/equipment/c-17-own.webp",
-    "credit": {
-      "sourceUrl": "",
-      "file": "",
-      "creator": "Sergio Schickler",
-      "license": "Supplied photograph"
-    }
+    "credit": { "sourceUrl": "", "file": "", "creator": "", "license": "" }
   },
   {
     "id": "nissan-frontier",
