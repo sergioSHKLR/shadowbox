@@ -10,7 +10,7 @@ import "@/gallery.css";
  * chip shows how many photos it would leave given the other groups' picks. The lightbox steps through the filtered
  * set with the arrows, the arrow keys or a swipe. Tags come from src/lib/shadowbox/gallery.ts.
  */
-type Lang = "en" | "pt";
+export type Lang = "en" | "pt";
 const COPY = {
   en: {
     title: "Gallery",
@@ -115,7 +115,8 @@ export function Gallery({ locale = "en" }: { locale?: string }) {
   );
 }
 
-function Lightbox({ photos, at, setAt, lang }: { photos: GalleryPhoto[]; at: number | null; setAt: (i: number | null) => void; lang: Lang }) {
+/** Shared with the Logbook Photos tab (Oct 19 2026). */
+export function Lightbox({ photos, at, setAt, lang }: { photos: GalleryPhoto[]; at: number | null; setAt: (i: number | null) => void; lang: Lang }) {
   const c = COPY[lang];
   const n = photos.length;
   const p = at === null ? null : photos[at];

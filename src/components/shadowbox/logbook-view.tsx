@@ -39,13 +39,16 @@ import { Boundary } from "@/components/shadowbox/boundary";
 import { EnlargeButton, EnlargeDialog, PlateViewer } from "@/components/shadowbox/enlarge";
 import { chrome as chromeFor, type Chrome } from "@/lib/shadowbox/copy";
 import { createContext, useContext } from "react";
+import { Lightbox } from "@/components/shadowbox/gallery-view";
+import { logbookPhotoIndex } from "@/lib/shadowbox/logbook-photos";
+import type { GalleryPhoto } from "@/lib/shadowbox/gallery";
 
 /** Logbook strings for the active locale (Oct 16 2026: PT had English left in the Logbook). */
 const LbCtx = createContext<Chrome["lb"]>(chromeFor("en").lb);
 const useLb = () => useContext(LbCtx);
 
 type Open = (k: Kind, id: string) => void;
-type MainTab = "rank" | "admin";
+type MainTab = "rank" | "admin" | "photos";
 
 function Kicker({ children }: { children: React.ReactNode }) {
   return <p className="logbook-kicker">{children}</p>;
@@ -185,6 +188,28 @@ function necSchoolLine(nec: { schoolIds?: string[]; placeId?: string }, school =
   const place = nec.placeId ? mapPlaceLabel(nec.placeId) || undefined : undefined;
   if (!names.length && !place) return "";
   return `${school}: ${[names.join(", "), place].filter(Boolean).join(" · ")}`;
+}
+
+/** Photos tab (Sergio, Oct 19 2026): the command's Gallery photos, in the Gallery's own tiles and lightbox. Empty state, not a hidden tab, so the tab bar holds still while stepping commands. */
+function CommandPhotos({ photos }: { photos: GalleryPhoto[] }) {
+  const lb = useLb();
+  const [at, setAt] = useState<number | null>(null);
+  if (!photos.length) return <p className="quiet logbook-photos-none">{lb.noPhotos}</p>;
+  return (
+    <div className="logbook-photos">
+      <p className="quiet logbook-photos-count">{lb.photosCount(photos.length)}</p>
+      <ul className="gallery-grid logbook-photos-grid">
+        {photos.map((p, i) => (
+          <li key={p.id}>
+            <button type="button" className="gallery-tile" aria-label={lb.openPhoto(p.caption)} onClick={() => setAt(i)}>
+              <img src={p.src} alt={p.alt} loading="lazy" decoding="async" />
+            </button>
+          </li>
+        ))}
+      </ul>
+      <Lightbox photos={photos} at={at} setAt={setAt} lang={lb.lang} />
+    </div>
+  );
 }
 
 /** Admin as of the end of this command: NECs held and schools (necs.json / schools.json). */
@@ -790,6 +815,7 @@ export function Logbook({
 }) {
   const lb = t.lb;
   const beats = useMemo(() => logbookBeats(), []);
+  const photoIndex = useMemo(() => logbookPhotoIndex(beats), [beats]);
   const narrow = useNarrow();
   const [active, setActive] = useState(0);
   // Home modal crest button (Sergio, Oct 14 2026): opens the Logbook with that command selected.
@@ -946,6 +972,7 @@ export function Logbook({
         tabs={[
           { id: "rank", label: t.rankAwards },
           { id: "admin", label: t.admin },
+          { id: "photos", label: lb.photos },
         ]}
         value={mainTab}
         onChange={setMainTab}
@@ -1017,7 +1044,7 @@ export function Logbook({
             ) : null}
             </div>
             <div className="logbook-beat-body">
-              {mainTab === "rank" ? <RankAwards beat={beat} beats={beats} onOpen={onOpen} t={t} /> : <AdminAsOf beat={beat} onOpen={onOpen} t={t} />}
+              {mainTab === "rank" ? <RankAwards beat={beat} beats={beats} onOpen={onOpen} t={t} /> : mainTab === "admin" ? <AdminAsOf beat={beat} onOpen={onOpen} t={t} /> : <CommandPhotos key={beat.index} photos={photoIndex.byCommand.get(beat.stop.commandId ?? "") ?? []} />}
             </div>
           </article>
         </div>

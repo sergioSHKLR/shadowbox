@@ -622,3 +622,11 @@
   box-sizing: border-box;
   padding: 4px;
 }
+
+/* Photos tab (Sergio, Oct 19 2026): the Gallery's tiles and lightbox (gallery.css), with the Gallery's tokens. */
+.logbook-photos { --g-panel: color-mix(in srgb, var(--color-ivory) 88%, #fff); --g-border: var(--color-line); --g-quiet: var(--color-quiet); }
+[data-theme="dark"] .logbook-photos { --g-panel: #1a2130; --g-border: #2a3344; --g-quiet: #c4b8a6; }
+.logbook-photos-count { margin: 0 0 0.5rem; font-size: 0.9rem; }
+.logbook-photos-grid { grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 0.5rem; }
+.logbook-photos-none { margin: 0.5rem 0 0; }
+@media (max-width: 760px) { .logbook-photos-grid { grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr)); gap: 0.4rem; } }
