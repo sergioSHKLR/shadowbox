@@ -272,6 +272,8 @@ const H0 = SHIRT_H;
 /** Next column starts here: over the sleeve edge, leaving enough of the shirt visible. */
 const COL2_X = 360;
 
+/** Right edge of the shirt's body below the sleeve (khakis-case.svg x = 800 px), measured on the case at 1440 px. */
+const SHIRT_BODY_R = mm(800);
 const wideL = (): Layout => {
   // Sergio's sketch (Oct 19 2026, "make wide like this"): shirt (23) flush left with its worn awards (2: ESWS, rack, EXW
   // over the pocket) and the pen (1) left of the pocket, as before. Pocket column: USO (4) under the EXW, memorandum (7)
@@ -284,7 +286,10 @@ const wideL = (): Layout => {
   // Positions here are the final ones: swapCards later lowers the LOWERED cards by LOWER_BY and swaps the contact and
   // admin slots (the admin slot shows the USO card, the contact slot the pink 2M), so set() pre-compensates.
   const set = (id: string, cx: number, top: number) => { const it = byId(id); pos[id] = [cx - it.w / 2, top - (LOWERED.includes(id) ? LOWER_BY : 0)]; };
-  const pcx0 = SHIRT.pocket.cx, dcx = DOC_X + DOC_W / 2, bot = H0 - PAD;
+  // Document column (Sergio, Oct 19 2026, yellow line on the wide case: "push column to the yellow line, sitting in the
+  // middle of portrait and first column"): centred midway between the shirt's lower body edge (SHIRT_BODY_R) and the
+  // portraits' left edge (the same x3 as below).
+  const pcx0 = SHIRT.pocket.cx, dcx = (SHIRT_BODY_R + Math.max(right + G, COL2_X)) / 2, bot = H0 - PAD;
   const memo = byId("logbook"), pass = byId("map"), id3 = byId("onduty");
   set("logbook", pcx0, bot - memo.h);
   set("map", dcx, bot - pass.h);
