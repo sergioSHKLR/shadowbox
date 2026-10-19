@@ -63,8 +63,10 @@ const HANG: Record<string, [number, number]> = {
   jsam: [358, 758], jscm: [364, 764], nam: [341, 751], nato: [379, 753], ncm: [358, 744], ndsm: [371, 761],
   ngcm: [343, 762], pistol: [355, 753], rifle: [326, 755],
 };
-/** Medals whose drape devices sit on the visible part of the ribbon when overlapped (art. 5316.2.e): <id>-mount.webp. */
-const MOUNT_VARIANT = new Set(["arcom", "nam", "ngcm", "acm", "icm"]);
+/** Medals whose drape devices sit on the visible part of the ribbon when overlapped (art. 5316.2.e): <id>-mount.webp.
+ *  ARCOM is not in the set (Sergio, Oct 19 2026): its 7/16 in bronze oak leaf stays centred on the suspension ribbon
+ *  (the -front photo, centred like the inboard JSCM's); the ribbon centre is in the visible part at this overlap. */
+const MOUNT_VARIANT = new Set(["nam", "ngcm", "acm", "icm"]);
 const PHOTO_W = 360;
 /** Reference: rows hang 0.85 of a pendant height apart (mean pendant body 351 px). */
 const ROW_STEP = 299;
@@ -219,17 +221,19 @@ function RackPhoto({ rows, onOpen, label }: { rows: Award[][]; onOpen: (a: Award
 }
 
 /**
- * Left breast as worn (Navy Uniform Regulations 5301/5302): primary warfare pin (ESWS) centred 1/4 in above the ribbons
- * or medals; secondary warfare pin (EXW) centred 1/4 in below them. JCSE device centred below the EXW pin (Sergio,
- * Oct 14 2026, v4).
+ * Left breast as worn (Navy Uniform Regulations 5201.2c(1)): primary warfare pin (ESWS) centred, lower edge 1/4 in above
+ * the ribbons or medals; secondary warfare pin (EXW) centred, top 1/4 in below them. JCSE badge centred 1/4 in below the
+ * EXW pin (art. 5101, identification badge on full dress; Sergio, Oct 14 2026, v4).
+ * True scale (Oct 19 2026): pins and badge use the same inch unit as the ribbons/medals they sit with (--in = --mi on
+ * the medal mount, styles.css). Widths of the metal, not the photo box: ESWS 2 3/4 in, EXW 2 3/4 in, JCSE 1.6 in.
  */
 function BreastLeft({ children }: { children: React.ReactNode }) {
   return (
     <div className="decor-left-breast">
-      <img className="decor-pin decor-pin-photo" src={publicUrl("/decorations/photo/esws-pin.webp")} alt="Enlisted Surface Warfare Specialist pin" />
+      <img className="decor-pin decor-pin-photo decor-pin--esws" src={publicUrl("/decorations/photo/esws-pin.webp")} width={600} height={209} alt="Enlisted Surface Warfare Specialist pin" />
       {children}
-      <img className="decor-pin decor-pin-photo" src={publicUrl("/decorations/photo/exw-pin.webp")} alt="Expeditionary Warfare Specialist pin" />
-      {/* JCSE badge: Sergio's photo (Oct 18 2026), transparent background, same 1.6 in width as the SVG it replaced. */}
+      <img className="decor-pin decor-pin-photo decor-pin--exw" src={publicUrl("/decorations/photo/exw-pin.webp")} width={600} height={194} alt="Expeditionary Warfare Specialist pin" />
+      {/* JCSE badge: Sergio's photo (Oct 18 2026), transparent background, 1.6 in wide (the SVG it replaced; no official size found). */}
       <picture>
         <source srcSet={publicUrl("/decorations/photo/jcse-badge.avif")} type="image/avif" />
         <img className="decor-jcse decor-jcse-photo" src={publicUrl("/decorations/photo/jcse-badge.webp")} width={350} height={404} alt="JCSE identification badge" />

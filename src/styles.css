@@ -1683,6 +1683,15 @@ object.cx-art { color-scheme: light; }
 .decor-rack-hit:hover, .decor-rack-hit:focus-visible { outline: 2px solid var(--color-brass); outline-offset: -1px; z-index: 1; }
 .decor-loose-btn .ribbon-photo-crop img { filter: drop-shadow(0 1px 1px rgba(0,0,0,0.4)); }
 .decor-pin-photo { filter: drop-shadow(0 1px 1px rgba(0,0,0,0.35)); }
+/* Left breast at true scale (Sergio, Oct 19 2026). The medal mount draws a 1 3/8 in suspension ribbon as 1.375 --mi, so
+   its pins and badge use the same inch: --in = --mi (they were on the page's smaller --in, about 0.7x on desktop and 0.77x
+   on phones). Widths are of the metal (opaque part of each photo, alpha > 50%), not the photo box: ESWS 2 3/4 in
+   (591 of 600 px), EXW 2 3/4 in (589 of 600 px), JCSE badge 1.6 in (348 of 350 px). Gaps stay 1/4 in (art. 5201.2c(1),
+   5101): the JCSE badge's extra 1/4 in top margin is dropped. */
+.decor-full-dress .decor-left-breast { --in: var(--mi); }
+.decor-left-breast .decor-pin--esws { width: calc(var(--in, 1rem) * 2.75 * 600 / 591); }
+.decor-left-breast .decor-pin--exw { width: calc(var(--in, 1rem) * 2.75 * 600 / 589); }
+.decor-left-breast .decor-jcse-photo { width: calc(var(--in, 1rem) * 1.6 * 350 / 348); margin-top: 0; }
 /* Ribbon weave (Sergio, Oct 18 2026): one shared overlay, /ribbons/weave-mask.svg (incoming/ribbons/ribbon-weave-mask.svg,
    15 thin 15%-black stripes at ribbon proportions), stretched to each drawn ribbon's box so every ribbon keeps the same
    stripe count. It sits above the ribbon colours and below the devices (stars, E, oak leaves). Drawings only: the photo
