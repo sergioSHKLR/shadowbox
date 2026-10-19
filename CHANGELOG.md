@@ -3,6 +3,22 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.1.0] - 2026-10-19
+
+### Added
+- **BETA tag:** a small BETA tag next to the Shadowbox title replaces the Work in Progress ribbon.
+- **Portuguese Timeline:** the Timeline is translated on the Portuguese site.
+- **M1126 Stryker card:** a new tan M1126 Stryker equipment card on EODMU 5's On Duty tab.
+
+### Changed
+- **M113 and M60 cards:** color photos on both cards.
+- **M113 photo caption:** now reads "M113, Tal Afar, Iraq".
+
+### Fixed
+- **Phones held sideways, full case:** taps on items work again in fullscreen (only Close responded before).
+- **Phones held sideways, Home intro:** the intro sits below the header instead of being cut off.
+- **Phone Timeline:** no more mid-word breaks or headings running off the edges.
+
 ## [1.0.2] - 2026-10-19
 
 ### Changed
