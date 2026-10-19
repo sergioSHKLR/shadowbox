@@ -448,6 +448,10 @@ export function ShadowboxApp() {
   return (
     <div className="app-shell">
       <header className="app-bar">
+        {/* Work in Progress corner ribbon (Sergio, Oct 19 2026): hangs from the header's bottom-left corner so it clears the
+            logo, the header icons and the case's "?" button; decorative (aria-hidden), the note below is for screen readers. */}
+        <div className="wip-ribbon" aria-hidden="true"><span>Work in Progress</span></div>
+        <p className="sr-only" role="note">Work in progress</p>
         <button type="button" className="app-home" onClick={() => go("home")} aria-label={`${t.title}, ${t.home}`}>
           <Mark />
           <span className="app-title">{t.title}</span>
