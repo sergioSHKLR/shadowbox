@@ -616,14 +616,11 @@ a { color: var(--color-navy); }
     font-size: clamp(0.68rem, 2.05vw, 0.84rem);
     overflow-wrap: anywhere;
   }
-  /* Events: spine against the right edge of its (equal) lane; short labels grow left. */
+  /* Events (Sergio, Oct 19 2026, v2): labels to the right of the bullets like the other lanes. The line shrinks to its
+     widest stop and sits at the right edge of its lane, so the spine moves left just enough for the labels to fit. */
   .page-track[data-track="3"] h3 { text-align: right; }
-  .page-track[data-track="3"] .page-line::before { left: auto; right: 0.5rem; }
-  .page-track[data-track="3"] .page-stop {
-    flex-direction: row-reverse;
-    text-align: right;
-    justify-content: flex-start;
-  }
+  .page-track[data-track="3"] .page-line { align-self: flex-end; width: max-content; max-width: 100%; }
+  .page-track[data-track="3"] .page-stop { width: auto; }
 }
 .chart-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
 .track { margin: 0.8rem 0 1.2rem; width: 100%; }
