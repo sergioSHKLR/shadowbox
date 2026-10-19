@@ -355,6 +355,7 @@ const POCKET_LEN = 142;
 // Two buttons less (about 1.75 spacings): cropped PAD below the line the USO, pen and memorandum end on (pocket top +
 // 142 mm, less G), clear of the 3rd front button.
 const PORTRAIT_SHIRT_H = Math.round(SHIRT.pocket.top + POCKET_LEN - G + PAD);
+const GUIDE_PITCH = 77;
 const portraitSketch = (): Layout => {
   const pos: Pos = {}, size: Record<string, Size> = {}, tilt: Record<string, number> = {};
   const W = SHIRT_W + G + byId("map").w + 2 * G, c = 100;
@@ -396,6 +397,23 @@ const portraitSketch = (): Layout => {
   set("map", fx - m.w / 2, T);
   set("logbook", fx - n.w / 2, B - n.h);
   size.uniforms = { w: SHIRT_W, h: PORTRAIT_SHIRT_H };
+  // Alignment guides (Sergio, Oct 19 2026, red lines drawn on the phone layout; v2 "move ranks to the left so they fall
+  // on the red lines, equally spaced"): six vertical guides at one even pitch, GUIDE_PITCH (his lines average 76.7 mm),
+  // devices centred on guides 1, 3, 5 and crests on 2, 4, 6, both rows. The set is centred so the widest device in the
+  // left column and the widest crest in the right column keep equal margins to the case edges. The ID, 2M, Liberty and
+  // pen column centres on the middle crest guide, the passport and memorandum on the right one. Sizes and vertical
+  // positions unchanged.
+  const half = (id: string) => (size[id] ?? byId(id)).w * (CRESTS_IN_ORDER.includes(id) ? CREST_SCALE : 1) / 2;
+  const dL = Math.max(...R3x2.map((r) => devOf(`${r[0]}-dev`).w / 2)), cR = Math.max(...R3x2.map((r) => half(r[2])));
+  const g0 = (W - 5 * GUIDE_PITCH - cR + dL) / 2;
+  const guide = (i: number) => g0 + i * GUIDE_PITCH;
+  R3x2.forEach((r) => r.forEach((id, i) => {
+    const d = devOf(`${id}-dev`);
+    pos[`${id}-dev`] = [guide(2 * i) - d.w / 2, pos[`${id}-dev`][1]];
+    pos[id] = [guide(2 * i + 1) - size[id].w / 2, pos[id][1]];
+  }));
+  for (const id of ["onduty", "contact", "offduty", "guestbook"]) pos[id] = [guide(3) - byId(id).w / 2, pos[id][1]];
+  for (const id of ["map", "logbook"]) pos[id] = [guide(5) - byId(id).w / 2, pos[id][1]];
   return { pos, size, tilt, w: W, h: sy + PORTRAIT_SHIRT_H };
 };
 const LOWERED = ["onduty", "contact", "offduty", "logbook", "admin"];
