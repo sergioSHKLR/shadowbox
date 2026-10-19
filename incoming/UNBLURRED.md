@@ -20,7 +20,7 @@ Captions are Sergio's own words (chat, Oct 18 2026) (Sergio's terms: OIF I = the
 | 12 | photos/unmatched/img-05262.jpg | none | Award group in whites by the water with a robot (kept from the 05262/05265 pair) | receiving AAM for OIF I at EODMU 5 |
 | 13 | photos/unmatched/img-05296.jpg | none | Line of sailors in whites at a pier (~9 faces) | same AAM ceremony at EODMU 5; Sergio is last on the right |
 | 14 | photos/unmatched/img-05300.jpg | none | Award presentation at the pier; the presenting officer is not blurred | same AAM ceremony, EODMU 5 |
-| 15 | photos/unmatched/img-05459.jpg | none | Vehicles, 2005: man in a yellow shirt (profile, unsure if Sergio) plus soldiers behind | U-Tapao base, Cobra Gold 06 |
+| 15 | photos/unmatched/img-05459.jpg | none | Vehicles, 2005: man in a yellow shirt (profile, unsure if Sergio) plus soldiers behind | U-Tapao base, Cobra Gold 06. ON HOLD (Oct 18 2026): camera date says 2005 but caption says Cobra Gold 06; awaiting Sergio |
 | 16 | photos/unmatched/img-05543.jpg | none | Classroom; two other sailors at the table | NEC 9613 school, San Diego |
 | 17 | photos/unmatched/img-05576.jpg | none | Sergio selfie in a formation in NWU/ACU; other men alongside | Fort Bliss |
 | 18 | photos/unmatched/img-05629.jpg | none | Sergio selfie in a ball cap; a person in the background | sometime during OIF I |
@@ -30,8 +30,8 @@ Captions are Sergio's own words (chat, Oct 18 2026) (Sergio's terms: OIF I = the
 | 22 | photos/unmatched/img-05980.jpg | none | Hiking trail; a group of soldiers behind Sergio | hiking at Fort Bliss |
 | 23 | photos/unmatched/img-06385.jpg | none | Bowling alley; bowlers in the background | Pattaya, during the second Cobra Gold |
 | 24 | photos/unmatched/img-06894.jpg | none | Soldiers seated in a C-17, low light (no one clearly Sergio) | OEF I or II, C-17 |
-| 25 | photos/unmatched/img-00064.jpg | none | UNSURE IF SERGIO: profile in a green cap at the Marez memorial | outside the chow hall blown up in a green-on-blue attack, Mosul, OIF I (note: the Marez memorial) |
-| 26 | photos/album/arifjan-starbucks-2009-03-20.jpg | public/photos/album/arifjan-starbucks-2009-03-20.webp | UNSURE IF SERGIO: lone man in a yellow shirt in front of a Starbucks, small face | Camp Arifjan, en route to OIF II |
-| 27 | photos/equipment/m16a1-2.jpg | public/equipment/m16a1-2.webp | UNSURE IF SERGIO: prone soldier aiming an M16A1, face half hidden | Fort Bliss |
-| 28 | photos/equipment/m4-carbine-4.jpg | public/equipment/m4-carbine-4.webp | UNSURE IF SERGIO: kneeling shooter in black at a range, ear protection | FOB Delaram |
-| 29 | photos/equipment/sportster-1200-2.jpg | public/equipment/sportster-1200-2.webp | UNSURE IF SERGIO: rider on a Sportster, small face | South Tampa, JCSE |
+| 25 | photos/unmatched/img-00064.jpg | none | UNSURE IF SERGIO: profile in a green cap at the Marez memorial | outside the chow hall blown up in a green-on-blue attack, Mosul, OIF I (note: the Marez memorial). ON HOLD (Oct 18 2026): the Mosul chow hall attack was Dec 2004; awaiting Sergio |
+| 26 | photos/album/arifjan-starbucks-2009-03-20.jpg | none (unpublished Oct 18 2026; was public/photos/album/arifjan-starbucks-2009-03-20.webp) | UNSURE IF SERGIO: lone man in a yellow shirt in front of a Starbucks, small face | Camp Arifjan, en route to OIF II. ON HOLD (Oct 18 2026): is it Sergio? Unpublished from the site (main 229fb64) |
+| 27 | photos/equipment/m16a1-2.jpg | none (unpublished Oct 18 2026; was public/equipment/m16a1-2.webp) | UNSURE IF SERGIO: prone soldier aiming an M16A1, face half hidden | Fort Bliss. ON HOLD (Oct 18 2026): is it Sergio? Unpublished from the site (main 229fb64) |
+| 28 | photos/equipment/m4-carbine-4.jpg | none (unpublished Oct 18 2026; was public/equipment/m4-carbine-4.webp) | UNSURE IF SERGIO: kneeling shooter in black at a range, ear protection | FOB Delaram. ON HOLD (Oct 18 2026): is it Sergio? Unpublished from the site (main 229fb64) |
+| 29 | photos/equipment/sportster-1200-2.jpg | none (unpublished Oct 18 2026; was public/equipment/sportster-1200-2.webp) | UNSURE IF SERGIO: rider on a Sportster, small face | South Tampa, JCSE. ON HOLD (Oct 18 2026): is it Sergio? Unpublished from the site (main 229fb64) |
