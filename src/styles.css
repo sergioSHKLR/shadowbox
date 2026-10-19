@@ -1309,8 +1309,9 @@ object.cx-art { color-scheme: light; }
 .decor-seg-label { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-quiet); margin-right: 0.2rem; }
 .decor-seg .nav-btn { min-height: 44px; }
 .decor-seg .nav-btn:disabled { opacity: 0.55; cursor: not-allowed; }
-.decor-rack { display: flex; flex-direction: column; align-items: center; gap: 0; }
-.decor-rack-row { display: flex; justify-content: center; }
+/* Mounted (Sergio, Oct 19 2026): 1 CSS px between ribbons and between rows, the backdrop showing through. */
+.decor-rack { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+.decor-rack-row { display: flex; justify-content: center; gap: 1px; }
 .decor-rack .ribbon { width: calc(var(--in) * 1.375); display: block; padding: 0; border: 0; background: none; cursor: pointer; position: relative; }
 .decor-rack .ribbon img, .decor-loose .ribbon img { display: block; width: 100%; height: auto; }
 .decor-rack .ribbon:hover, .decor-rack .ribbon:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 1px; z-index: 1; }
