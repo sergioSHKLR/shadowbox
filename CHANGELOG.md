@@ -3,6 +3,11 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.0.1] - 2026-10-19
+
+### Changed
+- **Home case (wide):** the ID, pink 2M, Liberty and passport column moved right to sit midway between the shirt and the portraits.
+
 ## [1.0.0] - 2026-10-19
 
 The live site as of October 19, 2026.
