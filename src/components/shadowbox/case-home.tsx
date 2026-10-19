@@ -337,44 +337,6 @@ const twoL = (): Layout => {
   crestGrid(pos, size, R3x2, c, x2 + devW, y2, w2 - devW, h2);
   return { pos, size, tilt: {}, w: x2 + w2 + G, h: H0 };
 };
-const twoP = (): Layout => {
-  // Sergio's drawing: SR | CPO; crests 18-20 across; crests 21 and 22 with the shirt's collar and shoulder beneath them
-  // and 23 at the right over the device grid (12-14 / 15-17) on the right shoulder; ID and passport on the felt to the
-  // right of the shirt. Crest 21 stays clear of the lapel above the collar.
-  const pos: Pos = {}, size: Record<string, Size> = {};
-  const W = SHIRT_W + G + byId("map").w + 2 * G, c = 100;
-  let y = G;
-  y += portraitsSide(pos, size, G, y, W - 2 * G) + 2 * G;
-  crestGrid(pos, size, [R3x2[0]], c, 0, y - G, W, c + 2 * G); y += c + G;
-  // Second row: each crest centred under the one above it (21 under 18, 22 under 19, 23 under 20).
-  R3x2[1].forEach((id, i) => { const top = R3x2[0][i], s2 = crestSize(id, c); size[id] = s2; pos[id] = [pos[top][0] + size[top].w / 2 - s2.w / 2, y]; });
-  const c22 = R3x2[1][1];
-  const sy = y + c; // shirt top: collar just under crest 21
-  const dx = pos[c22][0] + crestSize(c22, c).w + G;
-  devGrid(pos, 3, dx, sy + G, W - G - dx, 2 * DEV_H + 3 * G);
-  shirtBlock(pos, 0, sy, SHIRT_W + G);
-  pos.guestbook = [40, pos.guestbook[1]]; // twoP keeps its pen column (bottom row), unchanged by the Oct 19 pen move
-  // One baseline for pen, Liberty, USO and passport; 2M's bottom level with the memorandum's (Sergio).
-  const base = sy + H0 - PAD, bottom = (id: string, b: number) => { pos[id] = [pos[id][0], b - byId(id).h]; };
-  for (const id of ["guestbook", "offduty", "contact", "map"]) bottom(id, base);
-  const memoBottom = base - CARD.h - G;
-  bottom("logbook", memoBottom); bottom("admin", memoBottom);
-  const devBottom = sy + G + 2 * DEV_H + 3 * G, passTop = base - byId("map").h;
-  pos.onduty = [pos.onduty[0], (devBottom + passTop) / 2 - byId("onduty").h / 2];
-  // Memorandum's top level with the ID card's top (Sergio); 2M keeps its place.
-  pos.logbook = [pos.logbook[0], pos.onduty[1]];
-  // Four columns distributed with equal gaps between the pen's left edge and the passport's right edge (Sergio):
-  // pen | 2M + Liberty | USO + memo | passport + ID; each item centred in its column, vertical positions kept.
-  const dcols = [["guestbook"], ["admin", "offduty"], ["contact", "logbook"], ["map", "onduty"]];
-  const dcw = dcols.map((ids) => Math.max(...ids.map((id) => byId(id).w)));
-  const left = pos.guestbook[0], right = W - PAD;
-  const dgap = (right - left - dcw.reduce((t, v) => t + v, 0)) / (dcols.length - 1);
-  let dx0 = left;
-  dcols.forEach((ids, i) => { for (const id of ids) pos[id] = [dx0 + (dcw[i] - byId(id).w) / 2, pos[id][1]]; dx0 += dcw[i] + dgap; });
-  // Memorandum's top level with the ID card's (Sergio); 2M keeps its place (bottom where the memo's used to be).
-  pos.logbook = [pos.logbook[0], pos.onduty[1]];
-  return { pos, size, tilt: {}, w: W, h: sy + H0 };
-};
 /**
  * Portrait after Sergio's sketch (Oct 19 2026, "This one for portrait", drawn over a tablet-portrait screenshot):
  *  - portraits (9, 10) side by side with their plaques (9a, 10a);
@@ -450,7 +412,7 @@ const swapCards = (l: Layout): Layout => {
   }
   return l;
 };
-const LAYOUTS: Record<Mode, Layout> = { wide: swapCards(wideL()), twoL: swapCards(twoL()), twoP: swapCards(twoP()), one: swapCards(portraitSketch()) };
+const LAYOUTS: Record<Mode, Layout> = { wide: swapCards(wideL()), twoL: swapCards(twoL()), twoP: swapCards(portraitSketch()), one: swapCards(portraitSketch()) };
 WIDE.w = LAYOUTS.wide.w; WIDE.h = LAYOUTS.wide.h;
 /** Breakpoints on the window (Sergio's proposal): laptops (1200 px and wider, or 1000+ px at 1.6 : 1) 3 columns;
  *  phones upright (under 600 px wide) 1 column; other windows wider than tall (wide tablets, sideways phones) 2 columns
