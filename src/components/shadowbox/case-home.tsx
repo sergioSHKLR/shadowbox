@@ -375,39 +375,59 @@ const twoP = (): Layout => {
   pos.logbook = [pos.logbook[0], pos.onduty[1]];
   return { pos, size, tilt: {}, w: W, h: sy + H0 };
 };
-const oneL = (): Layout => {
-  const pos: Pos = {}, size: Record<string, Size> = {};
-  const W = SHIRT_W + G, c = 110;
+/**
+ * Portrait after Sergio's sketch (Oct 19 2026, "This one for portrait", drawn over a tablet-portrait screenshot):
+ *  - portraits (9, 10) side by side with their plaques (9a, 10a);
+ *  - crests (17-22) 3 x 2 in service order, each with its arrival-rank device just left of it, centred on its height;
+ *  - shirt (23) flush left under crest 21, worn awards (2), collar point and anchor as they are;
+ *  - on the shirt: USO (4) on the lower pocket; the document column ID (3, upright), pink 2M (8), Liberty (5) and the
+ *    pen (1) lying horizontal, all with equal gaps; on the felt right of the shirt: passport (6), top level with the
+ *    ID's, and the memorandum (7) under it.
+ * The sketch is to scale: USO, pen and memorandum end on one line a little above the pocket's bottom edge (pocket top
+ * + 142 mm, less G), and the ID and passport tops sit 3 G below the shirt top. Everything below that line is bare shirt.
+ */
+const POCKET_LEN = 142;
+const portraitSketch = (): Layout => {
+  const pos: Pos = {}, size: Record<string, Size> = {}, tilt: Record<string, number> = {};
+  const W = SHIRT_W + G + byId("map").w + 2 * G, c = 100;
   let y = G;
-  y += portraitsSide(pos, size, G, y, W - 2 * G) + G;
-  const ch = 3 * c + 4 * G;
-  crestGrid(pos, size, R2x3, c, 0, y, W, ch);
-  // Phone v2 (Sergio, Oct 15): each crest column centred under its portrait (SR left, ETC/CPO right), and the five rank
-  // devices as one column (PO3 at the top to CPO) centred in the gap between the crest columns, spread over the crest rows.
-  const pcx = (id: string) => pos[id][0] + size[id].w / 2;
-  R2x3.forEach((r) => r.forEach((id, i) => { pos[id] = [pcx(i ? "bio" : "bio-sr") - size[id].w / 2, pos[id][1]]; }));
-  // v3 (Sergio): the column is centred on the gap between the two portraits.
-  const dcx = (pos["bio-sr"][0] + size["bio-sr"].w + pos.bio[0]) / 2;
-  const dgap = (ch - DEVS.reduce((t, id) => t + devOf(id).h, 0)) / (DEVS.length + 1);
-  let dy = y + dgap;
-  for (const id of DEVS) { const d = devOf(id); pos[id] = [dcx - d.w / 2, dy]; dy += d.h + dgap; }
-  y += ch;
-  shirtBlock(pos, 0, y);
-  // Bottom (Sergio): Liberty above the USO card in the pocket column (swapCards puts the USO in admin's slot, so the two
-  // slots trade here), and the pink 2M (contact's slot before the swap) above the memorandum in the document column.
-  // v3 (Sergio, Oct 15): the ID card moves onto the pocket below the EXW, Liberty below it (between the pocket and the
-  // USO card), USO at the bottom; the document column re-spreads passport, pink 2M, memorandum with even gaps.
-  spreadTo(pos, ["onduty", "offduty", "admin"], SHIRT.pocket.cx, y + EXW_BOTTOM, y + H0 - PAD);
-  // v4: pink 2M, passport, memorandum, stacked up from the bottom padding with the pocket column's card gap.
-  { const ids = ["contact", "map", "logbook"], bot = y + H0 - PAD;
-    const pgap = (bot - y - EXW_BOTTOM - ["onduty", "offduty", "admin"].reduce((t, id) => t + byId(id).h, 0)) / 3;
-    // v5 (Sergio, Oct 17): the column is centred on the right crest column's axis (SERCC, NH Jacksonville), not the shirt's
-    // document column; phone portrait only. True sizes and vertical positions unchanged.
-    const docCx = pcx("bio");
-    let yy = bot; for (const id of [...ids].reverse()) { const it = byId(id); yy -= it.h; pos[id] = [docCx - it.w / 2, yy]; yy -= pgap; } }
-  // Pen upright beside the pocket's left edge, its top level with the pocket top (the pocket is 142 mm tall, the pen 142).
-  pos.guestbook = [SHIRT.pocket.flapL - 6 - PEN.w, y + SHIRT.pocket.top];
-  return { pos, size, tilt: {}, w: W, h: y + H0 };
+  y += portraitsSide(pos, size, G, y, W - 2 * G) + 2 * G;
+  const fin = (id: string) => crestSize(id, c * CREST_SCALE);
+  const pairW = (id: string) => devOf(`${id}-dev`).w + G + fin(id).w;
+  const colW = [0, 1, 2].map((i) => Math.max(...R3x2.map((r) => pairW(r[i]))));
+  const gx = (W - colW.reduce((t, v) => t + v, 0)) / 4;
+  R3x2.forEach((r, ri) => {
+    const rowTop = y + ri * (c + G);
+    let x = gx;
+    r.forEach((id, i) => {
+      const d = devOf(`${id}-dev`), f = fin(id), s0 = crestSize(id, c), px = x + (colW[i] - pairW(id)) / 2;
+      pos[`${id}-dev`] = [px, rowTop + c / 2 - d.h / 2];
+      size[id] = s0; pos[id] = [px + d.w + G - (s0.w - f.w) / 2, rowTop];
+      x += colW[i] + gx;
+    });
+  });
+  const sy = y + c + G + c; // shirt top: collar just under crest 21
+  shirtBlock(pos, 0, sy);
+  // Final positions (swapCards lowers LOWERED by LOWER_BY and swaps the slots: admin shows the USO, contact the 2M).
+  const set = (id: string, x: number, top: number) => { pos[id] = [x, top - (LOWERED.includes(id) ? LOWER_BY : 0)]; };
+  const T = sy + 3 * G, B = sy + SHIRT.pocket.top + POCKET_LEN - G, dcx = DOC_X + DOC_W / 2;
+  const uso = byId("admin");
+  set("admin", SHIRT.pocket.cx - uso.w / 2, B - uso.h);
+  // Document column: ID, 2M, Liberty, then the pen turned 90 degrees (its box stays upright; the rotation is about its
+  // centre, so the box is placed by where the turned pen should lie).
+  const col = [byId("onduty").h, CARD.h, CARD.h, PEN.w];
+  const gap = (B - T - col.reduce((t, v) => t + v, 0)) / 3;
+  let yy = T;
+  set("onduty", dcx - byId("onduty").w / 2, yy); yy += col[0] + gap;
+  set("contact", dcx - CARD.w / 2, yy); yy += CARD.h + gap;
+  set("offduty", dcx - CARD.w / 2, yy); yy += CARD.h + gap;
+  pos.guestbook = [dcx - PEN.w / 2, yy + PEN.w / 2 - PEN.h / 2];
+  tilt.guestbook = -90;
+  // Felt column right of the shirt: passport top level with the ID's, memorandum's bottom on the line.
+  const m = byId("map"), n = byId("logbook"), fx = W - PAD - m.w / 2;
+  set("map", fx - m.w / 2, T);
+  set("logbook", fx - n.w / 2, B - n.h);
+  return { pos, size, tilt, w: W, h: sy + H0 };
 };
 const LOWERED = ["onduty", "contact", "offduty", "logbook", "admin"];
 const LOWER_BY = 12;
@@ -430,7 +450,7 @@ const swapCards = (l: Layout): Layout => {
   }
   return l;
 };
-const LAYOUTS: Record<Mode, Layout> = { wide: swapCards(wideL()), twoL: swapCards(twoL()), twoP: swapCards(twoP()), one: swapCards(oneL()) };
+const LAYOUTS: Record<Mode, Layout> = { wide: swapCards(wideL()), twoL: swapCards(twoL()), twoP: swapCards(twoP()), one: swapCards(portraitSketch()) };
 WIDE.w = LAYOUTS.wide.w; WIDE.h = LAYOUTS.wide.h;
 /** Breakpoints on the window (Sergio's proposal): laptops (1200 px and wider, or 1000+ px at 1.6 : 1) 3 columns;
  *  phones upright (under 600 px wide) 1 column; other windows wider than tall (wide tablets, sideways phones) 2 columns
