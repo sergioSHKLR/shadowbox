@@ -273,24 +273,50 @@ const H0 = SHIRT_H;
 const COL2_X = 360;
 
 const wideL = (): Layout => {
+  // Sergio's sketch (Oct 19 2026, "make wide like this"): shirt (23) flush left with its worn awards (2: ESWS, rack, EXW
+  // over the pocket) and the pen (1) left of the pocket, as before. Pocket column: USO (4) under the EXW, memorandum (7)
+  // at the bottom. Document column: ID card (3) upright at the top, level with the portraits' top, pink 2M (8), Liberty
+  // (5) level with the USO, passport (6) at the bottom, its bottom level with the memorandum's. Portraits (9, 10) with
+  // their plaques (9a, 10a) stacked as before. Crests (17-22) 2 x 3 in service order, each with its arrival-rank device
+  // (11-15) centred under it.
   const pos: Pos = {}, size: Record<string, Size> = {};
   const right = shirtBlock(pos, 0, 0);
-  // Oct 15 (Sergio): as on the phone, the ID card moves onto the pocket below the EXW (ID, then the USO and Liberty
-  // slots), and the document column (passport, memorandum, pink 2M slot) stacks up from the bottom padding with the
-  // pocket column's gap, so both columns share one gap and nothing overlaps.
-  const pocketIds = ["onduty", "admin", "offduty"], docIds = ["map", "logbook", "contact"];
-  spreadTo(pos, pocketIds, SHIRT.pocket.cx, EXW_BOTTOM, H0 - PAD);
-  { const bot = H0 - PAD, pgap = (bot - EXW_BOTTOM - pocketIds.reduce((t, id) => t + byId(id).h, 0)) / pocketIds.length;
-    let yy = bot; for (const id of [...docIds].reverse()) { const it = byId(id); yy -= it.h; pos[id] = [DOC_X + DOC_W / 2 - it.w / 2, yy]; yy -= pgap; } }
+  // Positions here are the final ones: swapCards later lowers the LOWERED cards by LOWER_BY and swaps the contact and
+  // admin slots (the admin slot shows the USO card, the contact slot the pink 2M), so set() pre-compensates.
+  const set = (id: string, cx: number, top: number) => { const it = byId(id); pos[id] = [cx - it.w / 2, top - (LOWERED.includes(id) ? LOWER_BY : 0)]; };
+  const pcx0 = SHIRT.pocket.cx, dcx = DOC_X + DOC_W / 2, bot = H0 - PAD;
+  const memo = byId("logbook"), pass = byId("map"), id3 = byId("onduty");
+  set("logbook", pcx0, bot - memo.h);
+  set("map", dcx, bot - pass.h);
+  // USO and Liberty side by side, centred between the EXW's bottom and the memorandum's top.
+  const cardTop = (EXW_BOTTOM + (bot - memo.h) - CARD.h) / 2;
+  set("admin", pcx0, cardTop); // USO
+  set("offduty", dcx, cardTop); // Liberty
+  set("onduty", dcx, G);
+  // Pink 2M centred between the ID card's bottom and the Liberty card's top.
+  set("contact", dcx, (G + id3.h + cardTop - CARD.h) / 2);
   const ph = (H0 - 2 * G - 2 * (PLAQUE_H + G) - G) / 2;
   const x3 = Math.max(right + G, COL2_X), pw = portraitSize(ph).w, pcx = x3 + pw / 2;
   portraitsStacked(pos, size, pcx, G, ph);
+  // Crest block: same crest box size and block width as before (so the canvas keeps its size), each row a crest at its
+  // final (CREST_SCALE) size with its device DEV_GAP below, rows spread with equal gaps over the full height.
   const x4 = x3 + pw + G, devH = 2 * DEV_H + 3 * G;
-  const c = (H0 - devH - 4 * G) / 3;
-  const cw = crestGrid(pos, size, R2x3, c, x4, devH, 0, H0 - devH);
-  const w4 = cw + 3 * G;
-  crestGrid(pos, size, R2x3, c, x4, devH, w4, H0 - devH);
-  devGrid(pos, 3, x4, G, w4, devH - G);
+  const c = (H0 - devH - 4 * G) / 3, cf = c * CREST_SCALE;
+  const colW = [0, 1].map((i) => Math.max(...R2x3.map((r) => crestSize(r[i], c).w)));
+  const w4 = colW[0] + colW[1] + 3 * G;
+  const rowH = R2x3.map((r) => cf + DEV_GAP + Math.max(...r.map((id) => devOf(`${id}-dev`).h)));
+  const gy = (H0 - rowH.reduce((t, v) => t + v, 0)) / (R2x3.length + 1);
+  let ry = gy;
+  R2x3.forEach((r, ri) => {
+    let x = x4 + G;
+    r.forEach((id, i) => {
+      const s0 = crestSize(id, c), ccx = x + colW[i] / 2, d = devOf(`${id}-dev`);
+      size[id] = s0; pos[id] = [ccx - s0.w / 2, ry - (c - cf) / 2];
+      pos[`${id}-dev`] = [ccx - d.w / 2, ry + cf + DEV_GAP];
+      x += colW[i] + G;
+    });
+    ry += rowH[ri] + gy;
+  });
   return { pos, size, tilt: {}, w: x4 + w4, h: H0 };
 };
 const twoL = (): Layout => {
