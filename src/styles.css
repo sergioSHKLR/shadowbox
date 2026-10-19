@@ -24,7 +24,10 @@
   --color-quiet: #6d6458;
 }
 
-html { color-scheme: light; background: var(--color-ivory); max-width: 100%; overflow-x: clip; }
+/* "only light" (Sergio's Android Chrome, Oct 2026): with Chrome's "Dark theme for sites" on, a plain "light" page gets
+   auto-darkened, which turned the ivory page and the body's brass glow into olive/brown bands around the case. The light
+   theme opts out of that, so the page shows either our own light theme or our own dark theme, never a forced mix. */
+html { color-scheme: only light; background: var(--color-ivory); max-width: 100%; overflow-x: clip; }
 html[data-theme="dark"] {
   color-scheme: dark;
   background: #14181f;
