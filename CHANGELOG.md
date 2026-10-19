@@ -3,6 +3,11 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.2.0] - 2026-10-19
+
+### Added
+- Uniforms sidebar now shows a photo grid of every Gallery photo of that uniform, opening in the lightbox; empty-state note in EN/PT.
+
 ## [1.1.1] - 2026-10-19
 
 ### Changed
