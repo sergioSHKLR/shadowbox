@@ -622,7 +622,7 @@
   },
   {
     "id": "equipment-apc",
-    "title": "APC",
+    "title": "M113",
     "file": "/equipment/apc.webp",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:M113_APC_production_model.jpg",
     "creator": "U.S. Department of the Army",
@@ -630,8 +630,17 @@
     "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked."
   },
   {
+    "id": "equipment-stryker",
+    "title": "M1126 Stryker",
+    "file": "/equipment/stryker.webp",
+    "sourceUrl": "",
+    "creator": "",
+    "license": "Public domain (U.S. federal government work)",
+    "notes": "Stock photograph of this kind of gear, used as the card. Not hotlinked. Pending Sergio's pick."
+  },
+  {
     "id": "equipment-apc-usage",
-    "title": "APC (M113, Iraq)",
+    "title": "M113 (Tal Afar, Iraq)",
     "file": "/equipment/apc-photo.webp",
     "sourceUrl": "",
     "creator": "Sergio Schickler",

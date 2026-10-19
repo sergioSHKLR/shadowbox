@@ -682,8 +682,8 @@
   {
     "id": "apc",
     "src": "/equipment/apc-photo.webp",
-    "alt": "APC. M113, Iraq",
-    "caption": "M113, Iraq",
+    "alt": "M113. M113, Tal Afar, Iraq",
+    "caption": "M113, Tal Afar, Iraq",
     "subjects": [
       { "kind": "equipment", "id": "apc" }
     ]
