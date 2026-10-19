@@ -1714,3 +1714,21 @@ object.cx-art { color-scheme: light; }
 @media (resolution >= 3dppx) { @container (width >= 36.7px) { .ribbon:has(> img:not(.ribbon-device))::after { content: ""; } } }
 .ribbon > img.ribbon-device { z-index: 2; }
 .detail-hero .ribbon::after, .detail-panel .ribbon::after, [role="dialog"] .ribbon::after, .decor-page .ribbon::after { content: none !important; }
+
+/* Work in Progress corner ribbon (Sergio, Oct 19 2026): a gold sash across the top-left corner of the page, just under
+   the sticky header (so the logo, the flag/share/menu icons and the case's "?" button stay clear). Never takes a click. */
+.wip-ribbon { position: absolute; top: 100%; left: 0; width: 8rem; height: 8rem; overflow: hidden; pointer-events: none; z-index: 5; }
+.wip-ribbon span {
+  position: absolute; top: 3rem; left: -3rem; width: 12rem; padding: 0.22rem 0; transform: rotate(-45deg);
+  background: linear-gradient(180deg, var(--color-brass-bright), var(--brass-plate) 55%, var(--color-brass));
+  color: var(--color-navy); border-top: 1px solid var(--color-navy); border-bottom: 1px solid var(--color-navy);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 240, 200, 0.35);
+  font-family: var(--font-card); font-variant: small-caps; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.06em;
+  line-height: 1.1; text-align: center; white-space: nowrap;
+}
+@media (max-width: 599.98px) {
+  .wip-ribbon { width: 6rem; height: 6rem; }
+  .wip-ribbon span { top: 2.45rem; left: -2.3rem; width: 9rem; padding: 0.14rem 0; font-size: 0.6rem; }
+}
+body:has(.case-frame[data-cover="1"]) .wip-ribbon { display: none; }
+@media print { .wip-ribbon { display: none; } }
