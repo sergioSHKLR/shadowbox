@@ -104,7 +104,7 @@
   flex-wrap: nowrap;
   align-items: flex-start;
 }
-.command-loose-ribbons { gap: 0.28rem; }
+.command-loose-ribbons { gap: 1px; } /* mounted: 1 CSS px between ribbons (Sergio, Oct 19 2026) */
 .command-loose-ribbons .ribbon { width: calc(var(--in) * 1.375); }
 .command-loose-ribbons .ribbon .ribbon { width: 100%; }
 .command-pin {
