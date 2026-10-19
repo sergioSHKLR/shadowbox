@@ -144,17 +144,25 @@ function bioInline(text: string) {
 export function Timeline({
   bars,
   onOpen,
+  locale = "en",
 }: {
   bars: ReturnType<typeof timeline>;
+  locale?: Locale;
   onOpen: (k: Kind, id: string) => void;
   title: string;
   lead: string;
 }) {
+  const tl = chrome(locale).tl;
+  const labelOf = (item: (typeof bars.rank)[number]) => {
+    if (item.kind === "operation") return { title: tl.ops_[item.id] ?? item.title, detail: item.detail };
+    if (item.kind === "milestone" && tl.events[item.id]) { const [title, detail] = tl.events[item.id]; return { title, detail }; }
+    return { title: item.title, detail: item.detail };
+  };
   const tracks = [
-    ["Rank", bars.rank, "#7d1c20"],
-    ["Assignments", bars.duty, "#14233a"],
-    ["Deployments", bars.ops, "#1e6b3c"],
-    ["Events", bars.world, "#c6a15b"],
+    [tl.rank, bars.rank, "#7d1c20"],
+    [tl.duty, bars.duty, "#14233a"],
+    [tl.ops, bars.ops, "#1e6b3c"],
+    [tl.world, bars.world, "#c6a15b"],
   ] as const;
   return (
     <main className="sheet">
@@ -165,12 +173,13 @@ export function Timeline({
             <div className="page-line">
               {items.map((item, index) => {
                 const place = index === 0 ? " is-start" : index === items.length - 1 ? " is-end" : "";
-                const body = (<><i /><em>{item.title}</em></>);
+                const { title, detail } = labelOf(item);
+                const body = (<><i /><em>{title}</em></>);
                 if (item.href) {
-                  return <a key={item.key} className={`page-stop${place}`} href={item.href} target="_blank" rel="noreferrer" title={item.detail}>{body}</a>;
+                  return <a key={item.key} className={`page-stop${place}`} href={item.href} target="_blank" rel="noreferrer" title={detail}>{body}</a>;
                 }
                 return (
-                  <button key={item.key} type="button" className={`page-stop${place}`} title={item.detail} onClick={() => onOpen(item.kind, item.id)}>
+                  <button key={item.key} type="button" className={`page-stop${place}`} title={detail} onClick={() => onOpen(item.kind, item.id)}>
                     {body}
                   </button>
                 );

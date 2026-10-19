@@ -102,6 +102,9 @@ h1, h2, h3, .detail-title {
   letter-spacing: 0.01em;
   line-height: 1;
 }
+/* BETA tag (Sergio, Oct 19 2026, replaces the Work in Progress ribbon): a small outlined goldenrod label after the title, in the header's flow, so it never covers anything. */
+.app-beta { align-self: center; margin-left: -0.15rem; padding: 0.12rem 0.32rem 0.1rem; border: 1px solid currentColor; border-radius: 3px; color: var(--color-goldenrod); font-family: var(--font-sans); font-weight: 700; font-size: 0.6rem; letter-spacing: 0.1em; line-height: 1; white-space: nowrap; }
+@media (max-width: 720px) { .app-beta { font-size: 0.52rem; padding: 0.1rem 0.26rem 0.08rem; } .app-bar:has(.app-search.is-open) .app-beta { display: none; } }
 .app-end { margin-left: auto; display: flex; align-items: center; }
 .app-langs { display: flex; align-items: center; gap: 2px; margin-right: 0.35rem; }
 .app-lang { border: 0; background: transparent; font-size: 1.2rem; line-height: 1; min-width: 36px; min-height: 36px; padding: 0; cursor: pointer; filter: grayscale(1); opacity: 0.45; }
@@ -604,7 +607,7 @@ a { color: var(--color-navy); }
     font-size: clamp(0.7rem, 2.35vw, 0.95rem);
     min-height: 2.1rem;
     line-height: 1.15;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
   }
   .page-stop {
     width: 100%;
@@ -614,13 +617,26 @@ a { color: var(--color-navy); }
   .page-stop em {
     min-width: 0;
     font-size: clamp(0.68rem, 2.05vw, 0.84rem);
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: manual;
   }
   /* Events (Sergio, Oct 19 2026, v2): labels to the right of the bullets like the other lanes. The line shrinks to its
      widest stop and sits at the right edge of its lane, so the spine moves left just enough for the labels to fit. */
   .page-track[data-track="3"] h3 { text-align: right; }
   .page-track[data-track="3"] .page-line { align-self: flex-end; width: max-content; max-width: 100%; }
   .page-track[data-track="3"] .page-stop { width: auto; }
+}
+/* Phones (Sergio, Oct 19 2026): words never break mid-word ("Consolidation") and the outer headings stay on screen:
+   wider side margins, smaller bullets, lanes sized to their longest word. */
+@media (max-width: 599.98px) and (orientation: portrait) {
+  .app-main:has(.view-pane:not(.screen-off) .page-tracks) { width: calc(100% - 1.5rem); }
+  .page-tracks { grid-template-columns: 1.08fr 0.98fr 1.08fr 0.86fr; column-gap: 0.35rem; }
+  .page-line::before { left: 0.4rem; }
+  .page-stop { gap: 0.32rem; }
+  .page-stop i { width: 0.9rem; height: 0.9rem; box-shadow: 0 0 0 2px #fff; }
+  .page-stop em { font-size: clamp(0.62rem, 2.9vw, 0.76rem); }
+  .page-track h3 { font-size: clamp(0.68rem, 3.3vw, 0.85rem); }
 }
 .chart-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
 .track { margin: 0.8rem 0 1.2rem; width: 100%; }
@@ -1307,6 +1323,14 @@ button.cx-item::after { content: ""; position: absolute; left: 50%; top: 50%; wi
 .cx-why tbody th { font-weight: 600; white-space: nowrap; }
 .cx-intro-go { display: block; margin: 0.9rem 0 0 auto; padding: 0.45rem 0.9rem; border: 1px solid #8a6a3b; border-radius: 4px; background: #14233a; color: #f4efe4; cursor: pointer; }
 .cx-intro-x:focus-visible, .cx-intro-go:focus-visible { outline: 2px solid #c6a15b; outline-offset: 2px; }
+/* Phones held sideways (Sergio, Oct 19 2026): on the page the intro starts under the sticky header so its title and ×
+   stay visible, and the box is capped to the space left and scrolls inside. In the full case (cover) it keeps the screen. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .cx-intro { padding: 0.5rem 1rem; align-items: start; }
+  .cx-intro-box { max-height: calc(100dvh - 1rem); box-sizing: border-box; overscroll-behavior: contain; padding: 0.8rem 1.1rem 0.8rem; }
+  body:not(:has(.case-frame[data-cover="1"])) > .cx-intro { top: var(--app-bar-h, 3.5rem); }
+  body:not(:has(.case-frame[data-cover="1"])) > .cx-intro .cx-intro-box { max-height: calc(100dvh - var(--app-bar-h, 3.5rem) - 1rem); }
+}
 @media (max-width: 480px) { .cx-why tbody th { white-space: normal; } .cx-intro-box { font-size: 0.86rem; } }
 .cx-item > picture { display: block; width: 100%; height: 100%; }
 .cx-exit { display: none; position: absolute; right: 2.5rem; top: 0.4rem; z-index: 60; width: 1.7rem; height: 1.7rem; border-radius: 50%; border: 1px solid #c6a15b; background: rgba(9, 22, 44, 0.85); color: #e4c98a; font: 600 1.1rem/1 Georgia, serif; cursor: pointer; }
@@ -1735,25 +1759,3 @@ object.cx-art { color-scheme: light; }
 .ribbon > img.ribbon-device { z-index: 2; }
 .detail-hero .ribbon::after, .detail-panel .ribbon::after, [role="dialog"] .ribbon::after, .decor-page .ribbon::after { content: none !important; }
 
-/* Work in Progress corner ribbon (Sergio, Oct 19 2026): a sash across the top-left corner of the page, just under
-   the sticky header (so the logo, the flag/share/menu icons and the case's "?" button stay clear). Never takes a click. */
-.wip-ribbon { position: absolute; top: 100%; left: 0; width: 8rem; height: 8rem; overflow: hidden; pointer-events: none; z-index: 5; }
-.wip-ribbon span {
-  /* Construction tape (Sergio, Oct 19 2026: "black/yellow like a construction tape"): black hazard stripes along both
-     edges, the words in bold black capitals on a solid yellow middle strip. */
-  --tape: #ffd100; --stripe: #111;
-  position: absolute; top: 3rem; left: -3rem; width: 12rem; padding: 0.42rem 0; transform: rotate(-45deg);
-  background:
-    linear-gradient(var(--tape), var(--tape)) center / 100% calc(100% - 0.56rem) no-repeat,
-    repeating-linear-gradient(45deg, var(--stripe) 0 0.32rem, var(--tape) 0.32rem 0.64rem);
-  color: #000; border-top: 1px solid var(--stripe); border-bottom: 1px solid var(--stripe);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
-  font-family: var(--font-sans); font-weight: 800; text-transform: uppercase; font-size: 0.66rem; letter-spacing: 0.08em;
-  line-height: 1.1; text-align: center; white-space: nowrap;
-}
-@media (max-width: 599.98px) {
-  .wip-ribbon { width: 6rem; height: 6rem; }
-  .wip-ribbon span { top: 2.4rem; left: -2.3rem; width: 9rem; padding: 0.32rem 0; font-size: 0.5rem; background-size: 100% calc(100% - 0.4rem), auto; }
-}
-body:has(.case-frame[data-cover="1"]) .wip-ribbon { display: none; }
-@media print { .wip-ribbon { display: none; } }

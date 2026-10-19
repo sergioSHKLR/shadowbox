@@ -243,6 +243,16 @@ export function ShadowboxApp() {
   // rest mount on the first interaction (or after a few idle seconds), so the first load stays light.
   const [warm, setWarm] = useState(false);
   const [seenViews, setSeenViews] = useState<Set<View>>(() => new Set<View>(["home"]));
+  // Header height for overlays that sit below the sticky bar (the Home intro on phones held sideways).
+  useEffect(() => {
+    const bar = document.querySelector<HTMLElement>(".app-bar");
+    if (!bar || typeof ResizeObserver === "undefined") return;
+    const set = () => document.documentElement.style.setProperty("--app-bar-h", `${Math.ceil(bar.getBoundingClientRect().height)}px`);
+    set();
+    const ro = new ResizeObserver(set);
+    ro.observe(bar);
+    return () => ro.disconnect();
+  }, []);
   useEffect(() => { setSeenViews((s) => (s.has(view) ? s : new Set(s).add(view))); }, [view]);
   useEffect(() => {
     if (warm) return;
@@ -448,13 +458,10 @@ export function ShadowboxApp() {
   return (
     <div className="app-shell">
       <header className="app-bar">
-        {/* Work in Progress corner ribbon (Sergio, Oct 19 2026): hangs from the header's bottom-left corner so it clears the
-            logo, the header icons and the case's "?" button; decorative (aria-hidden), the note below is for screen readers. */}
-        <div className="wip-ribbon" aria-hidden="true"><span>Work in Progress</span></div>
-        <p className="sr-only" role="note">Work in progress</p>
         <button type="button" className="app-home" onClick={() => go("home")} aria-label={`${t.title}, ${t.home}`}>
           <Mark />
           <span className="app-title">{t.title}</span>
+          <span className="app-beta">BETA</span>
         </button>
         <div className="app-end">
         {view === "home" ? (
@@ -536,7 +543,7 @@ export function ShadowboxApp() {
         <div className={pane("ops")}>{mounted("ops") ? (<><Ops onOpen={open} title={t.ops} /></>) : null}</div>
         <div className={pane("map")}>{mounted("map") ? (<><Boundary label="map" resetKey={view}><Stations stops={stops} onOpen={open} aboutLabel={t.mapAbout} title={t.map} locale={locale} t={t} /></Boundary></>) : null}</div>
         <div className={pane("timeline")}>{mounted("timeline") ? (<>
-          <Timeline bars={bars} onOpen={open} title={t.pathTitle} lead={t.pathLead} />
+          <Timeline bars={bars} onOpen={open} title={t.pathTitle} lead={t.pathLead} locale={locale} />
         </>) : null}</div>
         <div className={pane("logbook")}>{mounted("logbook") ? (<>
           <Boundary label="logbook" resetKey={view}>
