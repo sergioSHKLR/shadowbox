@@ -12,9 +12,10 @@
     "id": "chief-portrait-2018",
     "src": "/photos/chief-2018.webp",
     "alt": "Chief Petty Officer Sergio Schickler in service dress blue with combination cap, flags behind",
-    "caption": "Chief Petty Officer Sergio Schickler, Service Dress Blue",
+    "caption": "Chief Petty Officer Sergio Schickler, Service Dress Blue (AI-generated composite: how he would look at NH Jacksonville)",
     "subjects": [
-      { "kind": "uniform", "id": "cpo-sdb" }
+      { "kind": "uniform", "id": "cpo-sdb" },
+      { "kind": "unit", "id": "navhosp" }
     ]
   },
   {
@@ -63,7 +64,8 @@
     "subjects": [
       { "kind": "equipment", "id": "m4-carbine" },
       { "kind": "equipment", "id": "plate-carrier-multicam" },
-      { "kind": "uniform", "id": "multicam" }
+      { "kind": "uniform", "id": "multicam" },
+      { "kind": "unit", "id": "jcse" }
     ]
   },
   {
@@ -501,7 +503,8 @@
     "alt": "Sergio Schickler in a red polo, cargo pants and tan boots",
     "caption": "JCSE civilian attire, Afghanistan",
     "subjects": [
-      { "kind": "uniform", "id": "jcse-afg" }
+      { "kind": "uniform", "id": "jcse-afg" },
+      { "kind": "unit", "id": "jcse" }
     ]
   },
   {
@@ -1297,7 +1300,8 @@
     "caption": "At Silver Strand, Imperial Beach, during NEC 9613 school, 2004",
     "subjects": [
       { "kind": "uniform", "id": "green-camo" },
-      { "kind": "school", "id": "nsw-comms-school" }
+      { "kind": "school", "id": "nsw-comms-school" },
+      { "kind": "unit", "id": "eodmu5" }
     ],
     "city": "Imperial Beach, CA",
     "credit": "Sergio Schickler",
