@@ -3,7 +3,7 @@
  *
  * Sources
  *  - photos.json: Sergio's own photos (portraits, deployment shots, the *-wear uniform photos).
- *  - equipment.json photo crops credited to Sergio himself (his C-5, C-9, C-130 and C-17 shots). Stock, Wikimedia and
+ *  - equipment.json photo crops credited to Sergio himself (none at present; the C-5, C-9, C-130 and C-17 cards are uncredited art). Stock, Wikimedia and
  *    DVIDS photos stay on their own pages but are not in the Gallery (Sergio, Oct 16 2026). Cut-outs on white (`cutout: true`), the
  *    mannequin renders, crests, ribbons and drawings are art, not photos, so they stay out.
  *  - Memories are not included: they live only in the visitor's own browser.
@@ -133,14 +133,12 @@ function creditOf(c: { sourceUrl: string; creator: string; license: string } | u
   return { text: [c.creator, where, c.license].filter(Boolean).join(" · "), href: c.sourceUrl };
 }
 
-const UNCREDITED_AIRCRAFT = new Set(["c-5", "c-9", "c-130", "c-17"]);
-
 function fromEquipment(): GalleryPhoto[] {
   return equipment
     // Sergio's own only (Oct 16 2026): credited to him, no stock / Wikimedia / DVIDS source.
-    // The C-5, C-9, C-130 and C-17 cards were credited to him until Sergio marked them uncredited art (Oct 19 2026); they keep
-    // their Gallery place (kept off the Logbook Photos tabs, logbook-photos.ts).
-    .filter((e) => e.image && !e.cutout && !e.image.includes("/cut/") && !e.credit?.sourceUrl && (/schickler/i.test(e.credit?.creator ?? "") || UNCREDITED_AIRCRAFT.has(e.id)))
+    // The C-5, C-9, C-130 and C-17 cards were credited to him until Sergio marked them uncredited art and took them out of
+    // the Gallery (Oct 19 2026: "Remove aircraft and other stock photos from Gallery"); with no credit they no longer qualify.
+    .filter((e) => e.image && !e.cutout && !e.image.includes("/cut/") && !e.credit?.sourceUrl && /schickler/i.test(e.credit?.creator ?? ""))
     .map((e) => {
       const tags: GalleryTag[] = [];
       const sources: TagSource[] = [];
