@@ -64,9 +64,12 @@ const HANG: Record<string, [number, number]> = {
   ngcm: [343, 762], pistol: [355, 753], rifle: [326, 755],
 };
 /** Medals whose drape devices sit on the visible part of the ribbon when overlapped (art. 5316.2.e): <id>-mount.webp.
- *  ARCOM is not in the set (Sergio, Oct 19 2026): its 7/16 in bronze oak leaf stays centred on the suspension ribbon
- *  (the -front photo, centred like the inboard JSCM's); the ribbon centre is in the visible part at this overlap. */
-const MOUNT_VARIANT = new Set(["nam", "ngcm", "acm", "icm"]);
+ *  At the regulation 50% overlap (Sergio, Oct 19 2026) the inboard neighbour covers the left half of each outboard drape,
+ *  so the devices are centred on the right half (x 270 of 360 px), moved as-is from the -front photo. ARCOM is back in
+ *  the set: its oak leaf is now overlapped. NAM: its 4 gold 5/16 in stars (341 px wide) fit neither side by side in the
+ *  visible 180 px nor stacked in the visible drape height (about 276 px for 4 x 79 px), so nam-mount keeps them in a
+ *  row pushed to the outboard edge (pending Sergio's call). */
+const MOUNT_VARIANT = new Set(["arcom", "nam", "ngcm", "acm", "icm"]);
 const PHOTO_W = 360;
 /** Reference: rows hang 0.85 of a pendant height apart (mean pendant body 351 px). */
 const ROW_STEP = 299;
