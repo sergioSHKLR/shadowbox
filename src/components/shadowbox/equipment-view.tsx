@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDocLang } from "@/lib/shadowbox/use-doc-lang";
 import usedHereJson from "@/data/used-here.json";
 import {
   caseCopy,
@@ -61,6 +62,7 @@ const COMMANDS = [
 // The "Unlisted" chip is gone (Sergio, Oct 2026): it only ever showed an empty page. Items with no owner still show under All.
 
 export function OnDuty({ onOpen, title }: { onOpen: (k: Kind, id: string) => void; title: string }) {
+  const allLabel = useDocLang() === "pt" ? "Todos" : "All";
   const [shown, setShown] = useState<string[] | null>(null);
   const toggle = (id: string) =>
     setShown((cur) => {
@@ -81,7 +83,7 @@ export function OnDuty({ onOpen, title }: { onOpen: (k: Kind, id: string) => voi
       <h2>{title}</h2>
       <p>{caseCopy.equipmentLead}</p>
       <div className="map-filter" role="group" aria-label="Show gear by command">
-        <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>All</button>
+        <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>{allLabel}</button>
         {COMMANDS.map((g) => (
           <button key={g.id} type="button" className={`nav-btn${shown?.includes(g.id) ? " on" : ""}`} aria-pressed={!!shown?.includes(g.id)} onClick={() => toggle(g.id)}>{g.label}</button>
         ))}

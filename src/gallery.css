@@ -6,8 +6,7 @@
 .gallery-group { display: grid; grid-template-columns: 6.5rem 1fr; align-items: start; gap: 0.5rem; }
 .gallery-group h3 { margin: 0; padding-top: 0.7rem; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--g-quiet); }
 .gallery-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.nav-btn.gallery-chip { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0.15rem 0.75rem; font-size: 0.88rem; }
-.gallery-chip:disabled { opacity: 0.45; cursor: default; }
+.gallery-chip:disabled { cursor: default; }
 .gallery-count { min-width: 1.5rem; padding: 0 0.35rem; border-radius: 999px; font-size: 0.75rem; font-variant-numeric: tabular-nums; line-height: 1.35rem; text-align: center; background: rgba(0, 0, 0, 0.12); }
 .gallery-chip.on .gallery-count { background: rgba(0, 0, 0, 0.18); }
 [data-theme="dark"] .gallery-count { background: rgba(255, 255, 255, 0.16); }

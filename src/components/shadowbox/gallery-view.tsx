@@ -27,6 +27,7 @@ const COPY = {
     tags: "Tags",
     untagged: "No command, operation or city recorded for this photo.",
     filters: "Filters",
+    all: "All",
   },
   pt: {
     title: "Galeria",
@@ -43,6 +44,7 @@ const COPY = {
     tags: "Tags",
     untagged: "Nenhum comando, operação ou cidade registrado para esta foto.",
     filters: "Filtros",
+    all: "Todos",
   },
 };
 
@@ -79,6 +81,9 @@ export function Gallery({ locale = "en" }: { locale?: string }) {
           <div key={g} className="gallery-group" role="group" aria-labelledby={`gallery-g-${g}`}>
             <h3 id={`gallery-g-${g}`}>{c.groups[g]}</h3>
             <div className="gallery-chips">
+              <button type="button" className={`nav-btn gallery-chip gallery-chip-all${picks[g].length ? "" : " on"}`} aria-pressed={!picks[g].length} onClick={() => { setPicks((prev) => ({ ...prev, [g]: [] })); setAt(null); }}>
+                <span>{c.all}</span>
+              </button>
               {tags[g].map((t) => {
                 const on = picks[g].includes(t.id);
                 const n = galleryPhotos.filter((p) => matches(p, picks, g) && p.tags.some((x) => x.group === g && x.id === t.id)).length;
