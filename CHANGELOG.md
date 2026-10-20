@@ -3,6 +3,12 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.3.0] - 2026-10-20
+
+### Changed
+- Logbook: each command shows only the ribbons earned there, one ribbon per award. Awards without a recorded command are assigned by date, with one Good Conduct per 3 years.
+- Logbook: warfare pins show only where earned (ESWS at Frank Cable, EXW at JCSE).
+
 ## [1.2.2] - 2026-10-19
 
 ### Fixed
