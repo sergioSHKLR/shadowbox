@@ -5,7 +5,7 @@
   --font-display: "Source Serif 4", Georgia, serif;
   --font-sans: "Source Sans 3", "Segoe UI", sans-serif;
   /* Crest cards: a low-contrast serif with a larger x-height and short ascenders. */
-  --font-card: "Source Serif 4", Georgia, serif;
+  --font-card: var(--font-display);
   --color-ink: #1c1915;
   --color-ivory: #f6f1e7;
   --color-ivory-dim: #e7e0d2;
@@ -110,8 +110,8 @@ h1, h2, h3, .detail-title {
   line-height: 1;
 }
 /* BETA tag (Sergio, Oct 19 2026, replaces the Work in Progress ribbon): a small outlined goldenrod label after the title, in the header's flow, so it never covers anything. */
-.app-beta { align-self: center; margin-left: -0.15rem; padding: 0.12rem 0.32rem 0.1rem; border: 1px solid currentColor; border-radius: 3px; color: var(--color-goldenrod); font-family: var(--font-sans); font-weight: 700; font-size: 0.6rem; letter-spacing: 0.1em; line-height: 1; white-space: nowrap; }
-@media (max-width: 720px) { .app-beta { font-size: 0.52rem; padding: 0.1rem 0.26rem 0.08rem; } .app-bar:has(.app-search.is-open) .app-beta { display: none; } }
+.app-beta { align-self: center; margin-left: -0.15rem; padding: 0.12rem 0.32rem 0.1rem; border: 1px solid currentColor; border-radius: 3px; color: var(--color-goldenrod); font-family: var(--font-sans); font-weight: 600; font-size: 0.6rem; letter-spacing: 0.1em; line-height: 1; white-space: nowrap; }
+@media (max-width: 720px) { .app-beta { font-size: 0.6rem; padding: 0.1rem 0.26rem 0.08rem; } .app-bar:has(.app-search.is-open) .app-beta { display: none; } }
 .app-end { margin-left: auto; display: flex; align-items: center; }
 .app-langs { display: flex; align-items: center; gap: 2px; margin-right: 0.35rem; }
 .app-lang { border: 0; background: transparent; font-size: 1.2rem; line-height: 1; min-width: 36px; min-height: 36px; padding: 0; cursor: pointer; filter: grayscale(1); opacity: 0.45; }
@@ -521,7 +521,7 @@ a { color: var(--color-navy); }
 /* A ribbon is 1 3/8 x 3/8 in, so the art keeps an 11:3 aspect and fills the button width. */
 .ribbon > img { width: 100%; height: auto; aspect-ratio: 11 / 3; object-fit: fill; display: block; }
 .ribbon > img.ribbon-device { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; object-fit: fill; pointer-events: none; }
-.ribbon-text { background: var(--color-navy, #14233a); color: var(--color-ivory, #f4efe4); font: 600 0.62rem/1 ui-sans-serif, system-ui, sans-serif; letter-spacing: 0.02em; text-align: center; padding: 0.15rem 0.12rem; }
+.ribbon-text { background: var(--color-navy, #14233a); color: var(--color-ivory, #f4efe4); font: 600 0.62rem/1 var(--font-sans); letter-spacing: 0.02em; text-align: center; padding: 0.15rem 0.12rem; }
 /* JMUA: gold frame with a laurel band, drawn after Sergio's reference. The framed ribbon has the same
    1 3/8 x 3/8 in footprint as every other ribbon: the frame is drawn INSIDE it (sides 57/1100 of the width, top and
    bottom 42/300 of the height, i.e. 42/1100 of the width) and the stripes are scaled into the 986 x 216 opening.
@@ -730,7 +730,7 @@ a { color: var(--color-navy); }
   display: inline-flex; align-items: center; justify-content: center;
   min-width: 22px; height: 22px; padding: 0 3px; box-sizing: border-box; border-radius: 11px;
   background: var(--color-brass); color: var(--color-navy); border: 2px solid var(--color-navy);
-  font-family: var(--font-sans); font-weight: 700; font-size: 11px; line-height: 1; font-variant-numeric: tabular-nums;
+  font-family: var(--font-sans); font-weight: 600; font-size: 11px; line-height: 1; font-variant-numeric: tabular-nums;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
 }
 /* Mutually exclusive Map categories: command blue, base green, field orange, port yellow, layover teal, stopover rose. */
@@ -780,7 +780,7 @@ a { color: var(--color-navy); }
 .credits li, .instance-list li, .gallery li { min-width: 0; overflow-wrap: anywhere; }
 .credits li, .instance-list li, .gallery li { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.7rem 0; border-bottom: 1px solid var(--color-ivory-dim); }
 .instance-fields { border: 0; margin: 0; padding: 0; min-width: 0; }
-.instance-fields legend { padding: 0; font-weight: 700; }
+.instance-fields legend { padding: 0; font-weight: 600; }
 .instance-summary { margin: 0.2rem 0 0; color: var(--color-quiet, #6d6458); }
 .instance-entry { display: grid; gap: 0.45rem; margin-top: 0.45rem; max-width: 28rem; }
 .instance-entry label { display: grid; gap: 0.25rem; font-weight: 600; }
@@ -942,7 +942,7 @@ a { color: var(--color-navy); }
 /* A bronze bar clasp (the ISAF clasp on the NATO Medal), worn below the other attachments (art. 5318.1). */
 .medal-clasp { position: absolute; left: 6%; right: 6%; bottom: 22%; height: calc(var(--mi) * 0.19); display: grid; place-items: center;
   background: linear-gradient(180deg, #8c6a3a, #6b4f2a 55%, #52391c); border: 1px solid #3b2912; border-radius: 1px;
-  color: #d9c08a; font-family: var(--font-card); font-weight: 700; font-size: calc(var(--mi) * 0.12); letter-spacing: 0.12em; line-height: 1;
+  color: #d9c08a; font-family: var(--font-card); font-weight: 600; font-size: calc(var(--mi) * 0.12); letter-spacing: 0.12em; line-height: 1;
   box-shadow: inset 0 1px 0 rgba(255,230,180,0.25), 0 1px 1px rgba(0,0,0,0.5); }
 /* Oxidized, not polished (art. 5314.4 forbids highly polished medals; Sergio prefers the matte look). */
 .medal-pendant { display: block; height: auto; max-width: none; margin-top: calc(var(--mi) * -0.06); position: relative;
@@ -1316,11 +1316,11 @@ button.cx-item::after { content: ""; position: absolute; left: 50%; top: 50%; wi
   .cx-item[data-only="wide"] { display: none; }
 }
 /* Onboarding (Oct 13 2026): "?" reopens it; while open (and ~2 s after) every link target glows on its own box. */
-.cx-help { position: absolute; right: 0.4rem; top: 0.4rem; z-index: 60; width: 1.7rem; height: 1.7rem; border-radius: 50%; border: 1px solid #c6a15b; background: rgba(9, 22, 44, 0.85); color: #e4c98a; font: 600 0.95rem/1 Georgia, serif; cursor: pointer; }
+.cx-help { position: absolute; right: 0.4rem; top: 0.4rem; z-index: 60; width: 1.7rem; height: 1.7rem; border-radius: 50%; border: 1px solid #c6a15b; background: rgba(9, 22, 44, 0.85); color: #e4c98a; font: 600 0.95rem/1 var(--font-sans); cursor: pointer; }
 .cx-help:focus-visible { outline: 2px solid #e4c98a; outline-offset: 2px; }
 .cx-intro { position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center; padding: 1rem; background: rgba(9, 22, 44, 0.35); }
 .cx-intro-box { position: relative; width: min(36rem, 100%); max-height: calc(100dvh - 2rem); overflow: auto; padding: 1.2rem 1.3rem 1.1rem; background: #f7f2e7; color: #14233a; border: 1px solid #c6a15b; border-radius: 6px; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45); font-size: 0.92rem; line-height: 1.45; }
-.cx-intro-box h2 { margin: 0 1.6rem 0.5rem 0; font: 600 1.15rem/1.25 Georgia, "Iowan Old Style", serif; }
+.cx-intro-box h2 { margin: 0 1.6rem 0.5rem 0; font: 600 1.15rem/1.25 var(--font-display); }
 .cx-intro-box p { margin: 0 0 0.8rem; }
 .cx-intro-x { position: absolute; right: 0.5rem; top: 0.4rem; border: 0; background: transparent; font-size: 1.5rem; line-height: 1; cursor: pointer; color: #14233a; }
 .cx-why { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
@@ -1340,7 +1340,7 @@ button.cx-item::after { content: ""; position: absolute; left: 50%; top: 50%; wi
 }
 @media (max-width: 480px) { .cx-why tbody th { white-space: normal; } .cx-intro-box { font-size: 0.86rem; } }
 .cx-item > picture { display: block; width: 100%; height: 100%; }
-.cx-exit { display: none; position: absolute; right: 2.5rem; top: 0.4rem; z-index: 60; width: 1.7rem; height: 1.7rem; border-radius: 50%; border: 1px solid #c6a15b; background: rgba(9, 22, 44, 0.85); color: #e4c98a; font: 600 1.1rem/1 Georgia, serif; cursor: pointer; }
+.cx-exit { display: none; position: absolute; right: 2.5rem; top: 0.4rem; z-index: 60; width: 1.7rem; height: 1.7rem; border-radius: 50%; border: 1px solid #c6a15b; background: rgba(9, 22, 44, 0.85); color: #e4c98a; font: 600 1.1rem/1 var(--font-sans); cursor: pointer; }
 .case-frame:fullscreen .cx-exit, .case-frame[data-cover="1"] .cx-exit { display: block; }
 .cx-exit::after { content: ""; position: absolute; inset: -0.5rem; }
 /* Short landscape windows (phones held sideways): the case fills the height under the top bar; the footer scrolls. */
@@ -1514,10 +1514,10 @@ object.cx-art { color-scheme: light; }
 .cx-modal-art img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.7)); }
 .cx-modal-rack { display: block; zoom: 3; }
 @media (max-width: 480px) { .cx-modal-rack { zoom: 2.4; } }
-.cx-modal-box h2 { margin: 0.8rem 0 0.3rem; text-align: center; font: 600 1.15rem/1.25 Georgia, "Iowan Old Style", serif; }
+.cx-modal-box h2 { margin: 0.8rem 0 0.3rem; text-align: center; font: 600 1.15rem/1.25 var(--font-display); }
 .cx-modal-box p { margin: 0 0 0.6rem; max-width: 34rem; text-align: center; font-size: 0.92rem; line-height: 1.45; }
 .cx-modal-nav { display: flex; align-items: center; justify-content: center; gap: 0.8rem; width: 100%; margin-top: 0.4rem; }
-.cx-modal-step { width: 44px; height: 44px; flex: none; border: 1px solid #8a6a3b; border-radius: 50%; background: transparent; color: #14233a; font: 600 1.5rem/1 Georgia, serif; cursor: pointer; }
+.cx-modal-step { width: 44px; height: 44px; flex: none; border: 1px solid #8a6a3b; border-radius: 50%; background: transparent; color: #14233a; font: 600 1.5rem/1 var(--font-sans); cursor: pointer; }
 .cx-modal-go { min-height: 44px; padding: 0.45rem 1rem; border: 1px solid #8a6a3b; border-radius: 4px; background: #14233a; color: #f4efe4; cursor: pointer; font-size: 0.92rem; }
 .cx-modal-x { position: absolute; right: 0.3rem; top: 0.3rem; width: 44px; height: 44px; border: 0; background: transparent; color: #14233a; font-size: 1.8rem; line-height: 1; cursor: pointer; }
 .cx-modal-x:focus-visible, .cx-modal-go:focus-visible, .cx-modal-step:focus-visible { outline: 2px solid #c6a15b; outline-offset: 2px; }
@@ -1804,3 +1804,10 @@ button.close-btn.cx-exit { display: none !important; }
 [data-theme="dark"] .used-here button { border-color: color-mix(in srgb, var(--color-brass) 45%, transparent); }
 [data-theme="dark"] .related-marks img, [data-theme="dark"] .card-marks img { background: #242d3d; }
 [data-theme="dark"] .uniform-photo { background: transparent; }
+
+/* Typography rule (v1.4.2): serif 600 for content names, sans 600 for small UI labels; no 700 (not loaded). */
+b, strong, th { font-weight: 600; }
+.logbook-rank strong, .logbook-wardrobe-item strong, .stop-list button strong { font-family: var(--font-display); font-weight: 600; }
+.gallery-group h3, .page-track h3 { font-family: var(--font-sans); font-weight: 600; }
+.leaflet-container, .leaflet-bar a, .leaflet-control-attribution, .leaflet-control-zoom-in, .leaflet-control-zoom-out, .leaflet-popup-close-button, .marker-cluster div { font-family: var(--font-sans); }
+.leaflet-control-zoom-in, .leaflet-control-zoom-out { font-weight: 600; }
