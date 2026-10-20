@@ -453,10 +453,31 @@ const modeFor = (w: number, h: number): Mode =>
 const SCROLLS: Record<Mode, boolean> = { wide: false, twoL: false, twoP: true, one: true };
 export const CASE_DIMS = { WIDE, LAYOUTS };
 
+/** Ribbon weave on the Home rack (Sergio, Oct 20 2026). The rack SVG shows its weave by itself only when laid out
+ *  > 222 px wide (the full-case pop-up). On Home the case is a fixed layout scaled by a transform, so the <img> is laid
+ *  out ~105 px wide at every window size, and an <img> SVG cannot see the device-pixel ratio either (tested in
+ *  Chromium). So the page measures the rack as drawn and addresses it as #weave when it is >= 150 px wide on a screen
+ *  of 2 dppx or more (each ribbon 20+ device px). Phone Home (~75 px) stays off. */
 function Rack() {
+  const ref = useRef<HTMLImageElement>(null);
+  const [sharp, setSharp] = useState(false);
+  useEffect(() => {
+    const check = () => {
+      const w = ref.current?.getBoundingClientRect().width ?? 0;
+      setSharp(window.devicePixelRatio >= 2 && w >= 150);
+    };
+    // The case scale is set after mount, so measure again once it has settled.
+    check();
+    const raf = requestAnimationFrame(check);
+    const t = window.setTimeout(check, 600);
+    const mq = window.matchMedia("(min-resolution: 2dppx)");
+    mq.addEventListener("change", check);
+    window.addEventListener("resize", check);
+    return () => { cancelAnimationFrame(raf); window.clearTimeout(t); mq.removeEventListener("change", check); window.removeEventListener("resize", check); };
+  }, []);
   return (
     <span className="cx-rack">
-      <img className="cx-rack-img" src={caseUrl("ribbon-rack.svg")} alt="" draggable={false} />
+      <img ref={ref} className="cx-rack-img" src={caseUrl("ribbon-rack.svg") + (sharp ? "#weave" : "")} alt="" draggable={false} />
     </span>
   );
 }
