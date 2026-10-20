@@ -124,7 +124,7 @@ function SettingsDialog({
         <Dialog.Content className="settings-modal" aria-describedby={undefined}>
           <header className="settings-head">
             <Dialog.Title>{t.settingsTitle}</Dialog.Title>
-            <Dialog.Close className="icon-btn" aria-label={t.close}>
+            <Dialog.Close className="icon-btn close-btn" aria-label={t.close} title={t.close}>
               <X />
             </Dialog.Close>
           </header>
@@ -465,7 +465,7 @@ export function ShadowboxApp() {
         </button>
         <div className="app-end">
         {view === "home" ? (
-          <button type="button" className="app-icon app-full" aria-label={caseFull ? "Exit full case" : "Full case"} title={caseFull ? "Exit full case" : "Full case"} onClick={toggleCaseFull}>
+          <button type="button" className="app-icon app-full" aria-label={caseFull ? t.exitFullCase : t.fullCase} title={caseFull ? t.exitFullCase : t.fullCase} onClick={toggleCaseFull}>
             {caseFull ? <Minimize2 size={16} strokeWidth={2} aria-hidden="true" /> : <Maximize2 size={16} strokeWidth={2} aria-hidden="true" />}
           </button>
         ) : null}
