@@ -3,6 +3,11 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.4.3] - 2026-10-20
+
+### Changed
+- Home case ribbon rack: the ribbon weave shading shows in the pop-ups and on sharp (2x) desktop screens, and stays off on small racks.
+
 ## [1.4.2] - 2026-10-20
 
 ### Fixed
