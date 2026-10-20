@@ -1798,3 +1798,9 @@ button.close-btn.close-btn:active { transform: scale(.95); }
 button.close-btn.close-btn:focus-visible { outline: 2px solid currentColor !important; outline-offset: 2px !important; box-shadow: none !important; }
 button.close-btn.cx-exit { display: none !important; }
 .case-frame:fullscreen button.close-btn.cx-exit, .case-frame[data-cover="1"] button.close-btn.cx-exit { display: inline-grid !important; }
+
+/* Dark cards (Oct 20 2026): remaining hard-coded white surfaces get the dark card surface; light theme unchanged. */
+[data-theme="dark"] .rank-step { background: var(--card-bg); color: var(--card-ink); border-color: color-mix(in srgb, var(--color-brass) 45%, transparent); }
+[data-theme="dark"] .used-here button { border-color: color-mix(in srgb, var(--color-brass) 45%, transparent); }
+[data-theme="dark"] .related-marks img, [data-theme="dark"] .card-marks img { background: #242d3d; }
+[data-theme="dark"] .uniform-photo { background: transparent; }
