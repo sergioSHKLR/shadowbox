@@ -158,7 +158,7 @@
   padding: 0 0.28rem;
   border-radius: 999px;
   font-size: 0.68rem;
-  font-weight: 700;
+  font-weight: 600;
   background: var(--color-navy);
   color: #fff;
 }
@@ -613,7 +613,7 @@
 /* JCSE (two plate sets): radios grouped under the rank, ET1 then ETC (Oct 2026). */
 .logbook-look-set { display: flex; flex-direction: column; gap: 0.2rem; }
 .logbook-look-set + .logbook-look-set { margin-top: 0.35rem; }
-.logbook-look-head { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-quiet); }
+.logbook-look-head { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-quiet); }
 [data-theme="dark"] .logbook-look-head { color: #c4b8a6; }
 
 /* Dress blues on the dark page (QA Oct 16): the black-and-navy plates read as a silhouette on the near-black felt, so
@@ -663,7 +663,7 @@
 .logbook .lb-tab.on, [data-theme="dark"] .logbook .lb-tab.on, .logbook .lb-tab.on:hover {
   position: relative; z-index: 1; height: 32px; margin-top: 0; opacity: 1;
   background: var(--lb-panel); color: var(--lb-tab-ink); border-color: var(--lb-border);
-  box-shadow: inset 0 2px 0 var(--lb-tab-accent); font-weight: 700;
+  box-shadow: inset 0 2px 0 var(--lb-tab-accent); font-weight: 600;
 }
 .logbook .lb-tab:focus-visible, [data-theme="dark"] .logbook .lb-tab:focus-visible { outline: 2px solid var(--lb-tab-accent); outline-offset: -3px; }
 .logbook .lb-tab .lb-tab-count { background: var(--lb-tab-ink); color: var(--lb-panel); }
