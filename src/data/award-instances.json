@@ -3,9 +3,9 @@
     "id": "jscm-2013",
     "awardId": "jscm",
     "year": 2013,
-    "unitId": null,
+    "unitId": "jcse",
     "operationId": null,
-    "note": null
+    "note": "Assigned by date: JCSE 2009–2014"
   },
   {
     "id": "jscm-2014-12",
@@ -19,9 +19,9 @@
     "id": "ncm-2018",
     "awardId": "ncm",
     "year": 2018,
-    "unitId": null,
+    "unitId": "navhosp",
     "operationId": null,
-    "note": "Retirement award"
+    "note": "Retirement award. Retirement award; NH Jacksonville 2015–Feb 2018"
   },
   {
     "id": "arcom-2009",
@@ -35,17 +35,17 @@
     "id": "arcom-2011",
     "awardId": "arcom",
     "year": 2011,
-    "unitId": null,
+    "unitId": "jcse",
     "operationId": null,
-    "note": null
+    "note": "Assigned by date: JCSE 2009–2014"
   },
   {
     "id": "jsam-2013",
     "awardId": "jsam",
     "year": 2013,
-    "unitId": null,
+    "unitId": "jcse",
     "operationId": null,
-    "note": null
+    "note": "Assigned by date: JCSE 2009–2014"
   },
   {
     "id": "nam-2001",
@@ -91,9 +91,9 @@
     "id": "aam-2006",
     "awardId": "aam",
     "year": 2006,
-    "unitId": null,
+    "unitId": "eodmu5",
     "operationId": null,
-    "note": null
+    "note": "Ceremony at EODMU 5, Dec 2006"
   },
   {
     "id": "jmua-2009",
@@ -187,49 +187,49 @@
     "id": "ngcm-2000",
     "awardId": "ngcm",
     "year": 2000,
-    "unitId": null,
+    "unitId": "ncts",
     "operationId": null,
-    "note": null
+    "note": "Good Conduct period ending 30 Jun 2000; NCTS 1999–2001"
   },
   {
     "id": "ngcm-2003",
     "awardId": "ngcm",
     "year": 2003,
-    "unitId": null,
+    "unitId": "frank-cable",
     "operationId": null,
-    "note": null
+    "note": "Good Conduct period ending 30 Jun 2003; Frank Cable 2001–2004"
   },
   {
     "id": "ngcm-2006",
     "awardId": "ngcm",
     "year": 2006,
-    "unitId": null,
+    "unitId": "eodmu5",
     "operationId": null,
-    "note": null
+    "note": "Good Conduct period ending 30 Jun 2006; EODMU 5 2004–2007"
   },
   {
     "id": "ngcm-2009",
     "awardId": "ngcm",
     "year": 2009,
-    "unitId": null,
+    "unitId": "sercc",
     "operationId": null,
-    "note": null
+    "note": "Good Conduct period ending 30 Jun 2009; SERCC 2007–2009 (IA tour Oct 2008–Oct 2009 counted under SERCC; JCSE range also starts 2009)"
   },
   {
     "id": "ngcm-2012",
     "awardId": "ngcm",
     "year": 2012,
-    "unitId": null,
+    "unitId": "jcse",
     "operationId": null,
-    "note": null
+    "note": "Good Conduct period ending 30 Jun 2012; JCSE 2009–2014"
   },
   {
     "id": "ngcm-2015",
     "awardId": "ngcm",
     "year": 2015,
-    "unitId": null,
+    "unitId": "navhosp",
     "operationId": null,
-    "note": null
+    "note": "Good Conduct period ending 30 Jun 2015; NH Jacksonville 2015–Feb 2018"
   },
   {
     "id": "ndsm-2001",
@@ -259,9 +259,9 @@
     "id": "gwotsm-2005",
     "awardId": "gwotsm",
     "year": 2005,
-    "unitId": null,
+    "unitId": "eodmu5",
     "operationId": null,
-    "note": null
+    "note": "Assigned by date: EODMU 5 2004–2007"
   },
   {
     "id": "hsm-2003",

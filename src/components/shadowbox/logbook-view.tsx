@@ -86,6 +86,8 @@ function ribbonLabel(award: LogbookBeat["rack"][number], lb: Chrome["lb"]): stri
 /** Metal collar device beside the rating badge on rank cards: off (Sergio, Oct 2026), rating badge only. Flip to bring it back. */
 const RANK_COLLAR_ON_CARDS = false;
 
+const WARFARE_EARNED_AT: Record<string, string[]> = { "frank-cable": ["esws"], jcse: ["exw"] };
+
 /** Rank & Awards as of the end of this command: rank insignia, warfare pins, ribbons (command-plates.json). Medals: later. */
 function RankChip({ rank, tag, onOpen }: { rank: NonNullable<LogbookBeat["rank"]>; tag?: string; onOpen: Open }) {
   return (
@@ -129,7 +131,8 @@ function RankAwards({ beat, beats, onOpen, t }: { beat: LogbookBeat; beats: Logb
   // Only the ribbons earned at this command, one per award instance (Sergio, Oct 20 2026).
   const ribbons = unmountedRibbons(earnedRibbonsAt(beat.stop.commandId));
   const lb = useLb();
-  const pins = [...beat.pinsAbove, ...beat.pinsBelow];
+  // Warfare pins only where earned (Sergio, Oct 20 2026): ESWS on Frank Cable, EXW on JCSE.
+  const pins = WARFARE_EARNED_AT[beat.stop.commandId ?? ""] ?? [];
   return (
     <div className="logbook-ra">
       <section className="logbook-ra-rank" aria-label={lb.rankInsignia}>
