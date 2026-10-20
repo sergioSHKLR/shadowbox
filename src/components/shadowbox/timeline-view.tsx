@@ -90,7 +90,10 @@ function MarkerLine({ seed, tilt, grow = 1 }: { seed: number; tilt: number; grow
   );
 }
 
-function BioBlock({ text }: { text: string }) {
+function BioBlock({ text: raw }: { text: string }) {
+  // {{draft}} prefix (Oct 19 2026): paragraph not yet reworked; same content, muted ink.
+  if (raw.startsWith("{{draft}}")) return <div className="bio-draft" data-draft="true"><BioBlock text={raw.slice("{{draft}}".length)} /></div>;
+  const text = raw;
   if (text.trim() === "{{redaction-sample}}") return <RedactionSample />;
   if (text.startsWith("{{quote}}")) {
     const [quote, cite] = text.slice("{{quote}}".length).split("{{cite}}");
