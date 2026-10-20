@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDocLang } from "@/lib/shadowbox/use-doc-lang";
-import { equipment, publicUrl, visits, type Equipment, type Kind } from "@/lib/shadowbox/model";
+import { equipment, localizeWhen, publicUrl, visits, type Equipment, type Kind } from "@/lib/shadowbox/model";
 
 type Mark = { src: string; alt: string };
 const DEPLOYMENTS: { id: string; campaign: string; name: string; phase: string; image: string; when: string; marks: Mark[] }[] = [
@@ -81,7 +81,7 @@ export function Ops({ onOpen, title }: { onOpen: (k: Kind, id: string) => void; 
                 {force.marks.map((mark) => <img key={mark.src} src={publicUrl(mark.src)} alt={mark.alt} />)}
               </span>
               <strong>{force.campaign} · {force.name}</strong>
-              <span>{force.when}</span>
+              <span>{localizeWhen(force.when)}</span>
               <span>{force.phase}</span>
             </button>
           </li>
@@ -101,7 +101,7 @@ export function Ops({ onOpen, title }: { onOpen: (k: Kind, id: string) => void; 
                   </span>
                 ) : null}
                 <strong>{visit.title}</strong>
-                <span>{visit.when}</span>
+                <span>{localizeWhen(visit.when)}</span>
                 <span>{crest?.host ?? "Training"}</span>
               </button>
             </li>

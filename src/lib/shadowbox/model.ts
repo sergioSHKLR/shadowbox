@@ -778,6 +778,31 @@ export function formatWhen(value: string): string {
   return `${Number(d)} ${month} ${y}`;
 }
 
+/** Text dates stored in the data ("5 September 1997 to 21 January 1998", "April–May 1999", "Oct 2008–2009",
+ *  "2004 and 2005", "c. 2004"): on the PT site the month names and connectors are rewritten in Portuguese, the
+ *  numbers are never touched; EN returns the text unchanged. Free-text notes in parentheses stay as entered. */
+const MONTH_IX: Record<string, number> = Object.fromEntries([
+  ...MONTHS.map((m, i) => [m.toLowerCase(), i] as const),
+  ...MONTHS.map((m, i) => [m.slice(0, 3).toLowerCase(), i] as const),
+  ["sept", 8] as const,
+]);
+export function localizeWhen(text: string | null | undefined, lang?: "en" | "pt"): string {
+  if (!text) return text ?? "";
+  if (!(lang ? lang === "pt" : docIsPt())) return text;
+  const mon = "(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec)\\.?";
+  const pt = (m: string) => MONTHS_PT[MONTH_IX[m.toLowerCase()]];
+  let out = text;
+  // 5 September 1997 -> 5 de setembro de 1997
+  out = out.replace(new RegExp(`\\b(\\d{1,2}) ${mon} (\\d{4})\\b`, "g"), (_, d, m, y) => `${Number(d)} de ${pt(m)} de ${y}`);
+  // April–May 1999 -> abril–maio de 1999
+  out = out.replace(new RegExp(`\\b${mon}[–-]${mon} (\\d{4})\\b`, "g"), (_, a, b, y) => `${pt(a)}–${pt(b)} de ${y}`);
+  // April 2004 / Oct 2008 -> abril de 2004 / outubro de 2008
+  out = out.replace(new RegExp(`\\b${mon} (\\d{4})\\b`, "g"), (_, m, y) => `${pt(m)} de ${y}`);
+  // Connectors between dates only (digit or month on both sides).
+  out = out.replace(/(\d) to (\d)/g, "$1 a $2").replace(/(\d) and (\d)/g, "$1 e $2");
+  return out;
+}
+
 export function formatSpan(start: string | null, end: string | null): string {
   if (!start) return "Dates not entered";
   const a = formatWhen(start);
@@ -2125,7 +2150,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       facts: [
         { label: "Shown as", value: place.locality },
         { label: "Coordinates", value: place.lat != null ? `${place.lat.toFixed(3)}, ${place.lng?.toFixed(3)}` : "Not entered" },
-        ...visits.filter((visit) => visit.placeId === place.id).flatMap((visit) => visit.trips?.length ? visit.trips.map((trip, i) => ({ label: i === 0 ? visit.title : "Also", value: trip })) : [{ label: visit.title, value: visit.when }]),
+        ...visits.filter((visit) => visit.placeId === place.id).flatMap((visit) => visit.trips?.length ? visit.trips.map((trip, i) => ({ label: i === 0 ? visit.title : "Also", value: localizeWhen(trip) })) : [{ label: visit.title, value: localizeWhen(visit.when) }]),
       ],
       placeIds: [place.id],
       related: here,
