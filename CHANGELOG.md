@@ -3,6 +3,13 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.2.2] - 2026-10-19
+
+### Fixed
+- Removed the unused shirt preload that caused a "preloaded but not used" console warning.
+- Light theme: award pop-up and photo panels now use light card backgrounds.
+- Light theme opts out of browser forced auto-darkening (color-scheme: only light).
+
 ## [1.2.1] - 2026-10-19
 
 ### Changed
