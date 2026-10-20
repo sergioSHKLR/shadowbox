@@ -633,10 +633,51 @@
 .logbook-photos-none { margin: 0.5rem 0 0; }
 @media (max-width: 760px) { .logbook-photos-grid { grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr)); gap: 0.4rem; } }
 
-/* Portrait (Sergio, Oct 2026): the card/tabs split moves up by 10% of the screen height, giving the lower tab panel the room.
-   Both halves grow equally, so a 20dvh basis difference shifts the split by 10dvh; the card floor drops by the same 10dvh. */
+/* Portrait (Sergio, Oct 2026): the card/tabs split moves up by 5% of the screen height, giving the lower tab panel the room.
+   Both halves grow equally, so a 10dvh basis difference shifts the split by 5dvh; the card floor drops by the same 5dvh. */
 @media (max-width: 900px) and (orientation: portrait) {
-  .logbook.is-narrow { --lb-main-min: calc(20rem + 20px - 10dvh); --lb-tabs-min: calc(17rem - 20px + 10dvh); }
+  .logbook.is-narrow { --lb-main-min: calc(20rem + 20px - 5dvh); --lb-tabs-min: calc(17rem - 20px + 5dvh); }
   .logbook-phone .logbook-main { flex-basis: 0px; }
-  .logbook-phone-tabs { flex-basis: calc(20dvh - 40px); }
+  .logbook-phone-tabs { flex-basis: calc(10dvh - 40px); }
+}
+
+/* File-folder tabs (Sergio, Oct 20 2026: "the older tabbed interface instead of pill buttons… a little of the paper record feel").
+   Revives the original attached tab bar (rounded top corners, panel joined) with a manila folder look: inactive tabs recessed on a
+   muted paper tone, the active tab in the panel's own colour with a brass top edge, merged into the panel (no line under it).
+   The baseline is drawn inside the bar (inset shadow) so the active tab's background covers it and overflow-x scrolling can't clip it. */
+.logbook { --lb-tab-paper: color-mix(in srgb, #d9c79c 55%, var(--lb-panel)); --lb-tab-paper-hover: color-mix(in srgb, #d9c79c 75%, var(--lb-panel)); --lb-tab-ink: var(--color-navy); --lb-tab-accent: var(--color-brass); }
+[data-theme="dark"] .logbook { --lb-tab-paper: color-mix(in srgb, #c9b98f 12%, #121826); --lb-tab-paper-hover: color-mix(in srgb, #c9b98f 20%, #121826); --lb-tab-ink: #f4efe4; --lb-tab-accent: var(--color-brass-bright, #d4b25a); }
+.logbook .lb-tablist, [data-theme="dark"] .logbook .lb-tablist {
+  display: flex; flex-wrap: nowrap; align-items: flex-end; gap: 0 2px; padding: 0 0.35rem; overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
+  border: 0; box-shadow: inset 0 -1px 0 var(--lb-border);
+}
+.logbook .lb-tab, [data-theme="dark"] .logbook .lb-tab,
+.logbook .lb-tab:not(.on), [data-theme="dark"] .logbook .lb-tab:not(.on) {
+  flex: none; justify-content: center; min-height: 0; height: 28px; margin: 4px 0 0; padding: 0 0.7rem;
+  border: 1px solid var(--lb-border); border-bottom: 0; border-radius: 5px 5px 0 0;
+  background: var(--lb-tab-paper); color: var(--lb-tab-ink); opacity: 0.92;
+  box-shadow: inset 0 -1px 0 var(--lb-border);
+  font-family: var(--font-card); font-size: 0.82rem; font-weight: 500; letter-spacing: 0; white-space: nowrap;
+}
+.logbook .lb-tab:not(.on):hover, [data-theme="dark"] .logbook .lb-tab:not(.on):hover { background: var(--lb-tab-paper-hover); opacity: 1; }
+.logbook .lb-tab.on, [data-theme="dark"] .logbook .lb-tab.on, .logbook .lb-tab.on:hover {
+  position: relative; z-index: 1; height: 32px; margin-top: 0; opacity: 1;
+  background: var(--lb-panel); color: var(--lb-tab-ink); border-color: var(--lb-border);
+  box-shadow: inset 0 2px 0 var(--lb-tab-accent); font-weight: 700;
+}
+.logbook .lb-tab:focus-visible, [data-theme="dark"] .logbook .lb-tab:focus-visible { outline: 2px solid var(--lb-tab-accent); outline-offset: -3px; }
+.logbook .lb-tab .lb-tab-count { background: var(--lb-tab-ink); color: var(--lb-panel); }
+.logbook .lb-tabpanel { border-top: 0; border-radius: 0 0 6px 6px; }
+/* Desktop aside: four tabs on one row in a 27rem column. */
+.logbook .logbook-aside-tabs > .lb-tablist > .lb-tab { flex: 1 1 auto; padding: 0 0.5rem; font-size: 0.8rem; }
+.logbook .lb-tablist::-webkit-scrollbar { display: none; }
+/* Phone: the six bottom tabs share the row; under 480px they stay on ONE row and scroll sideways. */
+@media (max-width: 900px) {
+  .logbook .logbook-phone-tabs > .lb-tablist > .lb-tab { flex: 1 1 auto; padding: 0 0.45rem; font-size: 0.76rem; }
+}
+@media (max-width: 480px) {
+  .logbook .logbook-phone-tabs > .lb-tablist { flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior-x: contain; scroll-padding: 0 1rem; }
+  .logbook .logbook-phone-tabs > .lb-tablist::-webkit-scrollbar { display: none; }
+  .logbook .logbook-phone-tabs > .lb-tablist > .lb-tab { flex: none; padding: 0 0.6rem; }
+  .logbook .logbook-main-tabs > .lb-tablist > .lb-tab { flex: 1 1 auto; padding: 0 0.4rem; font-size: 0.76rem; }
 }
