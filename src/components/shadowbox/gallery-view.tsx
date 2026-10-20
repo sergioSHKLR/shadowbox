@@ -192,8 +192,8 @@ export function Lightbox({ photos, at, setAt, lang }: { photos: GalleryPhoto[]; 
                 <ChevronRight size={20} strokeWidth={2} aria-hidden="true" />
               </button>
             </div>
-            <Dialog.Close className="nav-btn icon-btn gallery-lb-close" aria-label={c.close} title={c.close}>
-              <X size={20} strokeWidth={2} aria-hidden="true" />
+            <Dialog.Close className="nav-btn icon-btn gallery-lb-close close-btn close-btn--over" aria-label={c.close} title={c.close}>
+              <X size={18} strokeWidth={2.25} aria-hidden="true" />
             </Dialog.Close>
           </Dialog.Content>
         ) : null}
