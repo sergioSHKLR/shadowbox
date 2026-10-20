@@ -53,8 +53,9 @@ export function Decorations({ onOpen, title, t }: { onOpen: (k: Kind, id: string
       <div className="decor-stage">
       {show === "medals" ? (
         <div className="decor-split">
-          <div className="decor-split-ribbons">{ribbons}</div>
-          <div className="decor-split-medals"><MedalsView mount={mount} onOpen={onOpen} t={t} /></div>
+          {/* Two racks (Sergio, Oct 20 2026): ribbons left with the ribbon-only block under them, medals right. */}
+          <div className="decor-split-ribbons">{ribbons}<RibbonOnly list={ordered.filter((a) => !medalFor(a.id))} open={(a) => onOpen("award", a.id)} t={t} /></div>
+          <div className="decor-split-medals"><MedalsView mount={mount} onOpen={onOpen} t={t} hideRibbonOnly /></div>
         </div>
       ) : ribbons}
       </div>
@@ -103,7 +104,7 @@ function mountLayout(rows: Award[][]) {
   });
 }
 
-function MedalsView({ mount, onOpen, t }: { mount: "mounted" | "unmounted"; onOpen: (k: Kind, id: string) => void; t: Chrome }) {
+function MedalsView({ mount, onOpen, t, hideRibbonOnly = false }: { mount: "mounted" | "unmounted"; onOpen: (k: Kind, id: string) => void; t: Chrome; hideRibbonOnly?: boolean }) {
   const ordered = [...awards].sort((a, b) => a.precedence - b.precedence);
   const withMedal = ordered.filter((a) => medalFor(a.id));
   const ribbonOnly = ordered.filter((a) => !medalFor(a.id));
@@ -137,7 +138,7 @@ function MedalsView({ mount, onOpen, t }: { mount: "mounted" | "unmounted"; onOp
             </div>
           </BreastLeft>
         </div>
-        <RibbonOnly list={ribbonOnly} open={open} t={t} />
+        {hideRibbonOnly ? null : <RibbonOnly list={ribbonOnly} open={open} t={t} />}
       </div>
     );
   }
@@ -156,7 +157,7 @@ function MedalsView({ mount, onOpen, t }: { mount: "mounted" | "unmounted"; onOp
         );
       })}
     </ol>
-    <RibbonOnly list={ribbonOnly} open={open} t={t} />
+    {hideRibbonOnly ? null : <RibbonOnly list={ribbonOnly} open={open} t={t} />}
     </>
   );
 }
