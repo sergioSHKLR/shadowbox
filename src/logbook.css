@@ -681,3 +681,10 @@
   .logbook .logbook-phone-tabs > .lb-tablist > .lb-tab { flex: none; padding: 0 0.6rem; }
   .logbook .logbook-main-tabs > .lb-tablist > .lb-tab { flex: 1 1 auto; padding: 0 0.4rem; font-size: 0.76rem; }
 }
+
+/* Scroll-edge fades (Sergio, Oct 20 2026): when the tab row overflows, fade the edge(s) that hide more tabs.
+   A mask fades the tabs themselves into whatever is behind them, so it works in light and dark without a colour. */
+.logbook .lb-tablist { --lb-fade: 1.75rem; }
+.logbook .lb-tablist.fade-r { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--lb-fade)), transparent); mask-image: linear-gradient(to right, #000 calc(100% - var(--lb-fade)), transparent); }
+.logbook .lb-tablist.fade-l { -webkit-mask-image: linear-gradient(to left, #000 calc(100% - var(--lb-fade)), transparent); mask-image: linear-gradient(to left, #000 calc(100% - var(--lb-fade)), transparent); }
+.logbook .lb-tablist.fade-l.fade-r { -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--lb-fade), #000 calc(100% - var(--lb-fade)), transparent); mask-image: linear-gradient(to right, transparent, #000 var(--lb-fade), #000 calc(100% - var(--lb-fade)), transparent); }
