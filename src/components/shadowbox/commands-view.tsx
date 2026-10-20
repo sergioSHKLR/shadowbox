@@ -9,6 +9,7 @@ import {
   warfare,
   type Award,
   type Kind,
+  localizeWhen,
 } from "@/lib/shadowbox/model";
 import { RibbonArt } from "@/components/shadowbox/marks";
 
@@ -138,13 +139,13 @@ export function Commands({ onOpen, title, lead }: { onOpen: (k: Kind, id: string
                     type="button"
                     className="command-extra"
                     onClick={() => onOpen(extra.kind, extra.id)}
-                    aria-label={`${extra.title}. ${extra.unit}. ${extra.date}`}
+                    aria-label={`${extra.title}. ${extra.unit}. ${localizeWhen(extra.date)}`}
                   >
                     <img src={publicUrl(extra.src)} alt="" />
                     <span className="command-extra-label">
                       <strong>{extra.title}</strong>
                       {hullLines(extra.unit).map((line) => <b key={line}>{line}</b>)}
-                      <em>{extra.date}</em>
+                      <em>{localizeWhen(extra.date)}</em>
                     </span>
                   </button>
                 ))}
