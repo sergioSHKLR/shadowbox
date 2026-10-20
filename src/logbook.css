@@ -314,10 +314,10 @@
 .logbook-gained { margin-left: 0.35rem; padding: 0 0.3rem; border: 1px solid var(--color-navy); border-radius: 3px; font-style: normal; font-size: 0.66rem; color: var(--color-navy); }
 [data-theme="dark"] .logbook-gained { border-color: var(--color-ivory); color: var(--color-ivory); }
 /* On Duty / Off Duty tiles: one fixed size on every tab and command. Photo (4:3, cover) fills the tile; one label, two lines max. */
-.logbook-gear-list { --lb-tile-w: 8rem; --lb-tile-pad: 3px; --lb-cap: calc(2 * 1.15 * 0.72rem); grid-template-columns: repeat(auto-fill, var(--lb-tile-w)); justify-content: start; gap: 0.45rem; }
+.logbook-gear-list { --lb-tile-w: 8rem; --lb-tile-pad: 3px; --lb-cap: calc(2 * 1.15 * 0.72rem); grid-template-columns: repeat(auto-fill, minmax(var(--lb-tile-w), 1fr)); justify-content: stretch; gap: 0.45rem; }
 .logbook-gear-list > li { display: flex; }
 .logbook-gear-item {
-  width: var(--lb-tile-w); height: calc((var(--lb-tile-w) - 2 * var(--lb-tile-pad)) * 0.75 + var(--lb-cap) + 2 * var(--lb-tile-pad) + 0.3rem); flex: none;
+  width: 100%; height: auto; flex: none;
   justify-content: flex-start; gap: 0.15rem; padding: var(--lb-tile-pad); overflow: hidden;
 }
 .logbook-gear-item img,
@@ -327,12 +327,13 @@
   display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden;
   width: 100%; height: var(--lb-cap); font-size: 0.72rem; line-height: 1.15; text-align: center; overflow-wrap: anywhere;
 }
-@media (max-width: 900px) { .logbook-gear-list { --lb-tile-w: 6.9rem; } }
+@media (max-width: 900px) { .logbook-gear-list { --lb-tile-w: 6.4rem; } }
+@media (max-width: 480px) { .logbook-gear-list { --lb-tile-w: 5.6rem; } }
 /* Wardrobe: one fixed mannequin tile (9:16, contain so plates are never cropped), one label. */
-.logbook-wardrobe { --lb-ward-w: 7.6rem; --lb-ward-pad: 3px; --lb-ward-cap: calc(2 * 1.15 * 0.74rem); grid-template-columns: repeat(auto-fill, var(--lb-ward-w)); justify-content: start; gap: 0.45rem; }
+.logbook-wardrobe { --lb-ward-w: 7.6rem; --lb-ward-pad: 3px; --lb-ward-cap: calc(2 * 1.15 * 0.74rem); grid-template-columns: repeat(auto-fill, minmax(var(--lb-ward-w), 1fr)); justify-content: stretch; gap: 0.45rem; }
 .logbook-wardrobe > li { display: flex; }
 .logbook-wardrobe-item {
-  width: var(--lb-ward-w); height: calc((var(--lb-ward-w) - 2 * var(--lb-ward-pad)) * 16 / 9 + var(--lb-ward-cap) + 2 * var(--lb-ward-pad) + 0.3rem); flex: none;
+  width: 100%; height: auto; flex: none;
   justify-content: flex-start; gap: 0.15rem; padding: var(--lb-ward-pad); overflow: hidden;
 }
 .logbook-wardrobe-item img,
@@ -341,7 +342,8 @@
   display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden;
   width: 100%; height: var(--lb-ward-cap); font-size: 0.74rem; line-height: 1.15;
 }
-@media (max-width: 900px) { .logbook-wardrobe { --lb-ward-w: 6.9rem; } }
+@media (max-width: 900px) { .logbook-wardrobe { --lb-ward-w: 6.2rem; } }
+@media (max-width: 480px) { .logbook-wardrobe { --lb-ward-w: 5.4rem; } }
 /* Deployment cards (On Duty): one width (full column) and equal heights. */
 .logbook-deploys { display: grid; grid-auto-rows: 1fr; }
 /* Admin: collateral duties / watch stations as labeled rows (command-duties.json). */
@@ -630,3 +632,11 @@
 .logbook-photos-grid { grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 0.5rem; }
 .logbook-photos-none { margin: 0.5rem 0 0; }
 @media (max-width: 760px) { .logbook-photos-grid { grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr)); gap: 0.4rem; } }
+
+/* Portrait (Sergio, Oct 2026): the card/tabs split moves up by 10% of the screen height, giving the lower tab panel the room.
+   Both halves grow equally, so a 20dvh basis difference shifts the split by 10dvh; the card floor drops by the same 10dvh. */
+@media (max-width: 900px) and (orientation: portrait) {
+  .logbook.is-narrow { --lb-main-min: calc(20rem + 20px - 10dvh); --lb-tabs-min: calc(17rem - 20px + 10dvh); }
+  .logbook-phone .logbook-main { flex-basis: 0px; }
+  .logbook-phone-tabs { flex-basis: calc(20dvh - 40px); }
+}

@@ -433,12 +433,13 @@ function ComingSoon({ what, message }: { what: string; message?: string }) {
 const gearLabel = displayEquipmentName;
 
 function GearPanel({ groups, what, onOpen, empty }: { groups: LogbookGearGroup[]; what: string; onOpen: Open; empty?: string }) {
+  const lb = useLb();
   if (!groups.length) return <ComingSoon what={what} message={empty} />;
   return (
     <div className="logbook-gear">
       {groups.map((group) => (
-        <section key={group.id} aria-label={group.label}>
-          <p className="logbook-kicker">{group.label}</p>
+        <section key={group.id} aria-label={lb.gearGroups[group.id] ?? group.label}>
+          <p className="logbook-kicker">{lb.gearGroups[group.id] ?? group.label}</p>
           <ul className="logbook-gear-list">
             {group.items.map((item) => (
               <li key={item.id}>
