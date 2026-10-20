@@ -1568,18 +1568,14 @@ object.cx-art { color-scheme: light; }
 }
 
 /* ---- Toggles, chips, tabs, text buttons: one pill ---- */
-.nav-btn:not(.icon-btn), .uprog-looks .nav-btn, .lb-tab, .site-form-bar .nav-btn, .map-filter .nav-btn:not(.pin-num) {
+.nav-btn:not(.icon-btn), .uprog-looks .nav-btn, .site-form-bar .nav-btn, .map-filter .nav-btn:not(.pin-num) {
   min-height: var(--ui-tap) !important; border-radius: 999px !important; border: 1px solid var(--ui-border) !important;
   background: transparent !important; color: var(--ui-fg) !important; box-shadow: none !important;
 }
-.nav-btn.on, .uprog-looks .nav-btn.on, .lb-tab.on, .nav-btn[aria-pressed="true"]:not(.icon-btn) {
+.nav-btn.on, .uprog-looks .nav-btn.on, .nav-btn[aria-pressed="true"]:not(.icon-btn) {
   background: var(--ui-active-bg) !important; border-color: var(--ui-active-bg) !important; color: var(--ui-active-fg) !important;
 }
-/* Logbook tabs are pills now: the bar no longer joins its panel. */
-.lb-tablist { border-bottom: 0 !important; gap: 0.35rem !important; padding: 0.15rem 0.1rem 0.45rem !important; }
-.lb-tab { margin-bottom: 0 !important; padding: 0.25rem 0.95rem !important; }
-.lb-tab.on .lb-tab-count { background: var(--color-navy) !important; color: #fff !important; }
-.lb-tabpanel { border-top: 1px solid var(--lb-border) !important; border-radius: var(--ui-radius-card) !important; }
+/* Logbook tabs: file-folder tabs joined to their panel (Oct 20 2026), styled in logbook.css; no pill overrides here. */
 
 /* ---- Primary button ---- */
 .cx-modal-go, .cx-intro-go, .site-form-bar .nav-btn[type="submit"] {
@@ -1609,12 +1605,12 @@ object.cx-art { color-scheme: light; }
 
 /* ---- Hover: 2px brass ring, fill unchanged ---- */
 @media (hover: hover) {
-  .nav-btn:not(:disabled):hover, .lb-tab:not(:disabled):hover, .logbook-step-btn:not(:disabled):hover, .cx-modal-step:hover, .cx-modal-x:hover,
+  .nav-btn:not(:disabled):hover, .logbook-step-btn:not(:disabled):hover, .cx-modal-step:hover, .cx-modal-x:hover,
   .cx-intro-x:hover, .cx-modal-go:hover, .cx-intro-go:hover, .logbook-enlarge:hover, .uniform-card:hover, .used-here button:hover,
   .logbook-wardrobe-item:hover, .logbook-gear-item:hover, .logbook-rank:hover, .logbook-admin-list button:hover, .logbook-crest:hover {
     box-shadow: 0 0 0 2px var(--ui-ring-hover) !important;
   }
-  .lb-tab:not(.on):hover, .logbook-step-btn:not(:disabled):hover { background: transparent !important; }
+  .logbook-step-btn:not(:disabled):hover { background: transparent !important; }
   .decor-rack .ribbon:hover { outline: 0 !important; box-shadow: 0 0 0 2px var(--ui-ring-hover); z-index: 1; }
   .stop-list button:hover, .related button:hover, .row-btn:hover, .decor-loose-btn:hover { background: color-mix(in srgb, var(--ui-ring-hover) 10%, transparent) !important; }
 }
@@ -1627,7 +1623,7 @@ object.cx-art { color-scheme: light; }
 /* The item modal is ivory in light and navy in dark, so the theme ring already contrasts. */
 
 /* ---- Cards (image tiles) ---- */
-.uniform-card, .used-here button, .logbook-wardrobe-item, .logbook-gear-item, .cx-modal-box, .cx-intro-box, .settings-modal, .lb-tabpanel, .guest-card, .logbook-rank, .logbook-crest, .logbook-deploy, .logbook-soon {
+.uniform-card, .used-here button, .logbook-wardrobe-item, .logbook-gear-item, .cx-modal-box, .cx-intro-box, .settings-modal, .guest-card, .logbook-rank, .logbook-crest, .logbook-deploy, .logbook-soon {
   border-radius: var(--ui-radius-card) !important;
 }
 .uniform-card, .used-here button { border: 1px solid var(--ui-line) !important; }
@@ -1647,15 +1643,13 @@ object.cx-art { color-scheme: light; }
 .app-lang { min-width: var(--ui-tap) !important; min-height: var(--ui-tap) !important; }
 .logbook-own-crest { min-width: var(--ui-tap) !important; min-height: var(--ui-tap) !important; }
 /* Pills never wrap: the Logbook phone tab bar scrolls sideways instead of squeezing "On Duty" onto two lines. */
-.lb-tab, .nav-btn { white-space: nowrap; }
+.nav-btn { white-space: nowrap; }
 /* Logbook tab rows sit 0.4rem above their panel. The phone bar is a 3-column grid of equal pills (two rows), so
    all six tabs show at 390 with no sideways scroll. */
 .lb-tabbed { gap: 0 !important; }
-.lb-tablist { padding: 0 0 0.4rem !important; margin: 0 !important; }
 /* Tab rows scroll sideways (overflow-x: auto clips both axes), so give the pills room for their 1px outline, the 2px hover
    ring and the 2px+2px focus ring on every side, and take the same room back with a negative margin so nothing moves
    (Sergio, Oct 19 2026: pill outlines cut off at the top and bottom). */
-.lb-tablist { padding: 5px 5px 0.4rem !important; margin: -5px -5px 0 !important; scroll-padding-inline: 5px; }
 /* The Logbook sheet clips (overflow: hidden) and the tab rows sit on its top and side edges: 5px of room above and beside them,
    taken back with negative margins, and 5px more height so the bottom edge stays put (logbook-view measures --lb-chrome from the unlifted top). */
 .sheet.logbook {
@@ -1664,8 +1658,6 @@ object.cx-art { color-scheme: light; }
   width: calc(100% + 2 * var(--lb-lift)); max-width: none;
   height: calc(100vh - var(--lb-chrome, 170px) + var(--lb-lift)); height: calc(100dvh - var(--lb-chrome, 170px) + var(--lb-lift));
 }
-.logbook-phone-tabs > .lb-tablist { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.35rem !important; overflow: visible !important; }
-.logbook-phone-tabs > .lb-tablist > .lb-tab { flex: none !important; justify-content: center; min-width: 0; padding: 0.25rem 0.4rem !important; font-size: 0.82rem !important; }
 
 /* Photo-print border on the portraits (Sergio, Oct 14 2026): white, ~3.5% of the print's width, outer shadow kept
    (the filter's drop-shadow now falls from the white edge). Case items, the Home modal and the Bio / Home-scroll frame. */
