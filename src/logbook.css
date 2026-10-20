@@ -119,7 +119,7 @@
 .logbook-beat-body { margin: 0.55rem 0 0 2.1rem; }
 /* Room after the last beat so it can reach the sync band; the sentinel marks the end of the column. */
 
-/* Real tabs: bar attached to its panel. Inactive = outline, active = top-bar navy, white text. */
+/* Tab bars: structure only. Two looks: .logbook = file-folder tabs (end of file); elsewhere (detail sidebar) = filter-chip pills. */
 .lb-tabbed { display: flex; flex-direction: column; min-height: 0; }
 .lb-tablist {
   flex: none;
@@ -127,7 +127,6 @@
   gap: 0.25rem;
   overflow-x: auto;
   padding: 0 0.1rem;
-  border-bottom: 2px solid var(--color-navy);
   scrollbar-width: none;
 }
 .lb-tab {
@@ -137,19 +136,16 @@
   gap: 0.35rem;
   min-height: 34px;
   padding: 0.25rem 0.8rem;
-  margin-bottom: -1px;
-  border: 1px solid var(--color-navy);
-  border-bottom: 0;
-  border-radius: 6px 6px 0 0;
+  border: 1px solid var(--ui-border);
+  border-radius: 999px;
   background: transparent;
-  color: var(--color-navy);
+  color: var(--ui-fg);
   font: inherit;
   font-size: 0.84rem;
   cursor: pointer;
 }
-.lb-tab.on { background: var(--color-navy); color: #fff; }
-.lb-tab:not(.on):hover { background: color-mix(in srgb, var(--color-navy) 8%, transparent); }
-.lb-tab:focus-visible { outline: 2px solid var(--color-brass-bright); outline-offset: 1px; }
+.lb-tab.on { background: var(--ui-active-bg); color: var(--ui-active-fg); border-color: var(--ui-active-bg); font-weight: 600; }
+.lb-tab:not(.on):hover { background: color-mix(in srgb, var(--ui-fg) 8%, transparent); }
 .lb-tab-count {
   display: inline-grid;
   place-items: center;
@@ -162,7 +158,8 @@
   background: var(--color-navy);
   color: #fff;
 }
-.lb-tab.on .lb-tab-count { background: #fff; color: var(--color-navy); }
+.lb-tab.on .lb-tab-count { background: var(--color-navy); color: var(--color-ivory, #f4efe4); }
+[data-theme="dark"] .lb-tab:not(.on) .lb-tab-count { background: var(--color-ivory, #f4efe4); color: var(--color-navy); }
 .lb-tabpanel {
   min-height: 0;
   padding: 0.65rem 0.7rem;
@@ -173,10 +170,6 @@
   outline: none;
 }
 .lb-tabpanel:focus-visible { box-shadow: inset 0 0 0 2px var(--color-brass-bright); }
-[data-theme="dark"] .lb-tablist { border-bottom-color: color-mix(in srgb, var(--color-ivory) 55%, transparent); }
-[data-theme="dark"] .lb-tab { color: var(--color-ivory); border-color: color-mix(in srgb, var(--color-ivory) 55%, transparent); }
-[data-theme="dark"] .lb-tab.on { background: var(--color-navy); color: #fff; border-color: var(--color-brass-bright); }
-[data-theme="dark"] .lb-tab-count { background: var(--color-ivory); color: var(--color-navy); }
 .logbook-link {
   padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer;
   text-decoration: underline; text-decoration-color: var(--color-brass); text-underline-offset: 0.18em;
@@ -435,14 +428,7 @@
 .logbook-head-box > .logbook-about { margin: 0; padding: 0.1rem 0.15rem 0; border: 0; border-radius: 0; }
 @media (max-width: 900px) { .logbook-head-box { padding: 0.4rem 0.45rem; } }
 
-/* Tabs / switches (Oct 2026): ACTIVE = goldenrod fill + navy text; INACTIVE = navy fill + light text. Disabled stays a muted grey (not navy). */
-.lb-tab, [data-theme="dark"] .lb-tab { background: var(--color-navy); color: var(--color-ivory, #f4efe4); border-color: var(--color-navy); }
-.lb-tab:not(.on):hover { background: var(--color-navy-deep); }
-.lb-tab.on, [data-theme="dark"] .lb-tab.on { background: var(--color-goldenrod); color: var(--color-navy); border-color: var(--color-goldenrod); font-weight: 600; }
-.lb-tab-count, [data-theme="dark"] .lb-tab-count { background: var(--color-goldenrod); color: var(--color-navy); }
-.lb-tab.on .lb-tab-count { background: var(--color-navy); color: var(--color-ivory, #f4efe4); }
-.lb-tab:focus-visible { outline: 2px solid var(--color-goldenrod); outline-offset: 2px; }
-.lb-tab.on:focus-visible { outline-color: var(--color-navy); }
+/* Steppers (Oct 2026): navy fill, gold while pressed. Disabled stays a muted grey (not navy). */
 
 .logbook-step-btn, [data-theme="dark"] .logbook-step-btn { background: var(--color-navy); color: var(--color-ivory, #f4efe4); border-color: var(--color-navy); }
 .logbook-step-btn:not(:disabled):hover { background: var(--color-navy-deep); }
@@ -460,15 +446,11 @@
    padding, border and a vertical scrollbar; the main column (1fr) gives up the width. Phone uses its own stacked layout. */
 .logbook-grid { grid-template-columns: minmax(0, 1fr) minmax(16rem, 27rem); }
 
-/* No navy rule under the tab bars (main card + aside). The panel keeps its own light border all round, so the card still closes at the top. */
-.lb-tablist, [data-theme="dark"] .lb-tablist { border-bottom: 0; }
-.lb-tab { margin-bottom: 0; }
+/* The panel keeps its own light border all round. */
 .lb-tabpanel { border-top: 1px solid var(--lb-border); border-top-right-radius: 6px; }
 
 /* Dark theme: the panels are already navy-dark, so inactive tabs / switches / steppers lift to a lighter navy with a hairline so they still read as buttons. */
-[data-theme="dark"] .lb-tab:not(.on),
 [data-theme="dark"] .logbook-step-btn:not(:disabled) { background: #2a4066; color: #f4efe4; border-color: #3d5680; }
-[data-theme="dark"] .lb-tab:not(.on):hover,
 [data-theme="dark"] .logbook-step-btn:not(:disabled):hover { background: #34507d; }
 [data-theme="dark"] .logbook-step-btn:not(:disabled):active { background: var(--color-goldenrod); color: var(--color-navy); border-color: var(--color-goldenrod); }
 [data-theme="dark"] .logbook-rank-arrow { color: #f4efe4; }
@@ -554,20 +536,6 @@
   .logbook-phone .logbook-main { flex-basis: 40px; }
   .logbook-phone-tabs > .lb-tabpanel { flex: 1 1 0; min-height: 0; }
 }
-
-/* Tabs (Oct 2026, Sergio): every tab set (Logbook main, aside, phone, detail sidebar) uses the chip language.
-   ACTIVE = filled goldenrod + navy text. INACTIVE = outline only: thin goldenrod border (--color-brass, the panel border
-   hex), navy text, transparent background; dark theme = same goldenrod border, ivory text. Border width, padding and weight are unchanged, so nothing shifts. */
-.lb-tab:not(.on), [data-theme="dark"] .lb-tab:not(.on) { background: transparent; color: var(--color-navy); border-color: var(--color-brass); }
-.lb-tab:not(.on):hover { background: color-mix(in srgb, var(--color-navy) 8%, transparent); }
-[data-theme="dark"] .lb-tab:not(.on) { color: var(--color-ivory, #f4efe4); border-color: var(--color-brass); }
-[data-theme="dark"] .lb-tab:not(.on):hover { background: color-mix(in srgb, var(--color-ivory, #f4efe4) 10%, transparent); }
-.lb-tab.on, [data-theme="dark"] .lb-tab.on, .lb-tab.on:hover { background: var(--color-goldenrod); color: var(--color-navy); border-color: var(--color-goldenrod); }
-.lb-tab:not(.on) .lb-tab-count { background: var(--color-navy); color: var(--color-ivory, #f4efe4); }
-[data-theme="dark"] .lb-tab:not(.on) .lb-tab-count { background: var(--color-ivory, #f4efe4); color: var(--color-navy); }
-.lb-tab.on .lb-tab-count, [data-theme="dark"] .lb-tab.on .lb-tab-count { background: var(--color-navy); color: var(--color-ivory, #f4efe4); }
-.lb-tab:focus-visible { outline: 2px solid var(--color-navy); outline-offset: 2px; }
-[data-theme="dark"] .lb-tab:focus-visible { outline-color: var(--color-ivory, #f4efe4); }
 
 /* Enlarge (Sergio, Oct 2026): corner button on the mini map and the uniform plate only. Outline when idle, filled goldenrod while
    open (the Travel Book button language); a soft backing keeps it readable over map tiles and plates. */

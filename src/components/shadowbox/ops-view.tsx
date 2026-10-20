@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDocLang } from "@/lib/shadowbox/use-doc-lang";
 import { equipment, publicUrl, visits, type Equipment, type Kind } from "@/lib/shadowbox/model";
 
 type Mark = { src: string; alt: string };
@@ -152,6 +153,7 @@ const OFF_CITIES: { id: string; label: string; items: string[] }[] = [
 ];
 
 export function OffDuty({ onOpen, title }: { onOpen: (k: Kind, id: string) => void; title: string }) {
+  const allLabel = useDocLang() === "pt" ? "Todos" : "All";
   const [shown, setShown] = useState<string[] | null>(null);
   const toggle = (id: string) =>
     setShown((prev) => {
@@ -166,7 +168,7 @@ export function OffDuty({ onOpen, title }: { onOpen: (k: Kind, id: string) => vo
       <h2>{title}</h2>
       <p>Cars, motorcycles, residences, cities, and the C-5 and C-9 from the USS Frank Cable tour. Hobbies have not been entered.</p>
       <div className="map-filter" role="group" aria-label="Show by city">
-        <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>All</button>
+        <button type="button" className={`nav-btn${!shown ? " on" : ""}`} aria-pressed={!shown} onClick={() => setShown(null)}>{allLabel}</button>
         {OFF_CITIES.map((c) => (
           <button key={c.id} type="button" className={`nav-btn${shown?.includes(c.id) ? " on" : ""}`} aria-pressed={!!shown?.includes(c.id)} onClick={() => toggle(c.id)}>{c.label}</button>
         ))}

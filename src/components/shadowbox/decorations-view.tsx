@@ -15,10 +15,29 @@ export function Decorations({ onOpen, title, t }: { onOpen: (k: Kind, id: string
   const [mount, setMount] = useState<"mounted" | "unmounted">("mounted");
   const ordered = [...awards].sort((a, b) => a.precedence - b.precedence);
   const rows = ribbonRows(awards, 3);
+  const ribbons = mount === "mounted" ? (
+    <div className="decor-worn">
+      <BreastLeft>
+        <RackPhoto rows={rows} onOpen={(a) => onOpen("award", a.id)} label={c.mounted} />
+      </BreastLeft>
+    </div>
+  ) : (
+    <ol className="decor-loose" aria-label={c.unmounted}>
+      {ordered.map((award) => (
+        <li key={award.id}>
+          <button type="button" className="decor-loose-btn" onClick={() => onOpen("award", award.id)}>
+            <span className="ribbon ribbon-photo-crop"><img src={publicUrl(rackPhotoFor(award.id))} alt="" width={372} height={102} loading="lazy" decoding="async" /></span>
+            <span>{award.name}</span>
+          </button>
+        </li>
+      ))}
+    </ol>
+  );
   return (
     <main className="sheet decor-page">
       <h2>{title}</h2>
       <p>{c.lead}</p>
+      <div className="decor-layout">
       <div className="decor-controls">
         <div className="decor-seg" role="group" aria-label={c.display}>
           <span className="decor-seg-label">{c.display}</span>
@@ -31,24 +50,15 @@ export function Decorations({ onOpen, title, t }: { onOpen: (k: Kind, id: string
           <button type="button" className={mount === "unmounted" ? "nav-btn on" : "nav-btn"} aria-pressed={mount === "unmounted"} onClick={() => setMount("unmounted")}>{c.unmounted}</button>
         </div>
       </div>
-      {show === "medals" ? <MedalsView mount={mount} onOpen={onOpen} t={t} /> : mount === "mounted" ? (
-        <div className="decor-worn">
-          <BreastLeft>
-            <RackPhoto rows={rows} onOpen={(a) => onOpen("award", a.id)} label={c.mounted} />
-          </BreastLeft>
+      <div className="decor-stage">
+      {show === "medals" ? (
+        <div className="decor-split">
+          <div className="decor-split-ribbons">{ribbons}</div>
+          <div className="decor-split-medals"><MedalsView mount={mount} onOpen={onOpen} t={t} /></div>
         </div>
-      ) : (
-        <ol className="decor-loose" aria-label={c.unmounted}>
-          {ordered.map((award) => (
-            <li key={award.id}>
-              <button type="button" className="decor-loose-btn" onClick={() => onOpen("award", award.id)}>
-                <span className="ribbon ribbon-photo-crop"><img src={publicUrl(rackPhotoFor(award.id))} alt="" width={372} height={102} loading="lazy" decoding="async" /></span>
-                <span>{award.name}</span>
-              </button>
-            </li>
-          ))}
-        </ol>
-      )}
+      ) : ribbons}
+      </div>
+      </div>
     </main>
   );
 }

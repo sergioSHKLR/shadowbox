@@ -114,8 +114,10 @@ h1, h2, h3, .detail-title {
 @media (max-width: 720px) { .app-beta { font-size: 0.6rem; padding: 0.1rem 0.26rem 0.08rem; } .app-bar:has(.app-search.is-open) .app-beta { display: none; } }
 .app-end { margin-left: auto; display: flex; align-items: center; }
 .app-langs { display: flex; align-items: center; gap: 2px; margin-right: 0.35rem; }
-.app-lang { border: 0; background: transparent; font-size: 1.2rem; line-height: 1; min-width: 36px; min-height: 36px; padding: 0; cursor: pointer; filter: grayscale(1); opacity: 0.45; }
+.app-lang { position: relative; border: 0; background: transparent; font-size: 1.2rem; line-height: 1; min-width: 44px; min-height: 44px; padding: 0; cursor: pointer; filter: grayscale(1); opacity: 0.5; }
+/* Selected language: full colour plus a gold underline bar (selected = gold, site-wide). */
 .app-lang.is-on { filter: none; opacity: 1; }
+.app-lang.is-on::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 3px; height: 3px; border-radius: 2px; background: var(--color-goldenrod); }
 .app-search { position: relative; display: flex; align-items: center; }
 .app-search input {
   width: min(16rem, 34vw);
@@ -194,7 +196,7 @@ h1, h2, h3, .detail-title {
 .app-menu button svg { flex: none; }
 .app-menu button:hover,
 .app-menu button:focus-visible { background: #17345c; }
-.app-menu button.on { background: transparent; color: inherit; font-weight: 600; box-shadow: inset 3px 0 0 var(--color-brass); }
+.app-menu button.on { background: color-mix(in srgb, var(--color-goldenrod) 16%, transparent); color: inherit; font-weight: 600; box-shadow: inset 4px 0 0 var(--color-goldenrod); }
 .app-menu button.on:hover,
 .app-menu button.on:focus-visible { background: #17345c; }
 .app-main { width: min(72rem, calc(100% - 2rem)); max-width: 100%; min-width: 0; flex: 1 0 auto; box-sizing: border-box; margin: 0 auto; padding: 1.25rem 0 1rem; }
@@ -423,10 +425,6 @@ h1, h2, h3, .detail-title {
   background: #1c2330;
   color: #f3ecdf;
 }
-[data-theme="dark"] .nav-btn,
-[data-theme="dark"] .nav-btn.icon-btn { background: #1d4e89; color: var(--color-ivory); border-color: #1d4e89; }
-[data-theme="dark"] .nav-btn.on,
-[data-theme="dark"] .nav-btn.icon-btn.on { color: var(--color-navy); background: #daa520; border-color: #daa520; }
 
 h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); margin: 0; }
 h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin: 0 0 0.6rem; }
@@ -448,20 +446,9 @@ a { color: var(--color-navy); }
 .nav-btn {
   min-height: 44px;
   padding: 0.4rem 0.9rem;
-  border: 1px solid #1d4e89;
-  background: #1d4e89;
-  color: var(--color-ivory);
   border-radius: 999px;
 }
-/* Inactive chips are the map blue. Active chips are the brand gold. */
-.nav-btn.on { background: #daa520; color: var(--color-navy); border-color: #daa520; box-shadow: none; }
-/* Hover is a brass ring. Fill and type stay put so navy chips do not sink and goldenrod chips do not muddy. */
-.nav-btn:not(.on):hover { border-color: var(--color-brass-bright); box-shadow: 0 0 0 2px var(--color-brass-bright); }
-.nav-btn.on:hover {
-  border-color: var(--color-brass-bright);
-  box-shadow: 0 0 0 2px var(--color-brass-bright);
-}
-.nav-btn:focus-visible { outline: 2px solid var(--color-navy); outline-offset: 2px; }
+/* Colours, hover and focus for .nav-btn live in the UI standard block at the end of this file (one rule set). */
 .nav-btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
@@ -590,7 +577,7 @@ a { color: var(--color-navy); }
 .row-btn em, .row-btn span, .row-btn.static span { font-style: normal; }
 .row-btn em { color: var(--color-quiet); font-size: 0.85rem; }
 .sheet { margin-top: 0.5rem; }
-.page-tracks { display: grid; grid-template-columns: minmax(5.2rem, 0.55fr) minmax(0, 1.15fr) minmax(0, 1.15fr) minmax(0, 1.15fr); gap: 1rem 0.65rem; align-items: stretch; min-height: calc(100svh - 16rem); }
+.page-tracks { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem 1.5rem; align-items: stretch; min-height: calc(100svh - 16rem); }
 .page-track { display: flex; flex-direction: column; min-height: calc(100svh - 16rem); }
 .page-track h3 { margin: 0 0 0.7rem; min-height: 2.4rem; font-size: 1rem; color: #14233a; }
 .page-line { position: relative; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
@@ -630,15 +617,12 @@ a { color: var(--color-navy); }
   }
   /* Events (Sergio, Oct 19 2026, v2): labels to the right of the bullets like the other lanes. The line shrinks to its
      widest stop and sits at the right edge of its lane, so the spine moves left just enough for the labels to fit. */
-  .page-track[data-track="3"] h3 { text-align: right; }
-  .page-track[data-track="3"] .page-line { align-self: flex-end; width: max-content; max-width: 100%; }
-  .page-track[data-track="3"] .page-stop { width: auto; }
 }
 /* Phones (Sergio, Oct 19 2026): words never break mid-word ("Consolidation") and the outer headings stay on screen:
    wider side margins, smaller bullets, lanes sized to their longest word. */
 @media (max-width: 599.98px) and (orientation: portrait) {
   .app-main:has(.view-pane:not(.screen-off) .page-tracks) { width: calc(100% - 1.5rem); }
-  .page-tracks { grid-template-columns: 1.08fr 0.98fr 1.08fr 0.86fr; column-gap: 0.35rem; }
+  .page-tracks { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 0.4rem; }
   .page-line::before { left: 0.4rem; }
   .page-stop { gap: 0.32rem; }
   .page-stop i { width: 0.9rem; height: 0.9rem; box-shadow: 0 0 0 2px #fff; }
@@ -866,16 +850,6 @@ a { color: var(--color-navy); }
 .detail-title { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0; }
 .icon-btn { min-width: 44px; min-height: 44px; border: 1px solid var(--color-line); background: white; display: grid; place-items: center; }
 .icon-btn svg { width: 1.1rem; height: 1.1rem; }
-.nav-btn.icon-btn {
-  background: #1d4e89;
-  color: var(--color-ivory);
-  border-color: #1d4e89;
-}
-.nav-btn.icon-btn.on {
-  background: #daa520;
-  color: var(--color-navy);
-  border-color: #daa520;
-}
 .detail-body section { margin-top: 1.1rem; }
 /* The graphic that was clicked, large, at the top of every panel that has one. */
 .detail-hero { margin: 0.9rem 0 0.2rem; display: flex; justify-content: center; align-items: center; background: #fff; border: 1px solid var(--color-ivory-dim); padding: 1rem; }
@@ -967,12 +941,11 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 
 /* Pay grades worn before chief (E-3 group rate mark, then ET3/ET2/ET1 rating badges), rating badges on one scale (100 SVG units = 0.24 in) so the row fits the 4-1/8 in column. */
 
-/* Map filter chips: one per pin group (no All); wrap on phones. Default null = show every category. */
+/* Map filter chips: All first, then one per pin group; wrap on phones. Default null = show every category. */
 .map-filter { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 0.6rem; }
-.map-filter .nav-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem; min-height: 44px; min-width: 7.5rem; padding: 0.15rem 0.9rem; font-size: 0.9rem; }
-@media (max-width: 420px) { .map-filter { gap: 0.3rem; } .map-filter .nav-btn { padding: 0.2rem 0.55rem; font-size: 0.82rem; gap: 0.3rem; } }
-.map-filter .pin-num { width: 2.45rem; min-width: 2.45rem; height: 2.45rem; padding: 0.32rem; border-radius: 50%; border: 0; box-shadow: none; }
-.map-filter .pin-num svg { width: 1.25rem; height: 1.25rem; }
+.map-filter .nav-btn { justify-content: center; }
+.map-filter .pin-num { width: 26px; min-width: 26px; height: 26px; padding: 4px; margin-left: -0.45rem; border-radius: 50%; border: 0; box-shadow: none; }
+.map-filter .pin-num svg { width: 16px; height: 16px; }
 .map-all { padding-left: 0.15rem; }
 .map-all .pin-num, .map-all .pin-num.command { background: #111; color: #fff; border: 0; }
 .map-play { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.55rem; margin: 0 0 0.7rem; }
@@ -1009,12 +982,9 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .uprog { margin: 0.4rem 0 1.8rem; }
 .uprog-stage { display: flex; align-items: flex-start; gap: 1rem; }
 .uprog-looks { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: none; width: 8rem; }
-.uprog-looks .nav-btn { min-width: 6.5rem; width: 100%; background: transparent; color: #1d4e89; border: 2px solid #1d4e89; }
-.uprog-looks .nav-btn.on { background: #daa520; color: var(--color-navy); border-color: #daa520; }
+.uprog-looks .nav-btn { min-width: 6.5rem; width: 100%; }
 .uprog-crest { width: 8rem; height: 8rem; object-fit: contain; flex: none; }
 .uprog-controls { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0 0 0.6rem; }
-.uprog .nav-btn.icon-btn { width: 44px; min-width: 44px; height: 44px; padding: 0; border-radius: 50%; background: transparent; color: #1d4e89; border: 2px solid #1d4e89; }
-.uprog .nav-btn.icon-btn.on { background: transparent; color: #8a6a1c; border-color: #daa520; }
 .uprog-play { min-width: 44px; justify-content: center; }
 .uprog-slider { flex: 1 1 10rem; min-width: 0; display: flex; align-items: center; }
 .uprog-slider input { -webkit-appearance: none; appearance: none; width: 100%; height: 44px; margin: 0; background: transparent; }
@@ -1433,7 +1403,6 @@ object.cx-art { color-scheme: light; }
 
 /* Dark-theme contrast fixes found by the audit (Oct 14 2026): gear card titles and the Uniform look buttons. */
 [data-theme="dark"] .equipment-card strong { color: var(--color-ivory); }
-[data-theme="dark"] .uprog-looks .nav-btn:not(.on) { color: var(--color-ivory); }
 /* Raster medals (ribbon included): one image, full ribbon width, sitting on the row line (Oct 14 2026). */
 .medal-art-raster { justify-content: flex-end; }
 .medal-raster { display: block; width: calc(var(--mi) * 1.375); height: auto; filter: saturate(0.85) contrast(0.95) drop-shadow(0 1px 1.5px rgba(0,0,0,0.55)); }
@@ -1640,7 +1609,6 @@ object.cx-art { color-scheme: light; }
 .stop-list li.now button strong { color: inherit !important; }
 
 /* Tap size: header language flags and the Logbook's own crest go to 44px. */
-.app-lang { min-width: var(--ui-tap) !important; min-height: var(--ui-tap) !important; }
 .logbook-own-crest { min-width: var(--ui-tap) !important; min-height: var(--ui-tap) !important; }
 /* Pills never wrap: the Logbook phone tab bar scrolls sideways instead of squeezing "On Duty" onto two lines. */
 .nav-btn { white-space: nowrap; }
@@ -1811,3 +1779,48 @@ b, strong, th { font-weight: 600; }
 .gallery-group h3, .page-track h3 { font-family: var(--font-sans); font-weight: 600; }
 .leaflet-container, .leaflet-bar a, .leaflet-control-attribution, .leaflet-control-zoom-in, .leaflet-control-zoom-out, .leaflet-popup-close-button, .marker-cluster div { font-family: var(--font-sans); }
 .leaflet-control-zoom-in, .leaflet-control-zoom-out { font-weight: 600; }
+
+/* ==== UI system (Oct 20 2026, preview/ui-system-oct20) ====
+   Selected = gold fill everywhere (chips, pills, icon toggles, sidebar tabs); Logbook keeps its folder tabs (logbook.css).
+   Filter chips (every filter row starts with an All / Todos chip, selected by default): 36px drawn pill inside a 44px tap
+   area (::after extends the hit box 4px up and down), Source Sans 3 0.88rem, 400 idle / 600 selected. */
+.gallery-chips, .map-filter { gap: 0.5rem 0.4rem; }
+.gallery-chips .nav-btn, .map-filter .nav-btn:not(.pin-num) {
+  position: relative; display: inline-flex; align-items: center; gap: 0.4rem;
+  min-height: 36px !important; height: 36px; min-width: 0; padding: 0 0.85rem;
+  font-family: var(--font-sans); font-size: 0.88rem; font-weight: 400; line-height: 1;
+}
+.gallery-chips .nav-btn.on, .map-filter .nav-btn.on { font-weight: 600; }
+.gallery-chips .nav-btn::after, .map-filter .nav-btn:not(.pin-num)::after { content: ""; position: absolute; inset: -4px 0; }
+@media (max-width: 420px) { .gallery-chips .nav-btn, .map-filter .nav-btn:not(.pin-num) { padding: 0 0.65rem; } }
+.gallery-chip .gallery-count { font-size: 0.76rem; }
+
+/* Leaflet zoom: two brass circles, the .close-btn--over look (navy disc, brass ring, 36px drawn in a 44px tap). */
+.leaflet-bar:has(.leaflet-control-zoom-in), .leaflet-control-zoom.leaflet-bar { border: 0 !important; box-shadow: none !important; background: transparent !important; display: flex; flex-direction: column; gap: 0; }
+.leaflet-control-zoom a.leaflet-control-zoom-in, .leaflet-control-zoom a.leaflet-control-zoom-out {
+  position: relative; width: 44px !important; height: 44px !important; line-height: 44px !important;
+  border: 0 !important; border-radius: 50% !important; background: transparent !important; color: #e4c98a !important;
+  font-size: 1.35rem !important; text-indent: 0; display: grid; place-items: center;
+}
+.leaflet-control-zoom a.leaflet-control-zoom-in::before, .leaflet-control-zoom a.leaflet-control-zoom-out::before {
+  content: ""; position: absolute; inset: 4px; border-radius: 50%; border: 1.5px solid #e4c98a; background: rgba(9, 22, 44, 0.85); z-index: -1;
+}
+.leaflet-control-zoom a { isolation: isolate; }
+@media (hover: hover) { .leaflet-control-zoom a:not(.leaflet-disabled):hover::before { border-color: #f3dfac; box-shadow: 0 0 0 2px #f3dfac; } }
+.leaflet-control-zoom a.leaflet-disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* Decorations layout (Oct 20 2026): controls stack in a left column; Medals and ribbons shows ribbons (left) beside
+   medals (right) when wide. Narrow: controls on top, then ribbons, then medals. */
+.decor-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; align-items: start; }
+.decor-page .decor-controls { flex-direction: column; flex-wrap: nowrap; gap: 0.9rem; margin: 0.25rem 0 0.5rem; }
+.decor-page .decor-seg-label { flex: 1 0 100%; margin: 0; }
+.decor-stage { min-width: 0; }
+.decor-split { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; justify-items: center; }
+.decor-split > * { min-width: 0; max-width: 100%; }
+@media (min-width: 900px) {
+  .decor-layout { grid-template-columns: 12.5rem minmax(0, 1fr); gap: 2rem; }
+  .decor-page .decor-controls { position: sticky; top: 1rem; }
+  .decor-page .decor-seg { flex-direction: column; align-items: stretch; }
+  .decor-page .decor-seg .nav-btn { width: 100%; }
+}
+@media (min-width: 1200px) { .decor-split { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }

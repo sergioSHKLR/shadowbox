@@ -756,9 +756,23 @@ const MONTHS = [
   "July", "August", "September", "October", "November", "December",
 ];
 
+const MONTHS_PT = [
+  "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+  "julho", "agosto", "setembro", "outubro", "novembro", "dezembro",
+];
+
+/** PT site: "5 de setembro de 1997". Reads <html lang> at render time (components re-render on language change). */
+function docIsPt(): boolean {
+  return typeof document !== "undefined" && document.documentElement.lang.startsWith("pt");
+}
+
 export function formatWhen(value: string): string {
   const [y, m, d] = value.split("-");
   if (!m) return y;
+  if (docIsPt()) {
+    const mes = MONTHS_PT[Number(m) - 1] ?? m;
+    return d ? `${Number(d)} de ${mes} de ${y}` : `${mes} de ${y}`;
+  }
   const month = MONTHS[Number(m) - 1] ?? m;
   if (!d) return `${month} ${y}`;
   return `${Number(d)} ${month} ${y}`;
