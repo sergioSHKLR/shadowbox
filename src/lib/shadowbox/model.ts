@@ -2136,6 +2136,8 @@ export function reflectionFor(kind: Kind, id: string): string | null {
 const LOGBOOK_DUTY_GROUPS: EquipmentGroup[] = ["armor", "helmets", "weapons", "comms", "vehicles", "ships", "aircraft"];
 const LOGBOOK_OFF_GROUPS: EquipmentGroup[] = ["cars", "motorcycles", "residences", "cities"];
 /** C-5 and C-9 are off duty on the AS-40 tour (same rule as the On Duty / Off Duty pages). */
+/** Off Duty section order (Sergio, Oct 2026): Motorcycles, Cars, Aircraft; any other group after. */
+const OFF_DUTY_GROUP_ORDER: EquipmentGroup[] = ["motorcycles", "cars", "aircraft"];
 const LOGBOOK_OFF_DUTY_AIRCRAFT = new Set(["c-5", "c-9"]);
 
 /** Per-command card order (Sergio): these ids lead their group, in this order; everything else keeps its usual order after them. */
@@ -2179,9 +2181,13 @@ export function onDutyForCommand(unitId: string | null | undefined): LogbookGear
 /** Off-duty cars, motorcycles, residences, cities (and the AS-40 C-5/C-9 hops) recorded for a command. */
 export function offDutyForCommand(unitId: string | null | undefined): LogbookGearGroup[] {
   if (!unitId) return [];
+  const rank = (id: EquipmentGroup) => {
+    const at = OFF_DUTY_GROUP_ORDER.indexOf(id);
+    return at < 0 ? OFF_DUTY_GROUP_ORDER.length : at;
+  };
   return groupGear(
     equipmentForCommand(unitId).filter((item) => LOGBOOK_OFF_GROUPS.includes(item.group) || LOGBOOK_OFF_DUTY_AIRCRAFT.has(item.id)),
-  );
+  ).sort((a, b) => rank(a.id) - rank(b.id));
 }
 
 /** Ready uniform plates for a command (e.g. NCTS → e5 blues / whites; JCSE → e6-4 plus the e7-jcse CPO set; NAVHOSP → e7-nh). */
