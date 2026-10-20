@@ -749,9 +749,40 @@ function Tabbed<T extends string>({
     onChange(tabs[next].id);
     window.requestAnimationFrame(() => document.getElementById(`${idBase}-tab-${tabs[next].id}`)?.focus());
   };
+  // Edge fades (Sergio, Oct 20 2026): flag overflow on each side so CSS can fade that edge; keep the active tab in view.
+  const listRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = listRef.current;
+    if (!el) return;
+    const update = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      el.classList.toggle("fade-l", max > 1 && el.scrollLeft > 1);
+      el.classList.toggle("fade-r", max > 1 && el.scrollLeft < max - 1);
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(update) : null;
+    ro?.observe(el);
+    window.addEventListener("resize", update);
+    return () => {
+      el.removeEventListener("scroll", update);
+      ro?.disconnect();
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+  useEffect(() => {
+    const el = listRef.current;
+    const tab = el?.querySelector<HTMLElement>(".lb-tab.on");
+    if (!el || !tab || el.scrollWidth <= el.clientWidth + 1) return;
+    const pad = 24;
+    const left = tab.offsetLeft - el.offsetLeft;
+    const right = left + tab.offsetWidth;
+    if (left - pad < el.scrollLeft) el.scrollTo({ left: Math.max(0, left - pad) });
+    else if (right + pad > el.scrollLeft + el.clientWidth) el.scrollTo({ left: right + pad - el.clientWidth });
+  }, [value]);
   return (
     <div className={`lb-tabbed${className ? ` ${className}` : ""}`}>
-      <div className="lb-tablist" role="tablist" aria-label={label} onKeyDown={onKey}>
+      <div className="lb-tablist" role="tablist" aria-label={label} onKeyDown={onKey} ref={listRef}>
         {tabs.map((tab) => (
           <button
             key={tab.id}

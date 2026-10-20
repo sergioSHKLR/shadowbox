@@ -3,6 +3,16 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.4.0] - 2026-10-20
+
+### Changed
+- Logbook: file-folder tabs replace the pill buttons; on phones the tabs sit in one sideways-scrolling row with soft edge fades.
+- Logbook: in portrait the card/tabs split sits 5% higher, giving the lower panel more room.
+- Logbook: cards fill each row.
+- Logbook: Off Duty order is Motorcycles, Cars, Aircraft.
+- Logbook: New PTU removed from JCSE.
+- Logbook: section labels translated on the Portuguese site.
+
 ## [1.3.1] - 2026-10-20
 
 ### Changed
