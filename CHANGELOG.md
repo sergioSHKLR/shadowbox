@@ -3,6 +3,12 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.4.2] - 2026-10-20
+
+### Fixed
+- Consistent fonts: no Georgia or Helvetica fallbacks, and no faux bold (weights capped at the loaded 600).
+- Serif for names (command, rank, uniform and item names); sans for UI labels and map controls.
+
 ## [1.4.1] - 2026-10-20
 
 ### Fixed
