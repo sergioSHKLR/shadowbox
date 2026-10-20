@@ -267,9 +267,9 @@
     "id": "hsm-2003",
     "awardId": "hsm",
     "year": 2002,
-    "unitId": null,
+    "unitId": "frank-cable",
     "operationId": null,
-    "note": "Typhoon Pongsona, Guam, Dec 2002"
+    "note": "Typhoon Pongsona, Guam, Dec 2002. USS Frank Cable (AS-40), civil recovery work (Sergio, Oct 2026; bio)."
   },
   {
     "id": "ssdr-2001",
@@ -395,8 +395,8 @@
     "id": "pistol-2000",
     "awardId": "pistol",
     "year": 2000,
-    "unitId": null,
+    "unitId": "ncts",
     "operationId": null,
-    "note": null
+    "note": "NCTS San Diego (Sergio, Oct 2026)."
   }
 ]

@@ -2424,3 +2424,43 @@ const commandProfiles = commandProfilesJson as CommandProfile[];
 export function commandProfileFor(unitId: string | null | undefined): CommandProfile | undefined {
   return unitId ? commandProfiles.find((row) => row.unitId === unitId) : undefined;
 }
+
+/**
+ * Ribbons EARNED at one Logbook command (Sergio, Oct 20 2026): one entry per award instance, never cumulative.
+ * Attribution comes only from award-instances.json: the instance's own unitId, else its operationId's unit; campaign
+ * medals (ACM / ICM) give one ribbon per operation in awards.json `operationIds`. A unit that is not itself a Logbook
+ * command counts for the command whose plate lists it as an extra (e.g. Task Force Iron Shield → SERCC, CJTF Troy →
+ * EODMU 5). Instances with no unit are left off every command (see unattributedAwardInstances); nothing is guessed.
+ */
+function logbookCommandFor(unitId: string | null | undefined): string | null {
+  if (!unitId) return null;
+  if (commandPlates.some((p) => p.unitId === unitId)) return unitId;
+  const owner = commandPlates.find((p) => (p.extras ?? []).some((e) => e.id === unitId || e.unitId === unitId));
+  return owner?.unitId ?? null;
+}
+
+function instanceCommands(inst: Instance): (string | null)[] {
+  const award = awardById(inst.awardId) as (Award & { operationIds?: string[] }) | undefined;
+  if (!inst.unitId && !inst.operationId && award?.operationIds?.length) {
+    return award.operationIds.map((opId) => logbookCommandFor(operations.find((o) => o.id === opId)?.unitId));
+  }
+  const opUnit = inst.operationId ? operations.find((o) => o.id === inst.operationId)?.unitId : null;
+  return [logbookCommandFor(inst.unitId) ?? logbookCommandFor(opUnit)];
+}
+
+export function earnedRibbonsAt(commandId: string | null | undefined): Award[] {
+  if (!commandId) return [];
+  const counts = new Map<string, number>();
+  for (const inst of instances) {
+    const n = instanceCommands(inst).filter((c) => c === commandId).length;
+    if (n) counts.set(inst.awardId, (counts.get(inst.awardId) ?? 0) + n);
+  }
+  return [...counts].flatMap(([id, count]) => {
+    const base = awardById(id);
+    return base ? [{ ...base, count, devices: [] }] : [];
+  });
+}
+
+export function unattributedAwardInstances(): Instance[] {
+  return instances.filter((inst) => instanceCommands(inst).some((c) => c === null));
+}

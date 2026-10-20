@@ -32,6 +32,7 @@ import {
   type Stop,
   type UniformSlide,
   plainCopyDevices,
+  earnedRibbonsAt,
 } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
 import { RibbonArt } from "@/components/shadowbox/marks";
@@ -125,7 +126,8 @@ function RankPath({ beat, beats, onOpen }: { beat: LogbookBeat; beats: LogbookBe
 }
 
 function RankAwards({ beat, beats, onOpen, t }: { beat: LogbookBeat; beats: LogbookBeat[]; onOpen: Open; t: Chrome }) {
-  const ribbons = unmountedRibbons(beat.rack);
+  // Only the ribbons earned at this command, one per award instance (Sergio, Oct 20 2026).
+  const ribbons = unmountedRibbons(earnedRibbonsAt(beat.stop.commandId));
   const lb = useLb();
   const pins = [...beat.pinsAbove, ...beat.pinsBelow];
   return (
@@ -154,8 +156,7 @@ function RankAwards({ beat, beats, onOpen, t }: { beat: LogbookBeat; beats: Logb
               // Logbook rule (Sergio, Oct 16 2026): each award is its own plain ribbon, no stars, oak leaves or numerals. The
               // ACM / ICM repeat once per campaign star on this command's plate (each phase is a star; no bare ribbon). Kept:
               // the E on the Battle E and the Expert E on rifle/pistol, which are part of the ribbon, not repeat devices.
-              const stars = award.devices.filter((d) => d.kind === "star").reduce((sum, d) => sum + d.count, 0);
-              const n = award.id === "acm" || award.id === "icm" ? Math.max(1, stars) : Math.max(1, award.count || 1);
+              const n = Math.max(1, award.count || 1);
               const copy = { ...award, count: 1, devices: plainCopyDevices(award.id) };
               return Array.from({ length: n }, (_, i) => {
                 const label = n > 1 ? `${award.name} · ${lb.awardOf(i + 1, n)}` : ribbonLabel(copy, lb);
