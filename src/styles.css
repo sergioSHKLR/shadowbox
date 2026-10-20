@@ -24,12 +24,16 @@
   --color-quiet: #6d6458;
 }
 
-html { color-scheme: light; background: var(--color-ivory); max-width: 100%; overflow-x: clip; }
+html { color-scheme: light; background: var(--color-ivory); max-width: 100%; overflow-x: clip;
+  /* Card surfaces (Sergio, Oct 19 2026: light theme gets light award and photo cards; dark keeps its panels). */
+  --card-bg: #fbf8f1; --card-ink: var(--color-ink); --card-quiet: #5b5345; --card-border: var(--color-ivory-dim);
+  --card-shadow: 0 1px 3px rgba(28, 25, 21, 0.12); }
 html[data-theme="dark"] {
   color-scheme: dark;
   background: #14181f;
   /* Muted text on dark panels (~8:1 on #1a2130). Light mode keeps --color-quiet #6d6458. */
   --color-quiet: #c4b8a6;
+  --card-bg: #1c2330; --card-ink: #f3ecdf; --card-quiet: #c9c0b0; --card-border: var(--color-ivory-dim); --card-shadow: none;
 }
 
 body {
@@ -892,7 +896,7 @@ a { color: var(--color-navy); }
 .hero-extra { flex-direction: column; gap: 0.6rem; }
 .hero-extra img { width: min(15rem, 70%); height: auto; }
 .hero-extra figcaption { font-size: 0.9rem; text-align: center; color: #333; }
-.hero-photo { padding: 0; background: #000; }
+.hero-photo { padding: 0; background: var(--card-bg); }
 .hero-photo img { width: 100%; max-height: 60vh; }
 .hero-ribbon,
 [data-theme="dark"] .detail-hero.hero-ribbon { background: #fff; padding: 1.6rem 1rem; }
@@ -941,11 +945,11 @@ a { color: var(--color-navy); }
 .medal-pendant { display: block; height: auto; max-width: none; margin-top: calc(var(--mi) * -0.06); position: relative;
   filter: saturate(0.82) contrast(0.94) brightness(0.95) sepia(0.12) drop-shadow(0 1px 1.5px rgba(0,0,0,0.6)); }
 /* Medal popup: front (the medal as worn, with its attachments) or back (the published reverse image). */
-.medal-hero { color: var(--color-ivory); --mi: min(6.5rem, 26vw); display: flex; flex-direction: column; align-items: center; gap: 0.6rem; padding: 0.8rem 0.5rem 1rem; background: #111; }
+.medal-hero { color: var(--card-ink); border-color: var(--card-border); box-shadow: var(--card-shadow); --mi: min(6.5rem, 26vw); display: flex; flex-direction: column; align-items: center; gap: 0.6rem; padding: 0.8rem 0.5rem 1rem; background: var(--card-bg); }
 .medal-hero .medal-art { width: calc(var(--mi) * 1.375); height: calc(var(--mi) * 3.25); }
 .medal-hero .medal-back { display: block; height: auto; max-width: 90%; filter: saturate(0.82) contrast(0.94) brightness(0.95) sepia(0.12); }
 .medal-hero .back-stage { height: calc(var(--mi) * 3.25); display: flex; align-items: center; justify-content: center; }
-.medal-hero .face-note { color: #c9c0b0; font-size: 0.85rem; margin: 0; }
+.medal-hero .face-note { color: var(--card-quiet); font-size: 0.85rem; margin: 0; }
 .medal-hero .nav-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
 /* Rank track and rank progression (dates: src/data/ranks.json). */
