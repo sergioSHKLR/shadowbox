@@ -3,6 +3,11 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.4.5] - 2026-10-20
+
+### Fixed
+- Home case: the v1.4.4 CPO portrait showed a corner of the flag instead of the full portrait; it now shows the full image.
+
 ## [1.4.4] - 2026-10-20
 
 ### Changed
