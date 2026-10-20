@@ -3,6 +3,15 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.3.1] - 2026-10-20
+
+### Changed
+- Close buttons unified: every close is the same brass circle with one X icon (solid navy over photos).
+- Close and fullscreen labels are translated on the Portuguese site.
+
+### Fixed
+- Dark mode: the intro card close button is now visible.
+
 ## [1.3.0] - 2026-10-20
 
 ### Changed
