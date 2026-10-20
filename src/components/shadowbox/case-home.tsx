@@ -1,3 +1,4 @@
+import { X } from "lucide-react";
 import type { Chrome } from "@/lib/shadowbox/copy";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { awards, publicUrl, ribbonRows, units, type Kind } from "@/lib/shadowbox/model";
@@ -704,7 +705,7 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en" }: { copy: C
         })}
       </div>
       </div>
-      <button type="button" className="cx-exit" aria-label={copy.exitFull} title={copy.exitFull} onClick={exitFull}>×</button>
+      <button type="button" className="cx-exit close-btn close-btn--over" aria-label={copy.exitFull} title={copy.exitFull} onClick={exitFull}><X size={18} strokeWidth={2.25} aria-hidden="true" /></button>
       <button type="button" className="cx-help" aria-label={copy.help} title={copy.help} onClick={() => { setIntro(true); setHint(true); }}>?</button>
     </div>
     {intro ? createPortal(<CaseIntro copy={copy} onClose={closeIntro} />, layerRoot()) : null}
@@ -774,7 +775,7 @@ function ItemModal({ id, setId, copy: c, locale, label, go }: { id: string; setI
   return createPortal(
     <div className="cx-modal" onClick={(e) => { if (e.target === e.currentTarget) close(); }}>
       <div ref={box} className="cx-modal-box" role="dialog" aria-modal="true" aria-labelledby="cx-modal-title" aria-describedby={note ? "cx-modal-note" : undefined}>
-        <button type="button" className="cx-modal-x" aria-label={c.close} title={c.close} onClick={close}>×</button>
+        <button type="button" className="cx-modal-x close-btn" aria-label={c.close} title={c.close} onClick={close}><X size={18} strokeWidth={2.25} aria-hidden="true" /></button>
         <div className="cx-modal-art" style={{ ["--ar" as string]: String(ratio) }}>
           {it?.rack ? <ModalGroup />
             // The ID card SVG pulls its photo, flag, barcode and seal from sibling files; an <img> blocks those, so it
@@ -818,7 +819,7 @@ function CaseIntro({ onClose, copy: c }: { onClose: () => void; copy: Chrome["in
   return (
     <div className="cx-intro" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <div ref={box} className="cx-intro-box" role="dialog" aria-modal="true" aria-labelledby="cx-intro-title">
-        <button type="button" className="cx-intro-x" aria-label={c.close} onClick={onClose}>×</button>
+        <button type="button" className="cx-intro-x close-btn" aria-label={c.close} title={c.close} onClick={onClose}><X size={18} strokeWidth={2.25} aria-hidden="true" /></button>
         <h2 id="cx-intro-title">{c.title}</h2>
         <p>{c.body}</p>
         <table className="cx-why">

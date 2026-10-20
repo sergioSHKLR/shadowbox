@@ -1,4 +1,5 @@
 import * as Dialog from "@radix-ui/react-dialog";
+import { useDocLang } from "@/lib/shadowbox/use-doc-lang";
 import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import { forwardRef, useEffect, useRef, type ReactNode, type RefObject } from "react";
 
@@ -45,6 +46,7 @@ export function EnlargeDialog({
   className?: string;
   children: ReactNode;
 }) {
+  const closeLabel = useDocLang() === "pt" ? "Fechar" : "Close";
   const frame = typeof document === "undefined" ? null : document.querySelector(".app-shell");
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -66,8 +68,8 @@ export function EnlargeDialog({
               <Dialog.Title>{title}</Dialog.Title>
               {subtitle ? <p className="enlarge-sub">{subtitle}</p> : null}
             </div>
-            <Dialog.Close className="nav-btn icon-btn enlarge-close" aria-label="Close">
-              <X size={20} strokeWidth={2} aria-hidden="true" />
+            <Dialog.Close className="nav-btn icon-btn enlarge-close close-btn close-btn--over" aria-label={closeLabel} title={closeLabel}>
+              <X size={18} strokeWidth={2.25} aria-hidden="true" />
             </Dialog.Close>
           </header>
           <div className="enlarge-body">{children}</div>

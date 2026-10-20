@@ -1,4 +1,5 @@
 import * as Dialog from "@radix-ui/react-dialog";
+import { useDocLang } from "@/lib/shadowbox/use-doc-lang";
 import { X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { InstanceEntry, useInstanceEdits } from "@/components/shadowbox/instance-form";
@@ -404,6 +405,7 @@ export function DetailPanel({
   onSelect: (sel: Selection) => void;
   onClose: () => void;
 }) {
+  const closeLabel = useDocLang() === "pt" ? "Fechar" : "Close";
   const instanceEditTick = useInstanceEdits();
   const subject = selection ? toSubject(selection) : null;
   const crumbs = trail.length ? trail : selection ? [selection] : [];
@@ -482,8 +484,8 @@ export function DetailPanel({
                     </nav>
                   ) : null}
                 </div>
-                <Dialog.Close className="icon-btn" aria-label="Close">
-                  <X />
+                <Dialog.Close className="icon-btn close-btn" aria-label={closeLabel} title={closeLabel}>
+                  <X size={18} strokeWidth={2.25} aria-hidden="true" />
                 </Dialog.Close>
               </div>
               <div className={more ? "detail-scroll is-more" : "detail-scroll"} onScroll={(event) => noteScroll(event.currentTarget)} ref={(node) => { if (node) noteScroll(node); }}>
