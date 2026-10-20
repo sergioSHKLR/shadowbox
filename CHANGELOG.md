@@ -3,6 +3,22 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.5.0] - 2026-10-20
+
+### Changed
+- One UI system: selected is always a gold fill (chips, pills, icon toggles, sidebar tabs); folder tabs stay on the Logbook only.
+- Filter chips: 36px pills inside a 44px tap area, one font size; every filter row starts with an All / Todos chip (new on the Gallery).
+- Map zoom buttons are brass circles matching the close button.
+- Clear selected state for the language flags (gold underline) and the current menu item (gold bar).
+- Decorations: controls stack in a left column; Ribbons only shows one rack, Medals and ribbons shows the ribbon rack (with the ribbon-only block) beside the medal rack; stacked on narrow screens.
+- Timeline overview: four evenly spaced columns.
+
+### Fixed
+- PT site: "Todos" on the On Duty and Off Duty filters, and Logbook dates in Portuguese (e.g. "5 de setembro de 1997").
+
+### Removed
+- Old overridden CSS layers for buttons and tabs, so styles stop drifting.
+
 ## [1.4.5] - 2026-10-20
 
 ### Fixed
