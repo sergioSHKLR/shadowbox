@@ -688,3 +688,19 @@
 .logbook .lb-tablist.fade-r { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--lb-fade)), transparent); mask-image: linear-gradient(to right, #000 calc(100% - var(--lb-fade)), transparent); }
 .logbook .lb-tablist.fade-l { -webkit-mask-image: linear-gradient(to left, #000 calc(100% - var(--lb-fade)), transparent); mask-image: linear-gradient(to left, #000 calc(100% - var(--lb-fade)), transparent); }
 .logbook .lb-tablist.fade-l.fade-r { -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--lb-fade), #000 calc(100% - var(--lb-fade)), transparent); mask-image: linear-gradient(to right, transparent, #000 var(--lb-fade), #000 calc(100% - var(--lb-fade)), transparent); }
+
+/* Dark cards (Sergio, Oct 20 2026: "cards should not be all white bg while on dark theme"). Dark theme only; light unchanged.
+   Tiles get the dark card surface with a brass hairline. Photos keep their own white backgrounds but sit inset inside the
+   dark tile and are dimmed slightly so they stop glowing; mannequin plates sit on a dark inner panel instead of white. */
+[data-theme="dark"] .logbook :is(.logbook-gear-item, .logbook-wardrobe-item) {
+  background: var(--card-bg); color: var(--card-ink); border-color: color-mix(in srgb, var(--color-brass) 45%, transparent);
+}
+[data-theme="dark"] .logbook :is(.logbook-gear-item, .logbook-wardrobe-item):hover { border-color: var(--color-brass-bright); }
+[data-theme="dark"] .logbook { --lb-tile-pad: 5px; --lb-ward-pad: 5px; }
+[data-theme="dark"] .logbook .logbook-gear-list { --lb-tile-pad: 5px; }
+[data-theme="dark"] .logbook .logbook-wardrobe { --lb-ward-pad: 5px; }
+[data-theme="dark"] .logbook .logbook-gear-item img { filter: brightness(0.86) saturate(0.95); }
+[data-theme="dark"] .logbook .logbook-wardrobe-item img,
+[data-theme="dark"] .logbook .logbook-wardrobe-item .logbook-gear-blank { background: #242d3d; }
+[data-theme="dark"] .logbook .logbook-wardrobe-item small { color: var(--card-quiet); }
+[data-theme="dark"] .plate-viewer-figure { background: #242d3d; }
