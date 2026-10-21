@@ -1,4 +1,5 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { pickDefaultTab, keepOrDefault, MAIN_ORDER, PHONE_ORDER, ASIDE_ORDER } from "../../lib/shadowbox/default-tab";
 import { useCallback, useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import {
   careerStops,
@@ -881,9 +882,43 @@ export function Logbook({
     window.addEventListener("sb-logbook-command", pick);
     return () => window.removeEventListener("sb-logbook-command", pick);
   }, [beats]);
-  const [mainTab, setMainTab] = useState<MainTab>("rank");
-  const [asideTab, setAsideTab] = useState<AsideTab>("uniforms");
-  const [phoneTab, setPhoneTab] = useState<PhoneTab>("crests");
+  // Per-command tab content counts drive each pane's default tab (see default-tab.ts).
+  const countsFor = useCallback(
+    (b: LogbookBeat | undefined) => {
+      const id = b?.stop.commandId;
+      const admin = b ? logbookAdminAsOf(b) : null;
+      const duties = commandDutiesFor(id);
+      const onduty = deploymentsForCommand(id).length + onDutyForCommand(id).filter((g) => g.id !== "armor" && g.id !== "helmets").length;
+      return {
+        rank: 1,
+        admin: admin ? admin.necsHeld.length + admin.schoolsThisTour.length + duties.titles.length + duties.departments.length + duties.divisions.length + duties.collateralDuties.length + duties.watches.length : 0,
+        photos: (photoIndex.byCommand.get(id ?? "") ?? []).length,
+        crests: (b?.units ?? []).filter((u) => u.id !== id).length,
+        onduty,
+        // Each command's map shows its own pins; every command has at least its own stop.
+        map: id ? 1 : 0,
+        uniforms: b ? 1 : 0,
+        wardrobe: b ? wardrobeForBeat(b).items.length : 0,
+        offduty: offDutyForCommand(id).length,
+      };
+    },
+    [photoIndex],
+  );
+  const initialCounts = useMemo(() => countsFor(beats[active]), []); // eslint-disable-line react-hooks/exhaustive-deps
+  const [mainTab, setMainTabState] = useState<MainTab>(() => pickDefaultTab(MAIN_ORDER, initialCounts));
+  const [asideTab, setAsideTabState] = useState<AsideTab>(() => pickDefaultTab(ASIDE_ORDER, initialCounts));
+  const [phoneTab, setPhoneTabState] = useState<PhoneTab>(() => pickDefaultTab(PHONE_ORDER, initialCounts));
+  // A tab the visitor picks by hand is kept across commands (while it has content) for this visit.
+  const pickedRef = useRef<{ main: MainTab | null; aside: AsideTab | null; phone: PhoneTab | null }>({ main: null, aside: null, phone: null });
+  const setMainTab = useCallback((v: MainTab) => { pickedRef.current.main = v; setMainTabState(v); }, []);
+  const setAsideTab = useCallback((v: AsideTab) => { pickedRef.current.aside = v; setAsideTabState(v); }, []);
+  const setPhoneTab = useCallback((v: PhoneTab) => { pickedRef.current.phone = v; setPhoneTabState(v); }, []);
+  useEffect(() => {
+    const c = countsFor(beats[active]);
+    setMainTabState(keepOrDefault(pickedRef.current.main, MAIN_ORDER, c));
+    setAsideTabState(keepOrDefault(pickedRef.current.aside, ASIDE_ORDER, c));
+    setPhoneTabState(keepOrDefault(pickedRef.current.phone, PHONE_ORDER, c));
+  }, [active, beats, countsFor]);
   /** Uniform chosen in the Uniforms tab; kept as the beat changes. */
   const [look, setLookState] = useState<Look>("blue");
   /** Last non-Khaki pick: what a pre-Chief beat shows while Khakis stay chosen. */
