@@ -672,3 +672,41 @@
 [data-theme="dark"] .logbook .logbook-wardrobe-item .logbook-gear-blank { background: #242d3d; }
 [data-theme="dark"] .logbook .logbook-wardrobe-item small { color: var(--card-quiet); }
 [data-theme="dark"] .plate-viewer-figure { background: #242d3d; }
+
+/* ---- Healthy split (Sergio, Oct 21 2026: "a healthy split so visitor can gather most of the info at a glance but is also
+   able to max and scroll thru long content"). One layout at every size: the command card (Rank & Awards / Admin / Photos)
+   and the lower tab set (Crests / Decorations / Uniforms / On Duty / Off Duty / Map) are both on screen. Side by side on
+   landscape and wide screens, stacked about 50/50 on portrait. Each panel scrolls on its own; every panel can be maximized. */
+.logbook.logbook-split-page, .logbook.logbook-split-page.is-narrow { min-height: 18rem; overflow: hidden; }
+.logbook-split { flex: 1; min-height: 0; display: grid; gap: 0.75rem 0.9rem; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
+.logbook-split > .logbook-main, .logbook-split > .logbook-lower { grid-area: auto; min-height: 0; min-width: 0; display: flex; flex-direction: column; }
+.logbook-split .logbook-main-tabs, .logbook-split .logbook-phone-tabs { flex: 1 1 auto; min-height: 0; }
+.logbook-split .logbook-phone-tabs > .lb-tabpanel { flex: 1 1 0; min-height: 0; overflow: auto; display: flex; flex-direction: column; }
+.logbook-split .logbook-phone-tabs > .lb-tabpanel > .logbook-gear { flex: 1 0 auto; min-height: 0; }
+.logbook-split .logbook-phone-tabs > .lb-tabpanel > .logbook-map-tab:not([hidden]) { flex: 1; min-height: 12rem; display: flex; flex-direction: column; }
+.logbook-split .logbook-phone-tabs .logbook-map-tab .logbook-map-frame { flex: 1; min-height: 0; }
+.logbook-split .logbook-phone-tabs > .lb-tablist > .lb-tab { flex: 1 1 auto; padding: 0 0.5rem; font-size: 0.8rem; }
+@media (orientation: portrait) {
+  .logbook-split { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); gap: 0.55rem; }
+}
+/* Short landscape phones: the split owns the screen under the top bar; pager and footer follow below the fold. */
+@media (orientation: landscape) and (max-height: 520px) {
+  .logbook.logbook-split-page { height: calc(100dvh - 4.25rem); min-height: 15rem; }
+  .logbook-split { gap: 0.5rem; }
+  .logbook-split .logbook-beat-head { padding-block: 0.2rem; }
+}
+/* Tab row + maximize: the tabs scroll sideways (edge fades); the brass circle sits at the end of the row. */
+.lb-tabhead { display: flex; align-items: flex-end; min-width: 0; }
+.lb-tabhead > .lb-tablist { flex: 1 1 auto; min-width: 0; }
+.logbook .lb-tabhead { box-shadow: inset 0 -1px 0 var(--lb-border); }
+button.close-btn.lb-max-btn { flex: none; margin: -6px -2px -2px 2px; }
+/* One maximize rule: the per-panel enlarge corner icons give way to the tab-row button (tapping the plate still enlarges it). */
+.logbook .logbook-split .nav-btn.icon-btn.logbook-enlarge { display: none !important; }
+/* Maximized: the whole tabbed panel goes full screen above the page, tabs still live, its own scroll. */
+.logbook .lb-tabbed.is-max {
+  position: fixed; inset: 0; z-index: 2000; margin: 0; padding: max(0.5rem, env(safe-area-inset-top)) 0.75rem max(0.75rem, env(safe-area-inset-bottom));
+  background: var(--color-ivory); display: flex; flex-direction: column; min-height: 0;
+}
+[data-theme="dark"] .logbook .lb-tabbed.is-max { background: #0f1522; }
+.logbook .lb-tabbed.is-max > .lb-tabpanel { flex: 1 1 0; min-height: 0; overflow: auto; }
+.logbook .lb-tabbed.is-max .logbook-beats, .logbook .lb-tabbed.is-max .logbook-beat { max-height: none; }
