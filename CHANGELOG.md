@@ -3,7 +3,7 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
-## [Unreleased] - routes preview (branch `routes`, not live)
+## [1.6.0] - 2026-10-21
 
 ### Added
 - Real page addresses: `/`, `/bio/`, `/logbook/` and `/logbook/<command>/`, `/decorations/` and `/decorations/<award>/`, `/gallery/` and `/gallery/<photo>/` (`/gallery/<n>/` also works), `/timeline/`, `/uniforms/`, `/travel-book/`, `/on-duty/`, `/off-duty/`, `/admin/`, `/guestbook/`, `/contact/`; Portuguese under `/pt/...`. Any other open card rides in `?item=<kind>:<id>`; a Home case item in `?item=case:<id>`.
