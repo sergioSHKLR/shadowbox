@@ -3,6 +3,12 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.7.1] - 2026-10-21
+
+### Changed
+- Short dates everywhere except the Biography: DD-Mmm-YY / Mmm-YY with PT months (Decorations, Gallery dates and captions, Timeline, Admin, Uniforms, On Duty, Operations, command plates, Travel Book place details, pop-ups). Text dates such as "5 September 1997 to 21 January 1998" read "05-Sep-97 to 21-Jan-98" (PT "05-Set-97 a 21-Jan-98"). Notes in parentheses and history prose stay as written.
+- Timeline header service span: 30-Jun-97 – 28-Feb-18.
+
 ## [1.7.0] - 2026-10-21
 
 ### Changed
