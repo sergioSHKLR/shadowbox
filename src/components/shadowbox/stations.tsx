@@ -3,7 +3,7 @@ import { Building2, ChevronLeft, ChevronRight, Expand, GraduationCap, Layers, Pa
 import {
   careerStops,
   caseCopy,
-  formatWhen,
+  formatShort,
   type Kind,
   type Stop,
   type StopLayer,
@@ -250,7 +250,7 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
     });
   };
   const here = cursor == null ? null : stops[cursor];
-  const whenLabel = here?.when ? (here.when.length === 4 ? here.when : formatWhen(here.when)) : null;
+  const whenLabel = here?.when ? formatShort(here.when) : null;
 
   const openStop = (stop: Stop) => {
     onOpen("place", stop.place.id);
@@ -340,7 +340,7 @@ export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel 
               <button type="button" onClick={() => onOpen("place", stop.place.id)}>
                 <span className={`pin-num ${stop.kind} ${stop.place.accuracy}`} aria-label={`Stop ${stop.n}`}>{stop.n}</span>
                 <strong>{stop.labels[0]}</strong>
-                <span>{stop.place.name}{stop.when ? ` · ${stop.when}` : ""}</span>
+                <span>{stop.place.name}{stop.when ? ` · ${formatShort(stop.when)}` : ""}</span>
               </button>
             </li>
           ))}
