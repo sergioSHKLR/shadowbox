@@ -1,11 +1,13 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Images, Medal, Anchor, Backpack, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, Maximize2, MessageCircle, Minimize2, Monitor, Moon, NotebookText, PenLine, Radio, Settings, ScrollText, Share2, Shirt, Sun, X } from "lucide-react";
-import { careerStops, profile, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
+import { careerStops, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
 import { BIO_PLACEHOLDER, chrome, type Chrome } from "@/lib/shadowbox/copy";
 import { loadRemoteFonts } from "@/lib/shadowbox/fonts";
 import { applyFontSize, FONT_SIZES, loadPrefs, resolveTheme, savePrefs, type FontSize, type Locale, type ThemeName } from "@/lib/shadowbox/prefs";
+import { hrefFor, metaFor, parseLocation, pathFor, SITE, type Route, type RouteView } from "@/lib/shadowbox/routes";
+import { galleryPhotos } from "@/lib/shadowbox/gallery";
 
 /** Site search is off for now (Sergio). Flip to true to bring back the top-bar search box; the code stays wired. */
 const SEARCH_ENABLED = false;
@@ -160,9 +162,9 @@ function SettingsDialog({
 
 /**
  * Share (Sergio, Oct 2026): the system share sheet where there is one (phones), otherwise copy the link and show a short toast.
- * Pages and commands have no URL of their own yet, so this shares location.href (the site root); every link gets the same preview card.
+ * Routes (Oct 21 2026): shares the real address of the current page, with the open item (?item=, a photo, a command, an award).
  */
-function ShareButton({ t }: { t: Chrome }) {
+function ShareButton({ t, href }: { t: Chrome; href: string }) {
   const [toast, setToast] = useState<string | null>(null);
   useEffect(() => {
     if (!toast) return;
@@ -170,7 +172,7 @@ function ShareButton({ t }: { t: Chrome }) {
     return () => window.clearTimeout(id);
   }, [toast]);
   const share = async () => {
-    const url = window.location.href;
+    const url = `${window.location.origin === SITE ? SITE : window.location.origin}${href}`;
     const title = document.title || "Shadowbox";
     const nav = navigator as Navigator & { share?: (data: ShareData) => Promise<void>; canShare?: (data: ShareData) => boolean };
     if (typeof nav.share === "function" && (!nav.canShare || nav.canShare({ title, url }))) {
@@ -217,14 +219,48 @@ function Mark() {
   );
 }
 
+const PHOTO_IDS = galleryPhotos.map((p) => p.id);
+const HOME_ROUTE: Route = { locale: "en", view: "home" };
+/** Reads the address bar into a route; a 1-based /gallery/<n>/ becomes that photo's id. */
+function readRoute(): ReturnType<typeof parseLocation> {
+  const parsed = parseLocation(window.location.pathname, window.location.search, PHOTO_IDS);
+  if (parsed.photoNumber) {
+    const id = PHOTO_IDS[parsed.photoNumber - 1];
+    if (id) parsed.photo = id;
+    parsed.normalize = true;
+  }
+  return parsed;
+}
+type HistState = { sb: 1; overlay?: boolean } | null;
+const histState = () => (typeof window === "undefined" ? null : (window.history.state as HistState));
+/** Head tags that follow the page at runtime (the static HTML ships the same values for crawlers). */
+function setHead(route: Route) {
+  const award = route.view === "decorations" && route.item?.kind === "award" && !route.item.medal ? route.item.id : undefined;
+  const photo = route.view === "gallery" && route.photo ? galleryPhotos.find((p) => p.id === route.photo) : undefined;
+  const meta = metaFor({ ...route, award }, photo);
+  const url = `${SITE}${pathFor({ ...route, award })}`;
+  document.title = meta.title;
+  const set = (sel: string, attr: string, value: string) => { const el = document.querySelector(sel); if (el) el.setAttribute(attr, value); };
+  set('meta[name="description"]', "content", meta.description);
+  set('meta[property="og:title"]', "content", meta.title);
+  set('meta[property="og:description"]', "content", meta.description);
+  set('meta[property="og:url"]', "content", url);
+  set('meta[property="og:locale"]', "content", route.locale === "pt" ? "pt_BR" : "en_US");
+  set('link[rel="canonical"]', "href", url);
+}
+
 export function ShadowboxApp() {
-  const [view, setView] = useState<View>("home");
+  // The address is the source of truth for the page, its language and the open item (routes, Oct 21 2026).
+  const [route, setRoute] = useState<Route>(() => (typeof window === "undefined" ? HOME_ROUTE : readRoute()));
+  const view = route.view as View;
   const [query, setQuery] = useState("");
   const [menu, setMenu] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [selection, setSelection] = useState<Selection | null>(null);
-  const [trail, setTrail] = useState<Selection[]>([]);
-  const [locale, setLocale] = useState<Locale>("en");
+  const selection: Selection | null = route.item ?? null;
+  const [trail, setTrail] = useState<Selection[]>(() => (route.item ? [route.item] : []));
+  const locale: Locale = route.locale;
+  /** The saved language preference; only the language buttons change it (a /pt/ link does not). */
+  const [savedLocale, setSavedLocale] = useState<Locale>("en");
   const [theme, setTheme] = useState<ThemeName>("system");
   const [fontSize, setFontSize] = useState<FontSize>("default");
   const [prefsReady, setPrefsReady] = useState(false);
@@ -263,13 +299,61 @@ export function ShadowboxApp() {
     return () => { window.clearTimeout(t); for (const ev of ["pointerdown", "keydown", "touchstart", "wheel"]) window.removeEventListener(ev, wake); };
   }, [warm]);
   const mounted = (id: View) => warm || view === id || seenViews.has(id);
-  const go = (next: View) => {
-    setView(asView(next));
+  const routeRef = useRef(route);
+  routeRef.current = route;
+  /** Last Logbook command, so returning to the Logbook opens where the visitor left it (as before routes). */
+  const lastCommand = useRef<string | undefined>(route.command);
+  if (route.view === "logbook" && route.command) lastCommand.current = route.command;
+  /** Writes a route to the address bar (a new history entry, or in place) and shows it. */
+  const nav = (next: Route, mode: "push" | "replace", overlay = false) => {
+    const href = hrefFor(next);
+    const here = window.location.pathname + window.location.search;
+    if (mode === "push" && href === here) mode = "replace";
+    const state: HistState = mode === "replace" ? { ...(histState() ?? { sb: 1 }), sb: 1, ...(overlay ? { overlay: true } : {}) } : { sb: 1, ...(overlay ? { overlay: true } : {}) };
+    if (mode === "push") window.history.pushState(state, "", href);
+    else window.history.replaceState(state, "", href);
+    setRoute(next);
+  };
+  /** Closes whatever overlay is open: Back when this entry was the overlay's own, otherwise the same address without it. */
+  const closeOverlay = (without: Route) => {
+    if (histState()?.overlay) window.history.back();
+    else nav(without, "replace");
+  };
+  const pageOf = (r: Route): Route => ({ locale: r.locale, view: r.view, command: r.command });
+  const go = (next: View, unit?: string) => {
+    const target = asView(next) as RouteView;
     setMenu(false);
     setSearchOpen(false);
     setQuery("");
+    const command = target === "logbook" ? unit ?? lastCommand.current : undefined;
+    const cur = routeRef.current;
+    if (cur.view === target && cur.command === command && !cur.item && !cur.caseItem && !cur.photo) return;
+    nav({ locale: cur.locale, view: target, command }, "push");
     window.scrollTo(0, 0);
   };
+  const setLocale = (next: Locale) => {
+    setSavedLocale(next);
+    if (next !== routeRef.current.locale) nav({ ...routeRef.current, locale: next }, "replace");
+  };
+  // Back / Forward: read the address again.
+  useEffect(() => {
+    const onPop = () => {
+      const next = readRoute();
+      setRoute(next);
+      setTrail((cur) => (next.item ? (cur.some((s) => s.kind === next.item!.kind && s.id === next.item!.id) ? cur : [next.item]) : []));
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+  // First load: tidy a non-canonical address (alias, /gallery/<n>/, missing slash, unknown page) in place.
+  useEffect(() => {
+    const first = readRoute();
+    if (first.normalize) window.history.replaceState({ sb: 1 }, "", hrefFor(first));
+    else if (!histState()) window.history.replaceState({ sb: 1 }, "", window.location.pathname + window.location.search + window.location.hash);
+  }, []);
+  // Head tags follow the page (title, description, canonical, og:url).
+  const headKey = `${route.locale}|${route.view}|${route.command ?? ""}|${route.photo ?? ""}|${route.view === "decorations" ? route.item?.id ?? "" : ""}`;
+  useEffect(() => { setHead(routeRef.current); }, [headKey]);
   // The home case is the framed CaseHome (.case-frame around .cx-stage); .case-stage was the old plate home, which no
   // longer renders, so the button found nothing and did nothing on any device (Sergio, Android, Oct 13).
   const caseEl = () => document.querySelector<HTMLElement>(".case-frame:has(.cx-stage)") ?? document.querySelector<HTMLElement>(".case-stage");
@@ -339,11 +423,13 @@ export function ShadowboxApp() {
   const NextIcon = nextView ? PAGE_ICON[nextView] : null;
   const open = (kind: Kind, id: string) => {
     const next = { kind, id };
-    setSelection(next);
+    const cur = routeRef.current;
     setTrail([next]);
+    if (cur.item) nav({ ...cur, item: next }, "replace");
+    else nav({ ...pageOf(cur), photo: cur.photo, item: next }, "push", true);
   };
   const follow = (next: Selection) => {
-    setSelection(next);
+    nav({ ...routeRef.current, item: next }, "replace");
     setTrail((current) => {
       const at = current.findIndex((item) => item.kind === next.kind && item.id === next.id);
       return at >= 0 ? current.slice(0, at + 1) : [...current, next];
@@ -359,14 +445,14 @@ export function ShadowboxApp() {
 
   useEffect(() => {
     const saved = loadPrefs();
-    setLocale(saved.locale);
+    setSavedLocale(saved.locale);
+    // The plain domain follows a saved Portuguese choice; any other address is already in its own language.
+    const first = readRoute();
+    if (first.bare && !first.item && !first.caseItem && saved.locale === "pt" && routeRef.current.locale === "en") nav({ ...routeRef.current, locale: "pt" }, "replace");
     setTheme(saved.theme);
     setFontSize(saved.fontSize);
     setPrefsReady(true);
     loadRemoteFonts();
-  }, []);
-  useEffect(() => {
-    document.title = profile.pageTitle;
   }, []);
   useEffect(() => {
     if (!prefsReady) return;
@@ -385,11 +471,11 @@ export function ShadowboxApp() {
       if (tint) tint.content = resolved === "dark" ? "#14181f" : "#f6f1e7";
     };
     apply();
-    savePrefs({ locale, theme: THEME_HONORED ? theme : "system", fontSize });
+    savePrefs({ locale: savedLocale, theme: THEME_HONORED ? theme : "system", fontSize });
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     media.addEventListener("change", apply);
     return () => media.removeEventListener("change", apply);
-  }, [prefsReady, locale, theme, fontSize]);
+  }, [prefsReady, locale, savedLocale, theme, fontSize]);
   // The open menu fits under the header: its top (header height, safe area included) feeds the CSS max-height cap.
   useLayoutEffect(() => {
     const el = menuRef.current;
@@ -513,7 +599,7 @@ export function ShadowboxApp() {
             </button>
           </nav>
         ) : null}
-        <ShareButton t={t} />
+        <ShareButton t={t} href={hrefFor(route)} />
         <button ref={menuButtonRef} type="button" className="app-icon" aria-label={t.menu} aria-expanded={menu} onClick={() => { setMenu((open) => !open); setSearchOpen(false); }}>
           &#9776;
         </button>
@@ -535,33 +621,44 @@ export function ShadowboxApp() {
         ) : null}
       </header>
       <div className="app-main">
-        <div className={pane("home")}><Home onOpen={open} onGo={(next) => go(next as View)} locale={locale} bio={BIO_PLACEHOLDER ? t.bioPlaceholder : t.bio} /></div>
-        <div className={pane("bio")}>{mounted("bio") ? (<><BioPage locale={locale} bio={BIO_PLACEHOLDER ? t.bioPlaceholder : t.bio} /></>) : null}</div>
-        <div className={pane("uniforms")}>{mounted("uniforms") ? (<><Uniforms onOpen={open} /></>) : null}</div>
-        <div className={pane("onduty")}>{mounted("onduty") ? (<><OnDuty onOpen={open} title={t.onduty} /></>) : null}</div>
-        <div className={pane("offduty")}>{mounted("offduty") ? (<><OffDuty onOpen={open} title={t.offduty} /></>) : null}</div>
-        <div className={pane("ops")}>{mounted("ops") ? (<><Ops onOpen={open} title={t.ops} /></>) : null}</div>
-        <div className={pane("map")}>{mounted("map") ? (<><Boundary label="map" resetKey={view}><Stations stops={stops} onOpen={open} aboutLabel={t.mapAbout} title={t.map} locale={locale} t={t} /></Boundary></>) : null}</div>
-        <div className={pane("timeline")}>{mounted("timeline") ? (<>
+        <div className={pane("home")} data-view="home"><Home onOpen={open} onGo={(next, unit) => go(next as View, unit)} locale={locale} active={view === "home"}
+          caseItem={view === "home" ? route.caseItem : undefined}
+          onCaseItem={(id) => {
+            const cur = routeRef.current;
+            if (id === null) closeOverlay({ locale: cur.locale, view: "home" });
+            else nav({ locale: cur.locale, view: "home", caseItem: id }, cur.caseItem ? "replace" : "push", true);
+          }} bio={BIO_PLACEHOLDER ? t.bioPlaceholder : t.bio} /></div>
+        <div className={pane("bio")} data-view="bio">{mounted("bio") ? (<><BioPage locale={locale} bio={BIO_PLACEHOLDER ? t.bioPlaceholder : t.bio} /></>) : null}</div>
+        <div className={pane("uniforms")} data-view="uniforms">{mounted("uniforms") ? (<><Uniforms onOpen={open} /></>) : null}</div>
+        <div className={pane("onduty")} data-view="onduty">{mounted("onduty") ? (<><OnDuty onOpen={open} title={t.onduty} /></>) : null}</div>
+        <div className={pane("offduty")} data-view="offduty">{mounted("offduty") ? (<><OffDuty onOpen={open} title={t.offduty} /></>) : null}</div>
+        <div className={pane("ops")} data-view="ops">{mounted("ops") ? (<><Ops onOpen={open} title={t.ops} /></>) : null}</div>
+        <div className={pane("map")} data-view="map">{mounted("map") ? (<><Boundary label="map" resetKey={view}><Stations stops={stops} onOpen={open} aboutLabel={t.mapAbout} title={t.map} locale={locale} t={t} /></Boundary></>) : null}</div>
+        <div className={pane("timeline")} data-view="timeline">{mounted("timeline") ? (<>
           <Timeline bars={bars} onOpen={open} title={t.pathTitle} lead={t.pathLead} locale={locale} />
         </>) : null}</div>
-        <div className={pane("logbook")}>{mounted("logbook") ? (<>
+        <div className={pane("logbook")} data-view="logbook">{mounted("logbook") ? (<>
           <Boundary label="logbook" resetKey={view}>
-            <Logbook onOpen={open} title={t.logbook} lead={t.logbookLead} platesLabel={t.decorations} wardrobeLabel={t.uniforms} t={t} />
+            <Logbook commandId={view === "logbook" ? route.command ?? null : undefined} onCommand={(id) => { const cur = routeRef.current; if (cur.view === "logbook" && cur.command !== id) nav({ locale: cur.locale, view: "logbook", command: id }, "push"); }} onOpen={open} title={t.logbook} lead={t.logbookLead} platesLabel={t.decorations} wardrobeLabel={t.uniforms} t={t} />
           </Boundary>
         </>) : null}</div>
-        <div className={pane("decorations")}>{mounted("decorations") ? (<><Decorations onOpen={open} title={t.decorations} t={t} /></>) : null}</div>
-        <div className={pane("admin")}>{mounted("admin") ? (<>
+        <div className={pane("decorations")} data-view="decorations">{mounted("decorations") ? (<><Decorations onOpen={open} title={t.decorations} t={t} /></>) : null}</div>
+        <div className={pane("admin")} data-view="admin">{mounted("admin") ? (<>
           <Schools onOpen={open} title={t.schools} lead={t.schoolsLead} necTitle={t.necs} necLead={t.necsLead} dateNeeded={t.dateNeeded} />
         </>) : null}</div>
-        <div className={pane("commands")}>{mounted("commands") ? (<>
+        <div className={pane("commands")} data-view="commands">{mounted("commands") ? (<>
           <Commands onOpen={open} title={t.commands} lead={t.commandsLead} />
         </>) : null}</div>
-        <div className={`${pane("sources")} no-book`}>{mounted("sources") ? (<><Sources /></>) : null}</div>
-        <div className={`${pane("guestbook")} no-book`}>{mounted("guestbook") ? (<><Guestbook locale={locale} onContact={() => go("contact")} /></>) : null}</div>
-        <div className={`${pane("contact")} no-book`}>{mounted("contact") ? (<><Contact locale={locale} /></>) : null}</div>
-        <div className={pane("gallery")}>{mounted("gallery") ? (<><Gallery locale={locale} /></>) : null}</div>
-        <div className={`${pane("memories")} no-book`}>{mounted("memories") ? (<><Memories /></>) : null}</div>
+        <div className={`${pane("sources")} no-book`} data-view="sources">{mounted("sources") ? (<><Sources /></>) : null}</div>
+        <div className={`${pane("guestbook")} no-book`} data-view="guestbook">{mounted("guestbook") ? (<><Guestbook locale={locale} onContact={() => go("contact")} /></>) : null}</div>
+        <div className={`${pane("contact")} no-book`} data-view="contact">{mounted("contact") ? (<><Contact locale={locale} /></>) : null}</div>
+        <div className={pane("gallery")} data-view="gallery">{mounted("gallery") ? (<><Gallery locale={locale} photoId={view === "gallery" ? route.photo ?? null : undefined}
+          onPhoto={(id) => {
+            const cur = routeRef.current;
+            if (id === null) closeOverlay({ locale: cur.locale, view: "gallery" });
+            else nav({ locale: cur.locale, view: "gallery", photo: id }, cur.photo ? "replace" : "push", true);
+          }} /></>) : null}</div>
+        <div className={`${pane("memories")} no-book`} data-view="memories">{mounted("memories") ? (<><Memories /></>) : null}</div>
         {showPager && FOOTER_PAGER_ENABLED ? (
           <nav className="page-pager" aria-label={t.pageNav}>
             {prevView && PrevIcon ? (
@@ -631,7 +728,7 @@ export function ShadowboxApp() {
         ) : null}
       </footer>
       <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} locale={locale} theme={theme} setLocale={setLocale} setTheme={setTheme} showTheme={THEME_HONORED} fontSize={fontSize} setFontSize={setFontSize} t={t} />
-      <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setSelection(null); setTrail([]); }} />
+      <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setTrail([]); const cur = routeRef.current; closeOverlay({ ...pageOf(cur), photo: cur.photo }); }} />
     </div>
   );
 }

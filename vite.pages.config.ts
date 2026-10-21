@@ -95,12 +95,25 @@ export default defineConfig({
         globIgnores: ["__grok/**", "404.html"],
         // The HTML is built at pages/index.html and moved to the root by build:pages.
         modifyURLPrefix: { "pages/": "" },
-        navigateFallback: "/index.html",
+        // Routes (Oct 21 2026): every page has its own HTML (its title, description and canonical), so page loads go to the
+        // network first and fall back to the precached shell offline; the app reads the address and shows the right page.
+        // No navigateFallback: it would answer every address with the Home HTML.
         cleanupOutdatedCaches: true,
         clientsClaim: true,
         skipWaiting: true,
         inlineWorkboxRuntime: true,
         runtimeCaching: [
+          {
+            urlPattern: ({ request, sameOrigin, url }) => sameOrigin && request.mode === "navigate" && !url.pathname.startsWith("/__grok/") && !/\.(xml|txt|pdf|json|webmanifest|png|jpe?g|svg|webp)$/i.test(url.pathname),
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "shadowbox-pages",
+              networkTimeoutSeconds: 4,
+              expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              cacheableResponse: { statuses: [200] },
+              precacheFallback: { fallbackURL: "/index.html" },
+            },
+          },
           {
             urlPattern: ({ request, sameOrigin }) => sameOrigin && request.destination === "image",
             handler: "CacheFirst",
