@@ -3,6 +3,15 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.7.0] - 2026-10-21
+
+### Changed
+- Travel Book and Logbook dates are short: DD-Mmm-YY for a full day (30-Jun-97, 05-Sep-97) and Mmm-YY for a month (Oct-08); a year alone stays as entered, ranges convert each side. PT months: Jan Fev Mar Abr Mai Jun Jul Ago Set Out Nov Dez.
+- Logbook: command header spans, rank-step dates, school spans, NEC dates and the khakis note use the short form.
+
+### Fixed
+- PT site: text dates in the On Duty visits, Travel Book place details and Logbook command extras show Portuguese month names.
+
 ## [1.6.0] - 2026-10-21
 
 ### Added
