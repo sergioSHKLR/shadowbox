@@ -633,17 +633,23 @@ const exitFull = () => {
   if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
 };
 
-export function CaseHome({ onOpen, onGo, label, copy, locale = "en" }: { copy: Chrome["intro"]; locale?: Locale; onOpen?: (k: Kind, id: string) => void; onGo?: (view: string) => void; label: (view: string) => string }) {
+export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = true, caseItem, onCaseItem }: { copy: Chrome["intro"]; locale?: Locale; onOpen?: (k: Kind, id: string) => void; onGo?: (view: string, unit?: string) => void; label: (view: string) => string; active?: boolean; caseItem?: string; onCaseItem?: (id: string | null) => void }) {
   const stage = useRef<HTMLDivElement | null>(null);
   const [intro, setIntro] = useState(false);
   const [hint, setHint] = useState(false);
-  const [view, setView] = useState<string | null>(null);
+  // The open item modal lives in the address (?item=case:<id>, routes Oct 21 2026) when the app passes onCaseItem.
+  const [ownView, setOwnView] = useState<string | null>(null);
+  const controlled = onCaseItem !== undefined;
+  const view = controlled ? (caseItem && ORDER.includes(caseItem) ? caseItem : null) : ownView;
+  const setView = useCallback((id: string | null) => (controlled ? onCaseItem!(id) : setOwnView(id)), [controlled, onCaseItem]);
   const [mode, setMode] = useState<Mode>("wide");
+  // First-visit intro: only once Home is actually on screen (a deep link to another page does not get it on top).
   useEffect(() => {
+    if (!active) return;
     let seen = true;
     try { seen = localStorage.getItem(INTRO_KEY) === "1"; } catch { /* storage blocked: treat as seen */ }
     if (!seen) { setIntro(true); setHint(true); }
-  }, []);
+  }, [active]);
   useEffect(() => {
     if (intro || !hint) return;
     const t = window.setTimeout(() => setHint(false), 2000);
@@ -731,7 +737,7 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en" }: { copy: C
     </div>
     {intro ? createPortal(<CaseIntro copy={copy} onClose={closeIntro} />, layerRoot()) : null}
     {view ? <ItemModal id={view} setId={setView} copy={copy} locale={locale} label={label}
-      go={(id) => { const t = targetOf(id); setView(null); exitFull(); if (t.unit) { onGo?.("logbook"); window.dispatchEvent(new CustomEvent("sb-logbook-command", { detail: t.unit })); } else onGo?.(t.view); }} /> : null}
+      go={(id) => { const t = targetOf(id); exitFull(); if (!controlled) setView(null); if (t.unit) { onGo?.("logbook", t.unit); window.dispatchEvent(new CustomEvent("sb-logbook-command", { detail: t.unit })); } else onGo?.(t.view); }} /> : null}
     </>
   );
 }

@@ -60,13 +60,27 @@ function formatDate(date: string | undefined, lang: Lang) {
   return new Intl.DateTimeFormat(lang === "pt" ? "pt-BR" : "en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(Date.UTC(y, m - 1, d));
 }
 
-export function Gallery({ locale = "en" }: { locale?: string }) {
+/** Routes (Oct 21 2026): with onPhoto the open photo lives in the address (/gallery/<photo>/); photoId null = none open. */
+export function Gallery({ locale = "en", photoId, onPhoto }: { locale?: string; photoId?: string | null; onPhoto?: (id: string | null) => void }) {
   const lang: Lang = locale === "pt" ? "pt" : "en";
   const c = COPY[lang];
   const tags = useMemo(() => galleryTags(), []);
   const [picks, setPicks] = useState<Picks>(EMPTY);
-  const [at, setAt] = useState<number | null>(null);
+  const [ownAt, setOwnAt] = useState<number | null>(null);
   const shown = useMemo(() => galleryPhotos.filter((p) => matches(p, picks)), [picks]);
+  const controlled = onPhoto !== undefined;
+  // A linked photo the current filters hide: clear the filters so the lightbox can step through everything.
+  useEffect(() => {
+    if (controlled && photoId && !shown.some((p) => p.id === photoId) && galleryPhotos.some((p) => p.id === photoId)) setPicks(EMPTY);
+  }, [controlled, photoId, shown]);
+  const routedAt = photoId ? shown.findIndex((p) => p.id === photoId) : -1;
+  const at = controlled ? (routedAt >= 0 ? routedAt : null) : ownAt;
+  const setAt = (i: number | null) => {
+    if (!controlled) return setOwnAt(i);
+    if (i === null) { if (photoId) onPhoto!(null); return; }
+    const id = shown[i]?.id;
+    if (id && id !== photoId) onPhoto!(id);
+  };
   const any = TAG_GROUPS.some((g) => picks[g].length);
   const toggle = (g: TagGroup, id: string) => {
     setPicks((prev) => ({ ...prev, [g]: prev[g].includes(id) ? prev[g].filter((x) => x !== id) : [...prev[g], id] }));

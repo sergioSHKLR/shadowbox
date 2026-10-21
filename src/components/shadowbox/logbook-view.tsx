@@ -833,12 +833,18 @@ type AsideTab = "uniforms" | "wardrobe" | "onduty" | "offduty";
 type PhoneTab = AsideTab | "crests" | "map";
 
 export function Logbook({
+  commandId,
+  onCommand,
   onOpen,
   title,
   platesLabel = "Decorations",
   wardrobeLabel = "Uniforms",
   t,
 }: {
+  /** Routes (Oct 21 2026): the command in the address (/logbook/<command>/); null = the first one; undefined = not on screen. */
+  commandId?: string | null;
+  /** Called with the unit id when the visitor steps to another command, so the address follows. */
+  onCommand?: (unitId: string) => void;
   onOpen: (k: Kind, id: string) => void;
   title: string;
   /** Intro copy; not shown on the Logbook for now (Sergio). */
@@ -853,7 +859,18 @@ export function Logbook({
   const beats = useMemo(() => logbookBeats(), []);
   const photoIndex = useMemo(() => logbookPhotoIndex(beats), [beats]);
   const narrow = useNarrow();
-  const [active, setActive] = useState(0);
+  const indexOf = (id: string | null | undefined) => (id ? Math.max(0, beats.findIndex((b) => b.stop.commandId === id)) : 0);
+  const [active, setActive] = useState(() => indexOf(commandId));
+  // The address drives the active command (deep links, Back / Forward).
+  useEffect(() => {
+    if (commandId === undefined) return;
+    const at = indexOf(commandId);
+    activeRef.current = at;
+    setActive(at);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [commandId, beats]);
+  const onCommandRef = useRef(onCommand);
+  onCommandRef.current = onCommand;
   // Home modal crest button (Sergio, Oct 14 2026): opens the Logbook with that command selected.
   useEffect(() => {
     const pick = (e: Event) => {
@@ -935,8 +952,10 @@ export function Logbook({
       if (next === activeRef.current) return;
       activeRef.current = next;
       setActive(next);
+      const id = beats[next]?.stop.commandId;
+      if (id) onCommandRef.current?.(id);
     },
-    [beats.length],
+    [beats],
   );
   const stepperRef = useRef<HTMLElement>(null);
   const step = useCallback(

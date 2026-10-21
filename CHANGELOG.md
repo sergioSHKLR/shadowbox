@@ -3,6 +3,18 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [Unreleased] - routes preview (branch `routes`, not live)
+
+### Added
+- Real page addresses: `/`, `/bio/`, `/logbook/` and `/logbook/<command>/`, `/decorations/` and `/decorations/<award>/`, `/gallery/` and `/gallery/<photo>/` (`/gallery/<n>/` also works), `/timeline/`, `/uniforms/`, `/travel-book/`, `/on-duty/`, `/off-duty/`, `/admin/`, `/guestbook/`, `/contact/`; Portuguese under `/pt/...`. Any other open card rides in `?item=<kind>:<id>`; a Home case item in `?item=case:<id>`.
+- Back / Forward step through pages, commands and opened items; a reload or a shared link restores the page, language and open item.
+- One static HTML file per page and language (own title, description, canonical, og:* and hreflang), a 404.html that boots the app, and a sitemap with every page and its en / pt-BR / x-default alternates.
+- Share sends the current page's address, including the open item.
+
+### Changed
+- Service worker: page loads go to the network first (each page's own HTML) and fall back to the cached app offline.
+- The first-visit intro shows when Home is on screen, not over a deep link to another page.
+
 ## [1.5.0] - 2026-10-20
 
 ### Changed
