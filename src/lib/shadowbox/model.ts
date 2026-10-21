@@ -781,16 +781,9 @@ export function formatShort(text: string | null | undefined, lang?: "en" | "pt")
   });
 }
 
-export function formatWhen(value: string): string {
-  const [y, m, d] = value.split("-");
-  if (!m) return y;
-  if (docIsPt()) {
-    const mes = MONTHS_PT[Number(m) - 1] ?? m;
-    return d ? `${Number(d)} de ${mes} de ${y}` : `${mes} de ${y}`;
-  }
-  const month = MONTHS[Number(m) - 1] ?? m;
-  if (!d) return `${month} ${y}`;
-  return `${Number(d)} ${month} ${y}`;
+/** Every structured date on the site (Sergio, Oct 21 2026: "Switch dates everywhere but Bio"): 05-Sep-97, Sep-99, 2009. */
+export function formatWhen(value: string, lang?: "en" | "pt"): string {
+  return formatShort(value, lang);
 }
 
 /** Text dates stored in the data ("5 September 1997 to 21 January 1998", "April–May 1999", "Oct 2008–2009",
@@ -803,19 +796,26 @@ const MONTH_IX: Record<string, number> = Object.fromEntries([
 ]);
 export function localizeWhen(text: string | null | undefined, lang?: "en" | "pt"): string {
   if (!text) return text ?? "";
-  if (!(lang ? lang === "pt" : docIsPt())) return text;
+  const isPt = lang ? lang === "pt" : docIsPt();
+  const mons = isPt ? MON_PT : MON_EN;
   const mon = "(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec)\\.?";
-  const pt = (m: string) => MONTHS_PT[MONTH_IX[m.toLowerCase()]];
-  let out = text;
-  // 5 September 1997 -> 5 de setembro de 1997
-  out = out.replace(new RegExp(`\\b(\\d{1,2}) ${mon} (\\d{4})\\b`, "g"), (_, d, m, y) => `${Number(d)} de ${pt(m)} de ${y}`);
-  // April–May 1999 -> abril–maio de 1999
-  out = out.replace(new RegExp(`\\b${mon}[–-]${mon} (\\d{4})\\b`, "g"), (_, a, b, y) => `${pt(a)}–${pt(b)} de ${y}`);
-  // April 2004 / Oct 2008 -> abril de 2004 / outubro de 2008
-  out = out.replace(new RegExp(`\\b${mon} (\\d{4})\\b`, "g"), (_, m, y) => `${pt(m)} de ${y}`);
-  // Connectors between dates only (digit or month on both sides).
-  out = out.replace(/(\d) to (\d)/g, "$1 a $2").replace(/(\d) and (\d)/g, "$1 e $2");
-  return out;
+  const mm = (m: string) => { const u = mons[MONTH_IX[m.toLowerCase().replace(".", "")]]; return `${u[0]}${u.slice(1).toLowerCase()}`; };
+  const yy = (y: string) => y.slice(2);
+  const conv = (chunk: string) => {
+    let out = chunk;
+    // 5 September 1997 -> 05-Sep-97
+    out = out.replace(new RegExp(`\\b(\\d{1,2}) ${mon},? (\\d{4})\\b`, "g"), (_, d, m, y) => `${String(d).padStart(2, "0")}-${mm(m)}-${yy(y)}`);
+    // April–May 1999 -> Apr-99–May-99
+    out = out.replace(new RegExp(`\\b${mon}[–-]${mon} (\\d{4})\\b`, "g"), (_, a, b, y) => `${mm(a)}-${yy(y)}–${mm(b)}-${yy(y)}`);
+    // April 2004 / Oct 2008 -> Apr-04 / Oct-08
+    out = out.replace(new RegExp(`\\b${mon} (\\d{4})\\b`, "g"), (_, m, y) => `${mm(m)}-${yy(y)}`);
+    // ISO dates typed in text
+    out = formatShort(out, isPt ? "pt" : "en");
+    if (isPt) out = out.replace(/(\w) to (\d)/g, "$1 a $2").replace(/(\d) and (\d)/g, "$1 e $2");
+    return out;
+  };
+  // Free-form notes in parentheses stay as entered.
+  return text.split(/(\([^)]*\))/).map((part) => (part.startsWith("(") ? part : conv(part))).join("");
 }
 
 export function formatSpan(start: string | null, end: string | null): string {
@@ -1844,7 +1844,7 @@ export function toSubject(sel: Selection): SubjectView | null {
       kind: "photo",
       id: photo.id,
       kicker: "Photograph",
-      title: photo.caption,
+      title: localizeWhen(photo.caption),
       explanation: photo.alt,
       facts: [],
       placeIds: [],

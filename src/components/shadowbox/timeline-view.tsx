@@ -1,4 +1,4 @@
-import { profile, timeline, type Kind } from "@/lib/shadowbox/model";
+import { localizeWhen, profile, timeline, type Kind } from "@/lib/shadowbox/model";
 import { chrome } from "@/lib/shadowbox/copy";
 import type { Locale } from "@/lib/shadowbox/prefs";
 import { CaseHome } from "@/components/shadowbox/case-home";
@@ -179,10 +179,10 @@ export function Timeline({
                 const { title, detail } = labelOf(item);
                 const body = (<><i /><em>{title}</em></>);
                 if (item.href) {
-                  return <a key={item.key} className={`page-stop${place}`} href={item.href} target="_blank" rel="noreferrer" title={detail}>{body}</a>;
+                  return <a key={item.key} className={`page-stop${place}`} href={item.href} target="_blank" rel="noreferrer" title={localizeWhen(detail)}>{body}</a>;
                 }
                 return (
-                  <button key={item.key} type="button" className={`page-stop${place}`} title={detail} onClick={() => onOpen(item.kind, item.id)}>
+                  <button key={item.key} type="button" className={`page-stop${place}`} title={localizeWhen(detail)} onClick={() => onOpen(item.kind, item.id)}>
                     {body}
                   </button>
                 );
