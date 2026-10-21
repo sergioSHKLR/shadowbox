@@ -18,6 +18,7 @@ import {
   schoolCommandId,
   schools,
   formatSpan,
+  localizeWhen,
   medalFor,
   ribbonPhotoFor,
   ribbonBarPhotoFor,
@@ -689,7 +690,7 @@ function UniformGallery({ ids }: { ids: Set<string> }) {
         <ul className="uniform-gallery-grid">
           {shots.map((photo, i) => (
             <li key={photo.id}>
-              <button type="button" onClick={() => setAt(i)} aria-label={(pt ? "Abrir foto: " : "Open photo: ") + photo.caption} title={photo.caption}>
+              <button type="button" onClick={() => setAt(i)} aria-label={(pt ? "Abrir foto: " : "Open photo: ") + localizeWhen(photo.caption)} title={localizeWhen(photo.caption)}>
                 <img loading="lazy" src={photo.src} alt={photo.alt} />
               </button>
             </li>
@@ -714,7 +715,7 @@ function Photographs({ photos, onSelect, prominent = false }: { photos: Photo[];
               <button type="button" className="gallery-open" onClick={() => onSelect({ kind: "photo", id: photo.id })}>
                 <img loading="lazy" src={publicUrl(photo.src)} alt={photo.alt} />
               </button>
-              <p>{photo.caption}</p>
+              <p>{localizeWhen(photo.caption)}</p>
               <PhotoRemarks src={photo.src} />
             </li>
           ))}

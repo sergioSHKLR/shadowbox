@@ -1,3 +1,4 @@
+import { formatShort, localizeWhen } from "@/lib/shadowbox/model";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -54,10 +55,7 @@ const matches = (p: GalleryPhoto, picks: Picks, skip?: TagGroup) =>
   TAG_GROUPS.every((g) => g === skip || !picks[g].length || p.tags.some((t) => t.group === g && picks[g].includes(t.id)));
 
 function formatDate(date: string | undefined, lang: Lang) {
-  if (!date) return "";
-  if (/^\d{4}$/.test(date)) return date;
-  const [y, m, d] = date.split("-").map(Number);
-  return new Intl.DateTimeFormat(lang === "pt" ? "pt-BR" : "en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(Date.UTC(y, m - 1, d));
+  return date ? formatShort(date, lang) : "";
 }
 
 /** Routes (Oct 21 2026): with onPhoto the open photo lives in the address (/gallery/<photo>/); photoId null = none open. */
@@ -120,7 +118,7 @@ export function Gallery({ locale = "en", photoId, onPhoto }: { locale?: string; 
         <ul className="gallery-grid">
           {shown.map((p, i) => (
             <li key={p.id}>
-              <button type="button" className="gallery-tile" aria-label={c.open(p.caption)} onClick={() => setAt(i)}>
+              <button type="button" className="gallery-tile" aria-label={c.open(localizeWhen(p.caption, lang))} onClick={() => setAt(i)}>
                 <img src={p.src} alt={p.alt} loading="lazy" decoding="async" />
               </button>
             </li>
@@ -188,9 +186,9 @@ export function Lightbox({ photos, at, setAt, lang }: { photos: GalleryPhoto[]; 
               <img key={p.id} src={p.src} alt={p.alt} />
             </figure>
             <div className="gallery-lb-text">
-              <Dialog.Title className="gallery-lb-title">{p.caption}</Dialog.Title>
+              <Dialog.Title className="gallery-lb-title">{localizeWhen(p.caption, lang)}</Dialog.Title>
               <div id="gallery-lb-meta">
-                {p.sub && p.sub !== p.caption ? <p className="gallery-lb-sub">{p.sub}</p> : null}
+                {p.sub && p.sub !== p.caption ? <p className="gallery-lb-sub">{localizeWhen(p.sub, lang)}</p> : null}
                 {date ? <p className="gallery-lb-date"><time dateTime={p.date}>{date}</time></p> : null}
                 {p.tags.length ? (
                   <ul className="gallery-lb-tags" aria-label={c.tags}>
