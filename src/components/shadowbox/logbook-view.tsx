@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import { useCallback, useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import {
   careerStops,
@@ -727,6 +727,8 @@ function Tabbed<T extends string>({
   className,
   panelClassName,
   panelFocusable = true,
+  maxLabel,
+  closeLabel,
   children,
 }: {
   idBase: string;
@@ -737,8 +739,29 @@ function Tabbed<T extends string>({
   className?: string;
   panelClassName?: string;
   panelFocusable?: boolean;
+  /** Maximize (Sergio, Oct 21 2026): every tab panel opens full screen with its own scroll and a close button. */
+  maxLabel?: string;
+  closeLabel?: string;
   children: React.ReactNode;
 }) {
+  const [max, setMax] = useState(false);
+  const maxBtn = useRef<HTMLButtonElement>(null);
+  const closeBtn = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    // Leaflet and the fade observers size themselves on resize; nudge them when the panel changes size.
+    window.dispatchEvent(new Event("resize"));
+    if (!max) return;
+    closeBtn.current?.focus();
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (event: globalThis.KeyboardEvent) => { if (event.key === "Escape") { event.stopPropagation(); setMax(false); } };
+    window.addEventListener("keydown", onKey, true);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey, true);
+      maxBtn.current?.focus();
+    };
+  }, [max]);
   const onKey = (event: KeyboardEvent<HTMLDivElement>) => {
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
     event.preventDefault();
@@ -781,7 +804,8 @@ function Tabbed<T extends string>({
     else if (right + pad > el.scrollLeft + el.clientWidth) el.scrollTo({ left: right + pad - el.clientWidth });
   }, [value]);
   return (
-    <div className={`lb-tabbed${className ? ` ${className}` : ""}`}>
+    <div className={`lb-tabbed${className ? ` ${className}` : ""}${max ? " is-max" : ""}`} role={max ? "dialog" : undefined} aria-modal={max ? true : undefined} aria-label={max ? label : undefined}>
+      <div className="lb-tabhead">
       <div className="lb-tablist" role="tablist" aria-label={label} onKeyDown={onKey} ref={listRef}>
         {tabs.map((tab) => (
           <button
@@ -799,6 +823,18 @@ function Tabbed<T extends string>({
             {tab.badge ? <span className="lb-tab-count">{tab.badge}</span> : null}
           </button>
         ))}
+      </div>
+      {maxLabel ? (
+        max ? (
+          <button ref={closeBtn} type="button" className="close-btn lb-max-btn" aria-label={closeLabel ?? "Close"} title={closeLabel} onClick={() => setMax(false)}>
+            <X aria-hidden="true" />
+          </button>
+        ) : (
+          <button ref={maxBtn} type="button" className="close-btn lb-max-btn" aria-label={`${maxLabel}: ${tabs.find((tab) => tab.id === value)?.label ?? ""}`} title={maxLabel} onClick={() => setMax(true)}>
+            <Maximize2 aria-hidden="true" />
+          </button>
+        )
+      ) : null}
       </div>
       <div className={`lb-tabpanel${panelClassName ? ` ${panelClassName}` : ""}`} role="tabpanel" id={`${idBase}-panel`} aria-labelledby={`${idBase}-tab-${value}`} tabIndex={panelFocusable ? 0 : undefined}>
         {children}
@@ -882,7 +918,6 @@ export function Logbook({
     return () => window.removeEventListener("sb-logbook-command", pick);
   }, [beats]);
   const [mainTab, setMainTab] = useState<MainTab>("rank");
-  const [asideTab, setAsideTab] = useState<AsideTab>("uniforms");
   const [phoneTab, setPhoneTab] = useState<PhoneTab>("crests");
   /** Uniform chosen in the Uniforms tab; kept as the beat changes. */
   const [look, setLookState] = useState<Look>("blue");
@@ -900,7 +935,7 @@ export function Logbook({
 
 
   // Hold the map's beat while its phone tab is hidden; Leaflet must not animate a 0×0 map.
-  const mapVisible = !narrow || phoneTab === "map";
+  const mapVisible = phoneTab === "map";
   const mapBeatRef = useRef<LogbookBeat | undefined>(undefined);
   if (mapVisible || !mapBeatRef.current) mapBeatRef.current = beat;
   const mapBeat = mapBeatRef.current ?? beat;
@@ -1017,6 +1052,7 @@ export function Logbook({
     </div>
   );
 
+  const lowerLabel = `${t.crests}, ${platesLabel}, ${wardrobeLabel}, ${t.onduty}, ${t.offduty}, ${t.mapShort}`;
   const unit = beat.stop.commandId ? unitById(beat.stop.commandId) : undefined;
   const profile = commandProfileFor(beat.stop.commandId);
   const atStart = beat.index <= 0;
@@ -1035,6 +1071,8 @@ export function Logbook({
         onChange={setMainTab}
         className="logbook-main-tabs"
         panelFocusable={false}
+        maxLabel={lb.maximize}
+        closeLabel={lb.closeMax}
       >
         <div className="logbook-beats">
           <article
@@ -1109,49 +1147,31 @@ export function Logbook({
     </section>
   );
 
+  // One split at every size (Sergio, Oct 21 2026): the command card and the lower tab set side by side on landscape / wide,
+  // stacked ~50/50 on portrait. Same six lower tabs everywhere (Crests and Map are tabs on wide screens too).
   return (
     <LbCtx.Provider value={lb}>
-    <main className={`sheet logbook${narrow ? " is-narrow" : ""}`} ref={rootRef}>
-      {/* Sergio: no visible page title or intro on the Logbook; the heading stays for screen readers. The lead copy stays in copy.ts. */}
+    <main className={`sheet logbook logbook-split-page${narrow ? " is-narrow" : ""}`} ref={rootRef}>
       <h1 className="sr-only">{title}</h1>
-
-      {narrow ? (
-        <div className="logbook-phone">
-          {main}
+      <div className="logbook-split">
+        {main}
+        <section className="logbook-lower" aria-label={lowerLabel}>
           <Tabbed
             idBase="logbook-phone"
-            label={`${t.crests}, ${platesLabel}, ${wardrobeLabel}, ${t.onduty}, ${t.offduty}, ${t.mapShort}`}
+            label={lowerLabel}
             tabs={[{ id: "crests", label: t.crests }, ...asideTabs, { id: "map", label: t.mapShort }]}
             value={phoneTab}
             onChange={setPhoneTab}
             className="logbook-phone-tabs"
+            maxLabel={lb.maximize}
+            closeLabel={lb.closeMax}
           >
             {phoneTab === "uniforms" || phoneTab === "wardrobe" || phoneTab === "onduty" || phoneTab === "offduty" ? asideContent(phoneTab) : null}
             {phoneTab === "crests" ? <CrestStrip beat={beats[active]} onOpen={onOpen} t={t} /> : null}
             {mapRegion(phoneTab !== "map")}
           </Tabbed>
-        </div>
-      ) : (
-        <div className="logbook-grid">
-          {main}
-          <aside className="logbook-aside" aria-label={`${platesLabel}, ${wardrobeLabel}, ${t.onduty}, ${t.offduty}`}>
-            <Tabbed idBase="logbook-aside" label={`${platesLabel}, ${wardrobeLabel}, ${t.onduty}, ${t.offduty}`} tabs={asideTabs} value={asideTab} onChange={setAsideTab} className="logbook-aside-tabs">
-              {asideContent(asideTab)}
-            </Tabbed>
-          </aside>
-          <footer className="logbook-foot">
-            <section className="logbook-foot-half logbook-foot-crests" aria-label={t.unitCrests}>
-              <Kicker>{t.unitCrests}</Kicker>
-              <div className="logbook-foot-scroll">
-                <CrestStrip beat={beats[active]} onOpen={onOpen} t={t} />
-              </div>
-            </section>
-            <section className="logbook-foot-half logbook-foot-map" aria-label={t.mapShort}>
-              {mapRegion(false)}
-            </section>
-          </footer>
-        </div>
-      )}
+        </section>
+      </div>
     </main>
     </LbCtx.Provider>
   );
