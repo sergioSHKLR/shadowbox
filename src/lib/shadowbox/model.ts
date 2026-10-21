@@ -827,6 +827,17 @@ export function formatSpan(start: string | null, end: string | null): string {
   return `${a} – ${b}`;
 }
 
+/** Logbook short span (Sergio, Oct 2026): each side in formatShort (05-SEP-97, OCT-08, 2009); same rules as formatSpan. */
+export function formatShortSpan(start: string | null, end: string | null): string {
+  if (!start) return "Dates not entered";
+  const x = formatShort(start);
+  if (!end || end === start) return x;
+  const y = formatShort(end);
+  if (x === y) return x;
+  if (start.length === 4 && end.length === 4) return `${start}–${end}`;
+  return `${x} – ${y}`;
+}
+
 export type TourFocus = {
   kind: "rank" | "unit" | "operation";
   id: string;
@@ -1595,19 +1606,19 @@ export function logbookBeats(): LogbookBeat[] {
         kind: "rank" as const,
         id: row.id,
         label: row.abbreviation,
-        detail: [row.name, row.date ? formatWhen(row.date) : ""].filter(Boolean).join(" · "),
+        detail: [row.name, row.date ? formatShort(row.date) : ""].filter(Boolean).join(" · "),
       })),
       ...schoolRows.map((school) => ({
         kind: "school" as const,
         id: school.id,
         label: school.abbreviation || school.name,
-        detail: [school.name, school.start ? formatSpan(school.start, school.end ?? null) : ""].filter(Boolean).join(" · "),
+        detail: [school.name, school.start ? formatShortSpan(school.start, school.end ?? null) : ""].filter(Boolean).join(" · "),
       })),
       ...necRows.map((nec) => ({
         kind: "nec" as const,
         id: nec.id,
         label: `NEC ${nec.code}`,
-        detail: [nec.name, nec.awarded ? formatWhen(nec.awarded) : ""].filter(Boolean).join(" · "),
+        detail: [nec.name, nec.awarded ? formatShort(nec.awarded) : ""].filter(Boolean).join(" · "),
       })),
       ...mileRows.map((row) => ({
         kind: "milestone" as const,
@@ -1618,7 +1629,7 @@ export function logbookBeats(): LogbookBeat[] {
     ];
     const lines = [
       command?.abbreviation ?? stop.labels[0],
-      [stop.place.name, command ? formatSpan(command.start, command.end) : stop.when ? (stop.when.length === 4 ? stop.when : formatWhen(stop.when)) : null]
+      [stop.place.name, command ? formatShortSpan(command.start, command.end) : stop.when ? formatShort(stop.when) : null]
         .filter(Boolean)
         .join(" · "),
       command?.designator ? command.designator : null,

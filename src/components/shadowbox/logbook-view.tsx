@@ -4,8 +4,8 @@ import {
   careerStops,
   deploymentsForCommand,
   gearCard,
-  formatSpan,
-  formatWhen,
+  formatShortSpan,
+  formatShort,
   isMapExcludedUnit,
   logbookAdminAsOf,
   commandDutiesFor,
@@ -119,7 +119,7 @@ function RankPath({ beat, beats, onOpen }: { beat: LogbookBeat; beats: LogbookBe
       {promotions.map((step, i) => (
         <li key={step.id} className="logbook-rank-step">
           <span className="logbook-rank-arrow" aria-hidden="true">→</span>
-          <span className="logbook-rank-when">{step.date ? formatWhen(step.date) : lb.dateNotEntered}</span>
+          <span className="logbook-rank-when">{step.date ? formatShort(step.date) : lb.dateNotEntered}</span>
           <RankChip rank={step} tag={i === promotions.length - 1 ? lb.transferred : lb.promoted} onOpen={onOpen} />
         </li>
       ))}
@@ -232,7 +232,7 @@ function AdminAsOf({ beat, onOpen, t }: { beat: LogbookBeat; onOpen: Open; t: Ch
     <li key={school.id}>
       <button type="button" onClick={() => onOpen("school", school.id)} aria-label={school.name}>
         <strong>{school.abbreviation || school.name}</strong>
-        <span>{[school.abbreviation ? school.name : "", school.start ? formatSpan(school.start, school.end ?? null) : ""].filter(Boolean).join(" · ")}</span>
+        <span>{[school.abbreviation ? school.name : "", school.start ? formatShortSpan(school.start, school.end ?? null) : ""].filter(Boolean).join(" · ")}</span>
       </button>
     </li>
   );
@@ -250,7 +250,7 @@ function AdminAsOf({ beat, onOpen, t }: { beat: LogbookBeat; onOpen: Open; t: Ch
                   title={[
                     `NEC ${necCode(nec)}`,
                     isNew && nec.billetLabel ? nec.billetLabel : nec.name,
-                    !(isNew && nec.billetLabel) && nec.awarded ? formatWhen(nec.awarded) : "",
+                    !(isNew && nec.billetLabel) && nec.awarded ? formatShort(nec.awarded) : "",
                     !(isNew && nec.billetLabel) ? necSchoolLine(nec, lb.school) ?? "" : "",
                   ].filter(Boolean).join("\n")}
                   aria-label={`NEC ${necCode(nec)}, ${isNew && nec.billetLabel ? nec.billetLabel : nec.name}${isNew ? lb.billetNec : ""}${gained ? lb.gainedTour : ""}`}
@@ -261,7 +261,7 @@ function AdminAsOf({ beat, onOpen, t }: { beat: LogbookBeat; onOpen: Open; t: Ch
                     {gained ? <em className="logbook-gained">{t.gained}</em> : null}
                   </strong>
                   <span className="logbook-nec-name">{isNew && nec.billetLabel ? (nec.billetLabel === "No NEC billet" ? t.noNecBillet : nec.billetLabel) : nec.name}</span>
-                  {!(isNew && nec.billetLabel) && nec.awarded ? <span className="logbook-nec-date">{formatWhen(nec.awarded)}</span> : null}
+                  {!(isNew && nec.billetLabel) && nec.awarded ? <span className="logbook-nec-date">{formatShort(nec.awarded)}</span> : null}
                   {!(isNew && nec.billetLabel) && necSchoolLine(nec, lb.school) ? <small className="logbook-nec-place">{necSchoolLine(nec, lb.school)}</small> : null}
                 </button>
               </li>
@@ -470,7 +470,7 @@ function isChiefBeat(beat: LogbookBeat): boolean {
   return gradeNumber(beat.rank?.grade) >= 7;
 }
 const khakiNote = (lb: Chrome["lb"]) => CHIEF_RANK
-  ? `${lb.khakisFrom} ${CHIEF_RANK.name} (${CHIEF_RANK.abbreviation})${CHIEF_RANK.date ? `, ${formatWhen(CHIEF_RANK.date.slice(0, 7))}` : ""}`
+  ? `${lb.khakisFrom} ${CHIEF_RANK.name} (${CHIEF_RANK.abbreviation})${CHIEF_RANK.date ? `, ${formatShort(CHIEF_RANK.date.slice(0, 7))}` : ""}`
   : lb.khakisChief;
 
 /** The active command's own plate for a uniform (command-plates.json + its ready plates). Never another command's. */
