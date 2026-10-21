@@ -3,6 +3,11 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.8.0] - 2026-10-21
+
+### Changed
+- Logbook: each pane opens on the first tab with content at that command, instead of fixed defaults. Upper/left: Rank & Awards, Admin, Photos. Phone lower pane: Crests, On Duty, Map, Decorations, Uniforms, Off Duty. Wide right pane: On Duty, Decorations, Uniforms, Off Duty. Empty tabs are still clickable; a tab picked by hand is kept across commands while it has content. Layout unchanged.
+
 ## [1.7.1] - 2026-10-21
 
 ### Changed
