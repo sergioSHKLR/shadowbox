@@ -769,14 +769,15 @@ function docIsPt(): boolean {
 const MON_EN = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
 const MON_PT = ["JAN","FEV","MAR","ABR","MAI","JUN","JUL","AGO","SET","OUT","NOV","DEZ"];
 /** Travel Book short dates (Sergio, Oct 2026): 1997-06-30 -> 30-JUN-97, 2008-10 -> OCT-08 (OUT-08 on PT);
- *  a year alone stays as entered. Every ISO date inside the text is rewritten, so ranges keep their separator. */
+ *  title-case months, 05-Sep-97 / Sep-99 (Set on PT, Sergio Oct 21); a year alone stays as entered. Every ISO date inside the text is rewritten, so ranges keep their separator. */
 export function formatShort(text: string | null | undefined, lang?: "en" | "pt"): string {
   if (!text) return text ?? "";
   const mons = (lang ? lang === "pt" : docIsPt()) ? MON_PT : MON_EN;
   return text.replace(/\b(\d{4})-(\d{2})(?:-(\d{2}))?\b/g, (all, y, m, d) => {
     const mon = mons[Number(m) - 1];
     if (!mon) return all;
-    return d ? `${d}-${mon}-${y.slice(2)}` : `${mon}-${y.slice(2)}`;
+    const mmm = `${mon[0]}${mon.slice(1).toLowerCase()}`;
+    return d ? `${d}-${mmm}-${y.slice(2)}` : `${mmm}-${y.slice(2)}`;
   });
 }
 
