@@ -118,7 +118,7 @@ function BioBlock({ text: raw }: { text: string }) {
 }
 
 function bioInline(text: string) {
-  const bits = text.split(/(\{\{b\}\}[\s\S]*?\{\{\/b\}\}|\{\{r\}\}[\s\S]*?\{\{\/r\}\}|\{\{redacted-2011\}\})/);
+  const bits = text.split(/(\{\{b\}\}[\s\S]*?\{\{\/b\}\}|\{\{i\}\}[\s\S]*?\{\{\/i\}\}|\{\{r\}\}[\s\S]*?\{\{\/r\}\}|\{\{redacted-2011\}\})/);
   if (bits.length === 1) return text;
   return bits.map((bit, index) => {
     if (!bit) return null;
@@ -138,8 +138,9 @@ function bioInline(text: string) {
     }
     const hidden = /^\{\{r\}\}([\s\S]*)\{\{\/r\}\}$/.exec(bit);
     if (hidden) return <span className={`redact-run redact-v${index % 4}`} key={index}><span className="sr-only">[redacted]</span><span className="redact-mark" aria-hidden="true">{hidden[1]}</span></span>;
-    const name = /^\{\{b\}\}([\s\S]*)\{\{\/b\}\}$/.exec(bit);
-    if (name) return <em key={index} className="bio-em">{name[1]}</em>;
+    // {{i}}..{{/i}} (Sergio, Oct 21 2026): places and English terms in italics; {{b}} renders the same.
+    const name = /^\{\{([bi])\}\}([\s\S]*)\{\{\/\1\}\}$/.exec(bit);
+    if (name) return <em key={index} className="bio-em">{name[2]}</em>;
     return bit;
   });
 }
