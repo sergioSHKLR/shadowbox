@@ -35,10 +35,25 @@ declare const __CASE_V__: Record<string, string> | undefined;
 const CASE_V: Record<string, string> = typeof __CASE_V__ === "undefined" ? {} : __CASE_V__;
 
 /** Public files are served from the base URL. Files in /case/ get a ?v= content hash so updated art is not served stale. */
+/** Settings "Beard" (Sergio, Oct 21 2026): when on, every Chief portrait URL resolves to the bearded photo. Set by the app before render. */
+let beardOn = false;
+export function setBeardPortrait(on: boolean) { beardOn = on; }
+const BEARD: Record<string, string> = {
+  "case/portrait-chief.webp": "case/portrait-chief-alt.webp",
+  "case/portrait-chief-320.webp": "case/portrait-chief-alt-320.webp",
+  "photos/chief-2018.webp": "photos/chief-2018-beard.webp",
+};
+
+/** For URLs resolved ahead of render (the Gallery list): swap the Chief photo at render time. */
+export function withBeard(url: string): string {
+  return beardOn ? url.replace(/photos\/chief-2018\.webp$/, "photos/chief-2018-beard.webp") : url;
+}
+
 export function publicUrl(path: string): string {
   if (!path || /^(https?:|data:)/.test(path)) return path;
   const base = import.meta.env.BASE_URL || "/";
-  const clean = path.replace(/^\//, "");
+  const plain = path.replace(/^\//, "");
+  const clean = (beardOn && BEARD[plain]) || plain;
   const hit = /^case\/([^?#]+)$/.exec(clean);
   const v = hit ? CASE_V[hit[1]] : undefined;
   return `${base}${clean}${v ? `?v=${v}` : ""}`;

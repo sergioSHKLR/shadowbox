@@ -1,4 +1,4 @@
-import { formatShort, localizeWhen } from "@/lib/shadowbox/model";
+import { formatShort, localizeWhen, withBeard } from "@/lib/shadowbox/model";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -119,7 +119,7 @@ export function Gallery({ locale = "en", photoId, onPhoto }: { locale?: string; 
           {shown.map((p, i) => (
             <li key={p.id}>
               <button type="button" className="gallery-tile" aria-label={c.open(localizeWhen(p.caption, lang))} onClick={() => setAt(i)}>
-                <img src={p.src} alt={p.alt} loading="lazy" decoding="async" />
+                <img src={withBeard(p.src)} alt={p.alt} loading="lazy" decoding="async" />
               </button>
             </li>
           ))}
@@ -183,7 +183,7 @@ export function Lightbox({ photos, at, setAt, lang }: { photos: GalleryPhoto[]; 
             }}
           >
             <figure className="gallery-lb-figure">
-              <img key={p.id} src={p.src} alt={p.alt} />
+              <img key={p.id} src={withBeard(p.src)} alt={p.alt} />
             </figure>
             <div className="gallery-lb-text">
               <Dialog.Title className="gallery-lb-title">{localizeWhen(p.caption, lang)}</Dialog.Title>

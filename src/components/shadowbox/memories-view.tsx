@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { units } from "@/lib/shadowbox/model";
+import { units, withBeard } from "@/lib/shadowbox/model";
 import "@/memories.css";
 
 type Shot = { id: string; src: string };
@@ -104,7 +104,7 @@ export function Memories() {
           <p>{open.text || "No note."}</p>
           <ul className="memory-grid">
             {open.photos.map((photo) => (
-              <li key={photo.id}><img loading="lazy" src={photo.src} alt="" /></li>
+              <li key={photo.id}><img loading="lazy" src={withBeard(photo.src)} alt="" /></li>
             ))}
           </ul>
           <button type="button" className="nav-btn" onClick={() => remove(open.id)}>Delete</button>

@@ -8,7 +8,8 @@ export const FONT_SIZES: FontSize[] = ["small", "default", "large", "xlarge"];
 /** Root font-size, in percent of the browser default. pages/index.html repeats this table for the pre-paint script. */
 export const FONT_SCALE: Record<FontSize, number> = { small: 87.5, default: 100, large: 112.5, xlarge: 125 };
 
-export type Prefs = { locale: Locale; theme: ThemeName; fontSize: FontSize };
+/** beard: Settings "Beard" On/Off (Sergio, Oct 21 2026): the Chief portrait shows the bearded photo everywhere. Default off. */
+export type Prefs = { locale: Locale; theme: ThemeName; fontSize: FontSize; beard: boolean };
 
 function storedFontSize(value: unknown): FontSize {
   return value === "small" || value === "large" || value === "xlarge" ? value : "default";
@@ -39,16 +40,17 @@ export function resolveTheme(theme: ThemeName, prefersDark: boolean): AppliedThe
 }
 
 export function loadPrefs(): Prefs {
-  if (typeof localStorage === "undefined") return { locale: "en", theme: "system", fontSize: "default" };
+  if (typeof localStorage === "undefined") return { locale: "en", theme: "system", fontSize: "default", beard: false };
   try {
     const raw = JSON.parse(localStorage.getItem(KEY) || "{}") as Partial<Prefs>;
     return {
       locale: raw.locale === "pt" ? "pt" : "en",
       theme: storedTheme(raw.theme),
       fontSize: storedFontSize(raw.fontSize),
+      beard: raw.beard === true,
     };
   } catch {
-    return { locale: "en", theme: "system", fontSize: "default" };
+    return { locale: "en", theme: "system", fontSize: "default", beard: false };
   }
 }
 

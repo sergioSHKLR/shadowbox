@@ -35,8 +35,7 @@ import {
   type Photo,
   type Selection,
   type Stop,
-  povLabel,
-} from "@/lib/shadowbox/model";
+  povLabel, withBeard } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
 import { Lightbox } from "@/components/shadowbox/gallery-view";
 import { galleryPhotos } from "@/lib/shadowbox/gallery";
@@ -691,7 +690,7 @@ function UniformGallery({ ids }: { ids: Set<string> }) {
           {shots.map((photo, i) => (
             <li key={photo.id}>
               <button type="button" onClick={() => setAt(i)} aria-label={(pt ? "Abrir foto: " : "Open photo: ") + localizeWhen(photo.caption)} title={localizeWhen(photo.caption)}>
-                <img loading="lazy" src={photo.src} alt={photo.alt} />
+                <img loading="lazy" src={withBeard(photo.src)} alt={photo.alt} />
               </button>
             </li>
           ))}

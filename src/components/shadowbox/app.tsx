@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Images, Medal, Anchor, Backpack, BookOpen, Car, ChartGantt, ChevronLeft, ChevronRight, ClipboardList, Flag, House, Library, Map, Maximize2, MessageCircle, Minimize2, Monitor, Moon, NotebookText, PenLine, Radio, Settings, ScrollText, Share2, Shirt, Sun, X } from "lucide-react";
-import { careerStops, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
+import { careerStops, setBeardPortrait, timeline, type Kind, type Selection } from "@/lib/shadowbox/model";
 import { searchRecord, type Hit } from "@/lib/shadowbox/search";
 import { BIO_PLACEHOLDER, chrome, type Chrome } from "@/lib/shadowbox/copy";
 import { loadRemoteFonts } from "@/lib/shadowbox/fonts";
@@ -105,6 +105,8 @@ function SettingsDialog({
   showTheme,
   fontSize,
   setFontSize,
+  beard,
+  setBeard,
   t,
 }: {
   open: boolean;
@@ -116,6 +118,8 @@ function SettingsDialog({
   showTheme: boolean;
   fontSize: FontSize;
   setFontSize: (size: FontSize) => void;
+  beard: boolean;
+  setBeard: (on: boolean) => void;
   t: Chrome;
 }) {
   const frame = typeof document === "undefined" ? null : document.querySelector(".app-shell");
@@ -142,6 +146,7 @@ function SettingsDialog({
             onChange={setFontSize}
             options={FONT_SIZES.map((size) => ({ value: size, label: size === "small" ? t.fontSmall : size === "large" ? t.fontLarge : size === "xlarge" ? t.fontXLarge : t.fontDefault }))}
           />
+          <RadioGroup name="settings-beard" legend={t.beard} value={beard ? "on" : "off"} onChange={(v) => setBeard(v === "on")} options={[{ value: "on", label: t.on }, { value: "off", label: t.off }]} />
           <p className="settings-credit quiet">{t.made}</p>
           {BUILD_VERSION ? (
             <p className="settings-version quiet">
@@ -263,6 +268,9 @@ export function ShadowboxApp() {
   const [savedLocale, setSavedLocale] = useState<Locale>("en");
   const [theme, setTheme] = useState<ThemeName>("system");
   const [fontSize, setFontSize] = useState<FontSize>("default");
+  const [beard, setBeard] = useState(false);
+  // publicUrl reads this during render, so set it before children render.
+  setBeardPortrait(beard);
   const [prefsReady, setPrefsReady] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [caseFull, setCaseFull] = useState(false);
@@ -451,6 +459,7 @@ export function ShadowboxApp() {
     if (first.bare && !first.item && !first.caseItem && saved.locale === "pt" && routeRef.current.locale === "en") nav({ ...routeRef.current, locale: "pt" }, "replace");
     setTheme(saved.theme);
     setFontSize(saved.fontSize);
+    setBeard(saved.beard);
     setPrefsReady(true);
     loadRemoteFonts();
   }, []);
@@ -471,11 +480,11 @@ export function ShadowboxApp() {
       if (tint) tint.content = resolved === "dark" ? "#14181f" : "#f6f1e7";
     };
     apply();
-    savePrefs({ locale: savedLocale, theme: THEME_HONORED ? theme : "system", fontSize });
+    savePrefs({ locale: savedLocale, theme: THEME_HONORED ? theme : "system", fontSize, beard });
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     media.addEventListener("change", apply);
     return () => media.removeEventListener("change", apply);
-  }, [prefsReady, locale, savedLocale, theme, fontSize]);
+  }, [prefsReady, locale, savedLocale, theme, fontSize, beard]);
   // The open menu fits under the header: its top (header height, safe area included) feeds the CSS max-height cap.
   useLayoutEffect(() => {
     const el = menuRef.current;
@@ -727,7 +736,7 @@ export function ShadowboxApp() {
           </nav>
         ) : null}
       </footer>
-      <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} locale={locale} theme={theme} setLocale={setLocale} setTheme={setTheme} showTheme={THEME_HONORED} fontSize={fontSize} setFontSize={setFontSize} t={t} />
+      <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} locale={locale} theme={theme} setLocale={setLocale} setTheme={setTheme} showTheme={THEME_HONORED} fontSize={fontSize} setFontSize={setFontSize} beard={beard} setBeard={setBeard} t={t} />
       <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setTrail([]); const cur = routeRef.current; closeOverlay({ ...pageOf(cur), photo: cur.photo }); }} />
     </div>
   );
