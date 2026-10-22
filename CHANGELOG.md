@@ -3,6 +3,12 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.9.1] - 2026-10-22
+
+### Changed
+- Portuguese Biography replaced with Sergio's new text: title "Suboficial (Chief) Sergio Schickler", "Marinha dos Estados Unidos, Reformado"; places and English terms in italics (new {{i}} marker); the 2011 redaction kept as in English.
+- Biography header dates written out: "30 June 1997 – 28 February 2018" (PT "30 de junho de 1997 – 28 de fevereiro de 2018"). Short dates elsewhere unchanged.
+
 ## [1.9.0] - 2026-10-21
 
 ### Added

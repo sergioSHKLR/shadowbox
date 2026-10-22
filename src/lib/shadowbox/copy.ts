@@ -171,7 +171,7 @@ const en = {
   navyRetired: "United States Navy, Retired",
   /** Bio name line override (Sergio, Oct 19 2026): null uses profile.json headerLines[0]; PT shows "Suboficial (Chief) Sergio Schickler". */
   bioName: null as string | null,
-  serviceSpan: "30-Jun-97 – 28-Feb-18",
+  serviceSpan: "30 June 1997 – 28 February 2018",
   serviceLength: "20 years, 8 months, 1 day",
   bootCampCap: "Boot Camp, 1997",
   endCareerCap: "End of Career, 2018",
@@ -359,7 +359,7 @@ const pt: typeof en = {
   ofWord: "de",
   navyRetired: "Marinha dos Estados Unidos, Reformado",
   bioName: "Suboficial (Chief) Sergio Schickler",
-  serviceSpan: "30-Jun-97 – 28-Fev-18",
+  serviceSpan: "30 de junho de 1997 – 28 de fevereiro de 2018",
   serviceLength: "20 anos, 8 meses e 1 dia",
   bootCampCap: "Treinamento de recrutas, 1997",
   endCareerCap: "Fim da carreira, 2018",
