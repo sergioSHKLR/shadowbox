@@ -637,6 +637,8 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
   const stage = useRef<HTMLDivElement | null>(null);
   const [intro, setIntro] = useState(false);
   const [hint, setHint] = useState(false);
+  // Alternate (bearded) Chief portrait (Sergio, Oct 21 2026): a near-invisible corner toggle swaps it; session only.
+  const [altChief, setAltChief] = useState(false);
   // The open item modal lives in the address (?item=case:<id>, routes Oct 21 2026) when the app passes onCaseItem.
   const [ownView, setOwnView] = useState<string | null>(null);
   const controlled = onCaseItem !== undefined;
@@ -703,15 +705,16 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
               <img className="cx-art" src={caseUrl(item.dev.src)} alt="" draggable={false} />
             </button>
           ) : null;
+          const src = item.id === "bio" && altChief ? "portrait-chief-alt.webp" : item.src;
           const art = item.lapel
             ? <img className="cx-art cx-lapel is-crop" src={caseUrl(item.src)} alt="" draggable={false} />
             : item.rack ? <Rack /> : item.obj
             ? <object className="cx-art" type="image/svg+xml" data={caseUrl(item.src)} aria-hidden="true" tabIndex={-1} />
             : <img
                 className={item.crop ? "cx-art is-crop" : "cx-art"}
-                src={caseUrl(item.src)}
+                src={caseUrl(src)}
                 // QA Oct 16: the portraits get a 320 px copy for small screens; the shirt and portraits load first (LCP).
-                srcSet={item.src.startsWith("portrait-") ? `${caseUrl(item.src.replace(".webp", "-320.webp"))} 320w, ${caseUrl(item.src)} 640w` : undefined}
+                srcSet={item.src.startsWith("portrait-") ? `${caseUrl(src.replace(".webp", "-320.webp"))} 320w, ${caseUrl(src)} 640w` : undefined}
                 sizes={item.src.startsWith("portrait-") ? "(max-width: 700px) 40vw, 18vw" : undefined}
                 fetchPriority={item.id === "uniforms" || item.src.startsWith("portrait-") ? "high" : undefined}
                 alt=""
@@ -723,12 +726,19 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
           if (GROUP_PINS.includes(item.id)) return null;
           if (item.id === "decorations") return <RackGroup key={item.id} L={L} rack={art} name={copy.rackGroup} go={() => setView("decorations")} />;
           const name = item.unit ? units.find((u) => u.id === item.unit)?.name ?? item.label : label(item.view) || item.label;
-          return (
+          const btn = (
             <button key={item.id} type="button" className="cx-item" data-id={item.id} style={style} aria-label={name} title={name}
               onClick={() => setView(item.id)}>
               {art}
             </button>
           );
+          if (item.id !== "bio") return btn;
+          const altLabel = locale === "pt" ? "Mostrar retrato alternativo" : "Show alternate portrait";
+          return [btn,
+            <span key="bio-alt" className="cx-item cx-alt-layer" data-id="bio-alt" style={{ ...style, ["--wz" as string]: item.z + 1 } as CSSProperties}>
+              <button type="button" className="cx-alt-toggle" aria-label={altLabel} title={altLabel} aria-pressed={altChief}
+                onClick={(e) => { e.stopPropagation(); setAltChief((v) => !v); }}><span aria-hidden="true" /></button>
+            </span>];
         })}
       </div>
       </div>

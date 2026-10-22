@@ -1826,3 +1826,12 @@ b, strong, th { font-weight: 600; }
 @media (min-width: 1200px) { .decor-split { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }
 .decor-split-ribbons { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
 .decor-split-ribbons .decor-ribbon-only { width: 100%; }
+
+/* Alternate Chief portrait toggle (Sergio, Oct 21 2026): a ~12 px faint mark inside the photo's bottom-right corner,
+   44 px (screen) invisible hit area; same box and tilt as the portrait so it never shifts. */
+.cx-item.cx-alt-layer { pointer-events: none; cursor: default; }
+.cx-alt-toggle { position: absolute; right: 3.5%; bottom: 3.5%; width: calc(44px / var(--k, 1)); height: calc(44px / var(--k, 1)); margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; pointer-events: auto; display: grid; place-items: end; }
+.cx-alt-toggle > span { width: calc(12px / var(--k, 1)); height: calc(12px / var(--k, 1)); margin: calc(3px / var(--k, 1)); border-radius: 50%; border: calc(1px / var(--k, 1)) solid rgba(255, 255, 255, 0.9); background: rgba(218, 165, 32, 0.6); opacity: 0.22; transition: opacity 0.15s; }
+.cx-alt-toggle[aria-pressed="true"] > span { background: rgba(218, 165, 32, 1); }
+.cx-alt-toggle:hover > span, .cx-alt-toggle:focus-visible > span { opacity: 1; }
+.cx-alt-toggle:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
