@@ -33,8 +33,7 @@ import {
   type Stop,
   type UniformSlide,
   plainCopyDevices,
-  earnedRibbonsAt,
-} from "@/lib/shadowbox/model";
+  earnedRibbonsAt, withBeard } from "@/lib/shadowbox/model";
 import { MapView } from "@/components/shadowbox/map-view";
 import { RibbonArt } from "@/components/shadowbox/marks";
 import { Boundary } from "@/components/shadowbox/boundary";
@@ -207,7 +206,7 @@ function CommandPhotos({ photos }: { photos: GalleryPhoto[] }) {
         {photos.map((p, i) => (
           <li key={p.id}>
             <button type="button" className="gallery-tile" aria-label={lb.openPhoto(p.caption)} onClick={() => setAt(i)}>
-              <img src={p.src} alt={p.alt} loading="lazy" decoding="async" />
+              <img src={withBeard(p.src)} alt={p.alt} loading="lazy" decoding="async" />
             </button>
           </li>
         ))}
