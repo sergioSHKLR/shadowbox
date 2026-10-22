@@ -3,6 +3,11 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.8.1] - 2026-10-21
+
+### Changed
+- New Chief Petty Officer portrait (Service Dress Blue) on Home, the Biography and the Gallery, from Sergio's photo; center-cropped and resized only. Captions and credits unchanged.
+
 ## [1.8.0] - 2026-10-21
 
 ### Changed
