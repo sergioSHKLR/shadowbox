@@ -3,6 +3,11 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.9.0] - 2026-10-21
+
+### Added
+- Settings: Beard On/Off (PT "Barba: Ligada/Desligada"), default Off, saved with the other settings. On swaps the Chief Petty Officer portrait for the bearded photo sitewide: Home case, the portrait pop-up and the Gallery. Centered crop and resize only; captions and credits unchanged.
+
 ## [1.8.2] - 2026-10-21
 
 ### Changed
