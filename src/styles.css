@@ -1263,6 +1263,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 .cx-item { position: absolute; width: var(--ww); height: var(--wh); left: var(--wx); top: var(--wy); z-index: var(--wz); transform: rotate(var(--wr)); margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; display: block; }
 .cx-item.is-static { cursor: default; }
 /* Flag perimeter preview (Oct 28 2026): flat 3:2 patch flags, no shadow. */
+.cx-stage[data-grid] { aspect-ratio: auto !important; min-height: 0 !important; }
 .cx-flag-art { display: block; width: 100%; height: 100%; object-fit: fill; pointer-events: none; }
 .cx-art.is-crop { object-fit: cover; object-position: top left; }
 .cx-art { display: block; width: 100%; height: 100%; object-fit: fill; pointer-events: none; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)); }

@@ -9,8 +9,8 @@
  * right column down, bottom row right to left, left column up. Every pair of neighbors has the same gap.
  * Names show only as tooltips; no years.
  */
-export type FlagOrder = "alpha" | "geo" | "chrono" | "era";
-export const FLAG_ORDERS: FlagOrder[] = ["alpha", "geo", "chrono", "era"];
+export type FlagOrder = "alpha" | "geo" | "chrono" | "era" | "grid";
+export const FLAG_ORDERS: FlagOrder[] = ["alpha", "geo", "chrono", "era", "grid"];
 export const PATCH = { w: 76.2, h: 50.8 };
 
 /** Full names, as on the flags board (compose_v2.py LONG / N). */
@@ -48,11 +48,22 @@ const ERA = ["usa", "us-fl", "us-il", "us-va", "us-ms", "us-ca", "mexico", "us-h
   "south-korea", "philippines", "thailand", "australia", "us-wa", "canada", "iraq", "kurdistan", "germany", "us-tx", "us-md",
   "kuwait", "qatar", "afghanistan", "us-nc", "ireland", "brazil", "br-mg", "br-rj"];
 
+/** Grid order (Sergio, Oct 28 2026: "Start with US and states, alpha, then others alpha, country then its states, if
+ *  any"): the United States, its states and territories by name, then the other countries by name, each followed by its
+ *  states by name. */
+const US_KEYS = new Set(["usa", "us-ca", "us-fl", "us-gu", "us-hi", "us-il", "us-md", "us-ms", "us-nc", "us-tx", "us-va", "us-wa"]);
+const STATES_OF: Record<string, string[]> = { brazil: ["br-mg", "br-rj"] };
+const byName = (a: string, b: string) => FLAG_NAME[a].localeCompare(FLAG_NAME[b], "en");
+const SUB = new Set(Object.values(STATES_OF).flat());
+const GRID = ["usa", ...[...US_KEYS].filter((k) => k !== "usa").sort(byName),
+  ...KEYS.filter((k) => !US_KEYS.has(k) && !SUB.has(k)).sort(byName).flatMap((k) => [k, ...(STATES_OF[k] ?? []).sort(byName)])];
+
 export function flagOrder(o: FlagOrder): string[] {
+  if (o === "grid") return GRID;
   if (o === "alpha") return [...KEYS].sort((a, b) => FLAG_NAME[a].localeCompare(FLAG_NAME[b], "en"));
   return o === "geo" ? GEO : o === "chrono" ? CHRONO : ERA;
 }
-for (const l of [CHRONO, GEO, ERA]) if (l.length !== KEYS.length || new Set(l).size !== KEYS.length || l.some((k) => !FLAG_NAME[k])) throw new Error("flag order");
+for (const l of [CHRONO, GEO, ERA, GRID]) if (l.length !== KEYS.length || new Set(l).size !== KEYS.length || l.some((k) => !FLAG_NAME[k])) throw new Error("flag order");
 
 type Pos = Record<string, [number, number]>;
 type Size = { w: number; h: number };
@@ -93,4 +104,27 @@ export function withFlags(l: Layout, order: FlagOrder, A: number): { L: Layout; 
   const dx = (W - l.w) / 2, dy = (H - l.h) / 2, pos: Pos = {};
   for (const [id, p] of Object.entries(l.pos)) pos[id] = [p[0] + dx, p[1] + dy];
   return { L: { ...l, pos, w: W, h: H }, flags: spots };
+}
+
+/** Grid variant: the case contents stay exactly where they are; the canvas grows downward by a grid of flags below
+ *  them, filled row by row, left to right, the last row centered. The column count leaves the fewest empty places in the
+ *  last row (ties to more columns); one gap g between flags, between the grid and the case sides,
+ *  above the grid and below it. */
+const GRID_GAP_MIN = 10, GRID_GAP_MAX = 24;
+export function withGrid(l: Layout): { L: Layout; flags: FlagSpot[]; cols: number } {
+  const { w: fw, h: fh } = PATCH, names = flagOrder("grid"), n = names.length;
+  const maxC = Math.max(1, Math.floor((l.w - GRID_GAP_MIN) / (fw + GRID_GAP_MIN)));
+  // 31 is prime, so some row is always short: pick the column count (from 3 up to what fits) whose last row has the
+  // fewest empty places, ties to more columns.
+  let cols = maxC;
+  for (let c = maxC; c >= Math.min(3, maxC); c--) if ((c - (n % c || c)) < (cols - (n % cols || cols))) cols = c;
+  const rows = Math.ceil(n / cols);
+  const g = Math.min(GRID_GAP_MAX, (l.w - cols * fw) / (cols + 1));
+  const x0 = (l.w - cols * fw - (cols - 1) * g) / 2, y0 = l.h + g, spots: FlagSpot[] = [];
+  names.forEach((key, i) => {
+    const r = Math.floor(i / cols), c = i % cols, inRow = Math.min(cols, n - r * cols);
+    const xr = x0 + ((cols - inRow) * (fw + g)) / 2;
+    spots.push({ key, name: FLAG_NAME[key], x: xr + c * (fw + g), y: y0 + r * (fh + g) });
+  });
+  return { L: { ...l, h: y0 + rows * fh + (rows - 1) * g + g }, flags: spots, cols };
 }

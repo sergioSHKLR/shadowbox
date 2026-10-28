@@ -5,7 +5,7 @@ import { awards, publicUrl, ribbonRows, units, type Kind } from "@/lib/shadowbox
 import { createPortal } from "react-dom";
 import { caseNote } from "@/lib/shadowbox/case-notes";
 import type { Locale } from "@/lib/shadowbox/prefs";
-import { FLAG_ORDERS, PATCH, withFlags, type FlagOrder, type FlagSpot } from "./case-flags";
+import { FLAG_ORDERS, PATCH, withFlags, withGrid, type FlagOrder, type FlagSpot } from "./case-flags";
 
 /**
  * Home shadowbox case (Sergio, Oct 12 2026): single-item art from incoming/used, every item at its true size on one
@@ -461,7 +461,7 @@ const layoutOf = (m: Mode, flags: FlagOrder | null): { L: Layout; flags: FlagSpo
   if (!flags) return { L: LAYOUTS[m], flags: [] };
   const key = `${m}:${flags}`;
   let v = flagCache.get(key);
-  if (!v) { v = withFlags(LAYOUTS[m], flags, FLAG_ASPECT[m]); flagCache.set(key, v); }
+  if (!v) { v = flags === "grid" ? withGrid(LAYOUTS[m]) : withFlags(LAYOUTS[m], flags, FLAG_ASPECT[m]); flagCache.set(key, v); }
   return v;
 };
 const flagParam = (): FlagOrder | null => {
@@ -683,10 +683,14 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
     if (!el) return;
     const fit = () => {
       const m = modeFor(window.innerWidth, window.innerHeight);
-      const c = layoutOf(m, flags).L, scroll = SCROLLS[m];
+      // Grid preview: the case keeps its usual size and scale on screen (frame width from the usual layout) and simply
+      // grows taller, so the flag grid sits below the fold and the page scrolls.
+      const grid = flags === "grid", base = LAYOUTS[m];
+      const c = layoutOf(m, flags).L, scroll = SCROLLS[m] || grid;
       el.dataset.layout = m;
+      if (grid) el.dataset.grid = ""; else delete el.dataset.grid;
       setMode(m);
-      (el.closest(".case-frame") as HTMLElement | null)?.style.setProperty("--cx-r", String(c.w / c.h));
+      (el.closest(".case-frame") as HTMLElement | null)?.style.setProperty("--cx-r", String(grid ? base.w / base.h : c.w / c.h));
       el.style.setProperty("--ratio", `${c.w} / ${c.h}`);
       const w = el.clientWidth;
       const k = scroll ? w / c.w : Math.min(w / c.w, el.clientHeight / c.h);
