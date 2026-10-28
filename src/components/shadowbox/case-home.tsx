@@ -462,7 +462,7 @@ const layoutOf = (m: Mode, flags: FlagOrder | null): { L: Layout; flags: FlagSpo
   const key = `${m}:${flags}`;
   let v = flagCache.get(key);
   if (!v) {
-    v = flags === "grid" ? withGrid(LAYOUTS[m]) : flags === "grid-shirt" ? withGrid(wholeShirt(LAYOUTS[m])) : withFlags(LAYOUTS[m], flags, FLAG_ASPECT[m]);
+    v = flags === "grid" ? withGrid(LAYOUTS[m]) : flags === "grid-shirt" ? withGrid(evenShirt(m, wholeShirt(LAYOUTS[m]))) : flags === "grid-shirt-plain" ? withGrid(wholeShirt(LAYOUTS[m])) : withFlags(LAYOUTS[m], flags, FLAG_ASPECT[m]);
     flagCache.set(key, v);
   }
   return v;
@@ -474,6 +474,48 @@ const layoutOf = (m: Mode, flags: FlagOrder | null): { L: Layout; flags: FlagSpo
 const wholeShirt = (l: Layout): Layout => {
   const [, sy] = l.pos.uniforms ?? [0, 0];
   return { ...l, size: { ...l.size, uniforms: { w: SHIRT_W, h: SHIRT_FULL } }, h: Math.max(l.h, sy + SHIRT_FULL) };
+};
+/** Even felt for the whole-shirt grid (Sergio, Oct 28 2026: "too much empty felt, redistribute empty space evenly").
+ *  With the shirt at full length the content runs from the case top to the hem line, so each column of items is spread
+ *  over that height with equal gaps above, between and below its items (the hem is the bottom edge). Sizes, order and
+ *  columns (x) are unchanged; the shirt, collar, anchor, rack and pins stay put (the chest), and the pen stays by the
+ *  pocket. ?flags=grid-shirt-plain keeps the earlier un-spread version for comparison. */
+const evenShirt = (m: Mode, l: Layout): Layout => {
+  const pos: Pos = { ...l.pos }, sy = (pos.uniforms ?? [0, 0])[1], hem = sy + SHIRT_FULL, chest = sy + EXW_BOTTOM;
+  // Visual box of an item (a 90-degree turn swaps its sides about the centre).
+  const box = (id: string) => {
+    const s = l.size[id] ?? (id.endsWith("-dev") ? devOf(id) : byId(id)), [, y] = pos[id], t = Math.abs(l.tilt[id] ?? 0) % 180 === 90;
+    return t ? { y: y + s.h / 2 - s.w / 2, h: s.w } : { y, h: s.h };
+  };
+  const spread = (units: string[][], y0: number, y1: number) => {
+    const us = units.map((u) => u.filter((id) => pos[id])).filter((u) => u.length).map((u) => {
+      const b = u.map(box), top = Math.min(...b.map((v) => v.y));
+      return { u, top, h: Math.max(...b.map((v) => v.y + v.h)) - top };
+    });
+    const g = (y1 - y0 - us.reduce((t, v) => t + v.h, 0)) / (us.length + 1);
+    let y = y0 + g;
+    for (const { u, top, h } of us) { for (const id of u) pos[id] = [pos[id][0], pos[id][1] + y - top]; y += h + g; }
+  };
+  const crestRow = (r: string[]) => r.flatMap((id) => [id, `${id}-dev`]);
+  if (m === "wide") {
+    spread([["contact"], ["logbook"]], chest, hem); // pocket column: USO, memorandum
+    spread([["onduty"], ["admin"], ["offduty"], ["map"]], 0, hem); // document column: ID, 2M, Liberty, passport
+    spread([["bio-sr", "plaque-sr"], ["bio", "plaque"]], 0, hem);
+    spread(R2x3.map(crestRow), 0, hem);
+  } else if (m === "twoL") {
+    spread([["contact"], ["offduty"]], chest, hem); // pocket column: USO, Liberty
+    spread([["onduty"], ["map"], ["logbook"], ["admin"]], 0, hem); // ID, passport, memorandum, 2M
+    // Portraits stay on top; under them the device grid (3 rows) and the crest grid (2 rows) share the band to the hem.
+    const top = Math.max(...["plaque", "plaque-sr"].map((id) => box(id).y + box(id).h));
+    spread([0, 1, 2].map((r) => DEVS.slice(r * 2, r * 2 + 2)), top, hem);
+    spread(R3x2, top, hem);
+  } else {
+    // Portrait: portraits and crests stay above the shirt; the shirt's items spread down its full length.
+    spread([["onduty"], ["admin"], ["offduty"], ["guestbook"]], sy, hem); // ID, 2M, Liberty, pen (lying across)
+    spread([["contact"]], chest, hem); // USO under the pocket
+    spread([["map"], ["logbook"]], sy, hem); // felt column: passport, memorandum
+  }
+  return { ...l, pos };
 };
 const flagParam = (): FlagOrder | null => {
   if (typeof window === "undefined") return null;
@@ -696,7 +738,7 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
       const m = modeFor(window.innerWidth, window.innerHeight);
       // Grid preview: the case keeps its usual size and scale on screen (frame width from the usual layout) and simply
       // grows taller, so the flag grid sits below the fold and the page scrolls.
-      const grid = flags === "grid" || flags === "grid-shirt", base = LAYOUTS[m];
+      const grid = flags === "grid" || flags === "grid-shirt" || flags === "grid-shirt-plain", base = LAYOUTS[m];
       const c = layoutOf(m, flags).L, scroll = SCROLLS[m] || grid;
       el.dataset.layout = m;
       if (grid) el.dataset.grid = ""; else delete el.dataset.grid;
