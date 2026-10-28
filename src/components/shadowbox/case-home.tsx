@@ -565,6 +565,8 @@ const COLLAR = (() => {
  *  down, to 55.3 mm (1003.35 px before the pocket scale). The flap button stays where photo 1 has it (centre 36.8 mm
  *  below the flap top, its top 31.5 mm). */
 const POCKET_K = 0.766, POCKET_TOP = mm(755.297), EXW_BELOW_FLAP = 4;
+/** The pocket art's flap point and bottom edge (px, before POCKET_K). */
+const POCKET_PT = mm(1003.348), POCKET_BOT = mm(1292.462);
 const SMALL_POCKET_SRC = "shirt-khakis-case-smallpocket.svg";
 const SMALL_POCKET = (() => {
   const P = SHIRT.pocket, x = (v: number) => P.cx + (v - P.cx) * POCKET_K, y = (v: number) => POCKET_TOP + (v - POCKET_TOP) * POCKET_K;
@@ -809,7 +811,7 @@ const sketch = (m: Mode): { L: Layout; flags: FlagSpot[] } => {
   const SH = SHIRT_FULL * F, top = M, hem = M + SH;
   // Shirt group.
   pos.uniforms = [0, top];
-  scaleShirt(pos, size, F);
+  const LX = scaleShirt(pos, size, F);
   const SB = hem - S, swoTop = pos.swo[1];
   const col = ["logbook", "map", "onduty", "admin", "offduty"];
   const gap = (SB - swoTop - col.reduce((t, id) => t + Sz(id).h, 0)) / (col.length - 1);
@@ -835,17 +837,32 @@ const sketch = (m: Mode): { L: Layout; flags: FlagSpot[] } => {
   const crestRows = (r: string[]) => CREST_H * CREST_SCALE + G + Math.max(...r.map((id) => devOf(`${id}-dev`).h));
   const flags: FlagSpot[] = [], { w: fw, h: fh } = PATCH;
   if (!portrait) {
-    const gw = gallery(gx, top);
+    // Landscape adjustment (Sergio's second landscape sketch, Oct 28 2026). Top line = shirt top, bottom line = hem.
+    // Documents column on DOC_AX (memorandum G clear of the shirt body's edge): ID, Liberty, 2M, passport, memorandum,
+    // the ID's top on the top line, the memorandum's bottom on the bottom line, even gaps; the ID sits on the felt above
+    // the sleeve, the Liberty and 2M cards on its slope, as drawn.
+    const lcol = ["onduty", "offduty", "admin", "map", "logbook"];
+    const lg = (hem - top - lcol.reduce((t, id) => t + Sz(id).h, 0)) / (lcol.length - 1);
+    let ly = top;
+    for (const id of lcol) { put(id, DOC_AX, ly); ly += Sz(id).h + lg; }
+    // Contact (USO) on the awards' axis directly under them, centred in the pocket between the flap's point and the
+    // pocket's bottom; guest (pen) upright left of the pocket, its bottom level with the USO card's.
+    const flapPt = top + (POCKET_TOP + (POCKET_PT - POCKET_TOP) * POCKET_K) * F, pocketBot = top + (POCKET_TOP + (POCKET_BOT - POCKET_TOP) * POCKET_K) * F;
+    put("contact", LX, (flapPt + pocketBot) / 2 - CARD.h / 2);
+    pos.guestbook = [SMALL_POCKET.flapL * F - 6 - PEN.w, pos.contact[1] + CARD.h - PEN.h];
+    const gxL = Math.max(...lcol.map((id) => pos[id][0] + Sz(id).w)) + S, gw = gallery(gxL, top);
     // Right group: column axes pitch fw + S; left edge CS right of the gallery (counting the widest crest's overhang).
+    // Crests' tops on the top line, the last flag row on the bottom line; S between crest rows and between flag rows,
+    // the rest between the crests and the flags (as the sketch has it). The help button moves to the frame.
     const over = Math.max(0, ...R3x2.map((r) => (Sz(r[0]).w - fw) / 2));
-    const fx = gx + gw + S + over, ax = [0, 1, 2].map((i) => fx + fw / 2 + i * (fw + S));
-    const rows = Math.ceil(SKETCH_FLAGS.length / 3);
-    const h = R3x2.reduce((t, r) => t + crestRows(r) + S, 0) + rows * fh + (rows - 1) * S;
-    let yy = hem - h;
+    const fx = gxL + gw + S + over, ax = [0, 1, 2].map((i) => fx + fw / 2 + i * (fw + S));
+    const rows = Math.ceil(SKETCH_FLAGS.length / 3), flagsH = rows * fh + (rows - 1) * S;
+    let yy = top;
     for (const r of R3x2) {
       r.forEach((id, i) => { put(id, ax[i], yy); put(`${id}-dev`, ax[i], yy + CREST_H * CREST_SCALE + G); });
       yy += crestRows(r) + S;
     }
+    yy = hem - flagsH;
     SKETCH_FLAGS.forEach((key, i) => flags.push({ key, name: FLAG_NAME[key], x: ax[i % 3] - fw / 2, y: yy + Math.floor(i / 3) * (fh + S) }));
     const W = ax[2] + Math.max(fw, ...R3x2.map((r) => Sz(r[2]).w)) / 2 + M;
     return { L: { pos, size, tilt, w: W, h: hem + M }, flags };
@@ -1109,6 +1126,14 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
   const zoomLayer = useRef<HTMLDivElement | null>(null);
   usePinchZoom(stage, zoomLayer);
   const { L, flags: flagSpots } = layoutOf(mode, flags);
+  // ?flags=sketch landscape puts a crest in the felt's top right corner: the help (and full-screen exit) buttons sit on
+  // the frame instead, outside the stage (Oct 28 2026).
+  const onFrame = flags === "sketch" && (mode === "wide" || mode === "twoL");
+  const fr = onFrame ? " cx-on-frame" : "";
+  const controls = <>
+      <button type="button" className={`cx-exit close-btn close-btn--over${fr}`} aria-label={copy.exitFull} title={copy.exitFull} onClick={exitFull}><X size={18} strokeWidth={2.25} aria-hidden="true" /></button>
+      <button type="button" className={`cx-help${fr}`} aria-label={copy.help} title={copy.help} onClick={() => { setIntro(true); setHint(true); }}>?</button>
+  </>;
   return (
     <>
     <div ref={stage} className={hint ? "cx-stage cx-hint" : "cx-stage"} data-layout="wide" style={{ ["--ratio" as string]: `${WIDE.w} / ${WIDE.h}`, backgroundImage: `url("${caseUrl("felt.svg")}")` }}>
@@ -1160,9 +1185,9 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
         })}
       </div>
       </div>
-      <button type="button" className="cx-exit close-btn close-btn--over" aria-label={copy.exitFull} title={copy.exitFull} onClick={exitFull}><X size={18} strokeWidth={2.25} aria-hidden="true" /></button>
-      <button type="button" className="cx-help" aria-label={copy.help} title={copy.help} onClick={() => { setIntro(true); setHint(true); }}>?</button>
+      {onFrame ? null : controls}
     </div>
+    {onFrame ? controls : null}
     {intro ? createPortal(<CaseIntro copy={copy} onClose={closeIntro} />, layerRoot()) : null}
     {view ? <ItemModal id={view} setId={setView} copy={copy} locale={locale} label={label}
       go={(id) => { const t = targetOf(id); exitFull(); if (!controlled) setView(null); if (t.unit) { onGo?.("logbook", t.unit); window.dispatchEvent(new CustomEvent("sb-logbook-command", { detail: t.unit })); } else onGo?.(t.view); }} /> : null}
