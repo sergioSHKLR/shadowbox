@@ -71,10 +71,12 @@ const LAPEL = { w: SHIRT_W, h: mm(540) };
 // drawing's anchor, 112 px tall, centred at (437, 281) px on the shirt, rotated -54 degrees.
 const ANCHOR = { h: mm(112), w: mm(112) * 240.838 / 366.897, cx: mm(437), cy: mm(281), tilt: -54 };
 const QIN = 6.35; // 1/4 in
-// Sergio's pins (Oct 13 2026), tight viewBoxes: ESWS fills its box; the EXW metal spans 92.6% of its width and ends at
-// 86.5% of its height (soft shadow below), so the box is widened to keep the art 70 mm wide.
+// Sergio's pins (Oct 13 2026), tight viewBoxes: both arts fill their boxes edge to edge (re-measured Oct 28 2026; the
+// old "EXW metal spans 92.6%" widening made the EXW 71.2 mm). Full-size warfare insignia are 2 3/4 in wide (ESWS
+// 2 3/4 x 15/16 in); the EXW shares the ESWS ocean swells, so both are 70 mm wide: ESWS 70 x 23.9 mm, EXW 70 x 24.8 mm
+// (about 1 in high, as sold).
 const SWO_H = PIN_W * (129.012 / 377.953);
-const EXW_W = PIN_W * 0.942 / 0.926, EXW_H = EXW_W * (134.144 / 377.953), EXW_ART_BOTTOM = 0.995;
+const EXW_W = PIN_W, EXW_H = EXW_W * (134.144 / 377.953), EXW_ART_BOTTOM = 0.995;
 /** Worn on the shirt in both layouts: centre relative to the shirt's top-left. */
 const ON_SHIRT: Record<string, [number, number]> = {
   lapel: [LAPEL.w / 2, LAPEL.h / 2],
@@ -555,7 +557,13 @@ const COLLAR = (() => {
  *  only the pocket's own elements (body, centre line, flap and its shadow, flap button and thread) scaled by POCKET_K
  *  about the pocket axis (499.035 px) and its top edge (755.297 px), so photo 1's rack / flap ratio (107.5 / 119 px)
  *  holds at F = 1.10: flap 521 x 0.766 px = 116.2 mm on the case, 105 mm rack / 116.2 = 0.90. Used by
- *  ?flags=grid-shirt-aligned only. */
+ *  ?flags=grid-shirt-aligned only.
+ *  Heights (Sergio, Oct 28 2026: "pocket width seems right, check height, height of flap"): the Navy shirt CID A-A-55297
+ *  gives a 5 1/4 in flap 1 3/4 in deep at the sides and 2 1/2 in at the centre point, and a 5 1/2 in pocket; photo 1
+ *  agrees (flap about 41 mm at the sides and 55 mm at the point at this width). Scaled to the 116.2 mm flap that is
+ *  38.7 / 55.3 mm and a 121.7 mm pocket; the art had 38.2 / 47.8 / 119.8 mm, so only the flap's centre point is moved
+ *  down, to 55.3 mm (1003.35 px before the pocket scale). The flap button drops 1.5 mm (centre 36.8 -> 38.3 mm below the
+ *  flap top; photo 1 shows about 34) so the full-size EXW at its regulation 1/4 in below the flap top clears it. */
 const POCKET_K = 0.766, POCKET_TOP = mm(755.297);
 const SMALL_POCKET_SRC = "shirt-khakis-case-smallpocket.svg";
 const SMALL_POCKET = (() => {
@@ -576,7 +584,9 @@ const scaleShirt = (pos: Pos, size: Record<string, Size>, F: number) => {
   const rackTop = sy + P.top * F - QIN - RACK_H;
   pos.decorations = [px - (3 * RIBBON_W) / 2, rackTop];
   pos.swo = [px - PIN_W / 2, rackTop - QIN - SWO_H];
-  pos.exw = [px - EXW_W / 2, sy + P.button * F - (9 * F + 2) - EXW_ART_BOTTOM * EXW_H];
+  // Uniform Regs 5201.2c(1)(c): secondary insignia centred below the ribbons, its top 1/4 in below the top of the pocket
+  // flap (Sergio, Oct 28 2026: "check height of EXW pin"; it used to sit on the flap's top edge).
+  pos.exw = [px - EXW_W / 2, sy + P.top * F + QIN];
   return px;
 };
 const alignedShirt = (m: Mode, F = SHIRT_F): Layout => {
