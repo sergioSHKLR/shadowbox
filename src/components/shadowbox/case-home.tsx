@@ -529,22 +529,35 @@ const evenShirt = (m: Mode, l: Layout): Layout => {
  *  Portrait: the same shirt rules on the portrait layout's shirt; plaques enlarged the same way, everything below them
  *  moved down by the extra plaque height. Item sizes are unchanged except the plaques. */
 const PLAQUE_SCALE = 0.7;
-/** Shirt to a 37.5 in chest (Sergio, Oct 28 2026: "Scale the shirt to a 37-38 inch chest"). Measured on the art's
- *  1455 px canvas: front button centre x 47.5 px, side seam (lower body edge) x 801 px, so the half front is 753.5 px =
- *  199.4 mm, a 31.4 in chest (4 half fronts). 37.5 in / 4 = 238.1 mm, so the art scales by 238.1 / 199.4. */
-const SHIRT_HALF_FRONT = mm(801 - 47.5);
-const SHIRT_F = Math.round((37.5 * 25.4 / 4 / SHIRT_HALF_FRONT) * 1000) / 1000;
+/** Shirt scale from Sergio's photo in khakis (Oct 28 2026: "See how in this picture the ribbon bar is only slightly
+ *  narrower than the pocket? Correct shirt scale"). On the photo (189 x 246 px, pocket about flat-on) the ribbon rack's
+ *  outer edges are 107.5 px apart and the pocket flap's 119 px, a rack/pocket ratio of 0.903. The case rack is 3 ribbons
+ *  wide (105 mm), so the flap is 105 / 0.903 = 116.2 mm; the art's flap (238-759 px) is 137.9 mm, so the art scales by
+ *  116.2 / 137.9. (Supersedes the 37.5 in chest scale, x1.194.) */
+const PHOTO = { rack: 107.5, flap: 119 };
+const SHIRT_F = Math.round(((3 * 35) / (PHOTO.rack / PHOTO.flap) / mm(759 - 238)) * 1000) / 1000;
 /** "Shrink collar to real size": the CPO collar anchor 1 in tall (Uniform Regs 4212), same point and angle. */
 const ANCHOR_TRUE_H = 25.4;
 /** Scaled shirt (F): the shirt and collar art scale uniformly from the shirt's top-left; the rack, pins and collar
  *  anchor stay true size and follow the anatomy (rack and pins on the scaled pocket axis, rack a quarter inch above the
  *  pocket, EXW above the flap button, anchor on the collar point). Returns the scaled pocket axis x. */
+const COLLAR = (() => {
+  const pt = [mm(587.236), mm(384.59)], e1 = [mm(274.341) - pt[0], mm(323.585) - pt[1]], e2 = [mm(445.189) - pt[0], mm(166.96) - pt[1]];
+  const u = (v: number[]) => { const n = Math.hypot(v[0], v[1]); return [v[0] / n, v[1] / n]; };
+  const a = u(e1), b = u(e2), bis = u([a[0] + b[0], a[1] + b[1]]), half = Math.acos(a[0] * b[0] + a[1] * b[1]) / 2;
+  return { pt, bis, d: ANCHOR_TRUE_H / Math.sin(half) };
+})();
 const scaleShirt = (pos: Pos, size: Record<string, Size>, F: number) => {
   const [sx, sy] = pos.uniforms, P = SHIRT.pocket, px = sx + P.cx * F;
   size.uniforms = { w: SHIRT_W * F, h: SHIRT_FULL * F };
   size.lapel = { w: LAPEL.w * F, h: LAPEL.h * F }; pos.lapel = [sx, sy];
   const a = F === 1 ? { w: ANCHOR.w, h: ANCHOR.h } : { w: ANCHOR_TRUE_H * (ANCHOR.w / ANCHOR.h), h: ANCHOR_TRUE_H };
-  size.anchor = a; pos.anchor = [sx + ANCHOR.cx * F - a.w / 2, sy + ANCHOR.cy * F - a.h / 2];
+  // Uniform Regs 4212: centred 1 in from the collar's front and lower edges, on the bisector of the collar point. The
+  // collar point of shirt-collar.svg is (587.236, 384.59) px, its lower edge runs to (274.341, 323.585) and its front
+  // edge to (445.189, 166.96): a 45.8 degree point, so the centre lies 25.4 / sin(22.9 deg) = 65.2 mm up the bisector.
+  // Sergio's collar photo (Oct 28 2026) agrees: about 27 mm from the lower edge. Unscaled (F = 1) keeps the old fit.
+  const c = F === 1 ? [ANCHOR.cx, ANCHOR.cy] : [COLLAR.pt[0] * F + COLLAR.bis[0] * COLLAR.d, COLLAR.pt[1] * F + COLLAR.bis[1] * COLLAR.d];
+  size.anchor = a; pos.anchor = [sx + c[0] - a.w / 2, sy + c[1] - a.h / 2];
   const rackTop = sy + P.top * F - QIN - RACK_H;
   pos.decorations = [px - (3 * RIBBON_W) / 2, rackTop];
   pos.swo = [px - PIN_W / 2, rackTop - QIN - SWO_H];
@@ -575,7 +588,7 @@ const alignedShirt = (m: Mode, F = SHIRT_F): Layout => {
     // half, on two lines. Top line T1 (the rack group's top): memorandum on the shirt's upper right, passport on the felt
     // right of the shirt. Bottom line Bp, one grid gap above the shirt's midpoint, where the flags start: pen upright by
     // the pocket, USO under the awards on the pocket axis, pink 2M and Liberty, ID on the felt. Even gaps across each line.
-    const W = SW + G + byId("map").w + 2 * G, shift = (W - l.w) / 2;
+    const W = Math.max(l.w, SW + G + byId("map").w + 2 * G), shift = (W - l.w) / 2;
     // Portraits and crests keep their sizes and layout, centred on the wider case.
     for (const id of Object.keys(pos)) if (pos[id][1] < sy && id !== "uniforms") pos[id] = [pos[id][0] + shift, pos[id][1]];
     const Bp = sy + SH / 2 - gridCols(W).g, FX = SW + (W - SW) / 2;
@@ -605,21 +618,24 @@ const alignedShirt = (m: Mode, F = SHIRT_F): Layout => {
   let RX = 0;
   right.forEach((id, i) => left.forEach((b) => { if (rTop[i] < b.y1 && rTop[i] + rh[i] > b.y0) RX = Math.max(RX, b.x + G + S(id).w / 2); }));
   right.forEach((id, i) => put(id, RX, rTop[i]));
-  // Portraits and crests keep their sizes; when the shirt grows they move right by its extra width, keeping the unscaled
-  // layout's gap to the shirt art's right edge (the sleeve), and the case grows with them.
+  // Portraits and crests keep their sizes; they move with the shirt art's right edge (the sleeve), keeping the unscaled
+  // layout's gap to it but at least 2 G clear of the right column, and the case width follows.
   const shirtSet = ["uniforms", "lapel", "anchor", ...awards, "contact", "logbook", "guestbook", ...right];
-  const dx = SW - SHIRT_W;
-  for (const id of Object.keys(pos)) if (!shirtSet.includes(id)) pos[id] = [pos[id][0] + dx, pos[id][1]];
+  const others = Object.keys(pos).filter((id) => !shirtSet.includes(id));
+  const oLeft = Math.min(...others.map((id) => pos[id][0])), rRight = Math.max(...right.map((id) => pos[id][0] + S(id).w));
+  const dx = Math.max(SW - SHIRT_W, rRight + 2 * G - oLeft);
+  for (const id of others) pos[id] = [pos[id][0] + dx, pos[id][1]];
   const w = l.w + dx;
-  // Portrait column: bottom plaque on B, plaque G under its portrait, at least 4 G between pairs; the top portrait's top
-  // (the crests' top line T0) no lower than the rack group's top, the pairs spread evenly between.
-  const bh = S("bio").h, colH = 2 * (bh + G + plH), T0 = Math.min(T1, B - colH - 4 * G), pg = B - T0 - colH;
+  // Portrait column (Sergio, Oct 28 2026: portraits and crests back up near the case top): top portrait on the top line
+  // T0 = 2 G, plaque G under its portrait, 4 G between pairs, the bottom plaque on the bottom line Bc. Bc is the shirt
+  // column's bottom line B when the column fits above it, else the column's own bottom (it runs past a short shirt).
+  const bh = S("bio").h, colH = 2 * (bh + G + plH), T0 = 2 * G, Bc = Math.max(B, T0 + colH + 4 * G), pg = Bc - T0 - colH;
   let y = T0;
   for (const [b, pl] of PAIRS) { const c = cx(b); put(b, c, y); y += bh + G; put(pl, c, y); y += plH + pg; }
-  // Crest rows (crest + its device), first crest top on T0, last device bottom on B, equal gaps.
+  // Crest rows (crest + its device), first crest top on T0, last device bottom on Bc, equal gaps.
   const rows = R2x3.map((r) => r.flatMap((id) => [id, `${id}-dev`]));
   const box = rows.map((r) => { const t = Math.min(...r.map((id) => pos[id][1])); return { t, h: Math.max(...r.map(bot)) - t }; });
-  const g = (B - T0 - box.reduce((t, v) => t + v.h, 0)) / (rows.length - 1);
+  const g = (Bc - T0 - box.reduce((t, v) => t + v.h, 0)) / (rows.length - 1);
   let ry = T0;
   rows.forEach((r, i) => { for (const id of r) pos[id] = [pos[id][0], pos[id][1] + ry - box[i].t]; ry += box[i].h + g; });
   const h = Math.max(...Object.keys(pos).map(bot), sy + SH);
