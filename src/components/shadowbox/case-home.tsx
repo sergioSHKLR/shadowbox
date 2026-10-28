@@ -551,8 +551,19 @@ const COLLAR = (() => {
   const a = u(e1), b = u(e2), bis = u([a[0] + b[0], a[1] + b[1]]), half = Math.acos(a[0] * b[0] + a[1] * b[1]) / 2;
   return { pt, bis, d: ANCHOR_TRUE_H / Math.sin(half) };
 })();
+/** Smaller pocket (Sergio, Oct 28 2026: "Make shirt pocket smaller"): shirt-khakis-case-smallpocket.svg is the shirt with
+ *  only the pocket's own elements (body, centre line, flap and its shadow, flap button and thread) scaled by POCKET_K
+ *  about the pocket axis (499.035 px) and its top edge (755.297 px), so photo 1's rack / flap ratio (107.5 / 119 px)
+ *  holds at F = 1.10: flap 521 x 0.766 px = 116.2 mm on the case, 105 mm rack / 116.2 = 0.90. Used by
+ *  ?flags=grid-shirt-aligned only. */
+const POCKET_K = 0.766, POCKET_TOP = mm(755.297);
+const SMALL_POCKET_SRC = "shirt-khakis-case-smallpocket.svg";
+const SMALL_POCKET = (() => {
+  const P = SHIRT.pocket, x = (v: number) => P.cx + (v - P.cx) * POCKET_K, y = (v: number) => POCKET_TOP + (v - POCKET_TOP) * POCKET_K;
+  return { ...P, flapCy: y(P.flapCy), button: y(P.button), flapL: x(P.flapL), flapR: x(P.flapR) };
+})();
 const scaleShirt = (pos: Pos, size: Record<string, Size>, F: number) => {
-  const [sx, sy] = pos.uniforms, P = SHIRT.pocket, px = sx + P.cx * F;
+  const [sx, sy] = pos.uniforms, P = SMALL_POCKET, px = sx + P.cx * F;
   size.uniforms = { w: SHIRT_W * F, h: SHIRT_FULL * F };
   size.lapel = { w: LAPEL.w * F, h: LAPEL.h * F }; pos.lapel = [sx, sy];
   const a = F === 1 ? { w: ANCHOR.w, h: ANCHOR.h } : { w: ANCHOR_TRUE_H * (ANCHOR.w / ANCHOR.h), h: ANCHOR_TRUE_H };
@@ -585,7 +596,7 @@ const alignedShirt = (m: Mode, F = SHIRT_F): Layout => {
   const LX = scaleShirt(pos, size, F);
   const awards = ["decorations", "swo", "exw"];
   const T1 = Math.min(...awards.map((id) => pos[id][1])), aBot = Math.max(...awards.map(bot));
-  const penX = sx + SHIRT.pocket.flapL * F - 6 - PEN.w; // upright beside the pocket's left edge
+  const penX = sx + SMALL_POCKET.flapL * F - 6 - PEN.w; // upright beside the pocket's left edge
   tilt.guestbook = 0;
   if (portrait) {
     // Portrait (Sergio's mockup and "the flags should cover the bottom HALF of the shirt"): every shirt item in the upper
@@ -930,7 +941,7 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
             ? <object className="cx-art" type="image/svg+xml" data={caseUrl(item.src)} aria-hidden="true" tabIndex={-1} />
             : <img
                 className={item.crop ? "cx-art is-crop" : "cx-art"}
-                src={caseUrl(item.src)}
+                src={caseUrl(item.id === "uniforms" && flags === "grid-shirt-aligned" ? SMALL_POCKET_SRC : item.src)}
                 // QA Oct 16: the portraits get a 320 px copy for small screens; the shirt and portraits load first (LCP).
                 srcSet={item.src.startsWith("portrait-") ? `${caseUrl(item.src.replace(".webp", "-320.webp"))} 320w, ${caseUrl(item.src)} 640w` : undefined}
                 sizes={item.src.startsWith("portrait-") ? "(max-width: 700px) 40vw, 18vw" : undefined}
