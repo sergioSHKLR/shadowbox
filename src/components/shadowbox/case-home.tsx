@@ -810,15 +810,6 @@ const sketch = (m: Mode): { L: Layout; flags: FlagSpot[] } => {
   // Shirt group.
   pos.uniforms = [0, top];
   scaleShirt(pos, size, F);
-  const SB = hem - S, swoTop = pos.swo[1];
-  const col = ["logbook", "map", "onduty", "admin", "offduty"];
-  const gap = (SB - swoTop - col.reduce((t, id) => t + Sz(id).h, 0)) / (col.length - 1);
-  let y = swoTop;
-  for (const id of col) { put(id, DOC_AX, y); y += Sz(id).h + gap; }
-  const rackR = pos.decorations[0] + Sz("decorations").w;
-  pos.contact = [rackR - CARD.w, SB - CARD.h];
-  pos.guestbook = [54 - PEN.w / 2, SB - PEN.h];
-  const docR = Math.max(...col.map((id) => pos[id][0] + Sz(id).w));
   // Gallery column from y0 to the hem line: portrait w x w*PH, G, plaque 0.7 w, S, portrait, G, plaque.
   const gallery = (x: number, y0: number) => {
     const per = PORTRAIT.h / PORTRAIT.w + PLAQUE_SCALE * (PLAQUE_H / byId("plaque").w);
@@ -831,31 +822,30 @@ const sketch = (m: Mode): { L: Layout; flags: FlagSpot[] } => {
     }
     return w;
   };
-  const gx = docR + S;
   const crestRows = (r: string[]) => CREST_H * CREST_SCALE + G + Math.max(...r.map((id) => devOf(`${id}-dev`).h));
   const flags: FlagSpot[] = [], { w: fw, h: fh } = PATCH;
+  // Landscape and portrait adjustment (Sergio's second landscape sketch, Oct 28 2026; then "Move calling card under pink card ...
+  // Distribute column evenly", then "Move pen to the right of pocket"). Top line = shirt top, bottom line = hem.
+  // Documents column on DOC_AX (memorandum G clear of the shirt body's edge): ID, Liberty, 2M, USO, passport,
+  // memorandum, the ID's top on the top line, the memorandum's bottom on the bottom line, even gaps.
+  const lcol = ["onduty", "offduty", "admin", "contact", "map", "logbook"];
+  const lg = (hem - top - lcol.reduce((t, id) => t + Sz(id).h, 0)) / (lcol.length - 1);
+  let ly = top;
+  for (const id of lcol) { put(id, DOC_AX, ly); ly += Sz(id).h + lg; }
+  const docsR = Math.max(...lcol.map((id) => pos[id][0] + Sz(id).w));
+  // Pen upright on the shirt right of the pocket: centred between the pocket flap's right edge (the pocket's widest
+  // point, shirt-khakis-case-smallpocket.svg flap 755.113 px scaled by POCKET_K about the axis) and the left edge of the
+  // documents beside it, so its 44 px tap area clears both; centred on the pocket body's height (flap top to bottom).
+  const pk = (v: number) => (POCKET_TOP + (mm(v) - POCKET_TOP) * POCKET_K) * F;
+  const flapR = (SMALL_POCKET.cx + (mm(755.113) - SMALL_POCKET.cx) * POCKET_K) * F, pTop = top + pk(755.297), pBot = top + pk(1292.462);
+  const beside = lcol.filter((id) => pos[id][1] < pBot && pos[id][1] + Sz(id).h > pTop), docsL = Math.min(...beside.map((id) => pos[id][0]));
+  pos.guestbook = [(flapR + docsL) / 2 - PEN.w / 2, (pTop + pBot) / 2 - PEN.h / 2];
   if (!portrait) {
-    // Landscape adjustment (Sergio's second landscape sketch, Oct 28 2026; then "Move calling card under pink card ...
-    // Distribute column evenly", then "Move pen to the right of pocket"). Top line = shirt top, bottom line = hem.
-    // Documents column on DOC_AX (memorandum G clear of the shirt body's edge): ID, Liberty, 2M, USO, passport,
-    // memorandum, the ID's top on the top line, the memorandum's bottom on the bottom line, even gaps.
-    const lcol = ["onduty", "offduty", "admin", "contact", "map", "logbook"];
-    const lg = (hem - top - lcol.reduce((t, id) => t + Sz(id).h, 0)) / (lcol.length - 1);
-    let ly = top;
-    for (const id of lcol) { put(id, DOC_AX, ly); ly += Sz(id).h + lg; }
-    const docsR = Math.max(...lcol.map((id) => pos[id][0] + Sz(id).w));
-    // Pen upright on the shirt right of the pocket: centred between the pocket flap's right edge (the pocket's widest
-    // point, shirt-khakis-case-smallpocket.svg flap 755.113 px scaled by POCKET_K about the axis) and the left edge of the
-    // documents beside it, so its 44 px tap area clears both; centred on the pocket body's height (flap top to bottom).
-    const pk = (v: number) => (POCKET_TOP + (mm(v) - POCKET_TOP) * POCKET_K) * F;
-    const flapR = (SMALL_POCKET.cx + (mm(755.113) - SMALL_POCKET.cx) * POCKET_K) * F, pTop = top + pk(755.297), pBot = top + pk(1292.462);
-    const beside = lcol.filter((id) => pos[id][1] < pBot && pos[id][1] + Sz(id).h > pTop), docsL = Math.min(...beside.map((id) => pos[id][0]));
-    pos.guestbook = [(flapR + docsL) / 2 - PEN.w / 2, (pTop + pBot) / 2 - PEN.h / 2];
     // Gallery CS right of the documents.
     const gxL = docsR + S, gw = gallery(gxL, top);
     // Right group: column axes pitch fw + S; left edge CS right of the gallery (counting the widest crest's overhang).
     // Crests' tops on the top line, the last flag row on the bottom line; S between crest rows and between flag rows,
-    // the rest between the crests and the flags (as the sketch has it). The help button moves to the frame.
+    // the rest between the crests and the flags (as the sketch has it). The help button sits in the bottom left corner.
     const over = Math.max(0, ...R3x2.map((r) => (Sz(r[0]).w - fw) / 2));
     const fx = gxL + gw + S + over, ax = [0, 1, 2].map((i) => fx + fw / 2 + i * (fw + S));
     const rows = Math.ceil(SKETCH_FLAGS.length / 3), flagsH = rows * fh + (rows - 1) * S;
@@ -869,8 +859,10 @@ const sketch = (m: Mode): { L: Layout; flags: FlagSpot[] } => {
     const W = ax[2] + Math.max(fw, ...R3x2.map((r) => Sz(r[2]).w)) / 2 + M;
     return { L: { pos, size, tilt, w: W, h: hem + M }, flags };
   }
-  // Portrait: gallery from below the help button (HELP_CLEAR) to the hem line; then crests and flags on 6 shared axes.
-  const gw = gallery(gx, HELP_CLEAR);
+  // Portrait (Sergio, Oct 28 2026: match the landscape): the same shirt, documents column, pen and gallery (top line to
+  // hem line, CS right of the documents; the help button has left the top right corner); then crests and flags on 6
+  // shared axes below the hem.
+  const gx = docsR + S, gw = gallery(gx, top);
   const W = gx + gw + M, cols = 6, pitch = (W - 2 * M - fw) / (cols - 1), ax = [...Array(cols)].map((_, i) => M + fw / 2 + i * pitch);
   let yy = hem + S;
   const order = R3x2.flat();
@@ -880,8 +872,9 @@ const sketch = (m: Mode): { L: Layout; flags: FlagSpot[] } => {
   yy += Math.ceil(SKETCH_FLAGS.length / cols) * (fh + S) - S;
   return { L: { pos, size, tilt, w: W, h: yy + M }, flags };
 };
-/** Top of the right-most column where the help button sits: 44 px button at 0.25rem, about 47 mm at the 1440 x 900 scale. */
-const HELP_CLEAR = 56;
+/** ?flags=sketch portrait: the felt's bottom left corner holds a flag, so the help and exit buttons sit on the shirt just
+ *  above its hem (this canvas y, mm), at the left edge. */
+const SKETCH_HEM = CM + SHIRT_FULL * SHIRT_F;
 const flagParam = (): FlagOrder | null => {
   if (typeof window === "undefined") return null;
   const v = new URLSearchParams(window.location.search).get("flags") as FlagOrder | null;
@@ -1130,11 +1123,13 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
   const { L, flags: flagSpots } = layoutOf(mode, flags);
   // ?flags=sketch landscape puts a crest in the felt's top right corner: the help (and full-screen exit) buttons move
   // to the felt's bottom left corner, over the shirt's hem (Sergio, Oct 28 2026: "Move ? inside the case").
-  const bl = flags === "sketch" && (mode === "wide" || mode === "twoL");
-  const fr = bl ? " cx-at-bl" : "";
+  // Portrait: the felt's bottom left holds a flag, so they sit at the left edge just above the shirt's hem instead.
+  const bl = flags === "sketch" && (mode === "wide" || mode === "twoL"), hemBl = flags === "sketch" && !bl;
+  const fr = bl ? " cx-at-bl" : hemBl ? " cx-at-bl cx-at-hem" : "";
+  const hemStyle = hemBl ? { ["--hem" as string]: String(SKETCH_HEM) } as CSSProperties : undefined;
   const controls = <>
-      <button type="button" className={`cx-exit close-btn close-btn--over${fr}`} aria-label={copy.exitFull} title={copy.exitFull} onClick={exitFull}><X size={18} strokeWidth={2.25} aria-hidden="true" /></button>
-      <button type="button" className={`cx-help${fr}`} aria-label={copy.help} title={copy.help} onClick={() => { setIntro(true); setHint(true); }}>?</button>
+      <button type="button" className={`cx-exit close-btn close-btn--over${fr}`} style={hemStyle} aria-label={copy.exitFull} title={copy.exitFull} onClick={exitFull}><X size={18} strokeWidth={2.25} aria-hidden="true" /></button>
+      <button type="button" className={`cx-help${fr}`} style={hemStyle} aria-label={copy.help} title={copy.help} onClick={() => { setIntro(true); setHint(true); }}>?</button>
   </>;
   return (
     <>

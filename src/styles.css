@@ -1575,6 +1575,8 @@ object.cx-art { color-scheme: light; }
 .cx-help.cx-at-bl, .cx-exit.cx-at-bl { top: auto !important; right: auto !important; bottom: 0.25rem !important; }
 .cx-help.cx-at-bl { left: 0.25rem !important; }
 .cx-exit.cx-at-bl { left: calc(0.25rem + var(--ui-tap) + 0.4rem) !important; }
+/* Portrait: the bottom left corner holds a flag; bottoms 0.25rem above the shirt's hem (--hem mm on the canvas). */
+.cx-help.cx-at-hem, .cx-exit.cx-at-hem { bottom: auto !important; top: calc(var(--oy, 0px) + var(--hem) * var(--k, 1) * 1px - var(--ui-tap) - 0.25rem) !important; }
 .app-theme { width: var(--ui-tap) !important; height: var(--ui-tap) !important; }
 
 /* ---- Disabled ---- */
