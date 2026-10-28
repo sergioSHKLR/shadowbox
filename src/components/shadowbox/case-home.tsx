@@ -462,7 +462,7 @@ const layoutOf = (m: Mode, flags: FlagOrder | null): { L: Layout; flags: FlagSpo
   const key = `${m}:${flags}`;
   let v = flagCache.get(key);
   if (!v) {
-    v = flags === "grid" ? withGrid(LAYOUTS[m]) : flags === "grid-shirt" ? withGrid(evenShirt(m, wholeShirt(LAYOUTS[m]))) : flags === "grid-shirt-plain" ? withGrid(wholeShirt(LAYOUTS[m])) : flags === "grid-shirt-aligned" ? withGrid(alignedShirt(m)) : withFlags(LAYOUTS[m], flags, FLAG_ASPECT[m]);
+    v = flags === "grid" ? withGrid(LAYOUTS[m]) : flags === "grid-shirt" ? withGrid(evenShirt(m, wholeShirt(LAYOUTS[m]))) : flags === "grid-shirt-plain" ? withGrid(wholeShirt(LAYOUTS[m])) : flags === "grid-shirt-aligned" ? alignedGrid(m) : withFlags(LAYOUTS[m], flags, FLAG_ASPECT[m]);
     flagCache.set(key, v);
   }
   return v;
@@ -574,6 +574,16 @@ const alignedShirt = (m: Mode): Layout => {
   }
   const h = Math.max(...Object.keys(pos).map(bot), sy + SHIRT_FULL);
   return { ...l, pos, size, tilt, h };
+};
+/** Aligned grid: in portrait the flags start just below the lowest item other than the shirt, over the empty lower
+ *  shirt and on past its hem, and the case ends just below them (Sergio's portrait mockup, Oct 28 2026). Landscape is
+ *  unchanged (grid below everything). */
+const alignedGrid = (m: Mode) => {
+  const l = alignedShirt(m);
+  if (m !== "twoP" && m !== "one") return withGrid(l);
+  const S = (id: string): Size => l.size[id] ?? (id.endsWith("-dev") ? devOf(id) : byId(id));
+  const low = Math.max(...Object.keys(l.pos).filter((id) => id !== "uniforms").map((id) => l.pos[id][1] + S(id).h));
+  return withGrid(l, low);
 };
 const flagParam = (): FlagOrder | null => {
   if (typeof window === "undefined") return null;
@@ -828,7 +838,7 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
       <div className="cx-canvas" data-flags={flags ?? undefined}>
         {flagSpots.map((f) => (
           <span key={f.key} className="cx-item is-static cx-flag" data-flag={f.key} role="img" aria-label={f.name} title={f.name}
-            style={{ "--ww": `${PATCH.w}px`, "--wh": `${PATCH.h}px`, "--wx": `${f.x}px`, "--wy": `${f.y}px`, "--wr": "0deg", "--wz": 1 } as CSSProperties}>
+            style={{ "--ww": `${PATCH.w}px`, "--wh": `${PATCH.h}px`, "--wx": `${f.x}px`, "--wy": `${f.y}px`, "--wr": "0deg", "--wz": f.z ?? 1 } as CSSProperties}>
             <img className="cx-flag-art" src={caseUrl(`flags/${f.key}.svg`)} alt="" draggable={false} />
           </span>
         ))}
