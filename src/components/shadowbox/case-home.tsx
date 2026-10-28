@@ -534,8 +534,12 @@ const PLAQUE_SCALE = 0.7;
  *  outer edges are 107.5 px apart and the pocket flap's 119 px, a rack/pocket ratio of 0.903. The case rack is 3 ribbons
  *  wide (105 mm), so the flap is 105 / 0.903 = 116.2 mm; the art's flap (238-759 px) is 137.9 mm, so the art scales by
  *  116.2 / 137.9. (Supersedes the 37.5 in chest scale, x1.194.) */
-const PHOTO = { rack: 107.5, flap: 119 };
-const SHIRT_F = Math.round(((3 * 35) / (PHOTO.rack / PHOTO.flap) / mm(759 - 238)) * 1000) / 1000;
+// Shirt scale (Sergio, Oct 28 2026: "Use the selfie scale so the pin clears the collar"). In his collar selfie the SW
+// pin (2.75 in) sits about 9-12 mm below the collar's lower edge. With the full 7-row rack and the ESWS true size, the
+// pin's top clears the art's collar edge (274.341, 323.585)-(587.236, 384.59) px by 102.3 F - 103.1 mm at the pocket
+// axis: F = 1.10 gives 9.5 mm (9.3 mm at the closest point of the pin's outline), the least that clears like the photo.
+// (F 0.98, the collar edge matched to the pin, still hid the pin's top by about 3 mm; photo 1's 0.843 by about 17 mm.)
+const SHIRT_F = 1.1;
 /** "Shrink collar to real size": the CPO collar anchor 1 in tall (Uniform Regs 4212), same point and angle. */
 const ANCHOR_TRUE_H = 25.4;
 /** Scaled shirt (F): the shirt and collar art scale uniformly from the shirt's top-left; the rack, pins and collar
