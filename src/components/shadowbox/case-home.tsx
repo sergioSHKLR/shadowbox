@@ -462,7 +462,7 @@ const layoutOf = (m: Mode, flags: FlagOrder | null): { L: Layout; flags: FlagSpo
   const key = `${m}:${flags}`;
   let v = flagCache.get(key);
   if (!v) {
-    v = flags === "grid" ? withGrid(LAYOUTS[m]) : flags === "grid-shirt" ? withGrid(evenShirt(m, wholeShirt(LAYOUTS[m]))) : flags === "grid-shirt-plain" ? withGrid(wholeShirt(LAYOUTS[m])) : withFlags(LAYOUTS[m], flags, FLAG_ASPECT[m]);
+    v = flags === "grid" ? withGrid(LAYOUTS[m]) : flags === "grid-shirt" ? withGrid(evenShirt(m, wholeShirt(LAYOUTS[m]))) : flags === "grid-shirt-plain" ? withGrid(wholeShirt(LAYOUTS[m])) : flags === "grid-shirt-aligned" ? withGrid(alignedShirt(m)) : withFlags(LAYOUTS[m], flags, FLAG_ASPECT[m]);
     flagCache.set(key, v);
   }
   return v;
@@ -516,6 +516,64 @@ const evenShirt = (m: Mode, l: Layout): Layout => {
     spread([["map"], ["logbook"]], sy, hem); // felt column: passport, memorandum
   }
   return { ...l, pos };
+};
+/** Aligned whole-shirt grid (Sergio's sketch, Oct 28 2026, "pretty much right"; "Enlarge both brass portrait plaques").
+ *  Landscape (wide; the two-column landscape window uses the same canvas):
+ *   - shirt: left axis = the pocket axis (rack and pins as worn, USO card, memorandum); right axis = ID, pink 2M, Liberty,
+ *     passport. Top line = the rack group's top = the ID's top; bottom line = memorandum and passport bottoms. The pen
+ *     stands upright by the shirt's left edge, level with the USO card's centre. Each column spreads evenly between them.
+ *   - portraits stacked, each plaque centred under its portrait at 70% of the frame width (the plaque art scaled up as is);
+ *     the bottom plaque ends on the bottom line, the top portrait's top is the crests' top line, just above the rack's.
+ *   - crests in their two columns, each with its device on the column axis, rows spread from the top line to the bottom
+ *     line (the last devices' bottoms).
+ *  Portrait: the same shirt rules on the portrait layout's shirt; plaques enlarged the same way, everything below them
+ *  moved down by the extra plaque height. Item sizes are unchanged except the plaques. */
+const PLAQUE_SCALE = 0.7;
+const alignedShirt = (m: Mode): Layout => {
+  const portrait = m === "twoP" || m === "one";
+  const l = wholeShirt(LAYOUTS[portrait ? m : "wide"]);
+  const pos: Pos = { ...l.pos }, size: Record<string, Size> = { ...l.size }, tilt = { ...l.tilt };
+  const S = (id: string): Size => size[id] ?? (id.endsWith("-dev") ? devOf(id) : byId(id));
+  const cx = (id: string) => pos[id][0] + S(id).w / 2;
+  const bot = (id: string) => pos[id][1] + S(id).h;
+  const put = (id: string, x: number, top: number) => { pos[id] = [x - S(id).w / 2, top]; };
+  // Plaques: 70% of their portrait's width, proportional, centred under it.
+  const plW = Math.round(PLAQUE_SCALE * S("bio").w * 10) / 10, plH = Math.round(plW * (PLAQUE_H / byId("plaque").w) * 10) / 10;
+  const dy = plH - S("plaque").h, plTop = pos.plaque[1];
+  for (const [b, pl] of PAIRS) { size[pl] = { w: plW, h: plH }; put(pl, cx(b), pos[pl][1]); }
+  if (portrait) for (const id of Object.keys(pos)) if (!PAIRS.flat().includes(id) && pos[id][1] >= plTop) pos[id] = [pos[id][0], pos[id][1] + dy];
+  // Shirt columns.
+  const [sx, sy] = pos.uniforms, B = sy + SHIRT_FULL - 4 * G;
+  const awards = ["decorations", "swo", "exw"].filter((id) => pos[id]);
+  const T1 = Math.min(...awards.map((id) => pos[id][1])), aBot = Math.max(...awards.map(bot)), LX = cx("decorations");
+  put("logbook", LX, B - S("logbook").h);
+  const uTop = (aBot + pos.logbook[1] - S("contact").h) / 2;
+  put("contact", LX, uTop);
+  const wideL0 = LAYOUTS.wide;
+  tilt.guestbook = 0;
+  pos.guestbook = [sx + wideL0.pos.guestbook[0] - wideL0.pos.uniforms[0], uTop + S("contact").h / 2 - S("guestbook").h / 2];
+  const right = ["onduty", "admin", "offduty", "map"], rh = right.map((id) => S(id).h);
+  const rg = (B - T1 - rh.reduce((t, v) => t + v, 0)) / (right.length - 1);
+  const rTop: number[] = []; right.reduce((y, _, i) => { rTop.push(y); return y + rh[i] + rg; }, T1);
+  // Right axis: as far left as clears the left column (one gutter) wherever their heights overlap.
+  const left = [...awards, "contact", "logbook"].map((id) => ({ x: pos[id][0] + S(id).w, y0: pos[id][1], y1: bot(id) }));
+  let RX = 0;
+  right.forEach((id, i) => left.forEach((b) => { if (rTop[i] < b.y1 && rTop[i] + rh[i] > b.y0) RX = Math.max(RX, b.x + G + S(id).w / 2); }));
+  right.forEach((id, i) => put(id, RX, rTop[i]));
+  if (!portrait) {
+    // Portrait column: top portrait on the top line T0, bottom plaque on B, plaque G under its portrait, 4 G between pairs.
+    const bh = S("bio").h, T0 = B - (2 * (bh + G + plH) + 4 * G);
+    let y = T0;
+    for (const [b, pl] of PAIRS) { const c = cx(b); put(b, c, y); y += bh + G; put(pl, c, y); y += plH + 4 * G; }
+    // Crest rows (crest + its device), first crest top on T0, last device bottom on B, equal gaps.
+    const rows = R2x3.map((r) => r.flatMap((id) => [id, `${id}-dev`]));
+    const box = rows.map((r) => { const t = Math.min(...r.map((id) => pos[id][1])); return { t, h: Math.max(...r.map(bot)) - t }; });
+    const g = (B - T0 - box.reduce((t, v) => t + v.h, 0)) / (rows.length - 1);
+    let ry = T0;
+    rows.forEach((r, i) => { for (const id of r) pos[id] = [pos[id][0], pos[id][1] + ry - box[i].t]; ry += box[i].h + g; });
+  }
+  const h = Math.max(...Object.keys(pos).map(bot), sy + SHIRT_FULL);
+  return { ...l, pos, size, tilt, h };
 };
 const flagParam = (): FlagOrder | null => {
   if (typeof window === "undefined") return null;
@@ -738,7 +796,7 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
       const m = modeFor(window.innerWidth, window.innerHeight);
       // Grid preview: the case keeps its usual size and scale on screen (frame width from the usual layout) and simply
       // grows taller, so the flag grid sits below the fold and the page scrolls.
-      const grid = flags === "grid" || flags === "grid-shirt" || flags === "grid-shirt-plain", base = LAYOUTS[m];
+      const grid = flags === "grid" || !!flags?.startsWith("grid-shirt"), base = LAYOUTS[m];
       const c = layoutOf(m, flags).L, scroll = SCROLLS[m] || grid;
       el.dataset.layout = m;
       if (grid) el.dataset.grid = ""; else delete el.dataset.grid;
