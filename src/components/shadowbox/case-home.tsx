@@ -5,7 +5,7 @@ import { awards, publicUrl, ribbonRows, units, type Kind } from "@/lib/shadowbox
 import { createPortal } from "react-dom";
 import { caseNote } from "@/lib/shadowbox/case-notes";
 import type { Locale } from "@/lib/shadowbox/prefs";
-import { FLAG_NAME, FLAG_ORDERS, PATCH, flagOrder, gridCols, withFlags, withGrid, type FlagOrder, type FlagSpot } from "./case-flags";
+import { FLAG_NAME, FLAG_ORDERS, GRID_FLAGS, PATCH, US_FLAGS, flagOrder, gridCols, withFlags, withGrid, type FlagOrder, type FlagSpot } from "./case-flags";
 
 /**
  * Home shadowbox case (Sergio, Oct 12 2026): single-item art from incoming/used, every item at its true size on one
@@ -464,7 +464,7 @@ const layoutOf = (m: Mode, flags: FlagOrder | null): { L: Layout; flags: FlagSpo
   const key = `${m}:${flags}`;
   let v = flagCache.get(key);
   if (!v) {
-    v = flags === "grid" ? withGrid(LAYOUTS[m]) : flags === "grid-shirt" ? withGrid(evenShirt(m, wholeShirt(LAYOUTS[m]))) : flags === "grid-shirt-plain" ? withGrid(wholeShirt(LAYOUTS[m])) : flags === "grid-shirt-aligned" ? alignedGrid(m) : flags === "coherent" ? coherent(m) : withFlags(LAYOUTS[m], flags, FLAG_ASPECT[m]);
+    v = flags === "grid" ? withGrid(LAYOUTS[m]) : flags === "grid-shirt" ? withGrid(evenShirt(m, wholeShirt(LAYOUTS[m]))) : flags === "grid-shirt-plain" ? withGrid(wholeShirt(LAYOUTS[m])) : flags === "grid-shirt-aligned" ? alignedGrid(m) : flags === "coherent" ? coherent(m) : flags === "sketch" ? sketch(m) : withFlags(LAYOUTS[m], flags, FLAG_ASPECT[m]);
     flagCache.set(key, v);
   }
   return v;
@@ -780,6 +780,86 @@ const coherent = (m: Mode): { L: Layout; flags: FlagSpot[] } => {
   });
   return { L: { pos, size, tilt, w: W, h: sy + SH + CM }, flags };
 };
+/** Sergio's landscape sketch (Oct 28 2026: "remove US flag and all states. Try this landscape layout."), ?flags=sketch.
+ *  Sketch labels are the sections each item opens:
+ *   - Shirt group: the scaled half shirt (F, small pocket, EXW as set) flush left. On it: awards = rack, ESWS, EXW; a
+ *     documents column on the sketch's axis (DOC_AX, 290.5 mm into the shirt): log book = memorandum (top on the ESWS top,
+ *     its top right corner past the collar slope as drawn), travel book = passport (over the sleeve's edge as drawn), on
+ *     duty = ID, admin = 2M card, off duty = Liberty card; even gaps, the Liberty card's bottom on the shirt group's bottom
+ *     line (SB, CS above the hem). Guest = the pen, upright at the bottom left; contact = USO card, its right edge on the
+ *     rack's, both bottoms on the bottom line.
+ *   - Gallery column: SR portrait, its plaque, CPO portrait, its plaque, enlarged to fill the column from the top line to
+ *     the hem line (plaques 70% of the portrait width, as before). Like the sketch, its left edge is CS right of the
+ *     documents column, so the SR portrait covers the sleeve tip.
+ *   - Right group: the six crests 3 x 2 in service order, devices G under; then the 18 non-US flags 3 x 6 in GRID order
+ *     (row by row), on the crests' column axes. The group ends on the hem line and starts as far down as CS gaps
+ *     need, which keeps the help button's corner (top right) empty.
+ *  Portrait: the same shirt group and gallery column side by side (the gallery starting below the help button), then
+ *  the crests 6 across with the flags 6 x 3 under them on the same column axes. */
+const DOC_AX = 290.5, SKETCH_FLAGS = GRID_FLAGS.filter((k) => !US_FLAGS.has(k) && k !== "cnmi");
+const sketch = (m: Mode): { L: Layout; flags: FlagSpot[] } => {
+  const portrait = m === "twoP" || m === "one", F = SHIRT_F, M = CM, S = CS;
+  const pos: Pos = {}, size: Record<string, Size> = {}, tilt: Record<string, number> = { anchor: ANCHOR.tilt, guestbook: 0 };
+  for (const id of CRESTS_IN_ORDER) size[id] = crestSize(id, CREST_H * CREST_SCALE);
+  const Sz = (id: string): Size => size[id] ?? (id.endsWith("-dev") ? devOf(id) : byId(id));
+  const put = (id: string, cx: number, top: number) => { pos[id] = [cx - Sz(id).w / 2, top]; };
+  const SH = SHIRT_FULL * F, top = M, hem = M + SH;
+  // Shirt group.
+  pos.uniforms = [0, top];
+  scaleShirt(pos, size, F);
+  const SB = hem - S, swoTop = pos.swo[1];
+  const col = ["logbook", "map", "onduty", "admin", "offduty"];
+  const gap = (SB - swoTop - col.reduce((t, id) => t + Sz(id).h, 0)) / (col.length - 1);
+  let y = swoTop;
+  for (const id of col) { put(id, DOC_AX, y); y += Sz(id).h + gap; }
+  const rackR = pos.decorations[0] + Sz("decorations").w;
+  pos.contact = [rackR - CARD.w, SB - CARD.h];
+  pos.guestbook = [54 - PEN.w / 2, SB - PEN.h];
+  const docR = Math.max(...col.map((id) => pos[id][0] + Sz(id).w));
+  // Gallery column from y0 to the hem line: portrait w x w*PH, G, plaque 0.7 w, S, portrait, G, plaque.
+  const gallery = (x: number, y0: number) => {
+    const per = PORTRAIT.h / PORTRAIT.w + PLAQUE_SCALE * (PLAQUE_H / byId("plaque").w);
+    const w = (hem - y0 - 2 * G - S) / (2 * per);
+    const ph = w * (PORTRAIT.h / PORTRAIT.w), plW = PLAQUE_SCALE * w, plH = plW * (PLAQUE_H / byId("plaque").w);
+    let yy = y0;
+    for (const [b, pl] of PAIRS) {
+      size[b] = { w, h: ph }; size[pl] = { w: plW, h: plH };
+      put(b, x + w / 2, yy); yy += ph + G; put(pl, x + w / 2, yy); yy += plH + S;
+    }
+    return w;
+  };
+  const gx = docR + S;
+  const crestRows = (r: string[]) => CREST_H * CREST_SCALE + G + Math.max(...r.map((id) => devOf(`${id}-dev`).h));
+  const flags: FlagSpot[] = [], { w: fw, h: fh } = PATCH;
+  if (!portrait) {
+    const gw = gallery(gx, top);
+    // Right group: column axes pitch fw + S; left edge CS right of the gallery (counting the widest crest's overhang).
+    const over = Math.max(0, ...R3x2.map((r) => (Sz(r[0]).w - fw) / 2));
+    const fx = gx + gw + S + over, ax = [0, 1, 2].map((i) => fx + fw / 2 + i * (fw + S));
+    const rows = Math.ceil(SKETCH_FLAGS.length / 3);
+    const h = R3x2.reduce((t, r) => t + crestRows(r) + S, 0) + rows * fh + (rows - 1) * S;
+    let yy = hem - h;
+    for (const r of R3x2) {
+      r.forEach((id, i) => { put(id, ax[i], yy); put(`${id}-dev`, ax[i], yy + CREST_H * CREST_SCALE + G); });
+      yy += crestRows(r) + S;
+    }
+    SKETCH_FLAGS.forEach((key, i) => flags.push({ key, name: FLAG_NAME[key], x: ax[i % 3] - fw / 2, y: yy + Math.floor(i / 3) * (fh + S) }));
+    const W = ax[2] + Math.max(fw, ...R3x2.map((r) => Sz(r[2]).w)) / 2 + M;
+    return { L: { pos, size, tilt, w: W, h: hem + M }, flags };
+  }
+  // Portrait: gallery from below the help button (HELP_CLEAR) to the hem line; then crests and flags on 6 shared axes.
+  const gw = gallery(gx, HELP_CLEAR);
+  const W = gx + gw + M, cols = 6, pitch = (W - 2 * M - fw) / (cols - 1), ax = [...Array(cols)].map((_, i) => M + fw / 2 + i * pitch);
+  let yy = hem + S;
+  const order = R3x2.flat();
+  order.forEach((id, i) => { put(id, ax[i], yy); put(`${id}-dev`, ax[i], yy + CREST_H * CREST_SCALE + G); });
+  yy += CREST_H * CREST_SCALE + G + Math.max(...order.map((id) => devOf(`${id}-dev`).h)) + S;
+  SKETCH_FLAGS.forEach((key, i) => flags.push({ key, name: FLAG_NAME[key], x: ax[i % cols] - fw / 2, y: yy + Math.floor(i / cols) * (fh + S) }));
+  yy += Math.ceil(SKETCH_FLAGS.length / cols) * (fh + S) - S;
+  return { L: { pos, size, tilt, w: W, h: yy + M }, flags };
+};
+/** Top of the right-most column where the help button sits: 44 px button at 0.25rem, about 47 mm at the 1440 x 900 scale. */
+const HELP_CLEAR = 56;
 const flagParam = (): FlagOrder | null => {
   if (typeof window === "undefined") return null;
   const v = new URLSearchParams(window.location.search).get("flags") as FlagOrder | null;
@@ -1054,7 +1134,7 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
             ? <object className="cx-art" type="image/svg+xml" data={caseUrl(item.src)} aria-hidden="true" tabIndex={-1} />
             : <img
                 className={item.crop ? "cx-art is-crop" : "cx-art"}
-                src={caseUrl(item.id === "uniforms" && (flags === "grid-shirt-aligned" || flags === "coherent") ? SMALL_POCKET_SRC : item.src)}
+                src={caseUrl(item.id === "uniforms" && (flags === "grid-shirt-aligned" || flags === "coherent" || flags === "sketch") ? SMALL_POCKET_SRC : item.src)}
                 // QA Oct 16: the portraits get a 320 px copy for small screens; the shirt and portraits load first (LCP).
                 srcSet={item.src.startsWith("portrait-") ? `${caseUrl(item.src.replace(".webp", "-320.webp"))} 320w, ${caseUrl(item.src)} 640w` : undefined}
                 sizes={item.src.startsWith("portrait-") ? "(max-width: 700px) 40vw, 18vw" : undefined}
