@@ -1570,11 +1570,13 @@ object.cx-art { color-scheme: light; }
 .cx-help, .cx-exit { width: var(--ui-tap) !important; height: var(--ui-tap) !important; font-size: 1.1rem !important; }
 .cx-help { top: 0.25rem !important; right: 0.25rem !important; }
 .cx-exit { right: 3.2rem !important; top: 0.25rem !important; }
-/* ?flags=sketch landscape: the controls ride on the frame's top right corner (centred on the frame band), clear of the crests. */
-.cx-help.cx-on-frame { top: calc(0.55rem - var(--ui-tap) / 2) !important; right: calc(0.55rem - var(--ui-tap) / 2) !important; }
-.cx-exit.cx-on-frame { top: calc(0.55rem - var(--ui-tap) / 2) !important; right: calc(0.55rem + var(--ui-tap) / 2 + 0.4rem) !important; }
-.case-frame:fullscreen .cx-on-frame, .case-frame[data-cover="1"] .cx-on-frame { top: 0.1rem !important; }
-.case-frame:fullscreen .cx-help.cx-on-frame, .case-frame[data-cover="1"] .cx-help.cx-on-frame { right: 0.1rem !important; }
+/* ?flags=sketch landscape: the controls ride on the frame's bottom left corner (centred on the frame band), clear of the
+   shirt's hem and every item (Sergio, Oct 28 2026: "Move ? to bottom left"); the full-screen exit sits to its right. */
+.cx-help.cx-on-frame, .cx-exit.cx-on-frame { top: auto !important; right: auto !important; bottom: calc(0.55rem - var(--ui-tap) / 2) !important; }
+.cx-help.cx-on-frame { left: calc(0.55rem - var(--ui-tap) / 2) !important; }
+.cx-exit.cx-on-frame { left: calc(0.55rem + var(--ui-tap) / 2 + 0.4rem) !important; }
+.case-frame:fullscreen .cx-on-frame, .case-frame[data-cover="1"] .cx-on-frame { bottom: 0.1rem !important; }
+.case-frame:fullscreen .cx-help.cx-on-frame, .case-frame[data-cover="1"] .cx-help.cx-on-frame { left: 0.1rem !important; }
 .app-theme { width: var(--ui-tap) !important; height: var(--ui-tap) !important; }
 
 /* ---- Disabled ---- */

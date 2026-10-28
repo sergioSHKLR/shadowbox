@@ -565,8 +565,6 @@ const COLLAR = (() => {
  *  down, to 55.3 mm (1003.35 px before the pocket scale). The flap button stays where photo 1 has it (centre 36.8 mm
  *  below the flap top, its top 31.5 mm). */
 const POCKET_K = 0.766, POCKET_TOP = mm(755.297), EXW_BELOW_FLAP = 4;
-/** The pocket art's flap point and bottom edge (px, before POCKET_K). */
-const POCKET_PT = mm(1003.348), POCKET_BOT = mm(1292.462);
 const SMALL_POCKET_SRC = "shirt-khakis-case-smallpocket.svg";
 const SMALL_POCKET = (() => {
   const P = SHIRT.pocket, x = (v: number) => P.cx + (v - P.cx) * POCKET_K, y = (v: number) => POCKET_TOP + (v - POCKET_TOP) * POCKET_K;
@@ -811,7 +809,7 @@ const sketch = (m: Mode): { L: Layout; flags: FlagSpot[] } => {
   const SH = SHIRT_FULL * F, top = M, hem = M + SH;
   // Shirt group.
   pos.uniforms = [0, top];
-  const LX = scaleShirt(pos, size, F);
+  scaleShirt(pos, size, F);
   const SB = hem - S, swoTop = pos.swo[1];
   const col = ["logbook", "map", "onduty", "admin", "offduty"];
   const gap = (SB - swoTop - col.reduce((t, id) => t + Sz(id).h, 0)) / (col.length - 1);
@@ -837,20 +835,20 @@ const sketch = (m: Mode): { L: Layout; flags: FlagSpot[] } => {
   const crestRows = (r: string[]) => CREST_H * CREST_SCALE + G + Math.max(...r.map((id) => devOf(`${id}-dev`).h));
   const flags: FlagSpot[] = [], { w: fw, h: fh } = PATCH;
   if (!portrait) {
-    // Landscape adjustment (Sergio's second landscape sketch, Oct 28 2026). Top line = shirt top, bottom line = hem.
-    // Documents column on DOC_AX (memorandum G clear of the shirt body's edge): ID, Liberty, 2M, passport, memorandum,
-    // the ID's top on the top line, the memorandum's bottom on the bottom line, even gaps; the ID sits on the felt above
-    // the sleeve, the Liberty and 2M cards on its slope, as drawn.
-    const lcol = ["onduty", "offduty", "admin", "map", "logbook"];
+    // Landscape adjustment (Sergio's second landscape sketch, Oct 28 2026; then "Move calling card under pink card and
+    // pen to the right of it. Distribute column evenly."). Top line = shirt top, bottom line = hem. Documents column on
+    // DOC_AX (memorandum G clear of the shirt body's edge): ID, Liberty, 2M, USO, passport, memorandum, the ID's top on
+    // the top line, the memorandum's bottom on the bottom line, even gaps. The USO card stays on the line; the pen stands
+    // upright PEN_GAP right of it, centred on the card's height (clear of every document's right edge). The pocket keeps
+    // only the awards.
+    const lcol = ["onduty", "offduty", "admin", "contact", "map", "logbook"];
     const lg = (hem - top - lcol.reduce((t, id) => t + Sz(id).h, 0)) / (lcol.length - 1);
     let ly = top;
     for (const id of lcol) { put(id, DOC_AX, ly); ly += Sz(id).h + lg; }
-    // Contact (USO) on the awards' axis directly under them, centred in the pocket between the flap's point and the
-    // pocket's bottom; guest (pen) upright left of the pocket, its bottom level with the USO card's.
-    const flapPt = top + (POCKET_TOP + (POCKET_PT - POCKET_TOP) * POCKET_K) * F, pocketBot = top + (POCKET_TOP + (POCKET_BOT - POCKET_TOP) * POCKET_K) * F;
-    put("contact", LX, (flapPt + pocketBot) / 2 - CARD.h / 2);
-    pos.guestbook = [SMALL_POCKET.flapL * F - 6 - PEN.w, pos.contact[1] + CARD.h - PEN.h];
-    const gxL = Math.max(...lcol.map((id) => pos[id][0] + Sz(id).w)) + S, gw = gallery(gxL, top);
+    const PEN_GAP = 6, docsR = Math.max(...lcol.map((id) => pos[id][0] + Sz(id).w));
+    pos.guestbook = [Math.max(pos.contact[0] + CARD.w + PEN_GAP, docsR + 1), pos.contact[1] + CARD.h / 2 - PEN.h / 2];
+    // Gallery CS right of the documents and the pen.
+    const gxL = Math.max(docsR, pos.guestbook[0] + PEN.w) + S, gw = gallery(gxL, top);
     // Right group: column axes pitch fw + S; left edge CS right of the gallery (counting the widest crest's overhang).
     // Crests' tops on the top line, the last flag row on the bottom line; S between crest rows and between flag rows,
     // the rest between the crests and the flags (as the sketch has it). The help button moves to the frame.
