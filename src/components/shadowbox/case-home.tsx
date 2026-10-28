@@ -835,20 +835,24 @@ const sketch = (m: Mode): { L: Layout; flags: FlagSpot[] } => {
   const crestRows = (r: string[]) => CREST_H * CREST_SCALE + G + Math.max(...r.map((id) => devOf(`${id}-dev`).h));
   const flags: FlagSpot[] = [], { w: fw, h: fh } = PATCH;
   if (!portrait) {
-    // Landscape adjustment (Sergio's second landscape sketch, Oct 28 2026; then "Move calling card under pink card and
-    // pen to the right of it. Distribute column evenly."). Top line = shirt top, bottom line = hem. Documents column on
-    // DOC_AX (memorandum G clear of the shirt body's edge): ID, Liberty, 2M, USO, passport, memorandum, the ID's top on
-    // the top line, the memorandum's bottom on the bottom line, even gaps. The USO card stays on the line; the pen stands
-    // upright PEN_GAP right of it, centred on the card's height (clear of every document's right edge). The pocket keeps
-    // only the awards.
+    // Landscape adjustment (Sergio's second landscape sketch, Oct 28 2026; then "Move calling card under pink card ...
+    // Distribute column evenly", then "Move pen to the right of pocket"). Top line = shirt top, bottom line = hem.
+    // Documents column on DOC_AX (memorandum G clear of the shirt body's edge): ID, Liberty, 2M, USO, passport,
+    // memorandum, the ID's top on the top line, the memorandum's bottom on the bottom line, even gaps.
     const lcol = ["onduty", "offduty", "admin", "contact", "map", "logbook"];
     const lg = (hem - top - lcol.reduce((t, id) => t + Sz(id).h, 0)) / (lcol.length - 1);
     let ly = top;
     for (const id of lcol) { put(id, DOC_AX, ly); ly += Sz(id).h + lg; }
-    const PEN_GAP = 6, docsR = Math.max(...lcol.map((id) => pos[id][0] + Sz(id).w));
-    pos.guestbook = [Math.max(pos.contact[0] + CARD.w + PEN_GAP, docsR + 1), pos.contact[1] + CARD.h / 2 - PEN.h / 2];
-    // Gallery CS right of the documents and the pen.
-    const gxL = Math.max(docsR, pos.guestbook[0] + PEN.w) + S, gw = gallery(gxL, top);
+    const docsR = Math.max(...lcol.map((id) => pos[id][0] + Sz(id).w));
+    // Pen upright on the shirt right of the pocket: centred between the pocket flap's right edge (the pocket's widest
+    // point, shirt-khakis-case-smallpocket.svg flap 755.113 px scaled by POCKET_K about the axis) and the left edge of the
+    // documents beside it, so its 44 px tap area clears both; centred on the pocket body's height (flap top to bottom).
+    const pk = (v: number) => (POCKET_TOP + (mm(v) - POCKET_TOP) * POCKET_K) * F;
+    const flapR = (SMALL_POCKET.cx + (mm(755.113) - SMALL_POCKET.cx) * POCKET_K) * F, pTop = top + pk(755.297), pBot = top + pk(1292.462);
+    const beside = lcol.filter((id) => pos[id][1] < pBot && pos[id][1] + Sz(id).h > pTop), docsL = Math.min(...beside.map((id) => pos[id][0]));
+    pos.guestbook = [(flapR + docsL) / 2 - PEN.w / 2, (pTop + pBot) / 2 - PEN.h / 2];
+    // Gallery CS right of the documents.
+    const gxL = docsR + S, gw = gallery(gxL, top);
     // Right group: column axes pitch fw + S; left edge CS right of the gallery (counting the widest crest's overhang).
     // Crests' tops on the top line, the last flag row on the bottom line; S between crest rows and between flag rows,
     // the rest between the crests and the flags (as the sketch has it). The help button moves to the frame.
@@ -1124,10 +1128,10 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
   const zoomLayer = useRef<HTMLDivElement | null>(null);
   usePinchZoom(stage, zoomLayer);
   const { L, flags: flagSpots } = layoutOf(mode, flags);
-  // ?flags=sketch landscape puts a crest in the felt's top right corner: the help (and full-screen exit) buttons sit on
-  // the frame instead, outside the stage (Oct 28 2026).
-  const onFrame = flags === "sketch" && (mode === "wide" || mode === "twoL");
-  const fr = onFrame ? " cx-on-frame" : "";
+  // ?flags=sketch landscape puts a crest in the felt's top right corner: the help (and full-screen exit) buttons move
+  // to the felt's bottom left corner, over the shirt's hem (Sergio, Oct 28 2026: "Move ? inside the case").
+  const bl = flags === "sketch" && (mode === "wide" || mode === "twoL");
+  const fr = bl ? " cx-at-bl" : "";
   const controls = <>
       <button type="button" className={`cx-exit close-btn close-btn--over${fr}`} aria-label={copy.exitFull} title={copy.exitFull} onClick={exitFull}><X size={18} strokeWidth={2.25} aria-hidden="true" /></button>
       <button type="button" className={`cx-help${fr}`} aria-label={copy.help} title={copy.help} onClick={() => { setIntro(true); setHint(true); }}>?</button>
@@ -1183,9 +1187,8 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
         })}
       </div>
       </div>
-      {onFrame ? null : controls}
+      {controls}
     </div>
-    {onFrame ? controls : null}
     {intro ? createPortal(<CaseIntro copy={copy} onClose={closeIntro} />, layerRoot()) : null}
     {view ? <ItemModal id={view} setId={setView} copy={copy} locale={locale} label={label}
       go={(id) => { const t = targetOf(id); exitFull(); if (!controlled) setView(null); if (t.unit) { onGo?.("logbook", t.unit); window.dispatchEvent(new CustomEvent("sb-logbook-command", { detail: t.unit })); } else onGo?.(t.view); }} /> : null}
