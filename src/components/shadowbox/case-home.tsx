@@ -5,6 +5,7 @@ import { awards, publicUrl, ribbonRows, units, type Kind } from "@/lib/shadowbox
 import { createPortal } from "react-dom";
 import { caseNote } from "@/lib/shadowbox/case-notes";
 import type { Locale } from "@/lib/shadowbox/prefs";
+import { FLAG_ORDERS, PATCH, withFlags, type FlagOrder, type FlagSpot } from "./case-flags";
 
 /**
  * Home shadowbox case (Sergio, Oct 12 2026): single-item art from incoming/used, every item at its true size on one
@@ -452,6 +453,22 @@ const modeFor = (w: number, h: number): Mode =>
   w >= 1200 || (w >= 1000 && w / h >= 1.6) ? "wide" : w < 600 && h > w ? "one" : w > h ? "twoL" : "twoP";
 const SCROLLS: Record<Mode, boolean> = { wide: false, twoL: false, twoP: true, one: true };
 export const CASE_DIMS = { WIDE, LAYOUTS };
+/** Flag perimeter preview (Oct 28 2026): ?flags=alpha|geo|chrono|era puts the 31 patch flags round the case (see
+ *  case-flags.ts). Without the parameter Home is unchanged. Target window aspect per mode picks the row/column split. */
+const FLAG_ASPECT: Record<Mode, number> = { wide: 1.6, twoL: 1.45, twoP: 0, one: 0 };
+const flagCache = new Map<string, { L: Layout; flags: FlagSpot[] }>();
+const layoutOf = (m: Mode, flags: FlagOrder | null): { L: Layout; flags: FlagSpot[] } => {
+  if (!flags) return { L: LAYOUTS[m], flags: [] };
+  const key = `${m}:${flags}`;
+  let v = flagCache.get(key);
+  if (!v) { v = withFlags(LAYOUTS[m], flags, FLAG_ASPECT[m]); flagCache.set(key, v); }
+  return v;
+};
+const flagParam = (): FlagOrder | null => {
+  if (typeof window === "undefined") return null;
+  const v = new URLSearchParams(window.location.search).get("flags") as FlagOrder | null;
+  return v && FLAG_ORDERS.includes(v) ? v : null;
+};
 
 /** Ribbon weave on the Home rack (Sergio, Oct 20 2026). The rack SVG shows its weave by itself only when laid out
  *  > 222 px wide (the full-case pop-up). On Home the case is a fixed layout scaled by a transform, so the <img> is laid
@@ -643,6 +660,8 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
   const view = controlled ? (caseItem && ORDER.includes(caseItem) ? caseItem : null) : ownView;
   const setView = useCallback((id: string | null) => (controlled ? onCaseItem!(id) : setOwnView(id)), [controlled, onCaseItem]);
   const [mode, setMode] = useState<Mode>("wide");
+  const [flags, setFlags] = useState<FlagOrder | null>(null);
+  useEffect(() => { setFlags(flagParam()); }, []);
   // First-visit intro: only once Home is actually on screen (a deep link to another page does not get it on top).
   useEffect(() => {
     if (!active) return;
@@ -664,7 +683,7 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
     if (!el) return;
     const fit = () => {
       const m = modeFor(window.innerWidth, window.innerHeight);
-      const c = LAYOUTS[m], scroll = SCROLLS[m];
+      const c = layoutOf(m, flags).L, scroll = SCROLLS[m];
       el.dataset.layout = m;
       setMode(m);
       (el.closest(".case-frame") as HTMLElement | null)?.style.setProperty("--cx-r", String(c.w / c.h));
@@ -683,15 +702,21 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
     ro.observe(el);
     window.addEventListener("resize", fit);
     return () => { ro.disconnect(); window.removeEventListener("resize", fit); };
-  }, []);
+  }, [flags]);
   const zoomLayer = useRef<HTMLDivElement | null>(null);
   usePinchZoom(stage, zoomLayer);
-  const L = LAYOUTS[mode];
+  const { L, flags: flagSpots } = layoutOf(mode, flags);
   return (
     <>
     <div ref={stage} className={hint ? "cx-stage cx-hint" : "cx-stage"} data-layout="wide" style={{ ["--ratio" as string]: `${WIDE.w} / ${WIDE.h}`, backgroundImage: `url("${caseUrl("felt.svg")}")` }}>
       <div ref={zoomLayer} className="cx-zoom">
-      <div className="cx-canvas">
+      <div className="cx-canvas" data-flags={flags ?? undefined}>
+        {flagSpots.map((f) => (
+          <span key={f.key} className="cx-item is-static cx-flag" data-flag={f.key} role="img" aria-label={f.name} title={f.name}
+            style={{ "--ww": `${PATCH.w}px`, "--wh": `${PATCH.h}px`, "--wx": `${f.x}px`, "--wy": `${f.y}px`, "--wr": "0deg", "--wz": 1 } as CSSProperties}>
+            <img className="cx-flag-art" src={caseUrl(`flags/${f.key}.svg`)} alt="" draggable={false} />
+          </span>
+        ))}
         {ALL.map((item) => {
           const p = L.pos[item.id] ?? [0, 0];
           const s = L.size[item.id] ?? item;
