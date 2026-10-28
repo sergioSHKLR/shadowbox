@@ -114,20 +114,24 @@ const GRID_GAP_MIN = 10, GRID_GAP_MAX = 24;
 /** `over`: start the grid one gap below this line instead of below the whole layout, drawn over what lies under it
  *  (z 2, above the shirt's z 1), and end the case one gap below the grid (Sergio, Oct 28 2026, portrait mockup: "Move
  *  flags over the empty bottom of shirt and let it overflow below it"). */
-export function withGrid(l: Layout, over?: number): { L: Layout; flags: FlagSpot[]; cols: number } {
-  const { w: fw, h: fh } = PATCH, names = flagOrder("grid"), n = names.length;
-  const maxC = Math.max(1, Math.floor((l.w - GRID_GAP_MIN) / (fw + GRID_GAP_MIN)));
-  // 31 is prime, so some row is always short: pick the column count (from 3 up to what fits) whose last row has the
-  // fewest empty places, ties to more columns.
+/** Column count and gap of the flag grid for a case of width w. 31 is prime, so some row is always short: the column
+ *  count (from 3 up to what fits) whose last row has the fewest empty places, ties to more columns. */
+export function gridCols(w: number): { cols: number; g: number } {
+  const { w: fw } = PATCH, n = flagOrder("grid").length;
+  const maxC = Math.max(1, Math.floor((w - GRID_GAP_MIN) / (fw + GRID_GAP_MIN)));
   let cols = maxC;
   for (let c = maxC; c >= Math.min(3, maxC); c--) if ((c - (n % c || c)) < (cols - (n % cols || cols))) cols = c;
-  const rows = Math.ceil(n / cols);
-  const g = Math.min(GRID_GAP_MAX, (l.w - cols * fw) / (cols + 1));
+  return { cols, g: Math.min(GRID_GAP_MAX, (w - cols * fw) / (cols + 1)) };
+}
+export function withGrid(l: Layout, over?: number): { L: Layout; flags: FlagSpot[]; cols: number } {
+  const { w: fw, h: fh } = PATCH, names = flagOrder("grid"), n = names.length;
+  const { cols, g } = gridCols(l.w), rows = Math.ceil(n / cols);
   const x0 = (l.w - cols * fw - (cols - 1) * g) / 2, y0 = (over ?? l.h) + g, spots: FlagSpot[] = [];
   names.forEach((key, i) => {
     const r = Math.floor(i / cols), c = i % cols, inRow = Math.min(cols, n - r * cols);
     const xr = x0 + ((cols - inRow) * (fw + g)) / 2;
     spots.push({ key, name: FLAG_NAME[key], x: xr + c * (fw + g), y: y0 + r * (fh + g), ...(over === undefined ? {} : { z: 2 }) });
   });
-  return { L: { ...l, h: y0 + rows * fh + (rows - 1) * g + g }, flags: spots, cols };
+  const end = y0 + rows * fh + (rows - 1) * g + g;
+  return { L: { ...l, h: over === undefined ? end : Math.max(end, l.h) }, flags: spots, cols };
 }

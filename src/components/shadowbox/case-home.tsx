@@ -5,7 +5,7 @@ import { awards, publicUrl, ribbonRows, units, type Kind } from "@/lib/shadowbox
 import { createPortal } from "react-dom";
 import { caseNote } from "@/lib/shadowbox/case-notes";
 import type { Locale } from "@/lib/shadowbox/prefs";
-import { FLAG_ORDERS, PATCH, withFlags, withGrid, type FlagOrder, type FlagSpot } from "./case-flags";
+import { FLAG_ORDERS, PATCH, gridCols, withFlags, withGrid, type FlagOrder, type FlagSpot } from "./case-flags";
 
 /**
  * Home shadowbox case (Sergio, Oct 12 2026): single-item art from incoming/used, every item at its true size on one
@@ -529,7 +529,29 @@ const evenShirt = (m: Mode, l: Layout): Layout => {
  *  Portrait: the same shirt rules on the portrait layout's shirt; plaques enlarged the same way, everything below them
  *  moved down by the extra plaque height. Item sizes are unchanged except the plaques. */
 const PLAQUE_SCALE = 0.7;
-const alignedShirt = (m: Mode): Layout => {
+/** Shirt to a 37.5 in chest (Sergio, Oct 28 2026: "Scale the shirt to a 37-38 inch chest"). Measured on the art's
+ *  1455 px canvas: front button centre x 47.5 px, side seam (lower body edge) x 801 px, so the half front is 753.5 px =
+ *  199.4 mm, a 31.4 in chest (4 half fronts). 37.5 in / 4 = 238.1 mm, so the art scales by 238.1 / 199.4. */
+const SHIRT_HALF_FRONT = mm(801 - 47.5);
+const SHIRT_F = Math.round((37.5 * 25.4 / 4 / SHIRT_HALF_FRONT) * 1000) / 1000;
+/** "Shrink collar to real size": the CPO collar anchor 1 in tall (Uniform Regs 4212), same point and angle. */
+const ANCHOR_TRUE_H = 25.4;
+/** Scaled shirt (F): the shirt and collar art scale uniformly from the shirt's top-left; the rack, pins and collar
+ *  anchor stay true size and follow the anatomy (rack and pins on the scaled pocket axis, rack a quarter inch above the
+ *  pocket, EXW above the flap button, anchor on the collar point). Returns the scaled pocket axis x. */
+const scaleShirt = (pos: Pos, size: Record<string, Size>, F: number) => {
+  const [sx, sy] = pos.uniforms, P = SHIRT.pocket, px = sx + P.cx * F;
+  size.uniforms = { w: SHIRT_W * F, h: SHIRT_FULL * F };
+  size.lapel = { w: LAPEL.w * F, h: LAPEL.h * F }; pos.lapel = [sx, sy];
+  const a = F === 1 ? { w: ANCHOR.w, h: ANCHOR.h } : { w: ANCHOR_TRUE_H * (ANCHOR.w / ANCHOR.h), h: ANCHOR_TRUE_H };
+  size.anchor = a; pos.anchor = [sx + ANCHOR.cx * F - a.w / 2, sy + ANCHOR.cy * F - a.h / 2];
+  const rackTop = sy + P.top * F - QIN - RACK_H;
+  pos.decorations = [px - (3 * RIBBON_W) / 2, rackTop];
+  pos.swo = [px - PIN_W / 2, rackTop - QIN - SWO_H];
+  pos.exw = [px - EXW_W / 2, sy + P.button * F - (9 * F + 2) - EXW_ART_BOTTOM * EXW_H];
+  return px;
+};
+const alignedShirt = (m: Mode, F = SHIRT_F): Layout => {
   const portrait = m === "twoP" || m === "one";
   const l = wholeShirt(LAYOUTS[portrait ? m : "wide"]);
   const pos: Pos = { ...l.pos }, size: Record<string, Size> = { ...l.size }, tilt = { ...l.tilt };
@@ -542,16 +564,39 @@ const alignedShirt = (m: Mode): Layout => {
   const dy = plH - S("plaque").h, plTop = pos.plaque[1];
   for (const [b, pl] of PAIRS) { size[pl] = { w: plW, h: plH }; put(pl, cx(b), pos[pl][1]); }
   if (portrait) for (const id of Object.keys(pos)) if (!PAIRS.flat().includes(id) && pos[id][1] >= plTop) pos[id] = [pos[id][0], pos[id][1] + dy];
-  // Shirt columns.
-  const [sx, sy] = pos.uniforms, B = sy + SHIRT_FULL - 4 * G;
-  const awards = ["decorations", "swo", "exw"].filter((id) => pos[id]);
-  const T1 = Math.min(...awards.map((id) => pos[id][1])), aBot = Math.max(...awards.map(bot)), LX = cx("decorations");
+  const [sx, sy] = pos.uniforms, SW = SHIRT_W * F, SH = SHIRT_FULL * F;
+  const LX = scaleShirt(pos, size, F);
+  const awards = ["decorations", "swo", "exw"];
+  const T1 = Math.min(...awards.map((id) => pos[id][1])), aBot = Math.max(...awards.map(bot));
+  const penX = sx + SHIRT.pocket.flapL * F - 6 - PEN.w; // upright beside the pocket's left edge
+  tilt.guestbook = 0;
+  if (portrait) {
+    // Portrait (Sergio's mockup and "the flags should cover the bottom HALF of the shirt"): every shirt item in the upper
+    // half, on two lines. Top line T1 (the rack group's top): memorandum on the shirt's upper right, passport on the felt
+    // right of the shirt. Bottom line Bp, one grid gap above the shirt's midpoint, where the flags start: pen upright by
+    // the pocket, USO under the awards on the pocket axis, pink 2M and Liberty, ID on the felt. Even gaps across each line.
+    const W = SW + G + byId("map").w + 2 * G, shift = (W - l.w) / 2;
+    // Portraits and crests keep their sizes and layout, centred on the wider case.
+    for (const id of Object.keys(pos)) if (pos[id][1] < sy && id !== "uniforms") pos[id] = [pos[id][0] + shift, pos[id][1]];
+    const Bp = sy + SH / 2 - gridCols(W).g, FX = SW + (W - SW) / 2;
+    put("map", FX, T1);
+    put("onduty", FX, Bp - S("onduty").h);
+    const rackR = LX + (3 * RIBBON_W) / 2, mapL = pos.map[0];
+    pos.logbook = [rackR + (mapL - rackR - S("logbook").w) / 2, T1];
+    put("contact", LX, Bp - CARD.h);
+    const cR = pos.contact[0] + CARD.w, idL = pos.onduty[0], cg = (idL - cR - 2 * CARD.w) / 3;
+    pos.admin = [cR + cg, Bp - CARD.h];
+    pos.offduty = [cR + 2 * cg + CARD.w, Bp - CARD.h];
+    pos.guestbook = [penX, Bp - PEN.h];
+    const h = Math.max(...Object.keys(pos).map(bot), sy + SH);
+    return { ...l, pos, size, tilt, w: W, h };
+  }
+  // Landscape shirt columns.
+  const B = sy + SH - 4 * G;
   put("logbook", LX, B - S("logbook").h);
   const uTop = (aBot + pos.logbook[1] - S("contact").h) / 2;
   put("contact", LX, uTop);
-  const wideL0 = LAYOUTS.wide;
-  tilt.guestbook = 0;
-  pos.guestbook = [sx + wideL0.pos.guestbook[0] - wideL0.pos.uniforms[0], uTop + S("contact").h / 2 - S("guestbook").h / 2];
+  pos.guestbook = [penX, uTop + S("contact").h / 2 - S("guestbook").h / 2];
   const right = ["onduty", "admin", "offduty", "map"], rh = right.map((id) => S(id).h);
   const rg = (B - T1 - rh.reduce((t, v) => t + v, 0)) / (right.length - 1);
   const rTop: number[] = []; right.reduce((y, _, i) => { rTop.push(y); return y + rh[i] + rg; }, T1);
@@ -560,30 +605,36 @@ const alignedShirt = (m: Mode): Layout => {
   let RX = 0;
   right.forEach((id, i) => left.forEach((b) => { if (rTop[i] < b.y1 && rTop[i] + rh[i] > b.y0) RX = Math.max(RX, b.x + G + S(id).w / 2); }));
   right.forEach((id, i) => put(id, RX, rTop[i]));
-  if (!portrait) {
-    // Portrait column: top portrait on the top line T0, bottom plaque on B, plaque G under its portrait, 4 G between pairs.
-    const bh = S("bio").h, T0 = B - (2 * (bh + G + plH) + 4 * G);
-    let y = T0;
-    for (const [b, pl] of PAIRS) { const c = cx(b); put(b, c, y); y += bh + G; put(pl, c, y); y += plH + 4 * G; }
-    // Crest rows (crest + its device), first crest top on T0, last device bottom on B, equal gaps.
-    const rows = R2x3.map((r) => r.flatMap((id) => [id, `${id}-dev`]));
-    const box = rows.map((r) => { const t = Math.min(...r.map((id) => pos[id][1])); return { t, h: Math.max(...r.map(bot)) - t }; });
-    const g = (B - T0 - box.reduce((t, v) => t + v.h, 0)) / (rows.length - 1);
-    let ry = T0;
-    rows.forEach((r, i) => { for (const id of r) pos[id] = [pos[id][0], pos[id][1] + ry - box[i].t]; ry += box[i].h + g; });
-  }
-  const h = Math.max(...Object.keys(pos).map(bot), sy + SHIRT_FULL);
-  return { ...l, pos, size, tilt, h };
+  // Portraits and crests keep their sizes; when the shirt grows they move right by its extra width, keeping the unscaled
+  // layout's gap to the shirt art's right edge (the sleeve), and the case grows with them.
+  const shirtSet = ["uniforms", "lapel", "anchor", ...awards, "contact", "logbook", "guestbook", ...right];
+  const dx = SW - SHIRT_W;
+  for (const id of Object.keys(pos)) if (!shirtSet.includes(id)) pos[id] = [pos[id][0] + dx, pos[id][1]];
+  const w = l.w + dx;
+  // Portrait column: bottom plaque on B, plaque G under its portrait, at least 4 G between pairs; the top portrait's top
+  // (the crests' top line T0) no lower than the rack group's top, the pairs spread evenly between.
+  const bh = S("bio").h, colH = 2 * (bh + G + plH), T0 = Math.min(T1, B - colH - 4 * G), pg = B - T0 - colH;
+  let y = T0;
+  for (const [b, pl] of PAIRS) { const c = cx(b); put(b, c, y); y += bh + G; put(pl, c, y); y += plH + pg; }
+  // Crest rows (crest + its device), first crest top on T0, last device bottom on B, equal gaps.
+  const rows = R2x3.map((r) => r.flatMap((id) => [id, `${id}-dev`]));
+  const box = rows.map((r) => { const t = Math.min(...r.map((id) => pos[id][1])); return { t, h: Math.max(...r.map(bot)) - t }; });
+  const g = (B - T0 - box.reduce((t, v) => t + v.h, 0)) / (rows.length - 1);
+  let ry = T0;
+  rows.forEach((r, i) => { for (const id of r) pos[id] = [pos[id][0], pos[id][1] + ry - box[i].t]; ry += box[i].h + g; });
+  const h = Math.max(...Object.keys(pos).map(bot), sy + SH);
+  return { ...l, pos, size, tilt, w, h };
 };
-/** Aligned grid: in portrait the flags start just below the lowest item other than the shirt, over the empty lower
- *  shirt and on past its hem, and the case ends just below them (Sergio's portrait mockup, Oct 28 2026). Landscape is
- *  unchanged (grid below everything). */
+/** Aligned grid: in portrait the flags start one grid gap below the lowest item other than the shirt and no lower than
+ *  the shirt's midpoint, drawn over the lower half of the shirt and on past its hem (Sergio, Oct 28 2026). Landscape:
+ *  grid below everything. */
 const alignedGrid = (m: Mode) => {
   const l = alignedShirt(m);
   if (m !== "twoP" && m !== "one") return withGrid(l);
   const S = (id: string): Size => l.size[id] ?? (id.endsWith("-dev") ? devOf(id) : byId(id));
-  const low = Math.max(...Object.keys(l.pos).filter((id) => id !== "uniforms").map((id) => l.pos[id][1] + S(id).h));
-  return withGrid(l, low);
+  const low = Math.max(...Object.keys(l.pos).filter((id) => id !== "uniforms" && id !== "lapel").map((id) => l.pos[id][1] + S(id).h));
+  const mid = l.pos.uniforms[1] + (l.size.uniforms?.h ?? SHIRT_FULL) / 2;
+  return withGrid(l, Math.min(low, mid - gridCols(l.w).g));
 };
 const flagParam = (): FlagOrder | null => {
   if (typeof window === "undefined") return null;
