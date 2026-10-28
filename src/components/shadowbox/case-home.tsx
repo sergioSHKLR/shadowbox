@@ -796,7 +796,10 @@ const coherent = (m: Mode): { L: Layout; flags: FlagSpot[] } => {
  *     need, which keeps the help button's corner (top right) empty.
  *  Portrait: the same shirt group and gallery column side by side (the gallery starting below the help button), then
  *  the crests 6 across with the flags 6 x 3 under them on the same column axes. */
-const DOC_AX = 290.5, SKETCH_FLAGS = GRID_FLAGS.filter((k) => !US_FLAGS.has(k) && k !== "cnmi");
+const DOC_AX = 290.5, // Sergio, Oct 28 2026: "Add Kurdistan, and the US as the first one"; then Guam (not CNMI), no other states or sub-national flags.
+// The United States first, then the countries plus Guam A–Z by name; Guam at the country flag size (all flags here are PATCH size).
+  SKETCH_FLAGS = ["usa", ...[...GRID_FLAGS.filter((k) => !US_FLAGS.has(k) && k !== "cnmi" && !k.startsWith("br-")), "us-gu"]
+    .sort((a, b) => FLAG_NAME[a].localeCompare(FLAG_NAME[b], "en"))];
 const sketch = (m: Mode): { L: Layout; flags: FlagSpot[] } => {
   const portrait = m === "twoP" || m === "one", F = SHIRT_F, M = CM, S = CS;
   const pos: Pos = {}, size: Record<string, Size> = {}, tilt: Record<string, number> = { anchor: ANCHOR.tilt, guestbook: 0 };
