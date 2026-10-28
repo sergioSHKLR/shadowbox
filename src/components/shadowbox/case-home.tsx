@@ -461,8 +461,19 @@ const layoutOf = (m: Mode, flags: FlagOrder | null): { L: Layout; flags: FlagSpo
   if (!flags) return { L: LAYOUTS[m], flags: [] };
   const key = `${m}:${flags}`;
   let v = flagCache.get(key);
-  if (!v) { v = flags === "grid" ? withGrid(LAYOUTS[m]) : withFlags(LAYOUTS[m], flags, FLAG_ASPECT[m]); flagCache.set(key, v); }
+  if (!v) {
+    v = flags === "grid" ? withGrid(LAYOUTS[m]) : flags === "grid-shirt" ? withGrid(wholeShirt(LAYOUTS[m])) : withFlags(LAYOUTS[m], flags, FLAG_ASPECT[m]);
+    flagCache.set(key, v);
+  }
   return v;
+};
+/** Whole-shirt grid preview (Sergio, Oct 28 2026: "Make a version with the whole shirt"): the shirt art
+ *  (shirt-khakis-case.svg) is already the whole garment down to its curved hem on its 1455 x 2438 canvas; the case only
+ *  crops it (object-fit: cover from the top). Here the crop is lifted: the shirt keeps its place and true scale at its full
+ *  height (SHIRT_FULL) and the canvas grows to its hem. Every other item stays where it is. */
+const wholeShirt = (l: Layout): Layout => {
+  const [, sy] = l.pos.uniforms ?? [0, 0];
+  return { ...l, size: { ...l.size, uniforms: { w: SHIRT_W, h: SHIRT_FULL } }, h: Math.max(l.h, sy + SHIRT_FULL) };
 };
 const flagParam = (): FlagOrder | null => {
   if (typeof window === "undefined") return null;
@@ -685,7 +696,7 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
       const m = modeFor(window.innerWidth, window.innerHeight);
       // Grid preview: the case keeps its usual size and scale on screen (frame width from the usual layout) and simply
       // grows taller, so the flag grid sits below the fold and the page scrolls.
-      const grid = flags === "grid", base = LAYOUTS[m];
+      const grid = flags === "grid" || flags === "grid-shirt", base = LAYOUTS[m];
       const c = layoutOf(m, flags).L, scroll = SCROLLS[m] || grid;
       el.dataset.layout = m;
       if (grid) el.dataset.grid = ""; else delete el.dataset.grid;
