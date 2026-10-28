@@ -9,8 +9,8 @@
  * right column down, bottom row right to left, left column up. Every pair of neighbors has the same gap.
  * Names show only as tooltips; no years.
  */
-export type FlagOrder = "alpha" | "geo" | "chrono" | "era" | "grid" | "grid-shirt" | "grid-shirt-plain" | "grid-shirt-aligned";
-export const FLAG_ORDERS: FlagOrder[] = ["alpha", "geo", "chrono", "era", "grid", "grid-shirt", "grid-shirt-plain", "grid-shirt-aligned"];
+export type FlagOrder = "alpha" | "geo" | "chrono" | "era" | "grid" | "grid-shirt" | "grid-shirt-plain" | "grid-shirt-aligned" | "coherent";
+export const FLAG_ORDERS: FlagOrder[] = ["alpha", "geo", "chrono", "era", "grid", "grid-shirt", "grid-shirt-plain", "grid-shirt-aligned", "coherent"];
 export const PATCH = { w: 76.2, h: 50.8 };
 
 /** Full names, as on the flags board (compose_v2.py LONG / N). */
@@ -59,7 +59,7 @@ const GRID = ["usa", ...[...US_KEYS].filter((k) => k !== "usa").sort(byName),
   ...KEYS.filter((k) => !US_KEYS.has(k) && !SUB.has(k)).sort(byName).flatMap((k) => [k, ...(STATES_OF[k] ?? []).sort(byName)])];
 
 export function flagOrder(o: FlagOrder): string[] {
-  if (o === "grid" || o.startsWith("grid-shirt")) return GRID;
+  if (o === "grid" || o === "coherent" || o.startsWith("grid-shirt")) return GRID;
   if (o === "alpha") return [...KEYS].sort((a, b) => FLAG_NAME[a].localeCompare(FLAG_NAME[b], "en"));
   return o === "geo" ? GEO : o === "chrono" ? CHRONO : ERA;
 }

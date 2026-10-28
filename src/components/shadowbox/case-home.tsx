@@ -5,7 +5,7 @@ import { awards, publicUrl, ribbonRows, units, type Kind } from "@/lib/shadowbox
 import { createPortal } from "react-dom";
 import { caseNote } from "@/lib/shadowbox/case-notes";
 import type { Locale } from "@/lib/shadowbox/prefs";
-import { FLAG_ORDERS, PATCH, gridCols, withFlags, withGrid, type FlagOrder, type FlagSpot } from "./case-flags";
+import { FLAG_NAME, FLAG_ORDERS, PATCH, flagOrder, gridCols, withFlags, withGrid, type FlagOrder, type FlagSpot } from "./case-flags";
 
 /**
  * Home shadowbox case (Sergio, Oct 12 2026): single-item art from incoming/used, every item at its true size on one
@@ -464,7 +464,7 @@ const layoutOf = (m: Mode, flags: FlagOrder | null): { L: Layout; flags: FlagSpo
   const key = `${m}:${flags}`;
   let v = flagCache.get(key);
   if (!v) {
-    v = flags === "grid" ? withGrid(LAYOUTS[m]) : flags === "grid-shirt" ? withGrid(evenShirt(m, wholeShirt(LAYOUTS[m]))) : flags === "grid-shirt-plain" ? withGrid(wholeShirt(LAYOUTS[m])) : flags === "grid-shirt-aligned" ? alignedGrid(m) : withFlags(LAYOUTS[m], flags, FLAG_ASPECT[m]);
+    v = flags === "grid" ? withGrid(LAYOUTS[m]) : flags === "grid-shirt" ? withGrid(evenShirt(m, wholeShirt(LAYOUTS[m]))) : flags === "grid-shirt-plain" ? withGrid(wholeShirt(LAYOUTS[m])) : flags === "grid-shirt-aligned" ? alignedGrid(m) : flags === "coherent" ? coherent(m) : withFlags(LAYOUTS[m], flags, FLAG_ASPECT[m]);
     flagCache.set(key, v);
   }
   return v;
@@ -562,9 +562,9 @@ const COLLAR = (() => {
  *  gives a 5 1/4 in flap 1 3/4 in deep at the sides and 2 1/2 in at the centre point, and a 5 1/2 in pocket; photo 1
  *  agrees (flap about 41 mm at the sides and 55 mm at the point at this width). Scaled to the 116.2 mm flap that is
  *  38.7 / 55.3 mm and a 121.7 mm pocket; the art had 38.2 / 47.8 / 119.8 mm, so only the flap's centre point is moved
- *  down, to 55.3 mm (1003.35 px before the pocket scale). The flap button drops 1.5 mm (centre 36.8 -> 38.3 mm below the
- *  flap top; photo 1 shows about 34) so the full-size EXW at its regulation 1/4 in below the flap top clears it. */
-const POCKET_K = 0.766, POCKET_TOP = mm(755.297);
+ *  down, to 55.3 mm (1003.35 px before the pocket scale). The flap button stays where photo 1 has it (centre 36.8 mm
+ *  below the flap top, its top 31.5 mm). */
+const POCKET_K = 0.766, POCKET_TOP = mm(755.297), EXW_BELOW_FLAP = 4;
 const SMALL_POCKET_SRC = "shirt-khakis-case-smallpocket.svg";
 const SMALL_POCKET = (() => {
   const P = SHIRT.pocket, x = (v: number) => P.cx + (v - P.cx) * POCKET_K, y = (v: number) => POCKET_TOP + (v - POCKET_TOP) * POCKET_K;
@@ -584,9 +584,10 @@ const scaleShirt = (pos: Pos, size: Record<string, Size>, F: number) => {
   const rackTop = sy + P.top * F - QIN - RACK_H;
   pos.decorations = [px - (3 * RIBBON_W) / 2, rackTop];
   pos.swo = [px - PIN_W / 2, rackTop - QIN - SWO_H];
-  // Uniform Regs 5201.2c(1)(c): secondary insignia centred below the ribbons, its top 1/4 in below the top of the pocket
-  // flap (Sergio, Oct 28 2026: "check height of EXW pin"; it used to sit on the flap's top edge).
-  pos.exw = [px - EXW_W / 2, sy + P.top * F + QIN];
+  // Uniform Regs 5201.2c(1)(c) put the secondary insignia's top 1/4 in below the top of the pocket flap, but the pin is
+  // full size on a pocket at 87% of real size, so there it touches the flap button. Sergio (Oct 28 2026): "Move EXW up
+  // then": its top EXW_BELOW_FLAP (4 mm, about 5/32 in) below the flap top, its bottom about 2.7 mm above the button.
+  pos.exw = [px - EXW_W / 2, sy + POCKET_TOP * F + EXW_BELOW_FLAP];
   return px;
 };
 const alignedShirt = (m: Mode, F = SHIRT_F): Layout => {
@@ -676,6 +677,108 @@ const alignedGrid = (m: Mode) => {
   const low = Math.max(...Object.keys(l.pos).filter((id) => id !== "uniforms" && id !== "lapel").map((id) => l.pos[id][1] + S(id).h));
   const mid = l.pos.uniforms[1] + (l.size.uniforms?.h ?? SHIRT_FULL) / 2;
   return withGrid(l, Math.min(low, mid - gridCols(l.w).g));
+};
+/** Coherent case (Sergio, Oct 28 2026: "Find a more coherent way of displaying all elements on both orientations"),
+ *  ?flags=coherent. Five groups, each a tidy block, laid out the same way in both orientations:
+ *   - Uniform: the scaled shirt (F, small pocket) flush left as before (its left edge is the cut centre line), with what is
+ *     worn on it: collar anchor, rack, ESWS, EXW, and the pen upright beside the pocket, its top level with the pocket top.
+ *   - Identity: the two portraits side by side (SR left, CPO right), each plaque centred under its portrait.
+ *   - Career: the six crests 3 x 2 in service order (left to right, top to bottom), each rank device centred under its crest.
+ *   - Documents: memorandum, passport and ID on the career's three column axes (bottoms on one line), the three cards under
+ *     them on the same axes; two columns in portrait.
+ *   - Flags: the travel-flag grid in GRID order.
+ *  Spacing: margin CM to the case edges, gutter CS between groups, gap G inside a group. Every item keeps its size (crests
+ *  80%, plaques enlarged, as Sergio set them). The help button's corner (top right) is left empty in both.
+ *  Landscape: uniform | [identity / career / documents] | flags in three columns, column by column, the short column's
+ *    empty places at its top (under the help button). Shirt from the top margin to the bottom margin.
+ *  Portrait: [career | identity] over [uniform | documents]; the flags in a 7-wide grid over the shirt's lower half, the
+ *    grid's bottom on the shirt's bottom (Sergio's earlier "flags over the bottom half of the shirt"). */
+const CM = 16, CS = 16, PANEL_W = 2 * PORTRAIT.w + G, CCOL = (PANEL_W - 2 * G) / 3;
+const coherent = (m: Mode): { L: Layout; flags: FlagSpot[] } => {
+  const portrait = m === "twoP" || m === "one", F = SHIRT_F;
+  const pos: Pos = {}, size: Record<string, Size> = {}, tilt: Record<string, number> = { anchor: ANCHOR.tilt, guestbook: 0 };
+  for (const id of CRESTS_IN_ORDER) size[id] = crestSize(id, CREST_H * CREST_SCALE);
+  const plW = Math.round(PLAQUE_SCALE * PORTRAIT.w * 10) / 10, plH = Math.round(plW * (PLAQUE_H / byId("plaque").w) * 10) / 10;
+  for (const [b, pl] of PAIRS) { size[b] = { ...PORTRAIT }; size[pl] = { w: plW, h: plH }; }
+  const S = (id: string): Size => size[id] ?? (id.endsWith("-dev") ? devOf(id) : byId(id));
+  const put = (id: string, cx: number, top: number) => { pos[id] = [cx - S(id).w / 2, top]; };
+  const SW = SHIRT_W * F, SH = SHIRT_FULL * F;
+  // Identity block at (x, y): 2 portraits PANEL_W wide; returns its height.
+  const identity = (x: number, y: number) => {
+    PAIRS.forEach(([b, pl], i) => { const cx = x + PORTRAIT.w / 2 + i * (PORTRAIT.w + G); put(b, cx, y); put(pl, cx, y + PORTRAIT.h + G); });
+    return PORTRAIT.h + G + plH;
+  };
+  const axes = (x: number) => [0, 1, 2].map((i) => x + CCOL / 2 + i * (CCOL + G));
+  const devH = (r: string[]) => Math.max(...r.map((id) => devOf(`${id}-dev`).h));
+  const careerH = R3x2.reduce((t, r) => t + CREST_H * CREST_SCALE + G + devH(r), 0) + CS;
+  // Career block: crests on the three axes, tops on one line; devices G under, tops on one line.
+  const career = (x: number, y: number) => {
+    const ax = axes(x);
+    R3x2.forEach((r) => {
+      const ch = CREST_H * CREST_SCALE;
+      r.forEach((id, i) => { put(id, ax[i], y + (ch - S(id).h) / 2); put(`${id}-dev`, ax[i], y + ch + G); });
+      y += ch + G + devH(r) + CS;
+    });
+    return careerH;
+  };
+  const tall = ["logbook", "map", "onduty"], cards = ["admin", "offduty", "contact"];
+  const tallH = Math.max(...tall.map((id) => S(id).h));
+  const docs3H = tallH + G + CARD.h;
+  const docs3 = (x: number, y: number) => {
+    const ax = axes(x);
+    tall.forEach((id, i) => put(id, ax[i], y + tallH - S(id).h));
+    cards.forEach((id, i) => put(id, ax[i], y + tallH + G));
+  };
+  const flags: FlagSpot[] = [], names = flagOrder("grid"), { w: fw, h: fh } = PATCH;
+  const shirtAt = (sx: number, sy: number) => {
+    pos.uniforms = [sx, sy];
+    scaleShirt(pos, size, F);
+    pos.guestbook = [sx + SMALL_POCKET.flapL * F - 6 - PEN.w, sy + SMALL_POCKET.top * F];
+  };
+  if (!portrait) {
+    const H = CM + SH + CM, px = SW + CS;
+    shirtAt(0, CM);
+    // Panel: identity on the top line, documents' cards on the bottom line, career centred between (equal gutters).
+    const ih = identity(px, CM), gut = (SH - ih - careerH - docs3H) / 2;
+    career(px, CM + ih + gut);
+    docs3(px, CM + SH - docs3H);
+    // Flags: 3 columns x 11 rows from the top line to the bottom line, filled column by column; the last column's two
+    // empty places at its top (the help button's corner).
+    const rows = 11, cols = Math.ceil(names.length / rows), fx = px + PANEL_W + CS, gy = (SH - rows * fh) / (rows - 1);
+    const empty = cols * rows - names.length;
+    names.forEach((key, i) => {
+      const slot = i < rows * (cols - 1) ? i : i + empty, c = Math.floor(slot / rows), r = slot % rows;
+      flags.push({ key, name: FLAG_NAME[key], x: fx + c * (fw + CS), y: CM + r * (fh + gy) });
+    });
+    const W = fx + cols * fw + (cols - 1) * CS + CM;
+    return { L: { pos, size, tilt, w: W, h: H }, flags };
+  }
+  // Portrait: career top left, identity top right (its bottom on the career's bottom, so its top clears the help
+  // button), shirt below at the left edge with the documents in two columns on the identity's right column axes.
+  const W = CM + PANEL_W + CS + PANEL_W + CM, rx = CM + PANEL_W + CS;
+  career(CM, CM);
+  const ih = PORTRAIT.h + G + plH;
+  identity(rx, CM + careerH - ih);
+  const sy = CM + careerH + CS;
+  shirtAt(0, sy);
+  // Documents: two columns, right edge on the right margin, left column at least CS clear of the sleeve tip.
+  const d1 = W - CM - CCOL / 2, d0 = Math.max(SW + CS + CCOL / 2, d1 - CCOL - G);
+  const rowsD = [["logbook", "map"], ["onduty", "admin"], ["offduty", "contact"]];
+  let y = sy;
+  rowsD.forEach((r, ri) => {
+    const h = Math.max(...r.map((id) => S(id).h));
+    r.forEach((id, i) => put(id, i ? d1 : d0, ri === 0 ? y + h - S(id).h : y));
+    y += h + G;
+  });
+  // Flags: 7 columns spanning the margins, rows CS apart (about), bottom row's bottom on the shirt's bottom.
+  const cols = 7, rows = Math.ceil(names.length / cols), gx = (W - 2 * CM - cols * fw) / (cols - 1);
+  const fy0 = sy + SH - rows * fh - (rows - 1) * gx;
+  names.forEach((key, i) => {
+    const r = Math.floor(i / cols), c = i % cols, inRow = Math.min(cols, names.length - r * cols);
+    const x0 = CM + ((cols - inRow) * (fw + gx)) / 2;
+    flags.push({ key, name: FLAG_NAME[key], x: x0 + c * (fw + gx), y: fy0 + r * (fh + gx), z: 2 });
+  });
+  return { L: { pos, size, tilt, w: W, h: sy + SH + CM }, flags };
 };
 const flagParam = (): FlagOrder | null => {
   if (typeof window === "undefined") return null;
@@ -951,7 +1054,7 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
             ? <object className="cx-art" type="image/svg+xml" data={caseUrl(item.src)} aria-hidden="true" tabIndex={-1} />
             : <img
                 className={item.crop ? "cx-art is-crop" : "cx-art"}
-                src={caseUrl(item.id === "uniforms" && flags === "grid-shirt-aligned" ? SMALL_POCKET_SRC : item.src)}
+                src={caseUrl(item.id === "uniforms" && (flags === "grid-shirt-aligned" || flags === "coherent") ? SMALL_POCKET_SRC : item.src)}
                 // QA Oct 16: the portraits get a 320 px copy for small screens; the shirt and portraits load first (LCP).
                 srcSet={item.src.startsWith("portrait-") ? `${caseUrl(item.src.replace(".webp", "-320.webp"))} 320w, ${caseUrl(item.src)} 640w` : undefined}
                 sizes={item.src.startsWith("portrait-") ? "(max-width: 700px) 40vw, 18vw" : undefined}
