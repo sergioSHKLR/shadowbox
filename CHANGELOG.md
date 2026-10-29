@@ -3,6 +3,11 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.11.4] - 2026-10-29
+
+### Changed
+- Logbook on phones: when a command has two ranks, the Arrived and Transferred rank cards sit side by side, with the arrow and date on a small line above the second card.
+
 ## [1.11.3] - 2026-10-29
 
 ### Fixed
