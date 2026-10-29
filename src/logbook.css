@@ -607,10 +607,10 @@
   .logbook.is-narrow { --lb-main-min: calc(20rem + 20px - 5dvh); --lb-tabs-min: calc(17rem - 20px + 5dvh); }
   .logbook-phone .logbook-main { flex-basis: 0px; }
   .logbook-phone-tabs { flex-basis: calc(10dvh - 40px); }
-  /* Ribbons (Sergio, Oct 29 2026): the split moves down 35px so the gained ribbon rows have room on the card.
-     A 70px basis on the card (the tabs basis can't go below zero on phones) shifts the split by 35px; both floors move by the same 35px. */
-  .logbook.is-narrow { --lb-main-min: calc(20rem + 55px - 5dvh); --lb-tabs-min: calc(17rem - 55px + 5dvh); }
-  .logbook-phone .logbook-main { flex-basis: 70px; }
+  /* Ribbons (Sergio, Oct 29 2026): the split moves down 45px so the gained ribbon rows have room on the card.
+     A 90px basis on the card (the tabs basis can't go below zero on phones) shifts the split by 45px; both floors move by the same 45px. */
+  .logbook.is-narrow { --lb-main-min: calc(20rem + 65px - 5dvh); --lb-tabs-min: calc(17rem - 65px + 5dvh); }
+  .logbook-phone .logbook-main { flex-basis: 90px; }
 }
 
 /* File-folder tabs (Sergio, Oct 20 2026: "the older tabbed interface instead of pill buttons… a little of the paper record feel").
