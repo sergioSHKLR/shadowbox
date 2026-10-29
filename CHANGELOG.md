@@ -3,6 +3,12 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.11.1] - 2026-10-28
+
+### Fixed
+- Home case pop-ups without a page button (Brazil, Canada, Ireland) keep the previous and next arrows in the same spot as the pop-ups that have one.
+- US flag: the star field now follows the official proportions relative to the hoist (union width 0.76 of the hoist, star size and spacing per spec), with the official Old Glory red and blue.
+
 ## [1.11.0] - 2026-10-28
 
 ### Changed
