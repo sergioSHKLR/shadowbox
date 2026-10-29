@@ -3,6 +3,13 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.11.0] - 2026-10-28
+
+### Changed
+- Home case: both portraits now open the Gallery (their pop-up button reads "Open Gallery"); the brass plaques still open the Biography.
+- Home case flags no longer jump straight to the Travel Book. Each flag opens the standard case item pop-up, the same one used by the portraits, plaques and cards, with the flag and the country name. The 15 flags with a Travel Book entry get an "Open Travel Book" button to that entry; Brazil, Canada and Ireland show the same pop-up with no page button.
+- Flags join the pop-up's arrow order (after the pen; United States first, then A–Z), and each flag pop-up has its own address (?item=case:flag-<country>).
+
 ## [1.10.0] - 2026-10-28
 
 ### Changed
