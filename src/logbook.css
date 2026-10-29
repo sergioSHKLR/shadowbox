@@ -672,3 +672,19 @@
 [data-theme="dark"] .logbook .logbook-wardrobe-item .logbook-gear-blank { background: #242d3d; }
 [data-theme="dark"] .logbook .logbook-wardrobe-item small { color: var(--card-quiet); }
 [data-theme="dark"] .plate-viewer-figure { background: #242d3d; }
+
+/* Phone rank path (Sergio, Oct 29 2026): Arrived and Transferred cards share one row. Each step is an equal column; the
+   arrow + date sits on a small line above its card, and the cards narrow (smaller badge, tighter padding, wrapping titles). */
+@media (max-width: 600px) {
+  .logbook-rank-path { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); align-items: end; gap: 0.4rem; }
+  .logbook-rank-path > li { flex-wrap: wrap; align-content: flex-end; gap: 0.1rem 0.3rem; min-width: 0; }
+  .logbook-rank-path .logbook-rank-arrow { font-size: 0.95rem; line-height: 1; }
+  .logbook-rank-path .logbook-rank-when { font-size: 0.7rem; }
+  .logbook-rank-path .logbook-rank {
+    width: 100%; height: auto; min-height: 5.75rem; padding: 0.25rem 0.35rem; gap: 0.35rem; align-self: stretch;
+  }
+  .logbook-rank-path .logbook-rank .logbook-rank-patch { height: 2.6rem; width: 2rem; }
+  .logbook-rank-path .logbook-rank strong { font-size: 0.8rem; overflow-wrap: anywhere; }
+  .logbook-rank-path .logbook-rank small { font-size: 0.66rem; }
+  .logbook-rank-path .logbook-rank-tag { font-size: 0.56rem; }
+}
