@@ -3,6 +3,11 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.11.5] - 2026-10-29
+
+### Fixed
+- Decorations, Medals and ribbons: the ribbon-only rack and the medals share one scale, so a ribbon is as wide as a medal's suspension ribbon (both 1⅜ in), on wide screens and phones.
+
 ## [1.11.4] - 2026-10-29
 
 ### Changed
