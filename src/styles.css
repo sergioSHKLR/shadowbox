@@ -1491,6 +1491,7 @@ object.cx-art { color-scheme: light; }
 .cx-modal-nav { display: flex; align-items: center; justify-content: center; gap: 0.8rem; width: 100%; margin-top: 0.4rem; }
 .cx-modal-step { width: 44px; height: 44px; flex: none; border: 1px solid #8a6a3b; border-radius: 50%; background: transparent; color: #14233a; font: 600 1.5rem/1 var(--font-sans); cursor: pointer; }
 .cx-modal-go { min-height: 44px; padding: 0.45rem 1rem; border: 1px solid #8a6a3b; border-radius: 4px; background: #14233a; color: #f4efe4; cursor: pointer; font-size: 0.92rem; }
+.cx-modal-gap { display: inline-flex; align-items: center; box-sizing: border-box; visibility: hidden; pointer-events: none; }
 .cx-modal-x { position: absolute; right: 0.3rem; top: 0.3rem; width: 44px; height: 44px; border: 0; background: transparent; color: #14233a; font-size: 1.8rem; line-height: 1; cursor: pointer; }
 .cx-modal-x:focus-visible, .cx-modal-go:focus-visible, .cx-modal-step:focus-visible { outline: 2px solid #c6a15b; outline-offset: 2px; }
 :root[data-theme="dark"] .cx-modal-box { background: #121a28; color: #e8e2d4; border-color: #8a6a3b; }

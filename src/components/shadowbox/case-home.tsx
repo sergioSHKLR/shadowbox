@@ -1274,7 +1274,10 @@ function ItemModal({ id, setId, copy: c, locale, label, go }: { id: string; setI
         <div className="cx-modal-nav">
           <button type="button" className="cx-modal-step" aria-label={c.prev} title={c.prev} onClick={() => step(-1)}>‹</button>
           {/* Brazil, Canada and Ireland have no Travel Book entry: the same pop-up without the page button. */}
-          {place === "" ? null : <button type="button" className="cx-modal-go" onClick={() => go(id)}>{c.openPage.replace("{page}", page)}</button>}
+          {/* Sergio, Oct 28 2026 ("maintaining the spacing between prev and next arrows"): an invisible, inert spacer the
+              size of the button keeps the arrows where they sit on the flags that have one. */}
+          {place === "" ? <span className="cx-modal-go cx-modal-gap" aria-hidden="true">{c.openPage.replace("{page}", page)}</span>
+            : <button type="button" className="cx-modal-go" onClick={() => go(id)}>{c.openPage.replace("{page}", page)}</button>}
           <button type="button" className="cx-modal-step" aria-label={c.next} title={c.next} onClick={() => step(1)}>›</button>
         </div>
       </div>
