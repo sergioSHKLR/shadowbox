@@ -1849,3 +1849,17 @@ b, strong, th { font-weight: 600; }
 .decor-split .decor-split-ribbons, .decor-split .decor-split-medals, .decor-split .decor-full-dress, .decor-split .decor-rack { --mi: var(--u); }
 .decor-split .decor-ribbon-only .decor-rack { --in: var(--u); }
 .decor-split .decor-rack--photo { --rw: calc(var(--u) * 1.375); }
+/* Credentials (Sergio, Oct 29 2026): the DD-214 pages stacked, full width of the content column; tap for the lightbox. */
+.cred-pages { display: grid; gap: 1rem; }
+.cred-doc { display: block; width: 100%; padding: 0; border: 1px solid var(--color-line); background: #fff; cursor: zoom-in; line-height: 0; }
+.cred-doc img { display: block; width: 100%; height: auto; }
+.cred-doc:focus-visible { outline: 3px solid var(--color-brass); outline-offset: 2px; }
+.cred-summary { margin-top: 1.5rem; }
+.cred-summary dl { display: grid; gap: 0; margin: 0.5rem 0 0; }
+.cred-summary dl > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; padding: 0.5rem 0; border-top: 1px solid var(--color-line); }
+.cred-summary dt { font-weight: 600; }
+.cred-summary dd { margin: 0; font-variant-numeric: tabular-nums; }
+@media (max-width: 599.98px) { .cred-summary dl > div { grid-template-columns: 1fr; gap: 0.15rem; } }
+/* Lightbox: the page fills the width and scrolls, so the form is readable on phones. */
+.cred-lb-figure { place-items: start center; overflow: auto; background: #fff; }
+.cred-lb-figure img { width: 100%; max-height: none; height: auto; }

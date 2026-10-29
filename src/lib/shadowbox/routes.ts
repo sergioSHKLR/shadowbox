@@ -19,7 +19,7 @@ import type { Kind, Selection } from "@/lib/shadowbox/model";
 
 export type RouteLocale = "en" | "pt";
 export type RouteView =
-  | "home" | "bio" | "logbook" | "decorations" | "uniforms" | "timeline" | "map" | "onduty" | "offduty" | "gallery" | "admin" | "guestbook" | "contact";
+  | "home" | "bio" | "logbook" | "decorations" | "uniforms" | "timeline" | "map" | "onduty" | "offduty" | "gallery" | "admin" | "credentials" | "guestbook" | "contact";
 
 export type Route = {
   locale: RouteLocale;
@@ -49,6 +49,7 @@ export const VIEW_SLUG: Record<RouteView, string> = {
   offduty: "off-duty",
   gallery: "gallery",
   admin: "admin",
+  credentials: "credentials",
   guestbook: "guestbook",
   contact: "contact",
 };
@@ -193,8 +194,8 @@ export function parseLocation(pathname: string, search: string, photoIds?: reado
 /* ---------- Page titles and descriptions (runtime document.title and the static HTML head) ---------- */
 
 const VIEW_TITLE: Record<RouteLocale, Record<RouteView, string>> = {
-  en: { home: "Shadowbox", bio: "Biography", logbook: "Logbook", decorations: "Decorations", uniforms: "Uniforms", timeline: "Timeline", map: "Travel Book", onduty: "On Duty", offduty: "Off Duty", gallery: "Gallery", admin: "Admin", guestbook: "Guestbook", contact: "Contact" },
-  pt: { home: "Shadowbox", bio: "Biografia", logbook: "Diário de bordo", decorations: "Condecorações", uniforms: "Uniformes", timeline: "Linha do tempo", map: "Diário de Viagem", onduty: "Em serviço", offduty: "Fora de serviço", gallery: "Galeria", admin: "Administração", guestbook: "Livro de visitas", contact: "Contato" },
+  en: { home: "Shadowbox", bio: "Biography", logbook: "Logbook", decorations: "Decorations", uniforms: "Uniforms", timeline: "Timeline", map: "Travel Book", onduty: "On Duty", offduty: "Off Duty", gallery: "Gallery", admin: "Admin", credentials: "Credentials", guestbook: "Guestbook", contact: "Contact" },
+  pt: { home: "Shadowbox", bio: "Biografia", logbook: "Diário de bordo", decorations: "Condecorações", uniforms: "Uniformes", timeline: "Linha do tempo", map: "Diário de Viagem", onduty: "Em serviço", offduty: "Fora de serviço", gallery: "Galeria", admin: "Administração", credentials: "Credenciais", guestbook: "Livro de visitas", contact: "Contato" },
 };
 const VIEW_DESC: Record<RouteLocale, Record<RouteView, string>> = {
   en: {
@@ -209,6 +210,7 @@ const VIEW_DESC: Record<RouteLocale, Record<RouteView, string>> = {
     offduty: "Off-duty life during Sergio Schickler's Navy career.",
     gallery: "Sergio Schickler's own Navy photos in one place, by command, operation and city.",
     admin: "Schools, NECs and qualifications from Sergio Schickler's Navy record.",
+    credentials: "A recreation of Sergio Schickler's DD-214, with personal data obscured.",
     guestbook: "Leave a note in the Shadowbox guestbook.",
     contact: "Get in touch about the Shadowbox.",
   },
@@ -224,6 +226,7 @@ const VIEW_DESC: Record<RouteLocale, Record<RouteView, string>> = {
     offduty: "A vida fora de serviço durante a carreira de Sergio Schickler na Marinha.",
     gallery: "As fotos do próprio Sergio Schickler na Marinha num só lugar, por comando, operação e cidade.",
     admin: "Escolas, NECs e qualificações do registro de Sergio Schickler na Marinha.",
+    credentials: "Recriação do DD-214 de Sergio Schickler, com os dados pessoais ocultados.",
     guestbook: "Deixe uma mensagem no livro de visitas do Shadowbox.",
     contact: "Entre em contato sobre o Shadowbox.",
   },

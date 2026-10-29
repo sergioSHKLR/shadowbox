@@ -43,6 +43,8 @@ const PAGES: Hit[] = [
   { title: "Fora de serviço", kindLabel: "Página", snippet: "Carros, motos, residências, cidades e passatempos", open: { view: "offduty" } },
   { title: "Gallery", kindLabel: "Page", snippet: "Every photo, filtered by command, operation and city", open: { view: "gallery" } },
   { title: "Galeria", kindLabel: "Página", snippet: "Todas as fotos, por comando, operação e cidade", open: { view: "gallery" } },
+  { title: "Credentials", kindLabel: "Page", snippet: "DD-214, recreated with personal data obscured", open: { view: "credentials" } },
+  { title: "Credenciais", kindLabel: "Página", snippet: "DD-214 recriado, com dados pessoais ocultados", open: { view: "credentials" } },
   { title: "Operations", kindLabel: "Page", snippet: "Deployments and exercises", open: { view: "ops" } },
   { title: "Operações", kindLabel: "Página", snippet: "Deslocamentos e exercícios", open: { view: "ops" } },
   { title: "Map", kindLabel: "Page", snippet: "Stations and deployments", open: { view: "map" } },
