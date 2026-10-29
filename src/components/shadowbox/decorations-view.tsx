@@ -52,11 +52,8 @@ export function Decorations({ onOpen, title, t }: { onOpen: (k: Kind, id: string
       </div>
       <div className="decor-stage">
       {show === "medals" ? (
-        <div className="decor-split">
-          {/* Two racks (Sergio, Oct 20 2026): ribbons left with the ribbon-only block under them, medals right. */}
-          <div className="decor-split-ribbons">{ribbons}<RibbonOnly list={ordered.filter((a) => !medalFor(a.id))} open={(a) => onOpen("award", a.id)} t={t} /></div>
-          <div className="decor-split-medals"><MedalsView mount={mount} onOpen={onOpen} t={t} hideRibbonOnly /></div>
-        </div>
+        // Medals and ribbons (Sergio, Oct 29 2026): medals plus only the ribbon-only awards; the full rack is Ribbons only.
+        <MedalsView mount={mount} onOpen={onOpen} t={t} />
       ) : ribbons}
       </div>
       </div>
