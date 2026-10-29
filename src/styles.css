@@ -1840,3 +1840,12 @@ b, strong, th { font-weight: 600; }
 @media (min-width: 1200px) { .decor-split { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }
 .decor-split-ribbons { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
 .decor-split-ribbons .decor-ribbon-only { width: 100%; }
+/* Medals and ribbons at true relative scale (Sergio, Oct 29 2026): the ribbon-only rack uses the medals' inch (--mi),
+   one shared inch --u (the medals' existing 4.2rem, 3rem on phones),
+   so a 1 3/8 in service ribbon is exactly as wide as a 1 3/8 in medal suspension ribbon at every breakpoint
+   (was its own --rw: 121 px vs 92 px on desktop, 99 px vs 66 px on phones). */
+.decor-split { --u: 4.2rem; }
+@media (max-width: 599.98px) { .decor-split { --u: 3rem; } }
+.decor-split .decor-split-ribbons, .decor-split .decor-split-medals, .decor-split .decor-full-dress, .decor-split .decor-rack { --mi: var(--u); }
+.decor-split .decor-ribbon-only .decor-rack { --in: var(--u); }
+.decor-split .decor-rack--photo { --rw: calc(var(--u) * 1.375); }
