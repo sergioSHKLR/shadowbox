@@ -5,7 +5,7 @@ import { awards, publicUrl, ribbonRows, units, type Kind } from "@/lib/shadowbox
 import { createPortal } from "react-dom";
 import { caseNote } from "@/lib/shadowbox/case-notes";
 import type { Locale } from "@/lib/shadowbox/prefs";
-import { FLAG_NAME, FLAG_ORDERS, GRID_FLAGS, PATCH, US_FLAGS, flagOrder, gridCols, withFlags, withGrid, type FlagOrder, type FlagSpot } from "./case-flags";
+import { FLAG_NAME, FLAG_ORDERS, FLAG_PLACE, GRID_FLAGS, PATCH, US_FLAGS, flagOrder, gridCols, withFlags, withGrid, type FlagOrder, type FlagSpot } from "./case-flags";
 
 /**
  * Home shadowbox case (Sergio, Oct 12 2026): single-item art from incoming/used, every item at its true size on one
@@ -456,7 +456,7 @@ const modeFor = (w: number, h: number): Mode =>
 const SCROLLS: Record<Mode, boolean> = { wide: false, twoL: false, twoP: true, one: true };
 export const CASE_DIMS = { WIDE, LAYOUTS };
 /** Flag perimeter preview (Oct 28 2026): ?flags=alpha|geo|chrono|era puts the 31 patch flags round the case (see
- *  case-flags.ts). Without the parameter Home is unchanged. Target window aspect per mode picks the row/column split. */
+ *  case-flags.ts). Without the parameter Home shows the sketch layout (Oct 28 2026). Target window aspect per mode picks the row/column split. */
 const FLAG_ASPECT: Record<Mode, number> = { wide: 1.6, twoL: 1.45, twoP: 0, one: 0 };
 const flagCache = new Map<string, { L: Layout; flags: FlagSpot[] }>();
 const layoutOf = (m: Mode, flags: FlagOrder | null): { L: Layout; flags: FlagSpot[] } => {
@@ -1061,7 +1061,7 @@ const exitFull = () => {
   if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
 };
 
-export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = true, caseItem, onCaseItem }: { copy: Chrome["intro"]; locale?: Locale; onOpen?: (k: Kind, id: string) => void; onGo?: (view: string, unit?: string) => void; label: (view: string) => string; active?: boolean; caseItem?: string; onCaseItem?: (id: string | null) => void }) {
+export function CaseHome({ onOpen, onGo, onPlace, label, copy, locale = "en", active = true, caseItem, onCaseItem }: { copy: Chrome["intro"]; locale?: Locale; onOpen?: (k: Kind, id: string) => void; onGo?: (view: string, unit?: string) => void; onPlace?: (id: string) => void; label: (view: string) => string; active?: boolean; caseItem?: string; onCaseItem?: (id: string | null) => void }) {
   const stage = useRef<HTMLDivElement | null>(null);
   const [intro, setIntro] = useState(false);
   const [hint, setHint] = useState(false);
@@ -1071,8 +1071,9 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
   const view = controlled ? (caseItem && ORDER.includes(caseItem) ? caseItem : null) : ownView;
   const setView = useCallback((id: string | null) => (controlled ? onCaseItem!(id) : setOwnView(id)), [controlled, onCaseItem]);
   const [mode, setMode] = useState<Mode>("wide");
-  const [flags, setFlags] = useState<FlagOrder | null>(null);
-  useEffect(() => { setFlags(flagParam()); }, []);
+  // The sketch layout is the Home case (Sergio, Oct 28 2026: "Good, make it live"); other ?flags= previews stay reachable.
+  const [flags, setFlags] = useState<FlagOrder | null>("sketch");
+  useEffect(() => { setFlags(flagParam() ?? "sketch"); }, []);
   // First-visit intro: only once Home is actually on screen (a deep link to another page does not get it on top).
   useEffect(() => {
     if (!active) return;
@@ -1136,12 +1137,16 @@ export function CaseHome({ onOpen, onGo, label, copy, locale = "en", active = tr
     <div ref={stage} className={hint ? "cx-stage cx-hint" : "cx-stage"} data-layout="wide" style={{ ["--ratio" as string]: `${WIDE.w} / ${WIDE.h}`, backgroundImage: `url("${caseUrl("felt.svg")}")` }}>
       <div ref={zoomLayer} className="cx-zoom">
       <div className="cx-canvas" data-flags={flags ?? undefined}>
-        {flagSpots.map((f) => (
-          <span key={f.key} className="cx-item is-static cx-flag" data-flag={f.key} role="img" aria-label={f.name} title={f.name}
-            style={{ "--ww": `${PATCH.w}px`, "--wh": `${PATCH.h}px`, "--wx": `${f.x}px`, "--wy": `${f.y}px`, "--wr": "0deg", "--wz": f.z ?? 1 } as CSSProperties}>
-            <img className="cx-flag-art" src={caseUrl(`flags/${f.key}.svg`)} alt="" draggable={false} />
-          </span>
-        ))}
+        {flagSpots.map((f) => {
+          const style = { "--ww": `${PATCH.w}px`, "--wh": `${PATCH.h}px`, "--wx": `${f.x}px`, "--wy": `${f.y}px`, "--wr": "0deg", "--wz": f.z ?? 1 } as CSSProperties;
+          const img = <img className="cx-flag-art" src={caseUrl(`flags/${f.key}.svg`)} alt="" draggable={false} />;
+          const place = flags === "sketch" ? FLAG_PLACE[f.key] : undefined;
+          if (!place || !onPlace) return <span key={f.key} className="cx-item is-static cx-flag" data-flag={f.key} role="img" aria-label={f.name} title={f.name} style={style}>{img}</span>;
+          // Linked flags open their Travel Book entry (Sergio, Oct 28 2026); Brazil and flags without an entry stay static.
+          const name = `${f.name} \u2014 ${label("map") || "Travel Book"}`;
+          return <button key={f.key} type="button" className="cx-item cx-flag" data-flag={f.key} data-place={place} aria-label={name} title={name} style={style}
+            onClick={() => { exitFull(); onPlace(place); }}>{img}</button>;
+        })}
         {ALL.map((item) => {
           const p = L.pos[item.id] ?? [0, 0];
           const s = L.size[item.id] ?? item;

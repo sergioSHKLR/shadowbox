@@ -339,6 +339,13 @@ export function ShadowboxApp() {
     nav({ locale: cur.locale, view: target, command }, "push");
     window.scrollTo(0, 0);
   };
+  /** A Home case flag opens its Travel Book place card (Sergio, Oct 28 2026). */
+  const goPlace = (id: string) => {
+    const item: Selection = { kind: "place", id };
+    setTrail([item]);
+    nav({ locale: routeRef.current.locale, view: "map", item }, "push");
+    window.scrollTo(0, 0);
+  };
   const setLocale = (next: Locale) => {
     setSavedLocale(next);
     if (next !== routeRef.current.locale) nav({ ...routeRef.current, locale: next }, "replace");
@@ -630,7 +637,7 @@ export function ShadowboxApp() {
         ) : null}
       </header>
       <div className="app-main">
-        <div className={pane("home")} data-view="home"><Home onOpen={open} onGo={(next, unit) => go(next as View, unit)} locale={locale} active={view === "home"}
+        <div className={pane("home")} data-view="home"><Home onOpen={open} onGo={(next, unit) => go(next as View, unit)} onPlace={goPlace} locale={locale} active={view === "home"}
           caseItem={view === "home" ? route.caseItem : undefined}
           onCaseItem={(id) => {
             const cur = routeRef.current;

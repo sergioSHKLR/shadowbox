@@ -24,6 +24,17 @@ export const FLAG_NAME: Record<string, string> = {
 };
 const KEYS = Object.keys(FLAG_NAME);
 
+/** Each flag's Travel Book entry (Sergio, Oct 28 2026: "Wire the flags to their entries in Travelbook, minus Brazil"):
+ *  the place card of the country's first pin in the Travel Book's career order (sequence.json), opened at
+ *  /travel-book/?item=place:<id>. Kurdistan: the Duhok Dam visit card (Duhok, Kurdistan Region), the one place in the
+ *  Kurdistan Region with a card. Brazil stays display-only; Canada and Ireland have no Travel Book entry yet. */
+export const FLAG_PLACE: Record<string, string> = {
+  usa: "city-miami", mexico: "tijuana", "us-gu": "polaris-point", japan: "city-yokosuka", "hong-kong": "city-hong-kong",
+  "south-korea": "city-chinhae", philippines: "philippines", australia: "shoalwater-bay", thailand: "city-pattaya",
+  iraq: "fob-sykes", germany: "ramstein", kuwait: "camp-arifjan", qatar: "al-udeid", afghanistan: "bagram",
+  kurdistan: "duhok-dam",
+};
+
 /** Chronological by first visit (flags-board/years.json, ties broken by the earliest row of the travel log v10: year,
  *  month, start date, then log sequence). Iraq and Kurdistan share their first row (TL-055): country first.
  *  No log rows: Brazil, Minas Gerais and Rio de Janeiro (family visits 1997-2018, Sergio) after the last 1997 row;

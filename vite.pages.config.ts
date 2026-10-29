@@ -25,8 +25,12 @@ const BUILD = buildVersion();
 function caseHashes() {
   const dir = resolve(process.cwd(), "public/case");
   const out: Record<string, string> = {};
-  for (const name of readdirSync(dir)) {
-    try { out[name] = createHash("sha256").update(readFileSync(resolve(dir, name))).digest("hex").slice(0, 8); } catch { /* skip folders */ }
+  // One level of subfolders too (case/flags/<key>.svg, keyed "flags/<key>.svg"), so the flag art is cache-busted as well.
+  const hash = (file: string) => createHash("sha256").update(readFileSync(file)).digest("hex").slice(0, 8);
+  for (const name of readdirSync(dir, { withFileTypes: true })) {
+    if (name.isDirectory()) {
+      for (const sub of readdirSync(resolve(dir, name.name), { withFileTypes: true })) if (sub.isFile()) out[`${name.name}/${sub.name}`] = hash(resolve(dir, name.name, sub.name));
+    } else if (name.isFile()) out[name.name] = hash(resolve(dir, name.name));
   }
   return out;
 }
@@ -43,7 +47,7 @@ export default defineConfig({
       name: "shadowbox-preload-case-art",
       transformIndexHtml() {
         const v = caseHashes();
-        return ["shirt-khakis-case.svg", "portrait-chief.webp", "portrait-recruit.webp"].filter((n) => v[n]).map((n) => ({
+        return ["shirt-khakis-case-smallpocket.svg", "portrait-chief.webp", "portrait-recruit.webp"].filter((n) => v[n]).map((n) => ({
           tag: "link",
           attrs: { rel: "preload", as: "image", href: `/case/${n}?v=${v[n]}`, fetchpriority: "high", ...(n.endsWith(".svg") ? { type: "image/svg+xml" } : {}), ...(n.endsWith(".webp") ? { type: "image/webp", imagesrcset: `/case/${n.replace(".webp", "-320.webp")}?v=${v[n.replace(".webp", "-320.webp")]} 320w, /case/${n}?v=${v[n]} 640w`, imagesizes: "(max-width: 700px) 40vw, 18vw" } : {}) },
           injectTo: "head" as const,

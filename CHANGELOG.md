@@ -3,6 +3,21 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.10.0] - 2026-10-28
+
+### Changed
+- Home case: new default layout from Sergio's sketch, in landscape and portrait (no query parameter needed). Docs column on the left, top to bottom with even gaps: ID card, Liberty card, 2M card, USO card, passport, memorandum. Portraits and plaques on the right, crests on the top line and flags along the bottom.
+- Pen moved beside the shirt pocket, to the right of it.
+- Flags: 18 national flags with no state flags, United States first, then A–Z, including Guam and Kurdistan.
+- Help ("?") button moved inside the case at the bottom left (on the shirt above the hem in portrait).
+- Smaller shirt pocket: flap point 55.3 mm, EXW badge 70 mm wide and 1/4 in below the flap, pocket button lowered to clear it.
+
+### Added
+- Each flag except Brazil links to its Travel Book entry (e.g. "Japan — Travel Book"). Canada and Ireland have no entry yet and are not linked.
+
+### Fixed
+- Case flag images now carry a content-hash version, so updated flags show up without a hard refresh.
+
 ## [1.9.1] - 2026-10-22
 
 ### Changed
