@@ -3,6 +3,11 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.11.3] - 2026-10-29
+
+### Fixed
+- Decorations, Medals and ribbons: no longer shows the full ribbon rack. It shows the ribbon-only awards rack on the left and the pins, medals and JCSE badge on the right on wide screens, stacked on narrow screens.
+
 ## [1.11.2] - 2026-10-29
 
 ### Fixed
