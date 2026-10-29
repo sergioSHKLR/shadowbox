@@ -1,8 +1,5 @@
 import { useState, type FormEvent, type ReactNode } from "react";
-import { MessageCircle } from "lucide-react";
 
-const WHATSAPP = "REDACTED";
-const WHATSAPP_LABEL = "WhatsApp"; // Sergio: no spelled-out number on the page (EN and PT)
 const GUESTBOOK = "https://forms.gle/1nprDDo1dLpZnRmn9";
 
 const CONTACT_LINK = "https://forms.gle/2Qnmg5FN7sitW24N9";
@@ -37,8 +34,8 @@ const COPY = {
     sending: "Sending…",
     thanks: "Thank you. Your message was sent.",
     another: "Send another",
-    notReady: "The contact form isn't connected yet. Please use WhatsApp for now.",
-    failed: "That didn't go through. Please try again, use the Google Forms link below, or WhatsApp.",
+    notReady: "The contact form isn't connected yet. Please use the Google Forms link below.",
+    failed: "That didn't go through. Please try again, or use the Google Forms link below.",
     formLabel: "Contact form",
     alt: "Open in Google Forms",
   },
@@ -51,21 +48,12 @@ const COPY = {
     sending: "Enviando…",
     thanks: "Obrigado. Sua mensagem foi enviada.",
     another: "Enviar outra",
-    notReady: "O formulário de contato ainda não está conectado. Por enquanto, use o WhatsApp.",
-    failed: "Não foi possível enviar. Tente de novo, use o link do Google Forms abaixo ou o WhatsApp.",
+    notReady: "O formulário de contato ainda não está conectado. Por enquanto, use o link do Google Forms abaixo.",
+    failed: "Não foi possível enviar. Tente de novo, ou use o link do Google Forms abaixo.",
     formLabel: "Formulário de contato",
     alt: "Abrir no Google Forms",
   },
 } as const;
-
-function WhatsAppButton() {
-  return (
-    <a className="contact-whatsapp" href={WHATSAPP} target="_blank" rel="noreferrer">
-      <MessageCircle className="contact-whatsapp-icon" size={20} strokeWidth={2.2} aria-hidden="true" />
-      {WHATSAPP_LABEL}
-    </a>
-  );
-}
 
 function ContactForm({ lang, lead, trail }: { lang: Lang; lead?: ReactNode; trail?: ReactNode }) {
   const c = COPY[lang];
@@ -142,18 +130,13 @@ function ContactForm({ lang, lead, trail }: { lang: Lang; lead?: ReactNode; trai
   );
 }
 
-/** Contact uses the same card as Guestbook. WhatsApp stays first in PT, the form first in EN. */
+/** Contact uses the same card as Guestbook. */
 export function Contact({ locale = "en" }: { locale?: string }) {
   const lang: Lang = locale === "pt" ? "pt" : "en";
-  const lead = (
-    <div className="contact-whatsapp-row">
-      <WhatsAppButton />
-    </div>
-  );
   return (
     <main className="sheet site-page contact-page" id="contact-form">
       <h1 className="sr-only">{COPY[lang].title}</h1>
-      <ContactForm lang={lang} lead={lang === "pt" ? lead : undefined} trail={lang === "pt" ? undefined : lead} />
+      <ContactForm lang={lang} />
     </main>
   );
 }
