@@ -3,6 +3,11 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.11.2] - 2026-10-29
+
+### Fixed
+- On phones in portrait, the Home case no longer reserves a full screen height, so the footer is in view.
+
 ## [1.11.1] - 2026-10-28
 
 ### Fixed
