@@ -3,6 +3,11 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.12.0] - 2026-10-29
+
+### Added
+- Credentials page (EN /credentials/, PT /pt/credentials/): a recreation of the DD-214 and DD-214C with personal data obscured, shown as flat SVGs that open in the Gallery pop-up, plus a summary of key blocks copied from the form. Linked from the menu, footer pager, search and sitemap.
+
 ## [1.11.5] - 2026-10-29
 
 ### Fixed
