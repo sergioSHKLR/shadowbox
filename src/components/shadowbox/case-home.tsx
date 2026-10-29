@@ -103,9 +103,10 @@ const ITEMS: Item[] = [
   { id: "map", src: "passport-maroon.svg", w: mm(332.598), h: mm(472.441), view: "map", label: "Travel book", wide: [0, 0, 0], z: 3 },
   { id: "onduty", src: "id-card.svg", obj: true, w: 54, h: 54 * (680.11 / 439.297), view: "onduty", label: "Identification card", wide: [0, 0, 0], z: 4 },
   // Two portraits on one axis (Sergio, Oct 13): Seaman Recruit on top, Chief Petty Officer below, each with its plaque.
-  { id: "bio-sr", src: "portrait-recruit.webp", ...PORTRAIT, view: "bio", label: "Biography", wide: [0, 0, 0], z: 2 },
+  // Portraits open the Gallery, plaques the Bio (Sergio, Oct 28 2026: "Change portraits to open Gallery, brass plaques open Bio").
+  { id: "bio-sr", src: "portrait-recruit.webp", ...PORTRAIT, view: "gallery", label: "Gallery", wide: [0, 0, 0], z: 2 },
   { id: "plaque-sr", src: "plaque-sr.svg", w: mm(264.567), h: mm(89.197), view: "bio", label: "Biography", wide: [0, 0, 0], z: 3 },
-  { id: "bio", src: "portrait-chief.webp", ...PORTRAIT, view: "bio", label: "Biography", wide: [0, 0, 0], z: 2 },
+  { id: "bio", src: "portrait-chief.webp", ...PORTRAIT, view: "gallery", label: "Gallery", wide: [0, 0, 0], z: 2 },
   { id: "plaque", src: "plaque-cpo.svg", w: mm(264.567), h: mm(89.197), view: "bio", label: "Biography", wide: [0, 0, 0], z: 3 },
 ];
 const CRESTS: Item[] = [
@@ -1071,6 +1072,7 @@ export function CaseHome({ onOpen, onGo, onPlace, label, copy, locale = "en", ac
   const view = controlled ? (caseItem && ORDER.includes(caseItem) ? caseItem : null) : ownView;
   const setView = useCallback((id: string | null) => (controlled ? onCaseItem!(id) : setOwnView(id)), [controlled, onCaseItem]);
   const [mode, setMode] = useState<Mode>("wide");
+  const [flagPop, setFlagPop] = useState<string | null>(null);
   // The sketch layout is the Home case (Sergio, Oct 28 2026: "Good, make it live"); other ?flags= previews stay reachable.
   const [flags, setFlags] = useState<FlagOrder | null>("sketch");
   useEffect(() => { setFlags(flagParam() ?? "sketch"); }, []);
@@ -1140,12 +1142,11 @@ export function CaseHome({ onOpen, onGo, onPlace, label, copy, locale = "en", ac
         {flagSpots.map((f) => {
           const style = { "--ww": `${PATCH.w}px`, "--wh": `${PATCH.h}px`, "--wx": `${f.x}px`, "--wy": `${f.y}px`, "--wr": "0deg", "--wz": f.z ?? 1 } as CSSProperties;
           const img = <img className="cx-flag-art" src={caseUrl(`flags/${f.key}.svg`)} alt="" draggable={false} />;
-          const place = flags === "sketch" ? FLAG_PLACE[f.key] : undefined;
-          if (!place || !onPlace) return <span key={f.key} className="cx-item is-static cx-flag" data-flag={f.key} role="img" aria-label={f.name} title={f.name} style={style}>{img}</span>;
-          // Linked flags open their Travel Book entry (Sergio, Oct 28 2026); Brazil and flags without an entry stay static.
-          const name = `${f.name} \u2014 ${label("map") || "Travel Book"}`;
-          return <button key={f.key} type="button" className="cx-item cx-flag" data-flag={f.key} data-place={place} aria-label={name} title={name} style={style}
-            onClick={() => { exitFull(); onPlace(place); }}>{img}</button>;
+          // Flags open a small pop-up with the country name (Sergio, Oct 28 2026: "Make Flags open a popup with the country
+          // name before going to Travel Book"); its button opens the Travel Book entry where the flag has one.
+          if (flags !== "sketch") return <span key={f.key} className="cx-item is-static cx-flag" data-flag={f.key} role="img" aria-label={f.name} title={f.name} style={style}>{img}</span>;
+          return <button key={f.key} type="button" className="cx-item cx-flag" data-flag={f.key} data-place={FLAG_PLACE[f.key]} aria-label={f.name} aria-haspopup="dialog" title={f.name} style={style}
+            onClick={() => setFlagPop(f.key)}>{img}</button>;
         })}
         {ALL.map((item) => {
           const p = L.pos[item.id] ?? [0, 0];
@@ -1189,6 +1190,8 @@ export function CaseHome({ onOpen, onGo, onPlace, label, copy, locale = "en", ac
       </div>
       {controls}
     </div>
+    {flagPop ? <FlagModal flag={flagPop} copy={copy} label={label} onClose={() => setFlagPop(null)}
+      go={onPlace && FLAG_PLACE[flagPop] ? () => { const place = FLAG_PLACE[flagPop]; setFlagPop(null); exitFull(); onPlace(place); } : undefined} /> : null}
     {intro ? createPortal(<CaseIntro copy={copy} onClose={closeIntro} />, layerRoot()) : null}
     {view ? <ItemModal id={view} setId={setView} copy={copy} locale={locale} label={label}
       go={(id) => { const t = targetOf(id); exitFull(); if (!controlled) setView(null); if (t.unit) { onGo?.("logbook", t.unit); window.dispatchEvent(new CustomEvent("sb-logbook-command", { detail: t.unit })); } else onGo?.(t.view); }} /> : null}
@@ -1211,7 +1214,7 @@ const nameOf = (id: string, label: (v: string) => string) => {
   const it = byId(id);
   if (it.unit) return units.find((u) => u.id === it.unit)?.name ?? it.label;
   if (id === "swo" || id === "exw") return it.label;
-  if (id.startsWith("plaque") || id.startsWith("bio")) return `${label("bio") || it.label}${id.endsWith("-sr") ? " · Seaman Recruit (SR)" : id === "bio" || id === "plaque" ? " · Chief Petty Officer (CPO)" : ""}`;
+  if (id.startsWith("plaque") || id.startsWith("bio")) return `${label(it.view ?? "") || it.label}${id.endsWith("-sr") ? " · Seaman Recruit (SR)" : id === "bio" || id === "plaque" ? " · Chief Petty Officer (CPO)" : ""}`;
   return label(it.view ?? "") || it.label;
 };
 
@@ -1271,6 +1274,41 @@ function ItemModal({ id, setId, copy: c, locale, label, go }: { id: string; setI
           <button type="button" className="cx-modal-go" onClick={() => go(id)}>{c.openPage.replace("{page}", page)}</button>
           <button type="button" className="cx-modal-step" aria-label={c.next} title={c.next} onClick={() => step(1)}>›</button>
         </div>
+      </div>
+    </div>,
+    layerRoot(),
+  );
+}
+
+/** Flag pop-up (Sergio, Oct 28 2026): the flag and the country name, with a button to its Travel Book entry when it has
+ *  one (Brazil, Canada and Ireland show the name only). Esc, the backdrop or X close it; focus is trapped and returns to
+ *  the flag. Flat: no shadow or filter (the .cx-modal--flag overrides). */
+function FlagModal({ flag, copy: c, label, onClose, go }: { flag: string; copy: Chrome["intro"]; label: (v: string) => string; onClose: () => void; go?: () => void }) {
+  const box = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    box.current?.querySelector<HTMLElement>(".cx-modal-x")?.focus();
+    const key = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { e.preventDefault(); onClose(); return; }
+      if (e.key !== "Tab" || !box.current) return;
+      const f = [...box.current.querySelectorAll<HTMLElement>("button:not([disabled])")];
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
+    document.addEventListener("keydown", key);
+    return () => { document.removeEventListener("keydown", key); document.querySelector<HTMLElement>(`.cx-flag[data-flag="${flag}"]`)?.focus(); };
+  }, [flag, onClose]);
+  const name = FLAG_NAME[flag] ?? flag;
+  return createPortal(
+    <div className="cx-modal cx-modal--flag" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div ref={box} className="cx-modal-box" role="dialog" aria-modal="true" aria-labelledby="cx-flag-title">
+        <button type="button" className="cx-modal-x close-btn" aria-label={c.close} title={c.close} onClick={onClose}><X size={18} strokeWidth={2.25} aria-hidden="true" /></button>
+        <div className="cx-modal-art" style={{ ["--ar" as string]: String(PATCH.w / PATCH.h) }}>
+          <img src={caseUrl(`flags/${flag}.svg`)} alt="" draggable={false} />
+        </div>
+        <h2 id="cx-flag-title">{name}</h2>
+        {go ? <div className="cx-modal-nav"><button type="button" className="cx-modal-go" onClick={go}>{c.openPage.replace("{page}", label("map") || "Travel Book")}</button></div> : null}
       </div>
     </div>,
     layerRoot(),

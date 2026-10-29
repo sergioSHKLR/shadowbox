@@ -1503,6 +1503,21 @@ object.cx-art { color-scheme: light; }
   .cx-modal-x { top: auto; bottom: 0.4rem; right: 0.4rem; }
   .cx-modal-art { height: min(50dvh, 26rem); }
 }
+/* Flag pop-up (Oct 28 2026): small and flat, no shadow or filter; the X stays top right on phones too. */
+.cx-modal--flag .cx-modal-box { width: min(22rem, 100%); padding: 2.6rem 1.2rem 1.2rem; box-shadow: none; }
+.cx-modal--flag .cx-modal-art { height: auto; min-height: 0; aspect-ratio: var(--ar); width: min(14rem, 100%); padding: 0; overflow: visible; }
+.cx-modal--flag .cx-modal-art img { filter: none; border: 1px solid rgba(20, 35, 58, 0.25); box-sizing: border-box; }
+.cx-modal--flag .cx-modal-box h2 { margin: 0.9rem 0 0.2rem; }
+@media (max-width: 599.98px) {
+  .cx-modal--flag { place-items: center; }
+  .cx-modal--flag .cx-modal-box { padding: 2.6rem 1rem 1.1rem; }
+  .cx-modal--flag .cx-modal-x { top: 0.3rem; bottom: auto; right: 0.3rem; }
+  .cx-modal--flag .cx-modal-art { height: auto; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .cx-modal--flag .cx-modal-box { padding: 2.4rem 1rem 0.8rem; }
+  .cx-modal--flag .cx-modal-art { height: auto; width: min(10rem, 100%); }
+}
 @keyframes cx-fade { from { opacity: 0; } }
 @keyframes cx-rise { from { opacity: 0; transform: translateY(8px); } }
 @media (prefers-reduced-motion: reduce) { .cx-modal, .cx-modal-box { animation: none; } }
