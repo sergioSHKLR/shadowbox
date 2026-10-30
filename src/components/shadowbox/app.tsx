@@ -148,6 +148,12 @@ function SettingsDialog({
             options={FONT_SIZES.map((size) => ({ value: size, label: size === "small" ? t.fontSmall : size === "large" ? t.fontLarge : size === "xlarge" ? t.fontXLarge : t.fontDefault }))}
           />
           <RadioGroup name="settings-beard" legend={t.beard} value={beard ? "on" : "off"} onChange={(v) => setBeard(v === "on")} options={[{ value: "on", label: t.on }, { value: "off", label: t.off }]} />
+          <section className="settings-legal" aria-labelledby="settings-legal-title" lang={locale === "pt" ? "pt-BR" : "en"}>
+            <h3 id="settings-legal-title" className="settings-legal-title">{t.legalTitle}</h3>
+            <p>{t.endorseNotice}</p>
+            <p>{t.legalNotice}</p>
+            <p>{t.licenseLine} <a href={t.licenseUrl} target="_blank" rel="license noopener noreferrer">CC BY-NC-ND 4.0</a>. {t.codeLicense} <a href="https://opensource.org/license/mit" target="_blank" rel="noopener noreferrer">MIT License</a>.</p>
+          </section>
           <p className="settings-credit quiet">{t.made}</p>
           {BUILD_VERSION ? (
             <p className="settings-version quiet">
@@ -717,6 +723,8 @@ export function ShadowboxApp() {
               {t.settings}
             </button>
           ) : null}
+          {/* Short license line (Sergio, Oct 30 2026), inline right of Settings so the footer keeps its v1.12.2 height; the full notices live in Settings → Legal. */}
+          <span className="footer-legal" lang={locale === "pt" ? "pt-BR" : "en"}>© Sergio Schickler<span className="footer-legal-lic"> · <a href={t.licenseUrl} target="_blank" rel="license noopener noreferrer">CC BY-NC-ND 4.0</a></span></span>
         </nav> : null}
         {view !== "home" && view !== "bio" ? (
           <button type="button" className="footer-link footer-home" onClick={() => go("home")}>
@@ -744,12 +752,6 @@ export function ShadowboxApp() {
             ) : null}
           </nav>
         ) : null}
-        {/* Notice and license (Sergio, Oct 30 2026): small muted text on its own row under the footer links. */}
-        <div className="footer-legal" lang={locale === "pt" ? "pt-BR" : "en"}>
-          <p>{t.endorseNotice}</p>
-          <p>{t.legalNotice}</p>
-          <p>{t.licenseLine} <a href={t.licenseUrl} target="_blank" rel="license noopener noreferrer">CC BY-NC-ND 4.0</a></p>
-        </div>
       </footer>
       <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} locale={locale} theme={theme} setLocale={setLocale} setTheme={setTheme} showTheme={THEME_HONORED} fontSize={fontSize} setFontSize={setFontSize} beard={beard} setBeard={setBeard} t={t} />
       <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setTrail([]); const cur = routeRef.current; closeOverlay({ ...pageOf(cur), photo: cur.photo }); }} />

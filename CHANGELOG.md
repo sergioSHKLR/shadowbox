@@ -6,8 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dat
 ## [Unreleased]
 
 ### Added
-- Footer: a non-endorsement notice (photos in uniform are from active service, 1997–2018, except retiree ceremony photos; the Chief portrait is AI-generated; personal views only, not endorsed by the U.S. Navy, the Department of Defense, or the U.S. Government).
-- Footer: a small notice on misuse of images or text and a license line ("© Sergio Schickler · Text and photos: CC BY-NC-ND 4.0", linked), in English and Portuguese.
+- Settings: a "Legal" section ("Aviso legal" in Portuguese) at the bottom of the Settings modal, holding the non-endorsement notice (photos in uniform are from active service, 1997–2018, except retiree ceremony photos; the Chief portrait is AI-generated; personal views only, not endorsed by the U.S. Navy, the Department of Defense, or the U.S. Government), the notice on misuse of images or text, and the license line ("Text and photos: CC BY-NC-ND 4.0", linked; site code under the MIT License), in English and Portuguese. It scrolls within the modal on small phones.
+- Footer: a short "© Sergio Schickler · CC BY-NC-ND 4.0" line (linked) to the right of Settings; on phones only "© Sergio Schickler", so the footer keeps its v1.12.2 height.
 - Photos: rights metadata (EXIF/XMP) on 121 photos by category: Sergio's own shots © Sergio Schickler, CC BY-NC-ND 4.0; photos of him by friends marked personal collection, used with permission; the JCSE snow photos and the 1997 Recruit Training Command portrait marked as U.S. Government work; the Chief portrait marked AI-generated. Other metadata stripped; pixels unchanged.
 - Repository: LICENSE (MIT, for the code) and LICENSE-CONTENT.md (texts, photos and graphics under CC BY-NC-ND 4.0).
 
