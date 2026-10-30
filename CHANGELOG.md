@@ -10,6 +10,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dat
 - Photos: rights metadata (EXIF/XMP) on 121 photos by category: Sergio's own shots © Sergio Schickler, CC BY-NC-ND 4.0; photos of him by friends marked personal collection, used with permission; the JCSE snow photos and the 1997 Recruit Training Command portrait marked as U.S. Government work; the Chief portrait marked AI-generated. Other metadata stripped; pixels unchanged.
 - Repository: LICENSE (MIT, for the code) and LICENSE-CONTENT.md (texts, photos and graphics under CC BY-NC-ND 4.0).
 
+## [1.12.2] - 2026-10-30
+
+### Changed
+- Chief Petty Officer portrait: the Home case pop-up now says it is an AI-generated studio-style portrait (he never sat for a formal studio photo in uniform; his real uniform photos are in the Gallery), in English and Portuguese, and its alt text in the pop-up and the Gallery says AI-generated. The image itself is unchanged.
+
 ## [1.12.1] - 2026-10-30
 
 ### Fixed
