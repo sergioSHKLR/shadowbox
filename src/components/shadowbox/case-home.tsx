@@ -1267,7 +1267,7 @@ function ItemModal({ id, setId, copy: c, locale, label, go }: { id: string; setI
             // The ID card SVG pulls its photo, flag, barcode and seal from sibling files; an <img> blocks those, so it
             // shows as an <object> here, as on the case.
             : it?.obj ? <object type="image/svg+xml" data={caseUrl(src)} aria-hidden="true" tabIndex={-1} />
-            : <img className={id === "bio" || id === "bio-sr" ? "cx-print" : undefined} src={caseUrl(src)} alt="" draggable={false} />}
+            : <img className={id === "bio" || id === "bio-sr" ? "cx-print" : undefined} src={caseUrl(src)} alt={id === "bio" ? (locale === "pt" ? "Retrato do Chief Petty Officer Sergio Schickler gerado por IA" : "AI-generated portrait of Chief Petty Officer Sergio Schickler") : ""} draggable={false} />}
         </div>
         <h2 id="cx-modal-title">{name}</h2>
         {note ? <p id="cx-modal-note">{note}</p> : null}

@@ -30,7 +30,11 @@ const NOTES: Record<string, () => Note> = {
   "jcse-dev": () => ({ en: "Chevrons and service stripes go gold in 2009.", pt: "As divisas e as listras de serviço passam a ser douradas em 2009." }),
   "navhosp-dev": () => ({ en: rankS("etc"), pt: "Chief petty officer." }),
   "bio-sr": () => ({ en: "The boot camp portrait, as a Seaman Recruit.", pt: "O retrato do boot camp, como Seaman Recruit." }),
-  bio: () => ({ en: rankS("etc"), pt: "Chief petty officer." }),
+  // Sergio, Oct 30 2026: the Chief portrait is AI-generated; he never sat for a formal studio photo in uniform.
+  bio: () => ({
+    en: `${rankS("etc")} AI-generated studio-style portrait. He never sat for a formal studio photo in uniform; his real uniform photos are in the Gallery.`,
+    pt: "Chief petty officer. Retrato em estilo de estúdio gerado por IA. Ele nunca fez uma foto formal de estúdio de uniforme; as fotos reais de uniforme estão na Galeria.",
+  }),
   contact: () => ({ en: "Send a message.", pt: "Envie uma mensagem." }),
   guestbook: () => ({ en: "Sign the guestbook.", pt: "Assine o livro de visitas." }),
   "plaque-sr": () => ({ en: "The name plate under the Seaman Recruit portrait.", pt: "A placa sob o retrato de Seaman Recruit." }),
