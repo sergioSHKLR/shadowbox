@@ -18,8 +18,11 @@ function PinGlyph({ name }: { name: string }) {
   return <Icon size={18} strokeWidth={2} aria-hidden="true" />;
 }
 
+/** Travel Book shows only the service record for now (Sergio, Oct 30 2026): Commands and Field (deployments and
+ *  exercises). Instruction, Bases, Port visits, Layovers and Stopovers stay in sequence.json but are not shown. */
+const VISIBLE_LAYERS: StopLayer[] = ["command", "field"];
 function pinGroups(t: Chrome): { id: StopLayer; label: string; legend: string; cls: string }[] {
-  return [
+  return ([
     { id: "command", label: t.pinCommands, legend: t.legendCommands, cls: "command" },
     { id: "instruction", label: t.pinInstruction, legend: t.legendInstruction, cls: "instruction" },
     { id: "base", label: t.pinBases, legend: t.legendBases, cls: "base" },
@@ -27,7 +30,7 @@ function pinGroups(t: Chrome): { id: StopLayer; label: string; legend: string; c
     { id: "port", label: t.pinPorts, legend: t.legendPorts, cls: "port" },
     { id: "layover", label: t.pinLayovers, legend: t.legendLayovers, cls: "layover" },
     { id: "stopover", label: t.pinStopovers, legend: t.legendStopovers, cls: "stopover" },
-  ];
+  ] as { id: StopLayer; label: string; legend: string; cls: string }[]).filter((g) => VISIBLE_LAYERS.includes(g.id));
 }
 
 function stopMatchesFilter(stop: Stop, shown: StopLayer[] | null) {
@@ -110,8 +113,9 @@ function filterStops(all: Stop[], shown: StopLayer[] | null): Stop[] {
   return out;
 }
 
-export function Stations({ stops: allStops, onOpen, aboutLabel, title = "Travel Book", t }: { stops: ReturnType<typeof careerStops>; onOpen: (k: Kind, id: string) => void; aboutLabel: string; title?: string; locale?: string; t: Chrome }) {
+export function Stations({ stops: rawStops, onOpen, aboutLabel, title = "Travel Book", t }: { stops: ReturnType<typeof careerStops>; onOpen: (k: Kind, id: string) => void; aboutLabel: string; title?: string; locale?: string; t: Chrome }) {
   const PIN_GROUPS = pinGroups(t);
+  const allStops = useMemo(() => rawStops.filter((stop) => VISIBLE_LAYERS.includes(stop.kind)), [rawStops]);
   const [shown, setShown] = useState<StopLayer[] | null>(["command"]);
   const toggle = (g: StopLayer) =>
     setShown((cur) => {

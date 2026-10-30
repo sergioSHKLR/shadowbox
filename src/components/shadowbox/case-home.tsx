@@ -5,7 +5,7 @@ import { awards, publicUrl, ribbonRows, units, type Kind } from "@/lib/shadowbox
 import { createPortal } from "react-dom";
 import { caseNote } from "@/lib/shadowbox/case-notes";
 import type { Locale } from "@/lib/shadowbox/prefs";
-import { FLAG_NAME, FLAG_ORDERS, FLAG_PLACE, GRID_FLAGS, PATCH, US_FLAGS, flagOrder, gridCols, withFlags, withGrid, type FlagOrder, type FlagSpot } from "./case-flags";
+import { FLAG_NAME, FLAG_NO_LINK, FLAG_ORDERS, FLAG_PLACE, GRID_FLAGS, PATCH, US_FLAGS, flagOrder, gridCols, withFlags, withGrid, type FlagOrder, type FlagSpot } from "./case-flags";
 
 /**
  * Home shadowbox case (Sergio, Oct 12 2026): single-item art from incoming/used, every item at its true size on one
@@ -1192,7 +1192,7 @@ export function CaseHome({ onOpen, onGo, onPlace, label, copy, locale = "en", ac
     </div>
     {intro ? createPortal(<CaseIntro copy={copy} onClose={closeIntro} />, layerRoot()) : null}
     {view ? <ItemModal id={view} setId={setView} copy={copy} locale={locale} label={label}
-      go={(id) => { const place = flagPlace(id); if (place !== undefined) { if (!place || !onPlace) return; exitFull(); if (!controlled) setView(null); onPlace(place); return; } const t = targetOf(id); exitFull(); if (!controlled) setView(null); if (t.unit) { onGo?.("logbook", t.unit); window.dispatchEvent(new CustomEvent("sb-logbook-command", { detail: t.unit })); } else onGo?.(t.view); }} /> : null}
+      go={(id) => { const place = flagPlace(id); if (place !== undefined) { if (!place) return; exitFull(); if (!controlled) setView(null); if (place === "page" || !onPlace) onGo?.("map"); else onPlace(place); return; } const t = targetOf(id); exitFull(); if (!controlled) setView(null); if (t.unit) { onGo?.("logbook", t.unit); window.dispatchEvent(new CustomEvent("sb-logbook-command", { detail: t.unit })); } else onGo?.(t.view); }} /> : null}
     </>
   );
 }
@@ -1203,7 +1203,7 @@ const ORDER = ["bio-sr", "plaque-sr", "bio", "plaque", ...CRESTS_IN_ORDER.flatMa
   "uniforms", "decorations", "onduty", "map", "logbook", "contact", "admin", "offduty", "guestbook", ...SKETCH_FLAGS.map((k) => `flag-${k}`)];
 /** Flag items (flag-<key>): undefined for any other item, "" for a flag with no Travel Book entry, else its place id. */
 const flagKey = (id: string) => (id.startsWith("flag-") ? id.slice(5) : undefined);
-const flagPlace = (id: string) => { const k = flagKey(id); return k === undefined ? undefined : FLAG_PLACE[k] ?? ""; };
+const flagPlace = (id: string) => { const k = flagKey(id); return k === undefined ? undefined : FLAG_NO_LINK.has(k) ? "" : FLAG_PLACE[k] ?? "page"; };
 /** Crests open the Logbook on that command (Sergio, Oct 14 2026; never a sidebar from Home); a device the Timeline, everything else its page. */
 const targetOf = (id: string): { view: string; unit?: string } => {
   if (id.endsWith("-dev")) return { view: "timeline" };

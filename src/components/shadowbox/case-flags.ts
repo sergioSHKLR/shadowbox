@@ -29,11 +29,15 @@ const KEYS = Object.keys(FLAG_NAME);
  *  /travel-book/?item=place:<id>. Kurdistan: the Duhok Dam visit card (Duhok, Kurdistan Region), the one place in the
  *  Kurdistan Region with a card. Brazil stays display-only; Canada and Ireland have no Travel Book entry yet. */
 export const FLAG_PLACE: Record<string, string> = {
-  usa: "city-miami", mexico: "tijuana", "us-gu": "polaris-point", japan: "city-yokosuka", "hong-kong": "city-hong-kong",
-  "south-korea": "city-chinhae", philippines: "philippines", australia: "shoalwater-bay", thailand: "city-pattaya",
-  iraq: "fob-sykes", germany: "ramstein", kuwait: "camp-arifjan", qatar: "al-udeid", afghanistan: "bagram",
-  kurdistan: "duhok-dam",
+  usa: "fisc-san-diego", "us-ca": "fisc-san-diego", "us-fl": "nas-jax", "us-nc": "fob-patriot", "us-gu": "polaris-point",
+  australia: "shoalwater-bay", thailand: "u-tapao", iraq: "fob-sykes", afghanistan: "camp-bastion",
 };
+/** Travel Book shows only Commands and Field (missions) for now (Sergio, Oct 30 2026). Flags above link to a visible
+ *  Commands/Field entry in that country; every other flag (except Brazil, display-only) links to the Travel Book page
+ *  itself. Earlier entry targets, kept for when the other categories return: usa city-miami, mexico tijuana, japan
+ *  city-yokosuka, hong-kong city-hong-kong, south-korea city-chinhae, philippines philippines, thailand city-pattaya,
+ *  germany ramstein, kuwait camp-arifjan, qatar al-udeid, afghanistan bagram, kurdistan duhok-dam. */
+export const FLAG_NO_LINK = new Set(["brazil"]);
 
 /** Chronological by first visit (flags-board/years.json, ties broken by the earliest row of the travel log v10: year,
  *  month, start date, then log sequence). Iraq and Kurdistan share their first row (TL-055): country first.
