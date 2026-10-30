@@ -1217,7 +1217,7 @@
     "id": "album-rifle-rooftop-2012-09-23",
     "src": "/photos/album/rifle-rooftop-2012-09-23.webp",
     "alt": "Sergio in MultiCam with a rifle on a rooftop",
-    "caption": "Rifle, on a rooftop, MultiCam, 23 September 2012",
+    "caption": "Photo op, the only day in MultiCam on that deployment. Rifle on a rooftop, 23 September 2012",
     "subjects": [
       { "kind": "uniform", "id": "multicam" },
       { "kind": "unit", "id": "jcse" },
@@ -1719,7 +1719,7 @@
     "id": "album-multicam-wall-2012-09-23",
     "src": "/photos/album/multicam-wall-2012-09-23.webp",
     "alt": "Sergio in MultiCam with a rifle standing on a wall",
-    "caption": "Rifle, on a wall, MultiCam, 23 September 2012",
+    "caption": "Photo op, the only day in MultiCam on that deployment. Rifle on a wall, 23 September 2012",
     "subjects": [
       { "kind": "uniform", "id": "multicam" },
       { "kind": "unit", "id": "jcse" },
@@ -1732,7 +1732,7 @@
     "id": "album-rifle-aim-shoulder-2012-09-23",
     "src": "/photos/album/rifle-aim-shoulder-2012-09-23.webp",
     "alt": "Over-the-shoulder view of a soldier aiming a rifle with a holographic sight",
-    "caption": "Rifle with a holographic sight, 23 September 2012",
+    "caption": "Photo op, the only day in MultiCam on that deployment. Rifle with a holographic sight, 23 September 2012",
     "subjects": [
       { "kind": "unit", "id": "jcse" },
       { "kind": "operation", "id": "oef-2012", "likely": true }
@@ -1744,7 +1744,7 @@
     "id": "album-rifle-flag-2012-09-23",
     "src": "/photos/album/rifle-flag-2012-09-23.webp",
     "alt": "Sergio in MultiCam aiming a rifle in front of a US flag",
-    "caption": "Rifle, in front of a US flag, MultiCam, 23 September 2012",
+    "caption": "Photo op, the only day in MultiCam on that deployment. Rifle in front of a US flag, 23 September 2012",
     "subjects": [
       { "kind": "uniform", "id": "multicam" },
       { "kind": "unit", "id": "jcse" },
@@ -1757,7 +1757,7 @@
     "id": "album-truck-rifle-2012-09-23",
     "src": "/photos/album/truck-rifle-2012-09-23.webp",
     "alt": "Sergio in MultiCam with a rifle standing in the bed of a pickup truck",
-    "caption": "Rifle, in a pickup truck bed, MultiCam, 23 September 2012",
+    "caption": "Photo op, the only day in MultiCam on that deployment. Rifle in a pickup truck bed, 23 September 2012",
     "subjects": [
       { "kind": "uniform", "id": "multicam" },
       { "kind": "unit", "id": "jcse" },
@@ -1770,7 +1770,7 @@
     "id": "album-two-pistols-2012-09-23",
     "src": "/photos/album/two-pistols-2012-09-23.webp",
     "alt": "Sergio in MultiCam holding two pistols overhead",
-    "caption": "Two pistols overhead, MultiCam, 23 September 2012",
+    "caption": "Photo op, the only day in MultiCam on that deployment. Two pistols overhead, 23 September 2012",
     "subjects": [
       { "kind": "uniform", "id": "multicam" },
       { "kind": "equipment", "id": "beretta-m9" },
@@ -1784,7 +1784,7 @@
     "id": "album-pistols-truck-2012-09-23",
     "src": "/photos/album/pistols-truck-2012-09-23.webp",
     "alt": "Sergio in MultiCam aiming two pistols from a pickup truck",
-    "caption": "Aiming two pistols from a pickup truck, MultiCam, 23 September 2012",
+    "caption": "Photo op, the only day in MultiCam on that deployment. Aiming two pistols from a pickup truck, 23 September 2012",
     "subjects": [
       { "kind": "uniform", "id": "multicam" },
       { "kind": "equipment", "id": "beretta-m9" },
@@ -1798,7 +1798,7 @@
     "id": "album-sunglasses-sky-2012-09-23",
     "src": "/photos/album/sunglasses-sky-2012-09-23.webp",
     "alt": "Sergio in sunglasses and MultiCam against a blue sky",
-    "caption": "Sunglasses and MultiCam against a blue sky, 23 September 2012",
+    "caption": "Photo op, the only day in MultiCam on that deployment. Sunglasses against a blue sky, 23 September 2012",
     "subjects": [
       { "kind": "uniform", "id": "multicam" },
       { "kind": "unit", "id": "jcse" },
