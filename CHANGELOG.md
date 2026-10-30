@@ -3,6 +3,14 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.12.1] - 2026-10-30
+
+### Fixed
+- Logbook in portrait: the split between the command card and the lower tabs sits 45px lower, so every ribbon row shows at rest on narrow phones, including the tallest racks (USS Frank Cable, JCSE) at about 500px wide, and the shorter racks fit on 390px-wide phones.
+
+### Changed
+- Photo captions: the tent photo is a training exercise with rubber training rifles; the 14 and 16 January 2009 ACU photos are pre-deployment training at Fort Bliss; the 23 September 2012 MultiCam photos are photo ops, the only day in uniform on that deployment.
+
 ## [1.12.0] - 2026-10-29
 
 ### Added
