@@ -3,6 +3,12 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [Unreleased]
+
+### Added
+- Footer: a small notice on misuse of images or text and a license line ("© Sergio Schickler · Text and photos: CC BY-NC-ND 4.0", linked), in English and Portuguese.
+- Repository: LICENSE (MIT, for the code) and LICENSE-CONTENT.md (texts, photos and graphics under CC BY-NC-ND 4.0).
+
 ## [1.12.1] - 2026-10-30
 
 ### Fixed

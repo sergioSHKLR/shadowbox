@@ -1863,3 +1863,9 @@ b, strong, th { font-weight: 600; }
 /* Lightbox: the page fills the width and scrolls, so the form is readable on phones. */
 .cred-lb-figure { place-items: start center; overflow: auto; background: #fff; }
 .cred-lb-figure img { width: 100%; max-height: none; height: auto; }
+
+/* Footer notice and license (Oct 30 2026): a full-width last row, small and muted, under the links and pager. */
+.site-footer .footer-legal { flex: 1 0 100%; order: 99; grid-column: 1 / -1; margin: 0.15rem 0 0; font-size: 0.72rem; line-height: 1.4; opacity: 0.78; text-align: center; }
+.site-footer .footer-legal p { margin: 0; }
+.site-footer .footer-legal a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+@media (max-width: 600px) { .site-footer .footer-legal { font-size: 0.66rem; line-height: 1.3; margin-top: 0; } }

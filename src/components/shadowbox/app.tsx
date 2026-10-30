@@ -744,6 +744,11 @@ export function ShadowboxApp() {
             ) : null}
           </nav>
         ) : null}
+        {/* Notice and license (Sergio, Oct 30 2026): small muted text on its own row under the footer links. */}
+        <div className="footer-legal" lang={locale === "pt" ? "pt-BR" : "en"}>
+          <p>{t.legalNotice}</p>
+          <p>{t.licenseLine} <a href={t.licenseUrl} target="_blank" rel="license noopener noreferrer">CC BY-NC-ND 4.0</a></p>
+        </div>
       </footer>
       <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} locale={locale} theme={theme} setLocale={setLocale} setTheme={setTheme} showTheme={THEME_HONORED} fontSize={fontSize} setFontSize={setFontSize} beard={beard} setBeard={setBeard} t={t} />
       <DetailPanel selection={selection} trail={trail} onSelect={follow} onClose={() => { setTrail([]); const cur = routeRef.current; closeOverlay({ ...pageOf(cur), photo: cur.photo }); }} />
