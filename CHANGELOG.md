@@ -7,6 +7,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dat
 
 ### Added
 - Footer: a small notice on misuse of images or text and a license line ("© Sergio Schickler · Text and photos: CC BY-NC-ND 4.0", linked), in English and Portuguese.
+- Photos: rights metadata (EXIF/XMP) on 118 photos by category: Sergio's own shots © Sergio Schickler, CC BY-NC-ND 4.0; photos of him by friends marked personal collection, used with permission; the JCSE snow photos marked as U.S. Government work; the Chief portrait marked AI-generated. Other metadata stripped; pixels unchanged.
 - Repository: LICENSE (MIT, for the code) and LICENSE-CONTENT.md (texts, photos and graphics under CC BY-NC-ND 4.0).
 
 ## [1.12.1] - 2026-10-30
