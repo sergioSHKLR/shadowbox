@@ -152,7 +152,7 @@ function SettingsDialog({
             <h3 id="settings-legal-title" className="settings-legal-title">{t.legalTitle}</h3>
             <p>{t.endorseNotice}</p>
             <p>{t.legalNotice}</p>
-            <p>{t.licenseLine} <a href={t.licenseUrl} target="_blank" rel="license noopener noreferrer">CC BY-NC-ND 4.0</a>. {t.codeLicense} <a href="https://opensource.org/license/mit" target="_blank" rel="noopener noreferrer">MIT License</a>.</p>
+            <p>{t.licenseLine} <a href={t.licenseUrl} target="_blank" rel="license noopener noreferrer">CC BY-NC-ND 4.0</a>. {t.codeLicense} <a href="https://github.com/sergioSHKLR/shadowbox/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>.</p>
           </section>
           <p className="settings-credit quiet">{t.made}</p>
           {BUILD_VERSION ? (

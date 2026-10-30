@@ -3,7 +3,7 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
-## [Unreleased]
+## [1.13.0] - 2026-10-30
 
 ### Added
 - Settings: a "Legal" section ("Aviso legal" in Portuguese) at the bottom of the Settings modal, holding the non-endorsement notice (photos in uniform are from active service, 1997–2018, except retiree ceremony photos; the Chief portrait is AI-generated; personal views only, not endorsed by the U.S. Navy, the Department of Defense, or the U.S. Government), the notice on misuse of images or text, and the license line ("Text and photos: CC BY-NC-ND 4.0", linked; site code under the MIT License), in English and Portuguese. It scrolls within the modal on small phones.
