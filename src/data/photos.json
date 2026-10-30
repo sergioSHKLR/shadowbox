@@ -1603,7 +1603,7 @@
     "id": "album-acu-desert-rifle-2009-01-14",
     "src": "/photos/album/acu-desert-rifle-2009-01-14.webp",
     "alt": "Sergio in ACU, helmet and body armor with a rifle in a desert landscape",
-    "caption": "Rifle, in a desert landscape, ACU, 14 January 2009",
+    "caption": "Pre-deployment training, Fort Bliss, ACU, 14 January 2009",
     "subjects": [
       { "kind": "uniform", "id": "awu" },
       { "kind": "equipment", "id": "ach-acu-cover" },
@@ -1618,7 +1618,7 @@
     "id": "album-acu-rifles-2009-01-16",
     "src": "/photos/album/acu-rifles-2009-01-16.webp",
     "alt": "Sergio in ACU, helmet and body armor holding a rifle by sandbags",
-    "caption": "Rifle, by sandbags, ACU, 16 January 2009",
+    "caption": "Pre-deployment training by sandbags, Fort Bliss, ACU, 16 January 2009",
     "subjects": [
       { "kind": "uniform", "id": "awu" },
       { "kind": "equipment", "id": "ach-acu-cover" },
@@ -1881,8 +1881,8 @@
   {
     "id": "album-tent-waypoints-board",
     "src": "/photos/album/tent-waypoints-board.webp",
-    "alt": "Sergio in a brown T-shirt with a rifle in a tent in front of a waypoints board",
-    "caption": "Rifle, in a tent by a waypoints board. Date not recorded",
+    "alt": "Sergio in a brown T-shirt with a rubber training rifle in a tent in front of a waypoints board",
+    "caption": "Training exercise, rubber training rifles. Date not recorded",
     "subjects": [],
     "credit": "Sergio Schickler",
     "infer": false
