@@ -33,7 +33,7 @@ const NOTES: Record<string, () => Note> = {
   // Sergio, Oct 30 2026: the Chief portrait is AI-generated; he never sat for a formal studio photo in uniform.
   bio: () => ({
     en: `${rankS("etc")} AI-generated studio-style portrait. He never sat for a formal studio photo in uniform; his real uniform photos are in the Gallery.`,
-    pt: "Chief petty officer. Retrato em estilo de estúdio gerado por IA. Ele nunca fez uma foto formal de estúdio de uniforme; as fotos reais de uniforme estão na Galeria.",
+    pt: "Suboficial. Retrato em estilo de estúdio gerado por IA. Ele nunca fez uma foto formal de estúdio de uniforme; as fotos reais de uniforme estão na Galeria.",
   }),
   contact: () => ({ en: "Send a message.", pt: "Envie uma mensagem." }),
   guestbook: () => ({ en: "Sign the guestbook.", pt: "Assine o livro de visitas." }),

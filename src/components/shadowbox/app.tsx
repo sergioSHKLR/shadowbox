@@ -746,6 +746,7 @@ export function ShadowboxApp() {
         ) : null}
         {/* Notice and license (Sergio, Oct 30 2026): small muted text on its own row under the footer links. */}
         <div className="footer-legal" lang={locale === "pt" ? "pt-BR" : "en"}>
+          <p>{t.endorseNotice}</p>
           <p>{t.legalNotice}</p>
           <p>{t.licenseLine} <a href={t.licenseUrl} target="_blank" rel="license noopener noreferrer">CC BY-NC-ND 4.0</a></p>
         </div>
