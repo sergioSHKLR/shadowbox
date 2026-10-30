@@ -3,6 +3,13 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.14.0] - 2026-10-30
+
+### Changed
+- Travel Book: shows only the service record for now, the Commands and Field categories (Field: FOBs, camps, theater sites and exercises). Instruction, Bases, Port visits, Layovers, Stopovers and City stops are hidden from the page; their data stays in the repository.
+- Home case flags: each flag keeps its country-name pop-up. Its button opens a visible Commands or Field entry in that country (United States and California: NCTS San Diego; Florida: NAS Jacksonville; North Carolina: FOB Patriot; Guam: Polaris Point; Australia: Shoalwater Bay; Iraq: FOB Sykes; Thailand: U-Tapao; Afghanistan: Camp Bastion), or the Travel Book page itself where the country has none. Brazil stays display-only.
+- Settings → Legal: the non-endorsement notice names the Department of War ("Departamento de Guerra" in Portuguese) instead of the Department of Defense.
+
 ## [1.13.0] - 2026-10-30
 
 ### Added
