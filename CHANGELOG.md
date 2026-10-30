@@ -3,7 +3,7 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
-## [Unreleased]
+## [1.12.2] - 2026-10-30
 
 ### Changed
 - Chief Petty Officer portrait: the Home case pop-up now says it is an AI-generated studio-style portrait (he never sat for a formal studio photo in uniform; his real uniform photos are in the Gallery), in English and Portuguese, and its alt text in the pop-up and the Gallery says AI-generated. The image itself is unchanged.
