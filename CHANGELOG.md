@@ -3,6 +3,12 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.14.1] - 2026-10-30
+
+### Fixed
+- Decorations: the JCSE identification badge is no longer drawn below the EXW pin in any view (Ribbons only, Medals and ribbons; mounted and unmounted). Joint command badges are worn during the assignment only (Navy Uniform Regulations 5101.3k). The ESWS pin stays above and the EXW pin below; the Logbook and Uniforms JCSE-tour plates keep the badge as historical.
+- Good Conduct Medal wording: a silver star replaces five bronze stars, not five gold stars (How to read, and the award's device explanation).
+
 ## [1.14.0] - 2026-10-30
 
 ### Changed
