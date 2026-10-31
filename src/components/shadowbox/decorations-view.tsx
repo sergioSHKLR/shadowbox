@@ -237,10 +237,10 @@ function RackPhoto({ rows, onOpen, label }: { rows: Award[][]; onOpen: (a: Award
 
 /**
  * Left breast as worn (Navy Uniform Regulations 5201.2c(1)): primary warfare pin (ESWS) centred, lower edge 1/4 in above
- * the ribbons or medals; secondary warfare pin (EXW) centred, top 1/4 in below them. JCSE badge centred 1/4 in below the
- * EXW pin (art. 5101, identification badge on full dress; Sergio, Oct 14 2026, v4).
+ * the ribbons or medals; secondary warfare pin (EXW) centred, top 1/4 in below them. No JCSE badge: joint command
+ * badges are worn during the assignment only (5101.3k); the Decorations page shows the current, post-2014 wear (Oct 30 2026).
  * True scale (Oct 19 2026): pins and badge use the same inch unit as the ribbons/medals they sit with (--in = --mi on
- * the medal mount, styles.css). Widths of the metal, not the photo box: ESWS 2 3/4 in, EXW 2 3/4 in, JCSE 1.6 in.
+ * the medal mount, styles.css). Widths of the metal, not the photo box: ESWS 2 3/4 in, EXW 2 3/4 in.
  */
 function BreastLeft({ children }: { children: React.ReactNode }) {
   return (
@@ -248,11 +248,6 @@ function BreastLeft({ children }: { children: React.ReactNode }) {
       <img className="decor-pin decor-pin-photo decor-pin--esws" src={publicUrl("/decorations/photo/esws-pin.webp")} width={600} height={209} alt="Enlisted Surface Warfare Specialist pin" />
       {children}
       <img className="decor-pin decor-pin-photo decor-pin--exw" src={publicUrl("/decorations/photo/exw-pin.webp")} width={600} height={194} alt="Expeditionary Warfare Specialist pin" />
-      {/* JCSE badge: Sergio's photo (Oct 18 2026), transparent background, 1.6 in wide (the SVG it replaced; no official size found). */}
-      <picture>
-        <source srcSet={publicUrl("/decorations/photo/jcse-badge.avif")} type="image/avif" />
-        <img className="decor-jcse decor-jcse-photo" src={publicUrl("/decorations/photo/jcse-badge.webp")} width={350} height={404} alt="JCSE identification badge" />
-      </picture>
     </div>
   );
 }
