@@ -3,6 +3,12 @@
 All notable changes to the Shadowbox site (https://shadowbox.shklr.org/) are listed here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Dates are Brasília time (BRT).
 
+## [1.15.0] - 2026-10-31
+
+### Changed
+- Home case felt: changed from navy to a charcoal-to-joint-purple gradient (#1f1f22 to #3b1f5a, top left to bottom right). The case and pop-up shadows are unchanged.
+- Home case flags: a thin flat khaki outline keeps dark flag fields (the US canton, Brazil's blue, black bands) visible against the new felt.
+
 ## [1.14.1] - 2026-10-30
 
 ### Fixed
