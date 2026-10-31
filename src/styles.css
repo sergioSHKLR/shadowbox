@@ -1221,11 +1221,11 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
    left their content hugging the left edge on wide screens. */
 .app-main:has(.view-pane:not(.screen-off) .case-home) { width: min(100%, calc(100vw - 1rem)); max-width: none; }
 .case-frame:has(.case-mat-comp) { width: min(100%, calc((100dvh - 8rem) * 960 / 600)); max-width: none; }
-.case-mat.case-mat-comp { display: block; justify-items: stretch; padding: 0; background: #09162c; box-shadow: inset 0 0 0 3px #c6a15b; }
+.case-mat.case-mat-comp { display: block; justify-items: stretch; padding: 0; background: #1f1f22; box-shadow: inset 0 0 0 3px #c6a15b; }
 .case-mat.case-mat-comp .case-stage { width: 100%; }
 .case-stage { position: relative; width: 100%; aspect-ratio: 960 / 600; }
 .case-stage:fullscreen,
-.case-stage[data-cover="1"] { width: 100vw; height: 100dvh; background: #09162c; aspect-ratio: auto; }
+.case-stage[data-cover="1"] { width: 100vw; height: 100dvh; background: #1f1f22; aspect-ratio: auto; }
 /* Full case: the framed CaseHome fills the screen (Fullscreen API, or a fixed cover where it is unavailable). */
 .case-frame:has(.cx-stage):fullscreen,
 .case-frame:has(.cx-stage)[data-cover="1"] { position: fixed; inset: 0; z-index: 1095; display: flex; align-items: center; justify-content: center; width: 100vw; height: 100dvh; max-width: none; margin: 0; padding: 0.6rem; box-sizing: border-box; }
@@ -1243,7 +1243,7 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
   .case-home:has(.cx-stage) { min-height: 0; }
 }
 .case-frame { container-type: inline-size; position: relative; width: min(72rem, 100%); margin: 0 auto; padding: 1.35rem; background: linear-gradient(145deg, #7a5a3a, #5c4030 40%, #3d291c); border: 1px solid #2a1b12; box-shadow: inset 0 0 0 7px #8a6a3b, inset 0 0 0 10px #3d291c, 0 14px 28px rgba(20, 14, 8, 0.35); }
-.case-mat { --gap: 0.7rem; --in: 1.05rem; --plaque: 17.5rem; display: grid; justify-items: center; gap: var(--gap); width: 100%; padding: 2.4rem var(--gap) 2.4rem; background: radial-gradient(120% 90% at 50% 0%, #1a3a66, #0e2244 55%, #09162c); box-shadow: inset 0 0 0 3px #c6a15b, inset 0 18px 28px rgba(0, 0, 0, 0.45), inset 0 -10px 18px rgba(0, 0, 0, 0.35); }
+.case-mat { --gap: 0.7rem; --in: 1.05rem; --plaque: 17.5rem; display: grid; justify-items: center; gap: var(--gap); width: 100%; padding: 2.4rem var(--gap) 2.4rem; background: linear-gradient(135deg, #1f1f22, #3b1f5a); box-shadow: inset 0 0 0 3px #c6a15b, inset 0 18px 28px rgba(0, 0, 0, 0.45), inset 0 -10px 18px rgba(0, 0, 0, 0.35); }
 /* Row layout only when the case itself is wide enough. A phone on its side stays stacked. */
 @container (min-width: 56rem) {
   .case-frame { padding: 1.1rem; }
@@ -1261,13 +1261,13 @@ button.rank-step:hover, button.rank-step:focus-visible { outline: 2px solid var(
 
 /* Home shadowbox case, hybrid (Oct 12 2026): one mm canvas scaled by --k; thrown about when wide, upright grid when narrow. */
 .case-mat.case-mat-comp .cx-stage { width: 100%; }
-.cx-stage { position: relative; overflow: hidden; width: 100%; aspect-ratio: var(--ratio, 789 / 470); background-color: #09162c; background-size: 100% 100%; background-position: center; }
+.cx-stage { position: relative; overflow: hidden; width: 100%; aspect-ratio: var(--ratio, 789 / 470); background-color: #1f1f22; background-size: 100% 100%; background-position: center; }
 .cx-canvas { position: absolute; left: 0; top: 0; width: var(--cw, 1080px); height: var(--ch, 675px); transform-origin: 0 0; transform: translate(var(--ox, 0px), var(--oy, 0px)) scale(var(--k, 1)); }
 .cx-item { position: absolute; width: var(--ww); height: var(--wh); left: var(--wx); top: var(--wy); z-index: var(--wz); transform: rotate(var(--wr)); margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; display: block; }
 .cx-item.is-static { cursor: default; }
 /* Flag perimeter preview (Oct 28 2026): flat 3:2 patch flags, no shadow. */
 .cx-stage[data-grid] { aspect-ratio: auto !important; min-height: 0 !important; }
-.cx-flag-art { display: block; width: 100%; height: 100%; object-fit: fill; pointer-events: none; }
+.cx-flag-art { display: block; width: 100%; height: 100%; object-fit: fill; pointer-events: none; outline: 1.25px solid rgba(195, 176, 145, 0.85); outline-offset: -0.5px; } /* thin flat khaki frame so dark flag fields hold an edge on the G1 felt (Sergio, Oct 31 2026) */
 .cx-art.is-crop { object-fit: cover; object-position: top left; }
 .cx-art { display: block; width: 100%; height: 100%; object-fit: fill; pointer-events: none; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)); }
 /* Target glow (Sergio): a white ring inside a navy ring. Gold measured about 1.1:1 against the khaki shirt; the navy
