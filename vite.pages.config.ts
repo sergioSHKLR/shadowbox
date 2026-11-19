@@ -72,7 +72,7 @@ export default defineConfig({
         display: "standalone",
         orientation: "any",
         // Top-bar navy (src/styles.css --color-navy): the app icon is the goldenrod shield on this navy, in light and dark alike.
-        theme_color: "#14181f", // matches the page theme-color (dark) so the installed title bar does not flash
+        theme_color: "#14233a", // single mode: top-bar navy (dark mode disabled)
         background_color: "#14233a",
         icons: [
           { src: "/icons/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },

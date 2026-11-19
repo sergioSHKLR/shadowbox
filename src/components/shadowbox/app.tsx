@@ -16,7 +16,9 @@ const SEARCH_ENABLED = false;
 const THEME_SWITCH_ENABLED = false;
 /** The Settings page (footer link) carries the System / Light / Dark choice while the top-bar switch is hidden, so a saved
  *  light / dark choice is honored again. Set false (and the matching flag in pages/index.html) to force "system" for everyone. */
-const THEME_SETTING_ENABLED = true;
+const THEME_SETTING_ENABLED = false;
+/** Dark mode disabled (Sergio, Nov 2026): single light mode, the theme always resolves to light. pages/index.html has a matching flag. */
+const DARK_MODE_ENABLED = false;
 const THEME_HONORED = THEME_SWITCH_ENABLED || THEME_SETTING_ENABLED;
 /** Top-bar Previous / Next page chevrons hidden (Sergio, Oct 2026). Flip to true to bring them back. */
 const TOPBAR_PAGER_ENABLED = false;
@@ -481,7 +483,7 @@ export function ShadowboxApp() {
     if (!prefsReady) return;
     const apply = () => {
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const resolved = resolveTheme(THEME_HONORED ? theme : "system", prefersDark);
+      const resolved = DARK_MODE_ENABLED ? resolveTheme(THEME_HONORED ? theme : "system", prefersDark) : "light";
       document.documentElement.lang = locale === "pt" ? "pt-BR" : "en";
       document.documentElement.dataset.theme = resolved;
       applyFontSize(fontSize);
@@ -491,7 +493,7 @@ export function ShadowboxApp() {
       const apple = document.querySelector<HTMLLinkElement>('link[rel="apple-touch-icon"]');
       if (apple) apple.href = `${base}icons/apple-touch-icon${resolved === "dark" ? "-dark" : ""}.png`;
       const tint = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
-      if (tint) tint.content = resolved === "dark" ? "#14181f" : "#f6f1e7";
+      if (tint) tint.content = resolved === "dark" ? "#14181f" : "#14233a";
     };
     apply();
     savePrefs({ locale: savedLocale, theme: THEME_HONORED ? theme : "system", fontSize, beard });
