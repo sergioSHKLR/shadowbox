@@ -1,6 +1,6 @@
-# SHADOWBOX
+<p align="center" data-brand-icon><img src="brand-kit/shadowbox/icons/tile-dark.svg" alt="SHADOWBOX" width="128" height="128"></p>
 
-<img src="brand-kit/shadowbox/icons/tile-dark.svg" width="48" height="48" alt="SHADOWBOX">
+# SHADOWBOX
 
 Live: https://shadowbox.shklr.org/ · Brand: [brand-kit/](brand-kit/README.md) (SHKLR brand kit, final 19 Nov 2026).
 
