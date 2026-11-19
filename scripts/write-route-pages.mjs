@@ -88,7 +88,7 @@ for (const page of pages) {
 
 // 404.html: the shell for unknown addresses. Same boot, no canonical / og:url, not indexed; the app shows Home.
 let nf = shell
-  .replace(/<title>[^<]*<\/title>/, "<title>Shadowbox</title>")
+  .replace(/<title>[^<]*<\/title>/, "<title>SHADOWBOX</title>")
   .replace(/\s*<link rel="canonical"[^>]*>/, "")
   .replace(/\s*<link rel="alternate" hreflang="[^"]*"[^>]*>/g, "")
   .replace(/\s*<meta property="og:url"[^>]*>/, "")

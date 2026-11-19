@@ -194,8 +194,8 @@ export function parseLocation(pathname: string, search: string, photoIds?: reado
 /* ---------- Page titles and descriptions (runtime document.title and the static HTML head) ---------- */
 
 const VIEW_TITLE: Record<RouteLocale, Record<RouteView, string>> = {
-  en: { home: "Shadowbox", bio: "Biography", logbook: "Logbook", decorations: "Decorations", uniforms: "Uniforms", timeline: "Timeline", map: "Travel Book", onduty: "On Duty", offduty: "Off Duty", gallery: "Gallery", admin: "Admin", credentials: "Credentials", guestbook: "Guestbook", contact: "Contact" },
-  pt: { home: "Shadowbox", bio: "Biografia", logbook: "Diário de bordo", decorations: "Condecorações", uniforms: "Uniformes", timeline: "Linha do tempo", map: "Diário de Viagem", onduty: "Em serviço", offduty: "Fora de serviço", gallery: "Galeria", admin: "Administração", credentials: "Credenciais", guestbook: "Livro de visitas", contact: "Contato" },
+  en: { home: "SHADOWBOX", bio: "Biography", logbook: "Logbook", decorations: "Decorations", uniforms: "Uniforms", timeline: "Timeline", map: "Travel Book", onduty: "On Duty", offduty: "Off Duty", gallery: "Gallery", admin: "Admin", credentials: "Credentials", guestbook: "Guestbook", contact: "Contact" },
+  pt: { home: "SHADOWBOX", bio: "Biografia", logbook: "Diário de bordo", decorations: "Condecorações", uniforms: "Uniformes", timeline: "Linha do tempo", map: "Diário de Viagem", onduty: "Em serviço", offduty: "Fora de serviço", gallery: "Galeria", admin: "Administração", credentials: "Credenciais", guestbook: "Livro de visitas", contact: "Contato" },
 };
 const VIEW_DESC: Record<RouteLocale, Record<RouteView, string>> = {
   en: {
@@ -243,7 +243,7 @@ export type PageMeta = { title: string; description: string; image?: string };
 export function metaFor(r: Pick<Route, "locale" | "view" | "command" | "photo"> & { award?: string }, photo?: { caption: string; alt?: string; src?: string }): PageMeta {
   const L = r.locale;
   const base = VIEW_TITLE[L][r.view];
-  const suffix = " · Shadowbox";
+  const suffix = " · SHADOWBOX";
   if (r.view === "logbook" && r.command) {
     const u = unitRow(r.command);
     const name = u?.name ?? r.command;
@@ -271,7 +271,7 @@ export function metaFor(r: Pick<Route, "locale" | "view" | "command" | "photo"> 
       image: photo?.src,
     };
   }
-  if (r.view === "home") return { title: "Shadowbox", description: VIEW_DESC[L].home };
+  if (r.view === "home") return { title: "SHADOWBOX", description: VIEW_DESC[L].home };
   return { title: `${base}${suffix}`, description: VIEW_DESC[L][r.view] };
 }
 

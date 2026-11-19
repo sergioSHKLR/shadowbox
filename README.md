@@ -1,4 +1,8 @@
-# Chief Petty Officer Sergio Schickler
+# SHADOWBOX
+
+<img src="brand-kit/shadowbox/icons/tile-dark.svg" width="48" height="48" alt="SHADOWBOX">
+
+Live: https://shadowbox.shklr.org/ · Brand: [brand-kit/](brand-kit/README.md) (SHKLR brand kit, final 19 Nov 2026).
 
 United States Navy, Retired  
 30 June 1997 – 28 February 2018

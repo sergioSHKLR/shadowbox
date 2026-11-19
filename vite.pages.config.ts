@@ -64,9 +64,9 @@ export default defineConfig({
       includeAssets: [],
       manifest: {
         id: "/",
-        name: "Shadowbox",
-        short_name: "Shadowbox",
-        description: "To honor & instruct",
+        name: "SHADOWBOX",
+        short_name: "SHADOWBOX",
+        description: "A Navy career, ribbon by ribbon. To honor & instruct.",
         start_url: "/",
         scope: "/",
         display: "standalone",
@@ -89,7 +89,7 @@ export default defineConfig({
         globPatterns: [
           "pages/index.html",
           "assets/**/*.{js,css}",
-          ...["favicon.svg", "og.jpg", "icons/apple-touch-icon.png", "icons/apple-touch-icon-dark.png", "icons/icon.svg", "icons/icon-light.svg", "icons/icon-dark.svg", "icons/icon-maskable.svg", "icons/icon-192.png", "icons/icon-512.png", "icons/icon-maskable-512.png", "icons/icon-monochrome-512.png", "shadowbox-cheat-sheet.pdf"].filter((file) => existsSync(resolve("public", file))),
+          ...["favicon.svg", "favicon.ico", "og.jpg", "icons/apple-touch-icon.png", "icons/apple-touch-icon-dark.png", "icons/icon.svg", "icons/icon-light.svg", "icons/icon-dark.svg", "icons/icon-maskable.svg", "icons/icon-192.png", "icons/icon-512.png", "icons/icon-maskable-512.png", "icons/icon-monochrome-512.png", "shadowbox-cheat-sheet.pdf"].filter((file) => existsSync(resolve("public", file))),
           ...["ribbons", "devices", "insignia", "photos", "uniforms", "equipment", "crests", "medals"]
             .filter((dir) => existsSync(resolve("public", dir)))
             .map((dir) => `${dir}/**/*.{png,svg,webp,jpg}`),

@@ -187,7 +187,7 @@ function ShareButton({ t, href }: { t: Chrome; href: string }) {
   }, [toast]);
   const share = async () => {
     const url = `${window.location.origin === SITE ? SITE : window.location.origin}${href}`;
-    const title = document.title || "Shadowbox";
+    const title = document.title || "SHADOWBOX";
     const nav = navigator as Navigator & { share?: (data: ShareData) => Promise<void>; canShare?: (data: ShareData) => boolean };
     if (typeof nav.share === "function" && (!nav.canShare || nav.canShare({ title, url }))) {
       try {
