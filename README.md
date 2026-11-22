@@ -2,7 +2,7 @@
 
 # SHADOWBOX
 
-Live: https://shadowbox.shklr.org/ · Brand: [brand-kit/](brand-kit/README.md) (SHKLR brand kit, final 19 Nov 2026).
+Live: https://shadowbox.shklr.org/ · Brand: [brand-kit/](brand-kit/README.md) (SHKLR brand kit, rev 4, 22 Nov 2026).
 
 United States Navy, Retired  
 30 June 1997 – 28 February 2018

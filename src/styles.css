@@ -1,14 +1,9 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "SHKLR Mono Narrow";
-  src: url("/fonts/SHKLRMonoNarrow[wght].woff2") format("woff2");
-  font-weight: 200 800;
-  font-display: swap;
-}
+@font-face { font-family: "Martian Mono"; src: url("/fonts/MartianMono-Condensed[wght].woff2") format("woff2"); font-weight: 100 800; font-style: normal; font-display: swap; }
 
 @theme {
-  --font-brand: "SHKLR Mono Narrow", "Monaspace Neon", ui-monospace, monospace;
+  --font-brand: "Martian Mono", ui-monospace, monospace;
   --font-display: ui-serif, Georgia, Cambria, "Times New Roman", serif;
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   /* Crest cards: a low-contrast serif with a larger x-height and short ascenders. */
